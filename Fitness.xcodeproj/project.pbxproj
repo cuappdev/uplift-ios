@@ -18,6 +18,7 @@
 /* Begin PBXFileReference section */
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6337D883204E494F0076E93F /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassDetailView.swift; path = ../../../ClassDetailView.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C75FAB1020420B7B008D455A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -83,6 +84,7 @@
 		C7DFABE12042080500545B0B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6337D883204E494F0076E93F /* ClassDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
