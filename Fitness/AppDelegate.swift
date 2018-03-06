@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = TabBarController()
         
-        
         Fabric.with([Crashlytics.self])
         return true
     }
