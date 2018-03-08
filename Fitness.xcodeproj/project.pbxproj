@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630ADD152051BF0100B8E255 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD142051BF0100B8E255 /* SF-Pro-Display-Light.otf */; };
+		630ADD172051BF0800B8E255 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD162051BF0800B8E255 /* SF-Pro-Display-Bold.otf */; };
+		630ADD192051BF1400B8E255 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD182051BF1400B8E255 /* SF-Pro-Display-Regular.otf */; };
+		630ADD1B2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD1A2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf */; };
 		635AF234204F85000020F6C6 /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailView.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
@@ -19,6 +23,10 @@
 /* Begin PBXFileReference section */
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		630ADD142051BF0100B8E255 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Light.otf"; path = "../../../../Library/Fonts/SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
+		630ADD162051BF0800B8E255 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Bold.otf"; path = "../../../../Library/Fonts/SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		630ADD182051BF1400B8E255 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		630ADD1A2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturaHeavy_Oblique.ttf; sourceTree = "<group>"; };
 		635AF233204F85000020F6C6 /* ClassDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -42,10 +50,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		630ADD112051BECC00B8E255 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				630ADD1A2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf */,
+				630ADD182051BF1400B8E255 /* SF-Pro-Display-Regular.otf */,
+				630ADD162051BF0800B8E255 /* SF-Pro-Display-Bold.otf */,
+				630ADD142051BF0100B8E255 /* SF-Pro-Display-Light.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
 				C7DFABCD204206E000545B0B /* Fitness */,
+				630ADD112051BECC00B8E255 /* Fonts */,
 				C7DFABCC204206E000545B0B /* Products */,
 				EDFEB459857EDEE8A7863423 /* Pods */,
 				D9190BFB1F69E3A9CF967C13 /* Frameworks */,
@@ -187,6 +207,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
+				630ADD1B2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf in Resources */,
+				630ADD152051BF0100B8E255 /* SF-Pro-Display-Light.otf in Resources */,
+				630ADD172051BF0800B8E255 /* SF-Pro-Display-Bold.otf in Resources */,
+				630ADD192051BF1400B8E255 /* SF-Pro-Display-Regular.otf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,9 +224,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
