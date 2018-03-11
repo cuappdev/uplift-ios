@@ -82,11 +82,11 @@ class ClassDetailView: UIView {
         scrollView.addSubview(calendarImageView)
         
         addToCalButton = UIButton(frame: CGRect(x: 10, y: 438, width: 74, height: 10))
-        addToCalButton.titleLabel?.text = "ADD TO CALENDAR"
+        addToCalButton.setTitle("ADD TO CALENDAR", for: .normal)
+        addToCalButton.setTitleColor(.black, for: .normal)
         addToCalButton.titleLabel?.font = UIFont(name: "SFProDisplay-Bold", size: 8)
         addToCalButton.sizeToFit()
-        addToCalButton.backgroundColor = .red
-        addToCalButton.titleLabel?.textColor = .black
+        addToCalButton.backgroundColor = .white
         addToCalButton.center.x = center.x
         scrollView.addSubview(addToCalButton)
         
