@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
+		8D2888982050531A00A5C112 /* OpenGymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888972050531A00A5C112 /* OpenGymsCell.swift */; };
+		8D28889A2050534700A5C112 /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888992050534700A5C112 /* TodaysClassesCell.swift */; };
+		8D28889C205084B300A5C112 /* OpenGymsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D28889B205084B300A5C112 /* OpenGymsView.swift */; };
+		8D28889E20508B4600A5C112 /* TodaysClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D28889D20508B4600A5C112 /* TodaysClassesView.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
 		C75FAB1120420B7B008D455A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB1020420B7B008D455A /* HomeController.swift */; };
 		C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DFABCE204206E000545B0B /* AppDelegate.swift */; };
@@ -19,6 +23,10 @@
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
+		8D2888972050531A00A5C112 /* OpenGymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OpenGymsCell.swift; path = Fitness/Models/OpenGymsCell.swift; sourceTree = SOURCE_ROOT; };
+		8D2888992050534700A5C112 /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TodaysClassesCell.swift; path = Fitness/Models/TodaysClassesCell.swift; sourceTree = SOURCE_ROOT; };
+		8D28889B205084B300A5C112 /* OpenGymsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OpenGymsView.swift; path = Fitness/Views/OpenGymsView.swift; sourceTree = SOURCE_ROOT; };
+		8D28889D20508B4600A5C112 /* TodaysClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TodaysClassesView.swift; path = Fitness/Views/TodaysClassesView.swift; sourceTree = SOURCE_ROOT; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C75FAB1020420B7B008D455A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		C7DFABCB204206E000545B0B /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +84,8 @@
 		C7DFABE02042080000545B0B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8D2888992050534700A5C112 /* TodaysClassesCell.swift */,
+				8D2888972050531A00A5C112 /* OpenGymsCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -83,6 +93,8 @@
 		C7DFABE12042080500545B0B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8D28889D20508B4600A5C112 /* TodaysClassesView.swift */,
+				8D28889B205084B300A5C112 /* OpenGymsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -259,9 +271,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D28889E20508B4600A5C112 /* TodaysClassesView.swift in Sources */,
+				8D28889C205084B300A5C112 /* OpenGymsView.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
+				8D2888982050531A00A5C112 /* OpenGymsCell.swift in Sources */,
+				8D28889A2050534700A5C112 /* TodaysClassesCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
