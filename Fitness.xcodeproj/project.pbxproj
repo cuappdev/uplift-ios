@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		630ADD152051BF0100B8E255 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD142051BF0100B8E255 /* SF-Pro-Display-Light.otf */; };
-		630ADD172051BF0800B8E255 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD162051BF0800B8E255 /* SF-Pro-Display-Bold.otf */; };
-		630ADD192051BF1400B8E255 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD182051BF1400B8E255 /* SF-Pro-Display-Regular.otf */; };
 		630ADD1B2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630ADD1A2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf */; };
-		635AF234204F85000020F6C6 /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailView.swift */; };
+		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
+		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
+		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
 		C75FAB1120420B7B008D455A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB1020420B7B008D455A /* HomeController.swift */; };
 		C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DFABCE204206E000545B0B /* AppDelegate.swift */; };
@@ -23,12 +22,11 @@
 /* Begin PBXFileReference section */
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		630ADD142051BF0100B8E255 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Light.otf"; path = "../../../../Library/Fonts/SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
-		630ADD162051BF0800B8E255 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Bold.otf"; path = "../../../../Library/Fonts/SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
-		630ADD182051BF1400B8E255 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		630ADD1A2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturaHeavy_Oblique.ttf; sourceTree = "<group>"; };
-		635AF233204F85000020F6C6 /* ClassDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
+		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
+		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
+		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C75FAB1020420B7B008D455A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		C7DFABCB204206E000545B0B /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,11 +52,17 @@
 			isa = PBXGroup;
 			children = (
 				630ADD1A2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf */,
-				630ADD182051BF1400B8E255 /* SF-Pro-Display-Regular.otf */,
-				630ADD162051BF0800B8E255 /* SF-Pro-Display-Bold.otf */,
-				630ADD142051BF0100B8E255 /* SF-Pro-Display-Light.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C75EC94E2059AC75007BC98A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
+				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C7DFABC2204206E000545B0B = {
@@ -87,6 +91,7 @@
 				C7DFABE02042080000545B0B /* Models */,
 				C7DFABE12042080500545B0B /* Views */,
 				C7DFABE22042081000545B0B /* Controllers */,
+				C75EC94E2059AC75007BC98A /* Extensions */,
 				C7DFABE32042081B00545B0B /* Supporting */,
 				C7DFABD5204206E000545B0B /* Assets.xcassets */,
 				C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */,
@@ -105,7 +110,6 @@
 		C7DFABE12042080500545B0B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				635AF233204F85000020F6C6 /* ClassDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,6 +119,7 @@
 			children = (
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 				C75FAB1020420B7B008D455A /* HomeController.swift */,
+				635AF233204F85000020F6C6 /* ClassDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -208,9 +213,6 @@
 			files = (
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				630ADD1B2051BF5000B8E255 /* FuturaHeavy_Oblique.ttf in Resources */,
-				630ADD152051BF0100B8E255 /* SF-Pro-Display-Light.otf in Resources */,
-				630ADD172051BF0800B8E255 /* SF-Pro-Display-Bold.otf in Resources */,
-				630ADD192051BF1400B8E255 /* SF-Pro-Display-Regular.otf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,9 +291,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				635AF234204F85000020F6C6 /* ClassDetailView.swift in Sources */,
+				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
+				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

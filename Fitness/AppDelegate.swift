@@ -22,8 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
-        let vc = UIViewController()
-        vc.view = ClassDetailView(frame: vc.view.frame)
+        let vc = ClassDetailViewController()
         window?.rootViewController = vc
         
         return true
