@@ -14,6 +14,7 @@ class ClassListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
