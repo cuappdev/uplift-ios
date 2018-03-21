@@ -2,15 +2,18 @@ PODS:
   - Crashlytics (3.8.6):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.13)
+  - SnapKit (4.0.0)
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
+  - SnapKit (~> 4.0)
 
 SPEC CHECKSUMS:
   Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   Fabric: 2fb5676bc811af011a04513451f463dac6803206
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: 104b8440a63b4362bfea71ebe44bfa07ebfade24
+PODFILE CHECKSUM: c9154da9d6d5fd84eea787f3a88761e5558547cf
 
 COCOAPODS: 1.4.0

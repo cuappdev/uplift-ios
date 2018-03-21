@@ -16,6 +16,7 @@ class TabBarController: UITabBarController {
         
         let homeController = HomeController()
         homeController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 0)
+        tabBar.barTintColor = .yellow
         
         let viewControllerList = [ homeController ]
         viewControllers = viewControllerList

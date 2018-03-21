@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = TabBarController()
         
         
+        
         Fabric.with([Crashlytics.self])
         return true
     }

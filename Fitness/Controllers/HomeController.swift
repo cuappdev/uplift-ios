@@ -16,59 +16,77 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        tableView = UITableView(frame: view.frame)
+        
+        
+        
+        tableView = UITableView(frame: view.frame, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-        
-        
-        
+        tableView.register(TodaysClassesCell.self, forCellReuseIdentifier: "TodaysClassesCell")
+        tableView.register(AllGymsCell.self, forCellReuseIdentifier: "AllGymsCell")
+        tableView.register(LookingForCell.self, forCellReuseIdentifier: "LookingForCell")
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
         view.addSubview(tableView)
+        
+        
+        //to avoid an issue where you could see the contents of the tableview under the status bar when scrolling down
+        let statusBG = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
+        statusBG.backgroundColor = .white
+        view.addSubview(statusBG)
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        cell.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: (view.frame.height/3.0 - 20))
         
-        //cell.backgroundColor = UIColor(white: 1, alpha: 50)
-        
-        if(indexPath.row == 0){
-            cell.addSubview(OpenGymsView(frame: cell.frame))
-        }else{
-            cell.addSubview(TodaysClassesView(frame: cell.frame))
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AllGymsCell", for: indexPath) as! AllGymsCell
+            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 175)) //should I bother to make the updateFrame part of a protocol and mmake the cells conform to it? is it worth it just for this fcn?
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TodaysClassesCell", for: indexPath) as! TodaysClassesCell
+            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 258))
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LookingForCell", for: indexPath) as! LookingForCell
+            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 371))
+            return cell
+        default:
+            return UITableViewCell()
         }
-        
-        return cell
+
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UIView()
         
-        
-        let welcomeMessage = UILabel(frame: CGRect(x: 16, y: 52, width: 299, height: 90))
-        welcomeMessage.font = UIFont.boldSystemFont(ofSize: 32)
-        welcomeMessage.lineBreakMode = .byWordWrapping
-        welcomeMessage.numberOfLines = 0
-        welcomeMessage.text = "Good Afternoon, Joe!"
-        
-        header.addSubview(welcomeMessage)
-        header.backgroundColor = .yellow
-        
-        return header
+        return HomeScreenHeaderView(reuseIdentifier: "HomeScreenHeaderView" , name: "Joe")
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (view.frame.height/3.0 - 40)
+        return (100)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (view.frame.height/3.0 - 20)
+        
+        var height: CGFloat
+        
+        switch indexPath.row {
+        case 0:
+            height = 175
+        case 1:
+            height = 258
+        case 2:
+            height = 371
+        default:
+            height = 0
+        }
+        
+        return height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 
     
