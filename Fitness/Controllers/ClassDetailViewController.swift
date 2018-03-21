@@ -117,7 +117,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(backButton)
         
         starButton = UIButton()
-        starButton.setImage(#imageLiteral(resourceName: "star"), for: .normal)
+        starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
         starButton.sizeToFit()
         contentView.addSubview(starButton)
         

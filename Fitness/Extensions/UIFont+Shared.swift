@@ -24,8 +24,12 @@ extension UIFont {
     static let _48Bebas = UIFont(name: "BebasNeue-Regular", size: 48)
     
     //MONTSERRAT
+    static let _12MontserratLight = UIFont(name: "Montserrat-Light", size: 12)
     static let _14MontserratLight = UIFont(name: "Montserrat-Light", size: 14)
     static let _16MontserratLight = UIFont(name: "Montserrat-Light", size: 16)
+    
+    static let _12MontserratRegular = UIFont(name: "Montserrat-Regular", size: 12)
 
+    static let _14MontserratMedium = UIFont(name: "Montserrat-Medium", size: 14)
     static let _16MontserratMedium = UIFont(name: "Montserrat-Medium", size: 16)
 }
