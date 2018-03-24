@@ -18,14 +18,11 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionHeadersPinToVisibleBounds = true
-        layout.headerReferenceSize = CGSize(width: frame.width, height: 51)
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         
         collectionView.register(ClassesCell.self , forCellWithReuseIdentifier: "ClassesCell")
-        collectionView.register(HomeCollectionHeaderView.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "HomeCollectionHeaderView")
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -40,20 +37,6 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     func updateFrame(frame: CGRect){
         self.frame = frame
         self.collectionView.frame = frame
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HomeCollectionHeaderView", for: indexPath) as! HomeCollectionHeaderView
-        
-        header.titleLabel.text = "TODAY'S CLASSES"
-        header.frame.size = CGSize(width: frame.width, height: 51)
-        
-        
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: frame.width, height: 51)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -76,7 +59,11 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 12, right: 10)
+        if section == 0{
+            return UIEdgeInsets(top: 0, left: 20, bottom: 12, right: 20)
+        }
+        
+        return UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 20)
     }
     
 }

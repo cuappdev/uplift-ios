@@ -19,7 +19,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         
         
-        tableView = UITableView(frame: view.frame, style: .plain)
+        tableView = UITableView(frame: view.frame, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(TodaysClassesCell.self, forCellReuseIdentifier: "TodaysClassesCell")
@@ -39,7 +39,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AllGymsCell", for: indexPath) as! AllGymsCell
             cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 175)) //should I bother to make the updateFrame part of a protocol and mmake the cells conform to it? is it worth it just for this fcn?
@@ -60,24 +60,59 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return HomeScreenHeaderView(reuseIdentifier: "HomeScreenHeaderView" , name: "Joe")
+        switch section {
+        case 0:
+            let header = HomeScreenHeaderView(reuseIdentifier: "HomeScreenHeaderView", name: "Joe")
+            header.subHeader.titleLabel.text = "ALL GYMS"
+            header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 155)
+            return header
+        case 1:
+            let header = HomeSectionHeaderView(frame: view.frame)
+            header.titleLabel.text = "TODAY'S CLASSES"
+            header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 51)
+            return header
+        case 2:
+            let header = HomeSectionHeaderView(frame: view.frame)
+            header.titleLabel.text = "I'M LOOKING FOR..."
+            header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 51)
+            return header
+        default:
+            return UIView()
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (100)
+        var height: CGFloat
+        
+        switch section {
+        case 0:
+            height = 155
+        case 1:
+            height = 51
+        case 2:
+            height = 51
+        default:
+            height = 0
+        }
+        
+        return height
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         var height: CGFloat
         
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            height = 175
+            height = 120
         case 1:
-            height = 258
+            height = 207
         case 2:
-            height = 371
+            height = 340
         default:
             height = 0
         }
@@ -86,10 +121,10 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
 
-    
+
     
     
 }

@@ -8,13 +8,12 @@
 
 import UIKit
 
-class HomeCollectionHeaderView: UICollectionReusableView {
+class HomeSectionHeaderView: UICollectionReusableView {
     
     var titleLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 12)

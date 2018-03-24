@@ -21,7 +21,6 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
         collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout)
         
         collectionView.register(CategoryCell.self , forCellWithReuseIdentifier: "CategoryCell")
-        collectionView.register(HomeCollectionHeaderView.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "HomeCollectionHeaderView")
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
@@ -48,18 +47,6 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
         cell.title.text = "Zen"
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HomeCollectionHeaderView", for: indexPath) as! HomeCollectionHeaderView
-        
-        header.titleLabel.text = "I'M LOOKING FOR..."
-        
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: frame.width, height: 51)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

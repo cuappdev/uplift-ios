@@ -12,6 +12,7 @@ import SnapKit
 class HomeScreenHeaderView: UITableViewHeaderFooterView {
 
     var welcomeMessage: UILabel!
+    var subHeader: HomeSectionHeaderView!
     
     
     // MARK: - INITIALIZATION
@@ -22,9 +23,18 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
         backgroundView = UIView(frame: frame)
         backgroundView?.backgroundColor = .white
         
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.3
-        layer.shadowRadius = 20
+        let shadowView = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 100))
+        
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
+        shadowView.layer.shadowRadius = 5.0
+        shadowView.layer.shadowOpacity = 0.3
+        shadowView.layer.masksToBounds = false
+        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 9, 0))
+        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
+        contentView.addSubview(shadowView)
+        
+        
         
         welcomeMessage = UILabel()
         welcomeMessage.font = UIFont.boldSystemFont(ofSize: 24)
@@ -32,6 +42,9 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
         welcomeMessage.numberOfLines = 0
         welcomeMessage.text = "Good Afternoon, " + name + "!"
         addSubview(welcomeMessage)
+        
+        subHeader = HomeSectionHeaderView(frame: CGRect())
+        addSubview(subHeader)
         
         
         setupLayout()
@@ -50,10 +63,15 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
             make.height.equalTo(26)
             make.left.equalToSuperview().offset(24)
             //make.right.equalToSuperview().offset(-82)
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-75)
         }
         
-        
+        subHeader.snp.updateConstraints{make in
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(100)
+        }
     }
     
     

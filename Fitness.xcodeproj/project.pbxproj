@@ -11,7 +11,7 @@
 		8D1E1979205EC4CD00B1036A /* AllGymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E1978205EC4CD00B1036A /* AllGymsCell.swift */; };
 		8D1E197B205EC56100B1036A /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E197A205EC56100B1036A /* LookingForCell.swift */; };
 		8D1E197F205EC69400B1036A /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E197E205EC69400B1036A /* TodaysClassesCell.swift */; };
-		8D1E1981205EC9F900B1036A /* HomeCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E1980205EC9F900B1036A /* HomeCollectionHeaderView.swift */; };
+		8D1E1981205EC9F900B1036A /* HomeSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E1980205EC9F900B1036A /* HomeSectionHeaderView.swift */; };
 		8D1E1984205ECA5200B1036A /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E1983205ECA5200B1036A /* HomeScreenHeaderView.swift */; };
 		8D2888982050531A00A5C112 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888972050531A00A5C112 /* GymsCell.swift */; };
 		8D28889A2050534700A5C112 /* ClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888992050534700A5C112 /* ClassesCell.swift */; };
@@ -30,7 +30,7 @@
 		8D1E1978205EC4CD00B1036A /* AllGymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGymsCell.swift; sourceTree = "<group>"; };
 		8D1E197A205EC56100B1036A /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LookingForCell.swift; path = Fitness/Views/Cells/LookingForCell.swift; sourceTree = SOURCE_ROOT; };
 		8D1E197E205EC69400B1036A /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
-		8D1E1980205EC9F900B1036A /* HomeCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionHeaderView.swift; sourceTree = "<group>"; };
+		8D1E1980205EC9F900B1036A /* HomeSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionHeaderView.swift; sourceTree = "<group>"; };
 		8D1E1983205ECA5200B1036A /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
 		8D2888972050531A00A5C112 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GymsCell.swift; path = Fitness/Views/Cells/GymsCell.swift; sourceTree = SOURCE_ROOT; };
 		8D2888992050534700A5C112 /* ClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassesCell.swift; path = Fitness/Views/Cells/ClassesCell.swift; sourceTree = SOURCE_ROOT; };
@@ -60,7 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1E1983205ECA5200B1036A /* HomeScreenHeaderView.swift */,
-				8D1E1980205EC9F900B1036A /* HomeCollectionHeaderView.swift */,
+				8D1E1980205EC9F900B1036A /* HomeSectionHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				8D1E1979205EC4CD00B1036A /* AllGymsCell.swift in Sources */,
 				8D1E1984205ECA5200B1036A /* HomeScreenHeaderView.swift in Sources */,
-				8D1E1981205EC9F900B1036A /* HomeCollectionHeaderView.swift in Sources */,
+				8D1E1981205EC9F900B1036A /* HomeSectionHeaderView.swift in Sources */,
 				8D1E197B205EC56100B1036A /* LookingForCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				8D1E197F205EC69400B1036A /* TodaysClassesCell.swift in Sources */,

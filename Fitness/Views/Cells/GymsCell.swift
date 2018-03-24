@@ -20,7 +20,7 @@ class GymsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        layer.borderColor = UIColor.lightGray.cgColor
+        /*layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 0.4
         
         layer.cornerRadius = frame.height/10
@@ -28,27 +28,29 @@ class GymsCell: UICollectionViewCell {
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.1
-        layer.shadowRadius = 3
+        layer.shadowRadius = 3*/
+        
+        contentView.layer.cornerRadius = 5
+        contentView.layer.backgroundColor = UIColor.white.cgColor
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderWidth = 0.5
+        
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
+        contentView.layer.shadowRadius = 5.0
+        contentView.layer.shadowOpacity = 0.1
+        contentView.layer.masksToBounds = false
+        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 9, -3))
+        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
         
         
         
-        shadowView = UIView()
-        shadowView.layer.shadowColor = UIColor.black.cgColor
-        shadowView.layer.shadowOpacity = 0.5
-        shadowView.layer.shadowRadius = 10
-        contentView.addSubview(shadowView)
-        
-        shadowView.snp.updateConstraints{make in
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-        }
-        
-        
-        
+        //YELLOW BAR
         colorBar = UIView()
         colorBar.backgroundColor = .yellow
+        colorBar.clipsToBounds = true
+        colorBar.layer.cornerRadius = 5
+        colorBar.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner]
         contentView.addSubview(colorBar)
         
         colorBar.snp.updateConstraints{make in
@@ -57,6 +59,7 @@ class GymsCell: UICollectionViewCell {
             make.width.equalToSuperview().dividedBy(32)
         }
     
+        //INFORMATION
         locName = UILabel()
         locName.font = UIFont.systemFont(ofSize: 12)
         contentView.addSubview(locName)

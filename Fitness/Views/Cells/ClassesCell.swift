@@ -20,17 +20,27 @@ class ClassesCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        layer.borderColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 0.4
         
-        layer.cornerRadius = frame.height/32
-        clipsToBounds = true
+        
+        contentView.layer.cornerRadius = 5
+        contentView.layer.backgroundColor = UIColor.white.cgColor
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderWidth = 0.5
+        
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
+        contentView.layer.shadowRadius = 3.0
+        contentView.layer.shadowOpacity = 0.1
+        contentView.layer.masksToBounds = false
+        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 9, -3))
+        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
+        
+        
         
         image = UIImageView()
-        /*let path = UIBezierPath(roundedRect: image.bounds, byRoundingCorners: [.topLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        image.layer.mask = mask*/
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 5
+        image.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
         contentView.addSubview(image)
         
         image.snp.updateConstraints{make in
