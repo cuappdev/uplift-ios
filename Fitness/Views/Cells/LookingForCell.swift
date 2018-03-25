@@ -50,21 +50,20 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 6
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 150 , height: 150)
+        return CGSize(width: (frame.width - 47)/2 , height: 128)
     }
     
-    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20)
-    }*/
-    
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0{
+            return UIEdgeInsets(top: 0, left: 16, bottom: 15, right: 15)
+        }
+        
+        return UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 16)
     }
+
 }

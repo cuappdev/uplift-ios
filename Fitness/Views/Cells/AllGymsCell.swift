@@ -44,6 +44,16 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GymsCell", for: indexPath) as! GymsCell
         
+        if indexPath.row == 3{
+            cell.locName.text = "Appel Commons"
+            cell.hours.text = "Opens at 9 AM"
+            cell.status.text = "Closed"
+            cell.status.textColor = .red
+            cell.colorBar.backgroundColor = .lightGray
+            
+            return cell
+        }
+        
         cell.locName.text = "Helen Newman"
         cell.hours.text = "Closes at 9 PM"
         cell.status.text = "Open"
@@ -62,9 +72,11 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        //use section parameter
-        
-        return UIEdgeInsets(top: 0, left: 20, bottom: 12, right: 20)
+        if section == 0 {
+            return UIEdgeInsets(top: 0, left: 20, bottom: 12, right: 20)
+        }
+        print("SECTIONS IS NOT ZERO WE SHOULD SEE THIS BITCH TWICE")
+        return UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 20)
     }
     
 }

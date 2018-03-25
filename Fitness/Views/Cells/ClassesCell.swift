@@ -28,11 +28,12 @@ class ClassesCell: UICollectionViewCell {
         contentView.layer.borderWidth = 0.5
         
         contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 8.0)
         contentView.layer.shadowRadius = 3.0
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.masksToBounds = false
-        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 9, -3))
+        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 4, -2))
+        
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
         
         

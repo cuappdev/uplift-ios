@@ -42,15 +42,15 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AllGymsCell", for: indexPath) as! AllGymsCell
-            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 175)) //should I bother to make the updateFrame part of a protocol and mmake the cells conform to it? is it worth it just for this fcn?
+            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 120)) //should I bother to make the updateFrame part of a protocol and mmake the cells conform to it? is it worth it just for this fcn?
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TodaysClassesCell", for: indexPath) as! TodaysClassesCell
-            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 258))
+            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 207))
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "LookingForCell", for: indexPath) as! LookingForCell
-            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 371))
+            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 340))
             return cell
         default:
             return UITableViewCell()
