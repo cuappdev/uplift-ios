@@ -14,10 +14,15 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UITabBar.appearance().barTintColor = .fitnessYellow
+        
         let homeController = HomeController()
         homeController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 0)
         
-        let viewControllerList = [ homeController ]
+        let classListController = ClassListViewController()
+        classListController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        
+        let viewControllerList = [homeController, classListController]
         viewControllers = viewControllerList
         viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }
     }

@@ -7,6 +7,7 @@
 		<string>BebasNeue-Regular.ttf</string>
 		<string>Montserrat-Light.ttf</string>
 		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

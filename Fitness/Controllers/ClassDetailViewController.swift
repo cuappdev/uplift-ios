@@ -11,6 +11,7 @@ import SnapKit
 
 class ClassDetailViewController: UIViewController {
     
+    //MARK: - INITIALIZATION
     var titleLabel: UILabel!
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
@@ -40,8 +41,6 @@ class ClassDetailViewController: UIViewController {
     
     var scrollView: UIScrollView!
     var contentView: UIView!
-    
-    //MARK: - INITIALIZATION
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,7 +116,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(backButton)
         
         starButton = UIButton()
-        starButton.setImage(#imageLiteral(resourceName: "star"), for: .normal)
+        starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
         starButton.sizeToFit()
         contentView.addSubview(starButton)
         
@@ -192,7 +191,6 @@ class ClassDetailViewController: UIViewController {
 
     
     //MARK: - CONSTRAINTS
-    
     func setupConstraints(){
         //HEADER
         classImageView.snp.makeConstraints { make in
