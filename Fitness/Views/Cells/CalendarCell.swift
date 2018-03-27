@@ -76,5 +76,4 @@ class CalendarCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(40)
         }
     }
-    
 }

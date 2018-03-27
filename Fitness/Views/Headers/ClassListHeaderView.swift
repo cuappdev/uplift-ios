@@ -34,7 +34,6 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         collectionView.reloadData()
         
         addSubview(collectionView)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,7 +44,6 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
     override open func layoutSubviews() {
         super.layoutSubviews()
 
-        
         currentDateLabel = UILabel()
         currentDateLabel.text = "TODAY"
         currentDateLabel.font = ._14MontserratMedium

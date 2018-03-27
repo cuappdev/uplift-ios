@@ -33,7 +33,6 @@ extension UISearchBar {
                     textField.backgroundColor = color
                     break
                 }
-                
             }
         }
     }
