@@ -16,6 +16,7 @@
 		C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */; };
 		C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */; };
 		C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */; };
+		C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */; };
 		C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DFABCE204206E000545B0B /* AppDelegate.swift */; };
 		C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD5204206E000545B0B /* Assets.xcassets */; };
 		C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */; };
@@ -23,6 +24,7 @@
 		C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */; };
 		C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */; };
 		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
+		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,7 @@
 		C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		C7DFABCB204206E000545B0B /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DFABCE204206E000545B0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7DFABD5204206E000545B0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,6 +49,7 @@
 		C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListCell.swift; sourceTree = "<group>"; };
 		C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,7 @@
 				C7DFABE22042081000545B0B /* Controllers */,
 				C7EBD5A82062E64700D76A8B /* Views */,
 				C75EC94E2059AC75007BC98A /* Extensions */,
+				C7EBD5B12062FDD800D76A8B /* Helpers */,
 				C7DFABD5204206E000545B0B /* Assets.xcassets */,
 				C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */,
 				C7DFABDA204206E000545B0B /* Info.plist */,
@@ -137,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
+				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -147,6 +153,14 @@
 				C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		C7EBD5B12062FDD800D76A8B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D9190BFB1F69E3A9CF967C13 /* Frameworks */ = {
@@ -318,7 +332,9 @@
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
+				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
 			);
