@@ -20,7 +20,7 @@ class TabBarController: UITabBarController {
         homeController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 0)
         
         let classListController = ClassListViewController()
-        classListController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 1)
+        classListController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         
         let viewControllerList = [homeController, classListController]
         viewControllers = viewControllerList

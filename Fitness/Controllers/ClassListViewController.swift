@@ -9,8 +9,9 @@
 import UIKit
 import SnapKit
 
-class ClassListViewController: UITableViewController {
+class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
+    // MARK: - INITIALIZATION
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,9 +23,17 @@ class ClassListViewController: UITableViewController {
         tableView.register(ClassListHeaderView.self, forHeaderFooterViewReuseIdentifier: "classListHeader")
         tableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
         
+        let searchBar = SearchBar.createSearchBar()
+        searchBar.delegate = self
+        self.navigationItem.titleView = searchBar
+        
+        let filterBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "filter"), style: .plain, target: self, action: #selector(filter))
+        self.navigationItem.rightBarButtonItem = filterBarButton
+        
         view.backgroundColor = .white
     }
     
+    // MARK: - TABLEVIEW
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -49,5 +58,10 @@ class ClassListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 155
+    }
+    
+    // MARK: - SEARCH BAR
+    @objc func filter(){
+        print("filter!")
     }
 }

@@ -13,12 +13,12 @@ struct SearchBar {
     static func createSearchBar() -> UISearchBar {
         let searchBar = UISearchBar()
         searchBar.showsCancelButton = false
-        searchBar.placeholder = "Find a way to sweat"
+        searchBar.placeholder = "find a way to sweat"
         searchBar.changeSearchBarColor(color: .white)
         
         let textfield = searchBar.value(forKey: "searchField") as? UITextField
         textfield?.textColor = UIColor.white
-        textfield?.font = ._16MontserratRegular
+        textfield?.font = ._12MontserratRegular
         return searchBar
     }
 }
