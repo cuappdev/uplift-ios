@@ -23,24 +23,13 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
         backgroundView?.backgroundColor = .white
         
         //SHADOWING
-        let shadowView = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: 100))
-        /*shadowView.layer.shadowPath = UIBezierPath(rect: shadowView.bounds).cgPath
-        shadowView.layer.shadowColor = UIColor.black.cgColor
-        shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
-        shadowView.layer.shadowRadius = 5.0
-        shadowView.layer.shadowOpacity = 0.3
-        shadowView.layer.masksToBounds = false
-        */
-        //let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, 9, 0))
-        
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOpacity = 0.3
         contentView.layer.shadowRadius = 5.0
         contentView.layer.masksToBounds = false
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
-        let shadowFrame = UIEdgeInsetsInsetRect(shadowView.frame, UIEdgeInsetsMake(0, 0, 0, 0))
-        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
-        //contentView.addSubview(shadowView)
+        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 0, -100, 0))
+        contentView.layer.shadowPath = UIBezierPath(rect: shadowFrame).cgPath
         
         //WELCOME MESSAGE
         welcomeMessage = UILabel()

@@ -23,24 +23,23 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
         layout.minimumInteritemSpacing = 15
         layout.minimumLineSpacing = 15
         
-        collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         
         collectionView.register(CategoryCell.self , forCellWithReuseIdentifier: "categoryCell")
         
-        self.addSubview(collectionView)
+        contentView.addSubview(collectionView)
         
+        collectionView.snp.updateConstraints{make in
+            make.center.equalToSuperview()
+            make.size.equalToSuperview()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func updateFrame(frame: CGRect){
-        self.frame = frame
-        self.collectionView.frame = frame
     }
     
     // MARK: - COLLECTION VIEW

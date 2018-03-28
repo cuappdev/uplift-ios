@@ -16,7 +16,7 @@ class HomeSectionHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     
-        backgroundColor = .white
+        backgroundColor = UIColor.clear
         
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 12)

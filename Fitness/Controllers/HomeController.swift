@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class HomeController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -17,10 +18,12 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView = UITableView(frame: view.frame, style: .grouped)
+        tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.bounces = false
         tableView.dataSource = self
         tableView.delegate = self
         
+        tableView.sectionFooterHeight = 0.0
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
@@ -30,6 +33,13 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.register(LookingForCell.self, forCellReuseIdentifier: "lookingForCell")
 
         view.addSubview(tableView)
+        
+        tableView.snp.updateConstraints{make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-49)
+        }
         
         //to avoid an issue where you could see the contents of the tableview under the status bar when scrolling down
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
@@ -43,15 +53,12 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "allGymsCell", for: indexPath) as! AllGymsCell
-            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 120))
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "todaysClassesCell", for: indexPath) as! TodaysClassesCell
-            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 207))
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "lookingForCell", for: indexPath) as! LookingForCell
-            cell.updateFrame(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 340))
             return cell
         default:
             return UITableViewCell()
@@ -64,17 +71,14 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         case 0:
             let header = HomeScreenHeaderView(reuseIdentifier: "homeScreenHeaderView", name: "Joe")
             header.subHeader.titleLabel.text = "ALL GYMS"
-            header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 155)
             return header
         case 1:
             let header = HomeSectionHeaderView(frame: view.frame)
             header.titleLabel.text = "TODAY'S CLASSES"
-            header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 51)
             return header
         case 2:
             let header = HomeSectionHeaderView(frame: view.frame)
             header.titleLabel.text = "I'M LOOKING FOR..."
-            header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 51)
             return header
         default:
             return UIView()
@@ -112,7 +116,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         case 1:
             height = 207
         case 2:
-            height = 340
+            height = 429
         default:
             height = 0
         }

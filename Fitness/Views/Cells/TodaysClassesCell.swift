@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
@@ -19,11 +20,11 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0 )
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16 )
         layout.minimumInteritemSpacing = 16
         layout.minimumLineSpacing = 12
         
-        collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -32,16 +33,16 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         
         collectionView.register(ClassesCell.self , forCellWithReuseIdentifier: "classesCell")
         
-        self.addSubview(collectionView)
+        contentView.addSubview(collectionView)
+        
+        collectionView.snp.updateConstraints{make in
+            make.center.equalToSuperview()
+            make.size.equalToSuperview()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func updateFrame(frame: CGRect){
-        self.frame = frame
-        self.collectionView.frame = frame
     }
     
     // MARK: - COLLECTION VIEW
