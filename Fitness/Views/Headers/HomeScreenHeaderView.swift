@@ -5,11 +5,19 @@
 //  Created by Joseph Fulgieri on 3/18/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 import UIKit
 import SnapKit
 
 class HomeScreenHeaderView: UITableViewHeaderFooterView {
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> master
     // MARK: - INITIALIZATION
     var welcomeMessage: UILabel!
     var subHeader: HomeSectionHeaderView!

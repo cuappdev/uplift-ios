@@ -13,7 +13,11 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - INITIALIZATION
     var tableView: UITableView!
     var statusBarBackgroundColor: UIView!
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> master
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +34,11 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.register(TodaysClassesCell.self, forCellReuseIdentifier: "todaysClassesCell")
         tableView.register(AllGymsCell.self, forCellReuseIdentifier: "allGymsCell")
         tableView.register(LookingForCell.self, forCellReuseIdentifier: "lookingForCell")
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> master
         view.addSubview(tableView)
         
         tableView.snp.updateConstraints{make in
@@ -63,7 +71,11 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             return UITableViewCell()
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> master
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch section {
@@ -104,7 +116,11 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return height
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> master
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         var height: CGFloat
