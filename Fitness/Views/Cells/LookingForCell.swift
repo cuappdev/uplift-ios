@@ -5,14 +5,21 @@
 //  Created by Joseph Fulgieri on 3/18/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 import UIKit
 
 class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
     
     // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> master
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -46,7 +53,11 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryCell
         
+<<<<<<< HEAD
+        cell.image.image = #imageLiteral(resourceName: "running-sample")
+=======
         cell.image.image = #imageLiteral(resourceName: "download (1)")
+>>>>>>> master
         cell.title.text = "Zen"
         
         return cell
@@ -55,7 +66,11 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> master
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (frame.width - 47)/2 , height: 128)
     }

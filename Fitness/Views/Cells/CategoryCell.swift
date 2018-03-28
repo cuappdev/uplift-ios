@@ -5,7 +5,10 @@
 //  Created by Joseph Fulgieri on 3/20/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 import UIKit
 import SnapKit
 

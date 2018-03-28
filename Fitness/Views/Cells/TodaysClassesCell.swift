@@ -5,7 +5,10 @@
 //  Created by Joseph Fulgieri on 3/18/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 import UIKit
 import SnapKit
 
@@ -13,7 +16,11 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     
     // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> master
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -49,7 +56,11 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "classesCell", for: indexPath) as! ClassesCell
         
+<<<<<<< HEAD
+        cell.image.image = #imageLiteral(resourceName: "running-sample")
+=======
         cell.image.image = #imageLiteral(resourceName: "download")
+>>>>>>> master
         cell.locationName.text = "Helen Newman Room 165"
         cell.hours.text = "7:00 PM - 8:00 PM"
         cell.className.text = "ZUMBA"

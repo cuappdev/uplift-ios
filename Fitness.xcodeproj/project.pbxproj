@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
+<<<<<<< HEAD
+		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
+		8D03EE07206C475200EF83C7 /* HomeSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */; };
+		8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE08206C477600EF83C7 /* AllGymsCell.swift */; };
+		8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */; };
+		8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */; };
+		8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymsCell.swift */; };
+		8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE10206C483500EF83C7 /* LookingForCell.swift */; };
+		8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */; };
+=======
 		8D1E1979205EC4CD00B1036A /* AllGymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E1978205EC4CD00B1036A /* AllGymsCell.swift */; };
 		8D1E197B205EC56100B1036A /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E197A205EC56100B1036A /* LookingForCell.swift */; };
 		8D1E197F205EC69400B1036A /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E197E205EC69400B1036A /* TodaysClassesCell.swift */; };
@@ -17,6 +27,7 @@
 		8D2888982050531A00A5C112 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888972050531A00A5C112 /* GymsCell.swift */; };
 		8D28889A2050534700A5C112 /* ClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888992050534700A5C112 /* ClassesCell.swift */; };
 		8D9FB35720619A0300906B46 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9FB35620619A0300906B46 /* CategoryCell.swift */; };
+>>>>>>> master
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
 		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 
@@ -41,6 +52,16 @@
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
+<<<<<<< HEAD
+		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
+		8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionHeaderView.swift; sourceTree = "<group>"; };
+		8D03EE08206C477600EF83C7 /* AllGymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGymsCell.swift; sourceTree = "<group>"; };
+		8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesCell.swift; sourceTree = "<group>"; };
+		8D03EE0E206C481A00EF83C7 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsCell.swift; sourceTree = "<group>"; };
+		8D03EE10206C483500EF83C7 /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForCell.swift; sourceTree = "<group>"; };
+		8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
+=======
 		8D1E1978205EC4CD00B1036A /* AllGymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGymsCell.swift; sourceTree = "<group>"; };
 		8D1E197A205EC56100B1036A /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LookingForCell.swift; path = Fitness/Views/Cells/LookingForCell.swift; sourceTree = SOURCE_ROOT; };
 		8D1E197E205EC69400B1036A /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
@@ -50,6 +71,7 @@
 		8D2888992050534700A5C112 /* ClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassesCell.swift; path = Fitness/Views/Cells/ClassesCell.swift; sourceTree = SOURCE_ROOT; };
 		8D9FB35620619A0300906B46 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 
+>>>>>>> master
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
 		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -180,7 +202,13 @@
 		C7EBD5A92062E64F00D76A8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
+				8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */,
+				8D03EE0E206C481A00EF83C7 /* GymsCell.swift */,
+				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
+				8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */,
 				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
+				8D03EE08206C477600EF83C7 /* AllGymsCell.swift */,
 				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
 			);
 			path = Cells;
@@ -189,6 +217,8 @@
 		C7EBD5AC2062E72300D76A8B /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
+				8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */,
 				C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */,
 			);
 			path = Headers;
@@ -367,6 +397,8 @@
 			files = (
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
+				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
+				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
 				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				8D1E1979205EC4CD00B1036A /* AllGymsCell.swift in Sources */,
@@ -374,16 +406,28 @@
 				8D1E1981205EC9F900B1036A /* HomeSectionHeaderView.swift in Sources */,
 				8D1E197B205EC56100B1036A /* LookingForCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
+<<<<<<< HEAD
+				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
+=======
 				8D1E197F205EC69400B1036A /* TodaysClassesCell.swift in Sources */,
+>>>>>>> master
 				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
+				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
+<<<<<<< HEAD
+				8D03EE07206C475200EF83C7 /* HomeSectionHeaderView.swift in Sources */,
+				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
+				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
+=======
 				8D2888982050531A00A5C112 /* GymsCell.swift in Sources */,
 				8D28889A2050534700A5C112 /* ClassesCell.swift in Sources */,
 				8D9FB35720619A0300906B46 /* CategoryCell.swift in Sources */,
+>>>>>>> master
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
