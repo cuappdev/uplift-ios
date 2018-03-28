@@ -3,11 +3,10 @@
 
 target 'Fitness' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  # Pods for Fitness
   use_frameworks!
   pod 'Fabric'
   pod 'Crashlytics'
-  pod 'SnapKit', '~> 4.0'
-
+  pod 'SnapKit'
+  # Pods for Fitness
 
 end

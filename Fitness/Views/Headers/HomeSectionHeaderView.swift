@@ -5,10 +5,6 @@
 //  Created by Joseph Fulgieri on 3/18/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 import UIKit
 
 class HomeSectionHeaderView: UICollectionReusableView {
@@ -18,11 +14,7 @@ class HomeSectionHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-<<<<<<< HEAD
         
-=======
-    
->>>>>>> master
         backgroundColor = UIColor.clear
         
         titleLabel = UILabel()

@@ -5,10 +5,6 @@
 //  Created by Joseph Fulgieri on 3/7/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 import UIKit
 import SnapKit
 
@@ -51,11 +47,7 @@ class ClassesCell: UICollectionViewCell {
         className.font = UIFont.systemFont(ofSize: 16)
         className.sizeToFit()
         contentView.addSubview(className)
-<<<<<<< HEAD
         
-=======
-
->>>>>>> master
         //HOURS
         hours = UILabel()
         hours.font = UIFont.systemFont(ofSize: 12)
@@ -65,11 +57,7 @@ class ClassesCell: UICollectionViewCell {
         
         //LOCATION WIDGET
         locationWidget = UIImageView()
-<<<<<<< HEAD
         locationWidget.image = #imageLiteral(resourceName: "running-sample")
-=======
-        locationWidget.image = #imageLiteral(resourceName: "location_widget")
->>>>>>> master
         contentView.addSubview(locationWidget)
         
         //LOCATION NAME

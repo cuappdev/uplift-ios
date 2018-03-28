@@ -5,10 +5,6 @@
 //  Created by Joseph Fulgieri on 3/7/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 import UIKit
 import SnapKit
 
@@ -46,11 +42,7 @@ class GymsCell: UICollectionViewCell {
         colorBar.layer.cornerRadius = 5
         colorBar.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner]
         contentView.addSubview(colorBar)
-<<<<<<< HEAD
         
-=======
-    
->>>>>>> master
         //LOCATION NAME
         locationName = UILabel()
         locationName.font = UIFont.systemFont(ofSize: 12)
