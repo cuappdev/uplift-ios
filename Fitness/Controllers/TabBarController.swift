@@ -23,6 +23,5 @@ class TabBarController: UITabBarController {
         viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }
         
         (viewControllers![0] as! UINavigationController).isNavigationBarHidden = true
-        
     }
 }

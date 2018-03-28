@@ -10,24 +10,29 @@ import UIKit
 
 class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    
+    // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0 )
+        layout.minimumInteritemSpacing = 16
+        layout.minimumLineSpacing = 12
         
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
-        
-        collectionView.register(ClassesCell.self , forCellWithReuseIdentifier: "ClassesCell")
+        collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        self.addSubview(collectionView)
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
         
+        collectionView.register(ClassesCell.self , forCellWithReuseIdentifier: "classesCell")
+        
+        self.addSubview(collectionView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,11 +44,12 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         self.collectionView.frame = frame
     }
     
+    // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClassesCell", for: indexPath) as! ClassesCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "classesCell", for: indexPath) as! ClassesCell
         
         cell.image.image = #imageLiteral(resourceName: "download")
-        cell.locName.text = "Helen Newman Room 165"
+        cell.locationName.text = "Helen Newman Room 165"
         cell.hours.text = "7:00 PM - 8:00 PM"
         cell.className.text = "ZUMBA"
         
@@ -57,13 +63,4 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 228 , height: 195)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 0{
-            return UIEdgeInsets(top: 0, left: 20, bottom: 12, right: 20)
-        }
-        
-        return UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 20)
-    }
-    
 }

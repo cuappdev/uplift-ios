@@ -72,8 +72,8 @@
 				8D2888992050534700A5C112 /* ClassesCell.swift */,
 				8D1E1978205EC4CD00B1036A /* AllGymsCell.swift */,
 				8D9FB35620619A0300906B46 /* CategoryCell.swift */,
-				8D2888972050531A00A5C112 /* GymsCell.swift */,
 				8D1E197A205EC56100B1036A /* LookingForCell.swift */,
+				8D2888972050531A00A5C112 /* GymsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";

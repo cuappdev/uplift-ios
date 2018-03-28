@@ -10,24 +10,27 @@ import UIKit
 
 class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
     
+    // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 15, right: 16 )
+        layout.minimumInteritemSpacing = 15
+        layout.minimumLineSpacing = 15
         
         collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout)
-        
-        collectionView.register(CategoryCell.self , forCellWithReuseIdentifier: "CategoryCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         
+        collectionView.register(CategoryCell.self , forCellWithReuseIdentifier: "categoryCell")
         
         self.addSubview(collectionView)
-        
         
     }
     
@@ -40,8 +43,9 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
         self.collectionView.frame = frame
     }
     
+    // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryCell
         
         cell.image.image = #imageLiteral(resourceName: "download (1)")
         cell.title.text = "Zen"
@@ -54,16 +58,6 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return CGSize(width: (frame.width - 47)/2 , height: 128)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 0{
-            return UIEdgeInsets(top: 0, left: 16, bottom: 15, right: 15)
-        }
-        
-        return UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 16)
-    }
-
 }

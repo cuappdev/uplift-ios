@@ -11,6 +11,7 @@ import SnapKit
 
 class CategoryCell: UICollectionViewCell {
     
+    // MARK: - INITIALIZATION
     var image: UIImageView!
     var title: UILabel!
     
@@ -20,27 +21,32 @@ class CategoryCell: UICollectionViewCell {
         layer.cornerRadius = frame.height/32
         clipsToBounds = true
         
+        //IMAGE
         image = UIImageView()
         contentView.addSubview(image)
         
-        image.snp.updateConstraints{make in
-            make.size.equalToSuperview()
-            make.center.equalToSuperview()
-        }
-        
+        //TITLE
         title = UILabel()
         title.font = UIFont.systemFont(ofSize: 16)
         title.textColor = .white
         contentView.addSubview(title)
         
-        title.snp.updateConstraints{make in
-            make.center.equalToSuperview()
-        }
-        
+        setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - CONSTRAINTS
+    func setupConstraints()  {
+        image.snp.updateConstraints{make in
+            make.size.equalToSuperview()
+            make.center.equalToSuperview()
+        }
+        
+        title.snp.updateConstraints{make in
+            make.center.equalToSuperview()
+        }
+    }
 }

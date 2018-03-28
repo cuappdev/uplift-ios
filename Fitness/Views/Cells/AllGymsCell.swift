@@ -10,26 +10,27 @@ import UIKit
 
 class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
+    // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        
-        
+        //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 19, bottom: 12, right: 40 )
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 12
         
         collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout)
- 
-        collectionView.register(GymsCell.self , forCellWithReuseIdentifier: "GymsCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         
+        collectionView.register(GymsCell.self , forCellWithReuseIdentifier: "gymsCell")
     
         self.addSubview(collectionView)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,12 +42,13 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         self.collectionView.frame = frame
     }
     
+    // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GymsCell", for: indexPath) as! GymsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymsCell", for: indexPath) as! GymsCell
         
         if indexPath.row == 3{
-            cell.locName.text = "Appel Commons"
-            cell.hours.text = "Opens at 9 AM"
+            cell.locationName.text = "Appel Commons"
+            cell.hours.text = "Reopens at 9 AM"
             cell.status.text = "Closed"
             cell.status.textColor = .red
             cell.colorBar.backgroundColor = .lightGray
@@ -54,7 +56,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
             return cell
         }
         
-        cell.locName.text = "Helen Newman"
+        cell.locationName.text = "Helen Newman"
         cell.hours.text = "Closes at 9 PM"
         cell.status.text = "Open"
         cell.status.textColor = .green
@@ -67,16 +69,6 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return CGSize(width: (frame.width - 80)/2 , height: 48)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 0 {
-            return UIEdgeInsets(top: 0, left: 20, bottom: 12, right: 20)
-        }
-        print("SECTIONS IS NOT ZERO WE SHOULD SEE THIS BITCH TWICE")
-        return UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 20)
-    }
-    
 }
