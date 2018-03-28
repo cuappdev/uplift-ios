@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
 		8D1E1979205EC4CD00B1036A /* AllGymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E1978205EC4CD00B1036A /* AllGymsCell.swift */; };
 		8D1E197B205EC56100B1036A /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E197A205EC56100B1036A /* LookingForCell.swift */; };
@@ -16,16 +17,29 @@
 		8D2888982050531A00A5C112 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888972050531A00A5C112 /* GymsCell.swift */; };
 		8D28889A2050534700A5C112 /* ClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2888992050534700A5C112 /* ClassesCell.swift */; };
 		8D9FB35720619A0300906B46 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9FB35620619A0300906B46 /* CategoryCell.swift */; };
+		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
+		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
+
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
 		C75FAB1120420B7B008D455A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB1020420B7B008D455A /* HomeController.swift */; };
+		C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */; };
+		C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */; };
+		C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */; };
+		C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */; };
 		C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DFABCE204206E000545B0B /* AppDelegate.swift */; };
 		C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD5204206E000545B0B /* Assets.xcassets */; };
 		C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */; };
+		C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */; };
+		C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */; };
+		C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */; };
+		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
+		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		8D1E1978205EC4CD00B1036A /* AllGymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGymsCell.swift; sourceTree = "<group>"; };
 		8D1E197A205EC56100B1036A /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LookingForCell.swift; path = Fitness/Views/Cells/LookingForCell.swift; sourceTree = SOURCE_ROOT; };
@@ -35,13 +49,25 @@
 		8D2888972050531A00A5C112 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GymsCell.swift; path = Fitness/Views/Cells/GymsCell.swift; sourceTree = SOURCE_ROOT; };
 		8D2888992050534700A5C112 /* ClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassesCell.swift; path = Fitness/Views/Cells/ClassesCell.swift; sourceTree = SOURCE_ROOT; };
 		8D9FB35620619A0300906B46 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+
+		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
+		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C75FAB1020420B7B008D455A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
+		C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		C7DFABCB204206E000545B0B /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DFABCE204206E000545B0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7DFABD5204206E000545B0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7DFABD8204206E000545B0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7DFABDA204206E000545B0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListViewController.swift; sourceTree = "<group>"; };
+		C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListCell.swift; sourceTree = "<group>"; };
+		C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
+		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,12 +102,31 @@
 				8D2888972050531A00A5C112 /* GymsCell.swift */,
 			);
 			path = Cells;
+		630ADD112051BECC00B8E255 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */,
+				C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */,
+				C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */,
+				C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C75EC94E2059AC75007BC98A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
+				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
 				C7DFABCD204206E000545B0B /* Fitness */,
+				630ADD112051BECC00B8E255 /* Fonts */,
 				C7DFABCC204206E000545B0B /* Products */,
 				EDFEB459857EDEE8A7863423 /* Pods */,
 				D9190BFB1F69E3A9CF967C13 /* Frameworks */,
@@ -100,10 +145,10 @@
 			isa = PBXGroup;
 			children = (
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
-				C7DFABE02042080000545B0B /* Models */,
-				C7DFABE12042080500545B0B /* Views */,
 				C7DFABE22042081000545B0B /* Controllers */,
-				C7DFABE32042081B00545B0B /* Supporting */,
+				C7EBD5A82062E64700D76A8B /* Views */,
+				C75EC94E2059AC75007BC98A /* Extensions */,
+				C7EBD5B12062FDD800D76A8B /* Helpers */,
 				C7DFABD5204206E000545B0B /* Assets.xcassets */,
 				C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */,
 				C7DFABDA204206E000545B0B /* Info.plist */,
@@ -111,36 +156,50 @@
 			path = Fitness;
 			sourceTree = "<group>";
 		};
-		C7DFABE02042080000545B0B /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		C7DFABE12042080500545B0B /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				8D1E1982205ECA1A00B1036A /* Headers */,
-				8D617B42205DB5DF00444D6F /* Cells */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		C7DFABE22042081000545B0B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 				C75FAB1020420B7B008D455A /* HomeController.swift */,
+				635AF233204F85000020F6C6 /* ClassDetailViewController.swift */,
+				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		C7DFABE32042081B00545B0B /* Supporting */ = {
+		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8D1E1982205ECA1A00B1036A /* Headers */,
+				8D617B42205DB5DF00444D6F /* Cells */,
+
 			);
-			path = Supporting;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C7EBD5A92062E64F00D76A8B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
+				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C7EBD5AC2062E72300D76A8B /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		C7EBD5B12062FDD800D76A8B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D9190BFB1F69E3A9CF967C13 /* Frameworks */ = {
@@ -223,7 +282,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
+				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
+				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
+				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +365,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
+				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
+				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				8D1E1979205EC4CD00B1036A /* AllGymsCell.swift in Sources */,
 				8D1E1984205ECA5200B1036A /* HomeScreenHeaderView.swift in Sources */,
@@ -309,6 +375,11 @@
 				8D1E197B205EC56100B1036A /* LookingForCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				8D1E197F205EC69400B1036A /* TodaysClassesCell.swift in Sources */,
+				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
+				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
+				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
+				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
 				8D2888982050531A00A5C112 /* GymsCell.swift in Sources */,
 				8D28889A2050534700A5C112 /* ClassesCell.swift in Sources */,
