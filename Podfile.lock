@@ -3,17 +3,20 @@ PODS:
     - Fabric (~> 1.6.3)
   - Fabric (1.6.13)
   - SnapKit (4.0.0)
+  - WARangeSlider (1.1.1)
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
   - SnapKit
+  - WARangeSlider
 
 SPEC CHECKSUMS:
   Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   Fabric: 2fb5676bc811af011a04513451f463dac6803206
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
 
-PODFILE CHECKSUM: a6baeb28f7ee0f9ad102d1e906e476b33f214c68
+PODFILE CHECKSUM: b2054b555e06b652be9c08b3787d4a803786c10a
 
 COCOAPODS: 1.4.0
