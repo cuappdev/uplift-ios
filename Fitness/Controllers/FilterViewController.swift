@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import WARangeSlider
 
 class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
@@ -21,8 +22,10 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     var separatorOne: UIView!
     var startTimeLabel: UILabel!
     var startTime: UILabel!
-    var startTimeSlider: UISlider!  //placeholder: to be replaced with a slider with range functionality
+    var startTimeSlider: RangeSlider!
     var separatorTwo: UIView!
+    
+    var classTypeDropdown: FilterDropdownView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +47,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
+        
         scrollView.bounces = false
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 1.5)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -104,16 +108,49 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         startTime.text = "6:00 AM - 10:00 PM"
         contentView.addSubview(startTime)
         
-        startTimeSlider = UISlider()
-        startTimeSlider.maximumTrackTintColor = .fitnessDarkGrey
-        startTimeSlider.minimumTrackTintColor = .fitnessYellow
+        startTimeSlider = RangeSlider(frame: .zero)
+        startTimeSlider.minimumValue = 0.0
+        startTimeSlider.maximumValue = 960.0    //960 minutes btwn 6 am and 10 pm
+        startTimeSlider.trackTintColor = .fitnessLightGrey
+        startTimeSlider.trackHighlightTintColor = .fitnessYellow
+        startTimeSlider.thumbBorderColor = .fitnessLightGrey
+        startTimeSlider.addTarget(self, action: #selector(startTimeChanged),
+                              for: .valueChanged)
         contentView.addSubview(startTimeSlider)
         
         separatorTwo = UIView()
         separatorTwo.backgroundColor = .fitnessLightGrey
         contentView.addSubview(separatorTwo)
         
+        //CLASS TYPE SECTION
+        classTypeDropdown = FilterDropdownView(frame: .zero)
+        classTypeDropdown.titleLabel.text = "CLASS TYPE"
+        contentView.addSubview(classTypeDropdown)
+        
         setupConstraints()
+        
+        /*startTimeSlider = RangeSlider(frame: startTimeSlider.frame)
+        startTimeSlider.minimumValue = 0.0
+        startTimeSlider.maximumValue = 960.0    //960 minutes btwn 6 am and 10 pm
+        startTimeSlider.trackTintColor = .fitnessLightGrey
+        startTimeSlider.trackHighlightTintColor = .fitnessYellow
+        startTimeSlider.thumbBorderColor = .fitnessLightGrey*/
+        startTimeSlider.lowerValue = 0.0
+        startTimeSlider.upperValue = 960.0
+        
+        scrollView.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
+        
+        collectionViewTitle.isUserInteractionEnabled = true
+        collectionView.isUserInteractionEnabled = true
+        
+        separatorOne.isUserInteractionEnabled = true
+        startTimeLabel.isUserInteractionEnabled = true
+        startTime.isUserInteractionEnabled = true
+        startTimeSlider.isUserInteractionEnabled = true
+        separatorTwo.isUserInteractionEnabled = true
+        
+        classTypeDropdown.isUserInteractionEnabled = true
     }
     
     // MARK: - CONSTRAINTS
@@ -165,6 +202,19 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             make.top.equalTo(separatorOne.snp.bottom).offset(90)
             make.bottom.equalTo(separatorOne.snp.bottom).offset(91)
         }
+        
+        //CLASS TYPE SECTION
+        classTypeDropdown.snp.updateConstraints{make in
+            make.top.equalTo(separatorTwo.snp.bottom)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            
+            if (classTypeDropdown.isDropped == false){
+                make.bottom.equalTo(separatorTwo.snp.bottom).offset(55)
+            }else{
+                make.bottom.equalTo(separatorTwo.snp.bottom).offset(87)
+            }
+        }
     }
     
     @objc func done(){
@@ -173,6 +223,10 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     @objc func reset(){
         print("reset!")
+    }
+    
+    @objc func startTimeChanged() {
+        print("update time")
     }
     
     // MARK: - COLLECTION VIEW METHODS
