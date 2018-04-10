@@ -44,10 +44,11 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         let resetBarButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
         self.navigationItem.leftBarButtonItem = resetBarButton
         
+        tabBarController!.tabBar.isHidden = true
+        
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
-        
         scrollView.bounces = false
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 1.5)
         view.addSubview(scrollView)
@@ -57,9 +58,11 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         contentView = UIView()
         scrollView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.left.right.equalTo(view)
+        contentView.snp.makeConstraints {make in
+            make.top.equalTo(view.snp.top).offset(navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.size.height)
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         //COLLECTION VIEW
@@ -79,13 +82,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .fitnessLightGrey
-        
         collectionView.isScrollEnabled = true
-        collectionView.dragInteractionEnabled = true
-        collectionView.alwaysBounceHorizontal = true
-        collectionView.alwaysBounceVertical = true
-        collectionView.bounces = true
-        
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.bounces = false
         collectionView.register(GymFilterCell.self , forCellWithReuseIdentifier: "gymFilterCell")
         contentView.addSubview(collectionView)
         
@@ -110,7 +109,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         startTimeSlider = RangeSlider(frame: .zero)
         startTimeSlider.minimumValue = 0.0
-        startTimeSlider.maximumValue = 960.0    //960 minutes btwn 6 am and 10 pm
+        startTimeSlider.maximumValue = 960.0
+        startTimeSlider.lowerValue = 0.0
+        startTimeSlider.upperValue = 960.0        //960 minutes btwn 6 am and 10 pm
         startTimeSlider.trackTintColor = .fitnessLightGrey
         startTimeSlider.trackHighlightTintColor = .fitnessYellow
         startTimeSlider.thumbBorderColor = .fitnessLightGrey
@@ -128,29 +129,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         contentView.addSubview(classTypeDropdown)
         
         setupConstraints()
-        
-        /*startTimeSlider = RangeSlider(frame: startTimeSlider.frame)
-        startTimeSlider.minimumValue = 0.0
-        startTimeSlider.maximumValue = 960.0    //960 minutes btwn 6 am and 10 pm
-        startTimeSlider.trackTintColor = .fitnessLightGrey
-        startTimeSlider.trackHighlightTintColor = .fitnessYellow
-        startTimeSlider.thumbBorderColor = .fitnessLightGrey*/
-        startTimeSlider.lowerValue = 0.0
-        startTimeSlider.upperValue = 960.0
-        
-        scrollView.isUserInteractionEnabled = true
-        contentView.isUserInteractionEnabled = true
-        
-        collectionViewTitle.isUserInteractionEnabled = true
-        collectionView.isUserInteractionEnabled = true
-        
-        separatorOne.isUserInteractionEnabled = true
-        startTimeLabel.isUserInteractionEnabled = true
-        startTime.isUserInteractionEnabled = true
-        startTimeSlider.isUserInteractionEnabled = true
-        separatorTwo.isUserInteractionEnabled = true
-        
-        classTypeDropdown.isUserInteractionEnabled = true
     }
     
     // MARK: - CONSTRAINTS
