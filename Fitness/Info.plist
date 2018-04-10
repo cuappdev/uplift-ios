@@ -26,6 +26,9 @@
 		<string>Montserrat-Light.ttf</string>
 		<string>Montserrat-Medium.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
+		<string>Lato-Black.ttf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Montserrat-Bold.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

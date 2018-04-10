@@ -19,13 +19,16 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     var collectionViewTitle: UILabel!
     var collectionView: UICollectionView!
     
-    var separatorOne: UIView!
+    var fitnesscenterStarttimeDivider: UIView!
     var startTimeLabel: UILabel!
     var startTime: UILabel!
     var startTimeSlider: RangeSlider!
-    var separatorTwo: UIView!
+    var starttimeClasstypeDivider: UIView!
     
     var classTypeDropdown: FilterDropdownView!
+    var classtypeInstructorDivider: UIView!
+    
+    var instructorDropDown: FilterDropdownView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         tabBarController!.tabBar.isHidden = true
         
+        //SCROLL VIEW
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
@@ -89,9 +93,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         contentView.addSubview(collectionView)
         
         //START TIME SLIDER SECTION
-        separatorOne = UIView()
-        separatorOne.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(separatorOne)
+        fitnesscenterStarttimeDivider = UIView()
+        fitnesscenterStarttimeDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(fitnesscenterStarttimeDivider)
         
         startTimeLabel = UILabel()
         startTimeLabel.sizeToFit()
@@ -119,14 +123,25 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
                               for: .valueChanged)
         contentView.addSubview(startTimeSlider)
         
-        separatorTwo = UIView()
-        separatorTwo.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(separatorTwo)
+        starttimeClasstypeDivider = UIView()
+        starttimeClasstypeDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(starttimeClasstypeDivider)
         
         //CLASS TYPE SECTION
         classTypeDropdown = FilterDropdownView(frame: .zero)
         classTypeDropdown.titleLabel.text = "CLASS TYPE"
+        classTypeDropdown.delegate = self
         contentView.addSubview(classTypeDropdown)
+        
+        classtypeInstructorDivider = UIView()
+        classtypeInstructorDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(classtypeInstructorDivider)
+        
+        //INSTRUCTOR SECTION
+        instructorDropDown = FilterDropdownView(frame: .zero)
+        instructorDropDown.titleLabel.text = "INSTRUCTOR"
+        instructorDropDown.delegate = self
+        contentView.addSubview(instructorDropDown)
         
         setupConstraints()
     }
@@ -148,7 +163,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
         
         //SLIDER SECTION
-        separatorOne.snp.updateConstraints{make in
+        fitnesscenterStarttimeDivider.snp.updateConstraints{make in
             make.top.equalTo(collectionView.snp.bottom).offset(16)
             make.bottom.equalTo(collectionView.snp.bottom).offset(17)
             make.centerX.equalToSuperview()
@@ -157,41 +172,69 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         startTimeLabel.snp.updateConstraints{make in
             make.left.equalToSuperview().offset(16)
-            make.top.equalTo(separatorOne.snp.bottom).offset(20)
-            make.bottom.equalTo(separatorOne.snp.bottom).offset(35)
+            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(20)
+            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(35)
         }
         
         startTime.snp.updateConstraints{make in
             make.right.equalToSuperview().offset(-22)
-            make.top.equalTo(separatorOne.snp.bottom).offset(20)
-            make.bottom.equalTo(separatorOne.snp.bottom).offset(36)
+            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(20)
+            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(36)
         }
         
         startTimeSlider.snp.updateConstraints{make in
             make.right.equalToSuperview().offset(-16)
             make.left.equalToSuperview().offset(16)
-            make.top.equalTo(separatorOne.snp.bottom).offset(47)
-            make.bottom.equalTo(separatorOne.snp.bottom).offset(71)
+            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(47)
+            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(71)
         }
         
-        separatorTwo.snp.updateConstraints{make in
+        starttimeClasstypeDivider.snp.updateConstraints{make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
-            make.top.equalTo(separatorOne.snp.bottom).offset(90)
-            make.bottom.equalTo(separatorOne.snp.bottom).offset(91)
+            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(90)
+            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(91)
         }
         
         //CLASS TYPE SECTION
         classTypeDropdown.snp.updateConstraints{make in
-            make.top.equalTo(separatorTwo.snp.bottom)
+            make.top.equalTo(starttimeClasstypeDivider.snp.bottom)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             
-            if (classTypeDropdown.isDropped == false){
-                make.bottom.equalTo(separatorTwo.snp.bottom).offset(55)
-            }else{
-                make.bottom.equalTo(separatorTwo.snp.bottom).offset(87)
+            if (classTypeDropdown.isDropped == .up){
+                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55)
+            }else if (classTypeDropdown.isDropped == .halfDropped){
+                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55 + 4*32)
+            } else {
+                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55 + classTypeDropdown.cells.count*32)
             }
+            
+            classTypeDropdown.setupConstraints()
+        }
+        
+        classtypeInstructorDivider.snp.updateConstraints{make in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.top.equalTo(classTypeDropdown.snp.bottom)
+            make.bottom.equalTo(classTypeDropdown.snp.bottom).offset(1)
+        }
+        
+        //INSTRUCTOR SECTION
+        instructorDropDown.snp.updateConstraints{make in
+            make.top.equalTo(classtypeInstructorDivider.snp.bottom)
+            make.right.equalToSuperview()
+            make.left.equalToSuperview()
+            
+            if (instructorDropDown.isDropped == .up){
+                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55)
+            }else if (instructorDropDown.isDropped == .halfDropped){
+                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55 + 4*32)
+            } else {
+                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55 + instructorDropDown.cells.count*32)
+            }
+            
+            instructorDropDown.setupConstraints()
         }
     }
     
