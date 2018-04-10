@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
+		65E914E9207C691C00A72101 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65E914E8207C691C00A72101 /* Keys.plist */; };
+		65E914EB207C697800A72101 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E914EA207C697800A72101 /* Keys.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
 		8D03EE07206C475200EF83C7 /* HomeSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */; };
@@ -39,6 +41,8 @@
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
+		65E914E8207C691C00A72101 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keys.plist; path = Secrets/Keys.plist; sourceTree = SOURCE_ROOT; };
+		65E914EA207C697800A72101 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
 		8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionHeaderView.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				C7EBD5B12062FDD800D76A8B /* Helpers */,
 				C7DFABD5204206E000545B0B /* Assets.xcassets */,
 				C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */,
+				65E914EA207C697800A72101 /* Keys.swift */,
+				65E914E8207C691C00A72101 /* Keys.plist */,
 				C7DFABDA204206E000545B0B /* Info.plist */,
 			);
 			path = Fitness;
@@ -271,6 +277,7 @@
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
+				65E914E9207C691C00A72101 /* Keys.plist in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 			);
@@ -308,7 +315,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 50d77fbd594f6229f8bb9a3669ce18dce7dac38e 0f35fd962076cda8200e58ca1763bfa75f7f2d5942bcdbad450417d0b01a3739";
+			shellScript = "FABRIC_API_KEY=$(/usr/libexec/PlistBuddy -c \"Print :fabric-api-key\" \"${PROJECT_DIR}/Secrets/Keys.plist\")\nFABRIC_BUILD_SECRET=$(/usr/libexec/PlistBuddy -c \"Print :fabric-build-secret\" \"${PROJECT_DIR}/Secrets/Keys.plist\")\n\"${PODS_ROOT}/Fabric/run\" $FABRIC_API_KEY $FABRIC_BUILD_SECRET";
 		};
 		9BD15CB1CD033C4DBE57E681 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -359,6 +366,7 @@
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
+				65E914EB207C697800A72101 /* Keys.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
@@ -499,9 +507,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CL9XQET3B9;
+				DEVELOPMENT_TEAM = RNCTC44528;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.Fitness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -515,7 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CL9XQET3B9;
+				DEVELOPMENT_TEAM = RNCTC44528;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.Fitness;
