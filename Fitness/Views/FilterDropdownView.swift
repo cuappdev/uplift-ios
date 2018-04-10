@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+enum Dropped {
+    case up, halfDropped, fullDropped
+}
+
 class FilterDropdownView: UIView {
 
     // MARK: - INITIALIZATION
@@ -18,16 +22,18 @@ class FilterDropdownView: UIView {
     
     var cells: [FilterDropdownCell]!
     var data: [String]!
-    var isDropped: Bool!
-    var showAllButton: UIButton?
+    var isDropped: Dropped!
+    var showAllLabel: UILabel!
+    
+    var delegate: FilterViewController!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        isDropped = false
+        isDropped = .up
         
         dropArea = UIView()
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.drop(sender:) ))
+        var gesture = UITapGestureRecognizer(target: self, action: #selector(self.drop(sender:) ))
         self.dropArea.addGestureRecognizer(gesture)
         dropArea.frame.size.height = 49.0
         addSubview(dropArea)
@@ -43,22 +49,24 @@ class FilterDropdownView: UIView {
         
         setupConstraints()
         
-        data = ["Zumba", "H.I.I.T.", "Spinning"]
+        data = ["Zumba", "H.I.I.T.", "Spinning", "Python", "Massage"]
         cells = []
     }
     
+    //either removes dropped cells if they exist, or drops down the first three
     @objc func drop( sender:UITapGestureRecognizer){
-        print("drop!")
-        if isDropped {
-            isDropped = false
+        if (isDropped == .halfDropped) || (isDropped == .fullDropped) {
+            isDropped = .up
             while cells.count > 0{
                 let cell = cells.popLast()
                 cell!.removeFromSuperview()
             }
+            showAllLabel.removeFromSuperview()
+            delegate.setupConstraints()
         }else{
-            isDropped = true
+            isDropped = .halfDropped
             var count = 0
-            for name in data {
+            for name in data[0 ..< 3] {
                 let cell = FilterDropdownCell(frame: .zero)
                 cell.titleLabel.text = name
                 addSubview(cell)
@@ -76,8 +84,29 @@ class FilterDropdownView: UIView {
                     make.right.equalToSuperview()
                 }
                 count += 1
+                
+                delegate.setupConstraints()
+                
+            }
+            showAllLabel = UILabel()
+            showAllLabel.text = "Show All Class Types"
+            showAllLabel.font = ._12MontserratMedium
+            showAllLabel.sizeToFit()
+            showAllLabel.textColor = .fitnessLightGrey          //need to add proper color
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropAll(sender:) ))
+            showAllLabel.addGestureRecognizer(gesture)
+            showAllLabel.isUserInteractionEnabled = true
+            addSubview(showAllLabel)
+            
+            showAllLabel.snp.updateConstraints{make in
+                make.bottom.equalToSuperview().offset(-16)
+                make.left.equalToSuperview().offset(16)
             }
         }
+    }
+    
+    @objc func dropAll( sender:UITapGestureRecognizer){
+        print("drop all")
     }
     
     required init?(coder aDecoder: NSCoder) {
