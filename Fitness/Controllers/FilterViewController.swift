@@ -29,6 +29,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     var classtypeInstructorDivider: UIView!
     
     var instructorDropDown: FilterDropdownView!
+    var instructorDivider: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,9 +114,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         startTimeSlider = RangeSlider(frame: .zero)
         startTimeSlider.minimumValue = 0.0
-        startTimeSlider.maximumValue = 960.0
+        startTimeSlider.maximumValue = 960
         startTimeSlider.lowerValue = 0.0
-        startTimeSlider.upperValue = 960.0        //960 minutes btwn 6 am and 10 pm
+        startTimeSlider.upperValue = 960        //960 minutes btwn 6 am and 10 pm
         startTimeSlider.trackTintColor = .fitnessLightGrey
         startTimeSlider.trackHighlightTintColor = .fitnessYellow
         startTimeSlider.thumbBorderColor = .fitnessLightGrey
@@ -142,6 +143,10 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         instructorDropDown.titleLabel.text = "INSTRUCTOR"
         instructorDropDown.delegate = self
         contentView.addSubview(instructorDropDown)
+        
+        instructorDivider = UIView()
+        instructorDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(instructorDivider)
         
         setupConstraints()
     }
@@ -236,6 +241,13 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             
             instructorDropDown.setupConstraints()
         }
+        
+        instructorDivider.snp.updateConstraints{make in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.top.equalTo(instructorDropDown.snp.bottom)
+            make.bottom.equalTo(instructorDropDown.snp.bottom).offset(1)
+        }
     }
     
     @objc func done(){
@@ -248,6 +260,24 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     @objc func startTimeChanged() {
         print("update time")
+        let lowerSliderVal = startTimeSlider.lowerValue + 360
+        let upperSliderVal = startTimeSlider.upperValue + 360
+        
+        var lowerHours = Int(lowerSliderVal/60)
+        var lowerMinutes = Int(lowerSliderVal)%60
+        var upperHours = Int(upperSliderVal/60)
+        var upperMinutes = Int(upperSliderVal)%60
+        
+        if lowerHours > 12{
+            upperHours -= 12
+            lowerHours -= 12
+            startTime.text = (String(lowerHours) + ":" + String(lowerMinutes) + "PM - " + String(upperHours) + ":" + String(upperMinutes) + "PM")
+        }else if (upperHours < 12){
+            startTime.text = (String(lowerHours) + ":" + String(lowerMinutes) + "AM - " + String(upperHours) + ":" + String(upperMinutes) + "AM")
+        } else {
+            upperHours -= 12
+            startTime.text = (String(lowerHours) + ":" + String(lowerMinutes) + "AM - " + String(upperHours) + ":" + String(upperMinutes) + "PM")
+        }
     }
     
     // MARK: - COLLECTION VIEW METHODS
