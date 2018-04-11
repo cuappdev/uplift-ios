@@ -106,7 +106,27 @@ class FilterDropdownView: UIView {
     }
     
     @objc func dropAll( sender:UITapGestureRecognizer){
-        print("drop all")
+        
+        isDropped = .fullDropped
+        
+        var count = 3
+        for name in data.suffix(from: 3) {
+            let cell = FilterDropdownCell(frame: .zero)
+            cell.titleLabel.text = name
+            addSubview(cell)
+            cells.append(cell)
+            
+            cell.snp.updateConstraints{make in
+                make.top.equalTo(cells[count - 1].snp.bottom)
+                make.bottom.equalTo(cells[count - 1].snp.bottom).offset(32)
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+            }
+            
+            count += 1
+            showAllLabel.removeFromSuperview()
+            delegate.setupConstraints()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
