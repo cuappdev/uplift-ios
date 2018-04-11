@@ -57,7 +57,7 @@ class GymsCell: UICollectionViewCell {
         //HOURS
         hours = UILabel()
         hours.font = ._8MontserratMedium
-        hours.textColor = .gray
+        hours.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
         contentView.addSubview(hours)
         
         setupConstraints()

@@ -43,9 +43,11 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         self.navigationItem.titleView = titleView
         
         let doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        doneBarButton.tintColor = .fitnessBlack
         self.navigationItem.rightBarButtonItem = doneBarButton
         
         let resetBarButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
+        resetBarButton.tintColor = .fitnessBlack
         self.navigationItem.leftBarButtonItem = resetBarButton
         
         tabBarController!.tabBar.isHidden = true
@@ -80,7 +82,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
-        layout.minimumInteritemSpacing = 3
+        layout.minimumInteritemSpacing = 1
         layout.minimumLineSpacing = 0
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -268,15 +270,16 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         var upperHours = Int(upperSliderVal/60)
         var upperMinutes = Int(upperSliderVal)%60
         
+        
         if lowerHours > 12{
             upperHours -= 12
             lowerHours -= 12
-            startTime.text = (String(lowerHours) + ":" + String(lowerMinutes) + "PM - " + String(upperHours) + ":" + String(upperMinutes) + "PM")
+            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
         }else if (upperHours < 12){
-            startTime.text = (String(lowerHours) + ":" + String(lowerMinutes) + "AM - " + String(upperHours) + ":" + String(upperMinutes) + "AM")
+            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "AM")
         } else {
             upperHours -= 12
-            startTime.text = (String(lowerHours) + ":" + String(lowerMinutes) + "AM - " + String(upperHours) + ":" + String(upperMinutes) + "PM")
+            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
         }
     }
     

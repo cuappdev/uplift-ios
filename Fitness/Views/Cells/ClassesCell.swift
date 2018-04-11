@@ -23,11 +23,11 @@ class ClassesCell: UICollectionViewCell {
         //BORDER
         contentView.layer.cornerRadius = 5
         contentView.layer.backgroundColor = UIColor.white.cgColor
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
         contentView.layer.borderWidth = 0.5
         
         //SHADOWING
-        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 8.0)
         contentView.layer.shadowRadius = 3.0
         contentView.layer.shadowOpacity = 0.1
@@ -44,15 +44,16 @@ class ClassesCell: UICollectionViewCell {
         
         //CLASS NAME
         className = UILabel()
-        className.font = UIFont.systemFont(ofSize: 16)
+        className.font = ._16MontserratMedium
+        className.textColor = .fitnessBlack
         className.sizeToFit()
         contentView.addSubview(className)
         
         //HOURS
         hours = UILabel()
-        hours.font = UIFont.systemFont(ofSize: 12)
+        hours.font = ._12MontserratRegular
         hours.sizeToFit()
-        hours.textColor = .lightGray
+        hours.textColor = UIColor(red: 39/255, green: 61/255, blue: 82/255, alpha: 0.6)
         contentView.addSubview(hours)
         
         //LOCATION WIDGET
@@ -63,8 +64,8 @@ class ClassesCell: UICollectionViewCell {
         //LOCATION NAME
         locationName = UILabel()
         locationName.sizeToFit()
-        locationName.font = UIFont.systemFont(ofSize: 12)
-        locationName.textColor = .lightGray
+        locationName.font = ._12MontserratRegular
+        locationName.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
         contentView.addSubview(locationName)
         
         setupConstraints()

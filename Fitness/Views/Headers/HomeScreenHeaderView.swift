@@ -33,6 +33,7 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
         //WELCOME MESSAGE
         welcomeMessage = UILabel()
         welcomeMessage.font = ._24MontserratBold
+        welcomeMessage.textColor = .fitnessBlack
         welcomeMessage.lineBreakMode = .byWordWrapping
         welcomeMessage.numberOfLines = 0
         welcomeMessage.text = "Good Afternoon, " + name + "!"

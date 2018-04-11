@@ -18,8 +18,8 @@ class HomeSectionHeaderView: UICollectionReusableView {
         backgroundColor = UIColor.clear
         
         titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 12)
-        titleLabel.textColor = .gray
+        titleLabel.font = ._12LatoBlack
+        titleLabel.textColor = .fitnessDarkGrey
         addSubview(titleLabel)
         
         // MARK: - CONSTRAINTS
