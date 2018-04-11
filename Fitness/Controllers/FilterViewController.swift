@@ -252,6 +252,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
     }
     
+    //NAVIGATION BAR BUTTONS
     @objc func done(){
         print("done!")
     }
@@ -260,16 +261,16 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         print("reset!")
     }
     
+    //SLIDER CHANGED
     @objc func startTimeChanged() {
         print("update time")
         let lowerSliderVal = startTimeSlider.lowerValue + 360
         let upperSliderVal = startTimeSlider.upperValue + 360
         
         var lowerHours = Int(lowerSliderVal/60)
-        var lowerMinutes = Int(lowerSliderVal)%60
+        let lowerMinutes = Int(lowerSliderVal)%60
         var upperHours = Int(upperSliderVal/60)
-        var upperMinutes = Int(upperSliderVal)%60
-        
+        let upperMinutes = Int(upperSliderVal)%60
         
         if lowerHours > 12{
             upperHours -= 12
@@ -283,7 +284,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
     }
     
-    // MARK: - COLLECTION VIEW METHODS
+    //COLLECTION VIEW METHODS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymFilterCell", for: indexPath) as! GymFilterCell
         

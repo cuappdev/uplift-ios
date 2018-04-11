@@ -92,7 +92,7 @@ class FilterDropdownView: UIView {
             showAllLabel.text = "Show All Class Types"
             showAllLabel.font = ._12MontserratMedium
             showAllLabel.sizeToFit()
-            showAllLabel.textColor = .fitnessLightGrey          //need to add proper color
+            showAllLabel.textColor = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropAll(sender:) ))
             showAllLabel.addGestureRecognizer(gesture)
             showAllLabel.isUserInteractionEnabled = true
@@ -105,6 +105,7 @@ class FilterDropdownView: UIView {
         }
     }
     
+    //displays all cells
     @objc func dropAll( sender:UITapGestureRecognizer){
         
         isDropped = .fullDropped
