@@ -26,7 +26,7 @@ class CategoryCell: UICollectionViewCell {
         
         //TITLE
         title = UILabel()
-        title.font = UIFont.systemFont(ofSize: 16)
+        title.font = ._16MontserratRegular
         title.textColor = .white
         contentView.addSubview(title)
         
