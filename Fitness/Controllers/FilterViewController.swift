@@ -254,10 +254,13 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     //NAVIGATION BAR BUTTONS
     @objc func done(){
-        print("done!")
+        navigationController?.popViewController(animated: true)
     }
 
     @objc func reset(){
+        startTime.text = "6:00 AM - 10:00 PM"
+        startTimeSlider.lowerValue = 0.0
+        startTimeSlider.upperValue = 960.0
         print("reset!")
     }
     
@@ -275,12 +278,12 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         if lowerHours > 12{
             upperHours -= 12
             lowerHours -= 12
-            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
+            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
         }else if (upperHours < 12){
-            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "AM")
+            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " AM")
         } else {
             upperHours -= 12
-            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
+            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
         }
     }
     
