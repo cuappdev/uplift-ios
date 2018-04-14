@@ -25,6 +25,7 @@
 		8D26DB102072CCA000144BFC /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
 		8D26DB1220731E8000144BFC /* FilterDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB1120731E8000144BFC /* FilterDropdownView.swift */; };
 		8D26DB152073258A00144BFC /* FilterDropdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB142073258A00144BFC /* FilterDropdownCell.swift */; };
+		8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */; };
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
 		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
@@ -65,6 +66,7 @@
 		8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFilterCell.swift; sourceTree = "<group>"; };
 		8D26DB1120731E8000144BFC /* FilterDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDropdownView.swift; sourceTree = "<group>"; };
 		8D26DB142073258A00144BFC /* FilterDropdownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDropdownCell.swift; sourceTree = "<group>"; };
+		8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
 		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				C75FAB1020420B7B008D455A /* HomeController.swift */,
 				635AF233204F85000020F6C6 /* ClassDetailViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
+				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
 			);
 			path = Controllers;
@@ -391,6 +394,7 @@
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
+				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
 				65E914EB207C697800A72101 /* Keys.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
