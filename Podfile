@@ -6,6 +6,7 @@ target 'Fitness' do
   use_frameworks!
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'KeychainSwift'
   pod 'SnapKit'
   # Pods for Fitness
 
