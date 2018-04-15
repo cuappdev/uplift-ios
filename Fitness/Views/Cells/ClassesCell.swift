@@ -58,7 +58,7 @@ class ClassesCell: UICollectionViewCell {
         
         //LOCATION WIDGET
         locationWidget = UIImageView()
-        locationWidget.image = #imageLiteral(resourceName: "running-sample")
+        locationWidget.image = #imageLiteral(resourceName: "location_pointer")
         contentView.addSubview(locationWidget)
         
         //LOCATION NAME

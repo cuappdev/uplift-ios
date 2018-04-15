@@ -214,7 +214,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             }else if (classTypeDropdown.isDropped == .halfDropped){
                 make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55 + 4*32)
             } else {
-                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55 + classTypeDropdown.cells.count*32)
+                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55 + 32 + classTypeDropdown.cells.count*32)
             }
             
             classTypeDropdown.setupConstraints()

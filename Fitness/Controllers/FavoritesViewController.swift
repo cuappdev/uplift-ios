@@ -56,6 +56,14 @@ class FavoritesViewController: UIViewController {
         nextSessionsLabel.text = "COMING UP NEXT"
         view.addSubview(nextSessionsLabel)
         
+        tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.bounces = false
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        
+        tableView.register(ClassListHeaderView.self, forHeaderFooterViewReuseIdentifier: "classListHeader")
+        tableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
+        
         setupConstraints()
     }
     
