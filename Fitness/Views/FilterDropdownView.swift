@@ -147,6 +147,7 @@ class FilterDropdownView: UIView {
                 let cell = cells.popLast()
                 cell!.removeFromSuperview()
             }
+            showAllLabel.text = "Show All Class Types"
             delegate.setupConstraints()
         }
     }

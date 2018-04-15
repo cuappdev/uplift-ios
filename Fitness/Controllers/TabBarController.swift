@@ -23,13 +23,13 @@ class TabBarController: UITabBarController {
         classListController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
         
         let favoritesController = FavoritesViewController()
-        classListController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
+        favoritesController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
         
         let viewControllerList = [homeController, classListController, favoritesController]
         viewControllers = viewControllerList
         viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }
         
         (viewControllers![0] as! UINavigationController).isNavigationBarHidden = true
-        (viewControllers![2] as! UINavigationController).isNavigationBarHidden = true
+        
     }
 }

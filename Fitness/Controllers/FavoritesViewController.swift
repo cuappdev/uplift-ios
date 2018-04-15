@@ -9,62 +9,66 @@
 import UIKit
 import SnapKit
 
-class FavoritesViewController: UIViewController {
+class FavoritesViewController: UITableViewController {
 
     //MARK: - INITIALIZATION
     var titleLabel: UILabel!
-    var shadowView: UIView!
-    
-    var quoteLabel: UILabel!
-    var nextSessionsLabel: UILabel!
-    
-    var tableView: UITableView!
+    var navigationBackgroundView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
+        self.additionalSafeAreaInsets.top = 76
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.text = "Favorites"
-        view.addSubview(titleLabel)
+        navigationBackgroundView = UIView()
+        navigationBackgroundView.backgroundColor = .white
         
-        shadowView = UIView()
-        shadowView.layer.shadowColor = UIColor.fitnessBlack.cgColor
-        shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
-        shadowView.layer.shadowRadius = 5.0
-        shadowView.layer.shadowOpacity = 0.1
-        shadowView.layer.masksToBounds = false
-        shadowView.layer.shadowPath = UIBezierPath(rect: shadowView.frame).cgPath
-        view.addSubview(shadowView)
-        
-        quoteLabel = UILabel()
-        quoteLabel.font = ._32Bebas
-        quoteLabel.textColor = .fitnessBlack
-        quoteLabel.textAlignment = .center
-        quoteLabel.lineBreakMode = .byWordWrapping
-        quoteLabel.numberOfLines = 0
-        quoteLabel.text = "NOTHING CAN STOP YOU BUT YOURSELF."
-        view.addSubview(quoteLabel)
-        
-        nextSessionsLabel = UILabel()
-        nextSessionsLabel.font = ._12LatoBlack
-        nextSessionsLabel.textColor = .fitnessDarkGrey
-        nextSessionsLabel.textAlignment = .center
-        nextSessionsLabel.text = "COMING UP NEXT"
-        view.addSubview(nextSessionsLabel)
-        
+        navigationController?.navigationBar.addSubview(navigationBackgroundView)
+        navigationController?.navigationBar.addSubview(titleLabel)
+        navigationController?.navigationBar.clipsToBounds = false
+ 
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = .white
         
-        tableView.register(ClassListHeaderView.self, forHeaderFooterViewReuseIdentifier: "classListHeader")
+        tableView.register(FavoritesHeaderView.self, forHeaderFooterViewReuseIdentifier: "favoritesHeaderView")
         tableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
         
         setupConstraints()
+    }
+    
+    // MARK: - TABLEVIEW
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10 //temp
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 112
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "favoritesHeaderView") as! FavoritesHeaderView
+        return header
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 250
     }
     
     //MARK: - CONSTRAINTS
@@ -75,23 +79,11 @@ class FavoritesViewController: UIViewController {
             make.bottom.equalTo(titleLabel.snp.top).offset(26)
         }
         
-        shadowView.snp.updateConstraints{make in
+        navigationBackgroundView.snp.updateConstraints{make in
+            make.top.equalToSuperview()
             make.right.equalToSuperview()
             make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalTo(shadowView.snp.top).offset(120)
-        }
-        
-        quoteLabel.snp.updateConstraints{make in
-            make.right.equalToSuperview().offset(-60)
-            make.left.equalToSuperview().offset(60)
-            make.top.equalTo(shadowView.snp.bottom).offset(73)
-        }
-        
-        nextSessionsLabel.snp.updateConstraints{make in
-            make.top.equalTo(quoteLabel.snp.bottom).offset(52)
-            make.bottom.equalTo(quoteLabel.snp.bottom).offset(67)
-            make.centerX.equalToSuperview()
+            make.bottom.equalTo(titleLabel.snp.bottom).offset(20)
         }
     }
 }
