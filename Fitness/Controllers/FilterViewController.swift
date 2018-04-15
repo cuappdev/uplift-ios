@@ -238,7 +238,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             }else if (instructorDropDown.isDropped == .halfDropped){
                 make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55 + 4*32)
             } else {
-                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55 + instructorDropDown.cells.count*32)
+                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55 + 32 + instructorDropDown.cells.count*32)
             }
             
             instructorDropDown.setupConstraints()
@@ -254,6 +254,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     //NAVIGATION BAR BUTTONS
     @objc func done(){
+        tabBarController!.tabBar.isHidden = false
         navigationController?.popViewController(animated: true)
     }
 
