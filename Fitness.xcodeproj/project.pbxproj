@@ -19,6 +19,9 @@
 		8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymsCell.swift */; };
 		8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE10206C483500EF83C7 /* LookingForCell.swift */; };
 		8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */; };
+		C73637282082F170004751F5 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637272082F170004751F5 /* Gym.swift */; };
+		C736372A2082F193004751F5 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637292082F193004751F5 /* GymClass.swift */; };
+		C736372C2082F19C004751F5 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372B2082F19C004751F5 /* Instructor.swift */; };
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
 		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
@@ -52,6 +55,9 @@
 		8D03EE0E206C481A00EF83C7 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsCell.swift; sourceTree = "<group>"; };
 		8D03EE10206C483500EF83C7 /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForCell.swift; sourceTree = "<group>"; };
 		8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
+		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
+		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
+		C736372B2082F19C004751F5 /* Instructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
 		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -95,6 +101,16 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		C736372D2082F1F2004751F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C73637272082F170004751F5 /* Gym.swift */,
+				C73637292082F193004751F5 /* GymClass.swift */,
+				C736372B2082F19C004751F5 /* Instructor.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C75EC94E2059AC75007BC98A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
+				C736372D2082F1F2004751F5 /* Models */,
 				C7DFABE22042081000545B0B /* Controllers */,
 				C7EBD5A82062E64700D76A8B /* Views */,
 				C75EC94E2059AC75007BC98A /* Extensions */,
@@ -358,9 +375,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
+				C736372C2082F19C004751F5 /* Instructor.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
+				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
+				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
