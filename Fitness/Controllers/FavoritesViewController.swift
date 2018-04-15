@@ -20,18 +20,21 @@ class FavoritesViewController: UITableViewController {
         
         view.backgroundColor = .white
         
-        self.additionalSafeAreaInsets.top = 76
+        //NAVIGATION BAR
+        navigationController?.navigationBar.clipsToBounds = false
+        additionalSafeAreaInsets.top = 76
+        
+        navigationBackgroundView = UIView()
+        navigationBackgroundView.backgroundColor = .white
+        navigationController?.navigationBar.addSubview(navigationBackgroundView)
+        
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.text = "Favorites"
-        navigationBackgroundView = UIView()
-        navigationBackgroundView.backgroundColor = .white
-        
-        navigationController?.navigationBar.addSubview(navigationBackgroundView)
         navigationController?.navigationBar.addSubview(titleLabel)
-        navigationController?.navigationBar.clipsToBounds = false
  
+        //TABLE VIEW
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
         tableView.separatorStyle = .none
@@ -80,7 +83,7 @@ class FavoritesViewController: UITableViewController {
         }
         
         navigationBackgroundView.snp.updateConstraints{make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(-21)
             make.right.equalToSuperview()
             make.left.equalToSuperview()
             make.bottom.equalTo(titleLabel.snp.bottom).offset(20)

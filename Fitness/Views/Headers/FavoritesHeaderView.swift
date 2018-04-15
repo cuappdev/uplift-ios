@@ -18,8 +18,11 @@ class FavoritesHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = .white
+        //BACKGROUND COLOR
+        backgroundView = UIView(frame: frame)
+        backgroundView?.backgroundColor = .white
         
+        //QUOTE LABEL
         quoteLabel = UILabel()
         quoteLabel.font = ._32Bebas
         quoteLabel.textColor = .fitnessBlack
@@ -29,6 +32,7 @@ class FavoritesHeaderView: UITableViewHeaderFooterView {
         quoteLabel.text = "NOTHING CAN STOP YOU BUT YOURSELF."
         addSubview(quoteLabel)
         
+        //SESSIONS LABEL
         nextSessionsLabel = UILabel()
         nextSessionsLabel.font = ._12LatoBlack
         nextSessionsLabel.textColor = .fitnessDarkGrey
@@ -57,5 +61,4 @@ class FavoritesHeaderView: UITableViewHeaderFooterView {
             make.centerX.equalToSuperview()
         }
     }
-    
 }
