@@ -10,8 +10,17 @@ import UIKit
 import SnapKit
 import WARangeSlider
 
-class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
+enum Dropped {
+    case up, half, down
+}
+
+struct DropdownData {
+    var dropStatus: Dropped!
+    var data: [String]!
+}
+
+class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+
     // MARK: - INITIALIZATION
     var scrollView: UIScrollView!
     var contentView: UIView!
@@ -19,16 +28,20 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     var collectionViewTitle: UILabel!
     var collectionView: UICollectionView!
     
-    var fitnesscenterStarttimeDivider: UIView!
+    var fitnessCenterStartTimeDivider: UIView!
+    var startTimeTitleLabel: UILabel!
     var startTimeLabel: UILabel!
-    var startTime: UILabel!
     var startTimeSlider: RangeSlider!
-    var starttimeClasstypeDivider: UIView!
+    var startTimeClassTypeDivider: UIView!
     
-    var classTypeDropdown: FilterDropdownView!
-    var classtypeInstructorDivider: UIView!
+    //var classTypeDropdown: FilterDropdownView!
+    var classTypeDropdown: UITableView!
+    var classTypeDropdownData: DropdownData!
+    var classTypeInstructorDivider: UIView!
     
-    var instructorDropDown: FilterDropdownView!
+    //var instructorDropDown: FilterDropdownView!
+    var instructorDropdown: UITableView!
+    var instructorDropdownData: DropdownData!
     var instructorDivider: UIView!
 
     override func viewDidLoad() {
@@ -96,23 +109,23 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         contentView.addSubview(collectionView)
         
         //START TIME SLIDER SECTION
-        fitnesscenterStarttimeDivider = UIView()
-        fitnesscenterStarttimeDivider.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(fitnesscenterStarttimeDivider)
+        fitnessCenterStartTimeDivider = UIView()
+        fitnessCenterStartTimeDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(fitnessCenterStartTimeDivider)
+        
+        startTimeTitleLabel = UILabel()
+        startTimeTitleLabel.sizeToFit()
+        startTimeTitleLabel.font = ._12LatoBlack
+        startTimeTitleLabel.textColor = .fitnessDarkGrey
+        startTimeTitleLabel.text = "START TIME"
+        contentView.addSubview(startTimeTitleLabel)
         
         startTimeLabel = UILabel()
         startTimeLabel.sizeToFit()
         startTimeLabel.font = ._12LatoBlack
         startTimeLabel.textColor = .fitnessDarkGrey
-        startTimeLabel.text = "START TIME"
+        startTimeLabel.text = "6:00 AM - 10:00 PM"
         contentView.addSubview(startTimeLabel)
-        
-        startTime = UILabel()
-        startTime.sizeToFit()
-        startTime.font = ._12LatoBlack
-        startTime.textColor = .fitnessDarkGrey
-        startTime.text = "6:00 AM - 10:00 PM"
-        contentView.addSubview(startTime)
         
         startTimeSlider = RangeSlider(frame: .zero)
         startTimeSlider.minimumValue = 0.0
@@ -126,29 +139,49 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
                               for: .valueChanged)
         contentView.addSubview(startTimeSlider)
         
-        starttimeClasstypeDivider = UIView()
-        starttimeClasstypeDivider.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(starttimeClasstypeDivider)
+        startTimeClassTypeDivider = UIView()
+        startTimeClassTypeDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(startTimeClassTypeDivider)
         
         //CLASS TYPE SECTION
-        classTypeDropdown = FilterDropdownView(frame: .zero)
-        classTypeDropdown.titleLabel.text = "CLASS TYPE"
+        classTypeDropdown = UITableView(frame: .zero, style: .grouped)
+        classTypeDropdown.separatorStyle = .none
+        classTypeDropdown.showsVerticalScrollIndicator = false
+        classTypeDropdown.bounces = false
+        
+        classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: "dropdownViewCell")
+        classTypeDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: "dropdownHeaderView")
+        classTypeDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: "dropdownFooterView")
+        
         classTypeDropdown.delegate = self
+        classTypeDropdown.dataSource = self
         contentView.addSubview(classTypeDropdown)
         
-        classtypeInstructorDivider = UIView()
-        classtypeInstructorDivider.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(classtypeInstructorDivider)
+        classTypeDropdownData = DropdownData(dropStatus: .up, data: ["Zumba", "H.I.I.T.", "Yoga", "Yoga, but it's hot", "Python", "massage"])
+        
+        classTypeInstructorDivider = UIView()
+        classTypeInstructorDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(classTypeInstructorDivider)
         
         //INSTRUCTOR SECTION
-        instructorDropDown = FilterDropdownView(frame: .zero)
-        instructorDropDown.titleLabel.text = "INSTRUCTOR"
-        instructorDropDown.delegate = self
-        contentView.addSubview(instructorDropDown)
+        instructorDropdown = UITableView(frame: .zero, style: .grouped)
+        instructorDropdown.separatorStyle = .none
+        instructorDropdown.bounces = false
+        instructorDropdown.showsVerticalScrollIndicator = false
+        
+        instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: "dropdownViewCell")
+        instructorDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: "dropdownHeaderView")
+        instructorDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: "dropdownFooterView")
+        
+        instructorDropdown.delegate = self
+        instructorDropdown.dataSource = self
+        contentView.addSubview(instructorDropdown)
         
         instructorDivider = UIView()
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
+        
+        instructorDropdownData = DropdownData(dropStatus: .up, data: ["Joe", "Jack", "Jill", "Jane","Jimmy"])
         
         setupConstraints()
     }
@@ -163,92 +196,87 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
         
         collectionView.snp.updateConstraints{make in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(51)
             make.bottom.equalTo(collectionViewTitle.snp.bottom).offset(44)
         }
         
         //SLIDER SECTION
-        fitnesscenterStarttimeDivider.snp.updateConstraints{make in
+        fitnessCenterStartTimeDivider.snp.updateConstraints{make in
             make.top.equalTo(collectionView.snp.bottom).offset(16)
             make.bottom.equalTo(collectionView.snp.bottom).offset(17)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
+            make.width.centerX.equalToSuperview()
+        }
+        
+        startTimeTitleLabel.snp.updateConstraints{make in
+            make.left.equalToSuperview().offset(16)
+            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
+            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(35)
         }
         
         startTimeLabel.snp.updateConstraints{make in
-            make.left.equalToSuperview().offset(16)
-            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(20)
-            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(35)
-        }
-        
-        startTime.snp.updateConstraints{make in
             make.right.equalToSuperview().offset(-22)
-            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(20)
-            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(36)
+            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
+            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(36)
         }
         
         startTimeSlider.snp.updateConstraints{make in
             make.right.equalToSuperview().offset(-16)
             make.left.equalToSuperview().offset(16)
-            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(47)
-            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(71)
+            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(47)
+            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(71)
         }
         
-        starttimeClasstypeDivider.snp.updateConstraints{make in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.top.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(90)
-            make.bottom.equalTo(fitnesscenterStarttimeDivider.snp.bottom).offset(91)
+        startTimeClassTypeDivider.snp.updateConstraints{make in
+            make.width.centerX.equalToSuperview()
+            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(90)
+            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(91)
         }
         
         //CLASS TYPE SECTION
         classTypeDropdown.snp.updateConstraints{make in
-            make.top.equalTo(starttimeClasstypeDivider.snp.bottom)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.top.equalTo(startTimeClassTypeDivider.snp.bottom)
+            make.left.right.equalToSuperview()
             
-            if (classTypeDropdown.isDropped == .up){
-                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55)
-            }else if (classTypeDropdown.isDropped == .halfDropped){
-                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55 + 4*32)
-            } else {
-                make.bottom.equalTo(starttimeClasstypeDivider.snp.bottom).offset(55 + 32 + classTypeDropdown.cells.count*32)
+            switch classTypeDropdownData.dropStatus{
+            case .up:
+                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55)
+            case .half:
+                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + 3*32)
+            case .down:
+                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + classTypeDropdown.numberOfRows(inSection: 0)*32)
+            default:
+                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55)
             }
-            
-            classTypeDropdown.setupConstraints()
         }
         
-        classtypeInstructorDivider.snp.updateConstraints{make in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
+        classTypeInstructorDivider.snp.updateConstraints{make in
+            make.width.centerX.equalToSuperview()
             make.top.equalTo(classTypeDropdown.snp.bottom)
             make.bottom.equalTo(classTypeDropdown.snp.bottom).offset(1)
         }
         
         //INSTRUCTOR SECTION
-        instructorDropDown.snp.updateConstraints{make in
-            make.top.equalTo(classtypeInstructorDivider.snp.bottom)
-            make.right.equalToSuperview()
-            make.left.equalToSuperview()
+        instructorDropdown.snp.updateConstraints{make in
+            make.top.equalTo(classTypeInstructorDivider.snp.bottom)
+            make.left.right.equalToSuperview()
             
-            if (instructorDropDown.isDropped == .up){
-                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55)
-            }else if (instructorDropDown.isDropped == .halfDropped){
-                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55 + 4*32)
-            } else {
-                make.bottom.equalTo(classtypeInstructorDivider.snp.bottom).offset(55 + 32 + instructorDropDown.cells.count*32)
+            switch instructorDropdownData.dropStatus{
+            case .up:
+                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55)
+            case .half:
+                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + 3*32)
+            case .down:
+                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + instructorDropdown.numberOfRows(inSection: 0)*32)
+            default:
+                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55)
             }
-            
-            instructorDropDown.setupConstraints()
         }
         
         instructorDivider.snp.updateConstraints{make in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.top.equalTo(instructorDropDown.snp.bottom)
-            make.bottom.equalTo(instructorDropDown.snp.bottom).offset(1)
+            make.width.centerX.equalToSuperview()
+            make.top.equalTo(instructorDropdown.snp.bottom)
+            make.bottom.equalTo(instructorDropdown.snp.bottom).offset(1)
         }
     }
     
@@ -259,36 +287,13 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
 
     @objc func reset(){
-        startTime.text = "6:00 AM - 10:00 PM"
+        startTimeLabel.text = "6:00 AM - 10:00 PM"
         startTimeSlider.lowerValue = 0.0
         startTimeSlider.upperValue = 960.0
         print("reset!")
     }
     
-    //SLIDER CHANGED
-    @objc func startTimeChanged() {
-        print("update time")
-        let lowerSliderVal = startTimeSlider.lowerValue + 360
-        let upperSliderVal = startTimeSlider.upperValue + 360
-        
-        var lowerHours = Int(lowerSliderVal/60)
-        let lowerMinutes = Int(lowerSliderVal)%60
-        var upperHours = Int(upperSliderVal/60)
-        let upperMinutes = Int(upperSliderVal)%60
-        
-        if lowerHours > 12{
-            upperHours -= 12
-            lowerHours -= 12
-            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
-        }else if (upperHours < 12){
-            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " AM")
-        } else {
-            upperHours -= 12
-            startTime.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
-        }
-    }
-    
-    //COLLECTION VIEW METHODS
+    //MARK: - COLLECTION VIEW METHODS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymFilterCell", for: indexPath) as! GymFilterCell
         
@@ -328,8 +333,261 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             return CGSize(width: 150 + offset, height: 28)
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
+    }
+    
+    //MARK: - SLIDER METHODS
+    @objc func startTimeChanged() {
+        print("update time")
+        let lowerSliderVal = startTimeSlider.lowerValue + 360
+        let upperSliderVal = startTimeSlider.upperValue + 360
+        
+        var lowerHours = Int(lowerSliderVal/60)
+        let lowerMinutes = Int(lowerSliderVal)%60
+        var upperHours = Int(upperSliderVal/60)
+        let upperMinutes = Int(upperSliderVal)%60
+        
+        if lowerHours > 12{
+            upperHours -= 12
+            lowerHours -= 12
+            startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
+        }else if (upperHours < 12){
+            startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " AM")
+        } else {
+            upperHours -= 12
+            startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
+        }
+    }
+    
+    //MARK: - TABLE VIEW METHODS
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var numberOfRows = 0
+        if tableView == instructorDropdown{
+            switch instructorDropdownData.dropStatus{
+            case .up:
+                numberOfRows = 0
+            case .half:
+                numberOfRows = 3
+            case .down:
+                numberOfRows = instructorDropdownData.data.count
+            default:
+                numberOfRows = 0
+            }
+        }else if tableView == classTypeDropdown{
+            switch classTypeDropdownData.dropStatus{
+            case .up:
+                numberOfRows = 0
+            case .half:
+                numberOfRows = 3
+            case .down:
+                numberOfRows = classTypeDropdownData.data.count
+            default:
+                numberOfRows = 0
+            }
+        }
+        return numberOfRows
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dropdownViewCell", for: indexPath) as! DropdownViewCell
+        
+        if tableView == instructorDropdown{
+            cell.titleLabel.text = instructorDropdownData.data[indexPath.row]
+        }else if tableView == classTypeDropdown{
+            cell.titleLabel.text = classTypeDropdownData.data[indexPath.row]
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "dropdownHeaderView") as! DropdownHeaderView
+        
+        if tableView == instructorDropdown{
+            header.titleLabel.text = "INSTRUCTOR"
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
+            header.addGestureRecognizer(gesture)
+        }else if tableView == classTypeDropdown{
+            header.titleLabel.text = "CLASS TYPE"
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
+            header.addGestureRecognizer(gesture)
+        }
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "dropdownFooterView") as! DropdownFooterView
+        
+        if tableView == instructorDropdown{
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
+            footer.addGestureRecognizer(gesture)
+            if(instructorDropdownData.dropStatus == .half){
+                footer.showHideLabel.text = "Show All Instructors"
+            }else{
+                footer.showHideLabel.text = "Hide"
+            }
+        }else if tableView == classTypeDropdown{
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
+            footer.addGestureRecognizer(gesture)
+            if(classTypeDropdownData.dropStatus == .half){
+                footer.showHideLabel.text = "Show All Classe Types"
+            }else{
+                footer.showHideLabel.text = "Hide"
+            }
+        }
+        
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        var height = 0
+        if tableView == classTypeDropdown{
+            switch classTypeDropdownData.dropStatus{
+            case .up:
+                height = 0
+            case .half:
+                height = 32
+            case .down:
+                height = 32
+            default:
+                height = 0
+            }
+        }else if tableView == instructorDropdown{
+            switch instructorDropdownData.dropStatus{
+            case .up:
+                height = 0
+            case .half:
+                height = 32
+            case .down:
+                height = 32
+            default:
+                height = 0
+            }
+        }
+        return CGFloat(height)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 32
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 55
+    }
+    
+    //MARK: - DROP METHODS
+    @objc func dropInstructors( sender:UITapGestureRecognizer){
+        
+        instructorDropdown.beginUpdates()
+        var modifiedIndices: [IndexPath] = []
+        
+        if (instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down) {
+            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
+            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
+            
+            instructorDropdownData.dropStatus = .up
+            var i = 0
+            while i < instructorDropdown.numberOfRows(inSection: 0){
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+                i += 1
+            }
+            instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
+        }else{
+            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = #imageLiteral(resourceName: "down_arrow")
+            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = .none
+            
+            instructorDropdownData.dropStatus = .half
+            for i in [0,1,2]{
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+            }
+            instructorDropdown.insertRows(at: modifiedIndices, with: .none)
+        }
+        instructorDropdown.endUpdates()
+        setupConstraints()
+    }
+    
+    @objc func dropClasses( sender:UITapGestureRecognizer){
+        classTypeDropdown.beginUpdates()
+        var modifiedIndices: [IndexPath] = []
+        
+        if (classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down) {
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
+            classTypeDropdownData.dropStatus = .up
+            var i = 0
+            while i < classTypeDropdown.numberOfRows(inSection: 0){
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+                i += 1
+            }
+            classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
+        }else{
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = #imageLiteral(resourceName: "down_arrow")
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = .none
+            classTypeDropdownData.dropStatus = .half
+            for i in [0,1,2]{
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+            }
+            classTypeDropdown.insertRows(at: modifiedIndices, with: .none)
+        }
+        classTypeDropdown.endUpdates()
+        setupConstraints()
+    }
+    
+    //MARK: - SHOW ALL/HIDE METHODS
+    @objc func dropHideClasses( sender:UITapGestureRecognizer){
+        classTypeDropdown.beginUpdates()
+        var modifiedIndices: [IndexPath] = []
+        
+        if (classTypeDropdownData.dropStatus == .half) {
+            classTypeDropdownData.dropStatus = .down
+            
+            var i = 3
+            while i < classTypeDropdownData.data.count{
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+                i += 1
+            }
+            classTypeDropdown.insertRows(at: modifiedIndices, with: .none)
+        }else{
+            classTypeDropdownData.dropStatus = .half
+            var i = classTypeDropdown.numberOfRows(inSection: 0) - 1
+            while i >= 3{
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+                i -= 1
+            }
+            classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
+        }
+        
+        classTypeDropdown.endUpdates()
+        setupConstraints()
+    }
+    
+    @objc func dropHideInstructors( sender:UITapGestureRecognizer){
+        instructorDropdown.beginUpdates()
+        var modifiedIndices: [IndexPath] = []
+        
+        if (instructorDropdownData.dropStatus == .half) {
+            instructorDropdownData.dropStatus = .down
+            
+            var i = 3
+            while i < instructorDropdownData.data.count{
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+                i += 1
+            }
+            instructorDropdown.insertRows(at: modifiedIndices, with: .none)
+        }else{
+            instructorDropdownData.dropStatus = .half
+            var i = instructorDropdown.numberOfRows(inSection: 0) - 1
+            while i >= 3{
+                modifiedIndices.append(IndexPath(row: i, section: 0))
+                i -= 1
+            }
+            instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
+        }
+        
+        instructorDropdown.endUpdates()
+        setupConstraints()
     }
 }
