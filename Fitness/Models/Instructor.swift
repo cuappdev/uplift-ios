@@ -31,6 +31,10 @@ struct Class: Codable {
 
 extension Instructor: Decodable {
     
+    enum Data: String, CodingKey {
+        case data
+    }
+    
     enum Key: String, CodingKey {
         case id
         case name
@@ -46,9 +50,16 @@ extension Instructor: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: Key.self)
-        let id = try container.decode(Int.self, forKey: .id)
-        let name = try container.decodeIfPresent(String.self, forKey: .name) ?? "Empty"
+        let data = try decoder.container(keyedBy: Data.self)
+        
+        for key in data.allKeys {
+            print(key)
+            
+        }
+        
+        let container = try data.nestedContainer(keyedBy: Key.self, forKey: .data)
+        let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
+        let name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         
         var classes = [Class]()
         let classesContainer = try container.nestedContainer(keyedBy: ClassKey.self, forKey: .classes)

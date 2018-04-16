@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
-		65E914E9207C691C00A72101 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65E914E8207C691C00A72101 /* Keys.plist */; };
 		65E914EB207C697800A72101 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E914EA207C697800A72101 /* Keys.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
@@ -19,6 +18,7 @@
 		8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymsCell.swift */; };
 		8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE10206C483500EF83C7 /* LookingForCell.swift */; };
 		8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */; };
+		C7090D1E2083AC3300F83FD3 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7090D1D2083AC3300F83FD3 /* Keys.plist */; };
 		C73637282082F170004751F5 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637272082F170004751F5 /* Gym.swift */; };
 		C736372A2082F193004751F5 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637292082F193004751F5 /* GymClass.swift */; };
 		C736372C2082F19C004751F5 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372B2082F19C004751F5 /* Instructor.swift */; };
@@ -45,7 +45,6 @@
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
-		65E914E8207C691C00A72101 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keys.plist; path = Secrets/Keys.plist; sourceTree = SOURCE_ROOT; };
 		65E914EA207C697800A72101 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
@@ -56,6 +55,7 @@
 		8D03EE0E206C481A00EF83C7 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsCell.swift; sourceTree = "<group>"; };
 		8D03EE10206C483500EF83C7 /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForCell.swift; sourceTree = "<group>"; };
 		8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
+		C7090D1D2083AC3300F83FD3 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
 		C736372B2082F19C004751F5 /* Instructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 				C7DFABD5204206E000545B0B /* Assets.xcassets */,
 				C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */,
 				65E914EA207C697800A72101 /* Keys.swift */,
-				65E914E8207C691C00A72101 /* Keys.plist */,
+				C7090D1D2083AC3300F83FD3 /* Keys.plist */,
 				C7DFABDA204206E000545B0B /* Info.plist */,
 			);
 			path = Fitness;
@@ -293,11 +293,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7090D1E2083AC3300F83FD3 /* Keys.plist in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
-				65E914E9207C691C00A72101 /* Keys.plist in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 			);

@@ -14,6 +14,8 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     var tableView: UITableView!
     var statusBarBackgroundColor: UIView!
     
+    var gyms = [Gym]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +46,15 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
         statusBarBackgroundColor.backgroundColor = .white
         view.addSubview(statusBarBackgroundColor)
+        
+        let networkingLayer = NetworkingLayer()
+        networkingLayer.networkingService(route: .gyms(id: -1, name: "", equipment: "", location: "", gymHours: []), verb: .get) { (gyms, response) in
+            print(response)
+            self.gyms = gyms as! [Gym]
+            DispatchQueue.main.async {
+                print(self.gyms)
+            }
+        }
     }
     
     // MARK: - TABLE VIEW

@@ -9,16 +9,22 @@
 import Foundation
 import KeychainSwift
 
-private let baseURL = ""
+private let baseURL = "http://localhost:5000/api/v0"
 
 enum Route {
     
     case gyms(id: Int, name: String, equipment: String, location: String, gymHours: [GymHours])
+    case gymClasses(id: Int, gymClass: GymClassDetails, startTime: String, duration: String, isCancelled: Bool)
+    case instructors(id: Int, name: String, classes: [Class])
     
     func path() -> String {
         switch self {
         case .gyms:
             return "\(baseURL)/gyms"
+        case .gymClasses:
+            return "\(baseURL)/gymclasses"
+        case .instructors:
+            return "\(baseURL)/instructors"
         }
     }
     
@@ -30,7 +36,17 @@ enum Route {
                     "name": name,
                     "equipment": equipment,
                     "location": location,
-                    "gymHours": gymHours]
+                    "gym_hours": gymHours]
+        case let .gymClasses(id, gymClass, startTime, duration, isCancelled):
+            json = ["id": id,
+                    "gym_class": gymClass,
+                    "start_time": startTime,
+                    "duration": duration,
+                    "is_cancelled": isCancelled]
+        case let .instructors(id, name, classes):
+            json = ["id": id,
+                    "name": name,
+                    "classes": classes]
         }
         let data: Data? = try? JSONSerialization.data(withJSONObject: json, options: [])
         return data
@@ -64,9 +80,17 @@ class NetworkingLayer {
                 let statusCode: Int = (response as! HTTPURLResponse).statusCode
                 switch route {
                 case .gyms:
-                    let gyms = try? JSONDecoder().decode([Gym].self, from: data)
-                    let gym = try? JSONDecoder().decode(Gym.self, from: data)
-                    completionHandler(gyms ?? gym, statusCode)
+                    let gymData = try? JSONDecoder().decode(RootData.self, from: data)
+                    guard let gyms = gymData?.data else { return }
+                    completionHandler(gyms, statusCode)
+                case .gymClasses:
+                    let gymClasses = try? JSONDecoder().decode([GymClass].self, from: data)
+                    let gymClass = try? JSONDecoder().decode(GymClass.self, from: data)
+                    completionHandler(gymClasses ?? gymClass, statusCode)
+                case .instructors:
+                    let instructors = try? JSONDecoder().decode([Instructor].self, from: data)
+                    let instructor = try? JSONDecoder().decode(Instructor.self, from: data)
+                    completionHandler(instructors ?? instructor, statusCode)
                 }
             }
         }.resume()

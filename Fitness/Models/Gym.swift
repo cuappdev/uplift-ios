@@ -9,11 +9,15 @@
 import Foundation
 
 struct Gym {
+
     var id: Int
     var name: String
     var equipment: String
     var location: String
     var gymHours: [GymHours]
+    var classInstances: [String] //temp
+    var isGym: Bool
+    var popularTimesList: [Int] //temp
     
     init(id: Int, name: String, equipment: String, location: String, gymHours: [GymHours]){
         self.id = id
@@ -21,6 +25,7 @@ struct Gym {
         self.equipment = equipment
         self.location = location
         self.gymHours = gymHours
+        //update attributes
     }
 }
 
@@ -28,6 +33,11 @@ struct GymHours: Codable {
     var dayOfWeek: Int
     var openTime: String
     var closeTime: String
+}
+
+struct RootData: Decodable {
+    var data: [Gym]
+    var success: Bool
 }
 
 extension Gym: Decodable {
@@ -48,10 +58,11 @@ extension Gym: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
+        
         let id = try container.decode(Int.self, forKey: .id)
-        let name = try container.decodeIfPresent(String.self, forKey: .name) ?? "Empty"
-        let equipment = try container.decodeIfPresent(String.self, forKey: .equipment) ?? "Empty"
-        let location = try container.decodeIfPresent(String.self, forKey: .location) ?? "Empty"
+        let name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        let equipment = try container.decodeIfPresent(String.self, forKey: .equipment) ?? ""
+        let location = try container.decodeIfPresent(String.self, forKey: .location) ?? ""
         
         var gymHours = [GymHours]()
         let gymHoursContainer = try container.nestedContainer(keyedBy: GymHoursKey.self, forKey: .gymHours)

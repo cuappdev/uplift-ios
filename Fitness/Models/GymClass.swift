@@ -62,8 +62,8 @@ extension GymClass: Decodable {
         let gymClassDetailInstructor = try gymClassDetails.decodeIfPresent(String.self, forKey: .instructor) ?? ""
         let gymClass = GymClassDetails(id: gymClassDetailID, name: gymClassDetailName, gym: gymClassDetailGym, description: gymClassDetailDescription, instructor: gymClassDetailInstructor)
         
-        let startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? "Empty"
-        let duration = try container.decodeIfPresent(String.self, forKey: .duration) ?? "Empty"
+        let startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? ""
+        let duration = try container.decodeIfPresent(String.self, forKey: .duration) ?? ""
         let isCancelled = try container.decode(Bool.self, forKey: .isCancelled)
         
         self.init(id: id, gymClass: gymClass, startTime: startTime, duration: duration, isCancelled: isCancelled)

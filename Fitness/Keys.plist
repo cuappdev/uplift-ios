@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fabric-api-key</key>
+	<string>50d77fbd594f6229f8bb9a3669ce18dce7dac38e</string>
+	<key>fabric-build-secret</key>
+	<string>c4401a88c4c1a9d9049b2fc4510d82cfcc45b7542af66ae6cab99ed52d13d5a6</string>
+</dict>
+</plist>
