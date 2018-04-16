@@ -18,6 +18,7 @@ After cloning the project, `cd` into the new directory and install dependencies 
 ```
 pod install
 ```
-Open the Clicker Xcode workspace, `Fitness.xcworkspace`, and enjoy!
+Open the Clicker Xcode workspace, `Fitness.xcworkspace`.
 
----
+## Configuration (optional)
+We store secret keys for Fabric. To use Fabric, include a `Keys.plist` file under a `Secrets/` directory with your `fabric-api-key` string value and `fabric-build-secret` string value.

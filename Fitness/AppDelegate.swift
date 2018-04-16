@@ -21,8 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = TabBarController()
+
+        #if DEBUG
+            print("Running Fitness in debug configuration")
+        #else
+            print("Running Fitness in release configuration")
+            Crashlytics.start(withAPIKey: Keys.fabricAPIKey.value)
+        #endif
         
-        Fabric.with([Crashlytics.self])
         return true
     }
 }
