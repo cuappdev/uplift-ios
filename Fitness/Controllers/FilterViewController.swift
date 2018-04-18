@@ -299,15 +299,15 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         switch indexPath.row {
         case 0:
-            cell.gymName.text = "Teagle"
+            cell.gymNameLabel.text = "Teagle"
         case 1:
-            cell.gymName.text = "Appel"
+            cell.gymNameLabel.text = "Appel"
         case 2:
-            cell.gymName.text = "Helen Newman"
+            cell.gymNameLabel.text = "Helen Newman"
         case 3:
-            cell.gymName.text = "Noyes"
+            cell.gymNameLabel.text = "Noyes"
         default:
-            cell.gymName.text = "Gates"
+            cell.gymNameLabel.text = "Gates"
         }
         
         return cell

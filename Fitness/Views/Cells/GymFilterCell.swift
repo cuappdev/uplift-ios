@@ -12,19 +12,19 @@ import SnapKit
 class GymFilterCell: UICollectionViewCell {
     
     // MARK: - INITIALIZATION
-    var gymName: UILabel!
+    var gymNameLabel: UILabel!
     //var separator: UIView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         
-        gymName = UILabel()
-        gymName.font = ._14MontserratLight
-        gymName.textColor = .fitnessBlack
-        gymName.sizeToFit()
-        gymName.textAlignment = .center
-        contentView.addSubview(gymName)
+        gymNameLabel = UILabel()
+        gymNameLabel.font = ._14MontserratLight
+        gymNameLabel.textColor = .fitnessBlack
+        gymNameLabel.sizeToFit()
+        gymNameLabel.textAlignment = .center
+        contentView.addSubview(gymNameLabel)
         
         /*separator = UIView()
         separator.backgroundColor = .fitnessLightGrey
@@ -39,7 +39,7 @@ class GymFilterCell: UICollectionViewCell {
     
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        gymName.snp.updateConstraints{make in
+        gymNameLabel.snp.updateConstraints{make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(14)
             make.right.equalToSuperview().offset(-14)
