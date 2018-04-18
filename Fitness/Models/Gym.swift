@@ -115,89 +115,42 @@ extension Gym: Decodable {
         let classInstances = [String]() //temp
         let isGym = try container.decodeIfPresent(Bool.self, forKey: .isGym) ?? true
         
-        //        var popularTimesList = [PopularTimes]()
-        //        var popularTimesUnkeyedContainer = try container.nestedUnkeyedContainer(forKey: .popularTimesList)
-        //
-        //        while !popularTimesUnkeyedContainer.isAtEnd {
-        //            let popularTimesKeyedContainer = try popularTimesUnkeyedContainer.nestedContainer(keyedBy: PopularTimesKey.self)
-        //
-        //            let id = try popularTimesKeyedContainer.decodeIfPresent(Int.self, forKey: .id) ?? -1
-        //            let gym = try popularTimesKeyedContainer.decodeIfPresent(Int.self, forKey: .gym) ?? -1
-        //
-        //            var mondayString = try popularTimesKeyedContainer.decodeIfPresent(String.self, forKey: .monday) ?? ""
-        //            mondayString.removeFirst()
-        //            mondayString.removeLast()
-        //            let monday = mondayString.components(separatedBy: ",").map{ Int($0)!}
-        //
-        //            var tuesdayString = try popularTimesKeyedContainer.decodeIfPresent(String.self, forKey: .tuesday) ?? ""
-        //            tuesdayString.removeFirst()
-        //            tuesdayString.removeLast()
-        //            let tuesday = tuesdayString.components(separatedBy: ",").map { Int($0)!}
-        //
-        //            var wednesdayString = try popularTimesKeyedContainer.decodeIfPresent(String.self, forKey: .wednesday) ?? ""
-        //            wednesdayString.removeFirst()
-        //            wednesdayString.removeLast()
-        //            let wednesday = wednesdayString.components(separatedBy: ",").map { Int($0)!}
-        //
-        //            var thursdayString = try popularTimesKeyedContainer.decodeIfPresent(String.self, forKey: .thursday) ?? ""
-        //            thursdayString.removeFirst()
-        //            thursdayString.removeLast()
-        //            let thursday = thursdayString.components(separatedBy: ",").map { Int($0)!}
-        //
-        //            var fridayString = try popularTimesKeyedContainer.decodeIfPresent(String.self, forKey: .friday) ?? ""
-        //            fridayString.removeFirst()
-        //            fridayString.removeLast()
-        //            let friday = fridayString.components(separatedBy: ",").map { Int($0)!}
-        //
-        //            var saturdayString = try popularTimesKeyedContainer.decodeIfPresent(String.self, forKey: .saturday) ?? ""
-        //            saturdayString.removeFirst()
-        //            saturdayString.removeLast()
-        //            let saturday = saturdayString.components(separatedBy: ",").map { Int($0)!}
-        //
-        //            var sundayString = try popularTimesKeyedContainer.decodeIfPresent(String.self, forKey: .sunday) ?? ""
-        //            sundayString.removeFirst()
-        //            sundayString.removeLast()
-        //            let sunday = sundayString.components(separatedBy: ",").map { Int($0)!}
-        //
-        //            popularTimesList.append(PopularTimes(id: id, gym: gym, monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday, friday: friday, saturday: saturday, sunday: sunday))
-        //        }
-        
         let popularTimesContainer = try container.nestedContainer(keyedBy: PopularTimesKey.self, forKey: .popularTimesList)
         
         let popularTimesId = try popularTimesContainer.decodeIfPresent(Int.self, forKey: .id) ?? -1
         let popularTimesGym = try popularTimesContainer.decodeIfPresent(Int.self, forKey: .gym) ?? -1
         
-        var mondayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .monday) ?? ""
+        var mondayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .monday) ?? "[-1]"
         mondayString.removeFirst()
         mondayString.removeLast()
         let monday = mondayString.components(separatedBy: ",").map{ Int($0)!}
         
-        var tuesdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .tuesday) ?? ""
+        var tuesdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .tuesday) ?? "[-1]"
         tuesdayString.removeFirst()
         tuesdayString.removeLast()
         let tuesday = tuesdayString.components(separatedBy: ",").map { Int($0)!}
         
-        var wednesdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .wednesday) ?? ""
+        var wednesdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .wednesday) ?? "[-1]"
         wednesdayString.removeFirst()
         wednesdayString.removeLast()
         let wednesday = wednesdayString.components(separatedBy: ",").map { Int($0)!}
         
-        var thursdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .thursday) ?? ""
+        var thursdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .thursday) ?? "[-1]"
         thursdayString.removeFirst()
         thursdayString.removeLast()
         let thursday = thursdayString.components(separatedBy: ",").map { Int($0)!}
         
-        var fridayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .friday) ?? ""
+        var fridayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .friday) ?? "[-1]"
         fridayString.removeFirst()
         fridayString.removeLast()
         let friday = fridayString.components(separatedBy: ",").map { Int($0)!}
         
-        var saturdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .saturday) ?? ""
+        var saturdayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .saturday) ?? "[-1]"
         saturdayString.removeFirst()
         saturdayString.removeLast()
         let saturday = saturdayString.components(separatedBy: ",").map { Int($0)!}
         
-        var sundayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .sunday) ?? ""
+        var sundayString = try popularTimesContainer.decodeIfPresent(String.self, forKey: .sunday) ?? "[-1]"
         sundayString.removeFirst()
         sundayString.removeLast()
         let sunday = sundayString.components(separatedBy: ",").map { Int($0)!}
