@@ -7,6 +7,6 @@ target 'Fitness' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'SnapKit'
-  # Pods for Fitness
+  pod "WARangeSlider"
 
 end

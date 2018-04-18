@@ -62,6 +62,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - SEARCH BAR
     @objc func filter(){
-        print("filter!")
+        let filterViewController = FilterViewController()
+        navigationController!.pushViewController(filterViewController, animated: false)
     }
 }
