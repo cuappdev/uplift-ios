@@ -28,13 +28,23 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     var hoursTitleLabel: UILabel!
     var hoursTableView: UITableView!
     var hoursData: HoursData!
-    var hoursBusynessDivider: UIView!
+    var hoursBusynessSeparator: UIView!
+    
+    var popularTimesTitleLabel: UILabel!
+    var popularTimesPlaceholder: UIView!
+    var busynessFacilitiesSeparator: UIView!
+    
+    var facilitiesTitleLabel: UILabel!
+    var facilitiesData: [String]!
+    var facilitiesLabelArray: [UILabel]!
+    var facilitiesClassesDivider: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         hoursData = HoursData(isDropped: false, data: [])
+        facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"]
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -101,29 +111,60 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         hoursTableView.dataSource = self
         contentView.addSubview(hoursTableView)
         
-        hoursBusynessDivider = UIView()
-        hoursBusynessDivider.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(hoursBusynessDivider)
+        hoursBusynessSeparator = UIView()
+        hoursBusynessSeparator.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(hoursBusynessSeparator)
+        
+        //POPULAR TIMES
+        popularTimesTitleLabel = UILabel()
+        popularTimesTitleLabel.font = ._16MontserratMedium
+        popularTimesTitleLabel.textAlignment = .center
+        popularTimesTitleLabel.textColor = .fitnessBlack
+        popularTimesTitleLabel.sizeToFit()
+        popularTimesTitleLabel.text = "POPULAR TIMES"
+        contentView.addSubview(popularTimesTitleLabel)
+        
+        popularTimesPlaceholder = UIView()
+        contentView.addSubview(popularTimesPlaceholder)
+        
+        busynessFacilitiesSeparator = UIView()
+        busynessFacilitiesSeparator.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(busynessFacilitiesSeparator)
+        
+        //FACILITIES
+        facilitiesTitleLabel = UILabel()
+        facilitiesTitleLabel.font = ._16MontserratMedium
+        facilitiesTitleLabel.textAlignment = .center
+        facilitiesTitleLabel.textColor = .fitnessBlack
+        facilitiesTitleLabel.sizeToFit()
+        facilitiesTitleLabel.text = "FACILITIES"
+        contentView.addSubview(facilitiesTitleLabel)
+        
+        for i in 0..<facilitiesData.count{
+            //
+        }
+        
         
         setupConstraints()
     }
     
     //MARK: - CONSTRAINTS
     func setupConstraints() {
+        //HEADER
         gymImageView.snp.updateConstraints{make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(-20)
             make.height.equalTo(360)
         }
         
-        backButton.snp.makeConstraints { make in
+        backButton.snp.updateConstraints { make in
             make.left.equalToSuperview().offset(20)
             make.top.equalToSuperview().offset(16)
             make.width.equalTo(23)
             make.height.equalTo(19)
         }
         
-        starButton.snp.makeConstraints { make in
+        starButton.snp.updateConstraints { make in
             make.right.equalToSuperview().offset(-21)
             make.top.equalToSuperview().offset(14)
             make.width.equalTo(23)
@@ -136,6 +177,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             make.height.equalTo(57)
         }
         
+        //HOURS
         hoursTitleLabel.snp.updateConstraints{make in
             make.centerX.equalToSuperview()
             make.top.equalTo(gymImageView.snp.bottom).offset(36)
@@ -153,11 +195,42 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
-        hoursBusynessDivider.snp.updateConstraints{make in
+        hoursBusynessSeparator.snp.updateConstraints{make in
             make.top.equalTo(hoursTableView.snp.bottom).offset(32)
             make.left.right.equalToSuperview()
             make.height.equalTo(1)
         }
+        
+        //POPULAR TIMES
+        popularTimesTitleLabel.snp.updateConstraints{make in
+            make.top.equalTo(hoursBusynessSeparator.snp.bottom).offset(24)
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(19)
+        }
+        
+        popularTimesPlaceholder.snp.updateConstraints{make in
+            make.top.equalTo(popularTimesTitleLabel.snp.bottom).offset(24)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(101)
+        }
+        
+        busynessFacilitiesSeparator.snp.updateConstraints{make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(popularTimesPlaceholder.snp.bottom).offset(24)
+            make.height.equalTo(1)
+        }
+        
+        //FACILITIES
+        facilitiesTitleLabel.snp.updateConstraints{make in
+            make.top.equalTo(busynessFacilitiesSeparator.snp.bottom).offset(24)
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(19)
+        }
+        
+        for i in 0..<facilitiesData.count{
+            
+        }
+        
     }
     
     //MARK: - TABLE VIEW METHODS
@@ -210,9 +283,13 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         if (hoursData.isDropped){
             hoursData.isDropped = false
             hoursTableView.deleteRows(at: modifiedIndices, with: .none)
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = #imageLiteral(resourceName: "right-arrow-solid")
         }else{
             hoursData.isDropped = true
             hoursTableView.insertRows(at: modifiedIndices, with: .none)
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = #imageLiteral(resourceName: "down-arrow-solid")
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = .none
         }
         
         hoursTableView.endUpdates()
