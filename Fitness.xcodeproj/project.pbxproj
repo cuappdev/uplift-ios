@@ -23,6 +23,7 @@
 		8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0A2072C31400144BFC /* Lato-Black.ttf */; };
 		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
 		8D26DB102072CCA000144BFC /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
+		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
 		8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */; };
 		8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */; };
 		8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */; };
@@ -66,6 +67,7 @@
 		8D26DB0C2072C35F00144BFC /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFilterCell.swift; sourceTree = "<group>"; };
+		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 				C75FAB1020420B7B008D455A /* HomeController.swift */,
 				635AF233204F85000020F6C6 /* ClassDetailViewController.swift */,
+				8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
@@ -421,6 +424,7 @@
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
+				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
 				8D03EE07206C475200EF83C7 /* HomeSectionHeaderView.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
