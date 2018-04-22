@@ -13,13 +13,15 @@ struct Gym {
     var id: Int
     var name: String
     var equipment: String
-    var location: String
+    var location: Int
     var gymHours: [GymHours]
     var classInstances: [String] //temp
     var isGym: Bool
     var popularTimesList: PopularTimes
     
-    init(id: Int, name: String, equipment: String, location: String, gymHours: [GymHours], classInstances: [String], isGym: Bool, popularTimesList: PopularTimes){
+    var imageURL: String
+    
+    init(id: Int, name: String, equipment: String, location: Int, gymHours: [GymHours], classInstances: [String], isGym: Bool, popularTimesList: PopularTimes, imageURL: String){
         self.id = id
         self.name = name
         self.equipment = equipment
@@ -28,10 +30,11 @@ struct Gym {
         self.classInstances = classInstances
         self.isGym = isGym
         self.popularTimesList = popularTimesList
+        self.imageURL = imageURL
     }
 }
 
-struct RootData: Decodable {
+struct GymRootData: Decodable {
     var data: [Gym]
     var success: Bool
 }
@@ -54,6 +57,18 @@ struct PopularTimes: Codable {
     var friday: [Int]
     var saturday: [Int]
     var sunday: [Int]
+    
+    init(id: Int, gym: Int, monday: [Int], tuesday: [Int], wednesday: [Int], thursday: [Int], friday: [Int], saturday: [Int], sunday: [Int]){
+        self.id = id
+        self.gym = gym
+        self.monday = monday
+        self.tuesday = tuesday
+        self.wednesday = wednesday
+        self.thursday = thursday
+        self.friday = friday
+        self.saturday = saturday
+        self.sunday = sunday
+    }
 }
 
 extension Gym: Decodable {
@@ -62,11 +77,12 @@ extension Gym: Decodable {
         case id
         case name
         case equipment
-        case location
+        case location = "location_gym"
         case gymHours = "gym_hours"
         case classInstances = "class_instances"
         case isGym = "is_gym"
         case popularTimesList = "popular_times_list"
+        case imageURL = "image_url"
     }
     
     enum GymHoursKey: String, CodingKey {
@@ -95,7 +111,7 @@ extension Gym: Decodable {
         let id = try container.decode(Int.self, forKey: .id)
         let name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         let equipment = try container.decodeIfPresent(String.self, forKey: .equipment) ?? ""
-        let location = try container.decodeIfPresent(String.self, forKey: .location) ?? ""
+        let location = try container.decodeIfPresent(Int.self, forKey: .location) ??  -1
         
         var gymHours = [GymHours]()
         var gymHoursUnkeyedContainer = try container.nestedUnkeyedContainer(forKey: .gymHours)
@@ -157,6 +173,8 @@ extension Gym: Decodable {
         
         let popularTimesList = PopularTimes(id: popularTimesId, gym: popularTimesGym, monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday, friday: friday, saturday: saturday, sunday: sunday)
         
-        self.init(id: id, name: name, equipment: equipment, location: location, gymHours: gymHours, classInstances: classInstances, isGym: isGym, popularTimesList: popularTimesList)
+        let imageURL = try container.decode(String.self, forKey: .imageURL)
+        
+        self.init(id: id, name: name, equipment: equipment, location: location, gymHours: gymHours, classInstances: classInstances, isGym: isGym, popularTimesList: popularTimesList, imageURL: imageURL)
     }
 }

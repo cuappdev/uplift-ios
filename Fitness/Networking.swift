@@ -13,8 +13,8 @@ private let baseURL = "http://localhost:5000/api/v0"
 
 enum Route {
     
-    case gyms(id: Int, name: String, equipment: String, location: String, gymHours: [GymHours])
-    case gymClasses(id: Int, gymClass: GymClassDetails, startTime: String, duration: String, isCancelled: Bool)
+    case gyms(id: Int, name: String, equipment: String, location: Int, gymHours: [GymHours], classInstances: [String], isGym: Bool, popularTimesList: PopularTimes, imageURL: String)
+    case gymClasses(id: Int, classDesc: Int, gymClassInstances: [Int], instructor: Int, users: [Int])
     case instructors(id: Int, name: String, classes: [Class])
     
     func path() -> String {
@@ -31,18 +31,22 @@ enum Route {
     func postBody() -> Data? {
         let json: [String : Any]
         switch self {
-        case let .gyms(id, name, equipment, location, gymHours):
+        case let .gyms(id, name, equipment, location, gymHours, classInstances, isGym, popularTimesList, imageURL):
             json = ["id": id,
                     "name": name,
                     "equipment": equipment,
-                    "location": location,
-                    "gym_hours": gymHours]
-        case let .gymClasses(id, gymClass, startTime, duration, isCancelled):
+                    "location_gym": location,
+                    "gym_hours": gymHours,
+                    "class_instances": classInstances,
+                    "is_gym": isGym,
+                    "popular_times_list": popularTimesList,
+                    "image_url": imageURL]
+        case let .gymClasses(id, classDesc, gymClassInstances, instructor, users):
             json = ["id": id,
-                    "gym_class": gymClass,
-                    "start_time": startTime,
-                    "duration": duration,
-                    "is_cancelled": isCancelled]
+                    "class_desc": classDesc,
+                    "gym_class_instances": gymClassInstances,
+                    "instructor": instructor,
+                    "users": users]
         case let .instructors(id, name, classes):
             json = ["id": id,
                     "name": name,
@@ -80,13 +84,13 @@ class NetworkingLayer {
                 let statusCode: Int = (response as! HTTPURLResponse).statusCode
                 switch route {
                 case .gyms:
-                    let gymData = try? JSONDecoder().decode(RootData.self, from: data)
+                    let gymData = try? JSONDecoder().decode(GymRootData.self, from: data)
                     guard let gyms = gymData?.data else { return }
                     completionHandler(gyms, statusCode)
                 case .gymClasses:
-                    let gymClasses = try? JSONDecoder().decode([GymClass].self, from: data)
-                    let gymClass = try? JSONDecoder().decode(GymClass.self, from: data)
-                    completionHandler(gymClasses ?? gymClass, statusCode)
+                    let gymClassData = try? JSONDecoder().decode(GymClassRootData.self, from: data)
+                    guard let gymClasses = gymClassData?.data else { return }
+                    completionHandler(gymClasses, statusCode)
                 case .instructors:
                     let instructors = try? JSONDecoder().decode([Instructor].self, from: data)
                     let instructor = try? JSONDecoder().decode(Instructor.self, from: data)
