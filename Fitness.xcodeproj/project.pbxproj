@@ -23,6 +23,8 @@
 		C736372A2082F193004751F5 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637292082F193004751F5 /* GymClass.swift */; };
 		C736372C2082F19C004751F5 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372B2082F19C004751F5 /* Instructor.swift */; };
 		C736372F208316DF004751F5 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372E208316DF004751F5 /* Networking.swift */; };
+		C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C0E208D23E0006F3249 /* GymClassInstance.swift */; };
+		C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C10208D27C1006F3249 /* GymClassDescription.swift */; };
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
 		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
@@ -60,6 +62,8 @@
 		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
 		C736372B2082F19C004751F5 /* Instructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
 		C736372E208316DF004751F5 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		C7434C0E208D23E0006F3249 /* GymClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassInstance.swift; sourceTree = "<group>"; };
+		C7434C10208D27C1006F3249 /* GymClassDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDescription.swift; sourceTree = "<group>"; };
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
 		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 			children = (
 				C73637272082F170004751F5 /* Gym.swift */,
 				C73637292082F193004751F5 /* GymClass.swift */,
+				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
+				C7434C10208D27C1006F3249 /* GymClassDescription.swift */,
 				C736372B2082F19C004751F5 /* Instructor.swift */,
 			);
 			path = Models;
@@ -392,10 +398,12 @@
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
+				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				65E914EB207C697800A72101 /* Keys.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
