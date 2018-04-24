@@ -31,7 +31,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     var hoursBusynessSeparator: UIView!
     
     var popularTimesTitleLabel: UILabel!
-    var popularTimesPlaceholder: UIView!
+    var popularTimesHistogram: Histogram!
     var busynessFacilitiesSeparator: UIView!
     
     var facilitiesTitleLabel: UILabel!
@@ -53,7 +53,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
         scrollView.bounces = false
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.5)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -62,12 +62,12 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            /*make.top.equalTo(view.snp.top).offset(20)
+            make.top.equalTo(view.snp.top).offset(20)
             make.left.equalTo(view.snp.left)
             make.right.equalTo(view.snp.right)
-            make.bottom.equalTo(view.snp.bottom)*/
+            make.bottom.equalTo(view.snp.bottom)/*
             make.top.equalToSuperview()
-            make.left.right.equalTo(view)
+            make.left.right.equalTo(view)*/
         }
         
         //HEADER
@@ -129,8 +129,10 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         popularTimesTitleLabel.text = "POPULAR TIMES"
         contentView.addSubview(popularTimesTitleLabel)
         
-        popularTimesPlaceholder = UIView()
-        contentView.addSubview(popularTimesPlaceholder)
+        let data = [5 ,5 , 23, 20,89,76,54,43,32, 34 ,45,45,4, 4]
+        
+        popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data:data)
+        contentView.addSubview(popularTimesHistogram)
         
         busynessFacilitiesSeparator = UIView()
         busynessFacilitiesSeparator.backgroundColor = .fitnessLightGrey
@@ -246,15 +248,16 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             make.height.equalTo(19)
         }
         
-        popularTimesPlaceholder.snp.updateConstraints{make in
+        popularTimesHistogram.snp.updateConstraints{make in
             make.top.equalTo(popularTimesTitleLabel.snp.bottom).offset(24)
-            make.left.right.equalToSuperview()
+            make.left.equalToSuperview().offset(18)
+            make.right.equalToSuperview().offset(-18)
             make.height.equalTo(101)
         }
         
         busynessFacilitiesSeparator.snp.updateConstraints{make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(popularTimesPlaceholder.snp.bottom).offset(24)
+            make.top.equalTo(popularTimesHistogram.snp.bottom).offset(24)
             make.height.equalTo(1)
         }
         
