@@ -62,12 +62,12 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top).offset(20)
+            /*make.top.equalTo(view.snp.top).offset(20)
             make.left.equalTo(view.snp.left)
             make.right.equalTo(view.snp.right)
-            make.bottom.equalTo(view.snp.bottom)/*
+            make.bottom.equalTo(view.snp.bottom)*/
             make.top.equalToSuperview()
-            make.left.right.equalTo(view)*/
+            make.left.right.equalTo(view)
         }
         
         //HEADER

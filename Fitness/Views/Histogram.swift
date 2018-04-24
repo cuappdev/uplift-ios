@@ -22,7 +22,7 @@ class Histogram: UIView {
     var selectedIndex: Int!     //index of bars representing the bar that is currently selected. Must be in range 0..bars.count-1
     var selectedLine: UIView!
     var selectedTime: UILabel!
-    var timeDescriptorLabel: UILabel!
+    var selectedTimeDescriptor: UILabel!
     
     var bottomAxis: UIView!
     var bottomAxisTicks: [UIView]!
@@ -57,6 +57,27 @@ class Histogram: UIView {
         }
         selectedIndex = Int(data.count/2)
         bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
+        
+        //SELECTED INFO
+        selectedLine = UIView()
+        selectedLine.backgroundColor = .fitnessLightGrey
+        addSubview(selectedLine)
+        
+        selectedTime = UILabel()
+        selectedTime.textColor = .fitnessDarkGrey
+        selectedTime.font = ._12LatoBold
+        selectedTime.sizeToFit()
+        selectedTime.textAlignment = .right
+        selectedTime.text = "3 PM:"
+        addSubview(selectedTime)
+        
+        selectedTimeDescriptor = UILabel()
+        selectedTimeDescriptor.textColor = .fitnessDarkGrey
+        selectedTimeDescriptor.font = ._12LatoRegular
+        selectedTimeDescriptor.sizeToFit()
+        selectedTimeDescriptor.textAlignment = .left
+        selectedTimeDescriptor.text = "Usually not too busy"
+        addSubview(selectedTimeDescriptor)
         
         setupConstraints()
     }
@@ -113,10 +134,30 @@ class Histogram: UIView {
             }
         }
         
-        
+        setupSelectedConstraints()
     }
     
-    
+    func setupSelectedConstraints() {
+        selectedLine.snp.remakeConstraints{make in
+            make.centerX.equalTo(bars[selectedIndex].snp.centerX)
+            make.bottom.equalTo(bars[selectedIndex].snp.top)
+            make.width.equalTo(2)
+            make.top.equalToSuperview().offset(26)
+        }
+        
+        selectedTimeDescriptor.snp.remakeConstraints{make in
+            make.top.equalToSuperview()
+            make.height.equalTo(15)
+            make.centerX.equalToSuperview()
+        }
+        
+        selectedTime.snp.remakeConstraints{make in
+            make.top.equalToSuperview()
+            make.height.equalTo(15)
+            make.left.equalToSuperview()
+            make.right.equalTo(selectedTimeDescriptor.snp.left).offset(-3)
+        }
+    }
     
     @objc func selectBar( sender:UITapGestureRecognizer){
         bars[selectedIndex].backgroundColor = .fitnessYellow
@@ -130,5 +171,6 @@ class Histogram: UIView {
             }
         }
         
+        setupSelectedConstraints() //rework this function so the labels follow the selection
     }
 }
