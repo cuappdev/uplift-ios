@@ -39,6 +39,9 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     var facilitiesLabelArray: [UILabel]!
     var facilitiesClassesDivider: UIView!
     
+    var todaysClassesLabel: UILabel!
+    var classesTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -59,10 +62,12 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top).offset(20)
+            /*make.top.equalTo(view.snp.top).offset(20)
             make.left.equalTo(view.snp.left)
             make.right.equalTo(view.snp.right)
-            make.bottom.equalTo(view.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)*/
+            make.top.equalToSuperview()
+            make.left.right.equalTo(view)
         }
         
         //HEADER
@@ -140,10 +145,43 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         facilitiesTitleLabel.text = "FACILITIES"
         contentView.addSubview(facilitiesTitleLabel)
         
+        
+        facilitiesLabelArray = []
         for i in 0..<facilitiesData.count{
-            //
+            let facilitiesLabel = UILabel()
+            facilitiesLabel.font = ._14MontserratLight
+            facilitiesLabel.textColor = .fitnessBlack
+            facilitiesLabel.text = facilitiesData[i]
+            facilitiesLabel.textAlignment = .center
+            contentView.addSubview(facilitiesLabel)
+            facilitiesLabelArray.append(facilitiesLabel)
         }
         
+        facilitiesClassesDivider = UIView()
+        facilitiesClassesDivider.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(facilitiesClassesDivider)
+        
+        //CLASSES
+        todaysClassesLabel = UILabel()
+        todaysClassesLabel.font = ._12LatoBlack
+        todaysClassesLabel.textColor = .fitnessDarkGrey
+        todaysClassesLabel.text = "TODAY'S CLASSES"
+        todaysClassesLabel.textAlignment = .center
+        todaysClassesLabel.sizeToFit()
+        contentView.addSubview(todaysClassesLabel)
+        
+        classesTableView = UITableView(frame: .zero, style: .grouped)
+        classesTableView.separatorStyle = .none
+        classesTableView.bounces = false
+        classesTableView.showsVerticalScrollIndicator = false
+        classesTableView.backgroundColor = .white
+        classesTableView.clipsToBounds = false
+        
+        classesTableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
+        
+        classesTableView.delegate = self
+        classesTableView.dataSource = self
+        contentView.addSubview(classesTableView)
         
         setupConstraints()
     }
@@ -227,48 +265,97 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             make.height.equalTo(19)
         }
         
-        for i in 0..<facilitiesData.count{
-            
+        for i in 0..<facilitiesLabelArray.count{
+            facilitiesLabelArray[i].snp.updateConstraints{make in
+                if (i == 0){
+                    make.top.equalTo(facilitiesTitleLabel.snp.bottom).offset(10)
+                }else{
+                    make.top.equalTo(facilitiesLabelArray[i-1].snp.bottom)
+                }
+                make.centerX.width.equalToSuperview()
+                make.height.equalTo(20)
+            }
         }
         
+        facilitiesClassesDivider.snp.updateConstraints{make in
+            make.width.centerX.equalToSuperview()
+            make.top.equalTo(facilitiesLabelArray.last!.snp.bottom).offset(24)
+            make.height.equalTo(1)
+        }
+        
+        //CLASSES
+        todaysClassesLabel.snp.updateConstraints{make in
+            make.centerX.width.equalToSuperview()
+            make.top.equalTo(facilitiesClassesDivider.snp.bottom).offset(64)
+            make.height.equalTo(15)
+        }
+        
+        classesTableView.snp.updateConstraints{make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
+            make.height.equalTo(classesTableView.numberOfRows(inSection: 0) * 112)
+        }
     }
     
     //MARK: - TABLE VIEW METHODS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (hoursData.isDropped){
-            return 6
-        } else{
-            return 0
+        if(tableView == hoursTableView){
+            if (hoursData.isDropped){
+                return 6
+            } else{
+                return 0
+            }
+        }else {
+            return 5    //temporary
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "gymHoursCell", for: indexPath) as! GymHoursCell
+        var cell: UITableViewCell!
+        
+        if(tableView == hoursTableView){
+            cell = tableView.dequeueReusableCell(withIdentifier: "gymHoursCell", for: indexPath) as! GymHoursCell
+        }else{
+            cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "gymHoursHeaderView") as! GymHoursHeaderView
+        var header: UITableViewHeaderFooterView!
         
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))
-        header.addGestureRecognizer(gesture)
-        
+        if(tableView == hoursTableView){
+            header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "gymHoursHeaderView") as! GymHoursHeaderView
+            
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))
+            header.addGestureRecognizer(gesture)
+        }else{
+            header = nil
+        }
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.row == 5){
-            return 19
+        if(tableView == hoursTableView){
+            if (indexPath.row == 5){
+                return 19
+            }
+                return 27
+        }else{
+            return 112
         }
-        return 27
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if(hoursData.isDropped){
-            return 27
-        }else{
-            return 19
+        if (tableView == hoursTableView){
+            if(hoursData.isDropped){
+                return 27
+            }else{
+                return 19
+                }
+        }else {
+            return 0
         }
     }
     

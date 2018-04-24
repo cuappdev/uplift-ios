@@ -19,7 +19,7 @@ class TabBarController: UITabBarController {
         let homeController = HomeController()
         homeController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 0)
         */
-        let homeController = ClassDetailViewController()
+        let homeController = GymDetailViewController()
         homeController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 0)
         
         let classListController = ClassListViewController()

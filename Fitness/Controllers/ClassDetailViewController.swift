@@ -30,7 +30,6 @@ class ClassDetailViewController: UIViewController {
     var addToCalendarButton: UIButton!
     var addToCalendarLabel: UILabel!
 
-    
     var functionLabel: UILabel!
     var functionDescriptionLabel: UILabel!
     
