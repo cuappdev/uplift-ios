@@ -26,7 +26,6 @@ enum FitnessAPI {
     case gymClassDescription(gymClassDescriptionId: Int)
     case gymClassDescriptionsByTag(tag: Int)
 
-    
     //Tags
     case tags
     
@@ -67,7 +66,7 @@ extension FitnessAPI: TargetType {
         case .gymClassInstancesByDate: return "gymclassinstances/date/"
             
         case .gymClassDescriptions: return "class_descs"
-        case .gymClassDescription(let classDescriptionId): return "class_descs/\(classDescriptionId)"
+        case .gymClassDescription(let classDescriptionId): return "class_desc/\(classDescriptionId)"
         case .gymClassDescriptionsByTag(let tag): return "class_descs/\(tag)"
 
         case .tags: return "tags"

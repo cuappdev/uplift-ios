@@ -50,13 +50,9 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         //TESTING TEMP
         let manager = NetworkManager()
-                        
-        //DOUBLE CHECK WHICH ID TO USE FOR THIS
-        //        manager.getGymClassDescription(gymClassDescriptionId: 33) { (gymClassDescription) in
-        //            print("getGymClassDescription--------------")
-        //            print(gymClassDescription)
-        //        }
         
+        // /gymclasses/favorite
+        // /favorite/<gymclass_id>
     }
     
     // MARK: - TABLE VIEW
