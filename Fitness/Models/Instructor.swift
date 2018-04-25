@@ -16,8 +16,13 @@ struct Instructor {
     let gymClasses: [Int]
 }
 
-struct InstructorRootData: Decodable {
+struct InstructorsRootData: Decodable {
     var data: [Instructor]
+    var success: Bool
+}
+
+struct InstructorRootData: Decodable {
+    var data: Instructor
     var success: Bool
 }
 
@@ -48,7 +53,7 @@ extension Instructor: Decodable {
         var gymClassDescriptionsUnkeyedContainer = try  container.nestedUnkeyedContainer(forKey: .classes)
         while !gymClassDescriptionsUnkeyedContainer.isAtEnd {
             let gymClassDescriptionKeyedContainer = try gymClassDescriptionsUnkeyedContainer.nestedContainer(keyedBy: GymClassDescriptionsKey.self)
-            let id = try gymClassDescriptionKeyedContainer.decode(Int.self, forKey: .id)
+            let id = try gymClassDescriptionKeyedContainer.decodeIfPresent(Int.self, forKey: .id) ?? -1
             let name = try gymClassDescriptionKeyedContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
             let description = try gymClassDescriptionKeyedContainer.decodeIfPresent(String.self, forKey: .description) ?? ""
             let tags = try gymClassDescriptionKeyedContainer.decodeIfPresent([Int].self, forKey: .tags) ?? []

@@ -16,8 +16,13 @@ struct GymClass {
     let users: [Int]
 }
 
-struct GymClassRootData: Decodable {
+struct GymClassesRootData: Decodable {
     var data: [GymClass]
+    var success: Bool
+}
+
+struct GymClassRootData: Decodable {
+    var data: GymClass
     var success: Bool
 }
 

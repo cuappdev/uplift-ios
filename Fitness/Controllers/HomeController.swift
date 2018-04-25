@@ -52,23 +52,22 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         let manager = NetworkManager()
         
         //NOT WORKING
-//        manager.getGymClassInstancesPaginated(page: 1, pageSize: 3) { (gymClassInstances) in
-//            print("getGymClassInstancesPaginated--------------")
-//            print(gymClassInstances)
-//        }
+        //        manager.getGymClassInstancesPaginated(page: 1, pageSize: 3) { (gymClassInstances) in
+        //            print("getGymClassInstancesPaginated--------------")
+        //            print(gymClassInstances)
+        //        }
         
         //NOT WORKING
-//        manager.getGymClassInstancesByDate(date: "04/25/2018") { (gymClassInstances) in
-//            print("getGymClassInstancesByDate--------------")
-//            print(gymClassInstances)
-//        }
+        //        manager.getGymClassInstancesByDate(date: "04/25/2018") { (gymClassInstances) in
+        //            print("getGymClassInstancesByDate--------------")
+        //            print(gymClassInstances)
+        //        }
         
         //DOUBLE CHECK WHICH ID TO USE FOR THIS
-//        manager.getGymClassDescription(gymClassDescriptionId: 33) { (gymClassDescription) in
-//            print("getGymClassDescription--------------")
-//            print(gymClassDescription)
-//        }
-
+        //        manager.getGymClassDescription(gymClassDescriptionId: 33) { (gymClassDescription) in
+        //            print("getGymClassDescription--------------")
+        //            print(gymClassDescription)
+        //        }
         
     }
     

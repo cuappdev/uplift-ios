@@ -196,5 +196,73 @@ struct NetworkManager: Networkable {
             }
         }
     }
+    
+    func getGymClasses(completion: @escaping ([GymClass])->()) {
+        provider.request(.gymClasses) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let gymClassesData = try JSONDecoder().decode(GymClassesRootData.self, from: response.data)
+                    let gymClasses = gymClassesData.data
+                    completion(gymClasses)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func getGymClass(gymClassId: Int, completion: @escaping (GymClass)->()) {
+        provider.request(.gymClass(gymClassId: gymClassId)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let gymClassData = try JSONDecoder().decode(GymClassRootData.self, from: response.data)
+                    let gymClass = gymClassData.data
+                    completion(gymClass)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func getInstructors(completion: @escaping ([Instructor])->()) {
+        provider.request(.instructors) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let instructorsData = try JSONDecoder().decode(InstructorsRootData.self, from: response.data)
+                    let instructors = instructorsData.data
+                    completion(instructors)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func getInstructor(instructorId: Int, completion: @escaping (Instructor)->()) {
+        provider.request(.instructor(instructorId: instructorId)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let instructorData = try JSONDecoder().decode(InstructorRootData.self, from: response.data)
+                    let instructor = instructorData.data
+                    completion(instructor)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
 }
 
