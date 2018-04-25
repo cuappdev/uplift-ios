@@ -180,6 +180,7 @@ struct NetworkManager: Networkable {
         }
     }
     
+    //MARK: - TAGS
     func getTags(completion: @escaping ([Tag])->()) {
         provider.request(.tags) { result in
             switch result {
@@ -197,6 +198,7 @@ struct NetworkManager: Networkable {
         }
     }
     
+    //MARK: - GYM CLASSES
     func getGymClasses(completion: @escaping ([GymClass])->()) {
         provider.request(.gymClasses) { result in
             switch result {
@@ -231,6 +233,7 @@ struct NetworkManager: Networkable {
         }
     }
     
+    //MARK: - INSTRUCTORS
     func getInstructors(completion: @escaping ([Instructor])->()) {
         provider.request(.instructors) { result in
             switch result {
@@ -265,4 +268,3 @@ struct NetworkManager: Networkable {
         }
     }
 }
-

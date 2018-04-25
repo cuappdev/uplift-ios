@@ -64,7 +64,7 @@ extension FitnessAPI: TargetType {
         case .gymClassInstances: return "gymclassinstances"
         case .gymClassInstance(let gymClassInstanceId): return "gymclassinstance/\(gymClassInstanceId)"
         case .gymClassInstancesPaginated: return "gymclassinstances/"
-        case .gymClassInstancesByDate(let date): return "gymclassinstances/\(date)"
+        case .gymClassInstancesByDate: return "gymclassinstances/date/"
             
         case .gymClassDescriptions: return "class_descs"
         case .gymClassDescription(let classDescriptionId): return "class_descs/\(classDescriptionId)"
@@ -103,6 +103,8 @@ extension FitnessAPI: TargetType {
         switch self {
         case .gymClassInstancesPaginated(let page, let pageSize):
             return .requestParameters(parameters: ["page": page, "page_size": pageSize], encoding: URLEncoding.default)
+        case .gymClassInstancesByDate(let date):
+            return .requestParameters(parameters: ["date": date], encoding: URLEncoding.default)
         default:
             return .requestPlain
         }

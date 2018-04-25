@@ -50,21 +50,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         //TESTING TEMP
         let manager = NetworkManager()
-        
-        print("Route: gymclassinstances/?page=\(1)&page_size=\(3)")
-
-        
-        manager.getGymClassInstancesPaginated(page: 1, pageSize: 3) { (gymClassInstances) in
-            print("getGymClassInstancesPaginated--------------")
-            print(gymClassInstances)
-        }
-        
-        //NOT WORKING
-        //        manager.getGymClassInstancesByDate(date: "04/25/2018") { (gymClassInstances) in
-        //            print("getGymClassInstancesByDate--------------")
-        //            print(gymClassInstances)
-        //        }
-        
+                        
         //DOUBLE CHECK WHICH ID TO USE FOR THIS
         //        manager.getGymClassDescription(gymClassDescriptionId: 33) { (gymClassDescription) in
         //            print("getGymClassDescription--------------")
