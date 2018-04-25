@@ -17,14 +17,15 @@ enum FitnessAPI {
     
     //Gym Class Instances
     case gymClassInstances
-    case gymClassInstancesPaginated(page: Int, pageSize: Int)
     case gymClassInstance(gymClassInstanceId: Int)
+    case gymClassInstancesPaginated(page: Int, pageSize: Int)
     case gymClassInstancesByDate(date: String)
     
     //Class Descriptions
-    case classDescriptions
-    case classDescriptionsByTag(tag: Int)
-    case classDescription(classDescriptionId: Int)
+    case gymClassDescriptions
+    case gymClassDescription(gymClassDescriptionId: Int)
+    case gymClassDescriptionsByTag(tag: Int)
+
     
     //Tags
     case tags
@@ -65,10 +66,10 @@ extension FitnessAPI: TargetType {
         case .gymClassInstancesPaginated(let page, let pageSize): return "gymclassinstances?page=\(page)&page_size=\(pageSize)"
         case .gymClassInstancesByDate(let date): return "gymclassinstances/\(date)"
             
-        case .classDescriptions: return "class_descs"
-        case .classDescriptionsByTag(let tag): return "class_descs/\(tag)"
-        case .classDescription(let classDescriptionId): return "class_descs/\(classDescriptionId)"
-            
+        case .gymClassDescriptions: return "class_descs"
+        case .gymClassDescription(let classDescriptionId): return "class_descs/\(classDescriptionId)"
+        case .gymClassDescriptionsByTag(let tag): return "class_descs/\(tag)"
+
         case .tags: return "tags"
             
         case .gymClasses: return "gymclasses"

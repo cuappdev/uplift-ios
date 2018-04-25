@@ -18,8 +18,13 @@ struct GymClassDescription {
     let imageURL: String?
 }
 
-struct GymClassDescriptionRootData: Decodable {
+struct GymClassDescriptionsRootData: Decodable {
     var data: [GymClassDescription]
+    var success: Bool
+}
+
+struct GymClassDescriptionRootData: Decodable {
+    var data: GymClassDescription
     var success: Bool
 }
 

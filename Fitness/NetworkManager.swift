@@ -128,8 +128,73 @@ struct NetworkManager: Networkable {
         }
     }
     
+    //MARK: - GYM CLASS DESCRIPTIONS
+    func getGymClassDescriptions(completion: @escaping ([GymClassDescription])->()){
+        provider.request(.gymClassDescriptions) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let gymClassDescriptionsData = try JSONDecoder().decode(GymClassDescriptionsRootData.self, from: response.data)
+                    let gymClassDescriptions = gymClassDescriptionsData.data
+                    completion(gymClassDescriptions)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
     
+    func getGymClassDescription(gymClassDescriptionId: Int, completion: @escaping (GymClassDescription)->()) {
+        provider.request(.gymClassDescription(gymClassDescriptionId: gymClassDescriptionId)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let gymClassDescriptionData = try JSONDecoder().decode(GymClassDescriptionRootData.self, from: response.data)
+                    let gymClassDescription = gymClassDescriptionData.data
+                    completion(gymClassDescription)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
     
+    func getGymClassDescriptionsByTag(tag: Int, completion: @escaping ([GymClassDescription])->()) {
+        provider.request(.gymClassDescriptionsByTag(tag: tag)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let gymClassDescriptionsData = try JSONDecoder().decode(GymClassDescriptionsRootData.self, from: response.data)
+                    let gymClassDescriptions = gymClassDescriptionsData.data
+                    completion(gymClassDescriptions)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
     
+    func getTags(completion: @escaping ([Tag])->()) {
+        provider.request(.tags) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let tagsData = try JSONDecoder().decode(TagsRootData.self, from: response.data)
+                    let tags = tagsData.data
+                    completion(tags)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
 }
 
