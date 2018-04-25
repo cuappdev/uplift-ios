@@ -25,7 +25,7 @@ enum FitnessAPI {
     case gymClassDescriptions
     case gymClassDescription(gymClassDescriptionId: Int)
     case gymClassDescriptionsByTag(tag: Int)
-
+    
     //Tags
     case tags
     
@@ -36,9 +36,6 @@ enum FitnessAPI {
     //Instructors
     case instructors
     case instructor(instructorId: Int)
-    
-    //Favorites
-    case favorite(gymClassId: Int)
 }
 
 extension FitnessAPI: TargetType {
@@ -68,7 +65,7 @@ extension FitnessAPI: TargetType {
         case .gymClassDescriptions: return "class_descs"
         case .gymClassDescription(let classDescriptionId): return "class_desc/\(classDescriptionId)"
         case .gymClassDescriptionsByTag(let tag): return "class_descs/\(tag)"
-
+            
         case .tags: return "tags"
             
         case .gymClasses: return "gymclasses"
@@ -77,17 +74,11 @@ extension FitnessAPI: TargetType {
         case .instructors: return "instructors"
         case .instructor(let instructorId): return "instructor/\(instructorId)"
             
-        case .favorite(let gymClassId): return "favorite/\(gymClassId)"
         }
     }
     
     var method: Moya.Method {
-        switch self {
-        case .favorite:
-            return .post
-        default:
-            return .get
-        }
+        return .get
     }
     
     var parameterEncoding: ParameterEncoding {
