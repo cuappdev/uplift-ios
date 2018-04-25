@@ -63,7 +63,7 @@ extension FitnessAPI: TargetType {
             
         case .gymClassInstances: return "gymclassinstances"
         case .gymClassInstance(let gymClassInstanceId): return "gymclassinstance/\(gymClassInstanceId)"
-        case .gymClassInstancesPaginated(let page, let pageSize): return "gymclassinstances?page=\(page)&page_size=\(pageSize)"
+        case .gymClassInstancesPaginated: return "gymclassinstances/"
         case .gymClassInstancesByDate(let date): return "gymclassinstances/\(date)"
             
         case .gymClassDescriptions: return "class_descs"
@@ -91,17 +91,6 @@ extension FitnessAPI: TargetType {
         }
     }
     
-    var parameters: [String: Any]? {
-        switch self {
-        case .favorite(let gymClassId):
-            var parameters = [String: Any]()
-            parameters["gymclass_id"] = gymClassId
-            return parameters
-        default:
-            return nil
-        }
-    }
-    
     var parameterEncoding: ParameterEncoding {
         return JSONEncoding.default
     }
@@ -110,8 +99,13 @@ extension FitnessAPI: TargetType {
         return Data()
     }
     
-    var task: Task { // double check temp
-        return .requestPlain
+    var task: Task {
+        switch self {
+        case .gymClassInstancesPaginated(let page, let pageSize):
+            return .requestParameters(parameters: ["page": page, "page_size": pageSize], encoding: URLEncoding.default)
+        default:
+            return .requestPlain
+        }
     }
     
     var headers: [String : String]? {
