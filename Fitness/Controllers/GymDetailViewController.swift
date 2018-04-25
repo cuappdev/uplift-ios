@@ -295,6 +295,18 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
             make.height.equalTo(classesTableView.numberOfRows(inSection: 0) * 112)
         }
+        
+        var dropHoursHeight = 27
+        if hoursData.isDropped{
+            dropHoursHeight = 181
+        }
+        
+        let facilitiesHeight = facilitiesData.count*20
+        let todaysClassesHeight = classesTableView.numberOfRows(inSection: 0)*112
+        
+        //THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
+        let height = 427 + dropHoursHeight + 282 + facilitiesHeight + 137 + todaysClassesHeight
+        scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
     
     //MARK: - TABLE VIEW METHODS

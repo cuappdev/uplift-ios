@@ -156,7 +156,6 @@ class Histogram: UIView {
             }else{
                 make.centerX.equalTo(selectedLine.snp.centerX)
             }
-            
         }
         
         selectedTime.snp.remakeConstraints{make in

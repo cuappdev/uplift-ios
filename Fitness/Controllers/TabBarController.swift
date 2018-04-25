@@ -15,13 +15,10 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         UITabBar.appearance().barTintColor = .fitnessYellow
-        /*temporary for ease of testing
+        
         let homeController = HomeController()
         homeController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 0)
-        */
-        let homeController = GymDetailViewController()
-        homeController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 0)
-        
+ 
         let classListController = ClassListViewController()
         classListController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
         
