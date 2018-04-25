@@ -9,19 +9,11 @@
 import Foundation
 
 struct GymClass {
-    var id: Int
-    var classDesc: Int
-    var gymClassInstances: [Int]
-    var instructor: Int
-    var users: [Int]
-    
-    init(id: Int, classDesc: Int, gymClassInstances: [Int], instructor: Int, users: [Int]){
-        self.id = id
-        self.classDesc = classDesc
-        self.gymClassInstances = gymClassInstances
-        self.instructor = instructor
-        self.users = users
-    }
+    let id: Int
+    let classDesc: Int
+    let gymClassInstances: [Int]
+    let instructor: Int
+    let users: [Int]
 }
 
 struct GymClassRootData: Decodable {
@@ -41,12 +33,10 @@ extension GymClass: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        let id = try container.decode(Int.self, forKey: .id)
-        let classDesc = try container.decode(Int.self, forKey: .classDesc)
-        let gymClassInstances = try container.decode([Int].self, forKey: .gymClassInstances)
-        let instructor = try container.decode(Int.self, forKey: .instructor)
-        let users = try container.decode([Int].self, forKey: .users)
-
-        self.init(id: id, classDesc: classDesc, gymClassInstances: gymClassInstances, instructor: instructor, users: users)
+        id = try container.decode(Int.self, forKey: .id)
+        classDesc = try container.decodeIfPresent(Int.self, forKey: .classDesc) ?? -1
+        gymClassInstances = try container.decodeIfPresent([Int].self, forKey: .gymClassInstances) ?? []
+        instructor = try container.decodeIfPresent(Int.self, forKey: .instructor) ?? -1
+        users = try container.decodeIfPresent([Int].self, forKey: .users) ?? []
     }
 }

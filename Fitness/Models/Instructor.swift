@@ -10,24 +10,10 @@ import Foundation
 
 struct Instructor {
     
-    var id: Int
-    var name: String
-    var gymClassDescriptions: [GymClassDescription]
-    var gymClasses: [Int]
-    
-    init(id: Int, name: String, gymClassDescriptions: [GymClassDescription], gymClasses: [Int]){
-        self.id = id
-        self.name = name
-        self.gymClassDescriptions = gymClassDescriptions
-        self.gymClasses = gymClasses
-    }
-    
-    init(id: Int, name: String, gymClasses: [Int]){
-        self.id = id
-        self.name = name
-        self.gymClasses = gymClasses
-        self.gymClassDescriptions = []
-    }
+    let id: Int
+    let name: String
+    var gymClassDescriptions: [GymClassDescription]?
+    let gymClasses: [Int]
 }
 
 struct InstructorRootData: Decodable {
@@ -44,7 +30,7 @@ extension Instructor: Decodable {
         case gymClasses = "gym_classes"
     }
     
-    enum ClassesKey: String, CodingKey {
+    enum GymClassDescriptionsKey: String, CodingKey {
         case id
         case tags = "class_tags"
         case gymClasses = "gym_classes"
@@ -55,10 +41,22 @@ extension Instructor: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
 
-        let id = try container.decode(Int.self, forKey: .id)
-        let name = try container.decodeIfPresent(String.self, forKey: .name)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         
+        gymClassDescriptions = [GymClassDescription]()
+        var gymClassDescriptionsUnkeyedContainer = try  container.nestedUnkeyedContainer(forKey: .classes)
+        while !gymClassDescriptionsUnkeyedContainer.isAtEnd {
+            let gymClassDescriptionKeyedContainer = try gymClassDescriptionsUnkeyedContainer.nestedContainer(keyedBy: GymClassDescriptionsKey.self)
+            let id = try gymClassDescriptionKeyedContainer.decode(Int.self, forKey: .id)
+            let name = try gymClassDescriptionKeyedContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
+            let description = try gymClassDescriptionKeyedContainer.decodeIfPresent(String.self, forKey: .description) ?? ""
+            let tags = try gymClassDescriptionKeyedContainer.decodeIfPresent([Int].self, forKey: .tags) ?? []
+            let gymClasses = try gymClassDescriptionKeyedContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
+            
+            gymClassDescriptions?.append(GymClassDescription(id: id, description: description, name: name, tags: tags, gymClasses: gymClasses, imageURL: ""))
+        }
         
-//        self.init(id: id, name: name, classes: classes)
+        gymClasses = try container.decode([Int].self, forKey: .gymClasses)
     }
 }

@@ -9,20 +9,18 @@
 import Foundation
 
 struct GymClassInstance {
+    let gymClassInstanceId: Int
+    let classDescription: GymClassDescription
+    let instructor: Instructor
+}
 
-    var gymClassInstanceId: Int
-    var classDescription: GymClassDescription
-    var instructor: Instructor
-    
-    init(gymClassInstanceId: Int, classDescription: GymClassDescription, instructor: Instructor) {
-        self.gymClassInstanceId = gymClassInstanceId
-        self.classDescription = classDescription
-        self.instructor = instructor
-    }
+struct GymClassInstancesRootData: Decodable {
+    var data: [GymClassInstance]
+    var success: Bool
 }
 
 struct GymClassInstanceRootData: Decodable {
-    var data: [GymClassInstance]
+    var data: GymClassInstance
     var success: Bool
 }
 
@@ -60,17 +58,15 @@ extension GymClassInstance: Decodable {
         let classDescriptionGymClasses = try classDescriptionContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
         let classDescriptionImageURL = try classDescriptionContainer.decodeIfPresent(String.self, forKey: .imageURL) ?? ""
         
-        let classDescription = GymClassDescription(id: classDescriptionId, description: classDescriptionDescription, name: classDescriptionName, tags: classDescriptionTags, gymClasses: classDescriptionGymClasses, imageURL: classDescriptionImageURL)
+        classDescription = GymClassDescription(id: classDescriptionId, description: classDescriptionDescription, name: classDescriptionName, tags: classDescriptionTags, gymClasses: classDescriptionGymClasses, imageURL: classDescriptionImageURL)
         
-        let id = try container.decode(Int.self, forKey: .id)
+        gymClassInstanceId = try container.decode(Int.self, forKey: .id)
         
         let instructorContainer = try container.nestedContainer(keyedBy: InstructorKey.self, forKey: .instructor)
         let instructorGymClasses = try instructorContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
         let instructorId = try instructorContainer.decode(Int.self, forKey: .id)
         let instructorName = try instructorContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
-        let instructor = Instructor(id: instructorId, name: instructorName, gymClasses: instructorGymClasses)
-        
-        self.init(gymClassInstanceId: id, classDescription: classDescription, instructor: instructor)
+        instructor = Instructor(id: instructorId, name: instructorName, gymClassDescriptions: [], gymClasses: instructorGymClasses)
     }
 }
 

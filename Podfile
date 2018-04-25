@@ -4,10 +4,9 @@
 target 'Fitness' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'Fabric'
   pod 'Crashlytics'
-  pod 'KeychainSwift'
+  pod 'Fabric'
+	pod 'Moya'
   pod 'SnapKit'
   # Pods for Fitness
-
 end

@@ -9,33 +9,24 @@
 import Foundation
 
 struct Gym {
-    
-    var id: Int
-    var name: String
-    var equipment: String
-    var location: Int
+    let id: Int
+    let name: String
+    let equipment: String
+    let location: Int
     var gymHours: [GymHours]
-    var classInstances: [String] //temp
-    var isGym: Bool
-    var popularTimesList: PopularTimes
-    
-    var imageURL: String
-    
-    init(id: Int, name: String, equipment: String, location: Int, gymHours: [GymHours], classInstances: [String], isGym: Bool, popularTimesList: PopularTimes, imageURL: String){
-        self.id = id
-        self.name = name
-        self.equipment = equipment
-        self.location = location
-        self.gymHours = gymHours
-        self.classInstances = classInstances
-        self.isGym = isGym
-        self.popularTimesList = popularTimesList
-        self.imageURL = imageURL
-    }
+    let classInstances: [String] //temp
+    let isGym: Bool
+    let popularTimesList: PopularTimes
+    let imageURL: String
+}
+
+struct GymsRootData: Decodable {
+    var data: [Gym]
+    var success: Bool
 }
 
 struct GymRootData: Decodable {
-    var data: [Gym]
+    var data: Gym
     var success: Bool
 }
 
@@ -108,12 +99,12 @@ extension Gym: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         
-        let id = try container.decode(Int.self, forKey: .id)
-        let name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        let equipment = try container.decodeIfPresent(String.self, forKey: .equipment) ?? ""
-        let location = try container.decodeIfPresent(Int.self, forKey: .location) ??  -1
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        equipment = try container.decodeIfPresent(String.self, forKey: .equipment) ?? ""
+        location = try container.decodeIfPresent(Int.self, forKey: .location) ??  -1
         
-        var gymHours = [GymHours]()
+        gymHours = [GymHours]()
         var gymHoursUnkeyedContainer = try container.nestedUnkeyedContainer(forKey: .gymHours)
         
         while !gymHoursUnkeyedContainer.isAtEnd {
@@ -128,8 +119,8 @@ extension Gym: Decodable {
             gymHours.append(GymHours(id: id, gym: gym, dayOfWeek: dayOfWeek, openTime: openTime, closeTime: closeTime))
         }
         
-        let classInstances = [String]() //temp
-        let isGym = try container.decodeIfPresent(Bool.self, forKey: .isGym) ?? true
+        classInstances = [String]() //temp
+        isGym = try container.decodeIfPresent(Bool.self, forKey: .isGym) ?? true
         
         let popularTimesContainer = try container.nestedContainer(keyedBy: PopularTimesKey.self, forKey: .popularTimesList)
         
@@ -144,10 +135,8 @@ extension Gym: Decodable {
         let saturday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .saturday) ?? []
         let sunday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .sunday) ?? []
 
-        let popularTimesList = PopularTimes(id: popularTimesId, gym: popularTimesGym, monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday, friday: friday, saturday: saturday, sunday: sunday)
+        popularTimesList = PopularTimes(id: popularTimesId, gym: popularTimesGym, monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday, friday: friday, saturday: saturday, sunday: sunday)
         
-        let imageURL = try container.decode(String.self, forKey: .imageURL)
-        
-        self.init(id: id, name: name, equipment: equipment, location: location, gymHours: gymHours, classInstances: classInstances, isGym: isGym, popularTimesList: popularTimesList, imageURL: imageURL)
+        imageURL = try container.decode(String.self, forKey: .imageURL)
     }
 }

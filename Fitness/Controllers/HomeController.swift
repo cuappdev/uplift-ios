@@ -48,22 +48,21 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         statusBarBackgroundColor.backgroundColor = .white
         view.addSubview(statusBarBackgroundColor)
         
-        let networkingLayer = NetworkingLayer()
-        networkingLayer.networkingService(route: .gyms(id: 0, name: "", equipment: "", location: -1, gymHours: [], classInstances: [], isGym: false, popularTimesList: PopularTimes(id: -1, gym: -1, monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: []), imageURL: ""), verb: .get) { (gyms, response) in
-            print(response)
-            self.gyms = gyms as! [Gym]
-            DispatchQueue.main.async {
-                print(self.gyms)
-            }
-        }
+        //TESTING TEMP
+        let manager = NetworkManager()
         
-        networkingLayer.networkingService(route: .gymClasses(id: -1, classDesc: -1, gymClassInstances: [], instructor: -1, users: []), verb: .get) { (gymClasses, response) in
-            print(response)
-            self.gymClasses = gymClasses as! [GymClass]
-            DispatchQueue.main.async {
-                print(self.gymClasses)
-            }
-        }
+//        manager.getGymClassInstancesPaginated(page: 1, pageSize: 3) { (gymClassInstances) in
+//            print("getGymClassInstancesPaginated--------------")
+//            print(gymClassInstances)
+//        }
+        
+//        manager.getGymClassInstancesByDate(date: "04/25/2018") { (gymClassInstances) in
+//            print("getGymClassInstancesByDate--------------")
+//            print(gymClassInstances)
+//        }
+        
+        
+        
     }
     
     // MARK: - TABLE VIEW
