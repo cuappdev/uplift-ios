@@ -129,7 +129,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         popularTimesTitleLabel.text = "POPULAR TIMES"
         contentView.addSubview(popularTimesTitleLabel)
         
-        let data = [5 ,5 , 23, 20,89,76,54,43,32, 34 ,45,45,4, 4]
+        let data = [15 ,15 , 23, 20,89,76,54,43,32, 34 ,45,45,14, 14]
         
         popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data:data)
         contentView.addSubview(popularTimesHistogram)
@@ -146,7 +146,6 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         facilitiesTitleLabel.sizeToFit()
         facilitiesTitleLabel.text = "FACILITIES"
         contentView.addSubview(facilitiesTitleLabel)
-        
         
         facilitiesLabelArray = []
         for i in 0..<facilitiesData.count{

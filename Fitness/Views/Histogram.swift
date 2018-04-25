@@ -66,17 +66,17 @@ class Histogram: UIView {
         selectedTime = UILabel()
         selectedTime.textColor = .fitnessDarkGrey
         selectedTime.font = ._12LatoBold
-        selectedTime.sizeToFit()
         selectedTime.textAlignment = .right
         selectedTime.text = "3 PM:"
+        selectedTime.sizeToFit()
         addSubview(selectedTime)
         
         selectedTimeDescriptor = UILabel()
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
-        selectedTimeDescriptor.sizeToFit()
         selectedTimeDescriptor.textAlignment = .left
         selectedTimeDescriptor.text = "Usually not too busy"
+        selectedTimeDescriptor.sizeToFit()
         addSubview(selectedTimeDescriptor)
         
         setupConstraints()
@@ -148,13 +148,20 @@ class Histogram: UIView {
         selectedTimeDescriptor.snp.remakeConstraints{make in
             make.top.equalToSuperview()
             make.height.equalTo(15)
-            make.centerX.equalToSuperview()
+            
+            if CGFloat(selectedIndex)/CGFloat(bars.count) > 2/3{
+                make.right.equalToSuperview()
+            }else if CGFloat(selectedIndex)/CGFloat(bars.count) < 1/3 {
+                make.left.equalToSuperview().offset(selectedTime.frame.width)
+            }else{
+                make.centerX.equalTo(selectedLine.snp.centerX)
+            }
+            
         }
         
         selectedTime.snp.remakeConstraints{make in
             make.top.equalToSuperview()
             make.height.equalTo(15)
-            make.left.equalToSuperview()
             make.right.equalTo(selectedTimeDescriptor.snp.left).offset(-3)
         }
     }
@@ -170,7 +177,10 @@ class Histogram: UIView {
                 break
             }
         }
+        //update selectedTIme and the descriptor
+        selectedTimeDescriptor.sizeToFit()
+        selectedTime.sizeToFit()
         
-        setupSelectedConstraints() //rework this function so the labels follow the selection
+        setupSelectedConstraints()
     }
 }
