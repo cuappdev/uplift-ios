@@ -58,8 +58,9 @@ class ClassDetailViewController: UIViewController {
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
             make.left.right.equalTo(view)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         //HEADER

@@ -62,12 +62,9 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            /*make.top.equalTo(view.snp.top).offset(20)
-            make.left.equalTo(view.snp.left)
-            make.right.equalTo(view.snp.right)
-            make.bottom.equalTo(view.snp.bottom)*/
-            make.top.equalToSuperview()
             make.left.right.equalTo(view)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.snp.bottom)
         }
         
         //HEADER
@@ -108,6 +105,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         hoursTableView.showsVerticalScrollIndicator = false
         hoursTableView.separatorStyle = .none
         hoursTableView.backgroundColor = .white
+        hoursTableView.isScrollEnabled = false
         
         hoursTableView.register(GymHoursCell.self, forCellReuseIdentifier: "gymHoursCell")
         hoursTableView.register(GymHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: "gymHoursHeaderView")
