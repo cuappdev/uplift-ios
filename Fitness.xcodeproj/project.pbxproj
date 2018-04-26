@@ -144,6 +144,8 @@
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 			);
 			path = Models;
+            sourceTree = "<group>";
+        };
 		8DD7C7782084418F004EB196 /* Footers */ = {
 			isa = PBXGroup;
 			children = (
