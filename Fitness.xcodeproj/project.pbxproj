@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
-		65E914E9207C691C00A72101 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65E914E8207C691C00A72101 /* Keys.plist */; };
 		65E914EB207C697800A72101 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E914EA207C697800A72101 /* Keys.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
@@ -19,6 +18,12 @@
 		8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymsCell.swift */; };
 		8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE10206C483500EF83C7 /* LookingForCell.swift */; };
 		8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */; };
+		C7090D1E2083AC3300F83FD3 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7090D1D2083AC3300F83FD3 /* Keys.plist */; };
+		C73637282082F170004751F5 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637272082F170004751F5 /* Gym.swift */; };
+		C736372A2082F193004751F5 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637292082F193004751F5 /* GymClass.swift */; };
+		C736372C2082F19C004751F5 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372B2082F19C004751F5 /* Instructor.swift */; };
+		C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C0E208D23E0006F3249 /* GymClassInstance.swift */; };
+		C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C10208D27C1006F3249 /* GymClassDescription.swift */; };
 		8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB082072BCE000144BFC /* FilterViewController.swift */; };
 		8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0A2072C31400144BFC /* Lato-Black.ttf */; };
 		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
@@ -35,6 +40,9 @@
 		C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */; };
 		C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */; };
 		C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */; };
+		C76F715B208FD43D00FDC958 /* FitnessAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715A208FD43D00FDC958 /* FitnessAPI.swift */; };
+		C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715C208FD77300FDC958 /* NetworkManager.swift */; };
+		C76F715F20900AD400FDC958 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715E20900AD400FDC958 /* Tag.swift */; };
 		C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */; };
 		C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DFABCE204206E000545B0B /* AppDelegate.swift */; };
 		C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD5204206E000545B0B /* Assets.xcassets */; };
@@ -50,7 +58,6 @@
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
-		65E914E8207C691C00A72101 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keys.plist; path = Secrets/Keys.plist; sourceTree = SOURCE_ROOT; };
 		65E914EA207C697800A72101 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		6EC1508212FA58A5CA1EB2E5 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
@@ -61,6 +68,12 @@
 		8D03EE0E206C481A00EF83C7 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsCell.swift; sourceTree = "<group>"; };
 		8D03EE10206C483500EF83C7 /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForCell.swift; sourceTree = "<group>"; };
 		8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
+		C7090D1D2083AC3300F83FD3 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
+		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
+		C736372B2082F19C004751F5 /* Instructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
+		C7434C0E208D23E0006F3249 /* GymClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassInstance.swift; sourceTree = "<group>"; };
+		C7434C10208D27C1006F3249 /* GymClassDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDescription.swift; sourceTree = "<group>"; };
 		8D26DB082072BCE000144BFC /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		8D26DB0A2072C31400144BFC /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		8D26DB0C2072C35F00144BFC /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
@@ -78,6 +91,9 @@
 		C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		C76F715A208FD43D00FDC958 /* FitnessAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessAPI.swift; sourceTree = "<group>"; };
+		C76F715C208FD77300FDC958 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C76F715E20900AD400FDC958 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		C7DFABCB204206E000545B0B /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DFABCE204206E000545B0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +133,19 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		C736372D2082F1F2004751F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C73637272082F170004751F5 /* Gym.swift */,
+				C73637292082F193004751F5 /* GymClass.swift */,
+				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
+				C7434C10208D27C1006F3249 /* GymClassDescription.swift */,
+				C736372B2082F19C004751F5 /* Instructor.swift */,
+				C76F715E20900AD400FDC958 /* Tag.swift */,
+			);
+			path = Models;
+            sourceTree = "<group>";
+        };
 		8DD7C7782084418F004EB196 /* Footers */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +186,9 @@
 			isa = PBXGroup;
 			children = (
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
+				C76F715A208FD43D00FDC958 /* FitnessAPI.swift */,
+				C76F715C208FD77300FDC958 /* NetworkManager.swift */,
+				C736372D2082F1F2004751F5 /* Models */,
 				C7DFABE22042081000545B0B /* Controllers */,
 				C7EBD5A82062E64700D76A8B /* Views */,
 				C75EC94E2059AC75007BC98A /* Extensions */,
@@ -164,7 +196,7 @@
 				C7DFABD5204206E000545B0B /* Assets.xcassets */,
 				C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */,
 				65E914EA207C697800A72101 /* Keys.swift */,
-				65E914E8207C691C00A72101 /* Keys.plist */,
+				C7090D1D2083AC3300F83FD3 /* Keys.plist */,
 				C7DFABDA204206E000545B0B /* Info.plist */,
 			);
 			path = Fitness;
@@ -310,12 +342,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7090D1E2083AC3300F83FD3 /* Keys.plist in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
-				65E914E9207C691C00A72101 /* Keys.plist in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
@@ -332,11 +364,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/WARangeSlider/WARangeSlider.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WARangeSlider.framework",
 			);
@@ -399,10 +437,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
-				8D26DB102072CCA000144BFC /* GymFilterCell.swift in Sources */,
+				C736372C2082F19C004751F5 /* Instructor.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
+				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
+				C76F715B208FD43D00FDC958 /* FitnessAPI.swift in Sources */,
+				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
@@ -412,16 +453,20 @@
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
+				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				65E914EB207C697800A72101 /* Keys.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
+				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,
+				C76F715F20900AD400FDC958 /* Tag.swift in Sources */,
 				8D03EE07206C475200EF83C7 /* HomeSectionHeaderView.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
@@ -555,7 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RNCTC44528;
+				DEVELOPMENT_TEAM = CL9XQET3B9;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -572,7 +617,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RNCTC44528;
+				DEVELOPMENT_TEAM = CL9XQET3B9;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.Fitness;
