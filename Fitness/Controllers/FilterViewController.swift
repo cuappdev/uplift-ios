@@ -79,9 +79,8 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints {make in
-            make.top.equalTo(view.snp.top).offset(navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.size.height)
-            make.left.equalTo(view.snp.left)
-            make.right.equalTo(view.snp.right)
+            make.left.right.equalTo(view)
+            make.top.equalToSuperview()
             make.bottom.equalTo(view.snp.bottom)
         }
 

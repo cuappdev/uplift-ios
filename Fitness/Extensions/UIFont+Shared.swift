@@ -43,5 +43,8 @@ extension UIFont {
     static let _12LatoBlack = UIFont(name: "Lato-Black", size: 12)
     static let _14LatoBlack = UIFont(name: "Lato-Black", size: 14)
     
+    static let _12LatoBold = UIFont(name: "Lato-Bold", size: 12)
+    
+    static let _12LatoRegular = UIFont(name: "Lato-Regular", size: 12)
     static let _14LatoRegular = UIFont(name: "Lato-Regular", size: 14)
 }
