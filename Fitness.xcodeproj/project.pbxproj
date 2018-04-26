@@ -24,6 +24,15 @@
 		C736372C2082F19C004751F5 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372B2082F19C004751F5 /* Instructor.swift */; };
 		C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C0E208D23E0006F3249 /* GymClassInstance.swift */; };
 		C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C10208D27C1006F3249 /* GymClassDescription.swift */; };
+		8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB082072BCE000144BFC /* FilterViewController.swift */; };
+		8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0A2072C31400144BFC /* Lato-Black.ttf */; };
+		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
+		8D26DB102072CCA000144BFC /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
+		8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */; };
+		8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */; };
+		8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */; };
+		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
+		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
 		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
@@ -65,6 +74,16 @@
 		C736372B2082F19C004751F5 /* Instructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
 		C7434C0E208D23E0006F3249 /* GymClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassInstance.swift; sourceTree = "<group>"; };
 		C7434C10208D27C1006F3249 /* GymClassDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDescription.swift; sourceTree = "<group>"; };
+		8D26DB082072BCE000144BFC /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		8D26DB0A2072C31400144BFC /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		8D26DB0C2072C35F00144BFC /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
+		8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFilterCell.swift; sourceTree = "<group>"; };
+		8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHeaderView.swift; sourceTree = "<group>"; };
+		8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
+		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
+		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
 		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -104,6 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */,
+				8D26DB0A2072C31400144BFC /* Lato-Black.ttf */,
+				8D26DB0C2072C35F00144BFC /* Lato-Regular.ttf */,
+				8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */,
 				C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */,
 				C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */,
 				C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */,
@@ -122,6 +144,12 @@
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 			);
 			path = Models;
+		8DD7C7782084418F004EB196 /* Footers */ = {
+			isa = PBXGroup;
+			children = (
+				8DD7C77620844175004EB196 /* DropdownFooterView.swift */,
+			);
+			path = Footers;
 			sourceTree = "<group>";
 		};
 		C75EC94E2059AC75007BC98A /* Extensions */ = {
@@ -178,6 +206,8 @@
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 				C75FAB1020420B7B008D455A /* HomeController.swift */,
 				635AF233204F85000020F6C6 /* ClassDetailViewController.swift */,
+				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
+				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
 			);
 			path = Controllers;
@@ -186,6 +216,7 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8DD7C7782084418F004EB196 /* Footers */,
 				C7EBD5AC2062E72300D76A8B /* Headers */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
 			);
@@ -195,6 +226,8 @@
 		C7EBD5A92062E64F00D76A8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
+				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
 				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
 				8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */,
 				8D03EE0E206C481A00EF83C7 /* GymsCell.swift */,
@@ -210,6 +243,8 @@
 		C7EBD5AC2062E72300D76A8B /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */,
+				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
 				8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */,
 				C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */,
@@ -306,12 +341,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7090D1E2083AC3300F83FD3 /* Keys.plist in Resources */,
+				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
+				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +366,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/WARangeSlider/WARangeSlider.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -336,6 +374,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WARangeSlider.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -403,10 +442,14 @@
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C76F715B208FD43D00FDC958 /* FitnessAPI.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
+				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
+				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
+				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
+				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				65E914EB207C697800A72101 /* Keys.swift in Sources */,
@@ -415,7 +458,9 @@
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */,
+				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
+				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,

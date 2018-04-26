@@ -50,7 +50,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
             cell.locationName.text = "Appel Commons"
             cell.hours.text = "Reopens at 9 AM"
             cell.status.text = "Closed"
-            cell.status.textColor = .red
+            cell.status.textColor = .fitnessRed
             cell.colorBar.backgroundColor = .lightGray
             
             return cell
@@ -59,7 +59,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         cell.locationName.text = "Helen Newman"
         cell.hours.text = "Closes at 9 PM"
         cell.status.text = "Open"
-        cell.status.textColor = .green
+        cell.status.textColor = .fitnessGreen
         
         return cell
     }

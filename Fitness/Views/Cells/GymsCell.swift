@@ -23,11 +23,11 @@ class GymsCell: UICollectionViewCell {
         //BORDER
         contentView.layer.cornerRadius = 5
         contentView.layer.backgroundColor = UIColor.white.cgColor
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
         contentView.layer.borderWidth = 0.5
         
         //SHADOWING
-        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
         contentView.layer.shadowRadius = 5.0
         contentView.layer.shadowOpacity = 0.1
@@ -37,7 +37,7 @@ class GymsCell: UICollectionViewCell {
         
         //YELLOW BAR
         colorBar = UIView()
-        colorBar.backgroundColor = .yellow
+        colorBar.backgroundColor = .fitnessYellow
         colorBar.clipsToBounds = true
         colorBar.layer.cornerRadius = 5
         colorBar.layer.maskedCorners = [.layerMinXMinYCorner,.layerMinXMaxYCorner]
@@ -45,19 +45,19 @@ class GymsCell: UICollectionViewCell {
         
         //LOCATION NAME
         locationName = UILabel()
-        locationName.font = UIFont.systemFont(ofSize: 12)
+        locationName.font = ._12MontserratMedium
         locationName.sizeToFit()
         contentView.addSubview(locationName)
         
         //STATUS
         status = UILabel()
-        status.font = UIFont.systemFont(ofSize: 8)
+        status.font = ._8MontserratMedium
         contentView.addSubview(status)
         
         //HOURS
         hours = UILabel()
-        hours.font = UIFont.systemFont(ofSize: 8)
-        hours.textColor = .gray
+        hours.font = ._8MontserratMedium
+        hours.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
         contentView.addSubview(hours)
         
         setupConstraints()

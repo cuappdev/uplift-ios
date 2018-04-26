@@ -8,5 +8,5 @@ target 'Fitness' do
   pod 'Fabric'
 	pod 'Moya'
   pod 'SnapKit'
-  # Pods for Fitness
+  pod 'WARangeSlider'
 end

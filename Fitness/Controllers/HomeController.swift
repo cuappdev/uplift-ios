@@ -43,7 +43,6 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             make.bottom.equalToSuperview().offset(-49)
         }
         
-        //to avoid an issue where you could see the contents of the tableview under the status bar when scrolling down
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
         statusBarBackgroundColor.backgroundColor = .white
         view.addSubview(statusBarBackgroundColor)
