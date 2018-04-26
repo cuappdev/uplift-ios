@@ -12,6 +12,8 @@ import SnapKit
 class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - INITIALIZATION
+    var gymClassInstances: [GymClassInstance]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +33,11 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         self.navigationItem.rightBarButtonItem = filterBarButton
         
         view.backgroundColor = .white
+        
+        AppDelegate.networkManager.getGymClassInstancesByDate(date: "4/26/2018") { (gymClassInstances) in
+            self.gymClassInstances = gymClassInstances
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - TABLEVIEW
@@ -39,11 +46,34 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10 //temp
+        if let numberOfRows = gymClassInstances?.count {
+            return numberOfRows
+        }
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+        
+        if let gymClassInstance = gymClassInstances?[indexPath.row]{
+            cell.classLabel.text = gymClassInstance.classDescription.name
+            cell.timeLabel.text = gymClassInstance.startTime
+            if (cell.timeLabel.text?.hasPrefix("0"))!{
+                cell.timeLabel.text = cell.timeLabel.text?.substring(from: String.Index(encodedOffset: 1))
+            }
+            cell.instructorLabel.text = gymClassInstance.instructor.name
+            var duration = gymClassInstance.duration
+            if duration.hasPrefix("0"){
+                duration = duration.substring(from: String.Index(encodedOffset: 2))
+            }else{
+                let hours = duration.substring(to: String.Index(encodedOffset: duration.count-3))
+                duration = duration.substring(from: String.Index(encodedOffset: 2))
+                duration = String( Int(hours)!*60 + Int(duration)!)
+            }
+            
+            cell.durationLabel.text = duration + " min"
+        }
+        
         return cell
     }
     

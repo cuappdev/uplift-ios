@@ -25,30 +25,6 @@ class ClassListCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.contentView.backgroundColor = .blue
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: - LAYOUT
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-        
-        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 16, 12, 16))
-        
-        contentView.layer.cornerRadius = 5
-        contentView.layer.backgroundColor = UIColor.white.cgColor
-        contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
-        contentView.layer.borderWidth = 0.5
-        
-        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
-        contentView.layer.shadowRadius = 5.0
-        contentView.layer.shadowOpacity = 0.5
-        contentView.layer.masksToBounds = false
-        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, -10, 12, 24))
-        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
         
         //TIME
         timeLabel = UILabel()
@@ -99,6 +75,31 @@ class ClassListCell: UITableViewCell {
         contentView.addSubview(favoriteButton)
         
         setUpContstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - LAYOUT
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 16, 12, 16))
+        
+        contentView.layer.cornerRadius = 5
+        contentView.layer.backgroundColor = UIColor.white.cgColor
+        contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
+        contentView.layer.borderWidth = 0.5
+        
+        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
+        contentView.layer.shadowRadius = 5.0
+        contentView.layer.shadowOpacity = 0.5
+        contentView.layer.masksToBounds = false
+        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, -10, 12, 24))
+        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
+
     }
     
     // MARK: - CONSTRAINTS

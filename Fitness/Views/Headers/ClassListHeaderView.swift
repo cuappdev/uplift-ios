@@ -14,6 +14,9 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
     // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
     
+    var weekDay: Int!
+    var day: Int!
+    
     var currentDateLabel: UILabel!
     
     override init(reuseIdentifier: String?) {
@@ -34,6 +37,9 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         collectionView.reloadData()
         
         addSubview(collectionView)
+        
+        day = 25
+        weekDay = 3
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,6 +87,34 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as! CalendarCell
+        
+        let offset = indexPath.row - 3
+        
+        cell.dateLabel.text = String(day + offset)
+        
+        if(indexPath.row == 3){
+            cell.isSelected = true
+        }
+        
+        switch (offset + weekDay) {
+        case 0:
+            cell.dayOfWeekLabel.text = "Su"
+        case 1:
+            cell.dayOfWeekLabel.text = "M"
+        case 2:
+            cell.dayOfWeekLabel.text = "T"
+        case 3:
+            cell.dayOfWeekLabel.text = "W"
+        case 4:
+            cell.dayOfWeekLabel.text = "Th"
+        case 5:
+            cell.dayOfWeekLabel.text = "F"
+        case 6:
+            cell.dayOfWeekLabel.text = "Sa"
+        default:
+            cell.dayOfWeekLabel.text = "W"
+        }
+        
         return cell
     }
 }
