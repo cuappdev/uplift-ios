@@ -9,9 +9,10 @@
 import UIKit
 import SnapKit
 
-class ClassDetailViewController: UIViewController {
+class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - INITIALIZATION
+    
     var titleLabel: UILabel!
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
@@ -41,6 +42,9 @@ class ClassDetailViewController: UIViewController {
     var scrollView: UIScrollView!
     var contentView: UIView!
     
+    var nextSessionsLabel: UILabel!
+    var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -49,7 +53,7 @@ class ClassDetailViewController: UIViewController {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
         scrollView.bounces = false
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 1.9)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.1)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -186,6 +190,28 @@ class ClassDetailViewController: UIViewController {
         descriptionTextView.isScrollEnabled = false
         contentView.addSubview(descriptionTextView)
         
+        //NEXT SESSIONS
+        nextSessionsLabel = UILabel()
+        nextSessionsLabel.font = ._12LatoBlack
+        nextSessionsLabel.textColor = .fitnessDarkGrey
+        nextSessionsLabel.text = "NEXT SESSIONS"
+        nextSessionsLabel.textAlignment = .center
+        nextSessionsLabel.sizeToFit()
+        contentView.addSubview(nextSessionsLabel)
+        
+        tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.separatorStyle = .none
+        tableView.bounces = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = .white
+        tableView.clipsToBounds = false
+        
+        tableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        contentView.addSubview(tableView)
+        
         setupConstraints()
     }
 
@@ -318,5 +344,33 @@ class ClassDetailViewController: UIViewController {
             make.right.equalToSuperview().offset(-40)
             make.top.equalTo(functionDivider.snp.bottom).offset(36)
         }
+        
+        //NEXT SESSIONS
+        nextSessionsLabel.snp.updateConstraints{make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(descriptionTextView.snp.bottom).offset(64)
+            make.height.equalTo(15)
+        }
+        
+        tableView.snp.updateConstraints{make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
+            make.height.equalTo(tableView.numberOfRows(inSection: 0) * 112)
+        }
+    }
+    
+    //MARK: - TABLE VIEW METHODS
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5    //temporary
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 112
     }
 }

@@ -14,6 +14,9 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     var tableView: UITableView!
     var statusBarBackgroundColor: UIView!
     
+    var gyms = [Gym]()
+    var gymClasses = [GymClass]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +46,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
         statusBarBackgroundColor.backgroundColor = .white
         view.addSubview(statusBarBackgroundColor)
+             
     }
     
     // MARK: - TABLE VIEW
