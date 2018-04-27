@@ -12,6 +12,7 @@ import SnapKit
 class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - INITIALIZATION
+    var gymClassInstance: GymClassInstance!
     
     var titleLabel: UILabel!
     var locationLabel: UILabel!
@@ -45,9 +46,22 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var nextSessionsLabel: UILabel!
     var tableView: UITableView!
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        durationLabel = UILabel()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        navigationController!.isNavigationBarHidden = true
+        
+        AppDelegate.networkManager.
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -83,7 +97,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(semicircleView)
         
         titleLabel = UILabel()
-        titleLabel.text = "MUSCLE PUMP"
+        titleLabel.text = gymClassInstance.classDescription.name
         titleLabel.font = ._48Bebas
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
@@ -99,15 +113,13 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(locationLabel)
         
         instructorLabel = UILabel()
-        instructorLabel.text = "DEBBIE"
+        instructorLabel.text = gymClassInstance.instructor.name
         instructorLabel.font = ._18Bebas
         instructorLabel.textAlignment = .center
         instructorLabel.textColor = .white
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
         
-        durationLabel = UILabel()
-        durationLabel.text = "45 min"
         durationLabel.font = ._18Bebas
         durationLabel.textAlignment = .center
         durationLabel.textColor = .fitnessBlack
@@ -117,6 +129,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         backButton = UIButton()
         backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
         backButton.sizeToFit()
+        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
         
         starButton = UIButton()
@@ -169,6 +182,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(functionLabel)
         
         functionDescriptionLabel = UILabel(frame: CGRect(x: 10, y: 511, width: 100, height: 19))
+        
         functionDescriptionLabel.text = "Core  · Overall Fitness · Stability"
         functionDescriptionLabel.font = ._14MontserratLight
         functionDescriptionLabel.textAlignment = .center
@@ -182,7 +196,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         //DESCRIPTION
         descriptionTextView = UITextView()
-        descriptionTextView.text = "Put a little muscle into your workout and join us for a class designed to build muscle endurance with low to medium weights and high repetitions. A variety of equipment and strength training techniques will be used in this class. There is no cardio portion in these sessions. Footwear that is appropriate for movement is required for this class. "
+        descriptionTextView.text = gymClassInstance.classDescription.description
         descriptionTextView.font = ._14MontserratLight
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
@@ -357,6 +371,10 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
             make.height.equalTo(tableView.numberOfRows(inSection: 0) * 112)
         }
+    }
+    
+    @objc func back() {
+        navigationController!.popViewController(animated: true)
     }
     
     //MARK: - TABLE VIEW METHODS

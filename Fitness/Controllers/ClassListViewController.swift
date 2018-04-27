@@ -70,8 +70,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 duration = duration.substring(from: String.Index(encodedOffset: 2))
                 duration = String( Int(hours)!*60 + Int(duration)!)
             }
-            
-            cell.durationLabel.text = duration + " min"
+            duration = duration + " min"
+            cell.durationLabel.text = duration
         }
         
         return cell
@@ -90,9 +90,16 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         return 155
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let classDetailViewController = ClassDetailViewController()
+        classDetailViewController.gymClassInstance = gymClassInstances![indexPath.row]
+        classDetailViewController.durationLabel.text = (tableView.cellForRow(at: indexPath) as! ClassListCell).durationLabel.text?.uppercased()
+        navigationController!.pushViewController(classDetailViewController, animated: true)
+    }
+    
     // MARK: - SEARCH BAR
     @objc func filter(){
         let filterViewController = FilterViewController()
-        navigationController!.pushViewController(filterViewController, animated: false)
+        navigationController!.pushViewController(filterViewController, animated: true)
     }
 }
