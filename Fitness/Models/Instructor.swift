@@ -60,6 +60,7 @@ extension Instructor: Decodable {
             let gymClasses = try gymClassDescriptionKeyedContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
             
             gymClassDescriptions?.append(GymClassDescription(id: id, description: description, name: name, tags: tags, gymClasses: gymClasses, imageURL: ""))
+            
         }
         
         gymClasses = try container.decode([Int].self, forKey: .gymClasses)

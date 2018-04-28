@@ -37,6 +37,7 @@ extension UIFont {
     static let _14MontserratMedium = UIFont(name: "Montserrat-Medium", size: 14)
     static let _16MontserratMedium = UIFont(name: "Montserrat-Medium", size: 16)
     
+    static let _14MontserratBold = UIFont(name: "Montserrat-Bold", size: 14)
     static let _24MontserratBold = UIFont(name: "Montserrat-Bold", size: 24)
     
     //LATO

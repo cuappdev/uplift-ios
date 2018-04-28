@@ -14,7 +14,7 @@ struct Gym {
     let equipment: String
     let location: Int
     var gymHours: [GymHours]
-    let classInstances: [String] //temp
+    let classInstances: [Int]
     let isGym: Bool
     let popularTimesList: PopularTimes
     let imageURL: String
@@ -119,7 +119,8 @@ extension Gym: Decodable {
             gymHours.append(GymHours(id: id, gym: gym, dayOfWeek: dayOfWeek, openTime: openTime, closeTime: closeTime))
         }
         
-        classInstances = [String]() //temp
+        classInstances = try container.decodeIfPresent([Int].self, forKey: .classInstances) ?? []
+        
         isGym = try container.decodeIfPresent(Bool.self, forKey: .isGym) ?? true
         
         let popularTimesContainer = try container.nestedContainer(keyedBy: PopularTimesKey.self, forKey: .popularTimesList)

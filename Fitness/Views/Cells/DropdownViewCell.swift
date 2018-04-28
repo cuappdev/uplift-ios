@@ -13,6 +13,8 @@ class DropdownViewCell: UITableViewCell {
     
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
+    var id: Int!
+    
     var checkBox: UIView!
     var checkBoxColoring: UIView!
     
@@ -26,7 +28,7 @@ class DropdownViewCell: UITableViewCell {
         titleLabel.sizeToFit()
         titleLabel.font = ._14MontserratLight
         titleLabel.textColor = .fitnessBlack
-        titleLabel.text = "ZUMBA"
+        titleLabel.text = ""
         addSubview(titleLabel)
         
         //CHECKBOX
@@ -35,12 +37,10 @@ class DropdownViewCell: UITableViewCell {
         checkBox.layer.borderColor = UIColor.fitnessLightGrey.cgColor
         checkBox.layer.borderWidth = 0.5
         checkBox.layer.masksToBounds = false
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.select(sender:) ))
-        checkBox.addGestureRecognizer(gesture)
         addSubview(checkBox)
         
         checkBoxColoring = UIView()
-        checkBoxColoring.backgroundColor = .fitnessYellow
+        checkBoxColoring.backgroundColor = .white
         checkBoxColoring.layer.cornerRadius = 1
         checkBox.addSubview(checkBoxColoring)
     }
@@ -53,14 +53,6 @@ class DropdownViewCell: UITableViewCell {
         super.layoutSubviews()
         
         setupConstraints()
-    }
-    
-    @objc func select( sender:UITapGestureRecognizer){
-        if checkBoxColoring.backgroundColor == .fitnessYellow {
-            checkBoxColoring.backgroundColor = .white
-        } else {
-            checkBoxColoring.backgroundColor = .fitnessYellow
-        }
     }
     
     // MARK: - CONSTRAINTS

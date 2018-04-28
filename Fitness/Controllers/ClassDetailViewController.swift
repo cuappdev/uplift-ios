@@ -56,11 +56,13 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController!.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        navigationController!.isNavigationBarHidden = true
         
         AppDelegate.networkManager.getGymClassDescription(gymClassDescriptionId: gymClassInstance.gymClassInstanceId) { (gymClassDescriptions) in
             print("gymclassDescroptions:")

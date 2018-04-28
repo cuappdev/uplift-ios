@@ -13,6 +13,7 @@ struct GymClassInstance {
     let classDescription: GymClassDescription
     let instructor: Instructor
     let startTime: String
+    let gymId: Int
     let duration: String
 }
 
@@ -32,6 +33,7 @@ extension GymClassInstance: Decodable {
         case classDescription = "class_desc"
         case duration
         case id
+        case gymId = "gym_id"
         case instructor
         case startTime = "start_time"
     }
@@ -73,6 +75,8 @@ extension GymClassInstance: Decodable {
         let instructorId = try instructorContainer.decode(Int.self, forKey: .id)
         let instructorName = try instructorContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
         instructor = Instructor(id: instructorId, name: instructorName, gymClassDescriptions: [], gymClasses: instructorGymClasses)
+        
+        gymId = try container.decodeIfPresent(Int.self, forKey: .gymId) ?? -1
         
         startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? ""
     }

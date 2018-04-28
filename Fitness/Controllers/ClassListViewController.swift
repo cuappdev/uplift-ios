@@ -15,6 +15,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     var allGymClassInstances: [GymClassInstance]?
     var validGymClassInstances: [GymClassInstance]?
     
+    var locations: [String]?
+    
     var selectedDate: String!
     
     var shouldFilterSearch: Bool!
@@ -48,8 +50,48 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
             self.allGymClassInstances = gymClassInstances
             self.validGymClassInstances = self.getValidGymClassInstances()
+            
+            self.locations = []
+            
+            var gymRoomCache: [Gym] = []
+            var roomIsInCache = false
+            
+            for gymClassInstance in self.allGymClassInstances!{
+                let instanceId = gymClassInstance.classDescription.id
+                
+                //checking if room data has been fetched
+                for gym in gymRoomCache{
+                    for classInstanceId in gym.classInstances{
+                        if (instanceId == classInstanceId){
+                            self.locations!.append(gym.name)
+                            roomIsInCache = true
+                        }
+                    }
+                }
+                
+                
+                if(roomIsInCache == false){
+                    let gymId = gymClassInstance.gymId
+                    
+                    AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
+                        
+                        self.locations!.append(gym.name)
+                        
+                        gymRoomCache.append(gym)
+                    })
+                }
+                roomIsInCache = false
+            }
+            
+            
+            
             self.tableView.reloadData()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController!.isNavigationBarHidden = false
+        tabBarController!.tabBar.isHidden = false
     }
     
     // MARK: - TABLEVIEW
@@ -86,6 +128,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             }
             duration = duration + " min"
             cell.durationLabel.text = duration
+            
+            //cell.locationLabel.text = locations?[indexPath.row]
         }
         
         return cell
@@ -147,7 +191,6 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     //called by header when new date is selected
     func updateDate(){
         let header = tableView.headerView(forSection: 0) as! ClassListHeaderView
-        print(header.selectedDayIndex)
     }
     
     // MARK: - FILTER
