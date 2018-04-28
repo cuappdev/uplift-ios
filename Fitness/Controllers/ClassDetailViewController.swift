@@ -13,6 +13,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     //MARK: - INITIALIZATION
     var gymClassInstance: GymClassInstance!
+    var date: String!
     
     var titleLabel: UILabel!
     var locationLabel: UILabel!
@@ -61,7 +62,12 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         navigationController!.isNavigationBarHidden = true
         
-        AppDelegate.networkManager.
+        AppDelegate.networkManager.getGymClassDescription(gymClassDescriptionId: gymClassInstance.gymClassInstanceId) { (gymClassDescriptions) in
+            print("gymclassDescroptions:")
+            print(gymClassDescriptions)
+        }
+        
+        
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false

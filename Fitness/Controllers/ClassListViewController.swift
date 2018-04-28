@@ -12,10 +12,18 @@ import SnapKit
 class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - INITIALIZATION
-    var gymClassInstances: [GymClassInstance]?
+    var allGymClassInstances: [GymClassInstance]?
+    var validGymClassInstances: [GymClassInstance]?
+    
+    var selectedDate: String!
+    
+    var shouldFilterSearch: Bool!
+    var filterText: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        selectedDate = "4/30/2018"
         
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
@@ -27,6 +35,9 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         
         let searchBar = SearchBar.createSearchBar()
         searchBar.delegate = self
+        shouldFilterSearch = false
+        filterText = ""
+        
         self.navigationItem.titleView = searchBar
         
         let filterBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "filter"), style: .plain, target: self, action: #selector(filter))
@@ -34,8 +45,9 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         
         view.backgroundColor = .white
         
-        AppDelegate.networkManager.getGymClassInstancesByDate(date: "4/26/2018") { (gymClassInstances) in
-            self.gymClassInstances = gymClassInstances
+        AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
+            self.allGymClassInstances = gymClassInstances
+            self.validGymClassInstances = self.getValidGymClassInstances()
             self.tableView.reloadData()
         }
     }
@@ -46,7 +58,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let numberOfRows = gymClassInstances?.count {
+        
+        if let numberOfRows = validGymClassInstances?.count {
             return numberOfRows
         }
         return 0
@@ -55,7 +68,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
         
-        if let gymClassInstance = gymClassInstances?[indexPath.row]{
+        if let gymClassInstance = validGymClassInstances?[indexPath.row]{
+            
             cell.classLabel.text = gymClassInstance.classDescription.name
             cell.timeLabel.text = gymClassInstance.startTime
             if (cell.timeLabel.text?.hasPrefix("0"))!{
@@ -83,6 +97,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "classListHeader") as! ClassListHeaderView
+        
+        header.delegate = self
         return header
     }
     
@@ -92,12 +108,49 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let classDetailViewController = ClassDetailViewController()
-        classDetailViewController.gymClassInstance = gymClassInstances![indexPath.row]
+        classDetailViewController.gymClassInstance = allGymClassInstances![indexPath.row]
         classDetailViewController.durationLabel.text = (tableView.cellForRow(at: indexPath) as! ClassListCell).durationLabel.text?.uppercased()
+        classDetailViewController.date = selectedDate
         navigationController!.pushViewController(classDetailViewController, animated: true)
     }
     
-    // MARK: - SEARCH BAR
+    
+    //MARK: - SEARCHING
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if (searchText != ""){
+            shouldFilterSearch = true
+        }
+        filterText = searchText
+        validGymClassInstances = getValidGymClassInstances()
+        tableView.reloadData()
+        shouldFilterSearch = false
+    }
+    
+    //Returns all valid gymClassInstances to display
+    func getValidGymClassInstances() -> [GymClassInstance]{
+        var validInstances: [GymClassInstance] = []
+        
+        if (shouldFilterSearch == false){
+            return allGymClassInstances!
+        }
+        
+        for gymClassInstance in allGymClassInstances!{
+            if gymClassInstance.classDescription.name.contains(filterText){
+                validInstances.append(gymClassInstance)
+            }
+        }
+        
+        return validInstances
+    }
+    
+    //called by header when new date is selected
+    func updateDate(){
+        let header = tableView.headerView(forSection: 0) as! ClassListHeaderView
+        print(header.selectedDayIndex)
+    }
+    
+    // MARK: - FILTER
     @objc func filter(){
         let filterViewController = FilterViewController()
         navigationController!.pushViewController(filterViewController, animated: true)
