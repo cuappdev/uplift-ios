@@ -33,6 +33,7 @@
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
 		C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
+		C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71E8A032091726600542FA3 /* Date+Shared.swift */; };
 		C73637282082F170004751F5 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637272082F170004751F5 /* Gym.swift */; };
 		C736372A2082F193004751F5 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637292082F193004751F5 /* GymClass.swift */; };
 		C736372C2082F19C004751F5 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372B2082F19C004751F5 /* Instructor.swift */; };
@@ -89,6 +90,7 @@
 		8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
+		C71E8A032091726600542FA3 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
 		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
 		C736372B2082F19C004751F5 /* Instructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
 				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
+				C71E8A032091726600542FA3 /* Date+Shared.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
+				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,

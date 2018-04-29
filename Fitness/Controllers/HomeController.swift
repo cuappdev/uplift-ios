@@ -46,7 +46,14 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
         statusBarBackgroundColor.backgroundColor = .white
         view.addSubview(statusBarBackgroundColor)
-             
+        
+        let date = Date.getDateFromTime(time: "10:33PM")
+        print(date)
+        
+        AppDelegate.networkManager.getGyms { (gyms) in
+            self.gyms = gyms
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - TABLE VIEW
@@ -55,6 +62,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "allGymsCell", for: indexPath) as! AllGymsCell
+            cell.gyms = gyms
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "todaysClassesCell", for: indexPath) as! TodaysClassesCell
@@ -114,7 +122,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         switch indexPath.section {
         case 0:
-            height = 120
+            height = 180
         case 1:
             height = 207
         case 2:

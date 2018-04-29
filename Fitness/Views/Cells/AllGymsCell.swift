@@ -12,6 +12,11 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     
     // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
+    var gyms: [Gym] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -46,26 +51,32 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymsCell", for: indexPath) as! GymsCell
         
-        if indexPath.row == 3{
-            cell.locationName.text = "Appel Commons"
-            cell.hours.text = "Reopens at 9 AM"
-            cell.status.text = "Closed"
-            cell.status.textColor = .fitnessRed
-            cell.colorBar.backgroundColor = .lightGray
-            
-            return cell
+        //        if indexPath.row == 3{
+        //            cell.locationName.text = "Appel Commons"
+        //            cell.hours.text = "Reopens at 9 AM"
+        //            cell.status.text = "Closed"
+        //            cell.status.textColor = .fitnessRed
+        //            cell.colorBar.backgroundColor = .lightGray
+        //
+        //            return cell
+        //        }
+        
+        cell.locationName.text = gyms[indexPath.row].name
+        
+        for gymHour in gyms[indexPath.row].gymHours {
+            if gymHour.dayOfWeek == Date().getIntegerDayOfWeek() {
+                cell.hours.text = "Closes at \(gymHour.closeTime)"
+            }
         }
         
-        cell.locationName.text = "Helen Newman"
-        cell.hours.text = "Closes at 9 PM"
-        cell.status.text = "Open"
+        //cell.status.text = Date().getHour() < 
         cell.status.textColor = .fitnessGreen
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return gyms.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
