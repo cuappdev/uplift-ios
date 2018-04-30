@@ -14,6 +14,19 @@ class GymFilterCell: UICollectionViewCell {
     // MARK: - INITIALIZATION
     var gymNameLabel: UILabel!
     var selectedCircle: UIView!
+    override var isSelected: Bool{
+        didSet{
+            if self.isSelected {
+                gymNameLabel.font = ._14MontserratMedium
+                selectedCircle.backgroundColor = .fitnessYellow
+            } else {
+                gymNameLabel.font = ._14MontserratLight
+                selectedCircle.backgroundColor = .white
+            }
+        }
+    }
+    
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +44,8 @@ class GymFilterCell: UICollectionViewCell {
         selectedCircle.layer.cornerRadius = 3
         selectedCircle.backgroundColor = .white
         contentView.addSubview(selectedCircle)
+        
+        isSelected = false
         
         setupConstraints()
     }

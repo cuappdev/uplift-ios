@@ -29,6 +29,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     var collectionViewTitle: UILabel!
     var gymCollectionView: UICollectionView!
+    var selectedGyms: [Int]!
 
     var fitnessCenterStartTimeDivider: UIView!
     var startTimeTitleLabel: UILabel!
@@ -98,14 +99,18 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         layout.minimumLineSpacing = 0
 
         gymCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        gymCollectionView.delegate = self
-        gymCollectionView.dataSource = self
+        gymCollectionView.allowsMultipleSelection = true
         gymCollectionView.backgroundColor = .fitnessLightGrey
         gymCollectionView.isScrollEnabled = true
         gymCollectionView.showsHorizontalScrollIndicator = false
         gymCollectionView.bounces = false
+        
+        gymCollectionView.delegate = self
+        gymCollectionView.dataSource = self
         gymCollectionView.register(GymFilterCell.self , forCellWithReuseIdentifier: "gymFilterCell")
         contentView.addSubview(gymCollectionView)
+        
+        selectedGyms = []
 
         //START TIME SLIDER SECTION
         fitnessCenterStartTimeDivider = UIView()
@@ -307,19 +312,46 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             make.top.equalTo(instructorDropdown.snp.bottom)
             make.bottom.equalTo(instructorDropdown.snp.bottom).offset(1)
         }
+        
+        //THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
+        var classHeight = 55
+        if(classTypeDropdownData.dropStatus == .half){
+            classHeight += 4*32
+        }else if (classTypeDropdownData.dropStatus == .down){
+            classHeight += 32*(1 + classTypeDropdown.numberOfRows(inSection: 0))
+        }
+        
+        var instructorHeight = 55
+        if(instructorDropdownData.dropStatus == .half){
+            instructorHeight += 4*32
+        }else if (instructorDropdownData.dropStatus == .down){
+            instructorHeight += 32*(1 + instructorDropdown.numberOfRows(inSection: 0))
+        }
+        
+        let height = 186 + classHeight + instructorHeight + 10
+        scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
 
     //MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done(){
+        
         navigationController?.popViewController(animated: true)
     }
 
     @objc func reset(){
+        
+        
         startTimeLabel.text = "6:00 AM - 10:00 PM"
         startTimeSlider.lowerValue = 0.0
         startTimeSlider.upperValue = 960.0
         
-        print("reset!")
+        classTypeDropdownData.dropStatus = .down
+        selectedClasses = []
+        dropClasses(sender: UITapGestureRecognizer(target: nil, action: nil))
+        
+        instructorDropdownData.dropStatus = .down
+        selectedInstructors = []
+        dropInstructors(sender: UITapGestureRecognizer(target: nil, action: nil))
     }
 
     //MARK: - COLLECTION VIEW METHODS
@@ -342,16 +374,17 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymFilterCell", for: indexPath) as! GymFilterCell
-        
-        if(cell.gymNameLabel.font == ._14MontserratLight){
-            cell.gymNameLabel.font = ._14MontserratBold
-            cell.selectedCircle.backgroundColor = .fitnessYellow
-        }else{
-            cell.gymNameLabel.font = ._14MontserratLight
-            cell.selectedCircle.backgroundColor = .white
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        for i in 0..<selectedGyms.count{
+            if (selectedGyms[i] == indexPath.row){       //temp: replace with proper gymId
+                selectedGyms.remove(at: i)
+                return
+            }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedGyms.append(indexPath.row)      //temp: replace with proper gymId
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -381,7 +414,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     //MARK: - SLIDER METHODS
     @objc func startTimeChanged() {
-        print("update time")
         let lowerSliderVal = startTimeSlider.lowerValue + 360
         let upperSliderVal = startTimeSlider.upperValue + 360
 
@@ -441,11 +473,40 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
+        var shouldAppend: Bool
         
         if(cell.checkBoxColoring.backgroundColor == .fitnessYellow){
             cell.checkBoxColoring.backgroundColor = .white
+            shouldAppend = false
         }else{
             cell.checkBoxColoring.backgroundColor = .fitnessYellow
+            shouldAppend = true
+        }
+        
+        if (tableView == classTypeDropdown){
+            if(shouldAppend){
+                selectedClasses.append(cell.id)
+            }else{
+                for i in 0..<selectedClasses.count{
+                    let id = selectedClasses[i]
+                    if(id == cell.id){
+                        selectedClasses.remove(at: i)
+                        return
+                    }
+                }
+            }
+        }else{
+            if(shouldAppend){
+                selectedInstructors.append(cell.id)
+            }else{
+                for i in 0..<selectedInstructors.count{
+                    let id = selectedInstructors[i]
+                    if(id == cell.id){
+                        selectedInstructors.remove(at: i)
+                        return
+                    }
+                }
+            }
         }
     }
 
@@ -455,10 +516,12 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         if tableView == instructorDropdown{
             if(indexPath.row < instructorDropdownData.titles.count){
                 cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
+                cell.id = instructorDropdownData.ids[indexPath.row]
             }
         }else if tableView == classTypeDropdown{
             if(indexPath.row < classTypeDropdownData.titles.count){
                 cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
+                cell.id = classTypeDropdownData.ids[indexPath.row]
             }
         }
 

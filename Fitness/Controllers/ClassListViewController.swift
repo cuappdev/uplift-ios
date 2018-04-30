@@ -9,13 +9,21 @@
 import UIKit
 import SnapKit
 
+struct filterParameters {
+    var shouldFilter: Bool!
+    var times: String!
+    var instructorIds: [Int]!
+    var classDescIds: [Int]!
+    var gymIds: [Int]!
+}
+
 class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - INITIALIZATION
     var allGymClassInstances: [GymClassInstance]?
     var validGymClassInstances: [GymClassInstance]?
     
-    var locations: [String]?
+    var locations: [String]!
     
     var selectedDate: String!
     
@@ -50,7 +58,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
             self.allGymClassInstances = gymClassInstances
             self.validGymClassInstances = self.getValidGymClassInstances()
-            
+            self.tableView.reloadData()
             self.locations = []
             
             var gymRoomCache: [Gym] = []
@@ -129,7 +137,9 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             duration = duration + " min"
             cell.durationLabel.text = duration
             
-            //cell.locationLabel.text = locations?[indexPath.row]
+            if((locations!.count) > indexPath.row){
+                cell.locationLabel.text = locations![indexPath.row]
+            }
         }
         
         return cell
