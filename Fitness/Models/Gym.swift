@@ -31,13 +31,13 @@ struct GymRootData: Decodable {
 }
 
 struct GymHours: Codable {
-    var zero: DailyGymHours
-    var one: DailyGymHours
-    var two: DailyGymHours
-    var three: DailyGymHours
-    var four: DailyGymHours
-    var five: DailyGymHours
-    var six: DailyGymHours
+    var zero: DailyGymHours?
+    var one: DailyGymHours?
+    var two: DailyGymHours?
+    var three: DailyGymHours?
+    var four: DailyGymHours?
+    var five: DailyGymHours?
+    var six: DailyGymHours?
 }
 
 struct DailyGymHours: Codable {
@@ -86,13 +86,13 @@ extension Gym: Decodable {
     }
     
     enum GymHoursKey: String, CodingKey {
-        case zero
-        case one
-        case two
-        case three
-        case four
-        case five
-        case six
+        case zero = "0"
+        case one = "1"
+        case two = "2"
+        case three = "3"
+        case four = "4"
+        case five = "5"
+        case six = "6"
     }
     
     enum DailyGymHoursKey: String, CodingKey {
@@ -114,16 +114,6 @@ extension Gym: Decodable {
         case sunday
     }
     
-    enum DayOfWeekKey: String, CodingKey {
-        case zero = "0"
-        case one = "1"
-        case two = "2"
-        case three = "3"
-        case four = "4"
-        case five = "5"
-        case six = "6"
-    }
-    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         
@@ -132,30 +122,56 @@ extension Gym: Decodable {
         equipment = try container.decodeIfPresent(String.self, forKey: .equipment) ?? ""
         location = try container.decodeIfPresent(Int.self, forKey: .location) ??  -1
         
-        let gymHoursContainer = try container.nestedContainer(keyedBy: DayOfWeekKey.self, forKey: .gymHours)
+        let gymHoursContainer = try container.nestedContainer(keyedBy: GymHoursKey.self, forKey: .gymHours)
         
-        
-        if(gymHoursContainer.allKeys.count == 7){
+        if(gymHoursContainer.allKeys.count > 0){
+
+            var containers: [KeyedDecodingContainer<Gym.DailyGymHoursKey>?] = [nil,nil,nil,nil,nil,nil,nil]
             
-            
-            let zeroContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .zero)
-            let oneContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .one)
-            let twoContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .two)
-            let theeContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .three)
-            let fourContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .four)
-            let fiveContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .five)
-            let sixContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .six)
-            
-            let containers = [zeroContainer,oneContainer,twoContainer,theeContainer,fourContainer,fiveContainer,sixContainer]
-            
-            var dailyGymHours: [DailyGymHours] = []
+            for key in gymHoursContainer.allKeys{
+                switch key{
+                case .zero:
+                    let zeroContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .zero)
+                    containers.insert(zeroContainer, at: 0)
+                    containers.remove(at: 1)
+                case .one:
+                    let oneContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .one)
+                    containers.insert(oneContainer, at: 1)
+                    containers.remove(at: 2)
+                case .two:
+                    let twoContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .two)
+                    containers.insert(twoContainer, at: 2)
+                    containers.remove(at: 3)
+                case .three:
+                    let theeContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .three)
+                    containers.insert(theeContainer, at: 3)
+                    containers.remove(at: 4)
+                case .four:
+                    let fourContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .four)
+                    containers.insert(fourContainer, at: 4)
+                    containers.remove(at: 5)
+                case .five:
+                    let fiveContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .five)
+                    containers.insert(fiveContainer, at: 5)
+                    containers.remove(at: 6)
+                case .six:
+                    let sixContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .six)
+                    containers.insert(sixContainer, at: 6)
+                    containers.remove(at: 7)
+                }
+            }
+            var dailyGymHours: [DailyGymHours?] = []
             
             for container in containers{
-                let id = try container.decodeIfPresent(Int.self, forKey: .id) ?? -1
-                let dayOfWeek = try container.decodeIfPresent(Int.self, forKey: .dayOfWeek) ?? -1
-                let openTime = try container.decodeIfPresent(String.self, forKey: .openTime) ?? ""
-                let closeTime = try container.decodeIfPresent(String.self, forKey: .closeTime) ?? ""
-                dailyGymHours.append(DailyGymHours(id: id, dayOfWeek: dayOfWeek, openTime: openTime, closeTime: closeTime))
+                if container == nil{
+                    dailyGymHours.append(nil)
+                }else{
+                    let id = try container!.decodeIfPresent(Int.self, forKey: .id) ?? -1
+                    let dayOfWeek = try container!.decodeIfPresent(Int.self, forKey: .dayOfWeek) ?? -1
+                    let openTime = try container!.decodeIfPresent(String.self, forKey: .openTime) ?? ""
+                    let closeTime = try container!.decodeIfPresent(String.self, forKey: .closeTime) ?? ""
+                    dailyGymHours.append(DailyGymHours(id: id, dayOfWeek: dayOfWeek, openTime: openTime, closeTime: closeTime))
+                }
             }
             
             gymHours = GymHours(zero: dailyGymHours[0], one: dailyGymHours[1], two: dailyGymHours[2], three: dailyGymHours[3], four: dailyGymHours[4], five: dailyGymHours[5], six: dailyGymHours[6])

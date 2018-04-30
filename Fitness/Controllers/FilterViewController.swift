@@ -29,6 +29,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     var collectionViewTitle: UILabel!
     var gymCollectionView: UICollectionView!
+    var gyms: [Gym]!
     var selectedGyms: [Int]!
 
     var fitnessCenterStartTimeDivider: UIView!
@@ -111,6 +112,13 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         contentView.addSubview(gymCollectionView)
         
         selectedGyms = []
+        
+        gyms = []
+        
+        AppDelegate.networkManager.getGyms { (gyms) in
+            self.gyms = gyms
+            
+        }
 
         //START TIME SLIDER SECTION
         fitnessCenterStartTimeDivider = UIView()
