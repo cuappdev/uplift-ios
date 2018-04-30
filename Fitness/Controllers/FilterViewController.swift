@@ -118,6 +118,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         AppDelegate.networkManager.getGyms { (gyms) in
             self.gyms = gyms
             
+            self.gymCollectionView.reloadData()
         }
 
         //START TIME SLIDER SECTION
@@ -347,7 +348,10 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
 
     @objc func reset(){
-        
+        selectedGyms = []
+        for i in 0..<gymCollectionView.numberOfItems(inSection: 0){
+            gymCollectionView.deselectItem(at: IndexPath(row: i, section: 0), animated: true)
+        }
         
         startTimeLabel.text = "6:00 AM - 10:00 PM"
         startTimeSlider.lowerValue = 0.0
@@ -366,25 +370,15 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymFilterCell", for: indexPath) as! GymFilterCell
 
-        switch indexPath.row {
-        case 0:
-            cell.gymNameLabel.text = "Teagle"
-        case 1:
-            cell.gymNameLabel.text = "Appel"
-        case 2:
-            cell.gymNameLabel.text = "Helen Newman"
-        case 3:
-            cell.gymNameLabel.text = "Noyes"
-        default:
-            cell.gymNameLabel.text = "Gates"
-        }
+        cell.gymNameLabel.text = gyms[indexPath.row].name
+        cell.gymNameLabel.sizeToFit()
 
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         for i in 0..<selectedGyms.count{
-            if (selectedGyms[i] == indexPath.row){       //temp: replace with proper gymId
+            if (selectedGyms[i] == gyms[indexPath.row].id){
                 selectedGyms.remove(at: i)
                 return
             }
@@ -392,32 +386,15 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedGyms.append(indexPath.row)      //temp: replace with proper gymId
+        selectedGyms.append(gyms[indexPath.row].id)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        var offset = CGFloat(0)
-        if (view.frame.width > 360){
-            offset = (view.frame.width - 360)/4
-        }
-
-        switch indexPath.row {
-        case 0:
-            return CGSize(width: 74 + offset, height: 31)
-        case 1:
-            return CGSize(width: 70 + offset, height: 31)
-        case 2:
-            return CGSize(width: 138 + offset, height: 31)
-        case 3:
-            return CGSize(width: 72 + offset, height: 31)
-        default:
-            return CGSize(width: 150 + offset, height: 31)
-        }
+        return CGSize(width: 35 + gyms[indexPath.row].name.count*10, height: 31)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return gyms.count
     }
 
     //MARK: - SLIDER METHODS
