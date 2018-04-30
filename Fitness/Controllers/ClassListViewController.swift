@@ -77,12 +77,10 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                     }
                 }
                 
-                
                 if(roomIsInCache == false){
                     let gymId = gymClassInstance.gymId
                     
                     AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
-                        
                         self.locations!.append(gym.name)
                         
                         gymRoomCache.append(gym)
