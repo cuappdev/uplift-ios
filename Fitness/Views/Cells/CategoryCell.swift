@@ -12,7 +12,7 @@ class CategoryCell: UICollectionViewCell {
     
     // MARK: - INITIALIZATION
     var image: UIImageView!
-    var title: UILabel!
+    var title: UILabel! 
     
     override init(frame: CGRect) {
         super.init(frame: frame)

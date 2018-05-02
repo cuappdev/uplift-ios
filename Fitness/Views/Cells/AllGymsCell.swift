@@ -51,26 +51,15 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymsCell", for: indexPath) as! GymsCell
         
-        //        if indexPath.row == 3{
-        //            cell.locationName.text = "Appel Commons"
-        //            cell.hours.text = "Reopens at 9 AM"
-        //            cell.status.text = "Closed"
-        //            cell.status.textColor = .fitnessRed
-        //            cell.colorBar.backgroundColor = .lightGray
-        //
-        //            return cell
-        //        }
-        
         cell.locationName.text = gyms[indexPath.row].name
         
-        for gymHour in gyms[indexPath.row].gymHours {
-            if gymHour.dayOfWeek == Date().getIntegerDayOfWeek() {
-                cell.hours.text = "Closes at \(gymHour.closeTime)"
-            }
-        }
+        let isOpen = Date() < Date.getDateFromTime(time: gyms[indexPath.row].gymHours[Date().getIntegerDayOfWeek()!].closeTime)
+        cell.status.text = isOpen ? "Open" : "Closed"
+        cell.status.textColor = isOpen ? .fitnessGreen : .fitnessRed
         
-        //cell.status.text = Date().getHour() < 
-        cell.status.textColor = .fitnessGreen
+       // cell.hours.text = "Closes at \(gymHour.closeTime)"
+        //            cell.hours.text = "Reopens at 9 AM"
+        cell.colorBar.backgroundColor = isOpen ? .fitnessYellow : .lightGray
         
         return cell
     }

@@ -16,6 +16,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var gyms = [Gym]()
     var gymClasses = [GymClass]()
+    var tags = [Tag]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +51,18 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         let date = Date.getDateFromTime(time: "10:33PM")
         print(date)
         
+        // GET GYMS
         AppDelegate.networkManager.getGyms { (gyms) in
             self.gyms = gyms
+            self.tableView.reloadData()
+        }
+        
+        // GET TODAY'S CLASSES
+        
+        
+        // GET TAGS
+        AppDelegate.networkManager.getTags { (tags) in
+            self.tags = tags
             self.tableView.reloadData()
         }
     }
@@ -69,6 +80,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "lookingForCell", for: indexPath) as! LookingForCell
+            cell.tags = tags
             return cell
         default:
             return UITableViewCell()
@@ -126,7 +138,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         case 1:
             height = 207
         case 2:
-            height = 429
+            height = CGFloat(143 * (tags.count / 2))
         default:
             height = 0
         }

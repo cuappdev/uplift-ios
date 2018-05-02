@@ -6,11 +6,18 @@
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
     
     // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
+    var tags: [Tag] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,14 +52,18 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryCell
         
-        cell.image.image = #imageLiteral(resourceName: "running-sample")
-        cell.title.text = "Zen"
-        
+        Alamofire.request(tags[indexPath.row].imageURL).responseImage { response in
+            if let image = response.result.value {
+                cell.image.image = image
+            }
+        }
+    
+        cell.title.text = tags[indexPath.row].name.capitalized
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return tags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
