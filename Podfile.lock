@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.6.0)
+  - AlamofireImage (3.3.0):
+    - Alamofire (~> 4.5)
   - Crashlytics (3.8.6):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.13)
@@ -13,6 +15,7 @@ PODS:
   - WARangeSlider (1.1.1)
 
 DEPENDENCIES:
+  - AlamofireImage
   - Crashlytics
   - Fabric
   - Moya
@@ -31,6 +34,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
   Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   Fabric: 2fb5676bc811af011a04513451f463dac6803206
   Moya: 3d594ada51a21cc02b18739ab578a1984f900c8a
@@ -38,6 +42,6 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
 
-PODFILE CHECKSUM: 6f484d1627f1685506411142c9c572f51cc8c8c3
+PODFILE CHECKSUM: 21bb83b51ec3236be9a44376150da243e4d71783
 
 COCOAPODS: 1.5.0

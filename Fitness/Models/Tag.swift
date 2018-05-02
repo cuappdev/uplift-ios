@@ -12,6 +12,7 @@ struct Tag {
     let id: Int
     let name: String
     let classDescriptions: [Int]
+    let imageURL: String
 }
 
 struct TagsRootData: Decodable {
@@ -25,6 +26,7 @@ extension Tag: Decodable {
         case id
         case name
         case classDescriptions = "class_descs"
+        case imageURL = "image_url"
     }
     
     init(from decoder: Decoder) throws {
@@ -33,5 +35,6 @@ extension Tag: Decodable {
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         classDescriptions = try container.decodeIfPresent([Int].self, forKey: .classDescriptions) ?? []
+        imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL) ?? ""
     }
 }
