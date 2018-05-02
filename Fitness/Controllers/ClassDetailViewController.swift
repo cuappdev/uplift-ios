@@ -13,7 +13,6 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     //MARK: - INITIALIZATION
     var gymClassInstance: GymClassInstance!
-    var date: String!
     
     var titleLabel: UILabel!
     var locationLabel: UILabel!
@@ -50,6 +49,8 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         durationLabel = UILabel()
+        locationLabel = UILabel()
+        dateLabel = UILabel()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,8 +69,6 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
             print("gymclassDescroptions:")
             print(gymClassDescriptions)
         }
-        
-        
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -112,8 +111,6 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
         
-        locationLabel = UILabel()
-        locationLabel.text = "Helen Newman Hall Dance Studio"
         locationLabel.font = ._14MontserratLight
         locationLabel.textAlignment = .center
         locationLabel.textColor = .white
@@ -146,7 +143,6 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(starButton)
         
         //DATE
-        dateLabel = UILabel()
         dateLabel.text = "Wednesday, March 15"
         dateLabel.font = ._16MontserratLight
         dateLabel.textAlignment = .center
@@ -155,7 +151,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(dateLabel)
         
         timeLabel = UILabel()
-        timeLabel.text = "12:15PM - 1:00PM"
+        timeLabel.text = gymClassInstance.startTime + " - " + "9"       //temp
         timeLabel.font = ._16MontserratMedium
         timeLabel.textAlignment = .center
         timeLabel.textColor = .fitnessBlack

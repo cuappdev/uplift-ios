@@ -9,9 +9,10 @@
 import UIKit
 import SnapKit
 
-struct filterParameters {
+struct FilterParameters {
     var shouldFilter: Bool!
-    var times: String!
+    var startTime: String!
+    var endTime: String!
     var instructorIds: [Int]!
     var classDescIds: [Int]!
     var gymIds: [Int]!
@@ -27,13 +28,19 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     var selectedDate: String!
     
-    var shouldFilterSearch: Bool!
+    var filterParameters: FilterParameters!
+    
+    var shouldFilterBySearchbar: Bool!
     var filterText: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        selectedDate = "4/30/2018"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/YYYY"
+        selectedDate = dateFormatter.string(from: Date())
+        
+        filterParameters = FilterParameters(shouldFilter: false, startTime: "", endTime: "", instructorIds: [], classDescIds: [], gymIds: [])
         
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
@@ -45,16 +52,37 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         
         let searchBar = SearchBar.createSearchBar()
         searchBar.delegate = self
-        shouldFilterSearch = false
+        shouldFilterBySearchbar = false
         filterText = ""
         
         self.navigationItem.titleView = searchBar
         
         let filterBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "filter"), style: .plain, target: self, action: #selector(filter))
+        filterBarButton.tintColor = .fitnessBlack
         self.navigationItem.rightBarButtonItem = filterBarButton
+        
+        let resetBarButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
+        resetBarButton.tintColor = .fitnessBlack
+        self.navigationItem.leftBarButtonItem = resetBarButton
         
         view.backgroundColor = .white
         
+        updateGymClasses()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController!.isNavigationBarHidden = false
+        tabBarController!.tabBar.isHidden = false
+        
+        if (filterParameters.shouldFilter){
+            //update gyms given filter
+            filterParameters.shouldFilter = false
+        }
+       
+        
+    }
+    
+    func updateGymClasses() {
         AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
             self.allGymClassInstances = gymClassInstances
             self.validGymClassInstances = self.getValidGymClassInstances()
@@ -89,15 +117,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 roomIsInCache = false
             }
             
-            
-            
             self.tableView.reloadData()
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        navigationController!.isNavigationBarHidden = false
-        tabBarController!.tabBar.isHidden = false
     }
     
     // MARK: - TABLEVIEW
@@ -162,7 +183,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         let classDetailViewController = ClassDetailViewController()
         classDetailViewController.gymClassInstance = allGymClassInstances![indexPath.row]
         classDetailViewController.durationLabel.text = (tableView.cellForRow(at: indexPath) as! ClassListCell).durationLabel.text?.uppercased()
-        classDetailViewController.date = selectedDate
+        classDetailViewController.locationLabel.text = locations[indexPath.row]
+            
         navigationController!.pushViewController(classDetailViewController, animated: true)
     }
     
@@ -171,19 +193,19 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if (searchText != ""){
-            shouldFilterSearch = true
+            shouldFilterBySearchbar = true
         }
         filterText = searchText
         validGymClassInstances = getValidGymClassInstances()
         tableView.reloadData()
-        shouldFilterSearch = false
+        shouldFilterBySearchbar = false
     }
     
     //Returns all valid gymClassInstances to display
     func getValidGymClassInstances() -> [GymClassInstance]{
         var validInstances: [GymClassInstance] = []
         
-        if (shouldFilterSearch == false){
+        if (shouldFilterBySearchbar == false){
             return allGymClassInstances!
         }
         
@@ -198,12 +220,17 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     //called by header when new date is selected
     func updateDate(){
-        let header = tableView.headerView(forSection: 0) as! ClassListHeaderView
+        updateGymClasses()
     }
     
     // MARK: - FILTER
     @objc func filter(){
         let filterViewController = FilterViewController()
         navigationController!.pushViewController(filterViewController, animated: true)
+    }
+    
+    @objc func reset(){
+        filterParameters.shouldFilter = false
+        //update data
     }
 }

@@ -13,6 +13,7 @@ class CalendarCell: UICollectionViewCell {
     var dateLabel: UILabel!
     var dayOfWeekLabel: UILabel!
     var shapeLayer: CAShapeLayer!
+    var date: String!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

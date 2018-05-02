@@ -37,6 +37,8 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     var startTimeLabel: UILabel!
     var startTimeSlider: RangeSlider!
     var startTimeClassTypeDivider: UIView!
+    var startTime: String!
+    var endTime: String!
 
     var classTypeDropdown: UITableView!
     var classTypeDropdownData: DropdownData!
@@ -139,6 +141,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         startTimeLabel.textColor = .fitnessDarkGrey
         startTimeLabel.text = "6:00 AM - 10:00 PM"
         contentView.addSubview(startTimeLabel)
+        
+        startTime = "6:00AM"
+        endTime = "10:00PM"
 
         startTimeSlider = RangeSlider(frame: .zero)
         startTimeSlider.minimumValue = 0.0
@@ -343,8 +348,12 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     //MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done(){
+        let filterParameters = FilterParameters(shouldFilter: true, startTime: startTime, endTime: endTime, instructorIds: selectedInstructors, classDescIds: selectedClasses, gymIds: selectedGyms)
         
-        navigationController?.popViewController(animated: true)
+        //is there a better way of doing this?
+        (navigationController!.viewControllers.first as! ClassListViewController).filterParameters = filterParameters
+        
+        navigationController!.popViewController(animated: true)
     }
 
     @objc func reset(){
@@ -411,11 +420,17 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             upperHours -= 12
             lowerHours -= 12
             startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
+            startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "PM")
+            endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
         }else if (upperHours < 12){
             startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " AM")
+            startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM")
+            endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "AM")
         } else {
             upperHours -= 12
             startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
+            startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM")
+            endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
         }
     }
 

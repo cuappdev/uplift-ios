@@ -15,7 +15,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
     var collectionView: UICollectionView!
     
     var currentWeekDay: Int!
-    var currentDay: Int!
+    var calendar: Calendar!
     var selectedDayIndex: Int!
     
     var currentDateLabel: UILabel!
@@ -43,8 +43,9 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         
         selectedDayIndex = 3
         
-        currentDay = 25
-        currentWeekDay = 3
+        calendar = Calendar.current
+        
+        currentWeekDay = Date.getIntegerDayOfWeek(Date())()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -129,6 +130,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         
         cell.dateLabel.textColor = .white
         cell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
+        delegate.selectedDate = cell.date
         
         delegate.updateDate()
     }
@@ -138,7 +140,14 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         
         let offset = indexPath.row - 3
         
-        cell.dateLabel.text = String(currentDay + offset)
+        let day = calendar.date(byAdding: .day, value: offset, to: Date())
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d"
+        
+        cell.dateLabel.text = String(dateFormatter.string(from: day!))
+        
+        dateFormatter.dateFormat = "MM/dd/YYYY"
+        cell.date = dateFormatter.string(from: day!)
         
         if(indexPath.row < 3){
             cell.dateLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
@@ -151,9 +160,10 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         if(indexPath.row == selectedDayIndex){
             cell.dateLabel.textColor = .white
             cell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
+            delegate.selectedDate = cell.date
         }
         
-        switch (offset + currentWeekDay) {
+        switch (offset + currentWeekDay)%7 {
         case 0:
             cell.dayOfWeekLabel.text = "Su"
         case 1:
@@ -169,7 +179,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         case 6:
             cell.dayOfWeekLabel.text = "Sa"
         default:
-            cell.dayOfWeekLabel.text = "W"
+            cell.dayOfWeekLabel.text = ""
         }
         
         return cell

@@ -53,7 +53,10 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         
         cell.locationName.text = gyms[indexPath.row].name
         
-        let isOpen = Date() < Date.getDateFromTime(time: gyms[indexPath.row].gymHours[Date().getIntegerDayOfWeek()!].closeTime)
+        //temp until merging
+        let closeTime = "11:30PM"
+        
+        let isOpen = Date() < Date.getDateFromTime(time: closeTime)
         cell.status.text = isOpen ? "Open" : "Closed"
         cell.status.textColor = isOpen ? .fitnessGreen : .fitnessRed
         
