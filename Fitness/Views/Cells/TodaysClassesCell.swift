@@ -26,6 +26,8 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         }
     }
     
+    var navigationController: UINavigationController?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -69,9 +71,51 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         }
         
         cell.locationName.text = gymLocations[classInstance.gymId]
-        cell.hours.text = classInstance.startTime
+        
+        //HOURS
+        var time = Date.getDateFromTime(time: classInstance.startTime)
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation: "EDT")!
+        
+        let dateFormatter = DateFormatter()
+        let date = Date()
+        let durationMinutes = date.getMinutesFromDuration(duration: classInstance.duration)
+        
+        time = calendar.date(byAdding: .minute, value: durationMinutes, to: time)!
+        dateFormatter.dateFormat = "h:mm a"
+        let endTime = dateFormatter.string(from: time)
+        
+        cell.hours.text = classInstance.startTime + " - " + endTime
+        cell.duration = durationMinutes
         cell.className.text = classInstance.classDescription.name
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let classDetailViewController = ClassDetailViewController()
+        let cell = collectionView.cellForItem(at: indexPath) as! ClassesCell
+        
+        classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
+        classDetailViewController.durationLabel.text = String(cell.duration) + " MIN"
+        //classDetailViewController.locationLabel.text = cell.locationLabel.text
+        
+        //DATE
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let day = Date()
+        
+        dateFormatter.dateFormat = "EEEE"
+        var dateLabel = dateFormatter.string(from: day)
+        dateFormatter.dateFormat = "MMMM"
+        dateLabel = dateLabel + ", " + dateFormatter.string(from: day)
+        dateFormatter.dateFormat = "d"
+        dateLabel = dateLabel + " " + dateFormatter.string(from: day)
+        classDetailViewController.dateLabel.text = dateLabel
+        
+        //TIME
+        classDetailViewController.timeLabel.text = cell.hours.text
+        
+        navigationController!.pushViewController(classDetailViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -16,6 +16,7 @@ class ClassesCell: UICollectionViewCell {
     var locationName: UILabel!
     var hours: UILabel!
     var locationWidget: UIImageView!
+    var duration: Int!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

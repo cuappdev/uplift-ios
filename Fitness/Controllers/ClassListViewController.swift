@@ -205,7 +205,6 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         classDetailViewController.dateLabel.text = dateLabel
         
         //TIME
-        
         var time = Date.getDateFromTime(time: classDetailViewController.gymClassInstance.startTime)
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "EDT")!
