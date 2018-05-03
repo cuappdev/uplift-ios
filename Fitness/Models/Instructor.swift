@@ -42,10 +42,10 @@ extension Instructor: Decodable {
         case name
         case description
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-
+        
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         
@@ -60,6 +60,7 @@ extension Instructor: Decodable {
             let gymClasses = try gymClassDescriptionKeyedContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
             
             gymClassDescriptions?.append(GymClassDescription(id: id, description: description, name: name, tags: tags, gymClasses: gymClasses, imageURL: ""))
+            
         }
         
         gymClasses = try container.decode([Int].self, forKey: .gymClasses)

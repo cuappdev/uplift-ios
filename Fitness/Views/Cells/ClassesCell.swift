@@ -40,6 +40,7 @@ class ClassesCell: UICollectionViewCell {
         image.clipsToBounds = true
         image.layer.cornerRadius = 5
         image.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
+        image.contentMode = .scaleAspectFill
         contentView.addSubview(image)
         
         //CLASS NAME

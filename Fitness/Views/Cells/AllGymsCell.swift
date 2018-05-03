@@ -12,6 +12,11 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     
     // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
+    var gyms: [Gym] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -46,29 +51,42 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymsCell", for: indexPath) as! GymsCell
         
-        if indexPath.row == 3{
-            cell.locationName.text = "Appel Commons"
-            cell.hours.text = "Reopens at 9 AM"
-            cell.status.text = "Closed"
-            cell.status.textColor = .fitnessRed
-            cell.colorBar.backgroundColor = .lightGray
-            
-            return cell
+        let gymHoursToday = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: false)
+        let openTimeToday = gymHoursToday.openTime
+        let closeTimeToday = gymHoursToday.closeTime
+        
+        let gymHoursTomorrow = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: true)
+        let openTimeTomorrow = gymHoursTomorrow.openTime
+        
+        let isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
+        
+        if(gyms[indexPath.row].name == "Bartels"){
+            cell.hours.text = "Always open"
+        } else if (!isOpen && Date() > Date.getDateFromTime(time: closeTimeToday)) {
+            cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
+        } else if (!isOpen && Date() < Date.getDateFromTime(time: openTimeToday)) {
+            cell.hours.text = "Opens at \(openTimeToday)"
+        } else {
+            cell.hours.text = "Closes at \(closeTimeToday)"
         }
         
-        cell.locationName.text = "Helen Newman"
-        cell.hours.text = "Closes at 9 PM"
-        cell.status.text = "Open"
-        cell.status.textColor = .fitnessGreen
-        
+        cell.locationName.text = gyms[indexPath.row].name
+        cell.status.text = isOpen ? "Open" : "Closed"
+        cell.status.textColor = isOpen ? .fitnessGreen : .fitnessRed
+        cell.colorBar.backgroundColor = isOpen ? .fitnessYellow : .lightGray
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return gyms.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (frame.width - 80)/2 , height: 48)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let gymDetailViewController = GymDetailViewController()
+//        navigationController!.pushViewController(gymDetailViewController, animated: false)
     }
 }
