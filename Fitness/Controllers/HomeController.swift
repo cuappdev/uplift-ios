@@ -58,7 +58,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         // GET TODAY'S CLASSES
-        
+        //AppDelegate.networkManager.getGymClassInstancesByDate(date: <#T##String#>, completion: <#T##([GymClassInstance]) -> ()#>)
         
         // GET TAGS
         AppDelegate.networkManager.getTags { (tags) in

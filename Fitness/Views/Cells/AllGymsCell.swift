@@ -51,16 +51,29 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymsCell", for: indexPath) as! GymsCell
         
-        cell.locationName.text = gyms[indexPath.row].name
+        let gymHoursToday = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: false)
+        let openTimeToday = gymHoursToday.openTime
+        let closeTimeToday = gymHoursToday.closeTime
         
-        let isOpen = Date() < Date.getDateFromTime(time: gyms[indexPath.row].gymHours[Date().getIntegerDayOfWeek()!].closeTime)
+        let gymHoursTomorrow = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: true)
+        let openTimeTomorrow = gymHoursTomorrow.openTime
+        
+        let isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
+        
+        if(gyms[indexPath.row].name == "Bartels"){
+            cell.hours.text = "Always open"
+        } else if (!isOpen && Date() > Date.getDateFromTime(time: closeTimeToday)) {
+            cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
+        } else if (!isOpen && Date() < Date.getDateFromTime(time: openTimeToday)) {
+            cell.hours.text = "Opens at \(openTimeToday)"
+        } else {
+            cell.hours.text = "Closes at \(closeTimeToday)"
+        }
+        
+        cell.locationName.text = gyms[indexPath.row].name
         cell.status.text = isOpen ? "Open" : "Closed"
         cell.status.textColor = isOpen ? .fitnessGreen : .fitnessRed
-        
-       // cell.hours.text = "Closes at \(gymHour.closeTime)"
-        //            cell.hours.text = "Reopens at 9 AM"
         cell.colorBar.backgroundColor = isOpen ? .fitnessYellow : .lightGray
-        
         return cell
     }
     

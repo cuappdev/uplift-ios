@@ -5,13 +5,15 @@
 //  Created by Keivan Shahida on 4/22/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
-
 import Foundation
 
 struct GymClassInstance {
     let gymClassInstanceId: Int
     let classDescription: GymClassDescription
     let instructor: Instructor
+    let startTime: String
+    let gymId: Int
+    let duration: String
 }
 
 struct GymClassInstancesRootData: Decodable {
@@ -28,8 +30,11 @@ extension GymClassInstance: Decodable {
     
     enum Key: String, CodingKey {
         case classDescription = "class_desc"
+        case duration
         case id
+        case gymId = "gym_id"
         case instructor
+        case startTime = "start_time"
     }
     
     enum ClassDescriptionKey: String, CodingKey {
@@ -60,6 +65,8 @@ extension GymClassInstance: Decodable {
         
         classDescription = GymClassDescription(id: classDescriptionId, description: classDescriptionDescription, name: classDescriptionName, tags: classDescriptionTags, gymClasses: classDescriptionGymClasses, imageURL: classDescriptionImageURL)
         
+        duration = try container.decodeIfPresent(String.self, forKey: .duration) ?? ""
+        
         gymClassInstanceId = try container.decode(Int.self, forKey: .id)
         
         let instructorContainer = try container.nestedContainer(keyedBy: InstructorKey.self, forKey: .instructor)
@@ -67,6 +74,9 @@ extension GymClassInstance: Decodable {
         let instructorId = try instructorContainer.decode(Int.self, forKey: .id)
         let instructorName = try instructorContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
         instructor = Instructor(id: instructorId, name: instructorName, gymClassDescriptions: [], gymClasses: instructorGymClasses)
+        
+        gymId = try container.decodeIfPresent(Int.self, forKey: .gymId) ?? -1
+        
+        startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? ""
     }
 }
-
