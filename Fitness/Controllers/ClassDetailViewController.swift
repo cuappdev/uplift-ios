@@ -28,6 +28,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     var dateLabel: UILabel!
     var timeLabel: UILabel!
+    var date: Date!
     
     var addToCalendarButton: UIButton!
     var addToCalendarLabel: UILabel!
@@ -45,12 +46,14 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     var nextSessionsLabel: UILabel!
     var tableView: UITableView!
+    var nextSessions = [GymClassInstance]()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         durationLabel = UILabel()
         locationLabel = UILabel()
         dateLabel = UILabel()
+        timeLabel = UILabel()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,9 +68,18 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        AppDelegate.networkManager.getGymClassDescription(gymClassDescriptionId: gymClassInstance.gymClassInstanceId) { (gymClassDescriptions) in
-            print("gymclassDescroptions:")
-            print(gymClassDescriptions)
+        var upcomingInstanceIds: [Int] = []
+        
+        for gymClassId in gymClassInstance.classDescription.gymClasses {
+            AppDelegate.networkManager.getGymClass(gymClassId: gymClassId) { gymClass in
+                
+                for instanceId in gymClass.gymClassInstances{
+                    if(!upcomingInstanceIds.contains(instanceId)){
+                        upcomingInstanceIds.append(instanceId)
+                    }
+                }
+                self.getUpcomingInstances(upcomingInstanceIds: upcomingInstanceIds)
+            }
         }
         
         scrollView = UIScrollView()
@@ -140,18 +152,16 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         starButton = UIButton()
         starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
         starButton.sizeToFit()
+        starButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(starButton)
         
         //DATE
-        dateLabel.text = "Wednesday, March 15"
         dateLabel.font = ._16MontserratLight
         dateLabel.textAlignment = .center
         dateLabel.textColor = .fitnessBlack
         dateLabel.sizeToFit()
         contentView.addSubview(dateLabel)
         
-        timeLabel = UILabel()
-        timeLabel.text = gymClassInstance.startTime + " - " + "9"       //temp
         timeLabel.font = ._16MontserratMedium
         timeLabel.textAlignment = .center
         timeLabel.textColor = .fitnessBlack
@@ -221,6 +231,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.separatorStyle = .none
         tableView.bounces = false
         tableView.showsVerticalScrollIndicator = false
+        tableView.isScrollEnabled = false
         tableView.backgroundColor = .white
         tableView.clipsToBounds = false
         
@@ -233,6 +244,16 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         setupConstraints()
     }
 
+    func getUpcomingInstances(upcomingInstanceIds: [Int]) {
+        for instanceId in upcomingInstanceIds{
+            AppDelegate.networkManager.getGymClassInstance(gymClassInstanceId: instanceId) { (gymClassInstance) in
+                self.nextSessions.append(gymClassInstance)
+                
+            }
+            
+        }
+        
+    }
     
     //MARK: - CONSTRAINTS
     func setupConstraints(){
@@ -375,10 +396,19 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
             make.height.equalTo(tableView.numberOfRows(inSection: 0) * 112)
         }
+        
+        var height = 764 + descriptionTextView.frame.height + 111
+        height += CGFloat(tableView.numberOfRows(inSection: 0)*112 + 110)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
     
+    //MARK: - BUTTON METHODS
     @objc func back() {
         navigationController!.popViewController(animated: true)
+    }
+    
+    @objc func favorite(){
+        print("favorite")
     }
     
     //MARK: - TABLE VIEW METHODS
@@ -390,6 +420,10 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -86,38 +86,41 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
             self.allGymClassInstances = gymClassInstances
             self.validGymClassInstances = self.getValidGymClassInstances()
-            self.tableView.reloadData()
+            
             self.locations = []
+            self.getLocations()
             
-            var gymRoomCache: [Gym] = []
-            var roomIsInCache = false
+            self.tableView.reloadData()
+        }
+    }
+    
+    func getLocations() {
+        var gymRoomCache: [Gym] = []
+        var roomIsInCache = false
+        
+        for gymClassInstance in self.allGymClassInstances!{
+            let instanceId = gymClassInstance.classDescription.id
             
-            for gymClassInstance in self.allGymClassInstances!{
-                let instanceId = gymClassInstance.classDescription.id
-                
-                //checking if room data has been fetched
-                for gym in gymRoomCache{
-                    for classInstanceId in gym.classInstances{
-                        if (instanceId == classInstanceId){
-                            self.locations!.append(gym.name)
-                            roomIsInCache = true
-                        }
+            //checking if room data has been fetched
+            for gym in gymRoomCache{
+                for classInstanceId in gym.classInstances{
+                    if (instanceId == classInstanceId){
+                        self.locations!.append(gym.name)
+                        roomIsInCache = true
                     }
                 }
-                
-                if(roomIsInCache == false){
-                    let gymId = gymClassInstance.gymId
-                    
-                    AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
-                        self.locations!.append(gym.name)
-                        
-                        gymRoomCache.append(gym)
-                    })
-                }
-                roomIsInCache = false
             }
             
-            self.tableView.reloadData()
+            if(roomIsInCache == false){
+                let gymId = gymClassInstance.gymId
+                
+                AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
+                    self.locations!.append(gym.name)
+                    
+                    gymRoomCache.append(gym)
+                })
+            }
+            roomIsInCache = false
         }
     }
     
@@ -153,6 +156,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 duration = duration.substring(from: String.Index(encodedOffset: 2))
                 duration = String( Int(hours)!*60 + Int(duration)!)
             }
+            cell.duration = Int(duration)
             duration = duration + " min"
             cell.durationLabel.text = duration
             
@@ -181,10 +185,36 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let classDetailViewController = ClassDetailViewController()
+        let cell = tableView.cellForRow(at: indexPath) as! ClassListCell
+        
         classDetailViewController.gymClassInstance = allGymClassInstances![indexPath.row]
-        classDetailViewController.durationLabel.text = (tableView.cellForRow(at: indexPath) as! ClassListCell).durationLabel.text?.uppercased()
-        classDetailViewController.locationLabel.text = locations[indexPath.row]
-            
+        classDetailViewController.durationLabel.text = cell.durationLabel.text?.uppercased()
+        classDetailViewController.locationLabel.text = cell.locationLabel.text
+        
+        //DATE
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let day = dateFormatter.date(from: self.selectedDate)
+        
+        dateFormatter.dateFormat = "EEEE"
+        var dateLabel = dateFormatter.string(from: day!)
+        dateFormatter.dateFormat = "MMMM"
+        dateLabel = dateLabel + ", " + dateFormatter.string(from: day!)
+        dateFormatter.dateFormat = "d"
+        dateLabel = dateLabel + " " + dateFormatter.string(from: day!)
+        classDetailViewController.dateLabel.text = dateLabel
+        
+        //TIME
+        var time = Date.getDateFromTime(time: classDetailViewController.gymClassInstance.startTime)
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation: "EDT")!
+ 
+        time = calendar.date(byAdding: .minute, value: cell.duration, to: time)!
+        dateFormatter.dateFormat = "h:mm a"
+        let endTime = dateFormatter.string(from: time)
+        
+        classDetailViewController.timeLabel.text = classDetailViewController.gymClassInstance.startTime + " - " + endTime
+        
         navigationController!.pushViewController(classDetailViewController, animated: true)
     }
     

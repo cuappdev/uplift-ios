@@ -422,7 +422,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
             startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "PM")
             endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
-        }else if (upperHours < 12){
+        }else if (upperHours <= 12){
             startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " AM")
             startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM")
             endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "AM")

@@ -14,6 +14,7 @@ class ClassListCell: UITableViewCell {
     // MARK: - INITIALIZATION
     var timeLabel: UILabel!
     var durationLabel: UILabel!
+    var duration: Int!
     
     var classLabel: UILabel!
     var locationLabel: UILabel!
