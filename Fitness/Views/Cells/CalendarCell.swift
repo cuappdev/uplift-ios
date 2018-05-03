@@ -13,21 +13,7 @@ class CalendarCell: UICollectionViewCell {
     var dateLabel: UILabel!
     var dayOfWeekLabel: UILabel!
     var shapeLayer: CAShapeLayer!
-    override var isSelected: Bool{
-        didSet{
-            if self.isSelected {
-                dateLabel.textColor = .white
-                dateLabel.font = ._12MontserratMedium
-                dayOfWeekLabel.font = ._12MontserratMedium
-                shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
-            } else {
-                dateLabel.textColor = .fitnessBlack
-                dateLabel.font = ._12MontserratRegular
-                dayOfWeekLabel.font = ._12MontserratRegular
-                shapeLayer.fillColor = UIColor.clear.cgColor
-            }
-        }
-    }
+    var date: String!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

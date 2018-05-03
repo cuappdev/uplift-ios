@@ -70,7 +70,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
             cell.hours.text = "Closes at \(closeTimeToday)"
         }
         
-        cell.locationName.text = gyms[indexPath.row].name
+
         cell.status.text = isOpen ? "Open" : "Closed"
         cell.status.textColor = isOpen ? .fitnessGreen : .fitnessRed
         cell.colorBar.backgroundColor = isOpen ? .fitnessYellow : .lightGray

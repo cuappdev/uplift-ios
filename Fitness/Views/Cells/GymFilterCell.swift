@@ -13,7 +13,20 @@ class GymFilterCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     var gymNameLabel: UILabel!
-    //var separator: UIView!
+    var selectedCircle: UIView!
+    override var isSelected: Bool{
+        didSet{
+            if self.isSelected {
+                gymNameLabel.font = ._14MontserratMedium
+                selectedCircle.backgroundColor = .fitnessYellow
+            } else {
+                gymNameLabel.font = ._14MontserratLight
+                selectedCircle.backgroundColor = .white
+            }
+        }
+    }
+    
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,11 +38,15 @@ class GymFilterCell: UICollectionViewCell {
         gymNameLabel.sizeToFit()
         gymNameLabel.textAlignment = .center
         contentView.addSubview(gymNameLabel)
-
-        /*separator = UIView()
-        separator.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(separator)*/
-
+        
+        selectedCircle = UIView()
+        selectedCircle.clipsToBounds = true
+        selectedCircle.layer.cornerRadius = 3
+        selectedCircle.backgroundColor = .white
+        contentView.addSubview(selectedCircle)
+        
+        isSelected = false
+        
         setupConstraints()
     }
 
@@ -40,16 +57,15 @@ class GymFilterCell: UICollectionViewCell {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         gymNameLabel.snp.updateConstraints{make in
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(6)
             make.left.equalToSuperview().offset(14)
             make.right.equalToSuperview().offset(-14)
         }
 
-        /*separator.snp.updateConstraints{make in
-            make.height.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview()
-            make.left.equalTo(separator.snp.right).offset(-3)
-        }*/
+        selectedCircle.snp.updateConstraints { (make) in
+            make.centerX.equalTo(gymNameLabel.snp.centerX)
+            make.height.width.equalTo(6)
+            make.top.equalTo(gymNameLabel.snp.bottom).offset(2)
+        }
     }
 }

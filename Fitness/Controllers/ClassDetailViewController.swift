@@ -12,11 +12,12 @@ import SnapKit
 class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - INITIALIZATION
+    var gymClassInstance: GymClassInstance!
     
     var titleLabel: UILabel!
-    var locationLabel: UILabel!
+    var locationLabel = UILabel()
     var instructorLabel: UILabel!
-    var durationLabel: UILabel!
+    var durationLabel = UILabel()
 
     var classImageView: UIImageView!
     var imageFilterView: UIView!
@@ -25,8 +26,9 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var backButton: UIButton!
     var starButton: UIButton!
 
-    var dateLabel: UILabel!
-    var timeLabel: UILabel!
+    var dateLabel = UILabel()
+    var timeLabel = UILabel()
+    var date: Date!
     
     var addToCalendarButton: UIButton!
     var addToCalendarLabel: UILabel!
@@ -44,10 +46,29 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     var nextSessionsLabel: UILabel!
     var tableView: UITableView!
+    var nextSessions = [GymClassInstance]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController!.isNavigationBarHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        var nextSessionsIds: [Int] = []
+        
+        for gymClassId in gymClassInstance.classDescription.gymClasses {
+            AppDelegate.networkManager.getGymClass(gymClassId: gymClassId) { gymClass in
+                
+                for instanceId in gymClass.gymClassInstances{
+                    if(!nextSessionsIds.contains(instanceId)){
+                        nextSessionsIds.append(instanceId)
+                    }
+                }
+                self.getUpcomingInstances(upcomingInstanceIds: nextSessionsIds)
+            }
+        }
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -83,15 +104,13 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(semicircleView)
         
         titleLabel = UILabel()
-        titleLabel.text = "MUSCLE PUMP"
+        titleLabel.text = gymClassInstance.classDescription.name
         titleLabel.font = ._48Bebas
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
         
-        locationLabel = UILabel()
-        locationLabel.text = "Helen Newman Hall Dance Studio"
         locationLabel.font = ._14MontserratLight
         locationLabel.textAlignment = .center
         locationLabel.textColor = .white
@@ -99,15 +118,13 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(locationLabel)
         
         instructorLabel = UILabel()
-        instructorLabel.text = "DEBBIE"
+        instructorLabel.text = gymClassInstance.instructor.name
         instructorLabel.font = ._18Bebas
         instructorLabel.textAlignment = .center
         instructorLabel.textColor = .white
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
         
-        durationLabel = UILabel()
-        durationLabel.text = "45 min"
         durationLabel.font = ._18Bebas
         durationLabel.textAlignment = .center
         durationLabel.textColor = .fitnessBlack
@@ -117,24 +134,22 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         backButton = UIButton()
         backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
         backButton.sizeToFit()
+        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
         
         starButton = UIButton()
         starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
         starButton.sizeToFit()
+        starButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(starButton)
         
         //DATE
-        dateLabel = UILabel()
-        dateLabel.text = "Wednesday, March 15"
         dateLabel.font = ._16MontserratLight
         dateLabel.textAlignment = .center
         dateLabel.textColor = .fitnessBlack
         dateLabel.sizeToFit()
         contentView.addSubview(dateLabel)
         
-        timeLabel = UILabel()
-        timeLabel.text = "12:15PM - 1:00PM"
         timeLabel.font = ._16MontserratMedium
         timeLabel.textAlignment = .center
         timeLabel.textColor = .fitnessBlack
@@ -169,6 +184,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         contentView.addSubview(functionLabel)
         
         functionDescriptionLabel = UILabel(frame: CGRect(x: 10, y: 511, width: 100, height: 19))
+        
         functionDescriptionLabel.text = "Core  · Overall Fitness · Stability"
         functionDescriptionLabel.font = ._14MontserratLight
         functionDescriptionLabel.textAlignment = .center
@@ -182,7 +198,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         //DESCRIPTION
         descriptionTextView = UITextView()
-        descriptionTextView.text = "Put a little muscle into your workout and join us for a class designed to build muscle endurance with low to medium weights and high repetitions. A variety of equipment and strength training techniques will be used in this class. There is no cardio portion in these sessions. Footwear that is appropriate for movement is required for this class. "
+        descriptionTextView.text = gymClassInstance.classDescription.description
         descriptionTextView.font = ._14MontserratLight
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
@@ -203,6 +219,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.separatorStyle = .none
         tableView.bounces = false
         tableView.showsVerticalScrollIndicator = false
+        tableView.isScrollEnabled = false
         tableView.backgroundColor = .white
         tableView.clipsToBounds = false
         
@@ -215,6 +232,16 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         setupConstraints()
     }
 
+    func getUpcomingInstances(upcomingInstanceIds: [Int]) {
+        for instanceId in upcomingInstanceIds{
+            AppDelegate.networkManager.getGymClassInstance(gymClassInstanceId: instanceId) { (gymClassInstance) in
+                self.nextSessions.append(gymClassInstance)
+                
+            }
+            
+        }
+        
+    }
     
     //MARK: - CONSTRAINTS
     func setupConstraints(){
@@ -357,6 +384,19 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
             make.height.equalTo(tableView.numberOfRows(inSection: 0) * 112)
         }
+        
+        var height = 764 + descriptionTextView.frame.height + 111
+        height += CGFloat(tableView.numberOfRows(inSection: 0)*112 + 110)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
+    }
+    
+    //MARK: - BUTTON METHODS
+    @objc func back() {
+        navigationController!.popViewController(animated: true)
+    }
+    
+    @objc func favorite(){
+        print("favorite")
     }
     
     //MARK: - TABLE VIEW METHODS
@@ -368,6 +408,10 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
