@@ -20,7 +20,7 @@ enum FitnessAPI {
     case gymClassInstance(gymClassInstanceId: Int)
     case gymClassInstancesPaginated(page: Int, pageSize: Int)
     case gymClassInstancesByDate(date: String)
-    case gymClassInstancesSearch(startTime: Int, endTime: Int, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int])
+    case gymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int])
     
     //Class Descriptions
     case gymClassDescriptions

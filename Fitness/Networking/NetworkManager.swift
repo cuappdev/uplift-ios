@@ -128,7 +128,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGymClassInstancesSearch(startTime: Int, endTime: Int, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int], completion: @escaping ([GymClassInstance]) -> ()) {
+    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int], completion: @escaping ([GymClassInstance]) -> ()) {
         provider.request(.gymClassInstancesSearch(startTime: startTime, endTime: endTime, instructorIDs: instructorIDs, gymIDs: gymIDs, classDescriptionIDs: classDescriptionIDs)) { result in
             switch result {
             case let .success(response):
