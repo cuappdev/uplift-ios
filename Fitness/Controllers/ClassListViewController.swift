@@ -24,7 +24,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     var allGymClassInstances: [GymClassInstance]?
     var validGymClassInstances: [GymClassInstance]?
     
-    var locations: [String]!
+    var locations: [Int:String]!
     
     var selectedDate: String!
     
@@ -87,7 +87,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             self.allGymClassInstances = gymClassInstances
             self.validGymClassInstances = self.getValidGymClassInstances()
             
-            self.locations = []
+            self.locations = [:]
             self.getLocations()
             
             self.tableView.reloadData()
@@ -99,13 +99,13 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         var roomIsInCache = false
         
         for gymClassInstance in self.allGymClassInstances!{
-            let instanceId = gymClassInstance.classDescription.id
+            let classDescId = gymClassInstance.classDescription.id
             
             //checking if room data has been fetched
             for gym in gymRoomCache{
                 for classInstanceId in gym.classInstances{
-                    if (instanceId == classInstanceId){
-                        self.locations!.append(gym.name)
+                    if (classDescId == classInstanceId){
+                        self.locations.updateValue(gym.name, forKey: classDescId)
                         roomIsInCache = true
                     }
                 }
@@ -115,13 +115,15 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 let gymId = gymClassInstance.gymId
                 
                 AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
-                    self.locations!.append(gym.name)
-                    
+                    self.locations.updateValue(gym.name, forKey: classDescId)
                     gymRoomCache.append(gym)
+                    self.tableView.reloadData()
+                    
                 })
             }
             roomIsInCache = false
         }
+        
     }
     
     // MARK: - TABLEVIEW
@@ -160,9 +162,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             duration = duration + " min"
             cell.durationLabel.text = duration
             
-            if((locations!.count) > indexPath.row){
-                cell.locationLabel.text = locations![indexPath.row]
-            }
+            cell.locationLabel.text = locations[gymClassInstance.classDescription.id]
         }
         
         return cell
