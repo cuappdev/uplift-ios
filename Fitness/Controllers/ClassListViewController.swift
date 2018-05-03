@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import Alamofire
+import AlamofireImage
 
 struct FilterParameters {
     var shouldFilter: Bool!
@@ -190,6 +192,12 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         classDetailViewController.gymClassInstance = allGymClassInstances![indexPath.row]
         classDetailViewController.durationLabel.text = cell.durationLabel.text?.uppercased()
         classDetailViewController.locationLabel.text = cell.locationLabel.text
+        
+        Alamofire.request(allGymClassInstances![indexPath.row].classDescription.imageURL!).responseImage { response in
+            if let image = response.result.value {
+                classDetailViewController.classImageView.image = image
+            }
+        }
         
         //DATE
         let dateFormatter = DateFormatter()

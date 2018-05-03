@@ -121,13 +121,13 @@ class Histogram: UIView {
                 make.bottom.equalTo(bottomAxis.snp.top)
                 if(i == 0){
                     make.left.equalToSuperview().offset(2)
-                    make.right.equalTo(bottomAxisTicks[i].snp.left)
+                    make.right.equalTo(bottomAxisTicks[i].snp.left)            //check indices
                 }else if (i == bars.count - 1){
                     make.right.equalToSuperview().offset(-2)
                     make.left.equalTo(bottomAxisTicks[i - 1].snp.right)
                 }else{
                     make.left.equalTo(bottomAxisTicks[i - 1].snp.right)
-                    make.right.equalTo(bottomAxisTicks[i].snp.left)
+                    make.right.equalTo(bottomAxisTicks[i].snp.left)             //check indices
                 }
                 let height = 72*(data[i])/100
                 make.height.equalTo(height)

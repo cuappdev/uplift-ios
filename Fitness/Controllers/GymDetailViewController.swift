@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import AlamofireImage
+import Alamofire
 
 struct HoursData {
     var isDropped: Bool!
@@ -42,6 +44,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     var todaysClassesLabel: UILabel!
     var classesTableView: UITableView!
     
+    var gym: Gym!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -68,19 +72,27 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         //HEADER
-        gymImageView = UIImageView(image: #imageLiteral(resourceName: "Noyes"))
+        gymImageView = UIImageView()
         gymImageView.contentMode = UIViewContentMode.scaleAspectFill
         gymImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(gymImageView)
         
+        Alamofire.request(gym.imageURL).responseImage { response in
+            if let image = response.result.value {
+                self.gymImageView.image = image
+            }
+        }
+        
         backButton = UIButton()
         backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
         backButton.sizeToFit()
+        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
         
         starButton = UIButton()
         starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
         starButton.sizeToFit()
+        starButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(starButton)
         
         titleLabel = UILabel()
@@ -88,7 +100,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         titleLabel.textAlignment = .center
         titleLabel.sizeToFit()
         titleLabel.textColor = .white
-        titleLabel.text = "NOYES"
+        titleLabel.text = gym.name
         contentView.addSubview(titleLabel)
         
         //HOURS
@@ -127,7 +139,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         popularTimesTitleLabel.text = "POPULAR TIMES"
         contentView.addSubview(popularTimesTitleLabel)
         
-        let data = [15 ,15 , 23, 20,89,76,54,43,32, 34 ,45,45,14, 14]
+        let data = [4,5,36,2,42,43,98,10]
         
         popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data:data)
         contentView.addSubview(popularTimesHistogram)
@@ -393,5 +405,14 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         
         hoursTableView.endUpdates()
         setupConstraints()
+    }
+    
+    //MARK: - BUTTON METHODS
+    @objc func back() {
+        navigationController!.popViewController(animated: true)
+    }
+    
+    @objc func favorite(){
+        print("favorite")
     }
 }

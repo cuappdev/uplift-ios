@@ -97,7 +97,8 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         
         classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
         classDetailViewController.durationLabel.text = String(cell.duration) + " MIN"
-        //classDetailViewController.locationLabel.text = cell.locationLabel.text
+        classDetailViewController.locationLabel.text = cell.locationName.text
+        classDetailViewController.classImageView.image = cell.image.image
         
         //DATE
         let dateFormatter = DateFormatter()

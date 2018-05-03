@@ -18,6 +18,8 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         }
     }
     
+    var navigationController: UINavigationController?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -89,7 +91,9 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let gymDetailViewController = GymDetailViewController()
-//        navigationController!.pushViewController(gymDetailViewController, animated: false)
+        let gymDetailViewController = GymDetailViewController()
+        gymDetailViewController.gym = gyms[indexPath.row]
+        
+        navigationController!.pushViewController(gymDetailViewController, animated: true)
     }
 }

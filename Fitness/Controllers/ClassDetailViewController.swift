@@ -19,7 +19,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var instructorLabel: UILabel!
     var durationLabel = UILabel()
 
-    var classImageView: UIImageView!
+    var classImageView = UIImageView()
     var imageFilterView: UIView!
     var semicircleView: UIImageView!
     
@@ -89,7 +89,6 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         //HEADER
-        classImageView = UIImageView(image: #imageLiteral(resourceName: "running-sample"))
         classImageView.contentMode = UIViewContentMode.scaleAspectFill
         classImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(classImageView)
