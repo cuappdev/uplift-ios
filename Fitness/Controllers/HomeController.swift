@@ -15,7 +15,8 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     var statusBarBackgroundColor: UIView!
     
     var gyms = [Gym]()
-    var gymClasses = [GymClass]()
+    var gymClassInstances = [GymClassInstance]()
+    var gymLocations = [Int: String]()
     var tags = [Tag]()
     
     override func viewDidLoad() {
@@ -48,9 +49,6 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         statusBarBackgroundColor.backgroundColor = .white
         view.addSubview(statusBarBackgroundColor)
         
-        let date = Date.getDateFromTime(time: "10:33PM")
-        print(date)
-        
         // GET GYMS
         AppDelegate.networkManager.getGyms { (gyms) in
             self.gyms = gyms
@@ -58,7 +56,18 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         // GET TODAY'S CLASSES
-        //AppDelegate.networkManager.getGymClassInstancesByDate(date: <#T##String#>, completion: <#T##([GymClassInstance]) -> ()#>)
+        let date = Date()
+        if let stringDate = date.getStringDate(date: date) {
+            AppDelegate.networkManager.getGymClassInstancesByDate(date: stringDate) { (gymClassInstances) in
+                self.gymClassInstances = gymClassInstances
+                for gymClassInstance in gymClassInstances {
+                    AppDelegate.networkManager.getGym(gymId: gymClassInstance.gymId, completion: { (gym) in
+                        self.gymLocations[gymClassInstance.gymId] = gym.name
+                        self.tableView.reloadData()
+                    })
+                }
+            }
+        }
         
         // GET TAGS
         AppDelegate.networkManager.getTags { (tags) in
@@ -77,6 +86,8 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "todaysClassesCell", for: indexPath) as! TodaysClassesCell
+            cell.gymClassInstances = gymClassInstances
+            cell.gymLocations = gymLocations
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "lookingForCell", for: indexPath) as! LookingForCell

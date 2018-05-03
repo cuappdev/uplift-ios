@@ -35,6 +35,15 @@ extension Date {
         return calendar.date(from: dateComponents)!
     }
     
+    // MARK: - DATE
+    func getStringDate(date: Date) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let newDate: String = dateFormatter.string(from: date)
+        print(newDate)
+        return newDate
+    }
+    
     // MARK: - DAY OF WEEK
     func getIntegerDayOfWeekToday() -> Int? {
         return Calendar.current.dateComponents([.weekday], from: self).weekday! - 1

@@ -84,4 +84,9 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (frame.width - 80)/2 , height: 48)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let gymDetailViewController = GymDetailViewController()
+//        navigationController!.pushViewController(gymDetailViewController, animated: false)
+    }
 }
