@@ -45,7 +45,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         
         calendar = Calendar.current
         
-        currentWeekDay = Date.getIntegerDayOfWeek(Date())()
+        currentWeekDay = Date.getIntegerDayOfWeekToday(Date())()
     }
     
     required init?(coder aDecoder: NSCoder) {
