@@ -7,11 +7,24 @@
 //
 import UIKit
 import SnapKit
+import Alamofire
+import AlamofireImage
 
 class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     // MARK: - INITIALIZATION
     var collectionView: UICollectionView!
+    var gymClassInstances: [GymClassInstance] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    var gymLocations: [Int: String] = [:] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -47,17 +60,22 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "classesCell", for: indexPath) as! ClassesCell
+        let classInstance = gymClassInstances[indexPath.row]
+
+        Alamofire.request(classInstance.classDescription.imageURL!).responseImage { response in
+            if let image = response.result.value {
+                cell.image.image = image
+            }
+        }
         
-        cell.image.image = #imageLiteral(resourceName: "running-sample")
-        cell.locationName.text = "Helen Newman Room 165"
-        cell.hours.text = "7:00 PM - 8:00 PM"
-        cell.className.text = "ZUMBA"
-        
+        cell.locationName.text = gymLocations[classInstance.gymId]
+        cell.hours.text = classInstance.startTime
+        cell.className.text = classInstance.classDescription.name
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return gymClassInstances.count > 5 ? 5 : gymClassInstances.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

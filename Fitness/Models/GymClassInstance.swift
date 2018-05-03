@@ -5,7 +5,6 @@
 //  Created by Keivan Shahida on 4/22/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
-
 import Foundation
 
 struct GymClassInstance {
@@ -81,4 +80,3 @@ extension GymClassInstance: Decodable {
         startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? ""
     }
 }
-

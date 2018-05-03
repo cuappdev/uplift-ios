@@ -42,10 +42,10 @@ extension Instructor: Decodable {
         case name
         case description
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-
+        
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         

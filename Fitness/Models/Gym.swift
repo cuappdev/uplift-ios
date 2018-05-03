@@ -38,6 +38,29 @@ struct GymHours: Codable {
     var four: DailyGymHours?
     var five: DailyGymHours?
     var six: DailyGymHours?
+    
+    func getGymHours(isTomorrow: Bool) -> DailyGymHours {
+        let defaultDailyGymHours = DailyGymHours(id: -1, dayOfWeek: -1, openTime: "", closeTime: "")
+        let date = isTomorrow ? Date().getIntegerDayOfWeekTomorrow() : Date().getIntegerDayOfWeekToday()
+        switch(date) {
+        case 0:
+            return zero ?? defaultDailyGymHours
+        case 1:
+            return one ?? defaultDailyGymHours
+        case 2:
+            return two ?? defaultDailyGymHours
+        case 3:
+            return three ?? defaultDailyGymHours
+        case 4:
+            return four ?? defaultDailyGymHours
+        case 5:
+            return five ?? defaultDailyGymHours
+        case 6:
+            return six ?? defaultDailyGymHours
+        default:
+            return defaultDailyGymHours
+        }
+    }
 }
 
 struct DailyGymHours: Codable {
@@ -190,7 +213,7 @@ extension Gym: Decodable {
         let friday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .friday) ?? []
         let saturday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .saturday) ?? []
         let sunday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .sunday) ?? []
-
+        
         popularTimesList = PopularTimes(id: popularTimesId, gym: popularTimesGym, monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday, friday: friday, saturday: saturday, sunday: sunday)
         
         imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL) ?? ""
