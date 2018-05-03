@@ -14,7 +14,9 @@ import AlamofireImage
 struct FilterParameters {
     var shouldFilter: Bool!
     var startTime: String!
+    var encodedStartTime: Double!
     var endTime: String!
+    var encodedEndTime: Double!
     var instructorIds: [Int]!
     var classDescIds: [Int]!
     var gymIds: [Int]!
@@ -42,7 +44,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         dateFormatter.dateFormat = "MM/dd/YYYY"
         selectedDate = dateFormatter.string(from: Date())
         
-        filterParameters = FilterParameters(shouldFilter: false, startTime: "", endTime: "", instructorIds: [], classDescIds: [], gymIds: [])
+        filterParameters = FilterParameters(shouldFilter: false, startTime: "6:00AM", encodedStartTime: 0,endTime: "10:00PM", encodedEndTime: 960,instructorIds: [], classDescIds: [], gymIds: [])
         
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
@@ -276,6 +278,16 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - FILTER
     @objc func filter(){
         let filterViewController = FilterViewController()
+        //account for if they .shouldfilter
+        filterViewController.selectedGyms = filterParameters.gymIds
+        filterViewController.selectedClasses = filterParameters.classDescIds
+        filterViewController.selectedInstructors = filterParameters.instructorIds
+        filterViewController.startTime = filterParameters.startTime
+        filterViewController.endTime = filterParameters.endTime
+        
+        filterViewController.startTimeSliderStartRange[0] = filterParameters.encodedStartTime
+        filterViewController.startTimeSliderStartRange[1] = filterParameters.encodedEndTime
+        
         navigationController!.pushViewController(filterViewController, animated: true)
     }
     
