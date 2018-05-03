@@ -25,7 +25,7 @@ struct NetworkManager: Networkable {
     
     
     //MARK: - GYMS
-    func getGyms(completion: @escaping ([Gym])->()) {
+    func getGyms(completion: @escaping ([Gym]) -> ()) {
         provider.request(.gyms) { result in
             switch result {
             case let .success(response):
@@ -42,7 +42,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGym(gymId: Int, completion: @escaping (Gym)->()) {
+    func getGym(gymId: Int, completion: @escaping (Gym) -> ()) {
         provider.request(.gym(gymId: gymId)) { result in
             switch result {
             case let .success(response):
@@ -60,7 +60,7 @@ struct NetworkManager: Networkable {
     }
     
     //MARK: - GYM CLASS INSTANCES
-    func getGymClassInstances(completion: @escaping ([GymClassInstance])->()){
+    func getGymClassInstances(completion: @escaping ([GymClassInstance]) -> ()){
         provider.request(.gymClassInstances) { result in
             switch result {
             case let .success(response):
@@ -77,7 +77,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGymClassInstance(gymClassInstanceId: Int, completion: @escaping (GymClassInstance)->()) {
+    func getGymClassInstance(gymClassInstanceId: Int, completion: @escaping (GymClassInstance) -> ()) {
         provider.request(.gymClassInstance(gymClassInstanceId: gymClassInstanceId)) { result in
             switch result {
             case let .success(response):
@@ -94,7 +94,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGymClassInstancesPaginated(page: Int, pageSize: Int, completion: @escaping ([GymClassInstance])->()) {
+    func getGymClassInstancesPaginated(page: Int, pageSize: Int, completion: @escaping ([GymClassInstance]) -> ()) {
         provider.request(.gymClassInstancesPaginated(page: page, pageSize: pageSize)) { result in
             switch result {
             case let .success(response):
@@ -111,8 +111,25 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGymClassInstancesByDate(date: String, completion: @escaping ([GymClassInstance])->()) {
+    func getGymClassInstancesByDate(date: String, completion: @escaping ([GymClassInstance]) -> ()) {
         provider.request(.gymClassInstancesByDate(date: date)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
+                    let gymClassInstances = gymClassInstancesData.data
+                    completion(gymClassInstances)
+                } catch let err {
+                    print(err)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func getGymClassInstancesSearch(startTime: Int, endTime: Int, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int], completion: @escaping ([GymClassInstance]) -> ()) {
+        provider.request(.gymClassInstancesSearch(startTime: startTime, endTime: endTime, instructorIDs: instructorIDs, gymIDs: gymIDs, classDescriptionIDs: classDescriptionIDs)) { result in
             switch result {
             case let .success(response):
                 do {
@@ -146,7 +163,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGymClassDescription(gymClassDescriptionId: Int, completion: @escaping (GymClassDescription)->()) {
+    func getGymClassDescription(gymClassDescriptionId: Int, completion: @escaping (GymClassDescription) -> ()) {
         provider.request(.gymClassDescription(gymClassDescriptionId: gymClassDescriptionId)) { result in
             switch result {
             case let .success(response):
@@ -163,7 +180,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGymClassDescriptionsByTag(tag: Int, completion: @escaping ([GymClassDescription])->()) {
+    func getGymClassDescriptionsByTag(tag: Int, completion: @escaping ([GymClassDescription]) -> ()) {
         provider.request(.gymClassDescriptionsByTag(tag: tag)) { result in
             switch result {
             case let .success(response):
@@ -181,7 +198,7 @@ struct NetworkManager: Networkable {
     }
     
     //MARK: - TAGS
-    func getTags(completion: @escaping ([Tag])->()) {
+    func getTags(completion: @escaping ([Tag]) -> ()) {
         provider.request(.tags) { result in
             switch result {
             case let .success(response):
@@ -199,7 +216,7 @@ struct NetworkManager: Networkable {
     }
     
     //MARK: - GYM CLASSES
-    func getGymClasses(completion: @escaping ([GymClass])->()) {
+    func getGymClasses(completion: @escaping ([GymClass]) -> ()) {
         provider.request(.gymClasses) { result in
             switch result {
             case let .success(response):
@@ -216,7 +233,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getGymClass(gymClassId: Int, completion: @escaping (GymClass)->()) {
+    func getGymClass(gymClassId: Int, completion: @escaping (GymClass) -> ()) {
         provider.request(.gymClass(gymClassId: gymClassId)) { result in
             switch result {
             case let .success(response):
@@ -234,7 +251,7 @@ struct NetworkManager: Networkable {
     }
     
     //MARK: - INSTRUCTORS
-    func getInstructors(completion: @escaping ([Instructor])->()) {
+    func getInstructors(completion: @escaping ([Instructor]) -> ()) {
         provider.request(.instructors) { result in
             switch result {
             case let .success(response):
@@ -251,7 +268,7 @@ struct NetworkManager: Networkable {
         }
     }
     
-    func getInstructor(instructorId: Int, completion: @escaping (Instructor)->()) {
+    func getInstructor(instructorId: Int, completion: @escaping (Instructor) -> ()) {
         provider.request(.instructor(instructorId: instructorId)) { result in
             switch result {
             case let .success(response):

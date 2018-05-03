@@ -20,6 +20,7 @@ enum FitnessAPI {
     case gymClassInstance(gymClassInstanceId: Int)
     case gymClassInstancesPaginated(page: Int, pageSize: Int)
     case gymClassInstancesByDate(date: String)
+    case gymClassInstancesSearch(startTime: Int, endTime: Int, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int])
     
     //Class Descriptions
     case gymClassDescriptions
@@ -61,6 +62,7 @@ extension FitnessAPI: TargetType {
         case .gymClassInstance(let gymClassInstanceId): return "gymclassinstance/\(gymClassInstanceId)"
         case .gymClassInstancesPaginated: return "gymclassinstances/"
         case .gymClassInstancesByDate: return "gymclassinstances/date/"
+        case .gymClassInstancesSearch: return "search_gymclass_instances/"
             
         case .gymClassDescriptions: return "class_descs"
         case .gymClassDescription(let classDescriptionId): return "class_desc/\(classDescriptionId)"
@@ -95,6 +97,8 @@ extension FitnessAPI: TargetType {
             return .requestParameters(parameters: ["page": page, "page_size": pageSize], encoding: URLEncoding.default)
         case .gymClassInstancesByDate(let date):
             return .requestParameters(parameters: ["date": date], encoding: URLEncoding.default)
+        case .gymClassInstancesSearch(let startTime, let endTime, let instructorIDs, let gymIDs, let classDescriptionIDs):
+            return .requestParameters(parameters: ["start_time": startTime, "end_time": endTime, "instructor_ids": instructorIDs, "gym_ids": gymIDs, "class_desc_ids": classDescriptionIDs], encoding: URLEncoding.default)
         default:
             return .requestPlain
         }
