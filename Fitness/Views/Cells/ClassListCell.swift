@@ -65,7 +65,7 @@ class ClassListCell: UITableViewCell {
         instructorLabel.text = "Clare M."
         instructorLabel.font = ._12MontserratRegular
         instructorLabel.textAlignment = .left
-        instructorLabel.textColor = .fitnessLightGrey
+        instructorLabel.textColor = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
         

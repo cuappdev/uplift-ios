@@ -106,7 +106,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
             calendarCell.shapeLayer.fillColor = UIColor.white.cgColor
         
             if(indexPath.row < 3){
-                calendarCell.dateLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
+                calendarCell.dateLabel.textColor = .fitnessMediumGrey
             }else{
                 calendarCell.dateLabel.textColor = .fitnessBlack
             }
@@ -118,7 +118,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
             oldCell.shapeLayer.fillColor = UIColor.white.cgColor
             
             if(selectedDayIndex < 3){
-                oldCell.dateLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
+                oldCell.dateLabel.textColor = .fitnessMediumGrey
             }else{
                 oldCell.dateLabel.textColor = .fitnessBlack
             }

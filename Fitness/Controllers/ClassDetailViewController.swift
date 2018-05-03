@@ -15,9 +15,9 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var gymClassInstance: GymClassInstance!
     
     var titleLabel: UILabel!
-    var locationLabel: UILabel!
+    var locationLabel = UILabel()
     var instructorLabel: UILabel!
-    var durationLabel: UILabel!
+    var durationLabel = UILabel()
 
     var classImageView: UIImageView!
     var imageFilterView: UIView!
@@ -26,8 +26,8 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var backButton: UIButton!
     var starButton: UIButton!
 
-    var dateLabel: UILabel!
-    var timeLabel: UILabel!
+    var dateLabel = UILabel()
+    var timeLabel = UILabel()
     var date: Date!
     
     var addToCalendarButton: UIButton!
@@ -48,18 +48,6 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var tableView: UITableView!
     var nextSessions = [GymClassInstance]()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        durationLabel = UILabel()
-        locationLabel = UILabel()
-        dateLabel = UILabel()
-        timeLabel = UILabel()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         navigationController!.isNavigationBarHidden = true
     }
@@ -68,17 +56,17 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        var upcomingInstanceIds: [Int] = []
+        var nextSessionsIds: [Int] = []
         
         for gymClassId in gymClassInstance.classDescription.gymClasses {
             AppDelegate.networkManager.getGymClass(gymClassId: gymClassId) { gymClass in
                 
                 for instanceId in gymClass.gymClassInstances{
-                    if(!upcomingInstanceIds.contains(instanceId)){
-                        upcomingInstanceIds.append(instanceId)
+                    if(!nextSessionsIds.contains(instanceId)){
+                        nextSessionsIds.append(instanceId)
                     }
                 }
-                self.getUpcomingInstances(upcomingInstanceIds: upcomingInstanceIds)
+                self.getUpcomingInstances(upcomingInstanceIds: nextSessionsIds)
             }
         }
         
