@@ -350,8 +350,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @objc func done(){
         let filterParameters = FilterParameters(shouldFilter: true, startTime: startTime, endTime: endTime, instructorIds: selectedInstructors, classDescIds: selectedClasses, gymIds: selectedGyms)
         
-        //is there a better way of doing this?
-        (navigationController!.viewControllers.first as! ClassListViewController).filterParameters = filterParameters
+        let classListViewController = navigationController!.viewControllers.first as! ClassListViewController
+        classListViewController.filterParameters = filterParameters
+        classListViewController.updateGymClasses()
         
         navigationController!.popViewController(animated: true)
     }
