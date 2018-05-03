@@ -80,19 +80,31 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             //update gyms given filter
             filterParameters.shouldFilter = false
         }
-       
+        
         
     }
     
     func updateGymClasses() {
-        AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
-            self.allGymClassInstances = gymClassInstances
-            self.validGymClassInstances = self.getValidGymClassInstances()
-            
-            self.locations = [:]
-            self.getLocations()
-            
-            self.tableView.reloadData()
+        if filterParameters.shouldFilter {
+            AppDelegate.networkManager.getGymClassInstancesSearch(startTime: filterParameters.startTime, endTime: filterParameters.endTime, instructorIDs: filterParameters.instructorIds, gymIDs: filterParameters.gymIds, classDescriptionIDs: filterParameters.classDescIds) { (gymClassInstances) in
+                self.allGymClassInstances = gymClassInstances
+                self.validGymClassInstances = self.getValidGymClassInstances()
+                
+                self.locations = [:]
+                self.getLocations()
+                
+                self.tableView.reloadData()
+            }
+        } else {
+            AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
+                self.allGymClassInstances = gymClassInstances
+                self.validGymClassInstances = self.getValidGymClassInstances()
+                
+                self.locations = [:]
+                self.getLocations()
+                
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -216,7 +228,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         var time = Date.getDateFromTime(time: classDetailViewController.gymClassInstance.startTime)
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "EDT")!
- 
+        
         time = calendar.date(byAdding: .minute, value: cell.duration, to: time)!
         dateFormatter.dateFormat = "h:mm a"
         let endTime = dateFormatter.string(from: time)
