@@ -59,6 +59,37 @@ struct NetworkManager: Networkable {
         }
     }
     
+    //MARK: - LOCATIONS
+    func getLocations(gymClassInstances: [GymClassInstance], completion: @escaping ([Int:String]) -> ()) {
+        var gymIds: [Int] = []
+        
+        for gymClassInstance in gymClassInstances{
+            if (!gymIds.contains(gymClassInstance.gymId)){
+                gymIds.append(gymClassInstance.gymId)
+            }
+        }
+        
+        var gymLocation: [Int: String] = [:]
+        var gymsReceived = 0
+        
+        for gymId in gymIds{
+            AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
+                gymLocation[gym.id] = gym.name
+                gymsReceived += 1
+                
+                if(gymsReceived == gymIds.count){
+                    var classLocations: [Int:String] = [:]
+                    
+                    for gymClassInstance in gymClassInstances{
+                        classLocations[gymClassInstance.gymClassInstanceId] = gymLocation[gymClassInstance.gymId]
+                    }
+                    
+                    completion(classLocations)
+                }
+            })
+        }
+    }
+    
     //MARK: - GYM CLASS INSTANCES
     func getGymClassInstances(completion: @escaping ([GymClassInstance]) -> ()){
         provider.request(.gymClassInstances) { result in

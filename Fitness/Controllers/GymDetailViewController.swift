@@ -43,6 +43,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var todaysClassesLabel: UILabel!
     var classesTableView: UITableView!
+    var todaysClasses: [GymClassInstance] = []
     
     var gym: Gym!
     
@@ -75,6 +76,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         gymImageView = UIImageView()
         gymImageView.contentMode = UIViewContentMode.scaleAspectFill
         gymImageView.translatesAutoresizingMaskIntoConstraints = false
+        gymImageView.clipsToBounds = true
         contentView.addSubview(gymImageView)
         
         Alamofire.request(gym.imageURL).responseImage { response in
@@ -223,6 +225,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         classesTableView.dataSource = self
         contentView.addSubview(classesTableView)
         
+        //get gym class instances once branch merged
+        
         setupConstraints()
     }
     
@@ -359,7 +363,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
                 return 0
             }
         }else {
-            return 5    //temporary
+            return todaysClasses.count
         }
     }
     
@@ -427,6 +431,22 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+            
+            let gymClassInstance = todaysClasses[indexPath.row]
+            
+            cell.classLabel.text = gymClassInstance.classDescription.name
+            cell.timeLabel.text = gymClassInstance.startTime
+            
+            if (cell.timeLabel.text?.hasPrefix("0"))!{
+                cell.timeLabel.text = cell.timeLabel.text?.substring(from: String.Index(encodedOffset: 1))
+            }
+            cell.instructorLabel.text = gymClassInstance.instructor.name
+            
+            cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
+            cell.durationLabel.text = String(cell.duration) + " min"
+            
+            //location
+            
             return cell
         }
     }

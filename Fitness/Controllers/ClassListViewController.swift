@@ -93,9 +93,11 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 self.validGymClassInstances = self.getValidGymClassInstances()
                 
                 self.locations = [:]
-                self.getLocations()
-                
-                self.tableView.reloadData()
+                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
+                    self.locations = classLocations
+                    
+                    self.tableView.reloadData()
+                })
             }
         } else {
             AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
@@ -103,9 +105,12 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 self.validGymClassInstances = self.getValidGymClassInstances()
                 
                 self.locations = [:]
-                self.getLocations()
                 
-                self.tableView.reloadData()
+                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
+                    self.locations = classLocations
+                    
+                    self.tableView.reloadData()
+                })
             }
         }
     }
@@ -166,19 +171,11 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 cell.timeLabel.text = cell.timeLabel.text?.substring(from: String.Index(encodedOffset: 1))
             }
             cell.instructorLabel.text = gymClassInstance.instructor.name
-            var duration = gymClassInstance.duration
-            if duration.hasPrefix("0"){
-                duration = duration.substring(from: String.Index(encodedOffset: 2))
-            }else{
-                let hours = duration.substring(to: String.Index(encodedOffset: duration.count-3))
-                duration = duration.substring(from: String.Index(encodedOffset: 2))
-                duration = String( Int(hours)!*60 + Int(duration)!)
-            }
-            cell.duration = Int(duration)
-            duration = duration + " min"
-            cell.durationLabel.text = duration
             
-            cell.locationLabel.text = locations[gymClassInstance.classDescription.id]
+            cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
+            cell.durationLabel.text = String(cell.duration) + " min"
+            
+            cell.locationLabel.text = locations[gymClassInstance.gymClassInstanceId]
         }
         
         return cell
@@ -239,7 +236,6 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         
         navigationController!.pushViewController(classDetailViewController, animated: true)
     }
-    
     
     //MARK: - SEARCHING
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
