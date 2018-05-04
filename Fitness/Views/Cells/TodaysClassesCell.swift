@@ -78,8 +78,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         calendar.timeZone = TimeZone(abbreviation: "EDT")!
         
         let dateFormatter = DateFormatter()
-        let date = Date()
-        let durationMinutes = date.getMinutesFromDuration(duration: classInstance.duration)
+        let durationMinutes = Date.getMinutesFromDuration(duration: classInstance.duration)
         
         time = calendar.date(byAdding: .minute, value: durationMinutes, to: time)!
         dateFormatter.dateFormat = "h:mm a"

@@ -45,7 +45,7 @@ extension Date {
     }
     
     // MARK: - MINUTES
-    func getMinutesFromDuration(duration: String) -> Int {
+    static public func getMinutesFromDuration(duration: String) -> Int {
         var durationMinutes = duration
     
         if durationMinutes.hasPrefix("0"){

@@ -135,7 +135,9 @@ struct NetworkManager: Networkable {
                 do {
                     let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
                     let gymClassInstances = gymClassInstancesData.data
+                    
                     completion(gymClassInstances)
+                    
                 } catch let err {
                     print(err)
                 }
