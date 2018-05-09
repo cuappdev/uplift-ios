@@ -8,11 +8,15 @@
 
 import UIKit
 import SnapKit
+import Alamofire
+import AlamofireImage
 
 struct FilterParameters {
     var shouldFilter: Bool!
     var startTime: String!
+    var encodedStartTime: Double!
     var endTime: String!
+    var encodedEndTime: Double!
     var instructorIds: [Int]!
     var classDescIds: [Int]!
     var gymIds: [Int]!
@@ -40,7 +44,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         dateFormatter.dateFormat = "MM/dd/YYYY"
         selectedDate = dateFormatter.string(from: Date())
         
-        filterParameters = FilterParameters(shouldFilter: false, startTime: "", endTime: "", instructorIds: [], classDescIds: [], gymIds: [])
+        filterParameters = FilterParameters(shouldFilter: false, startTime: "6:00AM", encodedStartTime: 0,endTime: "10:00PM", encodedEndTime: 960,instructorIds: [], classDescIds: [], gymIds: [])
         
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
@@ -78,19 +82,36 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             //update gyms given filter
             filterParameters.shouldFilter = false
         }
-       
+        
         
     }
     
     func updateGymClasses() {
-        AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
-            self.allGymClassInstances = gymClassInstances
-            self.validGymClassInstances = self.getValidGymClassInstances()
-            
-            self.locations = [:]
-            self.getLocations()
-            
-            self.tableView.reloadData()
+        if filterParameters.shouldFilter {
+            AppDelegate.networkManager.getGymClassInstancesSearch(startTime: filterParameters.startTime, endTime: filterParameters.endTime, instructorIDs: filterParameters.instructorIds, gymIDs: filterParameters.gymIds, classDescriptionIDs: filterParameters.classDescIds) { (gymClassInstances) in
+                self.allGymClassInstances = gymClassInstances
+                self.validGymClassInstances = self.getValidGymClassInstances()
+                
+                self.locations = [:]
+                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
+                    self.locations = classLocations
+                    
+                    self.tableView.reloadData()
+                })
+            }
+        } else {
+            AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
+                self.allGymClassInstances = gymClassInstances
+                self.validGymClassInstances = self.getValidGymClassInstances()
+                
+                self.locations = [:]
+                
+                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
+                    self.locations = classLocations
+                    
+                    self.tableView.reloadData()
+                })
+            }
         }
     }
     
@@ -150,19 +171,11 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 cell.timeLabel.text = cell.timeLabel.text?.substring(from: String.Index(encodedOffset: 1))
             }
             cell.instructorLabel.text = gymClassInstance.instructor.name
-            var duration = gymClassInstance.duration
-            if duration.hasPrefix("0"){
-                duration = duration.substring(from: String.Index(encodedOffset: 2))
-            }else{
-                let hours = duration.substring(to: String.Index(encodedOffset: duration.count-3))
-                duration = duration.substring(from: String.Index(encodedOffset: 2))
-                duration = String( Int(hours)!*60 + Int(duration)!)
-            }
-            cell.duration = Int(duration)
-            duration = duration + " min"
-            cell.durationLabel.text = duration
             
-            cell.locationLabel.text = locations[gymClassInstance.classDescription.id]
+            cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
+            cell.durationLabel.text = String(cell.duration) + " min"
+            
+            cell.locationLabel.text = locations[gymClassInstance.gymClassInstanceId]
         }
         
         return cell
@@ -191,6 +204,12 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         classDetailViewController.durationLabel.text = cell.durationLabel.text?.uppercased()
         classDetailViewController.locationLabel.text = cell.locationLabel.text
         
+        Alamofire.request(allGymClassInstances![indexPath.row].classDescription.imageURL!).responseImage { response in
+            if let image = response.result.value {
+                classDetailViewController.classImageView.image = image
+            }
+        }
+        
         //DATE
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -205,11 +224,10 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         classDetailViewController.dateLabel.text = dateLabel
         
         //TIME
-        
         var time = Date.getDateFromTime(time: classDetailViewController.gymClassInstance.startTime)
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "EDT")!
- 
+        
         time = calendar.date(byAdding: .minute, value: cell.duration, to: time)!
         dateFormatter.dateFormat = "h:mm a"
         let endTime = dateFormatter.string(from: time)
@@ -218,7 +236,6 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         
         navigationController!.pushViewController(classDetailViewController, animated: true)
     }
-    
     
     //MARK: - SEARCHING
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -257,6 +274,16 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - FILTER
     @objc func filter(){
         let filterViewController = FilterViewController()
+        //account for if they .shouldfilter
+        filterViewController.selectedGyms = filterParameters.gymIds
+        filterViewController.selectedClasses = filterParameters.classDescIds
+        filterViewController.selectedInstructors = filterParameters.instructorIds
+        filterViewController.startTime = filterParameters.startTime
+        filterViewController.endTime = filterParameters.endTime
+        
+        filterViewController.startTimeSliderStartRange[0] = filterParameters.encodedStartTime
+        filterViewController.startTimeSliderStartRange[1] = filterParameters.encodedEndTime
+        
         navigationController!.pushViewController(filterViewController, animated: true)
     }
     

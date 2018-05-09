@@ -44,6 +44,21 @@ extension Date {
         return newDate
     }
     
+    // MARK: - MINUTES
+    static public func getMinutesFromDuration(duration: String) -> Int {
+        var durationMinutes = duration
+    
+        if durationMinutes.hasPrefix("0"){
+            durationMinutes = durationMinutes.substring(from: String.Index(encodedOffset: 2))
+        }else{
+            let hours = durationMinutes.substring(to: String.Index(encodedOffset: durationMinutes.count-3))
+            durationMinutes = durationMinutes.substring(from: String.Index(encodedOffset: 2))
+            durationMinutes = String( Int(hours)!*60 + Int(durationMinutes)!)
+        }
+        
+        return Int(durationMinutes)!
+    }
+    
     // MARK: - DAY OF WEEK
     func getIntegerDayOfWeekToday() -> Int? {
         return Calendar.current.dateComponents([.weekday], from: self).weekday! - 1

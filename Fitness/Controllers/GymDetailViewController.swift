@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import AlamofireImage
+import Alamofire
 
 struct HoursData {
     var isDropped: Bool!
@@ -35,19 +37,22 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     var busynessFacilitiesSeparator: UIView!
     
     var facilitiesTitleLabel: UILabel!
-    var facilitiesData: [String]!
+    var facilitiesData: [String]!       //temp (until backend implements equiment)
     var facilitiesLabelArray: [UILabel]!
     var facilitiesClassesDivider: UIView!
     
     var todaysClassesLabel: UILabel!
     var classesTableView: UITableView!
+    var todaysClasses: [GymClassInstance] = []
+    
+    var gym: Gym!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         hoursData = HoursData(isDropped: false, data: [])
-        facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"]
+        facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"] //temp (until backend implements equiment)
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -68,19 +73,28 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         //HEADER
-        gymImageView = UIImageView(image: #imageLiteral(resourceName: "Noyes"))
+        gymImageView = UIImageView()
         gymImageView.contentMode = UIViewContentMode.scaleAspectFill
         gymImageView.translatesAutoresizingMaskIntoConstraints = false
+        gymImageView.clipsToBounds = true
         contentView.addSubview(gymImageView)
+        
+        Alamofire.request(gym.imageURL).responseImage { response in
+            if let image = response.result.value {
+                self.gymImageView.image = image
+            }
+        }
         
         backButton = UIButton()
         backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
         backButton.sizeToFit()
+        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
         
         starButton = UIButton()
         starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
         starButton.sizeToFit()
+        starButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(starButton)
         
         titleLabel = UILabel()
@@ -88,7 +102,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         titleLabel.textAlignment = .center
         titleLabel.sizeToFit()
         titleLabel.textColor = .white
-        titleLabel.text = "NOYES"
+        titleLabel.text = gym.name
         contentView.addSubview(titleLabel)
         
         //HOURS
@@ -127,9 +141,38 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         popularTimesTitleLabel.text = "POPULAR TIMES"
         contentView.addSubview(popularTimesTitleLabel)
         
-        let data = [15 ,15 , 23, 20,89,76,54,43,32, 34 ,45,45,14, 14]
+        var data: [Int]
+        let date = Date()
+        let todaysHours: DailyGymHours
         
-        popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data:data)
+        switch date.getIntegerDayOfWeekToday() {
+        case 0:
+            data = gym.popularTimesList.sunday
+            todaysHours = gym.gymHours.zero ?? DailyGymHours(id: -1, dayOfWeek: 0, openTime: "", closeTime: "")
+        case 1:
+            data = gym.popularTimesList.monday
+            todaysHours = gym.gymHours.one ?? DailyGymHours(id: -1, dayOfWeek: 1, openTime: "", closeTime: "")
+        case 2:
+            data = gym.popularTimesList.tuesday
+            todaysHours = gym.gymHours.two ?? DailyGymHours(id: -1, dayOfWeek: 2, openTime: "", closeTime: "")
+        case 3:
+            data = gym.popularTimesList.wednesday
+            todaysHours = gym.gymHours.three ?? DailyGymHours(id: -1, dayOfWeek: 3, openTime: "", closeTime: "")
+        case 4:
+            data = gym.popularTimesList.thursday
+            todaysHours = gym.gymHours.four ?? DailyGymHours(id: -1, dayOfWeek: 4, openTime: "", closeTime: "")
+        case 5:
+            data = gym.popularTimesList.friday
+            todaysHours = gym.gymHours.five ?? DailyGymHours(id: -1, dayOfWeek: 5, openTime: "", closeTime: "")
+        case 6:
+            data = gym.popularTimesList.saturday
+            todaysHours = gym.gymHours.six ?? DailyGymHours(id: -1, dayOfWeek: 6, openTime: "", closeTime: "")
+        default:
+            data = gym.popularTimesList.sunday
+            todaysHours = gym.gymHours.zero ?? DailyGymHours(id: -1, dayOfWeek: 0, openTime: "", closeTime: "")
+        }
+        
+        popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data:data, todaysHours: todaysHours)
         contentView.addSubview(popularTimesHistogram)
         
         busynessFacilitiesSeparator = UIView()
@@ -146,7 +189,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         contentView.addSubview(facilitiesTitleLabel)
         
         facilitiesLabelArray = []
-        for i in 0..<facilitiesData.count{
+        for i in 0..<facilitiesData.count{  //temp (until backend implements equiment)
             let facilitiesLabel = UILabel()
             facilitiesLabel.font = ._14MontserratLight
             facilitiesLabel.textColor = .fitnessBlack
@@ -181,6 +224,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         classesTableView.delegate = self
         classesTableView.dataSource = self
         contentView.addSubview(classesTableView)
+        
+        //get gym class instances once branch merged
         
         setupConstraints()
     }
@@ -318,34 +363,155 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
                 return 0
             }
         }else {
-            return 5    //temporary
+            return todaysClasses.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell!
-        
         if(tableView == hoursTableView){
-            cell = tableView.dequeueReusableCell(withIdentifier: "gymHoursCell", for: indexPath) as! GymHoursCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "gymHoursCell", for: indexPath) as! GymHoursCell
+            let date = Date()
+            let day = (date.getIntegerDayOfWeekToday()! + indexPath.row + 1)%7
+            
+            switch day{
+            case 0:
+                cell.dayLabel.text = "Su"
+                if let gymHours = gym.gymHours.zero{
+                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    cell.hoursLabel.text = "Closed"
+                }
+            case 1:
+                cell.dayLabel.text = "M"
+                if let gymHours = gym.gymHours.one{
+                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    cell.hoursLabel.text = "Closed"
+                }
+            case 2:
+                cell.dayLabel.text = "T"
+                if let gymHours = gym.gymHours.two{
+                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    cell.hoursLabel.text = "Closed"
+                }
+            case 3:
+                cell.dayLabel.text = "W"
+                if let gymHours = gym.gymHours.three{
+                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    cell.hoursLabel.text = "Closed"
+                }
+            case 4:
+                cell.dayLabel.text = "Th"
+                if let gymHours = gym.gymHours.four{
+                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    cell.hoursLabel.text = "Closed"
+                }
+            case 5:
+                cell.dayLabel.text = "F"
+                if let gymHours = gym.gymHours.five{
+                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    cell.hoursLabel.text = "Closed"
+                }
+            case 6:
+                cell.dayLabel.text = "Sa"
+                if let gymHours = gym.gymHours.six{
+                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    cell.hoursLabel.text = "Closed"
+                }
+            default:
+                cell.hoursLabel.text = ""
+            }
+            
+            
+            return cell
         }else{
-            cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+            
+            let gymClassInstance = todaysClasses[indexPath.row]
+            
+            cell.classLabel.text = gymClassInstance.classDescription.name
+            cell.timeLabel.text = gymClassInstance.startTime
+            
+            if (cell.timeLabel.text?.hasPrefix("0"))!{
+                cell.timeLabel.text = cell.timeLabel.text?.substring(from: String.Index(encodedOffset: 1))
+            }
+            cell.instructorLabel.text = gymClassInstance.instructor.name
+            
+            cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
+            cell.durationLabel.text = String(cell.duration) + " min"
+            
+            //location
+            
+            return cell
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var header: UITableViewHeaderFooterView!
-        
         if(tableView == hoursTableView){
-            header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "gymHoursHeaderView") as! GymHoursHeaderView
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "gymHoursHeaderView") as! GymHoursHeaderView
+            
+            let date = Date()
+            let currentDay = date.getIntegerDayOfWeekToday()
+            
+            switch currentDay{
+            case 0:    
+                if let gymHours = gym.gymHours.zero{
+                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    header.hoursLabel.text = "Closed Today"
+                }
+            case 1:
+                if let gymHours = gym.gymHours.one{
+                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    header.hoursLabel.text = "Closed Today"
+                }
+            case 2:
+                if let gymHours = gym.gymHours.two{
+                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    header.hoursLabel.text = "Closed Today"
+                }
+            case 3:
+                if let gymHours = gym.gymHours.three{
+                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    header.hoursLabel.text = "Closed Today"
+                }
+            case 4:
+                if let gymHours = gym.gymHours.four{
+                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    header.hoursLabel.text = "Closed Today"
+                }
+            case 5:
+                if let gymHours = gym.gymHours.five{
+                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    header.hoursLabel.text = "Closed Today"
+                }
+            case 6:
+                if let gymHours = gym.gymHours.six{
+                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
+                }else{
+                    header.hoursLabel.text = "Closed Today"
+                }
+            default:
+                header.hoursLabel.text = ""
+            }
             
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))
             header.addGestureRecognizer(gesture)
+            
+            return header
         }else{
-            header = nil
+            return nil
         }
-        return header
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -393,5 +559,14 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         
         hoursTableView.endUpdates()
         setupConstraints()
+    }
+    
+    //MARK: - BUTTON METHODS
+    @objc func back() {
+        navigationController!.popViewController(animated: true)
+    }
+    
+    @objc func favorite(){
+        print("favorite")
     }
 }

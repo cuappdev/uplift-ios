@@ -18,6 +18,8 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         }
     }
     
+    var navigationController: UINavigationController?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -58,10 +60,13 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         let gymHoursTomorrow = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: true)
         let openTimeTomorrow = gymHoursTomorrow.openTime
         
-        let isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
+        var isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
         
         if(gyms[indexPath.row].name == "Bartels"){
+            isOpen = true
             cell.hours.text = "Always open"
+        } else if (closeTimeToday == "") {
+             cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
         } else if (!isOpen && Date() > Date.getDateFromTime(time: closeTimeToday)) {
             cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
         } else if (!isOpen && Date() < Date.getDateFromTime(time: openTimeToday)) {
@@ -70,7 +75,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
             cell.hours.text = "Closes at \(closeTimeToday)"
         }
         
-
+        cell.locationName.text = gyms[indexPath.row].name
         cell.status.text = isOpen ? "Open" : "Closed"
         cell.status.textColor = isOpen ? .fitnessGreen : .fitnessRed
         cell.colorBar.backgroundColor = isOpen ? .fitnessYellow : .lightGray
@@ -86,7 +91,9 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let gymDetailViewController = GymDetailViewController()
-//        navigationController!.pushViewController(gymDetailViewController, animated: false)
+        let gymDetailViewController = GymDetailViewController()
+        gymDetailViewController.gym = gyms[indexPath.row]
+        
+        navigationController!.pushViewController(gymDetailViewController, animated: true)
     }
 }

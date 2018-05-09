@@ -83,11 +83,13 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "allGymsCell", for: indexPath) as! AllGymsCell
             cell.gyms = gyms
+            cell.navigationController = navigationController ?? nil
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "todaysClassesCell", for: indexPath) as! TodaysClassesCell
             cell.gymClassInstances = gymClassInstances
             cell.gymLocations = gymLocations
+            cell.navigationController = navigationController ?? nil
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "lookingForCell", for: indexPath) as! LookingForCell

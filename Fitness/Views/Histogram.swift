@@ -23,11 +23,14 @@ class Histogram: UIView {
     var selectedLine: UIView!
     var selectedTime: UILabel!
     var selectedTimeDescriptor: UILabel!
+    let timeDescriptors = ["Usually not too busy","Usually a little busy","Usually as busy as it gets"]
+    
+    var openHour: Int!
     
     var bottomAxis: UIView!
     var bottomAxisTicks: [UIView]!
     
-    init(frame: CGRect, data: [Int]) {
+    init(frame: CGRect, data: [Int], todaysHours: DailyGymHours) {
         super.init(frame: frame)
         self.data = data
         
@@ -55,7 +58,18 @@ class Histogram: UIView {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.selectBar(sender:)))
             bar.addGestureRecognizer(gesture)
         }
-        selectedIndex = Int(data.count/2)
+        
+        //TIME
+        let openTime = Date.getDateFromTime(time: todaysHours.openTime)
+        let currentTime = Date()
+        
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "H"
+        
+        let currentHour = Int(dateFormatter.string(from: currentTime))!
+        openHour = Int(dateFormatter.string(from: openTime))!
+        
+        selectedIndex = Int(currentHour - openHour)
         bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
         
         //SELECTED INFO
@@ -67,7 +81,13 @@ class Histogram: UIView {
         selectedTime.textColor = .fitnessDarkGrey
         selectedTime.font = ._12LatoBold
         selectedTime.textAlignment = .right
-        selectedTime.text = "3 PM:"
+        if ((openHour + selectedIndex) < 12){
+            selectedTime.text = String(openHour + selectedIndex) + "AM :"
+        }else if((openHour + selectedIndex) > 12){
+            selectedTime.text = String((openHour + selectedIndex) - 12) + "PM :"
+        }else{
+            selectedTime.text = "12PM :"
+        }
         selectedTime.sizeToFit()
         addSubview(selectedTime)
         
@@ -75,7 +95,13 @@ class Histogram: UIView {
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
         selectedTimeDescriptor.textAlignment = .left
-        selectedTimeDescriptor.text = "Usually not too busy"
+        if(data[selectedIndex] < 43){
+            selectedTimeDescriptor.text = timeDescriptors[0]
+        }else if (data[selectedIndex] < 85){
+            selectedTimeDescriptor.text = timeDescriptors[1]
+        }else{
+            selectedTimeDescriptor.text = timeDescriptors[2]
+        }
         selectedTimeDescriptor.sizeToFit()
         addSubview(selectedTimeDescriptor)
         
@@ -176,8 +202,23 @@ class Histogram: UIView {
                 break
             }
         }
-        //update selectedTIme and the descriptor
+        //update selectedTime and the descriptor
+        if(data[selectedIndex] < 43){
+            selectedTimeDescriptor.text = timeDescriptors[0]
+        }else if (data[selectedIndex] < 85){
+            selectedTimeDescriptor.text = timeDescriptors[1]
+        }else{
+            selectedTimeDescriptor.text = timeDescriptors[2]
+        }
         selectedTimeDescriptor.sizeToFit()
+        
+        if ((openHour + selectedIndex) < 12){
+            selectedTime.text = String(openHour + selectedIndex) + "AM :"
+        }else if((openHour + selectedIndex) > 12){
+            selectedTime.text = String((openHour + selectedIndex) - 12) + "PM :"
+        }else{
+            selectedTime.text = "12PM :"
+        }
         selectedTime.sizeToFit()
         
         setupSelectedConstraints()

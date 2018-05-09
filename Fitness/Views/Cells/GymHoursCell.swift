@@ -49,7 +49,7 @@ class GymHoursCell: UITableViewCell {
         }
         
         dayLabel.snp.updateConstraints{make in
-            make.right.equalTo(hoursLabel.snp.left).offset(-2)
+            make.right.equalTo(hoursLabel.snp.left).offset(-4)
             make.top.equalToSuperview()
             make.height.equalTo(18)
         }

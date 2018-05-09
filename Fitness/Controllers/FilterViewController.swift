@@ -30,25 +30,27 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     var collectionViewTitle: UILabel!
     var gymCollectionView: UICollectionView!
     var gyms: [Gym]!
-    var selectedGyms: [Int]!
+    var selectedGyms: [Int] = []
 
     var fitnessCenterStartTimeDivider: UIView!
     var startTimeTitleLabel: UILabel!
     var startTimeLabel: UILabel!
     var startTimeSlider: RangeSlider!
+    var startTimeSliderStartRange = [0.0, 960.0]
+    
     var startTimeClassTypeDivider: UIView!
-    var startTime: String!
-    var endTime: String!
+    var startTime = "6:00AM"
+    var endTime = "10:00PM"
 
     var classTypeDropdown: UITableView!
     var classTypeDropdownData: DropdownData!
     var classTypeInstructorDivider: UIView!
-    var selectedClasses: [Int]!
+    var selectedClasses: [Int] = []
 
     var instructorDropdown: UITableView!
     var instructorDropdownData: DropdownData!
     var instructorDivider: UIView!
-    var selectedInstructors: [Int]!
+    var selectedInstructors: [Int] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,8 +115,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         gymCollectionView.register(GymFilterCell.self , forCellWithReuseIdentifier: "gymFilterCell")
         contentView.addSubview(gymCollectionView)
         
-        selectedGyms = []
-        
         gyms = []
         
         AppDelegate.networkManager.getGyms { (gyms) in
@@ -139,17 +139,14 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         startTimeLabel.sizeToFit()
         startTimeLabel.font = ._12LatoBlack
         startTimeLabel.textColor = .fitnessDarkGrey
-        startTimeLabel.text = "6:00 AM - 10:00 PM"
+        startTimeLabel.text = startTime + " - " + endTime
         contentView.addSubview(startTimeLabel)
-        
-        startTime = "6:00AM"
-        endTime = "10:00PM"
 
         startTimeSlider = RangeSlider(frame: .zero)
         startTimeSlider.minimumValue = 0.0
         startTimeSlider.maximumValue = 960
-        startTimeSlider.lowerValue = 0.0
-        startTimeSlider.upperValue = 960        //960 minutes btwn 6 am and 10 pm
+        startTimeSlider.lowerValue = startTimeSliderStartRange[0]
+        startTimeSlider.upperValue = startTimeSliderStartRange[1]
         startTimeSlider.trackTintColor = .fitnessLightGrey
         startTimeSlider.trackHighlightTintColor = .fitnessYellow
         startTimeSlider.thumbBorderColor = .fitnessLightGrey
@@ -178,8 +175,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         classTypeInstructorDivider = UIView()
         classTypeInstructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(classTypeInstructorDivider)
-        
-        selectedClasses = []
         
         classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], ids: [], completed: false)
         
@@ -213,7 +208,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
         
-        selectedInstructors = []
         instructorDropdownData = DropdownData(dropStatus: .up, titles: [], ids: [],  completed: false)
         
         AppDelegate.networkManager.getInstructors { (instructors) in
@@ -348,10 +342,11 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     //MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done(){
-        let filterParameters = FilterParameters(shouldFilter: true, startTime: startTime, endTime: endTime, instructorIds: selectedInstructors, classDescIds: selectedClasses, gymIds: selectedGyms)
+        let filterParameters = FilterParameters(shouldFilter: true, startTime: startTime, encodedStartTime: startTimeSlider.lowerValue, endTime: endTime, encodedEndTime: startTimeSlider.upperValue, instructorIds: selectedInstructors, classDescIds: selectedClasses, gymIds: selectedGyms)
         
-        //is there a better way of doing this?
-        (navigationController!.viewControllers.first as! ClassListViewController).filterParameters = filterParameters
+        let classListViewController = navigationController!.viewControllers.first as! ClassListViewController
+        classListViewController.filterParameters = filterParameters
+        classListViewController.updateGymClasses()
         
         navigationController!.popViewController(animated: true)
     }
@@ -360,9 +355,10 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         selectedGyms = []
         for i in 0..<gymCollectionView.numberOfItems(inSection: 0){
             gymCollectionView.deselectItem(at: IndexPath(row: i, section: 0), animated: true)
+            
         }
         
-        startTimeLabel.text = "6:00 AM - 10:00 PM"
+        startTimeLabel.text = "6:00AM - 10:00PM"
         startTimeSlider.lowerValue = 0.0
         startTimeSlider.upperValue = 960.0
         
@@ -381,6 +377,11 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
         cell.gymNameLabel.text = gyms[indexPath.row].name
         cell.gymNameLabel.sizeToFit()
+        
+        if selectedGyms.contains(gyms[indexPath.row].id){
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+            cell.isSelected = true
+        }
 
         return cell
     }
@@ -517,11 +518,18 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             if(indexPath.row < instructorDropdownData.titles.count){
                 cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
                 cell.id = instructorDropdownData.ids[indexPath.row]
+                
+                if(selectedInstructors.contains(cell.id)){
+                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
+                }
             }
         }else if tableView == classTypeDropdown{
             if(indexPath.row < classTypeDropdownData.titles.count){
                 cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
                 cell.id = classTypeDropdownData.ids[indexPath.row]
+                if(selectedClasses.contains(cell.id)){
+                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
+                }
             }
         }
 
@@ -608,6 +616,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @objc func dropInstructors( sender:UITapGestureRecognizer){
         
         if(instructorDropdownData.completed == false){
+            instructorDropdownData.dropStatus = .up
             return
         }
 
@@ -642,6 +651,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @objc func dropClasses( sender:UITapGestureRecognizer){
         
         if(classTypeDropdownData.completed == false){
+            classTypeDropdownData.dropStatus = .up
             return
         }
         
