@@ -96,4 +96,39 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         
         navigationController!.pushViewController(gymDetailViewController, animated: true)
     }
+    
+    // MARK: - GYM SORTING
+    func sortGyms() {
+        var closedIndices = [Int]()
+        var openIndices = [Int]()
+        
+        for i in 0..<gyms.count{
+            
+            let gymHoursToday = gyms[i].gymHours.getGymHours(isTomorrow: false)
+            let openTimeToday = gymHoursToday.openTime
+            let closeTimeToday = gymHoursToday.closeTime
+            
+            var isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
+            
+            if(gyms[i].name == "Bartels"){
+                isOpen = true
+            }
+            
+            if (!isOpen){
+                closedIndices.append(i)
+            }else{
+                openIndices.append(i)
+            }
+        }
+        let gymsRefenceCopy = gyms
+        gyms = []
+        
+        for openIndex in openIndices{
+            gyms.append(gymsRefenceCopy[openIndex])
+        }
+        
+        for closedIndex in closedIndices{
+            gyms.append(gymsRefenceCopy[closedIndex])
+        }
+    }
 }

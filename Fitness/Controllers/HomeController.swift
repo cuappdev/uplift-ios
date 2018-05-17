@@ -83,6 +83,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "allGymsCell", for: indexPath) as! AllGymsCell
             cell.gyms = gyms
+            cell.sortGyms()
             cell.navigationController = navigationController ?? nil
             return cell
         case 1:
