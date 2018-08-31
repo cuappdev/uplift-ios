@@ -51,8 +51,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         
-        tableView.register(ClassListHeaderView.self, forHeaderFooterViewReuseIdentifier: "classListHeader")
-        tableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
+        tableView.register(ClassListHeaderView.self, forHeaderFooterViewReuseIdentifier: ClassListHeaderView.identifier)
+        tableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
         
         let searchBar = SearchBar.createSearchBar()
         searchBar.delegate = self
@@ -161,14 +161,14 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
         
         if let gymClassInstance = validGymClassInstances?[indexPath.row]{
             
             cell.classLabel.text = gymClassInstance.classDescription.name
             cell.timeLabel.text = gymClassInstance.startTime
             if (cell.timeLabel.text?.hasPrefix("0"))!{
-                cell.timeLabel.text = cell.timeLabel.text?.substring(from: String.Index(encodedOffset: 1))
+                cell.timeLabel.text = String((cell.timeLabel.text?[String.Index(encodedOffset: 1)...])!)
             }
             cell.instructorLabel.text = gymClassInstance.instructor.name
             
@@ -186,7 +186,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "classListHeader") as! ClassListHeaderView
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ClassListHeaderView.identifier) as! ClassListHeaderView
         
         header.delegate = self
         return header

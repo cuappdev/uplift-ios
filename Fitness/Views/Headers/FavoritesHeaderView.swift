@@ -12,6 +12,7 @@ import SnapKit
 class FavoritesHeaderView: UITableViewHeaderFooterView {
 
     //MARK: - INITIALIZAITON
+    static let identifier =  Identifiers.favoritesHeaderView
     var quoteLabel: UILabel!
     var nextSessionsLabel: UILabel!
     

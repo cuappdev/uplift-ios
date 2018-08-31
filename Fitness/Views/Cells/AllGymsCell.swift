@@ -11,6 +11,7 @@ import SnapKit
 class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.allGymsCell
     var collectionView: UICollectionView!
     var gyms: [Gym] = [] {
         didSet {
@@ -35,7 +36,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         
-        collectionView.register(GymsCell.self , forCellWithReuseIdentifier: "gymsCell")
+        collectionView.register(GymsCell.self , forCellWithReuseIdentifier: GymsCell.identifier)
         
         contentView.addSubview(collectionView)
         
@@ -51,7 +52,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     
     // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymsCell", for: indexPath) as! GymsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
         
         let gymHoursToday = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: false)
         let openTimeToday = gymHoursToday.openTime

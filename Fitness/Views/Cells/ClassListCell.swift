@@ -12,6 +12,7 @@ import SnapKit
 class ClassListCell: UITableViewCell {
 
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.classListCell
     var timeLabel: UILabel!
     var durationLabel: UILabel!
     var duration: Int!

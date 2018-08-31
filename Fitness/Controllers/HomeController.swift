@@ -39,9 +39,12 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         
-        tableView.register(TodaysClassesCell.self, forCellReuseIdentifier: "todaysClassesCell")
-        tableView.register(AllGymsCell.self, forCellReuseIdentifier: "allGymsCell")
-        tableView.register(LookingForCell.self, forCellReuseIdentifier: "lookingForCell")
+        tableView.register(TodaysClassesCell.self, forCellReuseIdentifier: TodaysClassesCell.identifier)
+        tableView.register(AllGymsCell.self, forCellReuseIdentifier: AllGymsCell.identifier)
+        tableView.register(LookingForCell.self, forCellReuseIdentifier: LookingForCell.identifier)
+        
+        tableView.register(HomeScreenHeaderView.self, forHeaderFooterViewReuseIdentifier: HomeScreenHeaderView.identifier)
+        tableView.register(HomeSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: HomeSectionHeaderView.identifier)
         
         sections.insert(.allGyms, at: 0)
         sections.insert(.todaysClasses, at: 1)
@@ -92,18 +95,18 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         switch sections[indexPath.section] {
         case .allGyms:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "allGymsCell", for: indexPath) as! AllGymsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: AllGymsCell.identifier, for: indexPath) as! AllGymsCell
             cell.gyms = gyms
             cell.navigationController = navigationController
             return cell
         case .todaysClasses:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "todaysClassesCell", for: indexPath) as! TodaysClassesCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TodaysClassesCell.identifier, for: indexPath) as! TodaysClassesCell
             cell.gymClassInstances = gymClassInstances
             cell.gymLocations = gymLocations
             cell.navigationController = navigationController
             return cell
         case .lookingFor:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "lookingForCell", for: indexPath) as! LookingForCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: LookingForCell.identifier, for: indexPath) as! LookingForCell
             cell.tags = tags
             return cell
         }
@@ -113,15 +116,16 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         switch sections[section] {
         case .allGyms:
-            let header = HomeScreenHeaderView(reuseIdentifier: "homeScreenHeaderView", name: "Joe")
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeScreenHeaderView.identifier) as! HomeScreenHeaderView
             header.subHeader.titleLabel.text = "ALL GYMS"
+            header.setName(name: "Joe")
             return header
         case .todaysClasses:
-            let header = HomeSectionHeaderView(frame: view.frame)
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeSectionHeaderView.identifier) as! HomeSectionHeaderView
             header.titleLabel.text = "TODAY'S CLASSES"
             return header
         case .lookingFor:
-            let header = HomeSectionHeaderView(frame: view.frame)
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeSectionHeaderView.identifier) as! HomeSectionHeaderView
             header.titleLabel.text = "I'M LOOKING FOR..."
             return header
         }

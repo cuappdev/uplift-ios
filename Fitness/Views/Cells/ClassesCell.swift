@@ -11,6 +11,7 @@ import SnapKit
 class ClassesCell: UICollectionViewCell {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.classesCell
     var image: UIImageView!
     var className: UILabel!
     var locationName: UILabel!

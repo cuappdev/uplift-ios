@@ -27,6 +27,7 @@
 		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
 		8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44D208718410095B8AB /* GymHoursCell.swift */; };
 		8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */; };
+		8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB784E2139849B002BE0E0 /* Constants.swift */; };
 		8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */; };
 		8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */; };
 		8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */; };
@@ -85,6 +86,7 @@
 		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		8D95F44D208718410095B8AB /* GymHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursCell.swift; sourceTree = "<group>"; };
 		8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursHeaderView.swift; sourceTree = "<group>"; };
+		8DBB784E2139849B002BE0E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				8DBB784E2139849B002BE0E0 /* Constants.swift */,
 				8D95F448208704010095B8AB /* Secrets */,
 				C7DFABCD204206E000545B0B /* Fitness */,
 				630ADD112051BECC00B8E255 /* Fonts */,
@@ -467,6 +470,7 @@
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C76F715B208FD43D00FDC958 /* FitnessAPI.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
+				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,

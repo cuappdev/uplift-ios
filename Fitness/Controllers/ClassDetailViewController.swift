@@ -222,7 +222,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.backgroundColor = .white
         tableView.clipsToBounds = false
         
-        tableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
+        tableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -237,9 +237,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 self.nextSessions.append(gymClassInstance)
                 
             }
-            
         }
-        
     }
     
     //MARK: - CONSTRAINTS
@@ -404,7 +402,7 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
         
         return cell
     }

@@ -112,7 +112,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         gymCollectionView.delegate = self
         gymCollectionView.dataSource = self
-        gymCollectionView.register(GymFilterCell.self , forCellWithReuseIdentifier: "gymFilterCell")
+        gymCollectionView.register(GymFilterCell.self , forCellWithReuseIdentifier: GymFilterCell.identifier)
         contentView.addSubview(gymCollectionView)
         
         gyms = []
@@ -164,9 +164,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         classTypeDropdown.showsVerticalScrollIndicator = false
         classTypeDropdown.bounces = false
 
-        classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: "dropdownViewCell")
-        classTypeDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: "dropdownHeaderView")
-        classTypeDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: "dropdownFooterView")
+        classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
+        classTypeDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: DropdownHeaderView.identifier)
+        classTypeDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: DropdownFooterView.identifier)
 
         classTypeDropdown.delegate = self
         classTypeDropdown.dataSource = self
@@ -196,9 +196,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         instructorDropdown.bounces = false
         instructorDropdown.showsVerticalScrollIndicator = false
 
-        instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: "dropdownViewCell")
-        instructorDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: "dropdownHeaderView")
-        instructorDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: "dropdownFooterView")
+        instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
+        instructorDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: DropdownHeaderView.identifier)
+        instructorDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: DropdownFooterView.identifier)
 
         instructorDropdown.delegate = self
         instructorDropdown.dataSource = self
@@ -373,7 +373,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     //MARK: - COLLECTION VIEW METHODS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymFilterCell", for: indexPath) as! GymFilterCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymFilterCell.identifier, for: indexPath) as! GymFilterCell
 
         cell.gymNameLabel.text = gyms[indexPath.row].name
         cell.gymNameLabel.sizeToFit()
@@ -512,7 +512,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "dropdownViewCell", for: indexPath) as! DropdownViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DropdownViewCell.identifier, for: indexPath) as! DropdownViewCell
 
         if tableView == instructorDropdown{
             if(indexPath.row < instructorDropdownData.titles.count){
@@ -537,7 +537,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "dropdownHeaderView") as! DropdownHeaderView
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownHeaderView.identifier) as! DropdownHeaderView
 
         if tableView == instructorDropdown{
             header.titleLabel.text = "INSTRUCTOR"
@@ -553,7 +553,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "dropdownFooterView") as! DropdownFooterView
+        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownFooterView.identifier) as! DropdownFooterView
 
         if tableView == instructorDropdown{
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))

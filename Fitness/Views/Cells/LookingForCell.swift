@@ -12,6 +12,7 @@ import AlamofireImage
 class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.lookingForCell
     var collectionView: UICollectionView!
     var tags: [Tag] = [] {
         didSet {
@@ -34,7 +35,7 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         
-        collectionView.register(CategoryCell.self , forCellWithReuseIdentifier: "categoryCell")
+        collectionView.register(CategoryCell.self , forCellWithReuseIdentifier: CategoryCell.identifier)
         
         contentView.addSubview(collectionView)
         
@@ -50,7 +51,7 @@ class LookingForCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICol
     
     // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
         
         Alamofire.request(tags[indexPath.row].imageURL).responseImage { response in
             if let image = response.result.value {

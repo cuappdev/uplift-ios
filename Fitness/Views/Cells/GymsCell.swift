@@ -11,6 +11,7 @@ import SnapKit
 class GymsCell: UICollectionViewCell {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.gymsCell
     var colorBar: UIView!
     var locationName: UILabel!
     var hours: UILabel!

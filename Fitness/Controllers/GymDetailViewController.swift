@@ -16,6 +16,16 @@ struct HoursData {
     var data: [String]!
 }
 
+enum Days {
+    case sunday
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+    case saturday
+}
+
 class GymDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - INITIALIZATION
@@ -29,6 +39,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var hoursTitleLabel: UILabel!
     var hoursTableView: UITableView!
+    var days: [Days]!
     var hoursData: HoursData!
     var hoursBusynessSeparator: UIView!
     
@@ -121,8 +132,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         hoursTableView.backgroundColor = .white
         hoursTableView.isScrollEnabled = false
         
-        hoursTableView.register(GymHoursCell.self, forCellReuseIdentifier: "gymHoursCell")
-        hoursTableView.register(GymHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: "gymHoursHeaderView")
+        hoursTableView.register(GymHoursCell.self, forCellReuseIdentifier: GymHoursCell.identifier)
+        hoursTableView.register(GymHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: GymHoursHeaderView.identifier)
         
         hoursTableView.delegate = self
         hoursTableView.dataSource = self
@@ -141,35 +152,41 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         popularTimesTitleLabel.text = "POPULAR TIMES"
         contentView.addSubview(popularTimesTitleLabel)
         
+        days = []
+        days.insert(.sunday, at: 0)
+        days.insert(.monday, at: 1)
+        days.insert(.tuesday, at: 2)
+        days.insert(.wednesday, at: 3)
+        days.insert(.thursday, at: 4)
+        days.insert(.friday, at: 5)
+        days.insert(.saturday, at: 6)
+        
         var data: [Int]
         let date = Date()
         let todaysHours: DailyGymHours
         
-        switch date.getIntegerDayOfWeekToday() {
-        case 0:
+        switch days[date.getIntegerDayOfWeekToday() ?? 0] {
+        case .sunday:
             data = gym.popularTimesList.sunday
             todaysHours = gym.gymHours.zero ?? DailyGymHours(id: -1, dayOfWeek: 0, openTime: "", closeTime: "")
-        case 1:
+        case .monday:
             data = gym.popularTimesList.monday
             todaysHours = gym.gymHours.one ?? DailyGymHours(id: -1, dayOfWeek: 1, openTime: "", closeTime: "")
-        case 2:
+        case .tuesday:
             data = gym.popularTimesList.tuesday
             todaysHours = gym.gymHours.two ?? DailyGymHours(id: -1, dayOfWeek: 2, openTime: "", closeTime: "")
-        case 3:
+        case .wednesday:
             data = gym.popularTimesList.wednesday
             todaysHours = gym.gymHours.three ?? DailyGymHours(id: -1, dayOfWeek: 3, openTime: "", closeTime: "")
-        case 4:
+        case .thursday:
             data = gym.popularTimesList.thursday
             todaysHours = gym.gymHours.four ?? DailyGymHours(id: -1, dayOfWeek: 4, openTime: "", closeTime: "")
-        case 5:
+        case .friday:
             data = gym.popularTimesList.friday
             todaysHours = gym.gymHours.five ?? DailyGymHours(id: -1, dayOfWeek: 5, openTime: "", closeTime: "")
-        case 6:
+        case .saturday:
             data = gym.popularTimesList.saturday
             todaysHours = gym.gymHours.six ?? DailyGymHours(id: -1, dayOfWeek: 6, openTime: "", closeTime: "")
-        default:
-            data = gym.popularTimesList.sunday
-            todaysHours = gym.gymHours.zero ?? DailyGymHours(id: -1, dayOfWeek: 0, openTime: "", closeTime: "")
         }
         
         popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data:data, todaysHours: todaysHours)
@@ -219,7 +236,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         classesTableView.backgroundColor = .white
         classesTableView.clipsToBounds = false
         
-        classesTableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
+        classesTableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
         
         classesTableView.delegate = self
         classesTableView.dataSource = self
@@ -369,68 +386,68 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(tableView == hoursTableView){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "gymHoursCell", for: indexPath) as! GymHoursCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
             let date = Date()
             let day = (date.getIntegerDayOfWeekToday()! + indexPath.row + 1)%7
             
-            switch day{
-            case 0:
+            switch days[day]{
+            case .sunday:
                 cell.dayLabel.text = "Su"
                 if let gymHours = gym.gymHours.zero{
                     cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     cell.hoursLabel.text = "Closed"
                 }
-            case 1:
+            case .monday:
                 cell.dayLabel.text = "M"
                 if let gymHours = gym.gymHours.one{
                     cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     cell.hoursLabel.text = "Closed"
                 }
-            case 2:
+            case .tuesday:
                 cell.dayLabel.text = "T"
                 if let gymHours = gym.gymHours.two{
                     cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     cell.hoursLabel.text = "Closed"
                 }
-            case 3:
+            case .wednesday:
                 cell.dayLabel.text = "W"
                 if let gymHours = gym.gymHours.three{
                     cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     cell.hoursLabel.text = "Closed"
                 }
-            case 4:
+            case .thursday:
                 cell.dayLabel.text = "Th"
                 if let gymHours = gym.gymHours.four{
                     cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     cell.hoursLabel.text = "Closed"
                 }
-            case 5:
+            case .friday:
                 cell.dayLabel.text = "F"
                 if let gymHours = gym.gymHours.five{
                     cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     cell.hoursLabel.text = "Closed"
                 }
-            case 6:
+            case .saturday:
                 cell.dayLabel.text = "Sa"
                 if let gymHours = gym.gymHours.six{
                     cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     cell.hoursLabel.text = "Closed"
                 }
-            default:
-                cell.hoursLabel.text = ""
             }
-            
+            if (cell.hoursLabel.text?.hasPrefix("0"))!{
+                cell.hoursLabel.text = String((cell.hoursLabel.text?[String.Index(encodedOffset: 1)...])!)
+            }
             
             return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
             
             let gymClassInstance = todaysClasses[indexPath.row]
             
@@ -438,7 +455,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.timeLabel.text = gymClassInstance.startTime
             
             if (cell.timeLabel.text?.hasPrefix("0"))!{
-                cell.timeLabel.text = cell.timeLabel.text?.substring(from: String.Index(encodedOffset: 1))
+                cell.timeLabel.text = String((cell.timeLabel.text?[String.Index(encodedOffset: 1)...])!)
             }
             cell.instructorLabel.text = gymClassInstance.instructor.name
             
@@ -453,56 +470,58 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if(tableView == hoursTableView){
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "gymHoursHeaderView") as! GymHoursHeaderView
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: GymHoursHeaderView.identifier) as! GymHoursHeaderView
             
             let date = Date()
-            let currentDay = date.getIntegerDayOfWeekToday()
+            let currentDay = days[date.getIntegerDayOfWeekToday() ?? 0]
             
+            // TODO : check this code after refectoring/linking with backend, gymHours format may changes
             switch currentDay{
-            case 0:    
+            case .sunday:
                 if let gymHours = gym.gymHours.zero{
                     header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     header.hoursLabel.text = "Closed Today"
                 }
-            case 1:
+            case .monday:
                 if let gymHours = gym.gymHours.one{
                     header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     header.hoursLabel.text = "Closed Today"
                 }
-            case 2:
+            case .tuesday:
                 if let gymHours = gym.gymHours.two{
                     header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     header.hoursLabel.text = "Closed Today"
                 }
-            case 3:
+            case .wednesday:
                 if let gymHours = gym.gymHours.three{
                     header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     header.hoursLabel.text = "Closed Today"
                 }
-            case 4:
+            case .thursday:
                 if let gymHours = gym.gymHours.four{
                     header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     header.hoursLabel.text = "Closed Today"
                 }
-            case 5:
+            case .friday:
                 if let gymHours = gym.gymHours.five{
                     header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     header.hoursLabel.text = "Closed Today"
                 }
-            case 6:
+            case .saturday:
                 if let gymHours = gym.gymHours.six{
                     header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
                 }else{
                     header.hoursLabel.text = "Closed Today"
                 }
-            default:
-                header.hoursLabel.text = ""
+            }
+            if (header.hoursLabel.text?.hasPrefix("0"))!{
+                header.hoursLabel.text = String((header.hoursLabel.text?[String.Index(encodedOffset: 1)...])!)
             }
             
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))

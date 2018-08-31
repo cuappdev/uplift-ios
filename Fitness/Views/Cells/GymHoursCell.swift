@@ -12,6 +12,7 @@ import SnapKit
 class GymHoursCell: UITableViewCell {
 
     //MARK: - INITIALIZATION
+    static let identifier = Identifiers.gymHoursCell
     var dayLabel: UILabel!
     var hoursLabel: UILabel!
     
