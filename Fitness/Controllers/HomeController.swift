@@ -9,52 +9,52 @@ import UIKit
 import SnapKit
 
 class HomeController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     // MARK: - INITIALIZATION
     var tableView: UITableView!
     var statusBarBackgroundColor: UIView!
-    
+
     var gyms = [Gym]()
     var gymClassInstances = [GymClassInstance]()
     var gymLocations = [Int: String]()
     var tags = [Tag]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         tableView.sectionFooterHeight = 0.0
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        
+
         tableView.register(TodaysClassesCell.self, forCellReuseIdentifier: "todaysClassesCell")
         tableView.register(AllGymsCell.self, forCellReuseIdentifier: "allGymsCell")
         tableView.register(LookingForCell.self, forCellReuseIdentifier: "lookingForCell")
-        
+
         view.addSubview(tableView)
-        
-        tableView.snp.updateConstraints{make in
+
+        tableView.snp.updateConstraints {make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.bottom.equalToSuperview().offset(-49)
         }
-        
+
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
         statusBarBackgroundColor.backgroundColor = .white
         view.addSubview(statusBarBackgroundColor)
-        
+
         // GET GYMS
         AppDelegate.networkManager.getGyms { (gyms) in
             self.gyms = gyms
             self.tableView.reloadData()
         }
-        
+
         // GET TODAY'S CLASSES
         let date = Date()
         if let stringDate = date.getStringDate(date: date) {
@@ -68,17 +68,17 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             }
         }
-        
+
         // GET TAGS
         AppDelegate.networkManager.getTags { (tags) in
             self.tags = tags
             self.tableView.reloadData()
         }
     }
-    
+
     // MARK: - TABLE VIEW
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "allGymsCell", for: indexPath) as! AllGymsCell
@@ -99,9 +99,9 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+
         switch section {
         case 0:
             let header = HomeScreenHeaderView(reuseIdentifier: "homeScreenHeaderView", name: "Joe")
@@ -119,14 +119,14 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             return UIView()
         }
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var height: CGFloat
-        
+
         switch section {
         case 0:
             height = 155
@@ -137,14 +137,14 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         default:
             height = 0
         }
-        
+
         return height
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+
         var height: CGFloat
-        
+
         switch indexPath.section {
         case 0:
             height = 180
@@ -155,10 +155,10 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         default:
             height = 0
         }
-        
+
         return height
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }

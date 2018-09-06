@@ -12,6 +12,7 @@ PODS:
     - Result (~> 3.0)
   - Result (3.2.4)
   - SnapKit (4.0.0)
+  - SwiftLint (0.25.1)
   - WARangeSlider (1.1.1)
 
 DEPENDENCIES:
@@ -20,10 +21,11 @@ DEPENDENCIES:
   - Fabric
   - Moya
   - SnapKit
+  - SwiftLint
   - WARangeSlider
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
     - Crashlytics
@@ -31,6 +33,7 @@ SPEC REPOS:
     - Moya
     - Result
     - SnapKit
+    - SwiftLint
     - WARangeSlider
 
 SPEC CHECKSUMS:
@@ -41,8 +44,9 @@ SPEC CHECKSUMS:
   Moya: 3d594ada51a21cc02b18739ab578a1984f900c8a
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
 
-PODFILE CHECKSUM: 21bb83b51ec3236be9a44376150da243e4d71783
+PODFILE CHECKSUM: 8fe1cccc413fa8260e1b956ad848e4588afeaea5
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

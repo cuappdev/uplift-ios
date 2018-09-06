@@ -11,17 +11,17 @@ import SnapKit
 
 class FavoritesHeaderView: UITableViewHeaderFooterView {
 
-    //MARK: - INITIALIZAITON
+    // MARK: - INITIALIZAITON
     var quoteLabel: UILabel!
     var nextSessionsLabel: UILabel!
-    
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
+
         //BACKGROUND COLOR
         backgroundView = UIView(frame: frame)
         backgroundView?.backgroundColor = .white
-        
+
         //QUOTE LABEL
         quoteLabel = UILabel()
         quoteLabel.font = ._32Bebas
@@ -31,7 +31,7 @@ class FavoritesHeaderView: UITableViewHeaderFooterView {
         quoteLabel.numberOfLines = 0
         quoteLabel.text = "NOTHING CAN STOP YOU BUT YOURSELF."
         addSubview(quoteLabel)
-        
+
         //SESSIONS LABEL
         nextSessionsLabel = UILabel()
         nextSessionsLabel.font = ._12LatoBlack
@@ -39,23 +39,23 @@ class FavoritesHeaderView: UITableViewHeaderFooterView {
         nextSessionsLabel.textAlignment = .center
         nextSessionsLabel.text = "COMING UP NEXT"
         addSubview(nextSessionsLabel)
-        
+
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - CONSTRAINTS
-    func setupConstraints(){
-        quoteLabel.snp.updateConstraints{make in
+
+    // MARK: - CONSTRAINTS
+    func setupConstraints() {
+        quoteLabel.snp.updateConstraints {make in
             make.right.equalToSuperview().offset(-60)
             make.left.equalToSuperview().offset(60)
             make.top.equalToSuperview().offset(73)
         }
-        
-        nextSessionsLabel.snp.updateConstraints{make in
+
+        nextSessionsLabel.snp.updateConstraints {make in
             make.top.equalTo(quoteLabel.snp.bottom).offset(52)
             make.bottom.equalTo(quoteLabel.snp.bottom).offset(67)
             make.centerX.equalToSuperview()

@@ -27,7 +27,6 @@ struct GymClassRootData: Decodable {
 }
 
 extension GymClass: Decodable {
-    
     enum Key: String, CodingKey {
         case id
         case classDesc = "class_desc"
@@ -35,7 +34,7 @@ extension GymClass: Decodable {
         case instructor
         case users
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         id = try container.decode(Int.self, forKey: .id)
