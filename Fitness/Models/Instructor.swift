@@ -9,7 +9,7 @@
 import Foundation
 
 struct Instructor {
-    
+
     let id: Int
     let name: String
     var gymClassDescriptions: [GymClassDescription]?
@@ -27,14 +27,14 @@ struct InstructorRootData: Decodable {
 }
 
 extension Instructor: Decodable {
-    
+
     enum Key: String, CodingKey {
         case id
         case name
         case classes
         case gymClasses = "gym_classes"
     }
-    
+
     enum GymClassDescriptionsKey: String, CodingKey {
         case id
         case tags = "class_tags"
@@ -42,13 +42,13 @@ extension Instructor: Decodable {
         case name
         case description
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        
+
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        
+
         gymClassDescriptions = [GymClassDescription]()
         var gymClassDescriptionsUnkeyedContainer = try  container.nestedUnkeyedContainer(forKey: .classes)
         while !gymClassDescriptionsUnkeyedContainer.isAtEnd {
@@ -58,11 +58,11 @@ extension Instructor: Decodable {
             let description = try gymClassDescriptionKeyedContainer.decodeIfPresent(String.self, forKey: .description) ?? ""
             let tags = try gymClassDescriptionKeyedContainer.decodeIfPresent([Int].self, forKey: .tags) ?? []
             let gymClasses = try gymClassDescriptionKeyedContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
-            
+
             gymClassDescriptions?.append(GymClassDescription(id: id, description: description, name: name, tags: tags, gymClasses: gymClasses, imageURL: ""))
-            
+
         }
-        
+
         gymClasses = try container.decode([Int].self, forKey: .gymClasses)
     }
 }

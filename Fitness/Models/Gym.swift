@@ -38,7 +38,7 @@ struct GymHours: Codable {
     var four: DailyGymHours?
     var five: DailyGymHours?
     var six: DailyGymHours?
-    
+
     func getGymHours(isTomorrow: Bool) -> DailyGymHours {
         let defaultDailyGymHours = DailyGymHours(id: -1, dayOfWeek: -1, openTime: "", closeTime: "")
         let date = isTomorrow ? Date().getIntegerDayOfWeekTomorrow() : Date().getIntegerDayOfWeekToday()
@@ -80,8 +80,8 @@ struct PopularTimes: Codable {
     var friday: [Int]
     var saturday: [Int]
     var sunday: [Int]
-    
-    init(id: Int, gym: Int, monday: [Int], tuesday: [Int], wednesday: [Int], thursday: [Int], friday: [Int], saturday: [Int], sunday: [Int]){
+
+    init(id: Int, gym: Int, monday: [Int], tuesday: [Int], wednesday: [Int], thursday: [Int], friday: [Int], saturday: [Int], sunday: [Int]) {
         self.id = id
         self.gym = gym
         self.monday = monday
@@ -95,7 +95,7 @@ struct PopularTimes: Codable {
 }
 
 extension Gym: Decodable {
-    
+
     enum Key: String, CodingKey {
         case id
         case name
@@ -107,7 +107,7 @@ extension Gym: Decodable {
         case popularTimesList = "popular_times_list"
         case imageURL = "image_url"
     }
-    
+
     enum GymHoursKey: String, CodingKey {
         case zero = "0"
         case one = "1"
@@ -117,14 +117,14 @@ extension Gym: Decodable {
         case five = "5"
         case six = "6"
     }
-    
+
     enum DailyGymHoursKey: String, CodingKey {
         case id
         case dayOfWeek = "day_of_week"
         case openTime = "open_time"
         case closeTime = "close_time"
     }
-    
+
     enum PopularTimesKey: String, CodingKey {
         case id
         case gym
@@ -136,21 +136,21 @@ extension Gym: Decodable {
         case saturday
         case sunday
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        
+
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         equipment = try container.decodeIfPresent(String.self, forKey: .equipment) ?? ""
         location = try container.decodeIfPresent(Int.self, forKey: .location) ??  -1
-        
+
         let gymHoursContainer = try container.nestedContainer(keyedBy: GymHoursKey.self, forKey: .gymHours)
-        
-        var containers: [KeyedDecodingContainer<Gym.DailyGymHoursKey>?] = [nil,nil,nil,nil,nil,nil,nil]
-        
-        for key in gymHoursContainer.allKeys{
-            switch key{
+
+        var containers: [KeyedDecodingContainer<Gym.DailyGymHoursKey>?] = [nil, nil, nil, nil, nil, nil, nil]
+
+        for key in gymHoursContainer.allKeys {
+            switch key {
             case .zero:
                 let zeroContainer = try gymHoursContainer.nestedContainer(keyedBy: DailyGymHoursKey.self, forKey: .zero)
                 containers.insert(zeroContainer, at: 0)
@@ -182,11 +182,11 @@ extension Gym: Decodable {
             }
         }
         var dailyGymHours: [DailyGymHours?] = []
-        
-        for container in containers{
-            if container == nil{
+
+        for container in containers {
+            if container == nil {
                 dailyGymHours.append(nil)
-            }else{
+            } else {
                 let id = try container!.decodeIfPresent(Int.self, forKey: .id) ?? -1
                 let dayOfWeek = try container!.decodeIfPresent(Int.self, forKey: .dayOfWeek) ?? -1
                 let openTime = try container!.decodeIfPresent(String.self, forKey: .openTime) ?? ""
@@ -194,18 +194,18 @@ extension Gym: Decodable {
                 dailyGymHours.append(DailyGymHours(id: id, dayOfWeek: dayOfWeek, openTime: openTime, closeTime: closeTime))
             }
         }
-        
+
         gymHours = GymHours(zero: dailyGymHours[0], one: dailyGymHours[1], two: dailyGymHours[2], three: dailyGymHours[3], four: dailyGymHours[4], five: dailyGymHours[5], six: dailyGymHours[6])
-        
+
         classInstances = try container.decodeIfPresent([Int].self, forKey: .classInstances) ?? []
-        
+
         isGym = try container.decodeIfPresent(Bool.self, forKey: .isGym) ?? true
-        
+
         let popularTimesContainer = try container.nestedContainer(keyedBy: PopularTimesKey.self, forKey: .popularTimesList)
-        
+
         let popularTimesId = try popularTimesContainer.decodeIfPresent(Int.self, forKey: .id) ?? -1
         let popularTimesGym = try popularTimesContainer.decodeIfPresent(Int.self, forKey: .gym) ?? -1
-        
+
         let monday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .monday) ?? []
         let tuesday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .tuesday) ?? []
         let wednesday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .wednesday) ?? []
@@ -213,9 +213,19 @@ extension Gym: Decodable {
         let friday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .friday) ?? []
         let saturday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .saturday) ?? []
         let sunday = try popularTimesContainer.decodeIfPresent([Int].self, forKey: .sunday) ?? []
-        
-        popularTimesList = PopularTimes(id: popularTimesId, gym: popularTimesGym, monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday, friday: friday, saturday: saturday, sunday: sunday)
-        
+
+        popularTimesList = PopularTimes(
+            id: popularTimesId,
+            gym: popularTimesGym,
+            monday: monday,
+            tuesday: tuesday,
+            wednesday: wednesday,
+            thursday: thursday,
+            friday: friday,
+            saturday: saturday,
+            sunday: sunday
+        )
+
         imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL) ?? ""
     }
 }

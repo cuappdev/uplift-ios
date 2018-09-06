@@ -10,4 +10,5 @@ target 'Fitness' do
 	pod 'Moya'
   pod 'SnapKit'
   pod 'WARangeSlider'
+  pod 'SwiftLint'
 end

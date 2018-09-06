@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C56F25C21375BE30005939B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C56F25B21375BE30005939B /* Keys.plist */; };
+		1C56F25F213855930005939B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1C56F25E213855930005939B /* .swiftlint.yml */; };
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
 		65E914EB207C697800A72101 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E914EA207C697800A72101 /* Keys.swift */; };
 		86F603DDEA1DB2972587C1AA /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */; };
@@ -23,7 +25,6 @@
 		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
 		8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA478208EC31100E98E6C /* Histogram.swift */; };
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
-		8D95F44A2087042F0095B8AB /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D95F4492087042F0095B8AB /* Keys.plist */; };
 		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
 		8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44D208718410095B8AB /* GymHoursCell.swift */; };
 		8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */; };
@@ -61,6 +62,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C56F25B21375BE30005939B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		1C56F25E213855930005939B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +84,6 @@
 		8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFilterCell.swift; sourceTree = "<group>"; };
 		8D5EA478208EC31100E98E6C /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
-		8D95F4492087042F0095B8AB /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		8D95F44D208718410095B8AB /* GymHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursCell.swift; sourceTree = "<group>"; };
 		8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursHeaderView.swift; sourceTree = "<group>"; };
@@ -149,7 +151,7 @@
 		8D95F448208704010095B8AB /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
-				8D95F4492087042F0095B8AB /* Keys.plist */,
+				1C56F25B21375BE30005939B /* Keys.plist */,
 			);
 			path = Secrets;
 			sourceTree = "<group>";
@@ -197,6 +199,7 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				1C56F25E213855930005939B /* .swiftlint.yml */,
 				8D95F448208704010095B8AB /* Secrets */,
 				C7DFABCD204206E000545B0B /* Fitness */,
 				630ADD112051BECC00B8E255 /* Fonts */,
@@ -320,6 +323,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7DFABDD204206E000545B0B /* Build configuration list for PBXNativeTarget "Fitness" */;
 			buildPhases = (
+				1C56F25D213767390005939B /* ShellScript */,
 				9BD15CB1CD033C4DBE57E681 /* [CP] Check Pods Manifest.lock */,
 				C7DFABC7204206E000545B0B /* Sources */,
 				C7DFABC8204206E000545B0B /* Frameworks */,
@@ -377,20 +381,34 @@
 			files = (
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
+				1C56F25C21375BE30005939B /* Keys.plist in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
-				8D95F44A2087042F0095B8AB /* Keys.plist in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
+				1C56F25F213855930005939B /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1C56F25D213767390005939B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+		};
 		7B68B6796476F8A7F1E6B485 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
