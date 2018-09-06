@@ -167,9 +167,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             
             cell.classLabel.text = gymClassInstance.classDescription.name
             cell.timeLabel.text = gymClassInstance.startTime
-            if (cell.timeLabel.text?.hasPrefix("0"))!{
-                cell.timeLabel.text = String((cell.timeLabel.text?[String.Index(encodedOffset: 1)...])!)
-            }
+            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
             cell.instructorLabel.text = gymClassInstance.instructor.name
             
             cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
@@ -213,14 +211,14 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         //DATE
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        let day = dateFormatter.date(from: self.selectedDate)
+        let day = dateFormatter.date(from: self.selectedDate) ?? Date()
         
         dateFormatter.dateFormat = "EEEE"
-        var dateLabel = dateFormatter.string(from: day!)
+        var dateLabel = dateFormatter.string(from: day)
         dateFormatter.dateFormat = "MMMM"
-        dateLabel = dateLabel + ", " + dateFormatter.string(from: day!)
+        dateLabel = dateLabel + ", " + dateFormatter.string(from: day)
         dateFormatter.dateFormat = "d"
-        dateLabel = dateLabel + " " + dateFormatter.string(from: day!)
+        dateLabel = dateLabel + " " + dateFormatter.string(from: day)
         classDetailViewController.dateLabel.text = dateLabel
         
         //TIME

@@ -20,11 +20,11 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     var tableView: UITableView!
     var statusBarBackgroundColor: UIView!
     
-    var sections = [SectionType]()
-    var gyms = [Gym]()
-    var gymClassInstances = [GymClassInstance]()
-    var gymLocations = [Int: String]()
-    var tags = [Tag]()
+    var sections: [SectionType] = []
+    var gyms: [Gym] = []
+    var gymClassInstances: [GymClassInstance] = []
+    var gymLocations: [Int: String] = [:]
+    var tags: [Tag] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -152,20 +152,13 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         popularTimesTitleLabel.text = "POPULAR TIMES"
         contentView.addSubview(popularTimesTitleLabel)
         
-        days = []
-        days.insert(.sunday, at: 0)
-        days.insert(.monday, at: 1)
-        days.insert(.tuesday, at: 2)
-        days.insert(.wednesday, at: 3)
-        days.insert(.thursday, at: 4)
-        days.insert(.friday, at: 5)
-        days.insert(.saturday, at: 6)
+        days = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
         
         var data: [Int]
         let date = Date()
         let todaysHours: DailyGymHours
         
-        switch days[date.getIntegerDayOfWeekToday() ?? 0] {
+        switch days[date.getIntegerDayOfWeekToday()] {
         case .sunday:
             data = gym.popularTimesList.sunday
             todaysHours = gym.gymHours.zero ?? DailyGymHours(id: -1, dayOfWeek: 0, openTime: "", closeTime: "")
@@ -388,62 +381,33 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         if(tableView == hoursTableView){
             let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
             let date = Date()
-            let day = (date.getIntegerDayOfWeekToday()! + indexPath.row + 1)%7
+            let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1)%7
             
             switch days[day]{
             case .sunday:
                 cell.dayLabel.text = "Su"
-                if let gymHours = gym.gymHours.zero{
-                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    cell.hoursLabel.text = "Closed"
-                }
+                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.zero)
             case .monday:
                 cell.dayLabel.text = "M"
-                if let gymHours = gym.gymHours.one{
-                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    cell.hoursLabel.text = "Closed"
-                }
+                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.one)
             case .tuesday:
                 cell.dayLabel.text = "T"
-                if let gymHours = gym.gymHours.two{
-                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    cell.hoursLabel.text = "Closed"
-                }
+                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.two)
             case .wednesday:
                 cell.dayLabel.text = "W"
-                if let gymHours = gym.gymHours.three{
-                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    cell.hoursLabel.text = "Closed"
-                }
+                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.three)
             case .thursday:
                 cell.dayLabel.text = "Th"
-                if let gymHours = gym.gymHours.four{
-                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    cell.hoursLabel.text = "Closed"
-                }
+                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.four)
             case .friday:
                 cell.dayLabel.text = "F"
-                if let gymHours = gym.gymHours.five{
-                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    cell.hoursLabel.text = "Closed"
-                }
+                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.five)
             case .saturday:
                 cell.dayLabel.text = "Sa"
-                if let gymHours = gym.gymHours.six{
-                    cell.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    cell.hoursLabel.text = "Closed"
-                }
+                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.six )
             }
-            if (cell.hoursLabel.text?.hasPrefix("0"))!{
-                cell.hoursLabel.text = String((cell.hoursLabel.text?[String.Index(encodedOffset: 1)...])!)
-            }
+            
+            cell.hoursLabel.text = cell.hoursLabel.text?.removeLeadingZero()
             
             return cell
         }else{
@@ -453,10 +417,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             
             cell.classLabel.text = gymClassInstance.classDescription.name
             cell.timeLabel.text = gymClassInstance.startTime
+            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
             
-            if (cell.timeLabel.text?.hasPrefix("0"))!{
-                cell.timeLabel.text = String((cell.timeLabel.text?[String.Index(encodedOffset: 1)...])!)
-            }
             cell.instructorLabel.text = gymClassInstance.instructor.name
             
             cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
@@ -473,56 +435,26 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: GymHoursHeaderView.identifier) as! GymHoursHeaderView
             
             let date = Date()
-            let currentDay = days[date.getIntegerDayOfWeekToday() ?? 0]
+            let currentDay = days[date.getIntegerDayOfWeekToday()]
             
             // TODO : check this code after refectoring/linking with backend, gymHours format may changes
             switch currentDay{
             case .sunday:
-                if let gymHours = gym.gymHours.zero{
-                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    header.hoursLabel.text = "Closed Today"
-                }
+                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.zero)
             case .monday:
-                if let gymHours = gym.gymHours.one{
-                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    header.hoursLabel.text = "Closed Today"
-                }
+                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.one)
             case .tuesday:
-                if let gymHours = gym.gymHours.two{
-                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    header.hoursLabel.text = "Closed Today"
-                }
+                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.two)
             case .wednesday:
-                if let gymHours = gym.gymHours.three{
-                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    header.hoursLabel.text = "Closed Today"
-                }
+                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.three)
             case .thursday:
-                if let gymHours = gym.gymHours.four{
-                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    header.hoursLabel.text = "Closed Today"
-                }
+                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.four)
             case .friday:
-                if let gymHours = gym.gymHours.five{
-                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    header.hoursLabel.text = "Closed Today"
-                }
+                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.five)
             case .saturday:
-                if let gymHours = gym.gymHours.six{
-                    header.hoursLabel.text = gymHours.openTime + " - " + gymHours.closeTime
-                }else{
-                    header.hoursLabel.text = "Closed Today"
-                }
+                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.six)
             }
-            if (header.hoursLabel.text?.hasPrefix("0"))!{
-                header.hoursLabel.text = String((header.hoursLabel.text?[String.Index(encodedOffset: 1)...])!)
-            }
+            header.hoursLabel.text = header.hoursLabel.text?.removeLeadingZero()
             
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))
             header.addGestureRecognizer(gesture)
@@ -530,6 +462,15 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             return header
         }else{
             return nil
+        }
+    }
+    
+    // TODO : Once backend changes so that hours are never optional, make this a method of DailyGymHours
+    func getStringFromDailyHours(hours: DailyGymHours?) -> String {
+        if let gymHours = hours{
+            return "\(gymHours.openTime) - \(gymHours.closeTime)"
+        }else{
+            return "Closed"
         }
     }
     
