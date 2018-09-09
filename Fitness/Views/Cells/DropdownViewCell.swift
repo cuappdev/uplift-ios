@@ -12,6 +12,7 @@ import SnapKit
 class DropdownViewCell: UITableViewCell {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.dropdownViewCell
     var titleLabel: UILabel!
     var id: Int!
     

@@ -18,6 +18,7 @@
 		8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymsCell.swift */; };
 		8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE10206C483500EF83C7 /* LookingForCell.swift */; };
 		8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */; };
+		8D24AF962140B23F002D850C /* String+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D24AF952140B23F002D850C /* String+Shared.swift */; };
 		8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB082072BCE000144BFC /* FilterViewController.swift */; };
 		8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0A2072C31400144BFC /* Lato-Black.ttf */; };
 		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
@@ -27,6 +28,7 @@
 		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
 		8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44D208718410095B8AB /* GymHoursCell.swift */; };
 		8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */; };
+		8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB784E2139849B002BE0E0 /* Constants.swift */; };
 		8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */; };
 		8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */; };
 		8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */; };
@@ -74,6 +76,7 @@
 		8D03EE0E206C481A00EF83C7 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsCell.swift; sourceTree = "<group>"; };
 		8D03EE10206C483500EF83C7 /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForCell.swift; sourceTree = "<group>"; };
 		8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
+		8D24AF952140B23F002D850C /* String+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Shared.swift"; sourceTree = "<group>"; };
 		8D26DB082072BCE000144BFC /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		8D26DB0A2072C31400144BFC /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		8D26DB0C2072C35F00144BFC /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		8D95F44D208718410095B8AB /* GymHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursCell.swift; sourceTree = "<group>"; };
 		8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursHeaderView.swift; sourceTree = "<group>"; };
+		8DBB784E2139849B002BE0E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
 				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
 				C71E8A032091726600542FA3 /* Date+Shared.swift */,
+				8D24AF952140B23F002D850C /* String+Shared.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				8DBB784E2139849B002BE0E0 /* Constants.swift */,
 				8D95F448208704010095B8AB /* Secrets */,
 				C7DFABCD204206E000545B0B /* Fitness */,
 				630ADD112051BECC00B8E255 /* Fonts */,
@@ -467,6 +473,7 @@
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C76F715B208FD43D00FDC958 /* FitnessAPI.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
+				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
@@ -487,6 +494,7 @@
 				8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
+				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,

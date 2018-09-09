@@ -7,13 +7,14 @@
 //
 import UIKit
 
-class HomeSectionHeaderView: UICollectionReusableView {
+class HomeSectionHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.homeSectionHeaderView
     var titleLabel: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         
         backgroundColor = UIColor.clear
         

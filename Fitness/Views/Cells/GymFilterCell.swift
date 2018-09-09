@@ -12,6 +12,7 @@ import SnapKit
 class GymFilterCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.gymFilterCell
     var gymNameLabel: UILabel!
     var selectedCircle: UIView!
     override var isSelected: Bool{

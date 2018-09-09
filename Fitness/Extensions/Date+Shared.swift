@@ -60,12 +60,12 @@ extension Date {
     }
     
     // MARK: - DAY OF WEEK
-    func getIntegerDayOfWeekToday() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday! - 1
+    func getIntegerDayOfWeekToday() -> Int {
+        return Calendar.current.component(.weekday, from: self)-1
     }
     
-    func getIntegerDayOfWeekTomorrow() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday!
+    func getIntegerDayOfWeekTomorrow() -> Int {
+        return Calendar.current.component(.weekday, from: self)
     }
     
     func getStringDayOfWeek() -> String? {

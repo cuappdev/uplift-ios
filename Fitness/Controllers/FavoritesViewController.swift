@@ -41,8 +41,8 @@ class FavoritesViewController: UITableViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .white
         
-        tableView.register(FavoritesHeaderView.self, forHeaderFooterViewReuseIdentifier: "favoritesHeaderView")
-        tableView.register(ClassListCell.self, forCellReuseIdentifier: "classListCell")
+        tableView.register(FavoritesHeaderView.self, forHeaderFooterViewReuseIdentifier: FavoritesHeaderView.identifier)
+        tableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
         
         setupConstraints()
     }
@@ -57,7 +57,7 @@ class FavoritesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "classListCell", for: indexPath) as! ClassListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
         return cell
     }
     
@@ -66,7 +66,7 @@ class FavoritesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "favoritesHeaderView") as! FavoritesHeaderView
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FavoritesHeaderView.identifier) as! FavoritesHeaderView
         return header
     }
     

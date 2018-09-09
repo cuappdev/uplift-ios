@@ -11,6 +11,7 @@ import SnapKit
 class CategoryCell: UICollectionViewCell {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.categoryCell
     var image: UIImageView!
     var title: UILabel! 
     

@@ -12,12 +12,12 @@ import SnapKit
 class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.classListHeaderView
     var collectionView: UICollectionView!
     
     var currentWeekDay: Int!
     var calendar: Calendar!
     var selectedDayIndex: Int!
-    
     var currentDateLabel: UILabel!
     
     var delegate: ClassListViewController!
@@ -33,7 +33,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.layer.backgroundColor = UIColor.clear.cgColor
-        collectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "calendarCell")
+        collectionView.register(CalendarCell.self, forCellWithReuseIdentifier: CalendarCell.identifier)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -136,7 +136,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as! CalendarCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.identifier, for: indexPath) as! CalendarCell
         
         let offset = indexPath.row - 3
         

@@ -12,6 +12,7 @@ import SnapKit
 class GymHoursHeaderView: UITableViewHeaderFooterView {
 
     //MARK: - INITIALIZATION
+    static let identifier = Identifiers.gymHoursHeaderView
     var clockImageView: UIImageView!
     var hoursLabel: UILabel!
     var downArrow: UIImageView!

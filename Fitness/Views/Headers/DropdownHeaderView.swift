@@ -11,6 +11,7 @@ import UIKit
 class DropdownHeaderView: UITableViewHeaderFooterView {
 
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.dropdownViewCell
     var titleLabel: UILabel!
     var rightArrow: UIImageView!
     var downArrow: UIImageView!

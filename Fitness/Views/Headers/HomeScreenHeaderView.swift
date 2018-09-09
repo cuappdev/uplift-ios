@@ -11,10 +11,11 @@ import SnapKit
 class HomeScreenHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.homeScreenHeaderView
     var welcomeMessage: UILabel!
     var subHeader: HomeSectionHeaderView!
     
-    init(reuseIdentifier: String?, name: String!) {
+    override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
         //BACKGROUND COLOR
@@ -36,7 +37,6 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
         welcomeMessage.textColor = .fitnessBlack
         welcomeMessage.lineBreakMode = .byWordWrapping
         welcomeMessage.numberOfLines = 0
-        welcomeMessage.text = "Good Afternoon, " + name + "!"
         addSubview(welcomeMessage)
         
         //FIRST SECTION'S HEADER
@@ -48,6 +48,10 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setName(name: String){
+        welcomeMessage.text = "Good Afternoon, " + name + "!"
     }
     
     // MARK: - LAYOUT

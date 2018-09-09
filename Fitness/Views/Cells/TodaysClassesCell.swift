@@ -13,6 +13,7 @@ import AlamofireImage
 class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.todaysClassesCell
     var collectionView: UICollectionView!
     var gymClassInstances: [GymClassInstance] = [] {
         didSet {
@@ -45,7 +46,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.register(ClassesCell.self , forCellWithReuseIdentifier: "classesCell")
+        collectionView.register(ClassesCell.self , forCellWithReuseIdentifier: ClassesCell.identifier)
         
         contentView.addSubview(collectionView)
         
@@ -61,7 +62,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     
     // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "classesCell", for: indexPath) as! ClassesCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassesCell.identifier, for: indexPath) as! ClassesCell
         let classInstance = gymClassInstances[indexPath.row]
 
         Alamofire.request(classInstance.classDescription.imageURL!).responseImage { response in

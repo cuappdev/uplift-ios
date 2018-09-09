@@ -12,6 +12,7 @@ import SnapKit
 class DropdownFooterView: UITableViewHeaderFooterView {
 
     // MARK: - INITIALIZATION
+    static let identifier = Identifiers.dropdownFooterView
     var showHideLabel: UILabel!
     
     override init(reuseIdentifier: String?) {

@@ -10,6 +10,8 @@ import UIKit
 
 class CalendarCell: UICollectionViewCell {
     
+    // MARK: - INITIALIZATION
+    static let identifier = Identifiers.calendarCell
     var dateLabel: UILabel!
     var dayOfWeekLabel: UILabel!
     var shapeLayer: CAShapeLayer!
@@ -50,6 +52,7 @@ class CalendarCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - CONSTRAINTS
     func setConstraints(){
         
         dateLabel.snp.makeConstraints{ make in
