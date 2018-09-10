@@ -14,7 +14,7 @@ enum SectionType {
     case lookingFor
 }
 
-class HomeController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeController: UIViewController {
     
     // MARK: - INITIALIZATION
     var tableView: UITableView!
@@ -89,8 +89,10 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.tableView.reloadData()
         }
     }
-    
-    // MARK: - TABLE VIEW
+}
+
+//MARK: TableViewDataSource
+extension HomeController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch sections[indexPath.section] {
@@ -112,6 +114,19 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    
+}
+
+//MARK: TableViewDelegate
+extension HomeController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch sections[section] {
@@ -131,22 +146,6 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        switch sections[section] {
-        case .allGyms:
-            return 155
-        case .todaysClasses:
-            return 51
-        case .lookingFor:
-            return 51
-        }
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch sections[indexPath.section] {
@@ -159,7 +158,15 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        switch sections[section] {
+        case .allGyms:
+            return 155
+        case .todaysClasses:
+            return 51
+        case .lookingFor:
+            return 51
+        }
     }
 }

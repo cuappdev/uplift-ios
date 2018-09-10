@@ -21,7 +21,7 @@ struct DropdownData {
     var completed: Bool!
 }
 
-class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class FilterViewController: UIViewController {
 
     // MARK: - INITIALIZATION
     var scrollView: UIScrollView!
@@ -371,42 +371,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         dropInstructors(sender: UITapGestureRecognizer(target: nil, action: nil))
     }
 
-    //MARK: - COLLECTION VIEW METHODS
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymFilterCell.identifier, for: indexPath) as! GymFilterCell
-
-        cell.gymNameLabel.text = gyms[indexPath.row].name
-        cell.gymNameLabel.sizeToFit()
-        
-        if selectedGyms.contains(gyms[indexPath.row].id){
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
-            cell.isSelected = true
-        }
-
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        for i in 0..<selectedGyms.count{
-            if (selectedGyms[i] == gyms[indexPath.row].id){
-                selectedGyms.remove(at: i)
-                return
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedGyms.append(gyms[indexPath.row].id)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 35 + gyms[indexPath.row].name.count*10, height: 31)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gyms.count
-    }
-
     //MARK: - SLIDER METHODS
     @objc func startTimeChanged() {
         let lowerSliderVal = startTimeSlider.lowerValue + 360
@@ -434,184 +398,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
             endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
         }
     }
-
-    //MARK: - TABLE VIEW METHODS
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRows = 0
-        if tableView == instructorDropdown{
-            if(instructorDropdownData.completed == false){
-                return 0
-            }
-            
-            switch instructorDropdownData.dropStatus{
-            case .up:
-                numberOfRows = 0
-            case .half:
-                numberOfRows = 3
-            case .down:
-                numberOfRows = instructorDropdownData.titles.count
-            default:
-                numberOfRows = 0
-            }
-        }else if tableView == classTypeDropdown{
-            if(classTypeDropdownData.completed == false){
-                return 0
-            }
-            
-            switch classTypeDropdownData.dropStatus{
-            case .up:
-                numberOfRows = 0
-            case .half:
-                numberOfRows = 3
-            case .down:
-                numberOfRows = classTypeDropdownData.titles.count
-            default:
-                numberOfRows = 0
-            }
-        }
-        return numberOfRows
-    }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
-        var shouldAppend: Bool
-        
-        if(cell.checkBoxColoring.backgroundColor == .fitnessYellow){
-            cell.checkBoxColoring.backgroundColor = .white
-            shouldAppend = false
-        }else{
-            cell.checkBoxColoring.backgroundColor = .fitnessYellow
-            shouldAppend = true
-        }
-        
-        if (tableView == classTypeDropdown){
-            if(shouldAppend){
-                selectedClasses.append(cell.id)
-            }else{
-                for i in 0..<selectedClasses.count{
-                    let id = selectedClasses[i]
-                    if(id == cell.id){
-                        selectedClasses.remove(at: i)
-                        return
-                    }
-                }
-            }
-        }else{
-            if(shouldAppend){
-                selectedInstructors.append(cell.id)
-            }else{
-                for i in 0..<selectedInstructors.count{
-                    let id = selectedInstructors[i]
-                    if(id == cell.id){
-                        selectedInstructors.remove(at: i)
-                        return
-                    }
-                }
-            }
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DropdownViewCell.identifier, for: indexPath) as! DropdownViewCell
-
-        if tableView == instructorDropdown{
-            if(indexPath.row < instructorDropdownData.titles.count){
-                cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
-                cell.id = instructorDropdownData.ids[indexPath.row]
-                
-                if(selectedInstructors.contains(cell.id)){
-                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
-                }
-            }
-        }else if tableView == classTypeDropdown{
-            if(indexPath.row < classTypeDropdownData.titles.count){
-                cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
-                cell.id = classTypeDropdownData.ids[indexPath.row]
-                if(selectedClasses.contains(cell.id)){
-                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
-                }
-            }
-        }
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownHeaderView.identifier) as! DropdownHeaderView
-
-        if tableView == instructorDropdown{
-            header.titleLabel.text = "INSTRUCTOR"
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
-            header.addGestureRecognizer(gesture)
-        }else if tableView == classTypeDropdown{
-            header.titleLabel.text = "CLASS TYPE"
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
-            header.addGestureRecognizer(gesture)
-        }
-
-        return header
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownFooterView.identifier) as! DropdownFooterView
-
-        if tableView == instructorDropdown{
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
-            footer.addGestureRecognizer(gesture)
-            if(instructorDropdownData.dropStatus == .half){
-                footer.showHideLabel.text = "Show All Instructors"
-            }else{
-                footer.showHideLabel.text = "Hide"
-            }
-        }else if tableView == classTypeDropdown{
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
-            footer.addGestureRecognizer(gesture)
-            if(classTypeDropdownData.dropStatus == .half){
-                footer.showHideLabel.text = "Show All Classe Types"
-            }else{
-                footer.showHideLabel.text = "Hide"
-            }
-        }
-
-        return footer
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        var height = 0
-        if tableView == classTypeDropdown{
-            switch classTypeDropdownData.dropStatus{
-            case .up:
-                height = 0
-            case .half:
-                height = 32
-            case .down:
-                height = 32
-            default:
-                height = 0
-            }
-        }else if tableView == instructorDropdown{
-            switch instructorDropdownData.dropStatus{
-            case .up:
-                height = 0
-            case .half:
-                height = 32
-            case .down:
-                height = 32
-            default:
-                height = 0
-            }
-        }
-        return CGFloat(height)
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 32
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 55
-    }
-
     //MARK: - DROP METHODS
     @objc func dropInstructors( sender:UITapGestureRecognizer){
         
@@ -744,5 +531,226 @@ class FilterViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
         instructorDropdown.endUpdates()
         setupConstraints()
+    }
+}
+
+//MARK: CollectionViewDelegateFlowLayout
+extension FilterViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        for i in 0..<selectedGyms.count{
+            if (selectedGyms[i] == gyms[indexPath.row].id){
+                selectedGyms.remove(at: i)
+                return
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedGyms.append(gyms[indexPath.row].id)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 35 + gyms[indexPath.row].name.count*10, height: 31)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return gyms.count
+    }
+
+}
+
+//MARK: CollectionViewDataSource
+extension FilterViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymFilterCell.identifier, for: indexPath) as! GymFilterCell
+        
+        cell.gymNameLabel.text = gyms[indexPath.row].name
+        cell.gymNameLabel.sizeToFit()
+        
+        if selectedGyms.contains(gyms[indexPath.row].id){
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+            cell.isSelected = true
+        }
+        return cell
+    }
+}
+
+//MARK: TableViewDataSource
+extension FilterViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var numberOfRows = 0
+        if tableView == instructorDropdown{
+            if(instructorDropdownData.completed == false){
+                return 0
+            }
+            
+            switch instructorDropdownData.dropStatus{
+            case .up:
+                numberOfRows = 0
+            case .half:
+                numberOfRows = 3
+            case .down:
+                numberOfRows = instructorDropdownData.titles.count
+            default:
+                numberOfRows = 0
+            }
+        }else if tableView == classTypeDropdown{
+            if(classTypeDropdownData.completed == false){
+                return 0
+            }
+            
+            switch classTypeDropdownData.dropStatus{
+            case .up:
+                numberOfRows = 0
+            case .half:
+                numberOfRows = 3
+            case .down:
+                numberOfRows = classTypeDropdownData.titles.count
+            default:
+                numberOfRows = 0
+            }
+        }
+        return numberOfRows
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DropdownViewCell.identifier, for: indexPath) as! DropdownViewCell
+        
+        if tableView == instructorDropdown{
+            if(indexPath.row < instructorDropdownData.titles.count){
+                cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
+                cell.id = instructorDropdownData.ids[indexPath.row]
+                
+                if(selectedInstructors.contains(cell.id)){
+                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
+                }
+            }
+        }else if tableView == classTypeDropdown{
+            if(indexPath.row < classTypeDropdownData.titles.count){
+                cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
+                cell.id = classTypeDropdownData.ids[indexPath.row]
+                if(selectedClasses.contains(cell.id)){
+                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
+                }
+            }
+        }
+        return cell
+    }
+}
+
+//MARK: TableViewDelegate
+extension FilterViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
+        var shouldAppend: Bool
+        
+        if(cell.checkBoxColoring.backgroundColor == .fitnessYellow){
+            cell.checkBoxColoring.backgroundColor = .white
+            shouldAppend = false
+        }else{
+            cell.checkBoxColoring.backgroundColor = .fitnessYellow
+            shouldAppend = true
+        }
+        
+        if (tableView == classTypeDropdown){
+            if(shouldAppend){
+                selectedClasses.append(cell.id)
+            }else{
+                for i in 0..<selectedClasses.count{
+                    let id = selectedClasses[i]
+                    if(id == cell.id){
+                        selectedClasses.remove(at: i)
+                        return
+                    }
+                }
+            }
+        }else{
+            if(shouldAppend){
+                selectedInstructors.append(cell.id)
+            }else{
+                for i in 0..<selectedInstructors.count{
+                    let id = selectedInstructors[i]
+                    if(id == cell.id){
+                        selectedInstructors.remove(at: i)
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 32
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 55
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        var height = 0
+        if tableView == classTypeDropdown {
+            switch classTypeDropdownData.dropStatus {
+            case .up:
+                height = 0
+            case .half:
+                height = 32
+            case .down:
+                height = 32
+            default:
+                height = 0
+            }
+        } else if tableView == instructorDropdown {
+            switch instructorDropdownData.dropStatus {
+            case .up:
+                height = 0
+            case .half:
+                height = 32
+            case .down:
+                height = 32
+            default:
+                height = 0
+            }
+        }
+        return CGFloat(height)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownFooterView.identifier) as! DropdownFooterView
+        
+        if tableView == instructorDropdown {
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
+            footer.addGestureRecognizer(gesture)
+            if (instructorDropdownData.dropStatus == .half) {
+                footer.showHideLabel.text = "Show All Instructors"
+            } else {
+                footer.showHideLabel.text = "Hide"
+            }
+        } else if tableView == classTypeDropdown {
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
+            footer.addGestureRecognizer(gesture)
+            if (classTypeDropdownData.dropStatus == .half) {
+                footer.showHideLabel.text = "Show All Classe Types"
+            } else {
+                footer.showHideLabel.text = "Hide"
+            }
+        }
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownHeaderView.identifier) as! DropdownHeaderView
+        
+        if tableView == instructorDropdown {
+            header.titleLabel.text = "INSTRUCTOR"
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
+            header.addGestureRecognizer(gesture)
+        } else if tableView == classTypeDropdown {
+            header.titleLabel.text = "CLASS TYPE"
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
+            header.addGestureRecognizer(gesture)
+        }
+        
+        return header
     }
 }
