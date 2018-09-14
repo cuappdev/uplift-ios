@@ -577,13 +577,13 @@ extension FilterViewController: UICollectionViewDataSource {
 
 //MARK: TableViewDataSource
 extension FilterViewController: UITableViewDataSource {
+    //TODO: Refactor this method for better code readability
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = 0
         if tableView == instructorDropdown{
             if(instructorDropdownData.completed == false){
                 return 0
             }
-            
             switch instructorDropdownData.dropStatus{
             case .up:
                 numberOfRows = 0
@@ -594,7 +594,7 @@ extension FilterViewController: UITableViewDataSource {
             default:
                 numberOfRows = 0
             }
-        }else if tableView == classTypeDropdown{
+        } else if tableView == classTypeDropdown{
             if(classTypeDropdownData.completed == false){
                 return 0
             }
@@ -642,17 +642,12 @@ extension FilterViewController: UITableViewDataSource {
 extension FilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
-        var shouldAppend: Bool
+        var shouldAppend: Bool = cell.checkBoxColoring.backgroundColor == .fitnessYellow
         
-        if(cell.checkBoxColoring.backgroundColor == .fitnessYellow){
-            cell.checkBoxColoring.backgroundColor = .white
-            shouldAppend = false
-        }else{
-            cell.checkBoxColoring.backgroundColor = .fitnessYellow
-            shouldAppend = true
-        }
+        cell.checkBoxColoring.backgroundColor = shouldAppend ? .white : .fitnessYellow
+        shouldAppend = !shouldAppend
         
-        if (tableView == classTypeDropdown){
+        if tableView == classTypeDropdown {
             if(shouldAppend){
                 selectedClasses.append(cell.id)
             }else{
@@ -664,10 +659,10 @@ extension FilterViewController: UITableViewDelegate {
                     }
                 }
             }
-        }else{
-            if(shouldAppend){
+        } else {
+            if shouldAppend {
                 selectedInstructors.append(cell.id)
-            }else{
+            } else {
                 for i in 0..<selectedInstructors.count{
                     let id = selectedInstructors[i]
                     if(id == cell.id){
@@ -688,14 +683,12 @@ extension FilterViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        var height = 0
+        var height: CGFloat = 0
         if tableView == classTypeDropdown {
             switch classTypeDropdownData.dropStatus {
             case .up:
                 height = 0
-            case .half:
-                height = 32
-            case .down:
+            case .half, .down:
                 height = 32
             default:
                 height = 0
@@ -704,15 +697,13 @@ extension FilterViewController: UITableViewDelegate {
             switch instructorDropdownData.dropStatus {
             case .up:
                 height = 0
-            case .half:
-                height = 32
-            case .down:
+            case .half, .down:
                 height = 32
             default:
                 height = 0
             }
         }
-        return CGFloat(height)
+        return height
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
