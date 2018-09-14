@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ClassDetailViewController: UIViewController {
     
     //MARK: - INITIALIZATION
     var gymClassInstance: GymClassInstance!
@@ -393,10 +393,13 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @objc func favorite(){
+        // TODO: Replace with favorite functionality
         print("favorite")
     }
-    
-    //MARK: - TABLE VIEW METHODS
+}
+
+//MARK: TableViewDataSource
+extension ClassDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5    //temporary
     }
@@ -406,7 +409,10 @@ class ClassDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         return cell
     }
-    
+}
+
+//MARK: TableViewDelegate
+extension ClassDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
