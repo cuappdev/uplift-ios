@@ -393,7 +393,6 @@ class ClassDetailViewController: UIViewController {
     }
     
     @objc func favorite(){
-        // TODO: Replace with favorite functionality
         print("favorite")
     }
 }
