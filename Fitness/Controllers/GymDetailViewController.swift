@@ -403,6 +403,7 @@ class GymDetailViewController: UIViewController {
     }
     
     @objc func favorite(){
+        //TODO: Replace with favorite functionality
         print("favorite")
     }
 }
@@ -514,10 +515,7 @@ extension GymDetailViewController: UITableViewDataSource {
 extension GymDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (tableView == hoursTableView) {
-            if (indexPath.row == 5){
-                return 19
-            }
-            return 27
+            return indexPath.row == 5 ? 19 : 27
         } else {
             return 112
         }

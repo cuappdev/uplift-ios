@@ -121,14 +121,11 @@ extension HomeController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
-    
-    
 }
 
 //MARK: TableViewDelegate
 extension HomeController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         switch sections[section] {
         case .allGyms:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeScreenHeaderView.identifier) as! HomeScreenHeaderView
@@ -147,7 +144,6 @@ extension HomeController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         switch sections[indexPath.section] {
         case .allGyms:
             return 180
@@ -159,13 +155,10 @@ extension HomeController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         switch sections[section] {
         case .allGyms:
             return 155
-        case .todaysClasses:
-            return 51
-        case .lookingFor:
+        case .todaysClasses, .lookingFor:
             return 51
         }
     }
