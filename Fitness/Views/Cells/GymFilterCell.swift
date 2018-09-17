@@ -15,8 +15,8 @@ class GymFilterCell: UICollectionViewCell {
     static let identifier = Identifiers.gymFilterCell
     var gymNameLabel: UILabel!
     var selectedCircle: UIView!
-    override var isSelected: Bool{
-        didSet{
+    override var isSelected: Bool {
+        didSet {
             if self.isSelected {
                 gymNameLabel.font = ._14MontserratMedium
                 selectedCircle.backgroundColor = .fitnessYellow
@@ -26,8 +26,6 @@ class GymFilterCell: UICollectionViewCell {
             }
         }
     }
-    
-
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,15 +37,15 @@ class GymFilterCell: UICollectionViewCell {
         gymNameLabel.sizeToFit()
         gymNameLabel.textAlignment = .center
         contentView.addSubview(gymNameLabel)
-        
+
         selectedCircle = UIView()
         selectedCircle.clipsToBounds = true
         selectedCircle.layer.cornerRadius = 3
         selectedCircle.backgroundColor = .white
         contentView.addSubview(selectedCircle)
-        
+
         isSelected = false
-        
+
         setupConstraints()
     }
 
@@ -57,7 +55,7 @@ class GymFilterCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        gymNameLabel.snp.updateConstraints{make in
+        gymNameLabel.snp.updateConstraints {make in
             make.top.equalToSuperview().offset(6)
             make.left.equalToSuperview().offset(14)
             make.right.equalToSuperview().offset(-14)

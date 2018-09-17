@@ -16,18 +16,18 @@ class ClassListCell: UITableViewCell {
     var timeLabel: UILabel!
     var durationLabel: UILabel!
     var duration: Int!
-    
+
     var classLabel: UILabel!
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
-    
+
     var favoriteButton: UIButton!
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.contentView.backgroundColor = .blue
-        
+
         //TIME
         timeLabel = UILabel()
         timeLabel.text = "8:30 AM"
@@ -36,7 +36,7 @@ class ClassListCell: UITableViewCell {
         timeLabel.textColor = .fitnessBlack
         timeLabel.sizeToFit()
         contentView.addSubview(timeLabel)
-        
+
         durationLabel = UILabel()
         durationLabel.text = "55 min"
         durationLabel.font = ._12MontserratLight
@@ -44,7 +44,7 @@ class ClassListCell: UITableViewCell {
         durationLabel.textColor = .fitnessBlack
         durationLabel.sizeToFit()
         contentView.addSubview(durationLabel)
-        
+
         //DESCRIPTION
         classLabel = UILabel()
         classLabel.text = "Yoga - Mellow Flow"
@@ -53,7 +53,7 @@ class ClassListCell: UITableViewCell {
         classLabel.textColor = .fitnessBlack
         classLabel.sizeToFit()
         contentView.addSubview(classLabel)
-        
+
         locationLabel = UILabel()
         locationLabel.text = "Teagle Multipurpose Room"
         locationLabel.font = ._12MontserratLight
@@ -61,7 +61,7 @@ class ClassListCell: UITableViewCell {
         locationLabel.textColor = .fitnessBlack
         locationLabel.sizeToFit()
         contentView.addSubview(locationLabel)
-        
+
         instructorLabel = UILabel()
         instructorLabel.text = "Clare M."
         instructorLabel.font = ._12MontserratRegular
@@ -69,16 +69,16 @@ class ClassListCell: UITableViewCell {
         instructorLabel.textColor = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
-        
+
         //FAVORITE
         favoriteButton = UIButton()
         favoriteButton.setImage(#imageLiteral(resourceName: "grey-star"), for: .normal)
         favoriteButton.sizeToFit()
         contentView.addSubview(favoriteButton)
-        
+
         setUpContstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -86,27 +86,27 @@ class ClassListCell: UITableViewCell {
     // MARK: - LAYOUT
     override open func layoutSubviews() {
         super.layoutSubviews()
-        
-        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, 16, 12, 16))
-        
+
+        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 0, left: 16, bottom: 12, right: 16))
+
         contentView.layer.cornerRadius = 5
         contentView.layer.backgroundColor = UIColor.white.cgColor
         contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
         contentView.layer.borderWidth = 0.5
-        
+
         contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
         contentView.layer.shadowRadius = 5.0
         contentView.layer.shadowOpacity = 0.5
         contentView.layer.masksToBounds = false
-        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsetsMake(0, -10, 12, 24))
+        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 0, left: -10, bottom: 12, right: 24))
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
     }
-    
+
     // MARK: - CONSTRAINTS
     func setUpContstraints() {
-        
+
         //TIME
         timeLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
@@ -114,34 +114,34 @@ class ClassListCell: UITableViewCell {
             make.width.equalTo(60)
             make.height.equalTo(16)
         }
-        
+
         durationLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.top.equalTo(timeLabel.snp.bottom)
             make.width.equalTo(60)
             make.height.equalTo(16)
         }
-        
+
         //DESCRIPTION
         classLabel.snp.makeConstraints { make in
             make.left.equalTo(timeLabel.snp.right).offset(32)
             make.top.equalToSuperview().offset(16)
             make.height.equalTo(19)
         }
-        
+
         locationLabel.snp.makeConstraints { make in
             make.left.equalTo(timeLabel.snp.right).offset(32)
             make.top.equalTo(classLabel.snp.bottom)
             make.height.equalTo(16)
         }
-        
+
         instructorLabel.snp.makeConstraints { make in
             make.left.equalTo(timeLabel.snp.right).offset(32)
             make.top.equalTo(locationLabel.snp.bottom).offset(16)
             make.right.equalToSuperview()
             make.height.equalTo(16)
         }
-        
+
         //FAVORITE
         favoriteButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

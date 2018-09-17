@@ -9,7 +9,7 @@
 import Foundation
 
 struct GymClassDescription {
-    
+
     let id: Int
     let description: String
     let name: String
@@ -29,7 +29,7 @@ struct GymClassDescriptionRootData: Decodable {
 }
 
 extension GymClassDescription: Decodable {
-    
+
     enum Key: String, CodingKey {
         case id
         case description
@@ -38,10 +38,10 @@ extension GymClassDescription: Decodable {
         case gymClasses = "gym_classes"
         case imageURL = "image_url"
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        
+
         id = try container.decode(Int.self, forKey: .id)
         description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""

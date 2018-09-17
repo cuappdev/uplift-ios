@@ -9,5 +9,6 @@ target 'Fitness' do
   pod 'Fabric'
 	pod 'Moya'
   pod 'SnapKit'
+  pod 'SwiftLint'
   pod 'WARangeSlider'
 end
