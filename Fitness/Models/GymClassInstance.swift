@@ -27,7 +27,7 @@ struct GymClassInstanceRootData: Decodable {
 }
 
 extension GymClassInstance: Decodable {
-    
+
     enum Key: String, CodingKey {
         case classDescription = "class_desc"
         case duration
@@ -36,7 +36,7 @@ extension GymClassInstance: Decodable {
         case instructor
         case startTime = "start_time"
     }
-    
+
     enum ClassDescriptionKey: String, CodingKey {
         case id
         case description
@@ -45,16 +45,16 @@ extension GymClassInstance: Decodable {
         case gymClasses = "gym_classes"
         case imageURL = "image_url"
     }
-    
+
     enum InstructorKey: String, CodingKey {
         case id
         case name
         case gymClasses = "gym_classes"
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
-        
+
         let classDescriptionContainer = try container.nestedContainer(keyedBy: ClassDescriptionKey.self, forKey: .classDescription)
         let classDescriptionId = try classDescriptionContainer.decode(Int.self, forKey: .id)
         let classDescriptionDescription = try classDescriptionContainer.decodeIfPresent(String.self, forKey: .description) ?? ""
@@ -62,21 +62,22 @@ extension GymClassInstance: Decodable {
         let classDescriptionTags = try classDescriptionContainer.decodeIfPresent([Int].self, forKey: .tags) ?? []
         let classDescriptionGymClasses = try classDescriptionContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
         let classDescriptionImageURL = try classDescriptionContainer.decodeIfPresent(String.self, forKey: .imageURL) ?? ""
-        
-        classDescription = GymClassDescription(id: classDescriptionId, description: classDescriptionDescription, name: classDescriptionName, tags: classDescriptionTags, gymClasses: classDescriptionGymClasses, imageURL: classDescriptionImageURL)
-        
+
+        classDescription = GymClassDescription(id: classDescriptionId, description: classDescriptionDescription, name: classDescriptionName,
+                                               tags: classDescriptionTags, gymClasses: classDescriptionGymClasses, imageURL: classDescriptionImageURL)
+
         duration = try container.decodeIfPresent(String.self, forKey: .duration) ?? ""
-        
+
         gymClassInstanceId = try container.decode(Int.self, forKey: .id)
-        
+
         let instructorContainer = try container.nestedContainer(keyedBy: InstructorKey.self, forKey: .instructor)
         let instructorGymClasses = try instructorContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
         let instructorId = try instructorContainer.decode(Int.self, forKey: .id)
         let instructorName = try instructorContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
         instructor = Instructor(id: instructorId, name: instructorName, gymClassDescriptions: [], gymClasses: instructorGymClasses)
-        
+
         gymId = try container.decodeIfPresent(Int.self, forKey: .gymId) ?? -1
-        
+
         startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? ""
     }
 }
