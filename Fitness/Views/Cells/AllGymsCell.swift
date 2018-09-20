@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+struct SortedGyms {
+    var openGymsIndices: [Int]
+    var closedGymsIndices: [Int]
+}
+
 class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     // MARK: - INITIALIZATION
@@ -15,6 +20,18 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     var collectionView: UICollectionView!
     var gyms: [Gym] = [] {
         didSet {
+            let sortedGyms = sortGyms()
+            let gymsRefenceCopy = gyms
+            gyms = []
+            
+            for openIndex in sortedGyms.openGymsIndices{
+                gyms.append(gymsRefenceCopy[openIndex])
+            }
+            
+            for closedIndex in sortedGyms.closedGymsIndices{
+                gyms.append(gymsRefenceCopy[closedIndex])
+            }
+            
             collectionView.reloadData()
         }
     }
@@ -96,5 +113,31 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         gymDetailViewController.gym = gyms[indexPath.row]
 
         navigationController!.pushViewController(gymDetailViewController, animated: true)
+    }
+    
+    // MARK: - GYM SORTING
+    func sortGyms() -> SortedGyms {
+        var closedIndices : [Int] = []
+        var openIndices : [Int] = []
+        
+        for i in 0..<gyms.count{
+            
+            let gymHoursToday = gyms[i].gymHours.getGymHours(isTomorrow: false)
+            let openTimeToday = gymHoursToday.openTime
+            let closeTimeToday = gymHoursToday.closeTime
+            
+            var isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
+            
+            if(gyms[i].name == "Bartels"){
+                isOpen = true
+            }
+            
+            if (!isOpen){
+                closedIndices.append(i)
+            }else{
+                openIndices.append(i)
+            }
+        }
+        return SortedGyms(openGymsIndices: openIndices, closedGymsIndices: closedIndices)
     }
 }
