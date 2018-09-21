@@ -20,18 +20,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     var collectionView: UICollectionView!
     var gyms: [Gym] = [] {
         didSet {
-            let sortedGyms = sortGyms()
-            let gymsRefenceCopy = gyms
-            gyms = []
-            
-            for openIndex in sortedGyms.openGymsIndices{
-                gyms.append(gymsRefenceCopy[openIndex])
-            }
-            
-            for closedIndex in sortedGyms.closedGymsIndices{
-                gyms.append(gymsRefenceCopy[closedIndex])
-            }
-            
+            gyms.sort { $0.isOpen && !$1.isOpen }
             collectionView.reloadData()
         }
     }
@@ -80,10 +69,10 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
 
         var isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
 
-        if(gyms[indexPath.row].name == "Bartels") {
+        if gyms[indexPath.row].name == "Bartels" {
             isOpen = true
             cell.hours.text = "Always open"
-        } else if (closeTimeToday == "") {
+        } else if closeTimeToday == "" {
              cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
         } else if (!isOpen && Date() > Date.getDateFromTime(time: closeTimeToday)) {
             cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
@@ -113,31 +102,5 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         gymDetailViewController.gym = gyms[indexPath.row]
 
         navigationController!.pushViewController(gymDetailViewController, animated: true)
-    }
-    
-    // MARK: - GYM SORTING
-    func sortGyms() -> SortedGyms {
-        var closedIndices : [Int] = []
-        var openIndices : [Int] = []
-        
-        for i in 0..<gyms.count{
-            
-            let gymHoursToday = gyms[i].gymHours.getGymHours(isTomorrow: false)
-            let openTimeToday = gymHoursToday.openTime
-            let closeTimeToday = gymHoursToday.closeTime
-            
-            var isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
-            
-            if(gyms[i].name == "Bartels"){
-                isOpen = true
-            }
-            
-            if (!isOpen){
-                closedIndices.append(i)
-            }else{
-                openIndices.append(i)
-            }
-        }
-        return SortedGyms(openGymsIndices: openIndices, closedGymsIndices: closedIndices)
     }
 }

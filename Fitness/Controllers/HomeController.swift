@@ -89,6 +89,15 @@ class HomeController: UIViewController {
             self.tableView.reloadData()
         }
     }
+    
+    // MARK: - ViewDidLoad
+    override func viewDidAppear(_ animated: Bool) {
+        let allGymsCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .allGyms)!) ) as! AllGymsCell
+        allGymsCell.gyms = {allGymsCell.gyms}()
+        
+        let todaysClassesCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .todaysClasses)!) ) as! TodaysClassesCell
+        todaysClassesCell.gymClassInstances = {todaysClassesCell.gymClassInstances}()
+    }
 }
 
 // MARK: TableViewDataSource

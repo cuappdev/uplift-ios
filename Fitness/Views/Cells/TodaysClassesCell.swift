@@ -17,6 +17,13 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     var collectionView: UICollectionView!
     var gymClassInstances: [GymClassInstance] = [] {
         didSet {
+            gymClassInstances = gymClassInstances.filter {
+                Date() < Date.getDateFromTime(time: $0.startTime)
+            }
+            gymClassInstances.sort {
+                Date.getDateFromTime(time: $0.startTime) < Date.getDateFromTime(time: $1.startTime)
+            }
+    
             collectionView.reloadData()
         }
     }
