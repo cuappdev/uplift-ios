@@ -18,6 +18,15 @@ struct Gym {
     let isGym: Bool
     let popularTimesList: PopularTimes
     let imageURL: String
+    var isOpen: Bool {
+        let gymHoursToday = gymHours.getGymHours(isTomorrow: false)
+        
+        if Date() > Date.getDateFromTime(time: gymHoursToday.openTime) {
+            return Date() < Date.getDateFromTime(time: gymHoursToday.closeTime)
+        } else {
+            return false
+        }
+    }
 }
 
 struct GymsRootData: Decodable {
@@ -40,7 +49,7 @@ struct GymHours: Codable {
     var six: DailyGymHours?
 
     func getGymHours(isTomorrow: Bool) -> DailyGymHours {
-        let defaultDailyGymHours = DailyGymHours(id: -1, dayOfWeek: -1, openTime: "", closeTime: "")
+        let defaultDailyGymHours = DailyGymHours(id: -1, dayOfWeek: -1, openTime: "00:00AM", closeTime: "00:00AM")
         let date = isTomorrow ? Date().getIntegerDayOfWeekTomorrow() : Date().getIntegerDayOfWeekToday()
         switch(date) {
         case 0:

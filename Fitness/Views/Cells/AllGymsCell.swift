@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+struct SortedGyms {
+    var openGymsIndices: [Int]
+    var closedGymsIndices: [Int]
+}
+
 class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     // MARK: - INITIALIZATION
@@ -15,6 +20,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     var collectionView: UICollectionView!
     var gyms: [Gym] = [] {
         didSet {
+            gyms.sort { $0.isOpen && !$1.isOpen }
             collectionView.reloadData()
         }
     }
@@ -63,10 +69,10 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
 
         var isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
 
-        if(gyms[indexPath.row].name == "Bartels") {
+        if gyms[indexPath.row].name == "Bartels" {
             isOpen = true
             cell.hours.text = "Always open"
-        } else if (closeTimeToday == "") {
+        } else if closeTimeToday == "" {
              cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
         } else if (!isOpen && Date() > Date.getDateFromTime(time: closeTimeToday)) {
             cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
