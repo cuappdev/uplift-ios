@@ -23,7 +23,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
             gymClassInstances.sort {
                 Date.getDateFromTime(time: $0.startTime) < Date.getDateFromTime(time: $1.startTime)
             }
-    
+            
             collectionView.reloadData()
         }
     }
@@ -105,6 +105,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
         classDetailViewController.durationLabel.text = String(cell.duration) + " MIN"
         classDetailViewController.locationLabel.text = cell.locationName.text
+        classDetailViewController.location = cell.locationName.text
         classDetailViewController.classImageView.image = cell.image.image
 
         //DATE
