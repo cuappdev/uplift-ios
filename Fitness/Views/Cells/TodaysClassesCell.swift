@@ -24,13 +24,6 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
                 Date.getDateFromTime(time: $0.startTime) < Date.getDateFromTime(time: $1.startTime)
             }
             
-            // temp, for testing
-            let desc = GymClassDescription(id: 0, description: "this is a class", name: "Spin", tags: [], gymClasses: [], imageURL: "http://tigerday.org/wp-content/uploads/2013/04/Siberischer_tiger.jpg")
-            
-            let gClass = GymClassInstance(gymClassInstanceId: 0, classDescription: desc, instructor: Instructor(id: 0, name: "joe", gymClassDescriptions: [desc], gymClasses: [0]), startTime: "10:00AM", gymId: 2, duration: "0:45")
-            gymClassInstances.append(gClass)
-            // end temp
-            
             collectionView.reloadData()
         }
     }
