@@ -423,7 +423,7 @@ class ClassDetailViewController: UIViewController {
             do {
                 try store.save(event, span: .thisEvent, commit: true)
             } catch {
-                
+                // should not happen
             }
         }
     }
