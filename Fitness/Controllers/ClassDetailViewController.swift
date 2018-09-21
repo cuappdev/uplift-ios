@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import EventKit
 
 class ClassDetailViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class ClassDetailViewController: UIViewController {
     var locationLabel = UILabel()
     var instructorLabel: UILabel!
     var durationLabel = UILabel()
+    var location: String!
 
     var classImageView = UIImageView()
     var imageFilterView: UIView!
@@ -116,6 +118,7 @@ class ClassDetailViewController: UIViewController {
         addToCalendarLabel.textAlignment = .center
         addToCalendarLabel.textColor = .fitnessBlack
         addToCalendarLabel.sizeToFit()
+        addToCalendarButton.addTarget(self, action: #selector(addToCalendar), for: .touchUpInside)
         contentView.addSubview(addToCalendarLabel)
 
         dateDivider = UIView()
@@ -399,6 +402,30 @@ class ClassDetailViewController: UIViewController {
     @objc func favorite() {
         // TODO: Replace with favorite functionality
         print("favorite")
+    }
+    
+    @objc func addToCalendar(){
+        let store = EKEventStore()
+        store.requestAccess(to: .event) {(granted, error) in
+            if !granted { return }
+            
+            let event = EKEvent(eventStore: store)
+            event.title = self.gymClassInstance.classDescription.name
+            event.startDate = Date.getDateFromTime(time: self.gymClassInstance.startTime)
+            event.endDate = event.startDate.addingTimeInterval(TimeInterval(Date.getMinutesFromDuration(duration: self.gymClassInstance.duration)*60))
+            event.location = self.location
+            event.calendar = store.defaultCalendarForNewEvents
+            
+            let alert = UIAlertController(title: "\(self.gymClassInstance.classDescription.name) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
+            self.present(alert, animated: true, completion: nil)
+            
+            do {
+                try store.save(event, span: .thisEvent, commit: true)
+            } catch {
+                
+            }
+        }
     }
 }
 

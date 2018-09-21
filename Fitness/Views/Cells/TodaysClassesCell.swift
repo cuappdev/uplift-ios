@@ -23,7 +23,14 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
             gymClassInstances.sort {
                 Date.getDateFromTime(time: $0.startTime) < Date.getDateFromTime(time: $1.startTime)
             }
-    
+            
+            // temp, for testing
+            let desc = GymClassDescription(id: 0, description: "this is a class", name: "Spin", tags: [], gymClasses: [], imageURL: "http://tigerday.org/wp-content/uploads/2013/04/Siberischer_tiger.jpg")
+            
+            let gClass = GymClassInstance(gymClassInstanceId: 0, classDescription: desc, instructor: Instructor(id: 0, name: "joe", gymClassDescriptions: [desc], gymClasses: [0]), startTime: "10:00AM", gymId: 2, duration: "0:45")
+            gymClassInstances.append(gClass)
+            // end temp
+            
             collectionView.reloadData()
         }
     }
@@ -105,6 +112,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
         classDetailViewController.durationLabel.text = String(cell.duration) + " MIN"
         classDetailViewController.locationLabel.text = cell.locationName.text
+        classDetailViewController.location = cell.locationName.text
         classDetailViewController.classImageView.image = cell.image.image
 
         //DATE
