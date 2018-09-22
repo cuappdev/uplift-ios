@@ -340,7 +340,6 @@
 				7B68B6796476F8A7F1E6B485 /* [CP] Embed Pods Frameworks */,
 				1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */,
 				8D29EFD320431FCA005B1CC8 /* Run Fabric build */,
-				7B501BEDA39309D025708354 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -434,21 +433,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		7B501BEDA39309D025708354 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Fitness/Pods-Fitness-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		7B68B6796476F8A7F1E6B485 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -28,6 +28,19 @@ DEPENDENCIES:
   - SwiftLint
   - WARangeSlider
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - Apollo
+    - Crashlytics
+    - Fabric
+    - Moya
+    - Result
+    - SnapKit
+    - SwiftLint
+    - WARangeSlider
+
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
@@ -42,4 +55,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9bee8777812d7e780b092990d4bc7e4e95fc0f06
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
