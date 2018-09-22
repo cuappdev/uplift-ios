@@ -11,4 +11,5 @@ target 'Fitness' do
   pod 'SnapKit'
   pod 'SwiftLint'
   pod 'WARangeSlider'
+  pod 'Apollo'
 end
