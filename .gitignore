@@ -1,6 +1,9 @@
 # SwiftLintXcode - see: https://github.com/ypresto/SwiftLintXcode
 SwiftLintXcode/
 
+# Auto-gen build files
+node_modules/
+
 # Secrets
 Secrets/
 

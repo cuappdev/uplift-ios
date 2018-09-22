@@ -2,6 +2,9 @@ PODS:
   - Alamofire (4.6.0)
   - AlamofireImage (3.3.0):
     - Alamofire (~> 4.5)
+  - Apollo (0.9.3):
+    - Apollo/Core (= 0.9.3)
+  - Apollo/Core (0.9.3)
   - Crashlytics (3.8.6):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.13)
@@ -17,6 +20,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage
+  - Apollo
   - Crashlytics
   - Fabric
   - Moya
@@ -28,6 +32,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
+    - Apollo
     - Crashlytics
     - Fabric
     - Moya
@@ -39,6 +44,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
+  Apollo: 38270f8bdc031ac07d4de3ec068a2289d7d287e0
   Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   Fabric: 2fb5676bc811af011a04513451f463dac6803206
   Moya: 3d594ada51a21cc02b18739ab578a1984f900c8a
@@ -47,6 +53,6 @@ SPEC CHECKSUMS:
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
 
-PODFILE CHECKSUM: 42992df167aa87b8fac09a0f3ca3132f3832ef64
+PODFILE CHECKSUM: 9bee8777812d7e780b092990d4bc7e4e95fc0f06
 
 COCOAPODS: 1.5.3
