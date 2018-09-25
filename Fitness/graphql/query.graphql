@@ -1,0 +1,14 @@
+query ClassesAtGym
+    {
+        classes(gymId:0) {
+            gym {
+                name
+                id
+            }
+            details {
+                name
+            }
+        }
+    }
+
+

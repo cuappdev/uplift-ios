@@ -285,7 +285,7 @@ class FilterViewController: UIViewController {
             make.top.equalTo(startTimeClassTypeDivider.snp.bottom)
             make.left.right.equalToSuperview()
 
-            switch classTypeDropdownData.dropStatus {
+            switch classTypeDropdownData.dropStatus! {
             case .up:
                 make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55)
             case .half:
@@ -308,7 +308,7 @@ class FilterViewController: UIViewController {
             make.top.equalTo(classTypeInstructorDivider.snp.bottom)
             make.left.right.equalToSuperview()
 
-            switch instructorDropdownData.dropStatus {
+            switch instructorDropdownData.dropStatus! {
             case .up:
                 make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55)
             case .half:
@@ -591,7 +591,7 @@ extension FilterViewController: UITableViewDataSource {
             if(instructorDropdownData.completed == false) {
                 return 0
             }
-            switch instructorDropdownData.dropStatus {
+            switch instructorDropdownData.dropStatus! {
             case .up:
                 numberOfRows = 0
             case .half:
@@ -606,7 +606,7 @@ extension FilterViewController: UITableViewDataSource {
                 return 0
             }
 
-            switch classTypeDropdownData.dropStatus {
+            switch classTypeDropdownData.dropStatus! {
             case .up:
                 numberOfRows = 0
             case .half:
@@ -692,7 +692,7 @@ extension FilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0
         if tableView == classTypeDropdown {
-            switch classTypeDropdownData.dropStatus {
+            switch classTypeDropdownData.dropStatus! {
             case .up:
                 height = 0
             case .half, .down:
@@ -701,7 +701,7 @@ extension FilterViewController: UITableViewDelegate {
                 height = 0
             }
         } else if tableView == instructorDropdown {
-            switch instructorDropdownData.dropStatus {
+            switch instructorDropdownData.dropStatus! {
             case .up:
                 height = 0
             case .half, .down:
