@@ -27,16 +27,14 @@ struct Gym {
             return false
         }
     }
-}
-
-struct GymsRootData: Decodable {
-    var data: [Gym]
-    var success: Bool
-}
-
-struct GymRootData: Decodable {
-    var data: Gym
-    var success: Bool
+    
+    init(gymData: AllGymsQuery.Data.Gym ) {
+        id = Int(gymData.id ?? "-1")!
+        name = gymData.name ?? ""
+        // TODOS : image saved on our side?
+        // remove: location, isGym, equipment?, classInstances
+        // is popularTimes just always [sun..sat]
+    }
 }
 
 struct GymHours: Codable {
@@ -105,46 +103,6 @@ struct PopularTimes: Codable {
 
 extension Gym: Decodable {
 
-    enum Key: String, CodingKey {
-        case id
-        case name
-        case equipment
-        case location = "location_gym"
-        case gymHours = "gym_hours"
-        case classInstances = "class_instances"
-        case isGym = "is_gym"
-        case popularTimesList = "popular_times_list"
-        case imageURL = "image_url"
-    }
-
-    enum GymHoursKey: String, CodingKey {
-        case zero = "0"
-        case one = "1"
-        case two = "2"
-        case three = "3"
-        case four = "4"
-        case five = "5"
-        case six = "6"
-    }
-
-    enum DailyGymHoursKey: String, CodingKey {
-        case id
-        case dayOfWeek = "day_of_week"
-        case openTime = "open_time"
-        case closeTime = "close_time"
-    }
-
-    enum PopularTimesKey: String, CodingKey {
-        case id
-        case gym
-        case monday
-        case tuesday
-        case wednesday
-        case thursday
-        case friday
-        case saturday
-        case sunday
-    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)

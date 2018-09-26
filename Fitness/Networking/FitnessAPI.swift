@@ -43,8 +43,8 @@ extension FitnessAPI: TargetType {
 
     var environmentBaseURL: String {
         switch NetworkManager.environment {
-        case .production: return "http://localhost:5000/api/v0/" //temp
-        case .development: return "http://localhost:5000/api/v0/"
+        case .production: return "http://localhost:6000/api/v0/" //temp
+        case .development: return "http://localhost:6000/api/v0/"
         }
     }
 
