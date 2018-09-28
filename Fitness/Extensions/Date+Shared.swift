@@ -34,13 +34,24 @@ extension Date {
 
         return calendar.date(from: dateComponents)!
     }
+    
+    static public func getDatetimeFromString(datetime: String?) -> Date {
+        guard let datetime = datetime else {
+            return Date()
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        
+        let date = dateFormatter.date(from: datetime) ?? Date()
+        
+        return date
+    }
 
     // MARK: - DATE
     func getStringDate(date: Date) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let newDate: String = dateFormatter.string(from: date)
-        print(newDate)
         return newDate
     }
 

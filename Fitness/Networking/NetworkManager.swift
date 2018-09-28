@@ -84,23 +84,6 @@ struct NetworkManager {
 //        }
     }
 
-    func getGymClassInstancesPaginated(page: Int, pageSize: Int, completion: @escaping ([GymClassInstance]) -> Void) {
-//        provider.request(.gymClassInstancesPaginated(page: page, pageSize: pageSize)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
-//                    let gymClassInstances = gymClassInstancesData.data
-//                    completion(gymClassInstances)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
-    }
-
     func getGymClassInstancesByDate(date: String, completion: @escaping ([GymClassInstance]) -> Void) {
 //        provider.request(.gymClassInstancesByDate(date: date)) { result in
 //            switch result {
