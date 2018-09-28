@@ -51,7 +51,6 @@
 		C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */; };
 		C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */; };
 		C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */; };
-		C76F715B208FD43D00FDC958 /* FitnessAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715A208FD43D00FDC958 /* FitnessAPI.swift */; };
 		C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715C208FD77300FDC958 /* NetworkManager.swift */; };
 		C76F715F20900AD400FDC958 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715E20900AD400FDC958 /* Tag.swift */; };
 		C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */; };
@@ -63,7 +62,7 @@
 		C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */; };
 		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
 		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
-		D94BD3082159DA9200C9214E /* query.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D94BD3072159DA9200C9214E /* query.graphql */; };
+		D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D94BD3072159DA9200C9214E /* classQueries.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,7 +113,6 @@
 		C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
-		C76F715A208FD43D00FDC958 /* FitnessAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessAPI.swift; sourceTree = "<group>"; };
 		C76F715C208FD77300FDC958 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C76F715E20900AD400FDC958 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
@@ -128,7 +126,7 @@
 		C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		D94BD3072159DA9200C9214E /* query.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = query.graphql; sourceTree = "<group>"; };
+		D94BD3072159DA9200C9214E /* classQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = classQueries.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,7 +175,6 @@
 		C71E8A022091653900542FA3 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				C76F715A208FD43D00FDC958 /* FitnessAPI.swift */,
 				C76F715C208FD77300FDC958 /* NetworkManager.swift */,
 			);
 			path = Networking;
@@ -324,7 +321,7 @@
 		D94BD3062159DA7D00C9214E /* graphql */ = {
 			isa = PBXGroup;
 			children = (
-				D94BD3072159DA9200C9214E /* query.graphql */,
+				D94BD3072159DA9200C9214E /* classQueries.graphql */,
 				8D6B2A18215B23DC00807544 /* gymQueries.graphql */,
 			);
 			path = graphql;
@@ -403,7 +400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D94BD3082159DA9200C9214E /* query.graphql in Resources */,
+				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
@@ -527,7 +524,6 @@
 				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
-				C76F715B208FD43D00FDC958 /* FitnessAPI.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,

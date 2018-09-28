@@ -79,7 +79,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         tabBarController!.tabBar.isHidden = false
 
         if (filterParameters.shouldFilter) {
-            //update gyms given filter
+            // update gyms given filter
             filterParameters.shouldFilter = false
         }
 
@@ -103,39 +103,6 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 self.locations = [:] // temp, will be included in a GymClassInstance soon
             }
         }
-    }
-
-    // TODO : remove when location attribute added to GymClassInstance
-    func getLocations() {
-        var gymRoomCache: [Gym] = []
-        var roomIsInCache = false
-
-        for gymClassInstance in self.allGymClassInstances! {
-            let classDescId = gymClassInstance.classDescription.id
-
-            //checking if room data has been fetched
-//            for gym in gymRoomCache {
-//                for classInstanceId in gym.classInstances {
-//                    if (classDescId == classInstanceId) {
-//                        self.locations.updateValue(gym.name, forKey: classDescId)
-//                        roomIsInCache = true
-//                    }
-//                }
-//            }
-
-            if(roomIsInCache == false) {
-                let gymId = gymClassInstance.gymId
-
-                AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
-                    self.locations.updateValue(gym.name, forKey: classDescId)
-                    gymRoomCache.append(gym)
-                    self.tableView.reloadData()
-
-                })
-            }
-            roomIsInCache = false
-        }
-
     }
 
     // MARK: - TABLEVIEW

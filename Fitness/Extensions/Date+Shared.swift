@@ -42,9 +42,7 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
         
-        let date = dateFormatter.date(from: datetime) ?? Date()
-        
-        return date
+        return dateFormatter.date(from: datetime) ?? Date()
     }
 
     // MARK: - DATE

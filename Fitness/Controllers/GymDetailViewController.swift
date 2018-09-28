@@ -409,7 +409,7 @@ extension GymDetailViewController: UITableViewDataSource {
         if (tableView == hoursTableView) {
             let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
             let date = Date()
-            let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1)%7
+            let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1) % 7
             
             cell.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHoursToday)
 

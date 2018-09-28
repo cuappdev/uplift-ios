@@ -67,7 +67,6 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
         let gymHoursToday = gym.gymHoursToday
         let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
         
-        // TODO : make sure string format is as desired
         if gyms[indexPath.row].name == "Bartels" {
             cell.hours.text = "Always open"
         } else if now > gymHoursToday.closeTime {

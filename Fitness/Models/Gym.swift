@@ -14,7 +14,7 @@ struct Gym {
     let equipment: String
     let gymHours: [DailyGymHours]
     
-    /// Arry of 7 arrays of count 24, representing the busyness in each hour, Sun..Sat
+    /// Array of 7 arrays of count 24, representing the busyness in each hour, Sun..Sat
     let popularTimesList: [[Int]]
     let imageURL: String
     var isOpen: Bool {
@@ -33,10 +33,9 @@ struct Gym {
         id = Int(gymData.id ?? "-1")!
         name = gymData.name ?? ""
         equipment = "" // TODO : fetch equipment once it's availble from backend
-        imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/fitness/gyms/\(name).jpg" // TODO : replace spaces with underscores
+        imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/fitness/gyms/\(name.replacingOccurrences(of: " ", with: "_")).jpg"
         
         var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
-        // unwrap the popular times, 0 busyness if null
         
         if let popular = gymData.popular {
             for i in 0..<popular.count {
