@@ -59,27 +59,23 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     // MARK: - COLLECTION VIEW
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
+        let gym = gyms[indexPath.row]
+        
+        let now = Date()
+        let isOpen = gym.isOpen
 
-        let gymHoursToday = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: false)
-        let openTimeToday = gymHoursToday.openTime
-        let closeTimeToday = gymHoursToday.closeTime
-
-        let gymHoursTomorrow = gyms[indexPath.row].gymHours.getGymHours(isTomorrow: true)
-        let openTimeTomorrow = gymHoursTomorrow.openTime
-
-        var isOpen = (closeTimeToday == "") ? false : (Date() > Date.getDateFromTime(time: openTimeToday)) && (Date() < Date.getDateFromTime(time: closeTimeToday))
-
+        let gymHoursToday = gym.gymHoursToday
+        let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
+        
+        // TODO : make sure string format is as desired
         if gyms[indexPath.row].name == "Bartels" {
-            isOpen = true
             cell.hours.text = "Always open"
-        } else if closeTimeToday == "" {
-             cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
-        } else if (!isOpen && Date() > Date.getDateFromTime(time: closeTimeToday)) {
-            cell.hours.text = "Opens at \(openTimeTomorrow), tomorrow"
-        } else if (!isOpen && Date() < Date.getDateFromTime(time: openTimeToday)) {
-            cell.hours.text = "Opens at \(openTimeToday)"
+        } else if now > gymHoursToday.closeTime {
+             cell.hours.text = "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: "h a")), tomorrow"
+        } else if !isOpen {
+            cell.hours.text = "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: "h a"))"
         } else {
-            cell.hours.text = "Closes at \(closeTimeToday)"
+            cell.hours.text = "Closes at \(gymHoursToday.closeTime.getStringOfDatetime(format: "h a"))"
         }
 
         cell.locationName.text = gyms[indexPath.row].name

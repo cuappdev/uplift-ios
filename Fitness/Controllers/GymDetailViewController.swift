@@ -350,8 +350,7 @@ class GymDetailViewController: UIViewController {
 
     func getStringFromDailyHours(dailyGymHours: DailyGymHours) -> String {
         if dailyGymHours.openTime != dailyGymHours.closeTime {
-            return "\(dailyGymHours.openTime) - \(dailyGymHours.closeTime)"
-            // TODO : check format these are printed in, make sure its desirable
+            return "\(dailyGymHours.openTime.getStringOfDatetime(format: "h:m a")) - \(dailyGymHours.closeTime.getStringOfDatetime(format: "h:m a"))"
         } else {
             return "Closed"
         }

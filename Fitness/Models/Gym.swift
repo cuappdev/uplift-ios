@@ -37,10 +37,11 @@ struct Gym {
         
         var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
         // unwrap the popular times, 0 busyness if null
+        
         if let popular = gymData.popular {
-            for i in 0...popular.count {
+            for i in 0..<popular.count {
                 if let dailyPopular = popular[i] {
-                    for j in 0...dailyPopular.count {
+                    for j in 0..<dailyPopular.count {
                         popularTimes[i][j] = dailyPopular[j] ?? 0
                     }
                 }
@@ -49,11 +50,11 @@ struct Gym {
         popularTimesList = popularTimes
         
         // unwrap gym hours
-        var gymHoursList: [DailyGymHours] = []
+        var gymHoursList: [DailyGymHours] = Array.init(repeating: DailyGymHours(gymHoursData: nil), count: 7)
         
         if let allGymHours = gymData.times {
-            for dailyGymHours in allGymHours {
-                gymHoursList.append(DailyGymHours(gymHoursData: dailyGymHours))
+            for i in 0..<allGymHours.count {
+                gymHoursList[i] = DailyGymHours(gymHoursData: allGymHours[i])
             }
         }
         

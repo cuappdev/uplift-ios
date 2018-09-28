@@ -14,6 +14,7 @@ struct GymClassInstance {
     let startTime: String
     let gymId: Int
     let duration: String
+    // TODO : add location (i.e. "Teagle multipurpose room") attribute
 }
 
 struct GymClassInstancesRootData: Decodable {

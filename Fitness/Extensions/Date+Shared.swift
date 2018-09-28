@@ -78,10 +78,11 @@ extension Date {
     func getIntegerDayOfWeekTomorrow() -> Int {
         return Calendar.current.component(.weekday, from: self)
     }
-
-    func getStringDayOfWeek() -> String? {
+    
+    // MARK: - String
+    func getStringOfDatetime(format: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).capitalized
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self) ?? ""
     }
 }

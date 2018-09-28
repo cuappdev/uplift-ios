@@ -93,29 +93,19 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 self.allGymClassInstances = gymClassInstances
                 self.validGymClassInstances = self.getValidGymClassInstances()
 
-                self.locations = [:]
-                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
-                    self.locations = classLocations
-
-                    self.tableView.reloadData()
-                })
+                self.locations = [:] // temp, will be included in a GymClassInstance soon
             }
         } else {
             AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
                 self.allGymClassInstances = gymClassInstances
                 self.validGymClassInstances = self.getValidGymClassInstances()
 
-                self.locations = [:]
-
-                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
-                    self.locations = classLocations
-
-                    self.tableView.reloadData()
-                })
+                self.locations = [:] // temp, will be included in a GymClassInstance soon
             }
         }
     }
 
+    // TODO : remove when location attribute added to GymClassInstance
     func getLocations() {
         var gymRoomCache: [Gym] = []
         var roomIsInCache = false
@@ -124,14 +114,14 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
             let classDescId = gymClassInstance.classDescription.id
 
             //checking if room data has been fetched
-            for gym in gymRoomCache {
-                for classInstanceId in gym.classInstances {
-                    if (classDescId == classInstanceId) {
-                        self.locations.updateValue(gym.name, forKey: classDescId)
-                        roomIsInCache = true
-                    }
-                }
-            }
+//            for gym in gymRoomCache {
+//                for classInstanceId in gym.classInstances {
+//                    if (classDescId == classInstanceId) {
+//                        self.locations.updateValue(gym.name, forKey: classDescId)
+//                        roomIsInCache = true
+//                    }
+//                }
+//            }
 
             if(roomIsInCache == false) {
                 let gymId = gymClassInstance.gymId

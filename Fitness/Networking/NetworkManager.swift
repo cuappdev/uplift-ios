@@ -28,6 +28,7 @@ struct NetworkManager {
                     gyms.append(Gym(gymData: gymData))
                 }
             }
+            completion(gyms)
         }
     }
 
