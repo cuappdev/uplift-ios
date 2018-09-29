@@ -213,33 +213,8 @@ class GymDetailViewController: UIViewController {
         
         days = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
         
-        var data: [Int]
-        let date = Date()
-        let todaysHours: DailyGymHours
-        
-        switch days[date.getIntegerDayOfWeekToday()] {
-        case .sunday:
-            data = gym.popularTimesList.sunday
-            todaysHours = gym.gymHours.zero ?? DailyGymHours(id: -1, dayOfWeek: 0, openTime: "", closeTime: "")
-        case .monday:
-            data = gym.popularTimesList.monday
-            todaysHours = gym.gymHours.one ?? DailyGymHours(id: -1, dayOfWeek: 1, openTime: "", closeTime: "")
-        case .tuesday:
-            data = gym.popularTimesList.tuesday
-            todaysHours = gym.gymHours.two ?? DailyGymHours(id: -1, dayOfWeek: 2, openTime: "", closeTime: "")
-        case .wednesday:
-            data = gym.popularTimesList.wednesday
-            todaysHours = gym.gymHours.three ?? DailyGymHours(id: -1, dayOfWeek: 3, openTime: "", closeTime: "")
-        case .thursday:
-            data = gym.popularTimesList.thursday
-            todaysHours = gym.gymHours.four ?? DailyGymHours(id: -1, dayOfWeek: 4, openTime: "", closeTime: "")
-        case .friday:
-            data = gym.popularTimesList.friday
-            todaysHours = gym.gymHours.five ?? DailyGymHours(id: -1, dayOfWeek: 5, openTime: "", closeTime: "")
-        case .saturday:
-            data = gym.popularTimesList.saturday
-            todaysHours = gym.gymHours.six ?? DailyGymHours(id: -1, dayOfWeek: 6, openTime: "", closeTime: "")
-        }
+        let data = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
+        let todaysHours = gym.gymHoursToday
         
         popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data: data, todaysHours: todaysHours)
         contentView.addSubview(popularTimesHistogram)
@@ -373,10 +348,9 @@ class GymDetailViewController: UIViewController {
         scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
 
-    // TODO : Once backend changes so that hours are never optional, make this a method of DailyGymHours
-    func getStringFromDailyHours(hours: DailyGymHours?) -> String {
-        if let gymHours = hours {
-            return "\(gymHours.openTime) - \(gymHours.closeTime)"
+    func getStringFromDailyHours(dailyGymHours: DailyGymHours) -> String {
+        if dailyGymHours.openTime != dailyGymHours.closeTime {
+            return "\(dailyGymHours.openTime.getStringOfDatetime(format: "h:m a")) - \(dailyGymHours.closeTime.getStringOfDatetime(format: "h:m a"))"
         } else {
             return "Closed"
         }
@@ -435,33 +409,26 @@ extension GymDetailViewController: UITableViewDataSource {
         if (tableView == hoursTableView) {
             let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
             let date = Date()
-            let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1)%7
+            let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1) % 7
+            
+            cell.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHoursToday)
 
             switch days[day] {
             case .sunday:
                 cell.dayLabel.text = "Su"
-                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.zero)
             case .monday:
                 cell.dayLabel.text = "M"
-                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.one)
             case .tuesday:
                 cell.dayLabel.text = "T"
-                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.two)
             case .wednesday:
                 cell.dayLabel.text = "W"
-                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.three)
             case .thursday:
                 cell.dayLabel.text = "Th"
-                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.four)
             case .friday:
                 cell.dayLabel.text = "F"
-                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.five)
             case .saturday:
                 cell.dayLabel.text = "Sa"
-                cell.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.six )
             }
-
-            cell.hoursLabel.text = cell.hoursLabel.text?.removeLeadingZero()
 
             return cell
         } else {
@@ -488,27 +455,7 @@ extension GymDetailViewController: UITableViewDataSource {
         if (tableView == hoursTableView) {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: GymHoursHeaderView.identifier) as! GymHoursHeaderView
 
-            let date = Date()
-            let currentDay = days[date.getIntegerDayOfWeekToday()]
-
-            // TODO : check this code after refectoring/linking with backend, gymHours format may changes
-            switch currentDay {
-            case .sunday:
-                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.zero)
-            case .monday:
-                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.one)
-            case .tuesday:
-                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.two)
-            case .wednesday:
-                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.three)
-            case .thursday:
-                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.four)
-            case .friday:
-                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.five)
-            case .saturday:
-                header.hoursLabel.text = getStringFromDailyHours(hours: gym.gymHours.six)
-            }
-            header.hoursLabel.text = header.hoursLabel.text?.removeLeadingZero()
+            header.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHoursToday)
 
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))
             header.addGestureRecognizer(gesture)

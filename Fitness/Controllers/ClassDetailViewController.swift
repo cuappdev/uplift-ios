@@ -90,10 +90,10 @@ class ClassDetailViewController: UIViewController {
             make.bottom.equalTo(view.snp.bottom)
         }
         
-        //HEADER
+        // HEADER
         setupHeader()
 
-        //DATE
+        // DATE
         dateLabel.font = ._16MontserratLight
         dateLabel.textAlignment = .center
         dateLabel.textColor = .fitnessBlack
@@ -106,7 +106,7 @@ class ClassDetailViewController: UIViewController {
         timeLabel.sizeToFit()
         contentView.addSubview(timeLabel)
 
-        //CALENDAR
+        // CALENDAR
         addToCalendarButton = UIButton()
         addToCalendarButton.setImage(#imageLiteral(resourceName: "calendar-icon"), for: .normal) //temp
         addToCalendarButton.sizeToFit()
@@ -147,7 +147,7 @@ class ClassDetailViewController: UIViewController {
         functionDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(functionDivider)
 
-        //DESCRIPTION
+        // DESCRIPTION
         descriptionTextView = UITextView()
         descriptionTextView.text = gymClassInstance.classDescription.description
         descriptionTextView.font = ._14MontserratLight
@@ -157,7 +157,7 @@ class ClassDetailViewController: UIViewController {
         descriptionTextView.isScrollEnabled = false
         contentView.addSubview(descriptionTextView)
 
-        //NEXT SESSIONS
+        // NEXT SESSIONS
         nextSessionsLabel = UILabel()
         nextSessionsLabel.font = ._12LatoBlack
         nextSessionsLabel.textColor = .fitnessDarkGrey
@@ -249,7 +249,7 @@ class ClassDetailViewController: UIViewController {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        //HEADER
+        // HEADER
         classImageView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.top.equalToSuperview().offset(-30)
@@ -310,7 +310,7 @@ class ClassDetailViewController: UIViewController {
             make.height.equalTo(22)
         }
 
-        //DATE
+        // DATE
         dateLabel.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.top.equalTo(classImageView.snp.bottom).offset(40)
@@ -325,7 +325,7 @@ class ClassDetailViewController: UIViewController {
             make.height.equalTo(19)
         }
 
-        //CALENDAR
+        // CALENDAR
         addToCalendarButton.snp.makeConstraints { make in
             make.height.equalTo(23)
             make.width.equalTo(23)
@@ -347,7 +347,7 @@ class ClassDetailViewController: UIViewController {
             make.top.equalTo(addToCalendarLabel.snp.bottom).offset(36)
         }
 
-        //FUNCTION
+        // FUNCTION
         functionLabel.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.top.equalTo(dateDivider.snp.bottom).offset(20)
@@ -369,14 +369,14 @@ class ClassDetailViewController: UIViewController {
             make.top.equalTo(functionDescriptionLabel.snp.bottom).offset(32)
         }
 
-        //DESCRIPTION
+        // DESCRIPTION
         descriptionTextView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview().offset(-40)
             make.top.equalTo(functionDivider.snp.bottom).offset(36)
         }
 
-        //NEXT SESSIONS
+        // NEXT SESSIONS
         nextSessionsLabel.snp.updateConstraints {make in
             make.centerX.equalToSuperview()
             make.top.equalTo(descriptionTextView.snp.bottom).offset(64)

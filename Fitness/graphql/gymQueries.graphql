@@ -1,0 +1,16 @@
+
+query AllGyms
+    {
+        gyms {
+            name
+            id
+            description
+            popular
+            times {
+                day
+                startTime
+                endTime
+            }
+        }
+    }
+

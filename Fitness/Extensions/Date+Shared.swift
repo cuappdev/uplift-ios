@@ -34,13 +34,22 @@ extension Date {
 
         return calendar.date(from: dateComponents)!
     }
+    
+    static public func getDatetimeFromString(datetime: String?) -> Date {
+        guard let datetime = datetime else {
+            return Date()
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        
+        return dateFormatter.date(from: datetime) ?? Date()
+    }
 
     // MARK: - DATE
     func getStringDate(date: Date) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let newDate: String = dateFormatter.string(from: date)
-        print(newDate)
         return newDate
     }
 
@@ -67,10 +76,11 @@ extension Date {
     func getIntegerDayOfWeekTomorrow() -> Int {
         return Calendar.current.component(.weekday, from: self)
     }
-
-    func getStringDayOfWeek() -> String? {
+    
+    // MARK: - String
+    func getStringOfDatetime(format: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).capitalized
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self) ?? ""
     }
 }
