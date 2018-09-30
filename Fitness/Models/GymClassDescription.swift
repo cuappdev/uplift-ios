@@ -16,6 +16,13 @@ struct GymClassDescription {
     let tags: [Int]
     let gymClasses: [Int]
     let imageURL: String?
+    
+    init(classDetail: AllClassesInstancesQuery.Data.Class.Detail) {
+        classDetail.id
+        classDetail.description
+        classDetail.name
+        classDetail.tags
+    }
 }
 
 struct GymClassDescriptionsRootData: Decodable {

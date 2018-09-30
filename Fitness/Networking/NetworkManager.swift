@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import Apollo
 
 enum APIEnvironment {
     case development
@@ -21,6 +22,7 @@ protocol Networkable {
 
 struct NetworkManager: Networkable {
     internal let provider = MoyaProvider<FitnessAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    internal let apollo = ApolloClient(url: URL(string: "http://localhost:5000/")!)
     static let environment: APIEnvironment = .development
 
     // MARK: - GYMS
@@ -91,19 +93,27 @@ struct NetworkManager: Networkable {
 
     // MARK: - GYM CLASS INSTANCES
     func getGymClassInstances(completion: @escaping ([GymClassInstance]) -> Void) {
-        provider.request(.gymClassInstances) { result in
-            switch result {
-            case let .success(response):
-                do {
-                    let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
-                    let gymClassInstances = gymClassInstancesData.data
-                    completion(gymClassInstances)
-                } catch let err {
-                    print(err)
-                }
-            case let .failure(error):
-                print(error)
+//        provider.request(.gymClassInstances) { result in
+//            switch result {
+//            case let .success(response):
+//                do {
+//                    let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
+//                    let gymClassInstances = gymClassInstancesData.data
+//                    completion(gymClassInstances)
+//                } catch let err {
+//                    print(err)
+//                }
+//            case let .failure(error):
+//                print(error)
+//            }
+//        }
+        apollo.fetch(query: AllClassesInstancesQuery()) { result, error in
+            guard let data = result?.data else { return }
+            var gymClassInstances: [GymClassInstance] = []
+            for instance in data.classes ?? [] {
+                // gymClassInstances.append(...)
             }
+            completion(gymClassInstances)
         }
     }
 

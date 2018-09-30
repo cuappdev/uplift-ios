@@ -9,11 +9,21 @@ import Foundation
 
 struct GymClassInstance {
     let gymClassInstanceId: Int
-    let classDescription: GymClassDescription
-    let instructor: Instructor
+    let classDescription: AllClassesInstancesQuery.Data.Class.Detail
+    let instructor: String
     let startTime: String
-    let gymId: Int
-    let duration: String
+    let gymId: String
+    let endTime: String
+    
+    init?(classData: AllClassesInstancesQuery.Data.Class) {
+        guard let description = classData.details, let instructor = classData.instructor, let startTime = classData.startTime,
+        let gymId = classData.gymId, let endTime = classData.endTime else { return nil }
+        self.classDescription = description
+        self.instructor = instructor
+        self.startTime = startTime
+        self.gymId = gymId
+        self.endTime = endTime
+    }
 }
 
 struct GymClassInstancesRootData: Decodable {
