@@ -79,7 +79,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         tabBarController!.tabBar.isHidden = false
 
         if (filterParameters.shouldFilter) {
-            //update gyms given filter
+            // update gyms given filter
             filterParameters.shouldFilter = false
         }
 
@@ -93,59 +93,16 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 self.allGymClassInstances = gymClassInstances
                 self.validGymClassInstances = self.getValidGymClassInstances()
 
-                self.locations = [:]
-                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
-                    self.locations = classLocations
-
-                    self.tableView.reloadData()
-                })
+                self.locations = [:] // temp, will be included in a GymClassInstance soon
             }
         } else {
             AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
                 self.allGymClassInstances = gymClassInstances
                 self.validGymClassInstances = self.getValidGymClassInstances()
 
-                self.locations = [:]
-
-                AppDelegate.networkManager.getLocations(gymClassInstances: self.allGymClassInstances!, completion: { (classLocations) in
-                    self.locations = classLocations
-
-                    self.tableView.reloadData()
-                })
+                self.locations = [:] // temp, will be included in a GymClassInstance soon
             }
         }
-    }
-
-    func getLocations() {
-        var gymRoomCache: [Gym] = []
-        var roomIsInCache = false
-
-        for gymClassInstance in self.allGymClassInstances! {
-            let classDescId = gymClassInstance.classDescription.id
-
-            //checking if room data has been fetched
-            for gym in gymRoomCache {
-                for classInstanceId in gym.classInstances {
-                    if (classDescId == classInstanceId) {
-                        self.locations.updateValue(gym.name, forKey: classDescId)
-                        roomIsInCache = true
-                    }
-                }
-            }
-
-            if(roomIsInCache == false) {
-                let gymId = gymClassInstance.gymId
-
-                AppDelegate.networkManager.getGym(gymId: gymId, completion: { gym in
-                    self.locations.updateValue(gym.name, forKey: classDescId)
-                    gymRoomCache.append(gym)
-                    self.tableView.reloadData()
-
-                })
-            }
-            roomIsInCache = false
-        }
-
     }
 
     // MARK: - TABLEVIEW

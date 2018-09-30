@@ -33,6 +33,9 @@ class Histogram: UIView {
     init(frame: CGRect, data: [Int], todaysHours: DailyGymHours) {
         super.init(frame: frame)
         self.data = data
+        
+        // TODO : handle case where gym is closed, ask design what to do
+        // TODO : refactor to reflect the fact that data is now always of count 24
 
         //AXIS
         bottomAxis = UIView()
@@ -60,14 +63,13 @@ class Histogram: UIView {
         }
 
         //TIME
-        let openTime = Date.getDateFromTime(time: todaysHours.openTime)
         let currentTime = Date()
 
-        var dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "H"
 
         let currentHour = Int(dateFormatter.string(from: currentTime))!
-        openHour = Int(dateFormatter.string(from: openTime))!
+        openHour = Int(dateFormatter.string(from: todaysHours.openTime))!
 
         selectedIndex = Int(currentHour - openHour)
         bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
