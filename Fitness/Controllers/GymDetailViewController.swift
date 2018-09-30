@@ -208,7 +208,7 @@ class GymDetailViewController: UIViewController {
         popularTimesTitleLabel.textAlignment = .center
         popularTimesTitleLabel.textColor = .fitnessBlack
         popularTimesTitleLabel.sizeToFit()
-        popularTimesTitleLabel.text = "POPULAR TIMES"
+        popularTimesTitleLabel.text = "BUSY TIMES"
         contentView.addSubview(popularTimesTitleLabel)
         
         days = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]

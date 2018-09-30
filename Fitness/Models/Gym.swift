@@ -30,7 +30,7 @@ struct Gym {
     }
     
     init(gymData: AllGymsQuery.Data.Gym ) {
-        id = Int(gymData.id ?? "-1")!
+        id = Int(gymData.id ?? "-1") ?? -1
         name = gymData.name ?? ""
         equipment = "" // TODO : fetch equipment once it's availble from backend
         imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/fitness/gyms/\(name.replacingOccurrences(of: " ", with: "_")).jpg"

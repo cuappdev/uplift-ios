@@ -70,11 +70,11 @@ extension Date {
 
     // MARK: - DAY OF WEEK
     func getIntegerDayOfWeekToday() -> Int {
-        return Calendar.current.component(.weekday, from: self)-1
+        return Calendar.current.component(.weekday, from: self) - 1
     }
 
     func getIntegerDayOfWeekTomorrow() -> Int {
-        return Calendar.current.component(.weekday, from: self)
+        return Calendar.current.component(.weekday, from: self) % 7
     }
     
     // MARK: - String

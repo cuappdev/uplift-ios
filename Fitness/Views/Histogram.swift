@@ -19,7 +19,8 @@ class Histogram: UIView {
     var data: [Int]!
     var bars: [UIView]!
 
-    var selectedIndex: Int!     //index of bars representing the bar that is currently selected. Must be in range 0..bars.count-1
+    /// index of bars representing the bar that is currently selected. Must be in range 0..bars.count-1
+    var selectedIndex: Int!
     var selectedLine: UIView!
     var selectedTime: UILabel!
     var selectedTimeDescriptor: UILabel!
@@ -43,7 +44,10 @@ class Histogram: UIView {
         addSubview(bottomAxis)
 
         bottomAxisTicks = []
-        for _ in 0..<(data.count - 1) {
+        openHour = Calendar.current.component(.hour, from: todaysHours.openTime)
+        let closeHour = Calendar.current.component(.hour, from: todaysHours.closeTime)
+        
+        for _ in openHour..<(closeHour - 1) {
             let tick = UIView()
             tick.backgroundColor = .fitnessLightGrey
             addSubview(tick)
@@ -52,7 +56,7 @@ class Histogram: UIView {
 
         //BARS
         bars = []
-        for _ in data {
+        for _ in openHour..<closeHour {
             let bar = UIView()
             bar.backgroundColor = .fitnessYellow
             addSubview(bar)
@@ -61,17 +65,10 @@ class Histogram: UIView {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.selectBar(sender:)))
             bar.addGestureRecognizer(gesture)
         }
-
+        
         //TIME
-        let currentTime = Date()
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "H"
-
-        let currentHour = Int(dateFormatter.string(from: currentTime))!
-        openHour = Int(dateFormatter.string(from: todaysHours.openTime))!
-
-        selectedIndex = Int(currentHour - openHour)
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        selectedIndex = currentHour - openHour
         bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
 
         //SELECTED INFO
@@ -83,10 +80,10 @@ class Histogram: UIView {
         selectedTime.textColor = .fitnessDarkGrey
         selectedTime.font = ._12LatoBold
         selectedTime.textAlignment = .right
-        if ((openHour + selectedIndex) < 12) {
+        if (openHour + selectedIndex) < 12 {
             selectedTime.text = String(openHour + selectedIndex) + "AM :"
-        } else if((openHour + selectedIndex) > 12) {
-            selectedTime.text = String((openHour + selectedIndex) - 12) + "PM :"
+        } else if (openHour + selectedIndex) > 12 {
+            selectedTime.text = String(openHour + selectedIndex - 12) + "PM :"
         } else {
             selectedTime.text = "12PM :"
         }
@@ -97,9 +94,9 @@ class Histogram: UIView {
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
         selectedTimeDescriptor.textAlignment = .left
-        if(data[selectedIndex] < 43) {
+        if data[selectedIndex + openHour - 1] < 43 {
             selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if (data[selectedIndex] < 85) {
+        } else if data[selectedIndex + openHour - 1] < 85 {
             selectedTimeDescriptor.text = timeDescriptors[1]
         } else {
             selectedTimeDescriptor.text = timeDescriptors[2]
@@ -204,20 +201,21 @@ class Histogram: UIView {
                 break
             }
         }
+        
         //update selectedTime and the descriptor
-        if(data[selectedIndex] < 43) {
+        if data[selectedIndex + openHour - 1] < 43 {
             selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if (data[selectedIndex] < 85) {
+        } else if data[selectedIndex + openHour - 1] < 85 {
             selectedTimeDescriptor.text = timeDescriptors[1]
         } else {
             selectedTimeDescriptor.text = timeDescriptors[2]
         }
         selectedTimeDescriptor.sizeToFit()
 
-        if ((openHour + selectedIndex) < 12) {
+        if (openHour + selectedIndex) < 12 {
             selectedTime.text = String(openHour + selectedIndex) + "AM :"
-        } else if((openHour + selectedIndex) > 12) {
-            selectedTime.text = String((openHour + selectedIndex) - 12) + "PM :"
+        } else if (openHour + selectedIndex) > 12 {
+            selectedTime.text = String(openHour + selectedIndex - 12) + "PM :"
         } else {
             selectedTime.text = "12PM :"
         }
