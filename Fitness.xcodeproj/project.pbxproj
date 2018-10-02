@@ -344,8 +344,8 @@
 			buildConfigurationList = C7DFABDD204206E000545B0B /* Build configuration list for PBXNativeTarget "Fitness" */;
 			buildPhases = (
 				9BD15CB1CD033C4DBE57E681 /* [CP] Check Pods Manifest.lock */,
-				C7DFABC7204206E000545B0B /* Sources */,
 				0C3AC6132155BF5100761495 /* Generate Apollo GraphQL API */,
+				C7DFABC7204206E000545B0B /* Sources */,
 				C7DFABC8204206E000545B0B /* Frameworks */,
 				C7DFABC9204206E000545B0B /* Resources */,
 				7B68B6796476F8A7F1E6B485 /* [CP] Embed Pods Frameworks */,

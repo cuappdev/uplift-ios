@@ -15,7 +15,7 @@ enum APIEnvironment {
 }
 
 struct NetworkManager {
-    internal let apollo = ApolloClient(url: URL(string: "http://localhost:5000/")!)
+    internal let apollo = ApolloClient(url: URL(string: "http://178.128.135.122/")!)
     static let environment: APIEnvironment = .development
 
     // MARK: - GYMS
@@ -28,6 +28,23 @@ struct NetworkManager {
                     gyms.append(Gym(gymData: gymData))
                 }
             }
+            completion(gyms)
+        }
+    }
+    
+    func getGymNames(completion: @escaping ([GymNameId]) -> Void) {
+        apollo.fetch(query: AllGymsQuery()){ (result, error) in
+            // implement
+            var gyms: [GymNameId] = []
+            
+            for gym in result?.data?.gyms ?? [] {
+                guard let gym = gym else {
+                    continue
+                }
+                
+                gyms.append(GymNameId(name: gym.name ?? "", id: gym.id ?? "") )
+            }
+            
             completion(gyms)
         }
     }
@@ -102,7 +119,7 @@ struct NetworkManager {
 //        }
     }
 
-    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int], completion: @escaping ([GymClassInstance]) -> Void) {
+    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [Int], gymIDs: [String], classDescriptionIDs: [Int], completion: @escaping ([GymClassInstance]) -> Void) {
 //        provider.request(.gymClassInstancesSearch(startTime: startTime, endTime: endTime, instructorIDs: instructorIDs, gymIDs: gymIDs, classDescriptionIDs: classDescriptionIDs)) { result in
 //            switch result {
 //            case let .success(response):

@@ -9,7 +9,7 @@
 import Foundation
 
 struct Gym {
-    let id: Int
+    let id: String
     let name: String
     let equipment: String
     let gymHours: [DailyGymHours]
@@ -30,7 +30,7 @@ struct Gym {
     }
     
     init(gymData: AllGymsQuery.Data.Gym ) {
-        id = Int(gymData.id ?? "-1")!
+        id = gymData.id ?? ""
         name = gymData.name ?? ""
         equipment = "" // TODO : fetch equipment once it's availble from backend
         imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/fitness/gyms/\(name.replacingOccurrences(of: " ", with: "_")).jpg"

@@ -14,3 +14,10 @@ query AllGyms
         }
     }
 
+query AllGymNames
+    {
+        gyms {
+            name
+            id
+        }
+    }

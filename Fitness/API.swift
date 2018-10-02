@@ -336,3 +336,85 @@ public final class AllGymsQuery: GraphQLQuery {
     }
   }
 }
+
+public final class AllGymNamesQuery: GraphQLQuery {
+  public let operationDefinition =
+    "query AllGymNames {\n  gyms {\n    __typename\n    name\n    id\n  }\n}"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("gyms", type: .list(.object(Gym.selections))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(gyms: [Gym?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "gyms": gyms.flatMap { (value: [Gym?]) -> [ResultMap?] in value.map { (value: Gym?) -> ResultMap? in value.flatMap { (value: Gym) -> ResultMap in value.resultMap } } }])
+    }
+
+    public var gyms: [Gym?]? {
+      get {
+        return (resultMap["gyms"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Gym?] in value.map { (value: ResultMap?) -> Gym? in value.flatMap { (value: ResultMap) -> Gym in Gym(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [Gym?]) -> [ResultMap?] in value.map { (value: Gym?) -> ResultMap? in value.flatMap { (value: Gym) -> ResultMap in value.resultMap } } }, forKey: "gyms")
+      }
+    }
+
+    public struct Gym: GraphQLSelectionSet {
+      public static let possibleTypes = ["GymType"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("name", type: .scalar(String.self)),
+        GraphQLField("id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(name: String? = nil, id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "GymType", "name": name, "id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var name: String? {
+        get {
+          return resultMap["name"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "name")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+    }
+  }
+}

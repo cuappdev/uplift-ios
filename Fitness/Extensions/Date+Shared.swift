@@ -81,6 +81,6 @@ extension Date {
     func getStringOfDatetime(format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self) ?? ""
+        return dateFormatter.string(from: self)
     }
 }

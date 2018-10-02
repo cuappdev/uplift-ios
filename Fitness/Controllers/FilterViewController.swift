@@ -21,6 +21,11 @@ struct DropdownData {
     var completed: Bool!
 }
 
+struct GymNameId {
+    var name: String!
+    var id: String!
+}
+
 class FilterViewController: UIViewController {
 
     // MARK: - INITIALIZATION
@@ -29,8 +34,9 @@ class FilterViewController: UIViewController {
 
     var collectionViewTitle: UILabel!
     var gymCollectionView: UICollectionView!
-    var gyms: [Gym]!
-    var selectedGyms: [Int] = []
+    var gyms: [GymNameId]!
+    /// ids of the selected gyms
+    var selectedGyms: [String] = []
 
     var fitnessCenterStartTimeDivider: UIView!
     var startTimeTitleLabel: UILabel!
@@ -226,9 +232,8 @@ class FilterViewController: UIViewController {
         
         gyms = []
         
-        AppDelegate.networkManager.getGyms { (gyms) in
+        AppDelegate.networkManager.getGymNames { (gyms) in
             self.gyms = gyms
-            
             self.gymCollectionView.reloadData()
         }
     }
@@ -292,8 +297,6 @@ class FilterViewController: UIViewController {
                 make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + 3*32)
             case .down:
                 make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + classTypeDropdown.numberOfRows(inSection: 0)*32)
-            default:
-                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55)
             }
         }
 
@@ -315,8 +318,6 @@ class FilterViewController: UIViewController {
                 make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + 3*32)
             case .down:
                 make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + instructorDropdown.numberOfRows(inSection: 0)*32)
-            default:
-                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55)
             }
         }
 
@@ -598,8 +599,6 @@ extension FilterViewController: UITableViewDataSource {
                 numberOfRows = 3
             case .down:
                 numberOfRows = instructorDropdownData.titles.count
-            default:
-                numberOfRows = 0
             }
         } else if tableView == classTypeDropdown {
             if(classTypeDropdownData.completed == false) {
@@ -613,8 +612,6 @@ extension FilterViewController: UITableViewDataSource {
                 numberOfRows = 3
             case .down:
                 numberOfRows = classTypeDropdownData.titles.count
-            default:
-                numberOfRows = 0
             }
         }
         return numberOfRows
@@ -697,8 +694,6 @@ extension FilterViewController: UITableViewDelegate {
                 height = 0
             case .half, .down:
                 height = 32
-            default:
-                height = 0
             }
         } else if tableView == instructorDropdown {
             switch instructorDropdownData.dropStatus! {
@@ -706,8 +701,6 @@ extension FilterViewController: UITableViewDelegate {
                 height = 0
             case .half, .down:
                 height = 32
-            default:
-                height = 0
             }
         }
         return height

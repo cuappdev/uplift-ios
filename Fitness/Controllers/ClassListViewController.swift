@@ -19,7 +19,7 @@ struct FilterParameters {
     var encodedEndTime: Double!
     var instructorIds: [Int]!
     var classDescIds: [Int]!
-    var gymIds: [Int]!
+    var gymIds: [String]!
 }
 
 class ClassListViewController: UITableViewController, UISearchBarDelegate {
