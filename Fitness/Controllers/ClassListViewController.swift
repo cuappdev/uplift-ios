@@ -17,8 +17,8 @@ struct FilterParameters {
     var encodedStartTime: Double!
     var endTime: String!
     var encodedEndTime: Double!
-    var instructorIds: [Int]!
-    var classDescIds: [Int]!
+    var instructorNames: [String]!
+    var classNames: [String]!
     var gymIds: [String]!
 }
 
@@ -44,7 +44,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         dateFormatter.dateFormat = "MM/dd/YYYY"
         selectedDate = dateFormatter.string(from: Date())
 
-        filterParameters = FilterParameters(shouldFilter: false, startTime: "6:00AM", encodedStartTime: 0, endTime: "10:00PM", encodedEndTime: 960, instructorIds: [], classDescIds: [], gymIds: [])
+        filterParameters = FilterParameters(shouldFilter: false, startTime: "6:00AM", encodedStartTime: 0, endTime: "10:00PM", encodedEndTime: 960, instructorNames: [], classNames: [], gymIds: [])
 
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.bounces = false
@@ -88,8 +88,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
     func updateGymClasses() {
         if filterParameters.shouldFilter {
             AppDelegate.networkManager.getGymClassInstancesSearch(startTime: filterParameters.startTime, endTime: filterParameters.endTime,
-                                                                  instructorIDs: filterParameters.instructorIds, gymIDs: filterParameters.gymIds,
-                                                                  classDescriptionIDs: filterParameters.classDescIds) { (gymClassInstances) in
+                                                                  instructorIDs: filterParameters.instructorNames, gymIDs: filterParameters.gymIds,
+                                                                  classNames: filterParameters.classNames) { (gymClassInstances) in
                 self.allGymClassInstances = gymClassInstances
                 self.validGymClassInstances = self.getValidGymClassInstances()
 
@@ -232,8 +232,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         let filterViewController = FilterViewController()
         //account for if they .shouldfilter
         filterViewController.selectedGyms = filterParameters.gymIds
-        filterViewController.selectedClasses = filterParameters.classDescIds
-        filterViewController.selectedInstructors = filterParameters.instructorIds
+        filterViewController.selectedClasses = filterParameters.classNames
+        filterViewController.selectedInstructors = filterParameters.instructorNames
         filterViewController.startTime = filterParameters.startTime
         filterViewController.endTime = filterParameters.endTime
 

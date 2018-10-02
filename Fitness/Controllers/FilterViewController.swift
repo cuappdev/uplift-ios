@@ -17,7 +17,6 @@ enum Dropped {
 struct DropdownData {
     var dropStatus: Dropped!
     var titles: [String]!
-    var ids: [Int]!
     var completed: Bool!
 }
 
@@ -51,12 +50,12 @@ class FilterViewController: UIViewController {
     var classTypeDropdown: UITableView!
     var classTypeDropdownData: DropdownData!
     var classTypeInstructorDivider: UIView!
-    var selectedClasses: [Int] = []
+    var selectedClasses: [String] = []
 
     var instructorDropdown: UITableView!
     var instructorDropdownData: DropdownData!
     var instructorDivider: UIView!
-    var selectedInstructors: [Int] = []
+    var selectedInstructors: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,13 +117,12 @@ class FilterViewController: UIViewController {
         classTypeInstructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(classTypeInstructorDivider)
 
-        classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], ids: [], completed: false)
+        classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
-        AppDelegate.networkManager.getGymClassDescriptions { (gymClassDescriptions) in
+        AppDelegate.networkManager.getClassNames { (classNames) in
 
-            for gymClassDescription in gymClassDescriptions {
-                self.classTypeDropdownData.titles.append(gymClassDescription.name)
-                self.classTypeDropdownData.ids.append(gymClassDescription.id)
+            for className in classNames {
+                self.classTypeDropdownData.titles.append(className)
             }
 
             self.classTypeDropdownData.completed = true
@@ -150,12 +148,11 @@ class FilterViewController: UIViewController {
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
 
-        instructorDropdownData = DropdownData(dropStatus: .up, titles: [], ids: [], completed: false)
+        instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getInstructors { (instructors) in
             for instructor in instructors {
-                self.instructorDropdownData.titles.append(instructor.name)
-                self.instructorDropdownData.ids.append(instructor.id)
+                self.instructorDropdownData.titles.append(instructor)
             }
 
             self.instructorDropdownData.completed = true
@@ -190,7 +187,7 @@ class FilterViewController: UIViewController {
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
-        scrollView.bounces = false
+        scrollView.bounces = true
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.5)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
@@ -349,8 +346,8 @@ class FilterViewController: UIViewController {
     // MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done() {
         let filterParameters = FilterParameters(shouldFilter: true, startTime: startTime, encodedStartTime: startTimeSlider.lowerValue,
-                                                endTime: endTime, encodedEndTime: startTimeSlider.upperValue, instructorIds: selectedInstructors,
-                                                classDescIds: selectedClasses, gymIds: selectedGyms)
+                                                endTime: endTime, encodedEndTime: startTimeSlider.upperValue, instructorNames: selectedInstructors,
+                                                classNames: selectedClasses, gymIds: selectedGyms)
 
         let classListViewController = navigationController!.viewControllers.first as! ClassListViewController
         classListViewController.filterParameters = filterParameters
@@ -623,17 +620,16 @@ extension FilterViewController: UITableViewDataSource {
         if tableView == instructorDropdown {
             if(indexPath.row < instructorDropdownData.titles.count) {
                 cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
-                cell.id = instructorDropdownData.ids[indexPath.row]
 
-                if(selectedInstructors.contains(cell.id)) {
+                if(selectedInstructors.contains(instructorDropdownData.titles[indexPath.row])) {
                     cell.checkBoxColoring.backgroundColor = .fitnessYellow
                 }
             }
         } else if tableView == classTypeDropdown {
             if(indexPath.row < classTypeDropdownData.titles.count) {
                 cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
-                cell.id = classTypeDropdownData.ids[indexPath.row]
-                if(selectedClasses.contains(cell.id)) {
+                
+                if(selectedClasses.contains(classTypeDropdownData.titles[indexPath.row])) {
                     cell.checkBoxColoring.backgroundColor = .fitnessYellow
                 }
             }
@@ -653,11 +649,11 @@ extension FilterViewController: UITableViewDelegate {
 
         if tableView == classTypeDropdown {
             if(shouldAppend) {
-                selectedClasses.append(cell.id)
+                selectedClasses.append(cell.titleLabel.text!)
             } else {
                 for i in 0..<selectedClasses.count {
-                    let id = selectedClasses[i]
-                    if(id == cell.id) {
+                    let name = selectedClasses[i]
+                    if(name == cell.titleLabel.text!) {
                         selectedClasses.remove(at: i)
                         return
                     }
@@ -665,11 +661,11 @@ extension FilterViewController: UITableViewDelegate {
             }
         } else {
             if shouldAppend {
-                selectedInstructors.append(cell.id)
+                selectedInstructors.append(cell.titleLabel.text!)
             } else {
                 for i in 0..<selectedInstructors.count {
-                    let id = selectedInstructors[i]
-                    if(id == cell.id) {
+                    let name = selectedInstructors[i]
+                    if(name == cell.titleLabel.text!) {
                         selectedInstructors.remove(at: i)
                         return
                     }

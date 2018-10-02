@@ -15,7 +15,7 @@ enum APIEnvironment {
 }
 
 struct NetworkManager {
-    internal let apollo = ApolloClient(url: URL(string: "http://178.128.135.122/")!)
+    internal let apollo = ApolloClient(url: URL(string: "http://uplift-backend.cornellappdev.com")!)
     static let environment: APIEnvironment = .development
 
     // MARK: - GYMS
@@ -119,7 +119,7 @@ struct NetworkManager {
 //        }
     }
 
-    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [Int], gymIDs: [String], classDescriptionIDs: [Int], completion: @escaping ([GymClassInstance]) -> Void) {
+    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [String], gymIDs: [String], classNames: [String], completion: @escaping ([GymClassInstance]) -> Void) {
 //        provider.request(.gymClassInstancesSearch(startTime: startTime, endTime: endTime, instructorIDs: instructorIDs, gymIDs: gymIDs, classDescriptionIDs: classDescriptionIDs)) { result in
 //            switch result {
 //            case let .success(response):
@@ -225,6 +225,18 @@ struct NetworkManager {
 //            }
 //        }
     }
+    
+    func getClassNames(completion: @escaping (Set<String>) -> Void) {
+        apollo.fetch(query: AllClassNamesQuery()) { (result, error) in
+            var classNames: Set<String> = []
+            
+            for gymClass in result?.data?.classes ?? [] {
+                classNames.insert(gymClass?.details?.name ?? "")
+            }
+            
+            completion(classNames)
+        }
+    }
 
     func getGymClass(gymClassId: Int, completion: @escaping (GymClass) -> Void) {
 //        provider.request(.gymClass(gymClassId: gymClassId)) { result in
@@ -244,21 +256,16 @@ struct NetworkManager {
     }
 
     // MARK: - INSTRUCTORS
-    func getInstructors(completion: @escaping ([Instructor]) -> Void) {
-//        provider.request(.instructors) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let instructorsData = try JSONDecoder().decode(InstructorsRootData.self, from: response.data)
-//                    let instructors = instructorsData.data
-//                    completion(instructors)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+    func getInstructors(completion: @escaping (Set<String>) -> Void) {
+        apollo.fetch(query: AllIntructorsQuery()) { (result, error) in
+            var instructors: Set<String> = []
+            
+            for gymClass in result?.data?.classes ?? [] {
+                instructors.insert(gymClass?.instructor ?? "")
+            }
+            
+            completion(instructors)
+        }
     }
 
     func getInstructor(instructorId: Int, completion: @escaping (Instructor) -> Void) {

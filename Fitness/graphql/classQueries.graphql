@@ -11,5 +11,18 @@ query ClassesAtGym
         }
     }
 
+query AllIntructors
+    {
+        classes {
+            instructor
+        }
+    }
 
-
+query AllClassNames
+    {
+        classes {
+            details {
+                name
+            }
+        }
+    }
