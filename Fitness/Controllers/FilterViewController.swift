@@ -184,7 +184,7 @@ class FilterViewController: UIViewController {
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
-        scrollView.bounces = false
+        scrollView.bounces = true
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.5)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in

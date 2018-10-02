@@ -34,9 +34,6 @@ class Histogram: UIView {
     init(frame: CGRect, data: [Int], todaysHours: DailyGymHours) {
         super.init(frame: frame)
         self.data = data
-        
-        // TODO : handle case where gym is closed, ask design what to do
-        // TODO : refactor to reflect the fact that data is now always of count 24
 
         //AXIS
         bottomAxis = UIView()
@@ -144,17 +141,17 @@ class Histogram: UIView {
 
             bar.snp.updateConstraints {make in
                 make.bottom.equalTo(bottomAxis.snp.top)
-                if(i == 0) {
+                if i == 0 {
                     make.left.equalToSuperview().offset(2)
                     make.right.equalTo(bottomAxisTicks[i].snp.left)
-                } else if (i == bars.count - 1) {
+                } else if i == bars.count - 1 {
                     make.right.equalToSuperview().offset(-2)
                     make.left.equalTo(bottomAxisTicks[i - 1].snp.right)
                 } else {
                     make.left.equalTo(bottomAxisTicks[i - 1].snp.right)
                     make.right.equalTo(bottomAxisTicks[i].snp.left)
                 }
-                let height = 72*(data[i])/100
+                let height = 72 * (data[i + openHour]) / 100
                 make.height.equalTo(height)
             }
         }

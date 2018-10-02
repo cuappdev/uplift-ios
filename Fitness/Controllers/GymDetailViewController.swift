@@ -36,6 +36,9 @@ class GymDetailViewController: UIViewController {
     var starButton: UIButton!
     var gymImageView: UIImageView!
     var titleLabel: UILabel!
+    
+    // Exists when gym.isOpen is false
+    var closedLabel: UILabel?
 
     var hoursTitleLabel: UILabel!
     var hoursTableView: UITableView!
@@ -43,9 +46,10 @@ class GymDetailViewController: UIViewController {
     var hoursData: HoursData!
     var hoursBusynessSeparator: UIView!
 
-    var popularTimesTitleLabel: UILabel!
-    var popularTimesHistogram: Histogram!
-    var busynessFacilitiesSeparator: UIView!
+    // Exist when gym.isOpen is true
+    var popularTimesTitleLabel: UILabel?
+    var popularTimesHistogram: Histogram?
+    var busynessFacilitiesSeparator: UIView?
 
     var facilitiesTitleLabel: UILabel!
     var facilitiesData: [String]!       //temp (until backend implements equiment)
@@ -124,7 +128,7 @@ class GymDetailViewController: UIViewController {
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
-        scrollView.bounces = false
+        scrollView.bounces = true
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.5)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
@@ -150,6 +154,16 @@ class GymDetailViewController: UIViewController {
             if let image = response.result.value {
                 self.gymImageView.image = image
             }
+        }
+        
+        if !gym.isOpen {
+            closedLabel = UILabel()
+            closedLabel!.font = ._16MontserratSemiBold
+            closedLabel!.textColor = .white
+            closedLabel!.textAlignment = .center
+            closedLabel!.backgroundColor = .fitnessBlack
+            closedLabel!.text = "CLOSED"
+            contentView.addSubview(closedLabel!)
         }
         
         backButton = UIButton()
@@ -202,26 +216,29 @@ class GymDetailViewController: UIViewController {
         hoursBusynessSeparator.backgroundColor = .fitnessLightGrey
         contentView.addSubview(hoursBusynessSeparator)
         
-        //POPULAR TIMES
-        popularTimesTitleLabel = UILabel()
-        popularTimesTitleLabel.font = ._16MontserratMedium
-        popularTimesTitleLabel.textAlignment = .center
-        popularTimesTitleLabel.textColor = .fitnessBlack
-        popularTimesTitleLabel.sizeToFit()
-        popularTimesTitleLabel.text = "BUSY TIMES"
-        contentView.addSubview(popularTimesTitleLabel)
-        
         days = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
         
-        let data = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
-        let todaysHours = gym.gymHoursToday
+        //POPULAR TIMES
+        if gym.isOpen {
+            popularTimesTitleLabel = UILabel()
+            popularTimesTitleLabel?.font = ._16MontserratMedium
+            popularTimesTitleLabel?.textAlignment = .center
+            popularTimesTitleLabel?.textColor = .fitnessBlack
+            popularTimesTitleLabel?.sizeToFit()
+            popularTimesTitleLabel?.text = "BUSY TIMES"
+            contentView.addSubview(popularTimesTitleLabel!)
+            
+            let data = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
+            let todaysHours = gym.gymHoursToday
+            
+            popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data: data, todaysHours: todaysHours)
+            contentView.addSubview(popularTimesHistogram!)
+            
+            busynessFacilitiesSeparator = UIView()
+            busynessFacilitiesSeparator?.backgroundColor = .fitnessLightGrey
+            contentView.addSubview(busynessFacilitiesSeparator!)
+        }
         
-        popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: view.frame.width - 36, height: 0), data: data, todaysHours: todaysHours)
-        contentView.addSubview(popularTimesHistogram)
-        
-        busynessFacilitiesSeparator = UIView()
-        busynessFacilitiesSeparator.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(busynessFacilitiesSeparator)
     }
     
     // MARK: - CONSTRAINTS
@@ -231,6 +248,14 @@ class GymDetailViewController: UIViewController {
             make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(-20)
             make.height.equalTo(360)
+        }
+        
+        if !gym.isOpen {
+            closedLabel?.snp.updateConstraints {make in
+                make.left.right.equalToSuperview()
+                make.bottom.equalTo(gymImageView.snp.bottom)
+                make.height.equalTo(60)
+            }
         }
 
         backButton.snp.updateConstraints { make in
@@ -278,30 +303,39 @@ class GymDetailViewController: UIViewController {
         }
 
         //POPULAR TIMES
-        popularTimesTitleLabel.snp.updateConstraints {make in
-            make.top.equalTo(hoursBusynessSeparator.snp.bottom).offset(24)
-            make.centerX.width.equalToSuperview()
-            make.height.equalTo(19)
-        }
+        if gym.isOpen {
+            popularTimesTitleLabel?.snp.updateConstraints {make in
+                make.top.equalTo(hoursBusynessSeparator.snp.bottom).offset(24)
+                make.centerX.width.equalToSuperview()
+                make.height.equalTo(19)
+            }
 
-        popularTimesHistogram.snp.updateConstraints {make in
-            make.top.equalTo(popularTimesTitleLabel.snp.bottom).offset(24)
-            make.left.equalToSuperview().offset(18)
-            make.right.equalToSuperview().offset(-18)
-            make.height.equalTo(101)
-        }
+            popularTimesHistogram?.snp.updateConstraints {make in
+                make.top.equalTo(popularTimesTitleLabel!.snp.bottom).offset(24)
+                make.left.equalToSuperview().offset(18)
+                make.right.equalToSuperview().offset(-18)
+                make.height.equalTo(101)
+            }
 
-        busynessFacilitiesSeparator.snp.updateConstraints {make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(popularTimesHistogram.snp.bottom).offset(24)
-            make.height.equalTo(1)
-        }
+            busynessFacilitiesSeparator?.snp.updateConstraints {make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(popularTimesHistogram!.snp.bottom).offset(24)
+                make.height.equalTo(1)
+            }
+        
 
-        //FACILITIES
-        facilitiesTitleLabel.snp.updateConstraints {make in
-            make.top.equalTo(busynessFacilitiesSeparator.snp.bottom).offset(24)
-            make.centerX.width.equalToSuperview()
-            make.height.equalTo(19)
+            //FACILITIES
+            facilitiesTitleLabel.snp.updateConstraints {make in
+                make.top.equalTo(busynessFacilitiesSeparator!.snp.bottom).offset(24)
+                make.centerX.width.equalToSuperview()
+                make.height.equalTo(19)
+            }
+        } else {
+            facilitiesTitleLabel.snp.updateConstraints {make in
+                make.top.equalTo(hoursBusynessSeparator.snp.bottom).offset(24)
+                make.centerX.width.equalToSuperview()
+                make.height.equalTo(19)
+            }
         }
 
         for i in 0..<facilitiesLabelArray.count {
@@ -342,15 +376,21 @@ class GymDetailViewController: UIViewController {
 
         let facilitiesHeight = facilitiesData.count*20
         let todaysClassesHeight = classesTableView.numberOfRows(inSection: 0)*112
+        let height: Int
 
-        //THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
-        let height = 427 + dropHoursHeight + 282 + facilitiesHeight + 137 + todaysClassesHeight
+        // THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
+        if gym.isOpen {
+            height = 427 + dropHoursHeight + 282 + facilitiesHeight + 137 + todaysClassesHeight
+        } else {
+            height = 427 + dropHoursHeight + 89 + facilitiesHeight + 137 + todaysClassesHeight
+        }
+        
         scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
 
     func getStringFromDailyHours(dailyGymHours: DailyGymHours) -> String {
         if dailyGymHours.openTime != dailyGymHours.closeTime {
-            return "\(dailyGymHours.openTime.getStringOfDatetime(format: "h:m a")) - \(dailyGymHours.closeTime.getStringOfDatetime(format: "h:m a"))"
+            return "\(dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")) - \(dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a"))"
         } else {
             return "Closed"
         }

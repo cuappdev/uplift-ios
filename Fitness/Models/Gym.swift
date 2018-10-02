@@ -18,11 +18,7 @@ struct Gym {
     let popularTimesList: [[Int]]
     let imageURL: String
     var isOpen: Bool {
-        if Date() > gymHoursToday.openTime {
-            return Date() < gymHoursToday.closeTime
-        } else {
-            return false
-        }
+        return Date() > gymHoursToday.openTime ? Date() < gymHoursToday.closeTime : false
     }
     
     var gymHoursToday: DailyGymHours {
@@ -33,7 +29,7 @@ struct Gym {
         id = Int(gymData.id ?? "-1") ?? -1
         name = gymData.name ?? ""
         equipment = "" // TODO : fetch equipment once it's availble from backend
-        imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/fitness/gyms/\(name.replacingOccurrences(of: " ", with: "_")).jpg"
+        imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/uplift/gyms/\(name.replacingOccurrences(of: " ", with: "_")).jpg"
         
         var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
         
@@ -67,10 +63,11 @@ struct DailyGymHours{
     var closeTime: Date
     
     init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
+        
         if let gymHoursData = gymHoursData {
-            openTime = Date.getDatetimeFromString(datetime: gymHoursData.startTime)
-            closeTime = Date.getDatetimeFromString(datetime: gymHoursData.endTime)
             dayOfWeek = gymHoursData.day ?? 0
+            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
+            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
         } else {
             openTime = Date()
             closeTime = openTime
