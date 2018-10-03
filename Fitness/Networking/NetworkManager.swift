@@ -17,12 +17,13 @@ enum APIEnvironment {
 struct NetworkManager {
     internal let apollo = ApolloClient(url: URL(string: "http://uplift-backend.cornellappdev.com")!)
     static let environment: APIEnvironment = .development
+    static let shared = NetworkManager()
 
     // MARK: - GYMS
     func getGyms(completion: @escaping ([Gym]) -> Void) {
-        apollo.fetch(query: AllGymsQuery()){ (result, error) in
+        apollo.fetch(query: AllGymsQuery()) { (result, error) in
             var gyms: [Gym] = []
-        
+
             for gymData in result?.data?.gyms ?? [] {
                 if let gymData = gymData {
                     gyms.append(Gym(gymData: gymData))
@@ -31,20 +32,20 @@ struct NetworkManager {
             completion(gyms)
         }
     }
-    
+
     func getGymNames(completion: @escaping ([GymNameId]) -> Void) {
-        apollo.fetch(query: AllGymsQuery()){ (result, error) in
+        apollo.fetch(query: AllGymsQuery()) { (result, error) in
             // implement
             var gyms: [GymNameId] = []
-            
+
             for gym in result?.data?.gyms ?? [] {
                 guard let gym = gym else {
                     continue
                 }
-                
+
                 gyms.append(GymNameId(name: gym.name ?? "", id: gym.id ?? "") )
             }
-            
+
             completion(gyms)
         }
     }
@@ -65,7 +66,6 @@ struct NetworkManager {
 //            }
 //        }
     }
-
 
     // MARK: - GYM CLASS INSTANCES
     func getGymClassInstances(completion: @escaping ([GymClassInstance]) -> Void) {
@@ -139,7 +139,7 @@ struct NetworkManager {
     }
 
     // MARK: - GYM CLASS DESCRIPTIONS
-    func getGymClassDescriptions(completion: @escaping ([GymClassDescription])->Void) {
+    func getGymClassDescriptions(completion: @escaping ([GymClassDescription]) -> Void) {
 //        provider.request(.gymClassDescriptions) { result in
 //            switch result {
 //            case let .success(response):
@@ -192,20 +192,16 @@ struct NetworkManager {
 
     // MARK: - TAGS
     func getTags(completion: @escaping ([Tag]) -> Void) {
-//        provider.request(.tags) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let tagsData = try JSONDecoder().decode(TagsRootData.self, from: response.data)
-//                    let tags = tagsData.data
-//                    completion(tags)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+        apollo.fetch(query: GetTagsQuery()) { (results, error) in
+            guard let data = results?.data, let classes = data.classes else { return }
+            let allClasses = classes.compactMap { $0 }
+            
+            let tags = allClasses.map { gymClass in
+                let details = gymClass.details
+        
+            }
+        }
+            
     }
 
     // MARK: - GYM CLASSES
@@ -225,15 +221,15 @@ struct NetworkManager {
 //            }
 //        }
     }
-    
+
     func getClassNames(completion: @escaping (Set<String>) -> Void) {
         apollo.fetch(query: AllClassNamesQuery()) { (result, error) in
             var classNames: Set<String> = []
-            
+
             for gymClass in result?.data?.classes ?? [] {
                 classNames.insert(gymClass?.details?.name ?? "")
             }
-            
+
             completion(classNames)
         }
     }
@@ -259,11 +255,11 @@ struct NetworkManager {
     func getInstructors(completion: @escaping (Set<String>) -> Void) {
         apollo.fetch(query: AllIntructorsQuery()) { (result, error) in
             var instructors: Set<String> = []
-            
+
             for gymClass in result?.data?.classes ?? [] {
                 instructors.insert(gymClass?.instructor ?? "")
             }
-            
+
             completion(instructors)
         }
     }

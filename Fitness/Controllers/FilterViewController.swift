@@ -120,7 +120,7 @@ class FilterViewController: UIViewController {
         classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getClassNames { (classNames) in
-            
+
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
 
             self.classTypeDropdownData.completed = true
@@ -149,7 +149,7 @@ class FilterViewController: UIViewController {
         instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getInstructors { (instructors) in
-            
+
             self.instructorDropdownData.titles.append(contentsOf: instructors)
 
             self.instructorDropdownData.completed = true
@@ -171,15 +171,15 @@ class FilterViewController: UIViewController {
         titleView.text = "Refine Search"
         titleView.font = ._14LatoBlack
         self.navigationItem.titleView = titleView
-        
+
         let doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
         doneBarButton.tintColor = .fitnessBlack
         self.navigationItem.rightBarButtonItem = doneBarButton
-        
+
         let resetBarButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
         resetBarButton.tintColor = .fitnessBlack
         self.navigationItem.leftBarButtonItem = resetBarButton
-        
+
         //SCROLL VIEW
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -190,7 +190,7 @@ class FilterViewController: UIViewController {
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints {make in
@@ -198,40 +198,41 @@ class FilterViewController: UIViewController {
             make.top.equalToSuperview()
             make.bottom.equalTo(view.snp.bottom)
         }
-        
+
         //COLLECTION VIEW
         collectionViewTitle = UILabel()
         collectionViewTitle.font = ._12LatoBlack
         collectionViewTitle.textColor = .fitnessDarkGrey
         collectionViewTitle.text = "FITNESS CENTER"
         contentView.addSubview(collectionViewTitle)
-        
+
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
         layout.minimumInteritemSpacing = 1
         layout.minimumLineSpacing = 0
-        
+
         gymCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         gymCollectionView.allowsMultipleSelection = true
         gymCollectionView.backgroundColor = .fitnessLightGrey
         gymCollectionView.isScrollEnabled = true
         gymCollectionView.showsHorizontalScrollIndicator = false
         gymCollectionView.bounces = false
-        
+
         gymCollectionView.delegate = self
         gymCollectionView.dataSource = self
         gymCollectionView.register(GymFilterCell.self, forCellWithReuseIdentifier: GymFilterCell.identifier)
         contentView.addSubview(gymCollectionView)
-        
+
         gyms = []
-        
+
         AppDelegate.networkManager.getGymNames { (gyms) in
+
             self.gyms = gyms
             self.gymCollectionView.reloadData()
         }
     }
-    
+
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         //COLLECTION VIEW SECTION
@@ -625,7 +626,7 @@ extension FilterViewController: UITableViewDataSource {
         } else if tableView == classTypeDropdown {
             if indexPath.row < classTypeDropdownData.titles.count {
                 cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
-                
+
                 if selectedClasses.contains(classTypeDropdownData.titles[indexPath.row]) {
                     cell.checkBoxColoring.backgroundColor = .fitnessYellow
                 }

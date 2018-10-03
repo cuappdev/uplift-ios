@@ -89,7 +89,7 @@ class ClassDetailViewController: UIViewController {
             make.top.equalToSuperview()
             make.bottom.equalTo(view.snp.bottom)
         }
-        
+
         // HEADER
         setupHeader()
 
@@ -191,21 +191,21 @@ class ClassDetailViewController: UIViewController {
             }
         }
     }
-    
+
     func setupHeader() {
         classImageView.contentMode = UIViewContentMode.scaleAspectFill
         classImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(classImageView)
-        
+
         imageFilterView = UIView()
         imageFilterView.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.6)
         contentView.addSubview(imageFilterView)
-        
+
         semicircleView = UIImageView(image: #imageLiteral(resourceName: "semicircle"))
         semicircleView.contentMode = UIViewContentMode.scaleAspectFit
         semicircleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(semicircleView)
-        
+
         titleLabel = UILabel()
         titleLabel.text = gymClassInstance.classDescription.name
         titleLabel.font = ._48Bebas
@@ -213,13 +213,13 @@ class ClassDetailViewController: UIViewController {
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
-        
+
         locationLabel.font = ._14MontserratLight
         locationLabel.textAlignment = .center
         locationLabel.textColor = .white
         locationLabel.sizeToFit()
         contentView.addSubview(locationLabel)
-        
+
         instructorLabel = UILabel()
         instructorLabel.text = gymClassInstance.instructor.name
         instructorLabel.font = ._18Bebas
@@ -227,19 +227,19 @@ class ClassDetailViewController: UIViewController {
         instructorLabel.textColor = .white
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
-        
+
         durationLabel.font = ._18Bebas
         durationLabel.textAlignment = .center
         durationLabel.textColor = .fitnessBlack
         durationLabel.sizeToFit()
         contentView.addSubview(durationLabel)
-        
+
         backButton = UIButton()
         backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
-        
+
         starButton = UIButton()
         starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
         starButton.sizeToFit()
@@ -403,23 +403,23 @@ class ClassDetailViewController: UIViewController {
         // TODO: Replace with favorite functionality
         print("favorite")
     }
-    
-    @objc func addToCalendar(){
+
+    @objc func addToCalendar() {
         let store = EKEventStore()
         store.requestAccess(to: .event) {(granted, error) in
             if !granted { return }
-            
+
             let event = EKEvent(eventStore: store)
             event.title = self.gymClassInstance.classDescription.name
             event.startDate = Date.getDateFromTime(time: self.gymClassInstance.startTime)
             event.endDate = event.startDate.addingTimeInterval(TimeInterval(Date.getMinutesFromDuration(duration: self.gymClassInstance.duration)*60))
             event.location = self.location
             event.calendar = store.defaultCalendarForNewEvents
-            
+
             let alert = UIAlertController(title: "\(self.gymClassInstance.classDescription.name) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
             self.present(alert, animated: true, completion: nil)
-            
+
             do {
                 try store.save(event, span: .thisEvent, commit: true)
             } catch {

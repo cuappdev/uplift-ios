@@ -10,7 +10,7 @@ import SnapKit
 import Alamofire
 import AlamofireImage
 
-class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class TodaysClassesCell: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.todaysClassesCell
@@ -23,7 +23,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
             gymClassInstances.sort {
                 Date.getDateFromTime(time: $0.startTime) < Date.getDateFromTime(time: $1.startTime)
             }
-            
+
             collectionView.reloadData()
         }
     }
@@ -36,15 +36,15 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
 
     var navigationController: UINavigationController?
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16 )
+        //layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16 )
         layout.minimumInteritemSpacing = 16
-        layout.minimumLineSpacing = 12
+        layout.itemSize = CGSize(width: 228.0, height: 195.0)
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
@@ -57,9 +57,8 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
 
         contentView.addSubview(collectionView)
 
-        collectionView.snp.updateConstraints {make in
-            make.center.equalToSuperview()
-            make.size.equalToSuperview()
+        collectionView.snp.makeConstraints {make in
+            make.edges.equalToSuperview()
         }
     }
 

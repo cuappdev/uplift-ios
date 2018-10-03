@@ -13,7 +13,6 @@
 import UIKit
 import SnapKit
 
-
 class Histogram: UIView {
 
     // MARK: - INITIALIZATION
@@ -24,7 +23,7 @@ class Histogram: UIView {
     var selectedIndex: Int!
     var selectedLine: UIView!
     var selectedTime: UILabel!
-    
+
     var selectedTimeDescriptor: UILabel!
     let timeDescriptors = ["Usually not too busy", "Usually a little busy", "Usually as busy as it gets"]
     let mediumThreshold = 43
@@ -47,7 +46,7 @@ class Histogram: UIView {
         bottomAxisTicks = []
         openHour = Calendar.current.component(.hour, from: todaysHours.openTime)
         let closeHour = Calendar.current.component(.hour, from: todaysHours.closeTime)
-        
+
         for _ in openHour..<(closeHour - 1) {
             let tick = UIView()
             tick.backgroundColor = .fitnessLightGrey
@@ -66,7 +65,7 @@ class Histogram: UIView {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.selectBar(sender:)))
             bar.addGestureRecognizer(gesture)
         }
-        
+
         //TIME
         let currentHour = Calendar.current.component(.hour, from: Date())
         selectedIndex = currentHour - openHour
@@ -202,7 +201,7 @@ class Histogram: UIView {
                 break
             }
         }
-        
+
         //update selectedTime and the descriptor
         if data[selectedIndex + openHour - 1] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]

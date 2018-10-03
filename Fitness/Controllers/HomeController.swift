@@ -7,56 +7,69 @@
 //
 import UIKit
 import SnapKit
+import Alamofire
+import AlamofireImage
 
-enum SectionType {
-    case allGyms
-    case todaysClasses
-    case lookingFor
+enum SectionType: String {
+    case allGyms = "ALL GYMS"
+    case todaysClasses = "TODAY'S CLASSES"
+    case lookingFor = "I'M LOOKING FOR..."
 }
 
 class HomeController: UIViewController {
 
     // MARK: - INITIALIZATION
-    var tableView: UITableView!
+    var mainCollectionView: UICollectionView!
+    var todayClassCollectionView: UICollectionView!
+
     var statusBarBackgroundColor: UIView!
+    var headerView: HomeScreenHeaderView!
 
     var sections: [SectionType] = []
     var gyms: [Gym] = []
     var gymClassInstances: [GymClassInstance] = []
     var gymLocations: [Int: String] = [:]
     var tags: [Tag] = []
+    var didSetupHeaderShadow = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.bounces = false
-        tableView.dataSource = self
-        tableView.delegate = self
+        headerView = HomeScreenHeaderView()
+        headerView.setName(name: "Austin")
 
-        tableView.sectionFooterHeight = 0.0
-        tableView.backgroundColor = .white
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
+        view.addSubview(headerView)
+        headerView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.height.equalTo(100)
+        }
 
-        tableView.register(TodaysClassesCell.self, forCellReuseIdentifier: TodaysClassesCell.identifier)
-        tableView.register(AllGymsCell.self, forCellReuseIdentifier: AllGymsCell.identifier)
-        tableView.register(LookingForCell.self, forCellReuseIdentifier: LookingForCell.identifier)
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumInteritemSpacing = 6.0
+        flowLayout.minimumLineSpacing = 6.0
 
-        tableView.register(HomeScreenHeaderView.self, forHeaderFooterViewReuseIdentifier: HomeScreenHeaderView.identifier)
-        tableView.register(HomeSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: HomeSectionHeaderView.identifier)
+        mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        mainCollectionView.dataSource = self
+        mainCollectionView.delegate = self
+        mainCollectionView.backgroundColor = .white
+        mainCollectionView.showsVerticalScrollIndicator = false
+
+        mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
+        mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
+        mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
+        mainCollectionView.register(LookingForCell.self, forCellWithReuseIdentifier: LookingForCell.identifier)
 
         sections.insert(.allGyms, at: 0)
         sections.insert(.todaysClasses, at: 1)
         sections.insert(.lookingFor, at: 2)
 
-        view.addSubview(tableView)
+        view.addSubview(mainCollectionView)
 
-        tableView.snp.updateConstraints {make in
-            make.top.equalToSuperview()
+        mainCollectionView.snp.makeConstraints {make in
+            make.top.equalTo(headerView.snp.bottom)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-49)
+            make.bottom.equalToSuperview()
         }
 
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
@@ -64,9 +77,9 @@ class HomeController: UIViewController {
         view.addSubview(statusBarBackgroundColor)
 
         // GET GYMS
-        AppDelegate.networkManager.getGyms { (gyms) in
-            self.gyms = gyms
-            self.tableView.reloadData()
+        NetworkManager.shared.getGyms { (gyms) in
+            self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
+            self.mainCollectionView.reloadSections(IndexSet(integer: 0))
         }
 
         // GET TODAY'S CLASSES
@@ -77,98 +90,172 @@ class HomeController: UIViewController {
                 for gymClassInstance in gymClassInstances {
                     AppDelegate.networkManager.getGym(gymId: gymClassInstance.gymId, completion: { (gym) in
                         self.gymLocations[gymClassInstance.gymId] = gym.name
-                        self.tableView.reloadData()
+                        self.mainCollectionView.reloadSections(IndexSet(integer: 1))
                     })
                 }
             }
         }
 
         // GET TAGS
-        AppDelegate.networkManager.getTags { (tags) in
+        NetworkManager.shared.getTags { tags in
             self.tags = tags
-            self.tableView.reloadData()
+            self.mainCollectionView.reloadSections(IndexSet(integer: 2))
+        }
+    }
+
+    // MARK: - ViewDidLoad
+    override func viewDidAppear(_ animated: Bool) {
+//
+//        let allGymsCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .allGyms)!) ) as! AllGymsCell
+//        allGymsCell.gyms = {allGymsCell.gyms}()
+//
+//        let todaysClassesCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .todaysClasses)!) ) as! TodaysClassesCell
+//        todaysClassesCell.gymClassInstances = {todaysClassesCell.gymClassInstances}()
+    }
+}
+
+// MARK: CollectionViewDataSource
+extension HomeController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView != mainCollectionView {
+            return gymClassInstances.count
+        }
+
+        switch sections[section] {
+        case .allGyms:
+            return gyms.count
+        case .todaysClasses:
+            return 1
+        case .lookingFor:
+            return tags.count
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        if collectionView != mainCollectionView {
+            //set up today class cells
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+
+            Alamofire.request(tags[indexPath.row].imageURL).responseImage { response in
+                if let image = response.result.value {
+                    cell.image.image = image
+                }
+            }
+
+            cell.title.text = tags[indexPath.row].name.capitalized
+            return cell
+        }
+
+        switch sections[indexPath.section] {
+        case .allGyms:
+            let gym = gyms[indexPath.row]
+            // swiftlint:disable:next force_cast
+            let gymCell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
+            gymCell.setGymName(name: gym.name)
+            gymCell.setGymStatus(isOpen: gym.isOpen)
+            gymCell.setGymHours(hours: getHourString(gym: gym))
+            return gymCell
+        case .todaysClasses:
+            let todayClassesCell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysClassesCell.identifier, for: indexPath) as! TodaysClassesCell
+            todayClassesCell.collectionView.dataSource = self
+            todayClassesCell.collectionView.delegate = self
+            return todayClassesCell
+        case .lookingFor:
+            let lookingForCell = collectionView.dequeueReusableCell(withReuseIdentifier: LookingForCell.identifier, for: indexPath) as! LookingForCell
+            return lookingForCell
+        }
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        if collectionView != mainCollectionView { return UICollectionReusableView() }
+
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            // swiftlint:disable:next force_cast
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
+            headerView.setTitle(title: sections[indexPath.section].rawValue)
+            return headerView
+        default:
+            fatalError("Unexpected element kind")
+        }
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if collectionView != mainCollectionView { return .zero }
+        return CGSize(width: collectionView.bounds.width, height: 32.0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView != mainCollectionView { return CGSize(width: 228.0, height: 195.0)}
+
+        switch sections[indexPath.section] {
+        case .allGyms:
+            let spacingInsets: CGFloat = 32.0
+            //12.0 is the spacing between each cell
+            let totalWidth = collectionView.bounds.width - spacingInsets - 12.0
+            return CGSize(width: totalWidth/2.0, height: 60.0)
+        case .todaysClasses:
+            return CGSize(width: collectionView.bounds.width, height: 195.0)
+        case .lookingFor:
+            return CGSize(width: 164.0, height: 128.0)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        switch sections[section] {
+        case .allGyms, .lookingFor:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
+        case .todaysClasses:
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
         }
     }
     
-    // MARK: - ViewDidLoad
-    override func viewDidAppear(_ animated: Bool) {
-        let allGymsCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .allGyms)!) ) as! AllGymsCell
-        allGymsCell.gyms = {allGymsCell.gyms}()
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView != mainCollectionView {
+            return
+        }
         
-        let todaysClassesCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .todaysClasses)!) ) as! TodaysClassesCell
-        todaysClassesCell.gymClassInstances = {todaysClassesCell.gymClassInstances}()
+        switch sections[indexPath.section] {
+        case .allGyms:
+            let gymDetailViewController = GymDetailViewController()
+            gymDetailViewController.gym = gyms[indexPath.row]
+            navigationController?.pushViewController(gymDetailViewController, animated: true)
+        case .todaysClasses:
+            print("SELECTED TODAY CLASSES")
+        case .lookingFor:
+            print("SELECTED LOOKING FOR")
+        }
     }
 }
 
-// MARK: TableViewDataSource
-extension HomeController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+extension HomeController {
 
-        switch sections[indexPath.section] {
-        case .allGyms:
-            let cell = tableView.dequeueReusableCell(withIdentifier: AllGymsCell.identifier, for: indexPath) as! AllGymsCell
-            cell.gyms = gyms
-            cell.navigationController = navigationController
-            return cell
-        case .todaysClasses:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TodaysClassesCell.identifier, for: indexPath) as! TodaysClassesCell
-            cell.gymClassInstances = gymClassInstances
-            cell.gymLocations = gymLocations
-            cell.navigationController = navigationController
-            return cell
-        case .lookingFor:
-            let cell = tableView.dequeueReusableCell(withIdentifier: LookingForCell.identifier, for: indexPath) as! LookingForCell
-            cell.tags = tags
-            return cell
-        }
-    }
+    func getHourString(gym: Gym) -> String {
+        let now = Date()
+        let isOpen = gym.isOpen
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
+        let gymHoursToday = gym.gymHoursToday
+        let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-}
-
-// MARK: TableViewDelegate
-extension HomeController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch sections[section] {
-        case .allGyms:
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeScreenHeaderView.identifier) as! HomeScreenHeaderView
-            header.subHeader.titleLabel.text = "ALL GYMS"
-            header.setName(name: "Joe")
-            return header
-        case .todaysClasses:
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeSectionHeaderView.identifier) as! HomeSectionHeaderView
-            header.titleLabel.text = "TODAY'S CLASSES"
-            return header
-        case .lookingFor:
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeSectionHeaderView.identifier) as! HomeSectionHeaderView
-            header.titleLabel.text = "I'M LOOKING FOR..."
-            return header
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch sections[indexPath.section] {
-        case .allGyms:
-            return 180
-        case .todaysClasses:
-            return 207
-        case .lookingFor:
-            return CGFloat(143 * (tags.count / 2))
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch sections[section] {
-        case .allGyms:
-            return 155
-        case .todaysClasses, .lookingFor:
-            return 51
+        if gym.name == "Bartels" {
+            return "Always open"
+        } else if now > gymHoursToday.closeTime {
+            return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: "h a")), tomorrow"
+        } else if !isOpen {
+            return "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: "h a"))"
+        } else {
+            return "Closes at \(gymHoursToday.closeTime.getStringOfDatetime(format: "h a"))"
         }
     }
 }

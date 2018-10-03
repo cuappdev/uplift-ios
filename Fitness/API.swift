@@ -349,6 +349,115 @@ public final class AllClassNamesQuery: GraphQLQuery {
   }
 }
 
+public final class GetTagsQuery: GraphQLQuery {
+  public let operationDefinition =
+    "query GetTags {\n  classes {\n    __typename\n    details {\n      __typename\n      tags\n    }\n  }\n}"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("classes", type: .list(.object(Class.selections))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(classes: [Class?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "classes": classes.flatMap { (value: [Class?]) -> [ResultMap?] in value.map { (value: Class?) -> ResultMap? in value.flatMap { (value: Class) -> ResultMap in value.resultMap } } }])
+    }
+
+    public var classes: [Class?]? {
+      get {
+        return (resultMap["classes"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Class?] in value.map { (value: ResultMap?) -> Class? in value.flatMap { (value: ResultMap) -> Class in Class(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [Class?]) -> [ResultMap?] in value.map { (value: Class?) -> ResultMap? in value.flatMap { (value: Class) -> ResultMap in value.resultMap } } }, forKey: "classes")
+      }
+    }
+
+    public struct Class: GraphQLSelectionSet {
+      public static let possibleTypes = ["ClassType"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("details", type: .object(Detail.selections)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(details: Detail? = nil) {
+        self.init(unsafeResultMap: ["__typename": "ClassType", "details": details.flatMap { (value: Detail) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var details: Detail? {
+        get {
+          return (resultMap["details"] as? ResultMap).flatMap { Detail(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "details")
+        }
+      }
+
+      public struct Detail: GraphQLSelectionSet {
+        public static let possibleTypes = ["ClassDetailType"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("tags", type: .list(.scalar(String.self))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(tags: [String?]? = nil) {
+          self.init(unsafeResultMap: ["__typename": "ClassDetailType", "tags": tags])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var tags: [String?]? {
+          get {
+            return resultMap["tags"] as? [String?]
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "tags")
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class AllGymsQuery: GraphQLQuery {
   public let operationDefinition =
     "query AllGyms {\n  gyms {\n    __typename\n    name\n    id\n    description\n    popular\n    times {\n      __typename\n      day\n      startTime\n      endTime\n    }\n  }\n}"

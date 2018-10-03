@@ -7,27 +7,35 @@
 //
 import UIKit
 
-class HomeSectionHeaderView: UITableViewHeaderFooterView {
+class HomeSectionHeaderView: UICollectionReusableView {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.homeSectionHeaderView
     var titleLabel: UILabel!
 
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         backgroundColor = UIColor.clear
 
         titleLabel = UILabel()
-        titleLabel.font = ._12LatoBlack
+        titleLabel.font = ._14MontserratBold
         titleLabel.textColor = .fitnessDarkGrey
         addSubview(titleLabel)
 
         // MARK: - CONSTRAINTS
         titleLabel.snp.updateConstraints {make in
-            make.left.equalToSuperview().offset(19)
-            make.top.equalToSuperview().offset(20)
-            make.bottom.equalToSuperview().offset(-20)
+            make.leading.equalTo(16)
+            make.top.equalToSuperview()
+            make.height.equalTo(titleLabel.intrinsicContentSize.height)
+        }
+    }
+
+    func setTitle(title: String) {
+        titleLabel.text = title
+
+        titleLabel.snp.updateConstraints { make in
+            make.height.equalTo(titleLabel.intrinsicContentSize.height)
         }
     }
 

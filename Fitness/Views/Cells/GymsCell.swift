@@ -46,18 +46,18 @@ class GymsCell: UICollectionViewCell {
 
         //LOCATION NAME
         locationName = UILabel()
-        locationName.font = ._12MontserratMedium
-        locationName.sizeToFit()
+        locationName.font = ._16MontserratMedium
+        locationName.textAlignment = .left
         contentView.addSubview(locationName)
 
         //STATUS
         status = UILabel()
-        status.font = ._8MontserratMedium
+        status.font = ._12MontserratMedium
         contentView.addSubview(status)
 
         //HOURS
         hours = UILabel()
-        hours.font = ._8MontserratMedium
+        hours.font = ._12MontserratMedium
         hours.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
         contentView.addSubview(hours)
 
@@ -79,12 +79,12 @@ class GymsCell: UICollectionViewCell {
         locationName.snp.updateConstraints {make in
             make.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-23)
-            make.left.equalToSuperview().offset(17)
-            make.right.equalToSuperview().offset(-26)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.lessThanOrEqualToSuperview()
         }
 
         status.snp.updateConstraints {make in
-            make.left.equalToSuperview().offset(17)
+            make.leading.equalTo(locationName)
             make.bottom.equalToSuperview().offset(-10)
             make.top.equalToSuperview().offset(28)
         }
@@ -95,5 +95,19 @@ class GymsCell: UICollectionViewCell {
             make.bottom.equalToSuperview().offset(-10)
             make.top.equalToSuperview().offset(28)
         }
+    }
+
+    func setGymName(name: String) {
+        locationName.text = name
+    }
+
+    func setGymStatus(isOpen: Bool) {
+        let color: UIColor = isOpen ? .fitnessGreen : .fitnessRed
+        self.status.text = isOpen ? "Open" : "Closed"
+        self.status.textColor = color
+    }
+
+    func setGymHours(hours: String) {
+        self.hours.text = hours
     }
 }

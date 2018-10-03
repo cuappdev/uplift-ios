@@ -60,13 +60,13 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
         let gym = gyms[indexPath.row]
-        
+
         let now = Date()
         let isOpen = gym.isOpen
 
         let gymHoursToday = gym.gymHoursToday
         let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
-        
+
         if gyms[indexPath.row].name == "Bartels" {
             cell.hours.text = "Always open"
         } else if now > gymHoursToday.closeTime {

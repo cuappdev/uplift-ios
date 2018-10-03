@@ -63,6 +63,7 @@
 		C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */; };
 		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
 		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
+		D91565C92165686400BCA466 /* tagQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D91565C82165686400BCA466 /* tagQueries.graphql */; };
 		D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D94BD3072159DA9200C9214E /* classQueries.graphql */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +129,7 @@
 		C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		D91565C82165686400BCA466 /* tagQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = tagQueries.graphql; sourceTree = "<group>"; };
 		D94BD3072159DA9200C9214E /* classQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = classQueries.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -326,6 +328,7 @@
 			children = (
 				D94BD3072159DA9200C9214E /* classQueries.graphql */,
 				8D6B2A18215B23DC00807544 /* gymQueries.graphql */,
+				D91565C82165686400BCA466 /* tagQueries.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -348,11 +351,11 @@
 			buildPhases = (
 				9BD15CB1CD033C4DBE57E681 /* [CP] Check Pods Manifest.lock */,
 				0C3AC6132155BF5100761495 /* Generate Apollo GraphQL API */,
+				1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */,
 				C7DFABC7204206E000545B0B /* Sources */,
 				C7DFABC8204206E000545B0B /* Frameworks */,
 				C7DFABC9204206E000545B0B /* Resources */,
 				7B68B6796476F8A7F1E6B485 /* [CP] Embed Pods Frameworks */,
-				1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */,
 				8D29EFD320431FCA005B1CC8 /* Run Fabric build */,
 			);
 			buildRules = (
@@ -404,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
+				D91565C92165686400BCA466 /* tagQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
@@ -449,7 +453,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		7B68B6796476F8A7F1E6B485 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
