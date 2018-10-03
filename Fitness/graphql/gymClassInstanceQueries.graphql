@@ -3,6 +3,9 @@ query AllClassesInstances
     classes {
       id
       gymId
+      gym {
+        name
+      }
       details {
         id
         name
@@ -16,3 +19,23 @@ query AllClassesInstances
     }
   }
 
+query TodaysClasses($dateTime: DateTime)
+{
+    classes(now: $dateTime) {
+      id
+      gymId
+      gym {
+        name
+      }
+      details {
+        id
+        name
+        description
+        tags
+      }
+    startTime
+    endTime
+    instructor
+    isCancelled
+  }
+}

@@ -436,11 +436,11 @@ extension GymDetailViewController: UITableViewDataSource {
 
             let gymClassInstance = todaysClasses[indexPath.row]
 
-            cell.classLabel.text = gymClassInstance.classDescription.name
+            cell.classLabel.text = gymClassInstance.classDescription?.name
             cell.timeLabel.text = gymClassInstance.startTime
             cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
 
-            cell.instructorLabel.text = gymClassInstance.instructor.name
+            cell.instructorLabel.text = gymClassInstance.instructor
 
             cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
             cell.durationLabel.text = String(cell.duration) + " min"

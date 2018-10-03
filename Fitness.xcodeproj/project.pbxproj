@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0CA1047D2155C0AC00201D10 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA1047C2155C0AC00201D10 /* API.swift */; };
 		1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */; };
+		1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740E21617680000AEDF0 /* intructorQueries.graphql */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
 		65E914EB207C697800A72101 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E914EA207C697800A72101 /* Keys.swift */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		0CA1047C2155C0AC00201D10 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = Fitness/API.swift; sourceTree = "<group>"; };
 		1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymClassInstanceQueries.graphql; sourceTree = "<group>"; };
+		1C46740E21617680000AEDF0 /* intructorQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = intructorQueries.graphql; sourceTree = "<group>"; };
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -323,6 +325,7 @@
 				1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */,
 				D94BD3072159DA9200C9214E /* classQueries.graphql */,
 				8D6B2A18215B23DC00807544 /* gymQueries.graphql */,
+				1C46740E21617680000AEDF0 /* intructorQueries.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */,
 				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,

@@ -123,15 +123,15 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
 
         if let gymClassInstance = validGymClassInstances?[indexPath.row] {
 
-            cell.classLabel.text = gymClassInstance.classDescription.name
+            cell.classLabel.text = gymClassInstance.classDescription?.name ?? ""
             cell.timeLabel.text = gymClassInstance.startTime
             cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-            cell.instructorLabel.text = gymClassInstance.instructor.name
+            cell.instructorLabel.text = gymClassInstance.instructor
 
             cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
             cell.durationLabel.text = String(cell.duration) + " min"
 
-            cell.locationLabel.text = locations[gymClassInstance.gymClassInstanceId]
+            cell.locationLabel.text = gymClassInstance.location
         }
 
         return cell
@@ -160,7 +160,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         classDetailViewController.durationLabel.text = cell.durationLabel.text?.uppercased()
         classDetailViewController.locationLabel.text = cell.locationLabel.text
 
-        Alamofire.request(allGymClassInstances![indexPath.row].classDescription.imageURL!).responseImage { response in
+        Alamofire.request(allGymClassInstances![indexPath.row].imageURL).responseImage { response in
             if let image = response.result.value {
                 classDetailViewController.classImageView.image = image
             }
@@ -214,8 +214,10 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         }
 
         for gymClassInstance in allGymClassInstances! {
-            if gymClassInstance.classDescription.name.contains(filterText) {
-                validInstances.append(gymClassInstance)
+            if let className = gymClassInstance.classDescription?.name {
+                if className.contains(filterText) {
+                    validInstances.append(gymClassInstance)
+                }
             }
         }
 

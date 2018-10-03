@@ -148,8 +148,9 @@ class FilterViewController: UIViewController {
 
         AppDelegate.networkManager.getInstructors { (instructors) in
             for instructor in instructors {
-                self.instructorDropdownData.titles.append(instructor.name)
-                self.instructorDropdownData.ids.append(instructor.id)
+                // self.instructorDropdownData.titles.append(instructor.name)
+                // self.instructorDropdownData.ids.append(instructor.id)
+                self.instructorDropdownData.titles.append(instructor)
             }
 
             self.instructorDropdownData.completed = true
