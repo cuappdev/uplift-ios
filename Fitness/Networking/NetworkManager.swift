@@ -31,6 +31,23 @@ struct NetworkManager {
             completion(gyms)
         }
     }
+    
+    func getGymNames(completion: @escaping ([GymNameId]) -> Void) {
+        apollo.fetch(query: AllGymsQuery()){ (result, error) in
+            // implement
+            var gyms: [GymNameId] = []
+            
+            for gym in result?.data?.gyms ?? [] {
+                guard let gym = gym else {
+                    continue
+                }
+                
+                gyms.append(GymNameId(name: gym.name ?? "", id: gym.id ?? "") )
+            }
+            
+            completion(gyms)
+        }
+    }
 
     func getGym(gymId: Int, completion: @escaping (Gym) -> Void) {
 //        provider.request(.gym(gymId: gymId)) { result in
@@ -102,7 +119,7 @@ struct NetworkManager {
 //        }
     }
 
-    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [Int], gymIDs: [Int], classDescriptionIDs: [Int], completion: @escaping ([GymClassInstance]) -> Void) {
+    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [String], gymIDs: [String], classNames: [String], completion: @escaping ([GymClassInstance]) -> Void) {
 //        provider.request(.gymClassInstancesSearch(startTime: startTime, endTime: endTime, instructorIDs: instructorIDs, gymIDs: gymIDs, classDescriptionIDs: classDescriptionIDs)) { result in
 //            switch result {
 //            case let .success(response):
@@ -208,6 +225,18 @@ struct NetworkManager {
 //            }
 //        }
     }
+    
+    func getClassNames(completion: @escaping (Set<String>) -> Void) {
+        apollo.fetch(query: AllClassNamesQuery()) { (result, error) in
+            var classNames: Set<String> = []
+            
+            for gymClass in result?.data?.classes ?? [] {
+                classNames.insert(gymClass?.details?.name ?? "")
+            }
+            
+            completion(classNames)
+        }
+    }
 
     func getGymClass(gymClassId: Int, completion: @escaping (GymClass) -> Void) {
 //        provider.request(.gymClass(gymClassId: gymClassId)) { result in
@@ -227,21 +256,16 @@ struct NetworkManager {
     }
 
     // MARK: - INSTRUCTORS
-    func getInstructors(completion: @escaping ([Instructor]) -> Void) {
-//        provider.request(.instructors) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let instructorsData = try JSONDecoder().decode(InstructorsRootData.self, from: response.data)
-//                    let instructors = instructorsData.data
-//                    completion(instructors)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+    func getInstructors(completion: @escaping (Set<String>) -> Void) {
+        apollo.fetch(query: AllIntructorsQuery()) { (result, error) in
+            var instructors: Set<String> = []
+            
+            for gymClass in result?.data?.classes ?? [] {
+                instructors.insert(gymClass?.instructor ?? "")
+            }
+            
+            completion(instructors)
+        }
     }
 
     func getInstructor(instructorId: Int, completion: @escaping (Instructor) -> Void) {

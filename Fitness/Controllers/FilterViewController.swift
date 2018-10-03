@@ -17,8 +17,12 @@ enum Dropped {
 struct DropdownData {
     var dropStatus: Dropped!
     var titles: [String]!
-    var ids: [Int]!
     var completed: Bool!
+}
+
+struct GymNameId {
+    var name: String!
+    var id: String!
 }
 
 class FilterViewController: UIViewController {
@@ -29,8 +33,9 @@ class FilterViewController: UIViewController {
 
     var collectionViewTitle: UILabel!
     var gymCollectionView: UICollectionView!
-    var gyms: [Gym]!
-    var selectedGyms: [Int] = []
+    var gyms: [GymNameId]!
+    /// ids of the selected gyms
+    var selectedGyms: [String] = []
 
     var fitnessCenterStartTimeDivider: UIView!
     var startTimeTitleLabel: UILabel!
@@ -45,12 +50,12 @@ class FilterViewController: UIViewController {
     var classTypeDropdown: UITableView!
     var classTypeDropdownData: DropdownData!
     var classTypeInstructorDivider: UIView!
-    var selectedClasses: [Int] = []
+    var selectedClasses: [String] = []
 
     var instructorDropdown: UITableView!
     var instructorDropdownData: DropdownData!
     var instructorDivider: UIView!
-    var selectedInstructors: [Int] = []
+    var selectedInstructors: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,14 +117,11 @@ class FilterViewController: UIViewController {
         classTypeInstructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(classTypeInstructorDivider)
 
-        classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], ids: [], completed: false)
+        classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
-        AppDelegate.networkManager.getGymClassDescriptions { (gymClassDescriptions) in
-
-            for gymClassDescription in gymClassDescriptions {
-                self.classTypeDropdownData.titles.append(gymClassDescription.name)
-                self.classTypeDropdownData.ids.append(gymClassDescription.id)
-            }
+        AppDelegate.networkManager.getClassNames { (classNames) in
+            
+            self.classTypeDropdownData.titles.append(contentsOf: classNames)
 
             self.classTypeDropdownData.completed = true
             self.classTypeDropdown.reloadData()
@@ -144,13 +146,11 @@ class FilterViewController: UIViewController {
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
 
-        instructorDropdownData = DropdownData(dropStatus: .up, titles: [], ids: [], completed: false)
+        instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getInstructors { (instructors) in
-            for instructor in instructors {
-                self.instructorDropdownData.titles.append(instructor.name)
-                self.instructorDropdownData.ids.append(instructor.id)
-            }
+            
+            self.instructorDropdownData.titles.append(contentsOf: instructors)
 
             self.instructorDropdownData.completed = true
             self.instructorDropdown.reloadData()
@@ -226,9 +226,8 @@ class FilterViewController: UIViewController {
         
         gyms = []
         
-        AppDelegate.networkManager.getGyms { (gyms) in
+        AppDelegate.networkManager.getGymNames { (gyms) in
             self.gyms = gyms
-            
             self.gymCollectionView.reloadData()
         }
     }
@@ -292,8 +291,6 @@ class FilterViewController: UIViewController {
                 make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + 3*32)
             case .down:
                 make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + classTypeDropdown.numberOfRows(inSection: 0)*32)
-            default:
-                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55)
             }
         }
 
@@ -315,8 +312,6 @@ class FilterViewController: UIViewController {
                 make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + 3*32)
             case .down:
                 make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + instructorDropdown.numberOfRows(inSection: 0)*32)
-            default:
-                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55)
             }
         }
 
@@ -348,8 +343,8 @@ class FilterViewController: UIViewController {
     // MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done() {
         let filterParameters = FilterParameters(shouldFilter: true, startTime: startTime, encodedStartTime: startTimeSlider.lowerValue,
-                                                endTime: endTime, encodedEndTime: startTimeSlider.upperValue, instructorIds: selectedInstructors,
-                                                classDescIds: selectedClasses, gymIds: selectedGyms)
+                                                endTime: endTime, encodedEndTime: startTimeSlider.upperValue, instructorNames: selectedInstructors,
+                                                classNames: selectedClasses, gymIds: selectedGyms)
 
         let classListViewController = navigationController!.viewControllers.first as! ClassListViewController
         classListViewController.filterParameters = filterParameters
@@ -409,7 +404,7 @@ class FilterViewController: UIViewController {
     // MARK: - DROP METHODS
     @objc func dropInstructors( sender: UITapGestureRecognizer) {
 
-        if(instructorDropdownData.completed == false) {
+        if instructorDropdownData.completed == false {
             instructorDropdownData.dropStatus = .up
             return
         }
@@ -417,7 +412,7 @@ class FilterViewController: UIViewController {
         instructorDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if (instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down) {
+        if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
 
@@ -444,7 +439,7 @@ class FilterViewController: UIViewController {
 
     @objc func dropClasses( sender: UITapGestureRecognizer) {
 
-        if(classTypeDropdownData.completed == false) {
+        if classTypeDropdownData.completed == false {
             classTypeDropdownData.dropStatus = .up
             return
         }
@@ -452,7 +447,7 @@ class FilterViewController: UIViewController {
         classTypeDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if (classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down) {
+        if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
             classTypeDropdownData.dropStatus = .up
@@ -478,14 +473,14 @@ class FilterViewController: UIViewController {
     // MARK: - SHOW ALL/HIDE METHODS
     @objc func dropHideClasses( sender: UITapGestureRecognizer) {
 
-        if(classTypeDropdownData.completed == false) {
+        if classTypeDropdownData.completed == false {
             return
         }
 
         classTypeDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if (classTypeDropdownData.dropStatus == .half) {
+        if classTypeDropdownData.dropStatus == .half {
             classTypeDropdownData.dropStatus = .down
 
             var i = 3
@@ -510,14 +505,14 @@ class FilterViewController: UIViewController {
 
     @objc func dropHideInstructors( sender: UITapGestureRecognizer) {
 
-        if(instructorDropdownData.completed == false) {
+        if instructorDropdownData.completed == false {
             return
         }
 
         instructorDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if (instructorDropdownData.dropStatus == .half) {
+        if instructorDropdownData.dropStatus == .half {
             instructorDropdownData.dropStatus = .down
 
             var i = 3
@@ -545,7 +540,7 @@ class FilterViewController: UIViewController {
 extension FilterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         for i in 0..<selectedGyms.count {
-            if (selectedGyms[i] == gyms[indexPath.row].id) {
+            if selectedGyms[i] == gyms[indexPath.row].id {
                 selectedGyms.remove(at: i)
                 return
             }
@@ -588,7 +583,7 @@ extension FilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = 0
         if tableView == instructorDropdown {
-            if(instructorDropdownData.completed == false) {
+            if instructorDropdownData.completed == false {
                 return 0
             }
             switch instructorDropdownData.dropStatus! {
@@ -598,11 +593,9 @@ extension FilterViewController: UITableViewDataSource {
                 numberOfRows = 3
             case .down:
                 numberOfRows = instructorDropdownData.titles.count
-            default:
-                numberOfRows = 0
             }
         } else if tableView == classTypeDropdown {
-            if(classTypeDropdownData.completed == false) {
+            if classTypeDropdownData.completed == false {
                 return 0
             }
 
@@ -613,8 +606,6 @@ extension FilterViewController: UITableViewDataSource {
                 numberOfRows = 3
             case .down:
                 numberOfRows = classTypeDropdownData.titles.count
-            default:
-                numberOfRows = 0
             }
         }
         return numberOfRows
@@ -624,19 +615,18 @@ extension FilterViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: DropdownViewCell.identifier, for: indexPath) as! DropdownViewCell
 
         if tableView == instructorDropdown {
-            if(indexPath.row < instructorDropdownData.titles.count) {
+            if indexPath.row < instructorDropdownData.titles.count {
                 cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
-                cell.id = instructorDropdownData.ids[indexPath.row]
 
-                if(selectedInstructors.contains(cell.id)) {
+                if selectedInstructors.contains(instructorDropdownData.titles[indexPath.row]) {
                     cell.checkBoxColoring.backgroundColor = .fitnessYellow
                 }
             }
         } else if tableView == classTypeDropdown {
-            if(indexPath.row < classTypeDropdownData.titles.count) {
+            if indexPath.row < classTypeDropdownData.titles.count {
                 cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
-                cell.id = classTypeDropdownData.ids[indexPath.row]
-                if(selectedClasses.contains(cell.id)) {
+                
+                if selectedClasses.contains(classTypeDropdownData.titles[indexPath.row]) {
                     cell.checkBoxColoring.backgroundColor = .fitnessYellow
                 }
             }
@@ -656,11 +646,11 @@ extension FilterViewController: UITableViewDelegate {
 
         if tableView == classTypeDropdown {
             if(shouldAppend) {
-                selectedClasses.append(cell.id)
+                selectedClasses.append(cell.titleLabel.text!)
             } else {
                 for i in 0..<selectedClasses.count {
-                    let id = selectedClasses[i]
-                    if(id == cell.id) {
+                    let name = selectedClasses[i]
+                    if name == cell.titleLabel.text! {
                         selectedClasses.remove(at: i)
                         return
                     }
@@ -668,11 +658,11 @@ extension FilterViewController: UITableViewDelegate {
             }
         } else {
             if shouldAppend {
-                selectedInstructors.append(cell.id)
+                selectedInstructors.append(cell.titleLabel.text!)
             } else {
                 for i in 0..<selectedInstructors.count {
-                    let id = selectedInstructors[i]
-                    if(id == cell.id) {
+                    let name = selectedInstructors[i]
+                    if name == cell.titleLabel.text! {
                         selectedInstructors.remove(at: i)
                         return
                     }
@@ -697,8 +687,6 @@ extension FilterViewController: UITableViewDelegate {
                 height = 0
             case .half, .down:
                 height = 32
-            default:
-                height = 0
             }
         } else if tableView == instructorDropdown {
             switch instructorDropdownData.dropStatus! {
@@ -706,8 +694,6 @@ extension FilterViewController: UITableViewDelegate {
                 height = 0
             case .half, .down:
                 height = 32
-            default:
-                height = 0
             }
         }
         return height

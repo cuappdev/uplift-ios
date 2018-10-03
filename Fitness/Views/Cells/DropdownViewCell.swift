@@ -14,7 +14,6 @@ class DropdownViewCell: UITableViewCell {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.dropdownViewCell
     var titleLabel: UILabel!
-    var id: Int!
 
     var checkBox: UIView!
     var checkBoxColoring: UIView!
