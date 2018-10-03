@@ -44,6 +44,28 @@ extension Date {
         
         return dateFormatter.date(from: datetime) ?? Date()
     }
+    
+    static public func getTimeFromString(datetime: String?) -> Date {
+        guard let datetime = datetime else {
+            return Date()
+        }
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        
+        let date = dateFormatter.date(from: datetime) ?? today
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        dateComponents.year = calendar.component(.year, from: today)
+        dateComponents.month = calendar.component(.month, from: today)
+        dateComponents.day = calendar.component(.day, from: today)
+        dateComponents.timeZone = TimeZone.current
+        dateComponents.hour = calendar.component(.hour, from: date)
+        dateComponents.minute = calendar.component(.minute, from: date)
+        
+        return calendar.date(from: dateComponents)!
+    }
 
     // MARK: - DATE
     func getStringDate(date: Date) -> String? {
@@ -70,17 +92,17 @@ extension Date {
 
     // MARK: - DAY OF WEEK
     func getIntegerDayOfWeekToday() -> Int {
-        return Calendar.current.component(.weekday, from: self)-1
+        return Calendar.current.component(.weekday, from: self) - 1
     }
 
     func getIntegerDayOfWeekTomorrow() -> Int {
-        return Calendar.current.component(.weekday, from: self)
+        return Calendar.current.component(.weekday, from: self) % 7
     }
     
     // MARK: - String
     func getStringOfDatetime(format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self) ?? ""
+        return dateFormatter.string(from: self)
     }
 }

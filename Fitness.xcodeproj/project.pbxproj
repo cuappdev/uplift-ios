@@ -26,6 +26,7 @@
 		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
 		8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA478208EC31100E98E6C /* Histogram.swift */; };
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
+		8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */; };
 		8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8D6B2A18215B23DC00807544 /* gymQueries.graphql */; };
 		8D95F44A2087042F0095B8AB /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D95F4492087042F0095B8AB /* Keys.plist */; };
 		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
@@ -89,6 +90,7 @@
 		8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFilterCell.swift; sourceTree = "<group>"; };
 		8D5EA478208EC31100E98E6C /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		8D6B2A18215B23DC00807544 /* gymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		8D95F4492087042F0095B8AB /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */,
 				C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */,
 				C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */,
+				8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				8D95F44A2087042F0095B8AB /* Keys.plist in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
+				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
 				1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */,

@@ -15,7 +15,7 @@ enum APIEnvironment {
 }
 
 struct NetworkManager {
-    internal let apollo = ApolloClient(url: URL(string: "http://localhost:5000/")!)
+    internal let apollo = ApolloClient(url: URL(string: "http://uplift-backend.cornellappdev.com")!)
     static let environment: APIEnvironment = .development
 
     // MARK: - GYMS

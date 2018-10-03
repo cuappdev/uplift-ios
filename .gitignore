@@ -3,6 +3,7 @@ SwiftLintXcode/
 
 # Auto-gen build files
 node_modules/
+Fitness/API.swift
 
 # Secrets
 Secrets/
