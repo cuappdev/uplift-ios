@@ -70,16 +70,24 @@ class HomeController: UIViewController {
         }
 
         // GET TODAY'S CLASSES
-        let date = Date()
-        if let stringDate = date.getStringDate(date: date) {
-            AppDelegate.networkManager.getGymClassInstancesByDate(date: stringDate) { (gymClassInstances) in
-                self.gymClassInstances = gymClassInstances
-                for gymClassInstance in gymClassInstances {
-                    AppDelegate.networkManager.getGym(gymId: gymClassInstance.gymId, completion: { (gym) in
-                        self.gymLocations[gymClassInstance.gymId] = gym.name
-                        self.tableView.reloadData()
-                    })
-                }
+        let stringDate = Date.getNowString()
+        print("TRACE: today: \(stringDate)")
+//        AppDelegate.networkManager.getGymClassInstancesByDate(date: stringDate) { (gymClassInstances) in
+//            self.gymClassInstances = gymClassInstances
+//            for gymClassInstance in gymClassInstances {
+//                AppDelegate.networkManager.getGym(gymId: gymClassInstance.gymId, completion: { (gym) in
+//                    self.gymLocations[gymClassInstance.gymId] = gym.name
+//                    self.tableView.reloadData()
+//                })
+//            }
+//        }
+        AppDelegate.networkManager.getGymClassInstances() { (gymClassInstances) in
+            self.gymClassInstances = gymClassInstances
+            for gymClassInstance in gymClassInstances {
+                AppDelegate.networkManager.getGym(gymId: gymClassInstance.gymId, completion: { (gym) in
+                    //self.gymLocations[gymClassInstance.gymId] = gym.name
+                    //self.tableView.reloadData()
+                })
             }
         }
 

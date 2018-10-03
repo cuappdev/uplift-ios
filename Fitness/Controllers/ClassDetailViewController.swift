@@ -60,17 +60,17 @@ class ClassDetailViewController: UIViewController {
 
         var nextSessionsIds: [Int] = []
 
-        for gymClassId in gymClassInstance.classDescription.gymClasses {
-            AppDelegate.networkManager.getGymClass(gymClassId: gymClassId) { gymClass in
-
-                for instanceId in gymClass.gymClassInstances {
-                    if(!nextSessionsIds.contains(instanceId)) {
-                        nextSessionsIds.append(instanceId)
-                    }
-                }
-                self.getUpcomingInstances(upcomingInstanceIds: nextSessionsIds)
-            }
-        }
+//        for gymClassId in gymClassInstance.classDescription.gymClasses {
+//            AppDelegate.networkManager.getGymClass(gymClassId: gymClassId) { gymClass in
+//
+//                for instanceId in gymClass.gymClassInstances {
+//                    if(!nextSessionsIds.contains(instanceId)) {
+//                        nextSessionsIds.append(instanceId)
+//                    }
+//                }
+//                self.getUpcomingInstances(upcomingInstanceIds: nextSessionsIds)
+//            }
+//        }
 
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -149,7 +149,7 @@ class ClassDetailViewController: UIViewController {
 
         // DESCRIPTION
         descriptionTextView = UITextView()
-        descriptionTextView.text = gymClassInstance.classDescription.description
+        descriptionTextView.text = gymClassInstance?.classDescription?.description ?? ""
         descriptionTextView.font = ._14MontserratLight
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
@@ -207,7 +207,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(semicircleView)
         
         titleLabel = UILabel()
-        titleLabel.text = gymClassInstance.classDescription.name
+        titleLabel.text = gymClassInstance.classDescription?.name
         titleLabel.font = ._48Bebas
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
@@ -221,7 +221,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(locationLabel)
         
         instructorLabel = UILabel()
-        instructorLabel.text = gymClassInstance.instructor.name
+        instructorLabel.text = gymClassInstance.instructor
         instructorLabel.font = ._18Bebas
         instructorLabel.textAlignment = .center
         instructorLabel.textColor = .white
@@ -410,13 +410,13 @@ class ClassDetailViewController: UIViewController {
             if !granted { return }
             
             let event = EKEvent(eventStore: store)
-            event.title = self.gymClassInstance.classDescription.name
+            event.title = self.gymClassInstance.classDescription?.name
             event.startDate = Date.getDateFromTime(time: self.gymClassInstance.startTime)
             event.endDate = event.startDate.addingTimeInterval(TimeInterval(Date.getMinutesFromDuration(duration: self.gymClassInstance.duration)*60))
             event.location = self.location
             event.calendar = store.defaultCalendarForNewEvents
             
-            let alert = UIAlertController(title: "\(self.gymClassInstance.classDescription.name) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
+            let alert = UIAlertController(title: "\(self.gymClassInstance.classDescription?.name) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
             self.present(alert, animated: true, completion: nil)
             

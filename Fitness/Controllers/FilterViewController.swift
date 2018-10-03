@@ -149,8 +149,11 @@ class FilterViewController: UIViewController {
         instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getInstructors { (instructors) in
-            
-            self.instructorDropdownData.titles.append(contentsOf: instructors)
+            for instructor in instructors {
+                // self.instructorDropdownData.titles.append(instructor.name)
+                // self.instructorDropdownData.ids.append(instructor.id)
+                self.instructorDropdownData.titles.append(instructor)
+            }
 
             self.instructorDropdownData.completed = true
             self.instructorDropdown.reloadData()

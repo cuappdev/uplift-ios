@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0CA1047D2155C0AC00201D10 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA1047C2155C0AC00201D10 /* API.swift */; };
+		1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */; };
+		1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740E21617680000AEDF0 /* intructorQueries.graphql */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
 		65E914EB207C697800A72101 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E914EA207C697800A72101 /* Keys.swift */; };
@@ -42,7 +44,6 @@
 		C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71E8A032091726600542FA3 /* Date+Shared.swift */; };
 		C73637282082F170004751F5 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637272082F170004751F5 /* Gym.swift */; };
 		C736372A2082F193004751F5 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637292082F193004751F5 /* GymClass.swift */; };
-		C736372C2082F19C004751F5 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C736372B2082F19C004751F5 /* Instructor.swift */; };
 		C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C0E208D23E0006F3249 /* GymClassInstance.swift */; };
 		C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7434C10208D27C1006F3249 /* GymClassDescription.swift */; };
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
@@ -68,6 +69,8 @@
 
 /* Begin PBXFileReference section */
 		0CA1047C2155C0AC00201D10 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = Fitness/API.swift; sourceTree = "<group>"; };
+		1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymClassInstanceQueries.graphql; sourceTree = "<group>"; };
+		1C46740E21617680000AEDF0 /* intructorQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = intructorQueries.graphql; sourceTree = "<group>"; };
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		3734B4297C424A77DA3AF7D6 /* Pods_Fitness.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +108,6 @@
 		C71E8A032091726600542FA3 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
 		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
-		C736372B2082F19C004751F5 /* Instructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
 		C7434C0E208D23E0006F3249 /* GymClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassInstance.swift; sourceTree = "<group>"; };
 		C7434C10208D27C1006F3249 /* GymClassDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDescription.swift; sourceTree = "<group>"; };
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
@@ -190,7 +192,6 @@
 				C73637292082F193004751F5 /* GymClass.swift */,
 				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
 				C7434C10208D27C1006F3249 /* GymClassDescription.swift */,
-				C736372B2082F19C004751F5 /* Instructor.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 			);
 			path = Models;
@@ -324,8 +325,10 @@
 		D94BD3062159DA7D00C9214E /* graphql */ = {
 			isa = PBXGroup;
 			children = (
+				1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */,
 				D94BD3072159DA9200C9214E /* classQueries.graphql */,
 				8D6B2A18215B23DC00807544 /* gymQueries.graphql */,
+				1C46740E21617680000AEDF0 /* intructorQueries.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */,
 				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
@@ -414,6 +418,7 @@
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
+				1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */,
 				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
 				1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */,
@@ -521,7 +526,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
-				C736372C2082F19C004751F5 /* Instructor.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,

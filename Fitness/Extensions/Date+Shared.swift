@@ -9,7 +9,23 @@
 import Foundation
 
 extension Date {
-
+    static public func getNowString() -> String {
+        let date = Date()
+        let calender = Calendar.current
+        let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+        
+        let year = components.year
+        let month = components.month
+        let day = components.day
+        let hour = components.hour
+        let minute = components.minute
+        let second = components.second
+        
+        let today_string = String(year!) + "-" + String(month!) + "-" + String(day!) + "T" + String(hour!)  + ":" + String(minute!) + ":" +  String(second!)
+        
+        return today_string
+    }
+    
     // MARK: - TIME OF DAY
     static public func getDateFromTime(time: String) -> Date {
         let index = time.index(of: ":")

@@ -18,6 +18,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
     var gymClassInstances: [GymClassInstance] = [] {
         didSet {
             gymClassInstances = gymClassInstances.filter {
+                
                 Date() < Date.getDateFromTime(time: $0.startTime)
             }
             gymClassInstances.sort {
@@ -72,13 +73,13 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassesCell.identifier, for: indexPath) as! ClassesCell
         let classInstance = gymClassInstances[indexPath.row]
 
-        Alamofire.request(classInstance.classDescription.imageURL!).responseImage { response in
+        Alamofire.request(classInstance.imageURL).responseImage { response in
             if let image = response.result.value {
                 cell.image.image = image
             }
         }
 
-        cell.locationName.text = gymLocations[classInstance.gymId]
+        cell.locationName.text = "LOCATION"
 
         //HOURS
         var time = Date.getDateFromTime(time: classInstance.startTime)
@@ -94,7 +95,7 @@ class TodaysClassesCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UI
 
         cell.hours.text = classInstance.startTime + " - " + endTime
         cell.duration = durationMinutes
-        cell.className.text = classInstance.classDescription.name
+        cell.className.text = classInstance.classDescription?.name
         return cell
     }
 
