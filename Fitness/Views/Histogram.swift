@@ -13,6 +13,7 @@
 import UIKit
 import SnapKit
 
+
 class Histogram: UIView {
 
     // MARK: - INITIALIZATION
@@ -23,8 +24,11 @@ class Histogram: UIView {
     var selectedIndex: Int!
     var selectedLine: UIView!
     var selectedTime: UILabel!
+    
     var selectedTimeDescriptor: UILabel!
     let timeDescriptors = ["Usually not too busy", "Usually a little busy", "Usually as busy as it gets"]
+    let mediumThreshold = 43
+    let highThreshold = 85
 
     var openHour: Int!
 
@@ -91,9 +95,9 @@ class Histogram: UIView {
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
         selectedTimeDescriptor.textAlignment = .left
-        if data[selectedIndex + openHour - 1] < 43 {
+        if data[selectedIndex + openHour - 1] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if data[selectedIndex + openHour - 1] < 85 {
+        } else if data[selectedIndex + openHour - 1] < highThreshold {
             selectedTimeDescriptor.text = timeDescriptors[1]
         } else {
             selectedTimeDescriptor.text = timeDescriptors[2]
@@ -200,9 +204,9 @@ class Histogram: UIView {
         }
         
         //update selectedTime and the descriptor
-        if data[selectedIndex + openHour - 1] < 43 {
+        if data[selectedIndex + openHour - 1] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if data[selectedIndex + openHour - 1] < 85 {
+        } else if data[selectedIndex + openHour - 1] < highThreshold {
             selectedTimeDescriptor.text = timeDescriptors[1]
         } else {
             selectedTimeDescriptor.text = timeDescriptors[2]
