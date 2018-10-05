@@ -54,9 +54,7 @@ struct NetworkManager {
     }
 
     func getGymClassesForDate(date: String, completion: @escaping ([GymClassInstance]) -> Void) {
-        //TODO: - Remove when Kenneth fixes backend
-        let date2 = "2018-10-05"
-        apollo.fetch(query: TodaysClassesQuery(date: date2)) { result, error in
+        apollo.fetch(query: TodaysClassesQuery(date: date)) { result, error in
             guard let data = result?.data, let classes = data.classes else { return }
             var gymClassInstances: [GymClassInstance] = []
             for gymClassData in classes {
