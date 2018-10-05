@@ -10,7 +10,7 @@ import SnapKit
 import Alamofire
 import AlamofireImage
 
-class TodaysClassesCell: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class TodaysClassesCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.todaysClassesCell
@@ -18,11 +18,10 @@ class TodaysClassesCell: UICollectionViewCell, UICollectionViewDelegateFlowLayou
     var gymClassInstances: [GymClassInstance] = [] {
         didSet {
             gymClassInstances = gymClassInstances.filter {
-                
-                Date() < Date.getDateFromTime(time: $0.startTime)
+                Date() < $0.startTime
             }
             gymClassInstances.sort {
-                Date.getDateFromTime(time: $0.startTime) < Date.getDateFromTime(time: $1.startTime)
+                $0.startTime < $1.startTime
             }
 
             collectionView.reloadData()
@@ -48,13 +47,12 @@ class TodaysClassesCell: UICollectionViewCell, UICollectionViewDelegateFlowLayou
         layout.itemSize = CGSize(width: 228.0, height: 195.0)
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
 
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
 
         collectionView.register(ClassesCell.self, forCellWithReuseIdentifier: ClassesCell.identifier)
+        collectionView.register(ClassesCell.self, forCellWithReuseIdentifier: ClassesCell.cancelledIdentifier)
 
         contentView.addSubview(collectionView)
 
@@ -67,71 +65,4 @@ class TodaysClassesCell: UICollectionViewCell, UICollectionViewDelegateFlowLayou
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - COLLECTION VIEW
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassesCell.identifier, for: indexPath) as! ClassesCell
-        let classInstance = gymClassInstances[indexPath.row]
-
-        Alamofire.request(classInstance.imageURL).responseImage { response in
-            if let image = response.result.value {
-                cell.image.image = image
-            }
-        }
-
-        cell.locationName.text = "LOCATION"
-
-        //HOURS
-        var time = Date.getDateFromTime(time: classInstance.startTime)
-        var calendar = Calendar.current
-        calendar.timeZone = TimeZone(abbreviation: "EDT")!
-
-        let dateFormatter = DateFormatter()
-        let durationMinutes = Date.getMinutesFromDuration(duration: classInstance.duration)
-
-        time = calendar.date(byAdding: .minute, value: durationMinutes, to: time)!
-        dateFormatter.dateFormat = "h:mm a"
-        let endTime = dateFormatter.string(from: time)
-
-        cell.hours.text = classInstance.startTime + " - " + endTime
-        cell.duration = durationMinutes
-        cell.className.text = classInstance.classDescription?.name
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let classDetailViewController = ClassDetailViewController()
-        let cell = collectionView.cellForItem(at: indexPath) as! ClassesCell
-
-        classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
-        classDetailViewController.durationLabel.text = String(cell.duration) + " MIN"
-        classDetailViewController.locationLabel.text = cell.locationName.text
-        classDetailViewController.location = cell.locationName.text
-        classDetailViewController.classImageView.image = cell.image.image
-
-        //DATE
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let day = Date()
-
-        dateFormatter.dateFormat = "EEEE"
-        var dateLabel = dateFormatter.string(from: day)
-        dateFormatter.dateFormat = "MMMM"
-        dateLabel += ", " + dateFormatter.string(from: day)
-        dateFormatter.dateFormat = "d"
-        dateLabel += " " + dateFormatter.string(from: day)
-        classDetailViewController.dateLabel.text = dateLabel
-
-        //TIME
-        classDetailViewController.timeLabel.text = cell.hours.text
-
-        navigationController!.pushViewController(classDetailViewController, animated: true)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gymClassInstances.count > 5 ? 5 : gymClassInstances.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 228, height: 195)
-    }
 }

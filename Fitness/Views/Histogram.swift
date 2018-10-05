@@ -69,7 +69,9 @@ class Histogram: UIView {
         //TIME
         let currentHour = Calendar.current.component(.hour, from: Date())
         selectedIndex = currentHour - openHour
-        bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
+        if selectedIndex < bars.count {
+            bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
+        }
 
         //SELECTED INFO
         selectedLine = UIView()
@@ -163,11 +165,14 @@ class Histogram: UIView {
     }
 
     func setupSelectedConstraints() {
-        selectedLine.snp.remakeConstraints {make in
-            make.centerX.equalTo(bars[selectedIndex].snp.centerX)
-            make.bottom.equalTo(bars[selectedIndex].snp.top)
-            make.width.equalTo(2)
-            make.top.equalToSuperview().offset(26)
+
+        if selectedIndex < bars.count {
+            selectedLine.snp.remakeConstraints {make in
+                make.centerX.equalTo(bars[selectedIndex].snp.centerX)
+                make.bottom.equalTo(bars[selectedIndex].snp.top)
+                make.width.equalTo(2)
+                make.top.equalToSuperview().offset(26)
+            }
         }
 
         selectedTimeDescriptor.snp.remakeConstraints {make in
@@ -191,15 +196,16 @@ class Histogram: UIView {
     }
 
     @objc func selectBar( sender: UITapGestureRecognizer) {
-        bars[selectedIndex].backgroundColor = .fitnessYellow
+        if selectedIndex < bars.count {
+            bars[selectedIndex].backgroundColor = .fitnessYellow
+        }
         let selectedBar = sender.view!
         selectedBar.backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
 
-        for i in 0..<bars.count {
-            if selectedBar == bars[i] {
-                selectedIndex = i
-                break
-            }
+        let indexSelected = bars.firstIndex(of: selectedBar)
+
+        if let indexSelected = indexSelected {
+            selectedIndex = indexSelected
         }
 
         //update selectedTime and the descriptor

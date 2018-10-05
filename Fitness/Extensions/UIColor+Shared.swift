@@ -16,6 +16,7 @@ extension UIColor {
     @nonobjc static let fitnessDarkGrey = UIColor(red: 112/255, green: 112/255, blue: 112/255, alpha: 1.0)
     @nonobjc static let fitnessMediumGrey = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
     @nonobjc static let fitnessLightGrey = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1.0)
+    @nonobjc static let fitnessDisabledGrey = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
 
     @nonobjc static let fitnessYellow = UIColor(red: 248/255, green: 231/255, blue: 28/255, alpha: 1.0)
     @nonobjc static let fitnessGreen = UIColor(red: 100/255, green: 194/255, blue: 112/255, alpha: 1.0)

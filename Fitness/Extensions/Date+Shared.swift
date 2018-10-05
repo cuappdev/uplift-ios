@@ -11,21 +11,12 @@ import Foundation
 extension Date {
     static public func getNowString() -> String {
         let date = Date()
-        let calender = Calendar.current
-        let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
-        
-        let year = components.year
-        let month = components.month
-        let day = components.day
-        let hour = components.hour
-        let minute = components.minute
-        let second = components.second
-        
-        let today_string = String(year!) + "-" + String(month!) + "-" + String(day!) + "T" + String(hour!)  + ":" + String(minute!) + ":" +  String(second!)
-        
-        return today_string
+        let dateFormatter = DateFormatter()
+        //2018-10-04T07:00:00
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
     }
-    
+
     // MARK: - TIME OF DAY
     static public func getDateFromTime(time: String) -> Date {
         let index = time.index(of: ":")
@@ -51,12 +42,20 @@ extension Date {
         return calendar.date(from: dateComponents)!
     }
 
+    static public func convertTimeStringToDate(time: String) -> Date {
+        let currDate = Date()
+        let timeSections = time.split(separator: ":")
+        let date = Calendar.current.date(bySettingHour: Int(timeSections[0]) ?? 0, minute: Int(timeSections[1]) ?? 0, second: Int(timeSections[2]) ?? 0, of: currDate)
+        return date ?? currDate
+    }
+
     static public func getDatetimeFromString(datetime: String?) -> Date {
         guard let datetime = datetime else {
             return Date()
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        //2018-10-04T07:00:00
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
 
         return dateFormatter.date(from: datetime) ?? Date()
     }
@@ -84,11 +83,10 @@ extension Date {
     }
 
     // MARK: - DATE
-    func getStringDate(date: Date) -> String? {
+    static func getStringDate(date: Date) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        let newDate: String = dateFormatter.string(from: date)
-        return newDate
+        return dateFormatter.string(from: date)
     }
 
     // MARK: - MINUTES
@@ -100,7 +98,7 @@ extension Date {
         } else {
             let hours = durationMinutes.substring(to: String.Index(encodedOffset: durationMinutes.count-3))
             durationMinutes = durationMinutes.substring(from: String.Index(encodedOffset: 2))
-            durationMinutes = String( Int(hours)!*60 + Int(durationMinutes)!)
+            durationMinutes = String( Int(hours)!*60 + (Int(durationMinutes) ?? 0))
         }
 
         return Int(durationMinutes)!

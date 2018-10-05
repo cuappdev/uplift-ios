@@ -4,6 +4,7 @@ query AllGyms
         gyms {
             name
             id
+            imageUrl
             description
             popular
             times {

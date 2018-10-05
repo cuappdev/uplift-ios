@@ -36,16 +36,16 @@ class HomeScreenHeaderView: UIView {
     }
 
     func setName(name: String) {
-        welcomeMessage.text = getGreeting() + name + "!"
+        welcomeMessage.text = getGreeting() + "!"
     }
 
     private func getGreeting() -> String {
         let currDate = Date()
         let hour = Calendar.current.component(.hour, from: currDate)
 
-        if hour < 12 { return " Good Morning, " }
-        if hour < 17 { return "Good Afternoon, "}
-        return "Good Evening, "
+        if hour < 12 { return " Good Morning" }
+        if hour < 17 { return "Good Afternoon"}
+        return "Good Evening"
     }
 
     // MARK: - LAYOUT

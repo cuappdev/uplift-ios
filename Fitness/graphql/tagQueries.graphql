@@ -3,13 +3,7 @@ query GetTags {
         details {
             tags {
                 label
-                url
-                color {
-                    red
-                    blue
-                    green
-                    alpha
-                }
+                imageUrl
             }
         }
     }

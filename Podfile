@@ -12,4 +12,6 @@ target 'Fitness' do
   pod 'SwiftLint'
   pod 'WARangeSlider'
   pod 'Apollo'
+  pod 'Bartinter'
+  pod 'Kingfisher', '~> 4.0'
 end
