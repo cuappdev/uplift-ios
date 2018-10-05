@@ -13,6 +13,9 @@ PODS:
   - Moya/Core (11.0.2):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
+  - Pages (2.0.2)
+  - Presentation (4.1.2):
+    - Pages (~> 2.0)
   - Result (3.2.4)
   - SnapKit (4.0.1)
   - SwiftLint (0.27.0)
@@ -24,6 +27,7 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - Moya
+  - Presentation
   - SnapKit
   - SwiftLint
   - WARangeSlider
@@ -36,6 +40,8 @@ SPEC REPOS:
     - Crashlytics
     - Fabric
     - Moya
+    - Pages
+    - Presentation
     - Result
     - SnapKit
     - SwiftLint
@@ -48,11 +54,13 @@ SPEC CHECKSUMS:
   Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
   Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
   Moya: a725035953bc1c0eb1be505ab903984501d82440
+  Pages: 5564ac6035c48fef7a837049314f57507d263b11
+  Presentation: 84974970fa451c89147d2bed4d5d50f857e71761
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
   WARangeSlider: 54b3e0853b8d16c444fd539005901aecee86837d
 
-PODFILE CHECKSUM: 9bee8777812d7e780b092990d4bc7e4e95fc0f06
+PODFILE CHECKSUM: 3ef5ac6e55d225b7484c1cbd87e90ef06ff284d7
 
 COCOAPODS: 1.5.3

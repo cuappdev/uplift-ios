@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Presentation
 
 class OnboardingViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
@@ -33,6 +34,7 @@ class OnboardingViewController: UIViewController, UICollectionViewDelegateFlowLa
         collectionView.isPagingEnabled = true
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: onboardingCell)
         view.addSubview(collectionView)
         

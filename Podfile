@@ -12,4 +12,5 @@ target 'Fitness' do
   pod 'SwiftLint'
   pod 'WARangeSlider'
   pod 'Apollo'
+  pod 'Presentation'
 end
