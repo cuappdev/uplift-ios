@@ -43,151 +43,92 @@ struct NetworkManager {
                     continue
                 }
 
-                gyms.append(GymNameId(name: gym.name ?? "", id: gym.id ?? "") )
+                gyms.append(GymNameId(name: gym.name, id: gym.id))
             }
 
             completion(gyms)
         }
     }
 
-    func getGym(gymId: Int, completion: @escaping (Gym) -> Void) {
-//        provider.request(.gym(gymId: gymId)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymData = try JSONDecoder().decode(GymRootData.self, from: response.data)
-//                    let gym = gymData.data
-//                    completion(gym)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+    func getGym(gymId: String, completion: @escaping (Gym) -> Void) {
+    }
+
+    func getGymClassesForDate(date: String, completion: @escaping ([GymClassInstance]) -> Void) {
+        //TODO: - Remove when Kenneth fixes backend
+        let date2 = "2018-10-05"
+        apollo.fetch(query: TodaysClassesQuery(date: date2)) { result, error in
+            guard let data = result?.data, let classes = data.classes else { return }
+            var gymClassInstances: [GymClassInstance] = []
+            for gymClassData in classes {
+                guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
+                let instructor = gymClassData.instructor
+                let startTime = gymClassData.startTime ?? "12:00:00"
+                let endTime = gymClassData.endTime ?? "12:00:00"
+                let isCancelled = gymClassData.isCancelled
+                let gymId = gymClassData.gymId ?? ""
+                let location = gymClassData.location
+                let classDescription = gymClassData.details.description
+                let className = gymClassData.details.name
+                let start = Date.convertTimeStringToDate(time: startTime)
+                let end = Date.convertTimeStringToDate(time: endTime)
+                let graphTags = gymClassData.details.tags.compactMap { $0 }
+                let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
+
+                let gymClass = GymClassInstance(classDescription: classDescription, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
+
+                gymClassInstances.append(gymClass)
+            }
+            completion(gymClassInstances)
+        }
     }
 
     // MARK: - GYM CLASS INSTANCES
     func getGymClassInstances(completion: @escaping ([GymClassInstance]) -> Void) {
-//        provider.request(.gymClassInstances) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
-//                    let gymClassInstances = gymClassInstancesData.data
-//                    completion(gymClassInstances)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+        apollo.fetch(query: AllClassesInstancesQuery()) { result, error in
+            guard let data = result?.data, let classes = data.classes else { return }
+            var gymClassInstances: [GymClassInstance] = []
+            for gymClassData in classes {
+                guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
+                let instructor = gymClassData.instructor
+                let startTime = gymClassData.startTime ?? ""
+                let endTime = gymClassData.endTime ?? ""
+                let isCancelled = gymClassData.isCancelled
+                let gymId = gymClassData.gymId ?? ""
+                let location = gymClassData.gym?.name ?? ""
+                let classDescription = gymClassData.details.description
+                let className = gymClassData.details.name
+                let start = Date.getDatetimeFromString(datetime: startTime)
+                let end = Date.getDatetimeFromString(datetime: endTime)
+                let graphTags = gymClassData.details.tags.compactMap { $0 }
+                let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
+
+                let gymClass = GymClassInstance(classDescription: classDescription, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
+
+                gymClassInstances.append(gymClass)
+            }
+            completion(gymClassInstances)
+        }
+
     }
 
     func getGymClassInstance(gymClassInstanceId: Int, completion: @escaping (GymClassInstance) -> Void) {
-//        provider.request(.gymClassInstance(gymClassInstanceId: gymClassInstanceId)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassInstanceData = try JSONDecoder().decode(GymClassInstanceRootData.self, from: response.data)
-//                    let gymClassInstance = gymClassInstanceData.data
-//                    completion(gymClassInstance)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
-    }
 
-    func getGymClassInstancesByDate(date: String, completion: @escaping ([GymClassInstance]) -> Void) {
-//        provider.request(.gymClassInstancesByDate(date: date)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
-//                    let gymClassInstances = gymClassInstancesData.data
-//                    completion(gymClassInstances)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
     }
 
     func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [String], gymIDs: [String], classNames: [String], completion: @escaping ([GymClassInstance]) -> Void) {
-//        provider.request(.gymClassInstancesSearch(startTime: startTime, endTime: endTime, instructorIDs: instructorIDs, gymIDs: gymIDs, classDescriptionIDs: classDescriptionIDs)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassInstancesData = try JSONDecoder().decode(GymClassInstancesRootData.self, from: response.data)
-//                    let gymClassInstances = gymClassInstancesData.data
-//
-//                    completion(gymClassInstances)
-//
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+
     }
 
     // MARK: - GYM CLASS DESCRIPTIONS
     func getGymClassDescriptions(completion: @escaping ([GymClassDescription]) -> Void) {
-//        provider.request(.gymClassDescriptions) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassDescriptionsData = try JSONDecoder().decode(GymClassDescriptionsRootData.self, from: response.data)
-//                    let gymClassDescriptions = gymClassDescriptionsData.data
-//                    completion(gymClassDescriptions)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
     }
 
     func getGymClassDescription(gymClassDescriptionId: Int, completion: @escaping (GymClassDescription) -> Void) {
-//        provider.request(.gymClassDescription(gymClassDescriptionId: gymClassDescriptionId)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassDescriptionData = try JSONDecoder().decode(GymClassDescriptionRootData.self, from: response.data)
-//                    let gymClassDescription = gymClassDescriptionData.data
-//                    completion(gymClassDescription)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+
     }
 
     func getGymClassDescriptionsByTag(tag: Int, completion: @escaping ([GymClassDescription]) -> Void) {
-//        provider.request(.gymClassDescriptionsByTag(tag: tag)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassDescriptionsData = try JSONDecoder().decode(GymClassDescriptionsRootData.self, from: response.data)
-//                    let gymClassDescriptions = gymClassDescriptionsData.data
-//                    completion(gymClassDescriptions)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+
     }
 
     // MARK: - TAGS
@@ -195,39 +136,36 @@ struct NetworkManager {
         apollo.fetch(query: GetTagsQuery()) { (results, error) in
             guard let data = results?.data, let classes = data.classes else { return }
             let allClasses = classes.compactMap { $0 }
-            
-            let tags = allClasses.map { gymClass in
-                let details = gymClass.details
-        
+
+            var allTags: [Tag] = []
+            for currClass in allClasses {
+                let currTags = currClass.details.tags.compactMap { $0 }
+
+                currTags.forEach { tag in
+                    let currTag = Tag(name: tag.label, imageURL: tag.imageUrl)
+                    if !allTags.contains(currTag) {
+                        allTags.append(currTag)
+                    }
+                }
             }
+            completion(allTags)
         }
-            
+
     }
 
     // MARK: - GYM CLASSES
     func getGymClasses(completion: @escaping ([GymClass]) -> Void) {
-//        provider.request(.gymClasses) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassesData = try JSONDecoder().decode(GymClassesRootData.self, from: response.data)
-//                    let gymClasses = gymClassesData.data
-//                    completion(gymClasses)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
     }
 
     func getClassNames(completion: @escaping (Set<String>) -> Void) {
         apollo.fetch(query: AllClassNamesQuery()) { (result, error) in
             var classNames: Set<String> = []
+            guard let gymClasses = result?.data?.classes else { return }
 
-            for gymClass in result?.data?.classes ?? [] {
-                classNames.insert(gymClass?.details?.name ?? "")
+            let allGymClasses = gymClasses.compactMap { $0 }
+
+            for gymClass in allGymClasses {
+                classNames.insert(gymClass.details.name)
             }
 
             completion(classNames)
@@ -235,49 +173,20 @@ struct NetworkManager {
     }
 
     func getGymClass(gymClassId: Int, completion: @escaping (GymClass) -> Void) {
-//        provider.request(.gymClass(gymClassId: gymClassId)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let gymClassData = try JSONDecoder().decode(GymClassRootData.self, from: response.data)
-//                    let gymClass = gymClassData.data
-//                    completion(gymClass)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
     }
 
     // MARK: - INSTRUCTORS
-    func getInstructors(completion: @escaping (Set<String>) -> Void) {
-        apollo.fetch(query: AllIntructorsQuery()) { (result, error) in
-            var instructors: Set<String> = []
+    func getInstructors(completion: @escaping ([String]) -> Void) {
+        apollo.fetch(query: GetInstructorsQuery()) { result, error in
+            guard let data = result?.data else { return }
 
-            for gymClass in result?.data?.classes ?? [] {
-                instructors.insert(gymClass?.instructor ?? "")
+            var instructors: Set<String> = Set() // so as to return DISTINCT instructors
+            for gymClass in data.classes ?? [] {
+                if let instructor = gymClass?.instructor {
+                    instructors.insert(instructor)
+                }
             }
-
-            completion(instructors)
+            completion(Array(instructors))
         }
-    }
-
-    func getInstructor(instructorId: Int, completion: @escaping (Instructor) -> Void) {
-//        provider.request(.instructor(instructorId: instructorId)) { result in
-//            switch result {
-//            case let .success(response):
-//                do {
-//                    let instructorData = try JSONDecoder().decode(InstructorRootData.self, from: response.data)
-//                    let instructor = instructorData.data
-//                    completion(instructor)
-//                } catch let err {
-//                    print(err)
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
     }
 }

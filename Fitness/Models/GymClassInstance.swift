@@ -8,77 +8,35 @@
 import Foundation
 
 struct GymClassInstance {
-    let gymClassInstanceId: Int
-    let classDescription: GymClassDescription
-    let instructor: Instructor
+    // let gymClassInstanceId: Int
+    let classDescription: AllClassesInstancesQuery.Data.Class.Detail?
+    let instructor: String
     let startTime: String
-    let gymId: Int
+    let gymId: String
     let duration: String
-    // TODO : add location (i.e. "Teagle multipurpose room") attribute
-}
-
-struct GymClassInstancesRootData: Decodable {
-    var data: [GymClassInstance]
-    var success: Bool
-}
-
-struct GymClassInstanceRootData: Decodable {
-    var data: GymClassInstance
-    var success: Bool
-}
-
-extension GymClassInstance: Decodable {
-
-    enum Key: String, CodingKey {
-        case classDescription = "class_desc"
-        case duration
-        case id
-        case gymId = "gym_id"
-        case instructor
-        case startTime = "start_time"
-    }
-
-    enum ClassDescriptionKey: String, CodingKey {
-        case id
-        case description
-        case name
-        case tags = "class_tags"
-        case gymClasses = "gym_classes"
-        case imageURL = "image_url"
-    }
-
-    enum InstructorKey: String, CodingKey {
-        case id
-        case name
-        case gymClasses = "gym_classes"
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: Key.self)
-
-        let classDescriptionContainer = try container.nestedContainer(keyedBy: ClassDescriptionKey.self, forKey: .classDescription)
-        let classDescriptionId = try classDescriptionContainer.decode(Int.self, forKey: .id)
-        let classDescriptionDescription = try classDescriptionContainer.decodeIfPresent(String.self, forKey: .description) ?? ""
-        let classDescriptionName = try classDescriptionContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
-        let classDescriptionTags = try classDescriptionContainer.decodeIfPresent([Int].self, forKey: .tags) ?? []
-        let classDescriptionGymClasses = try classDescriptionContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
-        let classDescriptionImageURL = try classDescriptionContainer.decodeIfPresent(String.self, forKey: .imageURL) ?? ""
-
-        classDescription = GymClassDescription(id: classDescriptionId, description: classDescriptionDescription, name: classDescriptionName,
-                                               tags: classDescriptionTags, gymClasses: classDescriptionGymClasses, imageURL: classDescriptionImageURL)
-
-        duration = try container.decodeIfPresent(String.self, forKey: .duration) ?? ""
-
-        gymClassInstanceId = try container.decode(Int.self, forKey: .id)
-
-        let instructorContainer = try container.nestedContainer(keyedBy: InstructorKey.self, forKey: .instructor)
-        let instructorGymClasses = try instructorContainer.decodeIfPresent([Int].self, forKey: .gymClasses) ?? []
-        let instructorId = try instructorContainer.decode(Int.self, forKey: .id)
-        let instructorName = try instructorContainer.decodeIfPresent(String.self, forKey: .name) ?? ""
-        instructor = Instructor(id: instructorId, name: instructorName, gymClassDescriptions: [], gymClasses: instructorGymClasses)
-
-        gymId = try container.decodeIfPresent(Int.self, forKey: .gymId) ?? -1
-
-        startTime = try container.decodeIfPresent(String.self, forKey: .startTime) ?? ""
+    let location: String
+    let imageURL: String
+    let isCancelled: Bool
+    
+    init?(gymClassData: AllClassesInstancesQuery.Data.Class) {
+        guard let classDescription = gymClassData.details, let instructor = gymClassData.instructor, let gymId = gymClassData.gymId,
+            let location = gymClassData.gym?.name, let endTime = gymClassData.endTime, let isCancelled = gymClassData.isCancelled,
+            let startTime = gymClassData.startTime else { return nil }
+        self.classDescription = classDescription
+        self.instructor = instructor
+        self.startTime = startTime
+        self.gymId = gymId
+        self.location = location
+        self.isCancelled = isCancelled
+        
+        if let className  = classDescription.name {
+            imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/fitness/gyms/\(String(describing: className.replacingOccurrences(of: " ", with: "_"))).jpg"
+        } else {
+            imageURL = ""
+        }
+        
+        let start = Date.getDatetimeFromString(datetime: startTime)
+        let end = Date.getDatetimeFromString(datetime: endTime)
+        duration = String(end.timeIntervalSince(start))
     }
 }

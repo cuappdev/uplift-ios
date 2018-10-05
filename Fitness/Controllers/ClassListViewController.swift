@@ -96,7 +96,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
                 self.locations = [:] // temp, will be included in a GymClassInstance soon
             }
         } else {
-            AppDelegate.networkManager.getGymClassInstancesByDate(date: selectedDate) { (gymClassInstances) in
+            NetworkManager.shared.getGymClassesForDate(date: selectedDate) { (gymClassInstances) in
                 self.allGymClassInstances = gymClassInstances
                 self.validGymClassInstances = self.getValidGymClassInstances()
 
@@ -123,15 +123,14 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
 
         if let gymClassInstance = validGymClassInstances?[indexPath.row] {
 
-            cell.classLabel.text = gymClassInstance.classDescription.name
-            cell.timeLabel.text = gymClassInstance.startTime
+            cell.classLabel.text = gymClassInstance.className
+            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
             cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-            cell.instructorLabel.text = gymClassInstance.instructor.name
+            cell.instructorLabel.text = gymClassInstance.instructor
 
-            cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
-            cell.durationLabel.text = String(cell.duration) + " min"
-
-            cell.locationLabel.text = locations[gymClassInstance.gymClassInstanceId]
+            cell.duration = Int(gymClassInstance.duration) / 60 //Gets minutes
+            cell.durationLabel.text = "\(String(describing: cell.duration)) min"
+            cell.locationLabel.text = gymClassInstance.location
         }
 
         return cell
@@ -160,7 +159,7 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         classDetailViewController.durationLabel.text = cell.durationLabel.text?.uppercased()
         classDetailViewController.locationLabel.text = cell.locationLabel.text
 
-        Alamofire.request(allGymClassInstances![indexPath.row].classDescription.imageURL!).responseImage { response in
+        Alamofire.request(allGymClassInstances![indexPath.row].imageURL).responseImage { response in
             if let image = response.result.value {
                 classDetailViewController.classImageView.image = image
             }
@@ -180,15 +179,11 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         classDetailViewController.dateLabel.text = dateLabel
 
         //TIME
-        var time = Date.getDateFromTime(time: classDetailViewController.gymClassInstance.startTime)
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "EDT")!
-
-        time = calendar.date(byAdding: .minute, value: cell.duration, to: time)!
+        let classInstance = classDetailViewController.gymClassInstance!
         dateFormatter.dateFormat = "h:mm a"
-        let endTime = dateFormatter.string(from: time)
-
-        classDetailViewController.timeLabel.text = classDetailViewController.gymClassInstance.startTime + " - " + endTime
+        classDetailViewController.timeLabel.text = dateFormatter.string(from: classInstance.startTime) + " - " + dateFormatter.string(from: classInstance.endTime)
 
         navigationController!.pushViewController(classDetailViewController, animated: true)
     }
@@ -214,7 +209,8 @@ class ClassListViewController: UITableViewController, UISearchBarDelegate {
         }
 
         for gymClassInstance in allGymClassInstances! {
-            if gymClassInstance.classDescription.name.contains(filterText) {
+            let className = gymClassInstance.className
+            if className.contains(filterText) {
                 validInstances.append(gymClassInstance)
             }
         }

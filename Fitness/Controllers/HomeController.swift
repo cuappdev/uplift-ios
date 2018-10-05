@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Alamofire
 import AlamofireImage
+import Kingfisher
 
 enum SectionType: String {
     case allGyms = "ALL GYMS"
@@ -31,6 +32,7 @@ class HomeController: UIViewController {
     var gymLocations: [Int: String] = [:]
     var tags: [Tag] = []
     var didSetupHeaderShadow = false
+    var didRegisterCategoryCell = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +59,7 @@ class HomeController: UIViewController {
         mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
-        mainCollectionView.register(LookingForCell.self, forCellWithReuseIdentifier: LookingForCell.identifier)
+        mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
 
         sections.insert(.allGyms, at: 0)
         sections.insert(.todaysClasses, at: 1)
@@ -83,17 +85,13 @@ class HomeController: UIViewController {
         }
 
         // GET TODAY'S CLASSES
-        let date = Date()
-        if let stringDate = date.getStringDate(date: date) {
-            AppDelegate.networkManager.getGymClassInstancesByDate(date: stringDate) { (gymClassInstances) in
-                self.gymClassInstances = gymClassInstances
-                for gymClassInstance in gymClassInstances {
-                    AppDelegate.networkManager.getGym(gymId: gymClassInstance.gymId, completion: { (gym) in
-                        self.gymLocations[gymClassInstance.gymId] = gym.name
-                        self.mainCollectionView.reloadSections(IndexSet(integer: 1))
-                    })
-                }
-            }
+
+        let stringDate = Date.getNowString()
+        print("TRACE: today: \(stringDate)")
+
+        NetworkManager.shared.getGymClassesForDate(date: stringDate) { (gymClassInstances) in
+            self.gymClassInstances = gymClassInstances
+            self.mainCollectionView.reloadSections(IndexSet(integer: 1))
         }
 
         // GET TAGS
@@ -101,16 +99,6 @@ class HomeController: UIViewController {
             self.tags = tags
             self.mainCollectionView.reloadSections(IndexSet(integer: 2))
         }
-    }
-
-    // MARK: - ViewDidLoad
-    override func viewDidAppear(_ animated: Bool) {
-//
-//        let allGymsCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .allGyms)!) ) as! AllGymsCell
-//        allGymsCell.gyms = {allGymsCell.gyms}()
-//
-//        let todaysClassesCell = tableView.cellForRow(at: IndexPath(row: 0, section: sections.index(of: .todaysClasses)!) ) as! TodaysClassesCell
-//        todaysClassesCell.gymClassInstances = {todaysClassesCell.gymClassInstances}()
     }
 }
 
@@ -135,16 +123,40 @@ extension HomeController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if collectionView != mainCollectionView {
-            //set up today class cells
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+            let classInstance = gymClassInstances[indexPath.row]
+            let reuseIdentifier = classInstance.isCancelled ? ClassesCell.cancelledIdentifier : ClassesCell.identifier
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ClassesCell
+            let className = classInstance.className
+            cell.className.text = className
+            cell.image.kf.setImage(with: classInstance.imageURL)
+            cell.locationName.text = classInstance.location
 
-            Alamofire.request(tags[indexPath.row].imageURL).responseImage { response in
-                if let image = response.result.value {
-                    cell.image.image = image
-                }
+            //HOURS
+            if !classInstance.isCancelled {
+                var calendar = Calendar.current
+                calendar.timeZone = TimeZone(abbreviation: "EDT")!
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "h:mm a"
+                cell.hours.text = dateFormatter.string(from: classInstance.startTime) + " - " + dateFormatter.string(from: classInstance.endTime)
             }
 
-            cell.title.text = tags[indexPath.row].name.capitalized
+            //Show cancelled cell
+            if classInstance.isCancelled {
+                cell.classIsCancelled()
+                KingfisherManager.shared.retrieveImage(with: classInstance.imageURL, options: nil, progressBlock: nil) { image, _, _, _ in
+                    //This reduces the saturation to 0
+                    if let classImage = image {
+                        let modifyImage = CIImage(image: classImage)
+                        let filter = CIFilter(name: "CIColorControls")
+                        filter?.setValue(modifyImage, forKey: kCIInputImageKey)
+                        filter?.setValue(0.0, forKey: kCIInputSaturationKey)
+                        if let finalImage = filter?.outputImage {
+                            cell.image.image = UIImage(ciImage: finalImage)
+                        }
+                    }
+                }
+            }
             return cell
         }
 
@@ -158,17 +170,24 @@ extension HomeController: UICollectionViewDataSource {
             gymCell.setGymHours(hours: getHourString(gym: gym))
             return gymCell
         case .todaysClasses:
+            // swiftlint:disable:next force_cast
             let todayClassesCell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysClassesCell.identifier, for: indexPath) as! TodaysClassesCell
             todayClassesCell.collectionView.dataSource = self
             todayClassesCell.collectionView.delegate = self
             return todayClassesCell
         case .lookingFor:
-            let lookingForCell = collectionView.dequeueReusableCell(withReuseIdentifier: LookingForCell.identifier, for: indexPath) as! LookingForCell
-            return lookingForCell
+            // swiftlint:disable:next force_cast
+            let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+            categoryCell.title.text = tags[indexPath.row].name
+
+            let url = URL(string: tags[indexPath.row].imageURL)
+            categoryCell.image.kf.setImage(with: url)
+            return categoryCell
         }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView != mainCollectionView { return 1 }
         return 3
     }
 
@@ -197,7 +216,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView != mainCollectionView { return CGSize(width: 228.0, height: 195.0)}
+        if collectionView != mainCollectionView {
+            return CGSize(width: 228.0, height: 195.0)}
 
         switch sections[indexPath.section] {
         case .allGyms:
@@ -206,7 +226,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             let totalWidth = collectionView.bounds.width - spacingInsets - 12.0
             return CGSize(width: totalWidth/2.0, height: 60.0)
         case .todaysClasses:
-            return CGSize(width: collectionView.bounds.width, height: 195.0)
+            return CGSize(width: collectionView.bounds.width, height: 227.0)
         case .lookingFor:
             return CGSize(width: 164.0, height: 128.0)
         }
@@ -220,21 +240,25 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView != mainCollectionView {
+            let classDetailViewController = ClassDetailViewController()
+            classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(classDetailViewController, animated: true)
             return
         }
-        
+
         switch sections[indexPath.section] {
         case .allGyms:
             let gymDetailViewController = GymDetailViewController()
             gymDetailViewController.gym = gyms[indexPath.row]
             navigationController?.pushViewController(gymDetailViewController, animated: true)
-        case .todaysClasses:
-            print("SELECTED TODAY CLASSES")
         case .lookingFor:
             print("SELECTED LOOKING FOR")
+        default:
+            return
         }
     }
 }
@@ -251,7 +275,7 @@ extension HomeController {
         if gym.name == "Bartels" {
             return "Always open"
         } else if now > gymHoursToday.closeTime {
-            return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: "h a")), tomorrow"
+            return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: "h a"))"
         } else if !isOpen {
             return "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: "h a"))"
         } else {

@@ -8,8 +8,7 @@
 
 import UIKit
 import SnapKit
-import AlamofireImage
-import Alamofire
+import Kingfisher
 
 struct HoursData {
     var isDropped: Bool!
@@ -150,13 +149,8 @@ class GymDetailViewController: UIViewController {
         gymImageView.contentMode = UIViewContentMode.scaleAspectFill
         gymImageView.translatesAutoresizingMaskIntoConstraints = false
         gymImageView.clipsToBounds = true
+        gymImageView.kf.setImage(with: gym.imageURL)
         contentView.addSubview(gymImageView)
-
-        Alamofire.request(gym.imageURL).responseImage { response in
-            if let image = response.result.value {
-                self.gymImageView.image = image
-            }
-        }
 
         if !gym.isOpen {
             let tempClosedLabel =  UILabel()
@@ -248,9 +242,11 @@ class GymDetailViewController: UIViewController {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         //HEADER
+        let window = UIApplication.shared.keyWindow
+        let topPadding = window?.safeAreaInsets.top ?? 0.0
         gymImageView.snp.updateConstraints {make in
             make.left.right.equalToSuperview()
-            make.top.equalToSuperview().offset(-20)
+            make.top.equalToSuperview().inset(-topPadding)
             make.height.equalTo(360)
         }
 
@@ -479,13 +475,13 @@ extension GymDetailViewController: UITableViewDataSource {
 
             let gymClassInstance = todaysClasses[indexPath.row]
 
-            cell.classLabel.text = gymClassInstance.classDescription.name
-            cell.timeLabel.text = gymClassInstance.startTime
+            cell.classLabel.text = gymClassInstance.className
+            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
             cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
 
-            cell.instructorLabel.text = gymClassInstance.instructor.name
+            cell.instructorLabel.text = gymClassInstance.instructor
 
-            cell.duration = Date.getMinutesFromDuration(duration: gymClassInstance.duration)
+            cell.duration = Int(gymClassInstance.duration) / 60
             cell.durationLabel.text = String(cell.duration) + " min"
 
             //location

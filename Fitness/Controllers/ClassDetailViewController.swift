@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 import EventKit
+import Kingfisher
+import Bartinter
 
 class ClassDetailViewController: UIViewController {
 
@@ -56,26 +58,16 @@ class ClassDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updatesStatusBarAppearanceAutomatically = true
         view.backgroundColor = .white
 
         var nextSessionsIds: [Int] = []
-
-        for gymClassId in gymClassInstance.classDescription.gymClasses {
-            AppDelegate.networkManager.getGymClass(gymClassId: gymClassId) { gymClass in
-
-                for instanceId in gymClass.gymClassInstances {
-                    if(!nextSessionsIds.contains(instanceId)) {
-                        nextSessionsIds.append(instanceId)
-                    }
-                }
-                self.getUpcomingInstances(upcomingInstanceIds: nextSessionsIds)
-            }
-        }
 
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
         scrollView.bounces = true
+        scrollView.delegate = self
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.1)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
@@ -94,15 +86,24 @@ class ClassDetailViewController: UIViewController {
         setupHeader()
 
         // DATE
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d"
         dateLabel.font = ._16MontserratLight
         dateLabel.textAlignment = .center
         dateLabel.textColor = .fitnessBlack
+        dateLabel.text = dateFormatter.string(from: gymClassInstance.startTime)
         dateLabel.sizeToFit()
         contentView.addSubview(dateLabel)
+
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation: "EDT")!
+        dateFormatter.dateFormat = "h:mm a"
+        let timeLabelText = dateFormatter.string(from: gymClassInstance.startTime) + " - " + dateFormatter.string(from: gymClassInstance.endTime)
 
         timeLabel.font = ._16MontserratMedium
         timeLabel.textAlignment = .center
         timeLabel.textColor = .fitnessBlack
+        timeLabel.text = timeLabelText
         timeLabel.sizeToFit()
         contentView.addSubview(timeLabel)
 
@@ -135,8 +136,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(functionLabel)
 
         functionDescriptionLabel = UILabel(frame: CGRect(x: 10, y: 511, width: 100, height: 19))
-
-        functionDescriptionLabel.text = "Core  · Overall Fitness · Stability"
+        functionDescriptionLabel.text = gymClassInstance.tags.map { $0.name }.joined(separator: " · ")
         functionDescriptionLabel.font = ._14MontserratLight
         functionDescriptionLabel.textAlignment = .center
         functionDescriptionLabel.textColor = .fitnessBlack
@@ -149,7 +149,7 @@ class ClassDetailViewController: UIViewController {
 
         // DESCRIPTION
         descriptionTextView = UITextView()
-        descriptionTextView.text = gymClassInstance.classDescription.description
+        descriptionTextView.text = gymClassInstance.classDescription
         descriptionTextView.font = ._14MontserratLight
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
@@ -193,8 +193,8 @@ class ClassDetailViewController: UIViewController {
     }
 
     func setupHeader() {
-        classImageView.contentMode = UIViewContentMode.scaleAspectFill
-        classImageView.translatesAutoresizingMaskIntoConstraints = false
+        classImageView.contentMode = .scaleAspectFill
+        classImageView.kf.setImage(with: gymClassInstance.imageURL)
         contentView.addSubview(classImageView)
 
         imageFilterView = UIView()
@@ -207,7 +207,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(semicircleView)
 
         titleLabel = UILabel()
-        titleLabel.text = gymClassInstance.classDescription.name
+        titleLabel.text = gymClassInstance.className
         titleLabel.font = ._48Bebas
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
@@ -217,11 +217,12 @@ class ClassDetailViewController: UIViewController {
         locationLabel.font = ._14MontserratLight
         locationLabel.textAlignment = .center
         locationLabel.textColor = .white
+        locationLabel.text = gymClassInstance.location
         locationLabel.sizeToFit()
         contentView.addSubview(locationLabel)
 
         instructorLabel = UILabel()
-        instructorLabel.text = gymClassInstance.instructor.name
+        instructorLabel.text = gymClassInstance.instructor
         instructorLabel.font = ._18Bebas
         instructorLabel.textAlignment = .center
         instructorLabel.textColor = .white
@@ -231,6 +232,7 @@ class ClassDetailViewController: UIViewController {
         durationLabel.font = ._18Bebas
         durationLabel.textAlignment = .center
         durationLabel.textColor = .fitnessBlack
+        durationLabel.text = "\(Int(gymClassInstance.duration) / 60) MIN"
         durationLabel.sizeToFit()
         contentView.addSubview(durationLabel)
 
@@ -250,9 +252,12 @@ class ClassDetailViewController: UIViewController {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         // HEADER
+        let window = UIApplication.shared.keyWindow
+        let topPadding = window?.safeAreaInsets.top ?? 0.0
+
         classImageView.snp.makeConstraints { make in
             make.left.equalToSuperview()
-            make.top.equalToSuperview().offset(-30)
+            make.top.equalToSuperview().inset(-topPadding)
             make.right.equalToSuperview()
             make.height.equalTo(360)
         }
@@ -407,16 +412,16 @@ class ClassDetailViewController: UIViewController {
     @objc func addToCalendar() {
         let store = EKEventStore()
         store.requestAccess(to: .event) {(granted, error) in
-            if !granted { return }
+            guard !granted, let gymClassInstance = self.gymClassInstance else { return }
 
             let event = EKEvent(eventStore: store)
-            event.title = self.gymClassInstance.classDescription.name
-            event.startDate = Date.getDateFromTime(time: self.gymClassInstance.startTime)
-            event.endDate = event.startDate.addingTimeInterval(TimeInterval(Date.getMinutesFromDuration(duration: self.gymClassInstance.duration)*60))
+            event.title = gymClassInstance.className
+            event.startDate = gymClassInstance.startTime
+            event.endDate = gymClassInstance.endTime
             event.location = self.location
             event.calendar = store.defaultCalendarForNewEvents
 
-            let alert = UIAlertController(title: "\(self.gymClassInstance.classDescription.name) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
+            let alert = UIAlertController(title: "\(self.gymClassInstance.className) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
             self.present(alert, animated: true, completion: nil)
 
@@ -450,5 +455,11 @@ extension ClassDetailViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 112
+    }
+}
+
+extension ClassDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        statusBarUpdater?.refreshStatusBarStyle()
     }
 }
