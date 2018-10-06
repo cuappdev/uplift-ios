@@ -8,6 +8,7 @@
 
 import Foundation
 import Apollo
+import Kingfisher
 
 enum APIEnvironment {
     case development
@@ -59,6 +60,7 @@ struct NetworkManager {
             var gymClassInstances: [GymClassInstance] = []
             for gymClassData in classes {
                 guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
+                self.cacheImage(imageUrl: imageUrl, isClassCancelled: gymClassData.isCancelled)
                 let instructor = gymClassData.instructor
                 let startTime = gymClassData.startTime ?? "12:00:00"
                 let endTime = gymClassData.endTime ?? "12:00:00"
@@ -185,6 +187,43 @@ struct NetworkManager {
                 }
             }
             completion(Array(instructors))
+        }
+    }
+
+    // MARK: - Image Caching
+    //If class is cancelled, we want to apply saturation 0, else just store it in cache
+    private func cacheImage(imageUrl: URL, isClassCancelled: Bool = false) {
+
+        if isClassCancelled {
+            //Check if cancelled class image with 0 saturation is in cahce
+            if ImageCache.default.imageCachedType(forKey: "\(imageUrl.absoluteString)-cancelled").cached { return }
+
+            //Get the normal image and apply saturation
+            KingfisherManager.shared.retrieveImage(with: imageUrl, options: nil, progressBlock: nil) { downloadedImage, _, _, _ in
+                guard let downloadedImage = downloadedImage else { return }
+                self.applySaturation(to: downloadedImage, with: 0.0) { imageWithNoSaturation in
+
+                    guard let noSaturationImage = imageWithNoSaturation else { return }
+
+                    //Cache
+                    ImageCache.default.store(noSaturationImage, forKey: "\(imageUrl.absoluteString)-cancelled")
+                }
+            }
+        }
+
+        //Class is not cancelled, just store it in cache
+        KingfisherManager.shared.retrieveImage(with: imageUrl, options: nil, progressBlock: nil, completionHandler: nil)
+    }
+
+    private func applySaturation(to image: UIImage, with saturationLevel: CGFloat, completion: @escaping (UIImage?) -> Void) {
+        let dispatchQueue = DispatchQueue(label: "SaturationZeroQueue", qos: .background)
+        dispatchQueue.async {
+            let modifyImage = CIImage(image: image)
+            let filter = CIFilter(name: "CIColorControls")
+            filter?.setValue(modifyImage, forKey: kCIInputImageKey)
+            filter?.setValue(saturationLevel, forKey: kCIInputSaturationKey)
+            guard let finalImage = filter?.outputImage else { completion(nil); return }
+            completion(UIImage(ciImage: finalImage))
         }
     }
 }

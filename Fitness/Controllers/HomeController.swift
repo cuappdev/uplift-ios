@@ -144,18 +144,8 @@ extension HomeController: UICollectionViewDataSource {
             //Show cancelled cell
             if classInstance.isCancelled {
                 cell.classIsCancelled()
-                KingfisherManager.shared.retrieveImage(with: classInstance.imageURL, options: nil, progressBlock: nil) { image, _, _, _ in
-                    //This reduces the saturation to 0
-                    if let classImage = image {
-                        let modifyImage = CIImage(image: classImage)
-                        let filter = CIFilter(name: "CIColorControls")
-                        filter?.setValue(modifyImage, forKey: kCIInputImageKey)
-                        filter?.setValue(0.0, forKey: kCIInputSaturationKey)
-                        if let finalImage = filter?.outputImage {
-                            cell.image.image = UIImage(ciImage: finalImage)
-                        }
-                    }
-                }
+                let imageResource = ImageResource(downloadURL: classInstance.imageURL, cacheKey: "\(classInstance.imageURL.absoluteString)-cancelled")
+                cell.image.kf.setImage(with: imageResource)
             }
             return cell
         }
