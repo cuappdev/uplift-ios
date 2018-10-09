@@ -1,93 +1,104 @@
 //
-//  OnboardingViewController.swift
+//  PresntationExampleViewController.swift
 //  Fitness
 //
-//  Created by Yassin Mziya on 10/3/18.
+//  Created by Yassin Mziya on 10/6/18.
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
 
 import UIKit
-import SnapKit
 import Presentation
+import SnapKit
 
-class OnboardingViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class OnboardingViewController: PresentationController {
     
-    var collectionView: UICollectionView!
-    var pageControl: UIPageControl!
-    
-    var panelImages = [#imageLiteral(resourceName: "onboarding_1"), #imageLiteral(resourceName: "onboarding_2"), #imageLiteral(resourceName: "onboarding_3"), #imageLiteral(resourceName: "onboarding_4")]
-    let onboardingCell = "onboardingCellReuseId"
-    
+    override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : Any]? = nil) {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        // self.showBottomLine = true
+        self.showPageControl = true
+        
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
-
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.isPagingEnabled = true
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: onboardingCell)
-        view.addSubview(collectionView)
-        
-        pageControl = UIPageControl()
-        pageControl.numberOfPages = panelImages.count
-        pageControl.pageIndicatorTintColor = UIColor(red: 216/255, green: 216/255, blue: 216/266, alpha: 1)
-        pageControl.currentPageIndicatorTintColor = UIColor(red: 112/255, green: 112/255, blue: 112/266, alpha: 1)
-        view.addSubview(pageControl)
-        
-        setupConstraints()
+        configureSlides()
+        configureBackground()
     }
-
-    func setupConstraints() {
-        collectionView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(180)
-            make.bottom.equalToSuperview().offset(-273)
+    
+    private func configureSlides() {
+        let images = [#imageLiteral(resourceName: "onboarding_1"), #imageLiteral(resourceName: "onboarding_2"), #imageLiteral(resourceName: "onboarding_3"), #imageLiteral(resourceName: "onboarding_4")].map { (image) -> Content in
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFill
+            imageView.snp.makeConstraints({ make in
+                make.height.width.equalTo(214)
+            })
+            let position = Position(left: 0.5, top: 0.47)
+            return Content(view: imageView, position: position)
         }
         
-        pageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-44)
+        var slides = [SlideController]()
+
+        for index in 0..<images.count {
+            let contents = [images[index]]
+            let controller = SlideController(contents: contents)
+            
+            slides.append(controller)
         }
+        
+        add(slides)
+    }
+    
+    private func configureBackground() {
+        let dividerImageView = UIImageView(image: #imageLiteral(resourceName: "divider"))
+        dividerImageView.contentMode = .scaleAspectFill
+        dividerImageView.snp.makeConstraints { make in
+            make.width.equalTo(view.frame.width)
+            make.height.equalTo(2)
+        }
+        let divider = Content(view: dividerImageView, position: Position(left: 0.5, bottom: 0.196))
+        
+        let runningManImageView = UIImageView(image: #imageLiteral(resourceName: "running-man"))
+        runningManImageView.contentMode = .scaleAspectFill
+        runningManImageView.snp.makeConstraints { make in
+            make.height.equalTo(55)
+            make.width.equalTo(47)
+        }
+        let runningMan = Content(view: runningManImageView, position: Position(left: -0.3, bottom: 0.23))
+        
+        let contents = [
+            runningMan,
+            divider
+        ]
+        addToBackground(contents)
+
+        addAnimations([
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.1, bottom: 0.23))
+            ], forPage: 0)
+
+        addAnimations([
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.3, bottom: 0.23))
+            ], forPage: 1)
+
+        addAnimations([
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.6, bottom: 0.23))
+            ], forPage: 2)
+        
+        addAnimations([
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.8, bottom: 0.23))
+            ], forPage: 3)
     }
 
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let pageNumber = targetContentOffset.pointee.x/view.frame.width
-        pageControl.currentPage = Int(pageNumber)
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return panelImages.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: onboardingCell, for: indexPath) as! OnboardingCell
-        cell.imageView.image = panelImages[indexPath.row]
-        cell.setNeedsUpdateConstraints()
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: collectionView.frame.height)
-    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        view.backgroundColor = .white
     }
     
 

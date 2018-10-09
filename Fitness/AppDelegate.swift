@@ -20,9 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        //window?.rootViewController = TabBarController()
+//        window?.rootViewController = TabBarController()
         window?.rootViewController = OnboardingViewController()
-
         #if DEBUG
             print("Running Fitness in debug configuration")
         #else
