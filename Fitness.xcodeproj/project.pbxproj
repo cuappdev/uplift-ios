@@ -13,6 +13,7 @@
 		1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */; };
 		1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740E21617680000AEDF0 /* intructorQueries.graphql */; };
 		1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */; };
+		1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7847C3216E77E30066E0DA /* Assets.xcassets */; };
 		1C9E55D1216595D600ED7D45 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E55D0216595D600ED7D45 /* OnboardingCell.swift */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
@@ -59,7 +60,6 @@
 		C76F715F20900AD400FDC958 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715E20900AD400FDC958 /* Tag.swift */; };
 		C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */; };
 		C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DFABCE204206E000545B0B /* AppDelegate.swift */; };
-		C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD5204206E000545B0B /* Assets.xcassets */; };
 		C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */; };
 		C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */; };
 		C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */; };
@@ -76,6 +76,7 @@
 		1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymClassInstanceQueries.graphql; sourceTree = "<group>"; };
 		1C46740E21617680000AEDF0 /* intructorQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = intructorQueries.graphql; sourceTree = "<group>"; };
 		1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		1C7847C3216E77E30066E0DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C9E55D0216595D600ED7D45 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		25DE0870693CFCF450514DCD /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,7 +127,6 @@
 		C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		C7DFABCB204206E000545B0B /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DFABCE204206E000545B0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C7DFABD5204206E000545B0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7DFABD8204206E000545B0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7DFABDA204206E000545B0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListViewController.swift; sourceTree = "<group>"; };
@@ -238,6 +238,7 @@
 		C7DFABCD204206E000545B0B /* Fitness */ = {
 			isa = PBXGroup;
 			children = (
+				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
 				D94BD3062159DA7D00C9214E /* graphql */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				C71E8A022091653900542FA3 /* Networking */,
@@ -246,7 +247,6 @@
 				C7EBD5A82062E64700D76A8B /* Views */,
 				C75EC94E2059AC75007BC98A /* Extensions */,
 				C7EBD5B12062FDD800D76A8B /* Helpers */,
-				C7DFABD5204206E000545B0B /* Assets.xcassets */,
 				C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */,
 				1C1D283A2166E215003FE839 /* Keys.swift */,
 				C7DFABDA204206E000545B0B /* Info.plist */,
@@ -425,8 +425,8 @@
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
 				1C1D28372166E188003FE839 /* Keys.plist in Resources */,
 				1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */,
-				C7DFABD6204206E000545B0B /* Assets.xcassets in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
+				1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */,
 				1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

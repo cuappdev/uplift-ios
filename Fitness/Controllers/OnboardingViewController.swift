@@ -17,16 +17,13 @@ class OnboardingViewController: PresentationController {
 
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
-
+        
         configureSlides()
         configureBackground()
     }
 
     override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : Any]? = nil) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        // self.showBottomLine = true
-        self.showPageControl = true
-
     }
 
     required init?(coder: NSCoder) {
@@ -62,14 +59,16 @@ class OnboardingViewController: PresentationController {
             return Content(view: imageView, position: position)
         }
         
-        // Button
+        // button
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 235, height: 64)
         button.setTitle("BEGIN", for: .normal)
-        button.setTitleColor(UIColor(red: 34, green: 34, blue: 34, alpha: 1), for: .normal)
         button.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
-        button.titleLabel?.font = UIFont._14MontserratBold
+        button.titleLabel?.font = ._14MontserratBold
+        button.setTitleColor(UIColor.fitnessBlack, for: .normal)
+
         button.backgroundColor = .fitnessYellow
+        print("BUTTON COLOR IS \(button.currentTitleColor)")
         button.layer.cornerRadius = 32
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor
@@ -78,7 +77,7 @@ class OnboardingViewController: PresentationController {
         let startButton = Content(view: button, position: buttonPosition, centered: true)
         
 
-        // Add content to slides
+        // add content to slides
         var slides = [SlideController]()
 
         for index in 0..<images.count {
@@ -96,16 +95,16 @@ class OnboardingViewController: PresentationController {
     }
 
     private func configureBackground() {
-        // DIVIDER
+        // divider
         let dividerImageView = UIImageView(image: #imageLiteral(resourceName: "divider"))
         dividerImageView.contentMode = .scaleAspectFill
         dividerImageView.snp.makeConstraints { make in
             make.width.equalTo(view.frame.width)
             make.height.equalTo(2)
         }
-        let divider = Content(view: dividerImageView, position: Position(left: 0.5, bottom: 0.196))
+        let divider = Content(view: dividerImageView, position: Position(left: 0.5, bottom: 0.195))
 
-        // RUNNING MAN
+        // runnning man
         let runningManImageView = UIImageView(image: #imageLiteral(resourceName: "running-man"))
         runningManImageView.contentMode = .scaleAspectFill
         runningManImageView.snp.makeConstraints { make in
@@ -114,14 +113,14 @@ class OnboardingViewController: PresentationController {
         }
         let runningMan = Content(view: runningManImageView, position: Position(left: -0.3, bottom: 0.23))
 
-        // SET UP BG CONTENT
+        // bg content
         let contents = [
             runningMan,
             divider
         ]
         addToBackground(contents)
 
-        // SET UP ANIMATIONS
+        // animations
         addAnimations([
             TransitionAnimation(content: runningMan, destination: Position(left: 0.1, bottom: 0.23))
             ], forPage: 0)
