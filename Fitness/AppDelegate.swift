@@ -20,8 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-//        window?.rootViewController = TabBarController()
-        window?.rootViewController = OnboardingViewController()
+        
+        let defaults = UserDefaults.standard
+        if defaults.object(forKey: "isFirstTime") == nil {
+            defaults.set("Yes", forKey: "isFirstTime")
+            defaults.synchronize()
+            window?.rootViewController = OnboardingViewController()
+        } else {
+            window?.rootViewController = TabBarController()
+        }
+        
         #if DEBUG
             print("Running Fitness in debug configuration")
         #else
