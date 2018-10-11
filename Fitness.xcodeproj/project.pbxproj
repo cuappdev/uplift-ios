@@ -61,7 +61,6 @@
 		C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */; };
 		C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */; };
 		C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */; };
-		C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */; };
 		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
 		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
 		D91565C92165686400BCA466 /* tagQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D91565C82165686400BCA466 /* tagQueries.graphql */; };
@@ -132,7 +131,6 @@
 		C7DFABDA204206E000545B0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListViewController.swift; sourceTree = "<group>"; };
 		C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListCell.swift; sourceTree = "<group>"; };
-		C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D91565C82165686400BCA466 /* tagQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = tagQueries.graphql; sourceTree = "<group>"; };
@@ -313,7 +311,6 @@
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
 				8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */,
-				C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -585,7 +582,6 @@
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
-				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				65E914EB207C697800A72101 /* Keys.swift in Sources */,

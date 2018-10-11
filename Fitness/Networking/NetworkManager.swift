@@ -64,7 +64,7 @@ struct NetworkManager {
             var gymClassInstances: [GymClassInstance] = []
             for gymClassData in classes {
                 guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
-                self.cacheImage(imageUrl: imageUrl, isClassCancelled: gymClassData.isCancelled)
+                self.cacheImage(imageUrl: imageUrl)
                 let instructor = gymClassData.instructor
                 let startTime = gymClassData.startTime ?? "12:00:00"
                 let endTime = gymClassData.endTime ?? "12:00:00"
@@ -198,8 +198,8 @@ struct NetworkManager {
     }
 
     // MARK: - Image Caching
-    private func cacheImage(imageUrl: URL, isClassCancelled: Bool = false) {
-        //Class is not cancelled, just store it in cache
+    private func cacheImage(imageUrl: URL) {
+        //Kingfisher will download the image and store it in the cache
         KingfisherManager.shared.retrieveImage(with: imageUrl, options: nil, progressBlock: nil, completionHandler: nil)
     }
 }
