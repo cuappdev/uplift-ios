@@ -10,7 +10,6 @@ target 'Fitness' do
 	pod 'Moya'
   pod 'SnapKit'
   pod 'SwiftLint'
-  pod 'WARangeSlider'
   pod 'Apollo'
   pod 'Bartinter'
   pod 'Kingfisher', '~> 4.0'

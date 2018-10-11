@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 3/18/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 import UIKit
 import SnapKit
@@ -27,7 +27,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
 
     var navigationController: UINavigationController?
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         //COLLECTION VIEW LAYOUT

@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 4/24/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit

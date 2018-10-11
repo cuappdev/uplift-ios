@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 4/13/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
@@ -57,8 +57,8 @@ class FavoritesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-        return cell
+        //let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
+        return UITableViewCell()
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

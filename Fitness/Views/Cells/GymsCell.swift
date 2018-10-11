@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 3/7/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 import UIKit
 import SnapKit
@@ -33,7 +33,7 @@ class GymsCell: UICollectionViewCell {
         contentView.layer.shadowRadius = 5.0
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.masksToBounds = false
-        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 0, left: 0, bottom: 9, right: -3))
+        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 9, right: -3))
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
         //YELLOW BAR

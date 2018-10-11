@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 4/23/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 //  Creates a histogram styled after the gym-detail-view histogram
 //  on zeplin. Has data.count bars with ticks in bewteen

@@ -22,7 +22,7 @@ query AllClassesInstances {
   }
 
 query TodaysClasses($date: Date) {
-    classes(today: $date) {
+    classes(day: $date) {
       id
       gymId
       gym {

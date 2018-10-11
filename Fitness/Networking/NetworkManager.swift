@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 4/24/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import Foundation
@@ -27,7 +27,11 @@ struct NetworkManager {
 
             for gymData in result?.data?.gyms ?? [] {
                 if let gymData = gymData {
-                    gyms.append(Gym(gymData: gymData))
+                    let gym = Gym(gymData: gymData)
+                    gyms.append(gym)
+                    if let imageUrl = gym.imageURL {
+                        self.cacheImage(imageUrl: imageUrl)
+                    }
                 }
             }
             completion(gyms)
@@ -146,6 +150,9 @@ struct NetworkManager {
                     if !allTags.contains(currTag) {
                         allTags.append(currTag)
                     }
+                    if let imageURL = URL(string: currTag.imageURL) {
+                        self.cacheImage(imageUrl: imageURL)
+                    }
                 }
             }
             completion(allTags)
@@ -191,39 +198,8 @@ struct NetworkManager {
     }
 
     // MARK: - Image Caching
-    //If class is cancelled, we want to apply saturation 0, else just store it in cache
     private func cacheImage(imageUrl: URL, isClassCancelled: Bool = false) {
-
-        if isClassCancelled {
-            //Check if cancelled class image with 0 saturation is in cahce
-            if ImageCache.default.imageCachedType(forKey: "\(imageUrl.absoluteString)-cancelled").cached { return }
-
-            //Get the normal image and apply saturation
-            KingfisherManager.shared.retrieveImage(with: imageUrl, options: nil, progressBlock: nil) { downloadedImage, _, _, _ in
-                guard let downloadedImage = downloadedImage else { return }
-                self.applySaturation(to: downloadedImage, with: 0.0) { imageWithNoSaturation in
-
-                    guard let noSaturationImage = imageWithNoSaturation else { return }
-
-                    //Cache
-                    ImageCache.default.store(noSaturationImage, forKey: "\(imageUrl.absoluteString)-cancelled")
-                }
-            }
-        }
-
         //Class is not cancelled, just store it in cache
         KingfisherManager.shared.retrieveImage(with: imageUrl, options: nil, progressBlock: nil, completionHandler: nil)
-    }
-
-    private func applySaturation(to image: UIImage, with saturationLevel: CGFloat, completion: @escaping (UIImage?) -> Void) {
-        let dispatchQueue = DispatchQueue(label: "SaturationZeroQueue", qos: .background)
-        dispatchQueue.async {
-            let modifyImage = CIImage(image: image)
-            let filter = CIFilter(name: "CIColorControls")
-            filter?.setValue(modifyImage, forKey: kCIInputImageKey)
-            filter?.setValue(saturationLevel, forKey: kCIInputSaturationKey)
-            guard let finalImage = filter?.outputImage else { completion(nil); return }
-            completion(UIImage(ciImage: finalImage))
-        }
     }
 }

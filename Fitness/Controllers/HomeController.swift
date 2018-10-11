@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 2/24/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 import UIKit
 import SnapKit
@@ -56,7 +56,7 @@ class HomeController: UIViewController {
         mainCollectionView.backgroundColor = .white
         mainCollectionView.showsVerticalScrollIndicator = false
 
-        mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
+        mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
@@ -120,6 +120,8 @@ extension HomeController: UICollectionViewDataSource {
         }
     }
 
+
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if collectionView != mainCollectionView {
@@ -129,8 +131,8 @@ extension HomeController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ClassesCell
             let className = classInstance.className
             cell.className.text = className
-            cell.image.kf.setImage(with: classInstance.imageURL)
             cell.locationName.text = classInstance.location
+            cell.image.kf.setImage(with: classInstance.imageURL)
 
             //HOURS
             if !classInstance.isCancelled {
@@ -138,14 +140,11 @@ extension HomeController: UICollectionViewDataSource {
                 calendar.timeZone = TimeZone(abbreviation: "EDT")!
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "h:mm a"
-                cell.hours.text = dateFormatter.string(from: classInstance.startTime) + " - " + dateFormatter.string(from: classInstance.endTime)
-            }
 
-            //Show cancelled cell
-            if classInstance.isCancelled {
+                cell.hours.text = dateFormatter.string(from: classInstance.startTime) + " - " + dateFormatter.string(from: classInstance.endTime)
+            } else {
                 cell.classIsCancelled()
-                let imageResource = ImageResource(downloadURL: classInstance.imageURL, cacheKey: "\(classInstance.imageURL.absoluteString)-cancelled")
-                cell.image.kf.setImage(with: imageResource)
+
             }
             return cell
         }
@@ -186,9 +185,9 @@ extension HomeController: UICollectionViewDataSource {
         if collectionView != mainCollectionView { return UICollectionReusableView() }
 
         switch kind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             // swiftlint:disable:next force_cast
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
             headerView.setTitle(title: sections[indexPath.section].rawValue)
             return headerView
         default:

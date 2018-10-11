@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by eoin on 3/4/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
@@ -202,7 +202,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(imageFilterView)
 
         semicircleView = UIImageView(image: #imageLiteral(resourceName: "semicircle"))
-        semicircleView.contentMode = UIViewContentMode.scaleAspectFit
+        semicircleView.contentMode = UIView.ContentMode.scaleAspectFit
         semicircleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(semicircleView)
 
@@ -441,9 +441,9 @@ extension ClassDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
+        //let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
 
-        return cell
+        return UITableViewCell()
     }
 }
 

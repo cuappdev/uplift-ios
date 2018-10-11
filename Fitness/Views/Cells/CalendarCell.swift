@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 3/26/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
@@ -14,20 +14,25 @@ class CalendarCell: UICollectionViewCell {
     static let identifier = Identifiers.calendarCell
     var dateLabel: UILabel!
     var dayOfWeekLabel: UILabel!
-    var shapeLayer: CAShapeLayer!
+    var dateLabelCircle: UIView!
     var date: String!
+
+    override func prepareForReuse() {
+        dateLabelCircle.isHidden = true
+        dateLabel.textColor = .fitnessBlack
+        dayOfWeekLabel.textColor = .fitnessBlack
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         backgroundColor = .clear
 
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: 27, y: 74), radius: CGFloat(12), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
-
-        shapeLayer = CAShapeLayer()
-        shapeLayer.path = circlePath.cgPath
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        layer.addSublayer(shapeLayer)
+        dateLabelCircle = UIView()
+        dateLabelCircle.backgroundColor = .fitnessBlack
+        dateLabelCircle.isHidden = true
+        dateLabelCircle.layer.cornerRadius = 12
+        addSubview(dateLabelCircle)
 
         dateLabel = UILabel()
         dateLabel.text = "15"
@@ -62,7 +67,12 @@ class CalendarCell: UICollectionViewCell {
 
         dayOfWeekLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(40)
+            make.top.equalToSuperview()
+        }
+
+        dateLabelCircle.snp.makeConstraints { make in
+            make.height.width.equalTo(24)
+            make.center.equalTo(dateLabel)
         }
     }
 }

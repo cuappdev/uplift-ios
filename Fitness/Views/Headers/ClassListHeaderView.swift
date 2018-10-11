@@ -3,11 +3,15 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 3/21/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
 import SnapKit
+
+protocol CalendarDelegate {
+    func updateClassesFor(date: Date)
+}
 
 class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSource, UICollectionViewDelegate {
 
@@ -20,15 +24,16 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
     var selectedDayIndex: Int!
     var currentDateLabel: UILabel!
 
-    var delegate: ClassListViewController!
+    var delegate: CalendarDelegate?
 
     override init(reuseIdentifier: String?) {
+        
         super.init(reuseIdentifier: reuseIdentifier)
         layer.backgroundColor = UIColor.white.cgColor
 
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 54, height: 97)
-        flowLayout.scrollDirection = UICollectionViewScrollDirection.horizontal
+        flowLayout.scrollDirection = UICollectionView.ScrollDirection.horizontal
         flowLayout.minimumInteritemSpacing = 0.0
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
@@ -94,7 +99,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         if(indexPath.row == selectedDayIndex) {
             let calendarCell = cell as! CalendarCell
 
-            calendarCell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
+            //calendarCell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
             calendarCell.dateLabel.textColor = .white
         }
     }
@@ -103,7 +108,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         if(indexPath.row == selectedDayIndex) {
             let calendarCell = cell as! CalendarCell
 
-            calendarCell.shapeLayer.fillColor = UIColor.white.cgColor
+            //calendarCell.shapeLayer.fillColor = UIColor.white.cgColor
 
             if(indexPath.row < 3) {
                 calendarCell.dateLabel.textColor = .fitnessMediumGrey
@@ -115,7 +120,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let oldCell = collectionView.cellForItem(at: IndexPath(row: selectedDayIndex, section: indexPath.section)) as? CalendarCell {
-            oldCell.shapeLayer.fillColor = UIColor.white.cgColor
+            //oldCell.shapeLayer.fillColor = UIColor.white.cgColor
 
             if(selectedDayIndex < 3) {
                 oldCell.dateLabel.textColor = .fitnessMediumGrey
@@ -129,10 +134,7 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
         let cell = collectionView.cellForItem(at: indexPath) as! CalendarCell
 
         cell.dateLabel.textColor = .white
-        cell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
-        delegate.selectedDate = cell.date
-
-        delegate.updateDate()
+        //cell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -159,11 +161,11 @@ class ClassListHeaderView: UITableViewHeaderFooterView, UICollectionViewDataSour
 
         if(indexPath.row == selectedDayIndex) {
             cell.dateLabel.textColor = .white
-            cell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
-            delegate.selectedDate = cell.date
+            //cell.shapeLayer.fillColor = UIColor.fitnessBlack.cgColor
+
         }
 
-        switch (offset + currentWeekDay)%7 {
+        switch (offset + currentWeekDay) % 7 {
         case 0:
             cell.dayOfWeekLabel.text = "Su"
         case 1:

@@ -3,12 +3,13 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 4/18/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 import Kingfisher
+import Bartinter
 
 struct HoursData {
     var isDropped: Bool!
@@ -66,6 +67,8 @@ class GymDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+
+         updatesStatusBarAppearanceAutomatically = true
 
         hoursData = HoursData(isDropped: false, data: [])
         facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"] //temp (until backend implements equiment)
@@ -130,6 +133,7 @@ class GymDetailViewController: UIViewController {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
         scrollView.bounces = true
+        scrollView.delegate = self
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.5)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
@@ -146,7 +150,7 @@ class GymDetailViewController: UIViewController {
 
         //HEADER
         gymImageView = UIImageView()
-        gymImageView.contentMode = UIViewContentMode.scaleAspectFill
+        gymImageView.contentMode = UIView.ContentMode.scaleAspectFill
         gymImageView.translatesAutoresizingMaskIntoConstraints = false
         gymImageView.clipsToBounds = true
         gymImageView.kf.setImage(with: gym.imageURL)
@@ -471,22 +475,22 @@ extension GymDetailViewController: UITableViewDataSource {
 
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-
-            let gymClassInstance = todaysClasses[indexPath.row]
-
-            cell.classLabel.text = gymClassInstance.className
-            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
-            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-
-            cell.instructorLabel.text = gymClassInstance.instructor
-
-            cell.duration = Int(gymClassInstance.duration) / 60
-            cell.durationLabel.text = String(cell.duration) + " min"
+//            let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
+//
+//            let gymClassInstance = todaysClasses[indexPath.row]
+//
+//            cell.classLabel.text = gymClassInstance.className
+//            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
+//            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
+//
+//            cell.instructorLabel.text = gymClassInstance.instructor
+//
+//            cell.duration = Int(gymClassInstance.duration) / 60
+//            cell.durationLabel.text = String(cell.duration) + " min"
 
             //location
-
-            return cell
+            return UITableViewCell()
+            //return cell
         }
     }
 
@@ -526,5 +530,11 @@ extension GymDetailViewController: UITableViewDelegate {
         } else {
             return 0
         }
+    }
+}
+
+extension GymDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        statusBarUpdater?.refreshStatusBarStyle()
     }
 }
