@@ -22,12 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let defaults = UserDefaults.standard
-        if defaults.object(forKey: "isFirstTime") == nil {
-            defaults.set("Yes", forKey: "isFirstTime")
-            defaults.synchronize()
-            window?.rootViewController = OnboardingViewController()
-        } else {
+        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
             window?.rootViewController = TabBarController()
+        } else {
+            window?.rootViewController = OnboardingViewController()
         }
         
         #if DEBUG
