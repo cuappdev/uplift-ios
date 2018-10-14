@@ -62,10 +62,14 @@
 		C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */; };
 		C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */; };
 		C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */; };
-		C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */; };
 		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
 		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
+		D91565C92165686400BCA466 /* tagQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D91565C82165686400BCA466 /* tagQueries.graphql */; };
 		D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D94BD3072159DA9200C9214E /* classQueries.graphql */; };
+		D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810A7216E95BB00D4436C /* TapticEngine.swift */; };
+		D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810A9216E95D900D4436C /* RangeSeekSlider.swift */; };
+		D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */; };
+		D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,10 +133,14 @@
 		C7DFABDA204206E000545B0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListViewController.swift; sourceTree = "<group>"; };
 		C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListCell.swift; sourceTree = "<group>"; };
-		C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		D91565C82165686400BCA466 /* tagQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = tagQueries.graphql; sourceTree = "<group>"; };
 		D94BD3072159DA9200C9214E /* classQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = classQueries.graphql; sourceTree = "<group>"; };
+		D95810A7216E95BB00D4436C /* TapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
+		D95810A9216E95D900D4436C /* RangeSeekSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
+		D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
+		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +278,8 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D95810A6216E95A500D4436C /* Range Slider */,
+				D9936A27216D9F8B002802F4 /* Empty States */,
 				8D5EA478208EC31100E98E6C /* Histogram.swift */,
 				8DD7C7782084418F004EB196 /* Footers */,
 				C7EBD5AC2062E72300D76A8B /* Headers */,
@@ -304,7 +314,6 @@
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
 				8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */,
-				C7EBD5AD2062E73C00D76A8B /* ClassListHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -331,9 +340,28 @@
 				1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */,
 				D94BD3072159DA9200C9214E /* classQueries.graphql */,
 				8D6B2A18215B23DC00807544 /* gymQueries.graphql */,
+				D91565C82165686400BCA466 /* tagQueries.graphql */,
 				1C46740E21617680000AEDF0 /* intructorQueries.graphql */,
 			);
 			path = graphql;
+			sourceTree = "<group>";
+		};
+		D95810A6216E95A500D4436C /* Range Slider */ = {
+			isa = PBXGroup;
+			children = (
+				D95810A7216E95BB00D4436C /* TapticEngine.swift */,
+				D95810A9216E95D900D4436C /* RangeSeekSlider.swift */,
+				D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */,
+			);
+			path = "Range Slider";
+			sourceTree = "<group>";
+		};
+		D9936A27216D9F8B002802F4 /* Empty States */ = {
+			isa = PBXGroup;
+			children = (
+				D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */,
+			);
+			path = "Empty States";
 			sourceTree = "<group>";
 		};
 		EDFEB459857EDEE8A7863423 /* Pods */ = {
@@ -382,6 +410,7 @@
 				TargetAttributes = {
 					C7DFABCA204206E000545B0B = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -411,6 +440,7 @@
 			files = (
 				1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */,
 				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
+				D91565C92165686400BCA466 /* tagQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
@@ -457,7 +487,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		7B68B6796476F8A7F1E6B485 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -469,6 +499,9 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
+				"${BUILT_PRODUCTS_DIR}/Bartinter/Bartinter.framework",
+				"${BUILT_PRODUCTS_DIR}/Fuzzywuzzy_swift/Fuzzywuzzy_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Pages/Pages.framework",
 				"${BUILT_PRODUCTS_DIR}/Presentation/Presentation.framework",
@@ -481,6 +514,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bartinter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fuzzywuzzy_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Presentation.framework",
@@ -549,11 +585,12 @@
 				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
+				D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */,
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
-				C7EBD5AE2062E73C00D76A8B /* ClassListHeaderView.swift in Sources */,
+				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
@@ -567,6 +604,8 @@
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
+				D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */,
+				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,
@@ -708,13 +747,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CL9XQET3B9;
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.Fitness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -725,12 +764,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CL9XQET3B9;
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.Fitness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

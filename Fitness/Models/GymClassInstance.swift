@@ -3,40 +3,20 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 4/22/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 import Foundation
 
 struct GymClassInstance {
-    // let gymClassInstanceId: Int
-    let classDescription: AllClassesInstancesQuery.Data.Class.Detail?
+    let classDescription: String
+    let className: String
     let instructor: String
-    let startTime: String
+    let startTime: Date
+    let endTime: Date
     let gymId: String
-    let duration: String
+    let duration: Double
     let location: String
-    let imageURL: String
+    let imageURL: URL
     let isCancelled: Bool
-    
-    init?(gymClassData: AllClassesInstancesQuery.Data.Class) {
-        guard let classDescription = gymClassData.details, let instructor = gymClassData.instructor, let gymId = gymClassData.gymId,
-            let location = gymClassData.gym?.name, let endTime = gymClassData.endTime, let isCancelled = gymClassData.isCancelled,
-            let startTime = gymClassData.startTime else { return nil }
-        self.classDescription = classDescription
-        self.instructor = instructor
-        self.startTime = startTime
-        self.gymId = gymId
-        self.location = location
-        self.isCancelled = isCancelled
-        
-        if let className  = classDescription.name {
-            imageURL = "https://raw.githubusercontent.com/cuappdev/assets/master/fitness/gyms/\(String(describing: className.replacingOccurrences(of: " ", with: "_"))).jpg"
-        } else {
-            imageURL = ""
-        }
-        
-        let start = Date.getDatetimeFromString(datetime: startTime)
-        let end = Date.getDatetimeFromString(datetime: endTime)
-        duration = String(end.timeIntervalSince(start))
-    }
+    let tags: [Tag]
 }

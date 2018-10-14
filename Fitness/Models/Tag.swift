@@ -3,38 +3,17 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 4/24/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-struct Tag {
-    let id: Int
+struct Tag: Equatable {
+
+    static func == (lhs: Tag, rhs: Tag) -> Bool {
+        return lhs.name == rhs.name
+    }
+
     let name: String
-    let classDescriptions: [Int]
     let imageURL: String
-}
-
-struct TagsRootData: Decodable {
-    var data: [Tag]
-    var success: Bool
-}
-
-extension Tag: Decodable {
-
-    enum Key: String, CodingKey {
-        case id
-        case name
-        case classDescriptions = "class_descs"
-        case imageURL = "image_url"
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: Key.self)
-
-        id = try container.decode(Int.self, forKey: .id)
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        classDescriptions = try container.decodeIfPresent([Int].self, forKey: .classDescriptions) ?? []
-        imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL) ?? ""
-    }
 }

@@ -1,5 +1,4 @@
-query AllClassesInstances
-  {
+query AllClassesInstances {
     classes {
       id
       gymId
@@ -10,8 +9,11 @@ query AllClassesInstances
         id
         name
         description
-        tags
+          tags {
+              label
+          }
       }
+      imageUrl
       startTime
       endTime
       instructor
@@ -19,9 +21,8 @@ query AllClassesInstances
     }
   }
 
-query TodaysClasses($dateTime: DateTime)
-{
-    classes(now: $dateTime) {
+query TodaysClasses($date: Date) {
+    classes(day: $date) {
       id
       gymId
       gym {
@@ -31,11 +32,15 @@ query TodaysClasses($dateTime: DateTime)
         id
         name
         description
-        tags
+          tags {
+              label
+          }
       }
+    imageUrl
     startTime
     endTime
     instructor
     isCancelled
+    location
   }
 }

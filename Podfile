@@ -10,7 +10,8 @@ target 'Fitness' do
 	pod 'Moya'
   pod 'SnapKit'
   pod 'SwiftLint'
-  pod 'WARangeSlider'
   pod 'Apollo'
   pod 'Presentation'
+  pod 'Bartinter'
+  pod 'Kingfisher', '~> 4.0'
 end

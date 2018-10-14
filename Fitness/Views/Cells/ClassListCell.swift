@@ -3,13 +3,13 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 3/21/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class ClassListCell: UITableViewCell {
+class ClassListCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.classListCell
@@ -23,9 +23,8 @@ class ClassListCell: UITableViewCell {
 
     var favoriteButton: UIButton!
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.contentView.backgroundColor = .blue
 
         //TIME
@@ -87,7 +86,7 @@ class ClassListCell: UITableViewCell {
     override open func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 0, left: 16, bottom: 12, right: 16))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 12, right: 16))
 
         contentView.layer.cornerRadius = 5
         contentView.layer.backgroundColor = UIColor.white.cgColor
@@ -99,7 +98,7 @@ class ClassListCell: UITableViewCell {
         contentView.layer.shadowRadius = 5.0
         contentView.layer.shadowOpacity = 0.5
         contentView.layer.masksToBounds = false
-        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 0, left: -10, bottom: 12, right: 24))
+        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: -10, bottom: 12, right: 24))
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
     }
@@ -107,16 +106,24 @@ class ClassListCell: UITableViewCell {
     // MARK: - CONSTRAINTS
     func setUpContstraints() {
 
+        //FAVORITE
+        favoriteButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(20)
+            make.width.equalTo(16)
+            make.height.equalTo(16)
+        }
+
         //TIME
         timeLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(16)
             make.width.equalTo(60)
             make.height.equalTo(16)
         }
 
         durationLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.leading.equalTo(timeLabel)
             make.top.equalTo(timeLabel.snp.bottom)
             make.width.equalTo(60)
             make.height.equalTo(16)
@@ -124,30 +131,25 @@ class ClassListCell: UITableViewCell {
 
         //DESCRIPTION
         classLabel.snp.makeConstraints { make in
-            make.left.equalTo(timeLabel.snp.right).offset(32)
+            make.leading.equalTo(timeLabel.snp.trailing).offset(30)
             make.top.equalToSuperview().offset(16)
+            make.trailing.lessThanOrEqualToSuperview().inset(16)
             make.height.equalTo(19)
         }
 
         locationLabel.snp.makeConstraints { make in
-            make.left.equalTo(timeLabel.snp.right).offset(32)
+            make.leading.equalTo(timeLabel.snp.trailing).offset(30)
+            make.trailing.equalTo(favoriteButton.snp.leading)
             make.top.equalTo(classLabel.snp.bottom)
             make.height.equalTo(16)
         }
 
         instructorLabel.snp.makeConstraints { make in
-            make.left.equalTo(timeLabel.snp.right).offset(32)
+            make.leading.equalTo(timeLabel.snp.trailing).offset(30)
             make.top.equalTo(locationLabel.snp.bottom).offset(16)
-            make.right.equalToSuperview()
+            make.trailing.equalTo(classLabel)
             make.height.equalTo(16)
         }
 
-        //FAVORITE
-        favoriteButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-16)
-            make.width.equalTo(16)
-            make.height.equalTo(16)
-        }
     }
 }

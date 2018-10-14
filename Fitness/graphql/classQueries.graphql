@@ -1,6 +1,5 @@
-query ClassesAtGym
-    {
-        classes(gymId:0) {
+query ClassesAtGym {
+        classes(gymId:"") {
             gym {
                 name
                 id

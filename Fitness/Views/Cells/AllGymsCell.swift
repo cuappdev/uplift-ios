@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 3/18/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 import UIKit
 import SnapKit
@@ -27,7 +27,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
 
     var navigationController: UINavigationController?
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         //COLLECTION VIEW LAYOUT
@@ -60,13 +60,13 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
         let gym = gyms[indexPath.row]
-        
+
         let now = Date()
         let isOpen = gym.isOpen
 
         let gymHoursToday = gym.gymHoursToday
         let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
-        
+
         if gyms[indexPath.row].name == "Bartels" {
             cell.hours.text = "Always open"
         } else if now > gymHoursToday.closeTime {

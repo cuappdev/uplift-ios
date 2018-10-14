@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 3/7/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 import UIKit
 import SnapKit
@@ -12,7 +12,10 @@ class ClassesCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.classesCell
+    static let cancelledIdentifier = Identifiers.classesCell + "-cancelled"
     var image: UIImageView!
+    var cancelledView: UIView!
+    var cancelledLabel: UILabel!
     var className: UILabel!
     var locationName: UILabel!
     var hours: UILabel!
@@ -34,7 +37,7 @@ class ClassesCell: UICollectionViewCell {
         contentView.layer.shadowRadius = 3.0
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.masksToBounds = false
-        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 0, left: 0, bottom: 4, right: -2))
+        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 4, right: -2))
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
         //IMAGE
@@ -44,6 +47,20 @@ class ClassesCell: UICollectionViewCell {
         image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         image.contentMode = .scaleAspectFill
         contentView.addSubview(image)
+
+        //CANCELLED VIEW
+        cancelledView = UIView()
+        cancelledView.backgroundColor = .fitnessRed
+        cancelledView.isHidden = true
+        contentView.addSubview(cancelledView)
+
+        //CANCELLED LABEL
+        cancelledLabel = UILabel()
+        cancelledLabel.text = "CANCELLED"
+        cancelledLabel.textColor = .white
+        cancelledLabel.isHidden = true
+        cancelledLabel.font = ._12MontserratBold
+        contentView.addSubview(cancelledLabel)
 
         //CLASS NAME
         className = UILabel()
@@ -61,12 +78,12 @@ class ClassesCell: UICollectionViewCell {
 
         //LOCATION WIDGET
         locationWidget = UIImageView()
+        locationWidget.contentMode = .scaleAspectFit
         locationWidget.image = #imageLiteral(resourceName: "location_pointer")
         contentView.addSubview(locationWidget)
 
         //LOCATION NAME
         locationName = UILabel()
-        locationName.sizeToFit()
         locationName.font = ._12MontserratRegular
         locationName.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
         contentView.addSubview(locationName)
@@ -78,36 +95,55 @@ class ClassesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func classIsCancelled() {
+        cancelledView.isHidden = false
+        cancelledLabel.isHidden = false
+        className.textColor = .fitnessDisabledGrey
+    }
+
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        image.snp.updateConstraints {make in
-            make.right.equalToSuperview()
-            make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.height.equalToSuperview().offset(-95)
+
+        image.snp.makeConstraints {make in
+            make.leading.trailing.top.equalToSuperview()
+            make.height.equalTo(100)
         }
 
-        className.snp.updateConstraints {make in
-            make.left.equalToSuperview().offset(21)
+        cancelledView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(17)
+            make.leading.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(32)
+        }
+
+        cancelledLabel.snp.makeConstraints { make in
+            make.width.equalTo(cancelledLabel.intrinsicContentSize.width)
+            make.center.equalTo(cancelledView.snp.center)
+        }
+
+        className.snp.makeConstraints {make in
+            make.leading.equalToSuperview().offset(21)
             make.top.equalTo(image.snp.bottom).offset(13)
+            make.trailing.lessThanOrEqualToSuperview().inset(21)
         }
 
-        hours.snp.updateConstraints {make in
-            make.left.equalToSuperview().offset(21)
+        hours.snp.makeConstraints {make in
+            make.leading.equalTo(className)
             make.top.equalTo(className.snp.bottom)
+            make.trailing.lessThanOrEqualToSuperview().inset(21)
         }
 
-        locationWidget.snp.updateConstraints {make in
-            make.left.equalToSuperview().offset(21)
-            make.bottom.equalToSuperview().offset(-14)
-            make.top.equalTo(hours.snp.bottom).offset(21)
-            make.right.equalToSuperview().offset(-198)
+        locationWidget.snp.makeConstraints {make in
+            make.leading.equalTo(className)
+            make.bottom.equalToSuperview().inset(14)
+            make.width.equalTo(9)
+            make.height.equalTo(13)
         }
 
-        locationName.snp.updateConstraints {make in
-            make.left.equalTo(locationWidget.snp.right).offset(5)
-            make.bottom.equalToSuperview().offset(-13)
-            make.top.equalTo(hours.snp.bottom).offset(20)
+        locationName.snp.makeConstraints {make in
+            make.leading.equalTo(locationWidget.snp.trailing).offset(5)
+            make.centerY.equalTo(locationWidget)
+            make.trailing.lessThanOrEqualToSuperview().inset(21)
         }
     }
 }

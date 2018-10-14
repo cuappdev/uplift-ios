@@ -1,0 +1,10 @@
+query GetTags {
+    classes {
+        details {
+            tags {
+                label
+                imageUrl
+            }
+        }
+    }
+}

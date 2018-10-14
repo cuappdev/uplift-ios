@@ -3,33 +3,22 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 3/18/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 import UIKit
 import SnapKit
 
-class HomeScreenHeaderView: UITableViewHeaderFooterView {
+class HomeScreenHeaderView: UIView {
 
-    // MARK: - INITIALIZATION
-    static let identifier = Identifiers.homeScreenHeaderView
     var welcomeMessage: UILabel!
-    var subHeader: HomeSectionHeaderView!
 
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    var didSetupShadow = false
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         //BACKGROUND COLOR
-        backgroundView = UIView(frame: frame)
-        backgroundView?.backgroundColor = .white
-
-        //SHADOWING
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowOpacity = 0.3
-        contentView.layer.shadowRadius = 5.0
-        contentView.layer.masksToBounds = false
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
-        let shadowFrame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 0, left: 0, bottom: -100, right: 0))
-        contentView.layer.shadowPath = UIBezierPath(rect: shadowFrame).cgPath
+        backgroundColor = .white
 
         //WELCOME MESSAGE
         welcomeMessage = UILabel()
@@ -39,10 +28,6 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
         welcomeMessage.numberOfLines = 0
         addSubview(welcomeMessage)
 
-        //FIRST SECTION'S HEADER
-        subHeader = HomeSectionHeaderView(frame: CGRect())
-        addSubview(subHeader)
-
         setupLayout()
     }
 
@@ -51,23 +36,25 @@ class HomeScreenHeaderView: UITableViewHeaderFooterView {
     }
 
     func setName(name: String) {
-        welcomeMessage.text = "Good Afternoon, " + name + "!"
+        welcomeMessage.text = getGreeting() + "!"
+    }
+
+    private func getGreeting() -> String {
+        let currDate = Date()
+        let hour = Calendar.current.component(.hour, from: currDate)
+
+        if hour < 12 { return " Good Morning" }
+        if hour < 17 { return "Good Afternoon"}
+        return "Good Evening"
     }
 
     // MARK: - LAYOUT
     func setupLayout() {
 
-        welcomeMessage.snp.updateConstraints { make in
-            make.height.equalTo(26)
-            make.left.equalToSuperview().offset(24)
-            make.bottom.equalToSuperview().offset(-75)
-        }
-
-        subHeader.snp.updateConstraints {make in
-            make.width.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.top.equalToSuperview().offset(100)
+        welcomeMessage.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(20)
+            make.leading.equalTo(24)
+            make.trailing.lessThanOrEqualToSuperview().inset(24)
         }
     }
 }

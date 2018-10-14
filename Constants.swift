@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 8/31/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import Foundation
@@ -14,7 +14,6 @@ struct Identifiers {
     static let homeScreenHeaderView = "homeScreenHeaderView"
     static let gymHoursHeaderView = "gymHoursHeaderView"
     static let favoritesHeaderView = "favoritesHeaderView"
-    static let classListHeaderView = "classListHeaderView"
     static let homeSectionHeaderView = "homeSectionHeaderView"
     
     // CELLS

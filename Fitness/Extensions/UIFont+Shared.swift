@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Keivan Shahida on 3/14/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
@@ -30,6 +30,7 @@ extension UIFont {
     static let _16MontserratLight = UIFont(name: "Montserrat-Light", size: 16)
 
     static let _12MontserratRegular = UIFont(name: "Montserrat-Regular", size: 12)
+    static let _14MontserratRegular = UIFont(name: "Montserrat-Regular", size: 14)
     static let _16MontserratRegular = UIFont(name: "Montserrat-Regular", size: 16)
 
     static let _8MontserratMedium = UIFont(name: "Montserrat-Medium", size: 8)
@@ -37,9 +38,12 @@ extension UIFont {
     static let _14MontserratMedium = UIFont(name: "Montserrat-Medium", size: 14)
     static let _16MontserratMedium = UIFont(name: "Montserrat-Medium", size: 16)
 
+    static let _12MontserratBold = UIFont(name: "Montserrat-Bold", size: 14)
     static let _14MontserratBold = UIFont(name: "Montserrat-Bold", size: 14)
+    static let _20MontserratBold = UIFont(name: "Montserrat-Bold", size: 20)
     static let _24MontserratBold = UIFont(name: "Montserrat-Bold", size: 24)
-    
+
+    static let _14MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
     static let _16MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 16)
 
     //LATO

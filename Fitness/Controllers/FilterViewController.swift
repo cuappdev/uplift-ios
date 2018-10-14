@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 4/2/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Uplift. All rights reserved.
 //
 
 import UIKit
@@ -25,23 +25,30 @@ struct GymNameId {
     var id: String!
 }
 
-class FilterViewController: UIViewController {
+protocol FilterDelegate {
+    func filterOptions(params: FilterParameters)
+}
+
+class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - INITIALIZATION
+    var timeFormatter: DateFormatter!
     var scrollView: UIScrollView!
     var contentView: UIView!
 
     var collectionViewTitle: UILabel!
     var gymCollectionView: UICollectionView!
     var gyms: [GymNameId]!
+    var delegate: FilterDelegate?
     /// ids of the selected gyms
     var selectedGyms: [String] = []
 
     var fitnessCenterStartTimeDivider: UIView!
     var startTimeTitleLabel: UILabel!
     var startTimeLabel: UILabel!
-    var startTimeSlider: RangeSlider!
-    var startTimeSliderStartRange = [0.0, 960.0]
+    var startTimeSlider: RangeSeekSlider!
+    var timeRanges: [Date] = []
+
 
     var startTimeClassTypeDivider: UIView!
     var startTime = "6:00AM"
@@ -57,10 +64,28 @@ class FilterViewController: UIViewController {
     var instructorDivider: UIView!
     var selectedInstructors: [String] = []
 
+    convenience init(currentFilterParams: FilterParameters?) {
+        self.init()
+        //TODO: - See if we already have filter params, and apply them
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .white
+        let cal = Calendar.current
+        let currDate = Date()
+        let startDate = cal.date(bySettingHour: 6, minute: 0, second: 0, of: currDate)!
+        let endDate = cal.date(bySettingHour: 22, minute: 0, second: 0, of: currDate)!
+
+        var date = startDate
+
+        while date <= endDate {
+            timeRanges.append(date)
+            date = cal.date(byAdding: .minute, value: 15, to: date)!
+        }
+
+        timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mma"
 
         setupWrappingViews()
 
@@ -83,16 +108,24 @@ class FilterViewController: UIViewController {
         startTimeLabel.text = startTime + " - " + endTime
         contentView.addSubview(startTimeLabel)
 
-        startTimeSlider = RangeSlider(frame: .zero)
-        startTimeSlider.minimumValue = 0.0
-        startTimeSlider.maximumValue = 960
-        startTimeSlider.lowerValue = startTimeSliderStartRange[0]
-        startTimeSlider.upperValue = startTimeSliderStartRange[1]
-        startTimeSlider.trackTintColor = .fitnessLightGrey
-        startTimeSlider.trackHighlightTintColor = .fitnessYellow
-        startTimeSlider.thumbBorderColor = .fitnessLightGrey
-        startTimeSlider.addTarget(self, action: #selector(startTimeChanged),
-                              for: .valueChanged)
+        startTimeSlider = RangeSeekSlider(frame: .zero)
+        startTimeSlider.minValue = 0.0 //15 minute intervals
+        startTimeSlider.maxValue = 960.0
+        startTimeSlider.selectedMinValue = 0.0
+        startTimeSlider.selectedMaxValue = 960.0
+        startTimeSlider.enableStep = true
+        startTimeSlider.delegate = self
+        startTimeSlider.step = 15.0
+        startTimeSlider.handleDiameter = 24.0
+        startTimeSlider.selectedHandleDiameterMultiplier = 1.0
+        startTimeSlider.lineHeight = 6.0
+        startTimeSlider.hideLabels = true
+
+        startTimeSlider.colorBetweenHandles = .fitnessYellow
+        startTimeSlider.handleColor = .white
+        startTimeSlider.handleBorderWidth = 1.0
+        startTimeSlider.handleBorderColor = .fitnessLightGrey
+        startTimeSlider.tintColor = .fitnessLightGrey
         contentView.addSubview(startTimeSlider)
 
         startTimeClassTypeDivider = UIView()
@@ -120,7 +153,7 @@ class FilterViewController: UIViewController {
         classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getClassNames { (classNames) in
-            
+
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
 
             self.classTypeDropdownData.completed = true
@@ -149,6 +182,7 @@ class FilterViewController: UIViewController {
         instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getInstructors { (instructors) in
+
             for instructor in instructors {
                 // self.instructorDropdownData.titles.append(instructor.name)
                 // self.instructorDropdownData.ids.append(instructor.id)
@@ -163,10 +197,6 @@ class FilterViewController: UIViewController {
         setupConstraints()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController!.tabBar.isHidden = true
-    }
-
     // MARK: - SETUP WRAPPING VIEWS
     func setupWrappingViews() {
         //NAVIGATION BAR
@@ -174,15 +204,15 @@ class FilterViewController: UIViewController {
         titleView.text = "Refine Search"
         titleView.font = ._14LatoBlack
         self.navigationItem.titleView = titleView
-        
+
         let doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
         doneBarButton.tintColor = .fitnessBlack
         self.navigationItem.rightBarButtonItem = doneBarButton
-        
+
         let resetBarButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
         resetBarButton.tintColor = .fitnessBlack
         self.navigationItem.leftBarButtonItem = resetBarButton
-        
+
         //SCROLL VIEW
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -193,7 +223,7 @@ class FilterViewController: UIViewController {
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints {make in
@@ -201,40 +231,40 @@ class FilterViewController: UIViewController {
             make.top.equalToSuperview()
             make.bottom.equalTo(view.snp.bottom)
         }
-        
+
         //COLLECTION VIEW
         collectionViewTitle = UILabel()
         collectionViewTitle.font = ._12LatoBlack
         collectionViewTitle.textColor = .fitnessDarkGrey
         collectionViewTitle.text = "FITNESS CENTER"
         contentView.addSubview(collectionViewTitle)
-        
+
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
         layout.minimumInteritemSpacing = 1
         layout.minimumLineSpacing = 0
-        
+
         gymCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         gymCollectionView.allowsMultipleSelection = true
         gymCollectionView.backgroundColor = .fitnessLightGrey
         gymCollectionView.isScrollEnabled = true
         gymCollectionView.showsHorizontalScrollIndicator = false
-        gymCollectionView.bounces = false
-        
+
         gymCollectionView.delegate = self
         gymCollectionView.dataSource = self
         gymCollectionView.register(GymFilterCell.self, forCellWithReuseIdentifier: GymFilterCell.identifier)
         contentView.addSubview(gymCollectionView)
-        
+
         gyms = []
-        
+
         AppDelegate.networkManager.getGymNames { (gyms) in
+
             self.gyms = gyms
             self.gymCollectionView.reloadData()
         }
     }
-    
+
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         //COLLECTION VIEW SECTION
@@ -269,11 +299,11 @@ class FilterViewController: UIViewController {
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(36)
         }
 
-        startTimeSlider.snp.updateConstraints {make in
-            make.right.equalToSuperview().offset(-16)
-            make.left.equalToSuperview().offset(16)
-            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(47)
-            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(71)
+        startTimeSlider.snp.makeConstraints {make in
+            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalTo(startTimeLabel.snp.bottom).offset(12)
+            make.height.equalTo(30)
         }
 
         startTimeClassTypeDivider.snp.updateConstraints {make in
@@ -345,15 +375,23 @@ class FilterViewController: UIViewController {
 
     // MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done() {
-        let filterParameters = FilterParameters(shouldFilter: true, startTime: startTime, encodedStartTime: startTimeSlider.lowerValue,
-                                                endTime: endTime, encodedEndTime: startTimeSlider.upperValue, instructorNames: selectedInstructors,
-                                                classNames: selectedClasses, gymIds: selectedGyms)
+        let minValueIndex = Int(startTimeSlider.selectedMinValue / 15.0)
+        let maxValueIndex = Int(startTimeSlider.selectedMaxValue / 15.0)
 
-        let classListViewController = navigationController!.viewControllers.first as! ClassListViewController
-        classListViewController.filterParameters = filterParameters
-        classListViewController.updateGymClasses()
+        let minDate = timeRanges[minValueIndex]
+        let maxDate = timeRanges[maxValueIndex]
 
-        navigationController!.popViewController(animated: true)
+        let shouldFilter: Bool = {
+            if minValueIndex != 0 || maxValueIndex != timeRanges.count - 1 { return true }
+            if !selectedInstructors.isEmpty || !selectedClasses.isEmpty || !selectedGyms.isEmpty { return true }
+            return false
+        }()
+
+        let filterParameters = FilterParameters(shouldFilter: shouldFilter, startTime: minDate, encodedStartTime: 0.0, endTime: maxDate, encodedEndTime: 0.0, instructorNames: selectedInstructors, classNames: selectedClasses, gymIds: selectedGyms)
+
+        delegate?.filterOptions(params: filterParameters)
+
+        dismiss(animated: true, completion: nil)
     }
 
     @objc func reset() {
@@ -364,8 +402,8 @@ class FilterViewController: UIViewController {
         }
 
         startTimeLabel.text = "6:00AM - 10:00PM"
-        startTimeSlider.lowerValue = 0.0
-        startTimeSlider.upperValue = 960.0
+        startTimeSlider.selectedMinValue = 0.0
+        startTimeSlider.selectedMaxValue = 960.0
 
         classTypeDropdownData.dropStatus = .down
         selectedClasses = []
@@ -374,34 +412,19 @@ class FilterViewController: UIViewController {
         instructorDropdownData.dropStatus = .down
         selectedInstructors = []
         dropInstructors(sender: UITapGestureRecognizer(target: nil, action: nil))
+
     }
 
     // MARK: - SLIDER METHODS
-    @objc func startTimeChanged() {
-        let lowerSliderVal = startTimeSlider.lowerValue + 360
-        let upperSliderVal = startTimeSlider.upperValue + 360
+    func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
+        let minValueIndex = Int(minValue / 15.0)
+        let maxValueIndex = Int(maxValue / 15.0)
 
-        var lowerHours = Int(lowerSliderVal/60)
-        let lowerMinutes = Int(lowerSliderVal)%60
-        var upperHours = Int(upperSliderVal/60)
-        let upperMinutes = Int(upperSliderVal)%60
+        let minDate = timeRanges[minValueIndex]
+        let maxDate = timeRanges[maxValueIndex]
 
-        if lowerHours > 12 {
-            upperHours -= 12
-            lowerHours -= 12
-            startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " PM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
-            startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "PM")
-            endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
-        } else if (upperHours <= 12) {
-            startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " AM")
-            startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM")
-            endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "AM")
-        } else {
-            upperHours -= 12
-            startTimeLabel.text = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + " AM - " + String(upperHours) + ":" + String(format: "%02d", upperMinutes) + " PM")
-            startTime = (String(lowerHours) + ":" + String(format: "%02d", lowerMinutes) + "AM")
-            endTime = (String(upperHours) + ":" + String(format: "%02d", upperMinutes) + "PM")
-        }
+        startTimeLabel.text = "\(timeFormatter.string(from: minDate)) - \(timeFormatter.string(from: maxDate))"
+
     }
 
     // MARK: - DROP METHODS
@@ -628,7 +651,7 @@ extension FilterViewController: UITableViewDataSource {
         } else if tableView == classTypeDropdown {
             if indexPath.row < classTypeDropdownData.titles.count {
                 cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
-                
+
                 if selectedClasses.contains(classTypeDropdownData.titles[indexPath.row]) {
                     cell.checkBoxColoring.backgroundColor = .fitnessYellow
                 }
