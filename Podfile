@@ -11,6 +11,7 @@ target 'Fitness' do
   pod 'SnapKit'
   pod 'SwiftLint'
   pod 'Apollo'
+  pod 'Presentation'
   pod 'Bartinter'
   pod 'Kingfisher', '~> 4.0'
 end

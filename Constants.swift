@@ -31,4 +31,7 @@ struct Identifiers {
     
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
+    
+    // USER DEFAULTS
+    static let hasSeenOnboarding = "hasSeenOnboarding"
 }
