@@ -39,6 +39,7 @@ query ClassesByType($classNames: [String])
             imageUrl
             startTime
             endTime
+            date
             instructor
             isCancelled
             location

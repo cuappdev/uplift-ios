@@ -20,12 +20,16 @@ class ClassListCell: UICollectionViewCell {
     var classLabel: UILabel!
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
+    
+    var delegate: FavoritesDelegate?
 
     var classId: String! {
         didSet {
             let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
             if favorites.contains(classId) {
                 isFavorite = true
+            } else {
+                isFavorite = false
             }
         }
     }
@@ -187,5 +191,9 @@ class ClassListCell: UICollectionViewCell {
     // MARK: - FAVORITE
     @objc func favorite() {
         isFavorite.toggle()
+        
+        if let delegate = delegate {
+            delegate.unFavorite(classDetailId: classId)
+        }
     }
 }

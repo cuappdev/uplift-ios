@@ -102,6 +102,14 @@ class ClassListViewController: UIViewController {
         filterButton.layer.shadowOpacity = 0.2
         filterButton.layer.masksToBounds = false
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Update favorited
+        for cell in classCollectionView.visibleCells {
+            let classCell = cell as! ClassListCell
+            classCell.classId = {classCell.classId}()
+        }
+    }
 
     func createCalendarDates() {
         guard let startDate = cal.date(byAdding: .day, value: -3, to: currDate) else { return }

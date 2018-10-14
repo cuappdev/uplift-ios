@@ -28,7 +28,27 @@ class ClassDetailViewController: UIViewController {
     var semicircleView: UIImageView!
 
     var backButton: UIButton!
-    var starButton: UIButton!
+    var favoriteButton: UIButton!
+    var isFavorite: Bool = false {
+        didSet {
+            let defaults = UserDefaults.standard
+            var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
+            
+            if isFavorite {
+                favoriteButton.isSelected = true
+                if !favorites.contains(gymClassInstance.classDetailId) {
+                    favorites.append(gymClassInstance.classDetailId)
+                    defaults.set(favorites, forKey: Identifiers.favorites)
+                }
+            } else {
+                favoriteButton.isSelected = false
+                if favorites.contains(gymClassInstance.classDetailId) {
+                    favorites = favorites.filter {$0 != gymClassInstance.classDetailId}
+                    defaults.set(favorites, forKey: Identifiers.favorites)
+                }
+            }
+        }
+    }
 
     var dateLabel = UILabel()
     var timeLabel = UILabel()
@@ -174,7 +194,7 @@ class ClassDetailViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.clipsToBounds = false
 
-        tableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
+//        tableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -242,11 +262,12 @@ class ClassDetailViewController: UIViewController {
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
 
-        starButton = UIButton()
-        starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
-        starButton.sizeToFit()
-        starButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
-        contentView.addSubview(starButton)
+        favoriteButton = UIButton()
+        favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "filter"), for: .selected)
+        favoriteButton.sizeToFit()
+        favoriteButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
+        favoriteButton.addSubview(favoriteButton)
     }
 
     // MARK: - CONSTRAINTS
@@ -308,7 +329,7 @@ class ClassDetailViewController: UIViewController {
             make.height.equalTo(19)
         }
 
-        starButton.snp.makeConstraints { make in
+        favoriteButton.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-21)
             make.top.equalToSuperview().offset(14)
             make.width.equalTo(23)
@@ -405,8 +426,7 @@ class ClassDetailViewController: UIViewController {
     }
 
     @objc func favorite() {
-        // TODO: Replace with favorite functionality
-        print("favorite")
+        isFavorite.toggle()
     }
 
     @objc func addToCalendar() {

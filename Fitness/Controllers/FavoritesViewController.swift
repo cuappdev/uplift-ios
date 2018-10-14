@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol FavoritesDelegate {
+    func unFavorite(classDetailId: String)
+}
+
 class FavoritesViewController: UIViewController {
 
     // MARK: - INITIALIZATION
@@ -18,9 +22,12 @@ class FavoritesViewController: UIViewController {
     var favoritesNames: [String]!
     var favorites: [GymClassInstance]! {
         didSet {
-            if favorites.count == 0 {
+            
+            if favoritesNames.count == 0 {
+                classesCollectionView.removeFromSuperview()
                 view.addSubview(emptyStateView)
             } else {
+                emptyStateView.removeFromSuperview()
                 view.addSubview(classesCollectionView)
                 classesCollectionView.reloadData()
             }
@@ -55,27 +62,33 @@ class FavoritesViewController: UIViewController {
         
         // EMPTY STATE
         emptyStateView = NoFavoritesEmptyStateView(frame: .zero)
+        emptyStateView.tabBarController = tabBarController
         view.addSubview(emptyStateView)
 
         // COLLECTION VIEW
-        classesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        classesCollectionView.bounces = false
+        let classFlowLayout = UICollectionViewFlowLayout()
+        classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
+        classFlowLayout.minimumLineSpacing = 12.0
+        classFlowLayout.headerReferenceSize = .init(width: view.bounds.width, height: 233.0)
+        
+        classesCollectionView = UICollectionView(frame: .zero, collectionViewLayout:classFlowLayout)
         classesCollectionView.showsHorizontalScrollIndicator = false
+        classesCollectionView.showsVerticalScrollIndicator = false
         classesCollectionView.delegate = self
         classesCollectionView.dataSource = self
         classesCollectionView.backgroundColor = .white
+        classesCollectionView.bounces = true
 
         classesCollectionView.register(FavoritesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoritesHeaderView.identifier)
         classesCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
-
+        view.addSubview(classesCollectionView)
+        
         setupConstraints()
         
-        // TODO : fetch favorites
         favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites)
         favorites = []
         
         NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
-            
             self.favorites = gymClasses
         }
     }
@@ -85,8 +98,12 @@ class FavoritesViewController: UIViewController {
         
         if newFavoritesNames != favoritesNames {
             favoritesNames = newFavoritesNames
-            NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
-                self.favorites = gymClasses
+            if favoritesNames.count > 0 {
+                NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
+                    self.favorites = gymClasses
+                }
+            } else {
+                favorites = []
             }
         }
     }
@@ -108,49 +125,66 @@ class FavoritesViewController: UIViewController {
     }
     
     func remakeConstraints() {
-        if favorites.count == 0 {
+        if favoritesNames.count == 0 {
             emptyStateView.snp.remakeConstraints { make in
                 make.leading.trailing.bottom.equalToSuperview()
-                make.top.equalTo(titleLabel.snp.bottom)
+                make.top.equalTo(titleBackground.snp.bottom)
             }
         } else {
             classesCollectionView.snp.remakeConstraints { make in
                 make.leading.trailing.bottom.equalToSuperview()
-                make.top.equalTo(titleLabel.snp.bottom)
+                make.top.equalTo(titleBackground.snp.bottom)
             }
         }
     }
 }
 
+extension FavoritesViewController: FavoritesDelegate {
+    func unFavorite(classDetailId: String) {
+        favoritesNames = favoritesNames.filter {$0 != classDetailId}
+        favorites = favorites.filter {$0.classDetailId != classDetailId}
+        classesCollectionView.reloadData()
+    }
+}
 
 extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favorites.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
         
         let classForCell = favorites[indexPath.row]
-//        
-//        cell.classLabel.text = classForCell.className
-//        cell.durationLabel.text = "\(Int(classForCell.duration / 60.0)) min"
-//        cell.timeLabel.text = timeFormatter.string(from: classForCell.startTime)
-//        cell.instructorLabel.text = classForCell.instructor
-//        cell.locationLabel.text = classForCell.location
+        
+        cell.classLabel.text = classForCell.className
+        cell.durationLabel.text = classForCell.startTime.getStringOfDatetime(format: "h:mma")
+        
+        let calendar = Calendar.current
+        
+        if calendar.dateComponents([.day], from: classForCell.startTime) == calendar.dateComponents([.day], from: Date()) {
+            cell.timeLabel.text = "Today"
+        } else {
+            cell.timeLabel.text = classForCell.startTime.getStringOfDatetime(format: "MMM d")
+        }
+        
+        cell.instructorLabel.text = classForCell.instructor
+        cell.locationLabel.text = classForCell.location
+        cell.classId = classForCell.classDetailId
+        cell.delegate = self
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO : push class detail view
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoritesHeaderView.identifier, for: indexPath) as! FavoritesHeaderView
+        return header
     }
-
-//    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-//        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoritesHeaderView.identifier, for: indexPath) as! FavoritesHeaderView
-//
-//        return header
-//    }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let classDetailViewController = ClassDetailViewController()
+        classDetailViewController.gymClassInstance = favorites[indexPath.row]
+        navigationController?.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(classDetailViewController, animated: true)
+    }
 }

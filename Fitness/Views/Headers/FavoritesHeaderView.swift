@@ -9,19 +9,18 @@
 import UIKit
 import SnapKit
 
-class FavoritesHeaderView: UITableViewHeaderFooterView {
+class FavoritesHeaderView: UICollectionReusableView {
 
     // MARK: - INITIALIZAITON
     static let identifier =  Identifiers.favoritesHeaderView
     var quoteLabel: UILabel!
     var nextSessionsLabel: UILabel!
 
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         //BACKGROUND COLOR
-        backgroundView = UIView(frame: frame)
-        backgroundView?.backgroundColor = .white
+        backgroundColor = .white
 
         //QUOTE LABEL
         quoteLabel = UILabel()
@@ -51,15 +50,16 @@ class FavoritesHeaderView: UITableViewHeaderFooterView {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         quoteLabel.snp.updateConstraints {make in
-            make.right.equalToSuperview().offset(-60)
-            make.left.equalToSuperview().offset(60)
-            make.top.equalToSuperview().offset(73)
+            make.trailing.equalToSuperview().offset(-30)
+            make.leading.equalToSuperview().offset(30)
+            make.top.equalToSuperview().offset(64)
         }
 
         nextSessionsLabel.snp.updateConstraints {make in
-            make.top.equalTo(quoteLabel.snp.bottom).offset(52)
-            make.bottom.equalTo(quoteLabel.snp.bottom).offset(67)
+            make.top.equalTo(quoteLabel.snp.bottom).offset(62)
             make.centerX.equalToSuperview()
+            make.width.lessThanOrEqualToSuperview().offset(40)
+            make.height.equalTo(18)
         }
     }
 }

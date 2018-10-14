@@ -131,19 +131,24 @@ struct NetworkManager {
                 let instructor = gymClassData.instructor
                 let startTime = gymClassData.startTime ?? ""
                 let endTime = gymClassData.endTime ?? ""
+                let date = gymClassData.date
                 let isCancelled = gymClassData.isCancelled
                 let gymId = gymClassData.gymId ?? ""
                 let location = gymClassData.location
                 let classDescription = gymClassData.details.description
                 let classDetailId = gymClassData.details.id
                 let className = gymClassData.details.name
-                let start = Date.getDatetimeFromString(datetime: startTime)
-                let end = Date.getDatetimeFromString(datetime: endTime)
+                let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
+                let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
                 
                 let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
                 
                 gymClassInstances.append(gymClass)
             }
+            let now = Date()
+            gymClassInstances = gymClassInstances.filter {$0.startTime > now}
+            gymClassInstances.sort {$0.startTime < $1.startTime}
+
             completion(gymClassInstances)
         }
     }
