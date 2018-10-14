@@ -13,18 +13,18 @@ class FavoritesViewController: UIViewController {
 
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
-    var quoteLabel: UILabel!
+    var titleBackground: UIView!
     
     var favoritesNames: [String]!
     var favorites: [GymClassInstance]! {
-        willSet(newFavorites) {
-            if newFavorites.count == 0 {
+        didSet {
+            if favorites.count == 0 {
                 view.addSubview(emptyStateView)
             } else {
                 view.addSubview(classesCollectionView)
             }
             
-//            remakeConstraints()
+            remakeConstraints()
         }
     }
     
@@ -35,23 +35,22 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-
-        //NAVIGATION BAR
-        navigationController?.navigationBar.clipsToBounds = false
         navigationController?.isNavigationBarHidden = true
-        additionalSafeAreaInsets.top = 76
 
+        // TITLE
+        titleBackground = UIView()
+        titleBackground.backgroundColor = .white
+        titleBackground.layer.shadowOffset = CGSize(width: 0, height: 9)
+        titleBackground.layer.shadowColor = UIColor.buttonShadow.cgColor
+        titleBackground.layer.shadowOpacity = 0.25
+        titleBackground.clipsToBounds = false
+        view.addSubview(titleBackground)
+        
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.text = "Favorites"
-        view.addSubview(titleLabel)
-        
-        quoteLabel = UILabel()
-        quoteLabel.font = ._24MontserratBold
-        quoteLabel.textColor = .fitnessBlack
-        quoteLabel.text = "quote"
-        view.addSubview(quoteLabel)
+        titleBackground.addSubview(titleLabel)
         
         // EMPTY STATE
         emptyStateView = NoFavoritesEmptyStateView(frame: .zero)
@@ -72,36 +71,35 @@ class FavoritesViewController: UIViewController {
         
         // TODO : fetch favorites
         favoritesNames = []
-        
         favorites = []
-        
-        remakeConstraints()
     }
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        titleLabel.snp.updateConstraints {make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview()
+        titleBackground.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(120)
+        }
+        
+        titleLabel.snp.makeConstraints {make in
+            make.leading.equalToSuperview().offset(24)
+            make.bottom.equalToSuperview().offset(-20)
+            make.height.equalTo(26)
+            make.trailing.lessThanOrEqualTo(titleBackground)
         }
 
     }
     
     func remakeConstraints() {
         if favorites.count == 0 {
-            emptyStateView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+            emptyStateView.snp.remakeConstraints { make in
+                make.leading.trailing.bottom.equalToSuperview()
+                make.top.equalTo(titleLabel.snp.bottom)
             }
         } else {
-            quoteLabel.snp.updateConstraints {make in
-                make.leading.trailing.equalToSuperview()
-                make.top.equalTo(titleLabel.snp.bottom).offset(64)
-                make.height.equalTo(58)
-            }
-            
-            classesCollectionView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+            classesCollectionView.snp.remakeConstraints { make in
+                make.leading.trailing.bottom.equalToSuperview()
+                make.top.equalTo(titleLabel.snp.bottom)
             }
         }
     }
@@ -123,7 +121,7 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        // TODO : push class detail view
     }
 
 //    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {

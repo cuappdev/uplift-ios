@@ -952,6 +952,222 @@ public final class AllClassNamesQuery: GraphQLQuery {
   }
 }
 
+public final class ClassesByTypeQuery: GraphQLQuery {
+  public let operationDefinition =
+    "query ClassesByType($classNames: [String]) {\n  classes(detailIds: $classNames) {\n    __typename\n    id\n    gymId\n    details {\n      __typename\n      id\n      name\n      description\n    }\n    imageUrl\n    startTime\n    endTime\n    instructor\n    isCancelled\n    location\n  }\n}"
+
+  public var classNames: [String?]?
+
+  public init(classNames: [String?]? = nil) {
+    self.classNames = classNames
+  }
+
+  public var variables: GraphQLMap? {
+    return ["classNames": classNames]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("classes", arguments: ["detailIds": GraphQLVariable("classNames")], type: .list(.object(Class.selections))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(classes: [Class?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "classes": classes.flatMap { (value: [Class?]) -> [ResultMap?] in value.map { (value: Class?) -> ResultMap? in value.flatMap { (value: Class) -> ResultMap in value.resultMap } } }])
+    }
+
+    public var classes: [Class?]? {
+      get {
+        return (resultMap["classes"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Class?] in value.map { (value: ResultMap?) -> Class? in value.flatMap { (value: ResultMap) -> Class in Class(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [Class?]) -> [ResultMap?] in value.map { (value: Class?) -> ResultMap? in value.flatMap { (value: Class) -> ResultMap in value.resultMap } } }, forKey: "classes")
+      }
+    }
+
+    public struct Class: GraphQLSelectionSet {
+      public static let possibleTypes = ["ClassType"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(String.self))),
+        GraphQLField("gymId", type: .scalar(String.self)),
+        GraphQLField("details", type: .nonNull(.object(Detail.selections))),
+        GraphQLField("imageUrl", type: .nonNull(.scalar(String.self))),
+        GraphQLField("startTime", type: .scalar(String.self)),
+        GraphQLField("endTime", type: .scalar(String.self)),
+        GraphQLField("instructor", type: .nonNull(.scalar(String.self))),
+        GraphQLField("isCancelled", type: .nonNull(.scalar(Bool.self))),
+        GraphQLField("location", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: String, gymId: String? = nil, details: Detail, imageUrl: String, startTime: String? = nil, endTime: String? = nil, instructor: String, isCancelled: Bool, location: String) {
+        self.init(unsafeResultMap: ["__typename": "ClassType", "id": id, "gymId": gymId, "details": details.resultMap, "imageUrl": imageUrl, "startTime": startTime, "endTime": endTime, "instructor": instructor, "isCancelled": isCancelled, "location": location])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: String {
+        get {
+          return resultMap["id"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var gymId: String? {
+        get {
+          return resultMap["gymId"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "gymId")
+        }
+      }
+
+      public var details: Detail {
+        get {
+          return Detail(unsafeResultMap: resultMap["details"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "details")
+        }
+      }
+
+      public var imageUrl: String {
+        get {
+          return resultMap["imageUrl"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "imageUrl")
+        }
+      }
+
+      public var startTime: String? {
+        get {
+          return resultMap["startTime"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "startTime")
+        }
+      }
+
+      public var endTime: String? {
+        get {
+          return resultMap["endTime"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "endTime")
+        }
+      }
+
+      public var instructor: String {
+        get {
+          return resultMap["instructor"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "instructor")
+        }
+      }
+
+      public var isCancelled: Bool {
+        get {
+          return resultMap["isCancelled"]! as! Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "isCancelled")
+        }
+      }
+
+      public var location: String {
+        get {
+          return resultMap["location"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "location")
+        }
+      }
+
+      public struct Detail: GraphQLSelectionSet {
+        public static let possibleTypes = ["ClassDetailType"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(String.self))),
+          GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLField("description", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: String, name: String, description: String) {
+          self.init(unsafeResultMap: ["__typename": "ClassDetailType", "id": id, "name": name, "description": description])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: String {
+          get {
+            return resultMap["id"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var description: String {
+          get {
+            return resultMap["description"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "description")
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class GetTagsQuery: GraphQLQuery {
   public let operationDefinition =
     "query GetTags {\n  classes {\n    __typename\n    details {\n      __typename\n      tags {\n        __typename\n        label\n        imageUrl\n      }\n    }\n  }\n}"

@@ -25,3 +25,22 @@ query AllClassNames
             }
         }
     }
+
+query ClassesByType($classNames: [String])
+    {
+        classes(detailIds: $classNames) {
+            id
+            gymId
+            details {
+                id
+                name
+                description
+            }
+            imageUrl
+            startTime
+            endTime
+            instructor
+            isCancelled
+            location
+        }
+    }
