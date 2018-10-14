@@ -72,13 +72,14 @@ struct NetworkManager {
                 let gymId = gymClassData.gymId ?? ""
                 let location = gymClassData.location
                 let classDescription = gymClassData.details.description
+                let classId = gymClassData.details.id
                 let className = gymClassData.details.name
                 let start = Date.convertTimeStringToDate(time: startTime)
                 let end = Date.convertTimeStringToDate(time: endTime)
                 let graphTags = gymClassData.details.tags.compactMap { $0 }
                 let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
 
-                let gymClass = GymClassInstance(classDescription: classDescription, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
 
                 gymClassInstances.append(gymClass)
             }
@@ -100,13 +101,14 @@ struct NetworkManager {
                 let gymId = gymClassData.gymId ?? ""
                 let location = gymClassData.gym?.name ?? ""
                 let classDescription = gymClassData.details.description
+                let classDetailId = gymClassData.details.id
                 let className = gymClassData.details.name
                 let start = Date.getDatetimeFromString(datetime: startTime)
                 let end = Date.getDatetimeFromString(datetime: endTime)
                 let graphTags = gymClassData.details.tags.compactMap { $0 }
                 let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
 
-                let gymClass = GymClassInstance(classDescription: classDescription, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
 
                 gymClassInstances.append(gymClass)
             }
@@ -117,6 +119,33 @@ struct NetworkManager {
 
     func getGymClassInstance(gymClassInstanceId: Int, completion: @escaping (GymClassInstance) -> Void) {
 
+    }
+    
+    func getGymClassInstances(gymClassDetailIds: [String], completion: @escaping ([GymClassInstance]) -> Void) {
+        apollo.fetch(query: ClassesByTypeQuery(classNames: gymClassDetailIds)) { (result,error) in
+            guard let data = result?.data, let classes = data.classes else { return }
+            var gymClassInstances: [GymClassInstance] = []
+            
+            for gymClassData in classes {
+                guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
+                let instructor = gymClassData.instructor
+                let startTime = gymClassData.startTime ?? ""
+                let endTime = gymClassData.endTime ?? ""
+                let isCancelled = gymClassData.isCancelled
+                let gymId = gymClassData.gymId ?? ""
+                let location = gymClassData.location
+                let classDescription = gymClassData.details.description
+                let classDetailId = gymClassData.details.id
+                let className = gymClassData.details.name
+                let start = Date.getDatetimeFromString(datetime: startTime)
+                let end = Date.getDatetimeFromString(datetime: endTime)
+                
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
+                
+                gymClassInstances.append(gymClass)
+            }
+            completion(gymClassInstances)
+        }
     }
 
     func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [String], gymIDs: [String], classNames: [String], completion: @escaping ([GymClassInstance]) -> Void) {

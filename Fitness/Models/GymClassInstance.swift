@@ -9,6 +9,7 @@ import Foundation
 
 struct GymClassInstance {
     let classDescription: String
+    let classDetailId: String
     let className: String
     let instructor: String
     let startTime: Date

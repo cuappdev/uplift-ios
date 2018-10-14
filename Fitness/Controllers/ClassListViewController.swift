@@ -228,6 +228,8 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.timeLabel.text = timeFormatter.string(from: classForCell.startTime)
         cell.instructorLabel.text = classForCell.instructor
         cell.locationLabel.text = classForCell.location
+        cell.classId = classForCell.classDetailId
+        
         return cell
     }
 

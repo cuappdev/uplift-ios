@@ -22,6 +22,7 @@ class FavoritesViewController: UIViewController {
                 view.addSubview(emptyStateView)
             } else {
                 view.addSubview(classesCollectionView)
+                classesCollectionView.reloadData()
             }
             
             remakeConstraints()
@@ -70,8 +71,24 @@ class FavoritesViewController: UIViewController {
         setupConstraints()
         
         // TODO : fetch favorites
-        favoritesNames = []
+        favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites)
         favorites = []
+        
+        NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
+            
+            self.favorites = gymClasses
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let newFavoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites)
+        
+        if newFavoritesNames != favoritesNames {
+            favoritesNames = newFavoritesNames
+            NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
+                self.favorites = gymClasses
+            }
+        }
     }
 
     // MARK: - CONSTRAINTS
@@ -115,7 +132,13 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
         
-        // TODO : set up cell
+        let classForCell = favorites[indexPath.row]
+//        
+//        cell.classLabel.text = classForCell.className
+//        cell.durationLabel.text = "\(Int(classForCell.duration / 60.0)) min"
+//        cell.timeLabel.text = timeFormatter.string(from: classForCell.startTime)
+//        cell.instructorLabel.text = classForCell.instructor
+//        cell.locationLabel.text = classForCell.location
         
         return cell
     }
