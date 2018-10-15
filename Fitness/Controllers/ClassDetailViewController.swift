@@ -15,7 +15,16 @@ import Bartinter
 class ClassDetailViewController: UIViewController {
 
     // MARK: - INITIALIZATION
-    var gymClassInstance: GymClassInstance!
+    var gymClassInstance: GymClassInstance! {
+        didSet {
+            let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+            if favorites.contains(gymClassInstance.classDetailId) {
+                isFavorite = true
+            } else {
+                isFavorite = false
+            }
+        }
+    }
 
     var titleLabel: UILabel!
     var locationLabel = UILabel()
@@ -28,7 +37,7 @@ class ClassDetailViewController: UIViewController {
     var semicircleView: UIImageView!
 
     var backButton: UIButton!
-    var favoriteButton: UIButton!
+    var favoriteButton = UIButton()
     var isFavorite: Bool = false {
         didSet {
             let defaults = UserDefaults.standard
@@ -262,12 +271,11 @@ class ClassDetailViewController: UIViewController {
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
 
-        favoriteButton = UIButton()
         favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
-        favoriteButton.setImage(UIImage(named: "filter"), for: .selected)
+        favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
         favoriteButton.sizeToFit()
         favoriteButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
-        favoriteButton.addSubview(favoriteButton)
+        contentView.addSubview(favoriteButton)
     }
 
     // MARK: - CONSTRAINTS

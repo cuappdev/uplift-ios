@@ -253,6 +253,12 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             calendarDateSelected = calendarDatesList[indexPath.item]
             calendarCollectionView.reloadData()
             getClassesFor(date: calendarDateSelected)
+        } else if collectionView == classCollectionView {
+            let classDetailViewController = ClassDetailViewController()
+            guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return }
+            classDetailViewController.gymClassInstance = filteringIsActive ? filteredClasses[indexPath.row] : classList[index][indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(classDetailViewController, animated: true)
         }
     }
 
