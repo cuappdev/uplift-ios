@@ -419,7 +419,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - DROP METHODS
     @objc func dropInstructors( sender: UITapGestureRecognizer) {
-        print("dropInstructors called")
         if instructorDropdownData.completed == false {
             instructorDropdownData.dropStatus = .up
             return
@@ -454,7 +453,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     }
 
     @objc func dropClasses( sender: UITapGestureRecognizer) {
-        print("dropClasses called")
         if classTypeDropdownData.completed == false {
             classTypeDropdownData.dropStatus = .up
             return
@@ -488,8 +486,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - SHOW ALL/HIDE METHODS
     @objc func dropHideClasses( sender: UITapGestureRecognizer) {
-        print("dropHideClasses called")
-
         if classTypeDropdownData.completed == false {
             return
         }
