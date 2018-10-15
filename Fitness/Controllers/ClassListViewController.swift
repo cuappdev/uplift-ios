@@ -109,6 +109,14 @@ class ClassListViewController: UIViewController {
         filterButton.layer.shadowOpacity = 0.2
         filterButton.layer.masksToBounds = false
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Update favorited
+        for cell in classCollectionView.visibleCells {
+            let classCell = cell as! ClassListCell
+            classCell.classId = {classCell.classId}()
+        }
+    }
 
     func createCalendarDates() {
         guard let startDate = cal.date(byAdding: .day, value: -3, to: currDate) else { return }
@@ -235,6 +243,8 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.timeLabel.text = timeFormatter.string(from: classForCell.startTime)
         cell.instructorLabel.text = classForCell.instructor
         cell.locationLabel.text = classForCell.location
+        cell.classId = classForCell.classDetailId
+        
         return cell
     }
 
@@ -243,6 +253,12 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             calendarDateSelected = calendarDatesList[indexPath.item]
             calendarCollectionView.reloadData()
             getClassesFor(date: calendarDateSelected)
+        } else if collectionView == classCollectionView {
+            let classDetailViewController = ClassDetailViewController()
+            guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return }
+            classDetailViewController.gymClassInstance = filteringIsActive ? filteredClasses[indexPath.row] : classList[index][indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(classDetailViewController, animated: true)
         }
     }
 

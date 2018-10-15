@@ -7,11 +7,11 @@ target 'Fitness' do
   pod 'AlamofireImage'
   pod 'Crashlytics'
   pod 'Fabric'
-	pod 'Moya'
+  pod 'Moya'
   pod 'SnapKit'
   pod 'SwiftLint'
   pod 'Apollo'
-  pod 'Presentation'
+  pod 'Presentation', :git=> 'https://github.com/mattbarker016/Presentation.git'
   pod 'Bartinter'
   pod 'Kingfisher', '~> 4.0'
 end

@@ -20,8 +20,41 @@ class ClassListCell: UICollectionViewCell {
     var classLabel: UILabel!
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
+    
+    var delegate: FavoritesDelegate?
 
+    var classId: String! {
+        didSet {
+            let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+            if favorites.contains(classId) {
+                isFavorite = true
+            } else {
+                isFavorite = false
+            }
+        }
+    }
+    
     var favoriteButton: UIButton!
+    var isFavorite: Bool = false {
+        didSet {
+            let defaults = UserDefaults.standard
+            var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
+            
+            if isFavorite {
+                favoriteButton.isSelected = true
+                if !favorites.contains(classId) {
+                    favorites.append(classId)
+                    defaults.set(favorites, forKey: Identifiers.favorites)
+                }
+            } else {
+                favoriteButton.isSelected = false
+                if favorites.contains(classId) {
+                    favorites = favorites.filter {$0 != classId}
+                    defaults.set(favorites, forKey: Identifiers.favorites)
+                }
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,8 +98,10 @@ class ClassListCell: UICollectionViewCell {
 
         //FAVORITE
         favoriteButton = UIButton()
-        favoriteButton.setImage(#imageLiteral(resourceName: "grey-star"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "grey-star"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "yellow-star"), for: .selected)
         favoriteButton.sizeToFit()
+        favoriteButton.addTarget(self, action: #selector(favorite), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
 
         setUpContstraints()
@@ -143,5 +178,14 @@ class ClassListCell: UICollectionViewCell {
             make.height.equalTo(16)
         }
 
+    }
+    
+    // MARK: - FAVORITE
+    @objc func favorite() {
+        isFavorite.toggle()
+        
+        if let delegate = delegate {
+            delegate.unFavorite(classDetailId: classId)
+        }
     }
 }

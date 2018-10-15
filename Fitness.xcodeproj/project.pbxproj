@@ -29,6 +29,7 @@
 		8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB082072BCE000144BFC /* FilterViewController.swift */; };
 		8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0A2072C31400144BFC /* Lato-Black.ttf */; };
 		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
+		8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */; };
 		8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA478208EC31100E98E6C /* Histogram.swift */; };
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
 		8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */; };
@@ -99,6 +100,7 @@
 		8D26DB0C2072C35F00144BFC /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFilterCell.swift; sourceTree = "<group>"; };
+		8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavoritesEmptyStateView.swift; sourceTree = "<group>"; };
 		8D5EA478208EC31100E98E6C /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */,
+				8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */,
 			);
 			path = "Empty States";
 			sourceTree = "<group>";
@@ -500,14 +503,11 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/Bartinter/Bartinter.framework",
-				"${BUILT_PRODUCTS_DIR}/Fuzzywuzzy_swift/Fuzzywuzzy_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/Pages/Pages.framework",
 				"${BUILT_PRODUCTS_DIR}/Presentation/Presentation.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/WARangeSlider/WARangeSlider.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -515,14 +515,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bartinter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fuzzywuzzy_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Presentation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WARangeSlider.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -604,6 +601,7 @@
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
+				8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */,
 				D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */,
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
