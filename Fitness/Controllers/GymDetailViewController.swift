@@ -122,7 +122,6 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
         classesTableView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
-        classesTableView.delegate = self
         classesTableView.dataSource = self
         contentView.addSubview(classesTableView)
 
@@ -438,14 +437,38 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
     }
 }
 
-// MARK: TableViewDataSource
-extension GymDetailViewController: UITableViewDataSource, UICollectionViewDataSource {
+// MARK: CollectionViewDataSource
+extension GymDetailViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == classesTableView) {
             return todaysClasses.count
         }
         return 0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if (collectionView == classesTableView) {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
+            let gymClassInstance = todaysClasses[indexPath.item]
+            cell.classLabel.text = gymClassInstance.className
+            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
+            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
+            
+            cell.instructorLabel.text = gymClassInstance.instructor
+            
+            cell.duration = Int(gymClassInstance.duration) / 60
+            cell.durationLabel.text = String(cell.duration) + " min"
+            
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
+
+// MARK: TableViewDataSource
+extension GymDetailViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == hoursTableView) {
             if (hoursData.isDropped) {
@@ -456,24 +479,6 @@ extension GymDetailViewController: UITableViewDataSource, UICollectionViewDataSo
         } else {
             return 0
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if (collectionView == classesTableView) {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-            let gymClassInstance = todaysClasses[indexPath.item]
-            cell.classLabel.text = gymClassInstance.className
-            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
-            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-
-            cell.instructorLabel.text = gymClassInstance.instructor
-
-            cell.duration = Int(gymClassInstance.duration) / 60
-            cell.durationLabel.text = String(cell.duration) + " min"
-            
-            return cell
-        }
-        return UICollectionViewCell()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -503,22 +508,7 @@ extension GymDetailViewController: UITableViewDataSource, UICollectionViewDataSo
 
             return cell
         } else {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-//
-//            let gymClassInstance = todaysClasses[indexPath.row]
-//
-//            cell.classLabel.text = gymClassInstance.className
-//            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
-//            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-//
-//            cell.instructorLabel.text = gymClassInstance.instructor
-//
-//            cell.duration = Int(gymClassInstance.duration) / 60
-//            cell.durationLabel.text = String(cell.duration) + " min"
-
-            //location
             return UITableViewCell()
-            //return cell
         }
     }
 

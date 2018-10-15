@@ -49,7 +49,7 @@ class ClassDetailViewController: UIViewController {
     var contentView: UIView!
 
     var nextSessionsLabel: UILabel!
-    var tableView: UITableView!
+    var classCollectionView: UICollectionView!
     var nextSessions = [GymClassInstance]()
 
     override func viewWillAppear(_ animated: Bool) {
@@ -166,19 +166,21 @@ class ClassDetailViewController: UIViewController {
         nextSessionsLabel.sizeToFit()
         contentView.addSubview(nextSessionsLabel)
 
-        tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.separatorStyle = .none
-        tableView.bounces = false
-        tableView.showsVerticalScrollIndicator = false
-        tableView.isScrollEnabled = false
-        tableView.backgroundColor = .white
-        tableView.clipsToBounds = false
+        let classFlowLayout = UICollectionViewFlowLayout()
+        classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
+        classFlowLayout.minimumLineSpacing = 12.0
+        classFlowLayout.headerReferenceSize = .init(width: view.bounds.width - 32.0, height: 72.0)
+        
+        classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
+        classCollectionView.bounces = false
+        classCollectionView.showsVerticalScrollIndicator = false
+        classCollectionView.backgroundColor = .white
+        classCollectionView.clipsToBounds = false
 
-        tableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
+        classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
-        tableView.delegate = self
-        tableView.dataSource = self
-        contentView.addSubview(tableView)
+        classCollectionView.dataSource = self
+        contentView.addSubview(classCollectionView)
 
         setupConstraints()
     }
@@ -388,14 +390,14 @@ class ClassDetailViewController: UIViewController {
             make.height.equalTo(15)
         }
 
-        tableView.snp.updateConstraints {make in
+        classCollectionView.snp.updateConstraints {make in
             make.left.right.equalToSuperview()
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
-            make.height.equalTo(tableView.numberOfRows(inSection: 0) * 112)
+            make.height.equalTo(classCollectionView.numberOfItems(inSection: 0) * 112)
         }
 
         var height = 764 + descriptionTextView.frame.height + 111
-        height += CGFloat(tableView.numberOfRows(inSection: 0)*112 + 110)
+        height += CGFloat(classCollectionView.numberOfItems(inSection: 0)*112 + 110)
         scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
 
@@ -435,15 +437,25 @@ class ClassDetailViewController: UIViewController {
 }
 
 // MARK: TableViewDataSource
-extension ClassDetailViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5    //temporary
+extension ClassDetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return nextSessions.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-
-        return UITableViewCell()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
+        
+        let gymClassInstance = nextSessions[indexPath.item]
+        cell.classLabel.text = gymClassInstance.className
+        cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
+        cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
+        
+        cell.instructorLabel.text = gymClassInstance.instructor
+        
+        cell.duration = Int(gymClassInstance.duration) / 60
+        cell.durationLabel.text = String(cell.duration) + " min"
+        
+        return cell
     }
 }
 
