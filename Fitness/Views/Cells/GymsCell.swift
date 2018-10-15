@@ -71,29 +71,27 @@ class GymsCell: UICollectionViewCell {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         colorBar.snp.updateConstraints {make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.height.equalToSuperview()
             make.width.equalToSuperview().dividedBy(32)
         }
 
         locationName.snp.updateConstraints {make in
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-23)
-            make.leading.equalToSuperview().offset(10)
-            make.trailing.lessThanOrEqualToSuperview()
+            make.top.equalToSuperview().offset(12)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.lessThanOrEqualToSuperview().inset(4)
         }
 
         status.snp.updateConstraints {make in
             make.leading.equalTo(locationName)
-            make.bottom.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(28)
+            make.height.equalTo(15)
+            make.top.equalTo(locationName.snp.bottom).offset(2)
         }
 
         hours.snp.updateConstraints {make in
-            make.left.equalTo(status.snp.right).offset(5)
-
-            make.bottom.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(28)
+            make.leading.equalTo(status.snp.trailing).offset(5)
+            make.trailing.lessThanOrEqualToSuperview().inset(4)
+            make.height.top.equalTo(status)
         }
     }
 

@@ -37,12 +37,17 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = UIColor.fitnessWhite
         headerView = HomeScreenHeaderView()
-        headerView.setName(name: "Austin")
+        headerView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        headerView.layer.shadowRadius = 4
+        headerView.layer.shadowOpacity = 0.1
+        headerView.layer.shadowColor = UIColor.black.cgColor
+        headerView.layer.masksToBounds = false
 
         view.addSubview(headerView)
         headerView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
+            make.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(100)
         }
 
@@ -68,7 +73,7 @@ class HomeController: UIViewController {
         view.addSubview(mainCollectionView)
 
         mainCollectionView.snp.makeConstraints {make in
-            make.top.equalTo(headerView.snp.bottom)
+            make.top.equalTo(headerView.snp.bottom).offset(18)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -119,8 +124,6 @@ extension HomeController: UICollectionViewDataSource {
             return tags.count
         }
     }
-
-
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
@@ -217,7 +220,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .todaysClasses:
             return CGSize(width: collectionView.bounds.width, height: 227.0)
         case .lookingFor:
-            return CGSize(width: 164.0, height: 128.0)
+            let width = (collectionView.bounds.width-48)/2
+            return CGSize(width: width, height: width*0.78)
         }
     }
 

@@ -48,11 +48,18 @@ class ClassListViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        navigationController?.navigationBar.layer.shadowRadius = 4.0
+        navigationController?.navigationBar.layer.shadowOpacity = 0.1
+        navigationController?.navigationBar.layer.masksToBounds = false
 
         searchBar = UISearchBar()
         searchBar.showsCancelButton = false
         searchBar.delegate = self
         searchBar.placeholder = "find a way to sweat"
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 2.0, vertical: 0)
+        searchBar.tintColor = UIColor.fitnessDarkGrey
         searchBar.changeSearchBarColor(color: .white)
 
         let textfield = searchBar.value(forKey: "searchField") as? UITextField
@@ -151,7 +158,7 @@ class ClassListViewController: UIViewController {
         classCollectionView.delegate = self
         classCollectionView.dataSource = self
         classCollectionView.backgroundColor = .white
-         classCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "class-list-header")
+        classCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "class-list-header")
         classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
         view.addSubview(classCollectionView)
         classCollectionView.snp.makeConstraints { make in
@@ -177,7 +184,7 @@ class ClassListViewController: UIViewController {
 }
 
 extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if collectionView == classCollectionView {
@@ -217,7 +224,7 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             return cell
         }
 
-         guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
+        guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
         let classForCell = filteringIsActive ? filteredClasses[indexPath.item] : classList[index][indexPath.item]
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mm a"
