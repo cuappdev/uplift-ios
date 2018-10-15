@@ -19,11 +19,11 @@ class FavoritesViewController: UIViewController {
     var titleLabel: UILabel!
     var titleBackground: UIView!
     
-    var favoritesNames: [String]!
-    var favorites: [GymClassInstance]! {
+    var favoritesNames: [String]! = []
+    var favorites: [GymClassInstance]! = [] {
         didSet {
             
-            if favoritesNames.count == 0 {
+            if favoritesNames.isEmpty {
                 classesCollectionView.removeFromSuperview()
                 view.addSubview(emptyStateView)
             } else {
@@ -85,7 +85,7 @@ class FavoritesViewController: UIViewController {
         
         setupConstraints()
         
-        favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites)
+        favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         favorites = []
         
         NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
@@ -94,11 +94,11 @@ class FavoritesViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let newFavoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites)
+        let newFavoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         
         if newFavoritesNames != favoritesNames {
             favoritesNames = newFavoritesNames
-            if favoritesNames.count > 0 {
+            if !favoritesNames.isEmpty {
                 NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
                     self.favorites = gymClasses
                 }
@@ -125,7 +125,7 @@ class FavoritesViewController: UIViewController {
     }
     
     func remakeConstraints() {
-        if favoritesNames.count == 0 {
+        if favoritesNames.isEmpty {
             emptyStateView.snp.remakeConstraints { make in
                 make.leading.trailing.bottom.equalToSuperview()
                 make.top.equalTo(titleBackground.snp.bottom)
