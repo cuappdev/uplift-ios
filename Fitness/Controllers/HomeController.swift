@@ -249,9 +249,30 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             gymDetailViewController.gym = gyms[indexPath.row]
             navigationController?.pushViewController(gymDetailViewController, animated: true)
         case .lookingFor:
-            print("SELECTED LOOKING FOR")
-        default:
-            return
+            let cal = Calendar.current
+            let currDate = Date()
+            let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate)!
+            let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate)!
+            
+            let filterParameters = FilterParameters(shouldFilter: true, startTime:startDate, encodedStartTime: 0.0, endTime: endDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [tags[indexPath.row].name])
+            
+            print(tabBarController?.viewControllers?[1] )
+            
+            
+            if let classListViewController = tabBarController?.viewControllers?[1] {
+                
+                classListViewController.filterOptions(params: filterParameters)
+            } else {
+                let classListViewController = ClassListViewController()
+                classListViewController.currentFilterParams = filterParameters
+                tabBarController?.viewControllers?[1] = classListViewController
+            }
+            tabBarController?.selectedIndex = 1
+        case .todaysClasses:
+            let classDetailViewController = ClassDetailViewController()
+            classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(classDetailViewController, animated: true)
         }
     }
 }
