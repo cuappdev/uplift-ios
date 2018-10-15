@@ -66,6 +66,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     convenience init(currentFilterParams: FilterParameters?) {
         self.init()
         //TODO: - See if we already have filter params, and apply them
+        
+        guard let existingFilterParams = currentFilterParams else {
+            return
+        }
+        
+        selectedGyms = existingFilterParams.gymIds
+        selectedClasses = existingFilterParams.classNames
+        selectedInstructors = existingFilterParams.instructorNames
     }
 
     override func viewDidLoad() {
@@ -220,15 +228,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.5)
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
 
         contentView = UIView()
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints {make in
-            make.left.right.equalTo(view)
-            make.top.equalToSuperview()
-            make.bottom.equalTo(view.snp.bottom)
+            make.edges.equalToSuperview()
+            make.width.equalTo(scrollView)
         }
 
         //COLLECTION VIEW
@@ -249,6 +256,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         gymCollectionView.backgroundColor = .fitnessLightGrey
         gymCollectionView.isScrollEnabled = true
         gymCollectionView.showsHorizontalScrollIndicator = false
+        gymCollectionView.bounces = false
 
         gymCollectionView.delegate = self
         gymCollectionView.dataSource = self
@@ -267,109 +275,92 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         //COLLECTION VIEW SECTION
-        collectionViewTitle.snp.updateConstraints {make in
+        collectionViewTitle.snp.remakeConstraints {make in
             make.left.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(20)
             make.bottom.equalTo(collectionViewTitle.snp.top).offset(15)
         }
 
-        gymCollectionView.snp.updateConstraints {make in
+        gymCollectionView.snp.remakeConstraints {make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(51)
             make.bottom.equalTo(collectionViewTitle.snp.bottom).offset(47)
         }
 
         //SLIDER SECTION
-        fitnessCenterStartTimeDivider.snp.updateConstraints {make in
+        fitnessCenterStartTimeDivider.snp.remakeConstraints {make in
             make.top.equalTo(gymCollectionView.snp.bottom).offset(16)
             make.bottom.equalTo(gymCollectionView.snp.bottom).offset(17)
             make.width.centerX.equalToSuperview()
         }
 
-        startTimeTitleLabel.snp.updateConstraints {make in
+        startTimeTitleLabel.snp.remakeConstraints {make in
             make.left.equalToSuperview().offset(16)
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(35)
         }
 
-        startTimeLabel.snp.updateConstraints {make in
+        startTimeLabel.snp.remakeConstraints {make in
             make.right.equalToSuperview().offset(-22)
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(36)
         }
 
-        startTimeSlider.snp.makeConstraints {make in
+        startTimeSlider.snp.remakeConstraints {make in
             make.trailing.equalToSuperview().offset(-16)
             make.leading.equalToSuperview().offset(16)
             make.top.equalTo(startTimeLabel.snp.bottom).offset(12)
             make.height.equalTo(30)
         }
 
-        startTimeClassTypeDivider.snp.updateConstraints {make in
+        startTimeClassTypeDivider.snp.remakeConstraints {make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(90)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(91)
         }
 
         //CLASS TYPE SECTION
-        classTypeDropdown.snp.updateConstraints {make in
+        classTypeDropdown.snp.remakeConstraints {make in
             make.top.equalTo(startTimeClassTypeDivider.snp.bottom)
             make.left.right.equalToSuperview()
 
             switch classTypeDropdownData.dropStatus! {
             case .up:
-                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55)
+                make.height.equalTo(55)
             case .half:
-                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + 3*32)
+                make.height.equalTo(55 + 32 + 3*32)
             case .down:
-                make.bottom.equalTo(startTimeClassTypeDivider.snp.bottom).offset(55 + 32 + classTypeDropdown.numberOfRows(inSection: 0)*32)
+                make.height.equalTo(55 + 32 + classTypeDropdown.numberOfRows(inSection: 0)*32)
             }
         }
 
-        classTypeInstructorDivider.snp.updateConstraints {make in
+        classTypeInstructorDivider.snp.remakeConstraints {make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(classTypeDropdown.snp.bottom)
             make.bottom.equalTo(classTypeDropdown.snp.bottom).offset(1)
         }
 
         //INSTRUCTOR SECTION
-        instructorDropdown.snp.updateConstraints {make in
+        instructorDropdown.snp.remakeConstraints {make in
             make.top.equalTo(classTypeInstructorDivider.snp.bottom)
             make.left.right.equalToSuperview()
 
             switch instructorDropdownData.dropStatus! {
             case .up:
-                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55)
+                make.height.equalTo(55)
             case .half:
-                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + 3*32)
+                make.height.equalTo(55 + 32 + 3*32)
             case .down:
-                make.bottom.equalTo(classTypeInstructorDivider.snp.bottom).offset(55 + 32 + instructorDropdown.numberOfRows(inSection: 0)*32)
+                make.height.equalTo(55 + 32 + instructorDropdown.numberOfRows(inSection: 0)*32)
             }
         }
 
-        instructorDivider.snp.updateConstraints {make in
+        instructorDivider.snp.remakeConstraints {make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(instructorDropdown.snp.bottom)
-            make.bottom.equalTo(instructorDropdown.snp.bottom).offset(1)
+            make.height.equalTo(1)
+            make.bottom.equalToSuperview()
         }
-
-        //THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
-        var classHeight = 55
-        if(classTypeDropdownData.dropStatus == .half) {
-            classHeight += 4*32
-        } else if (classTypeDropdownData.dropStatus == .down) {
-            classHeight += 32*(1 + classTypeDropdown.numberOfRows(inSection: 0))
-        }
-
-        var instructorHeight = 55
-        if(instructorDropdownData.dropStatus == .half) {
-            instructorHeight += 4*32
-        } else if (instructorDropdownData.dropStatus == .down) {
-            instructorHeight += 32*(1 + instructorDropdown.numberOfRows(inSection: 0))
-        }
-
-        let height = 186 + classHeight + instructorHeight + 10
-        scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
 
     // MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
@@ -428,7 +419,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - DROP METHODS
     @objc func dropInstructors( sender: UITapGestureRecognizer) {
-
         if instructorDropdownData.completed == false {
             instructorDropdownData.dropStatus = .up
             return
@@ -463,7 +453,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     }
 
     @objc func dropClasses( sender: UITapGestureRecognizer) {
-
         if classTypeDropdownData.completed == false {
             classTypeDropdownData.dropStatus = .up
             return
@@ -497,7 +486,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - SHOW ALL/HIDE METHODS
     @objc func dropHideClasses( sender: UITapGestureRecognizer) {
-
         if classTypeDropdownData.completed == false {
             return
         }
