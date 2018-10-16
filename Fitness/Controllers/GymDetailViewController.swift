@@ -26,7 +26,7 @@ enum Days {
     case saturday
 }
 
-class GymDetailViewController: UIViewController {
+class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
     // MARK: - INITIALIZATION
     var scrollView: UIScrollView!
@@ -59,7 +59,7 @@ class GymDetailViewController: UIViewController {
     var facilitiesClassesDivider: UIView!
 
     var todaysClassesLabel: UILabel!
-    var classesTableView: UITableView!
+    var classesTableView: UICollectionView!
     var todaysClasses: [GymClassInstance] = []
 
     var gym: Gym!
@@ -109,16 +109,19 @@ class GymDetailViewController: UIViewController {
         todaysClassesLabel.sizeToFit()
         contentView.addSubview(todaysClassesLabel)
 
-        classesTableView = UITableView(frame: .zero, style: .grouped)
-        classesTableView.separatorStyle = .none
+        let classFlowLayout = UICollectionViewFlowLayout()
+        classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
+        classFlowLayout.minimumLineSpacing = 12.0
+        classFlowLayout.headerReferenceSize = .init(width: view.bounds.width - 32.0, height: 72.0)
+        
+        classesTableView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
         classesTableView.bounces = false
         classesTableView.showsVerticalScrollIndicator = false
         classesTableView.backgroundColor = .white
         classesTableView.clipsToBounds = false
 
-        classesTableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
+        classesTableView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
-        classesTableView.delegate = self
         classesTableView.dataSource = self
         contentView.addSubview(classesTableView)
 
@@ -369,7 +372,7 @@ class GymDetailViewController: UIViewController {
         classesTableView.snp.updateConstraints {make in
             make.left.right.equalToSuperview()
             make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
-            make.height.equalTo(classesTableView.numberOfRows(inSection: 0) * 112)
+            make.height.equalTo(classesTableView.numberOfItems(inSection: 0) * 112)
         }
 
         var dropHoursHeight = 27
@@ -378,7 +381,7 @@ class GymDetailViewController: UIViewController {
         }
 
         let facilitiesHeight = facilitiesData.count*20
-        let todaysClassesHeight = classesTableView.numberOfRows(inSection: 0)*112
+        let todaysClassesHeight = classesTableView.numberOfItems(inSection: 0)*112
         let height: Int
 
         // THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
@@ -434,8 +437,38 @@ class GymDetailViewController: UIViewController {
     }
 }
 
+// MARK: CollectionViewDataSource
+extension GymDetailViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if (collectionView == classesTableView) {
+            return todaysClasses.count
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if (collectionView == classesTableView) {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
+            let gymClassInstance = todaysClasses[indexPath.item]
+            cell.classLabel.text = gymClassInstance.className
+            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
+            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
+            
+            cell.instructorLabel.text = gymClassInstance.instructor
+            
+            cell.duration = Int(gymClassInstance.duration) / 60
+            cell.durationLabel.text = String(cell.duration) + " min"
+            
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
+
 // MARK: TableViewDataSource
 extension GymDetailViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == hoursTableView) {
             if (hoursData.isDropped) {
@@ -444,10 +477,10 @@ extension GymDetailViewController: UITableViewDataSource {
                 return 0
             }
         } else {
-            return todaysClasses.count
+            return 0
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (tableView == hoursTableView) {
             let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
@@ -475,22 +508,7 @@ extension GymDetailViewController: UITableViewDataSource {
 
             return cell
         } else {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-//
-//            let gymClassInstance = todaysClasses[indexPath.row]
-//
-//            cell.classLabel.text = gymClassInstance.className
-//            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
-//            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-//
-//            cell.instructorLabel.text = gymClassInstance.instructor
-//
-//            cell.duration = Int(gymClassInstance.duration) / 60
-//            cell.durationLabel.text = String(cell.duration) + " min"
-
-            //location
             return UITableViewCell()
-            //return cell
         }
     }
 
