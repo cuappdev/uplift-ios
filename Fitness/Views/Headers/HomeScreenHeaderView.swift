@@ -26,6 +26,7 @@ class HomeScreenHeaderView: UIView {
         welcomeMessage.textColor = .fitnessBlack
         welcomeMessage.lineBreakMode = .byWordWrapping
         welcomeMessage.numberOfLines = 0
+        welcomeMessage.text = getGreeting() + "!"
         addSubview(welcomeMessage)
 
         setupLayout()
@@ -33,10 +34,6 @@ class HomeScreenHeaderView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    func setName(name: String) {
-        welcomeMessage.text = getGreeting() + "!"
     }
 
     private func getGreeting() -> String {
@@ -50,7 +47,6 @@ class HomeScreenHeaderView: UIView {
 
     // MARK: - LAYOUT
     func setupLayout() {
-
         welcomeMessage.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(20)
             make.leading.equalTo(24)

@@ -81,6 +81,28 @@ extension Date {
 
         return calendar.date(from: dateComponents)!
     }
+    
+    static public func getDatetimeFromStrings(dateString: String, timeString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "HH:mm:ss"
+        let time = dateFormatter.date(from: timeString) ?? Date()
+        
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let date = dateFormatter.date(from: dateString) ?? Date()
+        
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        dateComponents.year = calendar.component(.year, from: date)
+        dateComponents.month = calendar.component(.month, from: date)
+        dateComponents.day = calendar.component(.day, from: date)
+        dateComponents.timeZone = TimeZone.current
+        dateComponents.hour = calendar.component(.hour, from: time)
+        dateComponents.minute = calendar.component(.minute, from: time)
+        
+        return calendar.date(from: dateComponents)!
+    }
 
     // MARK: - DATE
     static func getStringDate(date: Date) -> String? {

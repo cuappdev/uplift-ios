@@ -9,84 +9,182 @@
 import UIKit
 import SnapKit
 
-class FavoritesViewController: UITableViewController {
+protocol FavoritesDelegate {
+    func unFavorite(classDetailId: String)
+}
+
+class FavoritesViewController: UIViewController {
 
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
-    var navigationBackgroundView: UIView!
+    var titleBackground: UIView!
+    
+    var favoritesNames: [String]! = []
+    var favorites: [GymClassInstance]! = [] {
+        didSet {
+            
+            if favoritesNames.isEmpty {
+                classesCollectionView.removeFromSuperview()
+                view.addSubview(emptyStateView)
+            } else {
+                emptyStateView.removeFromSuperview()
+                view.addSubview(classesCollectionView)
+                classesCollectionView.reloadData()
+            }
+            
+            remakeConstraints()
+        }
+    }
+    
+    var classesCollectionView: UICollectionView!
+    var emptyStateView: NoFavoritesEmptyStateView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        navigationController?.isNavigationBarHidden = true
 
-        //NAVIGATION BAR
-        navigationController?.navigationBar.clipsToBounds = false
-        additionalSafeAreaInsets.top = 76
-
-        navigationBackgroundView = UIView()
-        navigationBackgroundView.backgroundColor = .white
-        navigationController?.navigationBar.addSubview(navigationBackgroundView)
-
+        // TITLE
+        titleBackground = UIView()
+        titleBackground.backgroundColor = .white
+        titleBackground.layer.shadowOffset = CGSize(width: 0, height: 9)
+        titleBackground.layer.shadowColor = UIColor.buttonShadow.cgColor
+        titleBackground.layer.shadowOpacity = 0.25
+        titleBackground.clipsToBounds = false
+        view.addSubview(titleBackground)
+        
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.text = "Favorites"
-        navigationController?.navigationBar.addSubview(titleLabel)
+        titleBackground.addSubview(titleLabel)
+        
+        // EMPTY STATE
+        emptyStateView = NoFavoritesEmptyStateView(frame: .zero)
+        emptyStateView.tabBarController = tabBarController
+        view.addSubview(emptyStateView)
 
-        //TABLE VIEW
-        tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.bounces = false
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = .white
+        // COLLECTION VIEW
+        let classFlowLayout = UICollectionViewFlowLayout()
+        classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
+        classFlowLayout.minimumLineSpacing = 12.0
+        classFlowLayout.headerReferenceSize = .init(width: view.bounds.width, height: 233.0)
+        
+        classesCollectionView = UICollectionView(frame: .zero, collectionViewLayout:classFlowLayout)
+        classesCollectionView.showsHorizontalScrollIndicator = false
+        classesCollectionView.showsVerticalScrollIndicator = false
+        classesCollectionView.delegate = self
+        classesCollectionView.dataSource = self
+        classesCollectionView.backgroundColor = .white
+        classesCollectionView.bounces = true
 
-        tableView.register(FavoritesHeaderView.self, forHeaderFooterViewReuseIdentifier: FavoritesHeaderView.identifier)
-        tableView.register(ClassListCell.self, forCellReuseIdentifier: ClassListCell.identifier)
-
+        classesCollectionView.register(FavoritesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoritesHeaderView.identifier)
+        classesCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
+        view.addSubview(classesCollectionView)
+        
         setupConstraints()
+        
+        favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        favorites = []
+        
+        NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
+            self.favorites = gymClasses
+        }
     }
-
-    // MARK: - TABLEVIEW
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10 //temp
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-        return UITableViewCell()
-    }
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FavoritesHeaderView.identifier) as! FavoritesHeaderView
-        return header
-    }
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 250
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let newFavoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        
+        if newFavoritesNames != favoritesNames {
+            favoritesNames = newFavoritesNames
+            if !favoritesNames.isEmpty {
+                NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
+                    self.favorites = gymClasses
+                }
+            } else {
+                favorites = []
+            }
+        }
     }
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        titleLabel.snp.updateConstraints {make in
-            make.left.equalToSuperview().offset(24)
-            make.top.equalToSuperview().offset(74)
-            make.bottom.equalTo(titleLabel.snp.top).offset(26)
+        titleBackground.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.height.equalTo(120)
+        }
+        
+        titleLabel.snp.makeConstraints {make in
+            make.leading.equalToSuperview().offset(24)
+            make.bottom.equalToSuperview().offset(-20)
+            make.height.equalTo(26)
+            make.trailing.lessThanOrEqualTo(titleBackground)
         }
 
-        navigationBackgroundView.snp.updateConstraints {make in
-            make.top.equalToSuperview().offset(-21)
-            make.right.equalToSuperview()
-            make.left.equalToSuperview()
-            make.bottom.equalTo(titleLabel.snp.bottom).offset(20)
+    }
+    
+    func remakeConstraints() {
+        if favoritesNames.isEmpty {
+            emptyStateView.snp.remakeConstraints { make in
+                make.leading.trailing.bottom.equalToSuperview()
+                make.top.equalTo(titleBackground.snp.bottom)
+            }
+        } else {
+            classesCollectionView.snp.remakeConstraints { make in
+                make.leading.trailing.bottom.equalToSuperview()
+                make.top.equalTo(titleBackground.snp.bottom)
+            }
         }
+    }
+}
+
+extension FavoritesViewController: FavoritesDelegate {
+    func unFavorite(classDetailId: String) {
+        favoritesNames = favoritesNames.filter {$0 != classDetailId}
+        favorites = favorites.filter {$0.classDetailId != classDetailId}
+        classesCollectionView.reloadData()
+    }
+}
+
+extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return favorites.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
+        
+        let classForCell = favorites[indexPath.row]
+        
+        cell.classLabel.text = classForCell.className
+        cell.durationLabel.text = classForCell.startTime.getStringOfDatetime(format: "h:mma")
+        
+        let calendar = Calendar.current
+        
+        if calendar.dateComponents([.day], from: classForCell.startTime) == calendar.dateComponents([.day], from: Date()) {
+            cell.timeLabel.text = "Today"
+        } else {
+            cell.timeLabel.text = classForCell.startTime.getStringOfDatetime(format: "MMM d")
+        }
+        
+        cell.instructorLabel.text = classForCell.instructor
+        cell.locationLabel.text = classForCell.location
+        cell.classId = classForCell.classDetailId
+        cell.delegate = self
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoritesHeaderView.identifier, for: indexPath) as! FavoritesHeaderView
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let classDetailViewController = ClassDetailViewController()
+        classDetailViewController.gymClassInstance = favorites[indexPath.row]
+        navigationController?.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(classDetailViewController, animated: true)
     }
 }
