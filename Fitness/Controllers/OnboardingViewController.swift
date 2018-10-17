@@ -21,14 +21,13 @@ class OnboardingViewController: PresentationController {
         configureBackground()
     }
 
-//    override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [String : Any]? = nil) {
-//        
-//        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init() {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     @objc func dismissOnboarding() {
         // update UserDefaults
