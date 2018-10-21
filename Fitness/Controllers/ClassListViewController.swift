@@ -122,6 +122,11 @@ class ClassListViewController: UIViewController {
             let classCell = cell as! ClassListCell
             classCell.classId = {classCell.classId}()
         }
+        
+        // Update filtering
+        if let params = currentFilterParams {
+            filterOptions(params: params)
+        }
     }
 
     func createCalendarDates() {
@@ -359,9 +364,8 @@ extension ClassListViewController: FilterDelegate {
             }
             
             if !params.tags.isEmpty {
-                for tag in currClass.tags {
-                    guard params.tags.contains(tag.name) else { return false }
-                }
+                guard (currClass.tags.contains { tag in
+                    return params.tags.contains(tag.name)}) else {return false}
             }
             
             return true
