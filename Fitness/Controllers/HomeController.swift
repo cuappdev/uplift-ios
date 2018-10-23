@@ -253,7 +253,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .lookingFor:
             let cal = Calendar.current
             let currDate = Date()
-            let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate)!
+            guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
             let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate)!
             
             let filterParameters = FilterParameters(shouldFilter: true, startTime:startDate, encodedStartTime: 0.0, endTime: endDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [tags[indexPath.row].name])
