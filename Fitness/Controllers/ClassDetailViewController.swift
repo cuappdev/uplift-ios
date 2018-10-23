@@ -15,16 +15,7 @@ import Bartinter
 class ClassDetailViewController: UIViewController {
 
     // MARK: - INITIALIZATION
-    var gymClassInstance: GymClassInstance! {
-        didSet {
-            let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
-            if favorites.contains(gymClassInstance.classDetailId) {
-                isFavorite = true
-            } else {
-                isFavorite = false
-            }
-        }
-    }
+    var gymClassInstance: GymClassInstance!
 
     var titleLabel: UILabel!
     var locationLabel = UILabel()
@@ -38,8 +29,10 @@ class ClassDetailViewController: UIViewController {
 
     var backButton: UIButton!
     var favoriteButton = UIButton()
-    var isFavorite: Bool = false {
+    var isFavorite: Bool! {
         didSet {
+            if oldValue == isFavorite { return }
+            
             let defaults = UserDefaults.standard
             var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
             
@@ -56,6 +49,8 @@ class ClassDetailViewController: UIViewController {
                     defaults.set(favorites, forKey: Identifiers.favorites)
                 }
             }
+            
+            // TODO : update isFavorite for all cells
         }
     }
 
@@ -79,7 +74,12 @@ class ClassDetailViewController: UIViewController {
 
     var nextSessionsLabel: UILabel!
     var classCollectionView: UICollectionView!
-    var nextSessions = [GymClassInstance]()
+    var nextSessions: [GymClassInstance]! {
+        didSet {
+            classCollectionView.reloadData()
+            setupConstraints()
+        }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController!.isNavigationBarHidden = true
@@ -89,8 +89,6 @@ class ClassDetailViewController: UIViewController {
         super.viewDidLoad()
         updatesStatusBarAppearanceAutomatically = true
         view.backgroundColor = .white
-
-        var nextSessionsIds: [Int] = []
 
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -198,29 +196,30 @@ class ClassDetailViewController: UIViewController {
         let classFlowLayout = UICollectionViewFlowLayout()
         classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
         classFlowLayout.minimumLineSpacing = 12.0
-        classFlowLayout.headerReferenceSize = .init(width: view.bounds.width - 32.0, height: 72.0)
+        classFlowLayout.headerReferenceSize = .zero
         
         classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
         classCollectionView.bounces = false
         classCollectionView.showsVerticalScrollIndicator = false
+        classCollectionView.showsHorizontalScrollIndicator = false
         classCollectionView.backgroundColor = .white
         classCollectionView.clipsToBounds = false
 
         classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
         classCollectionView.dataSource = self
+        classCollectionView.delegate = self
         contentView.addSubview(classCollectionView)
+        
+        nextSessions = []
+        let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        isFavorite = favorites.contains(gymClassInstance.classDetailId)
+        
+        NetworkManager.shared.getGymClassInstances(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
+            self.nextSessions = gymClasses
+        }
 
         setupConstraints()
-    }
-
-    func getUpcomingInstances(upcomingInstanceIds: [Int]) {
-        for instanceId in upcomingInstanceIds {
-            AppDelegate.networkManager.getGymClassInstance(gymClassInstanceId: instanceId) { (gymClassInstance) in
-                self.nextSessions.append(gymClassInstance)
-
-            }
-        }
     }
 
     func setupHeader() {
@@ -278,6 +277,13 @@ class ClassDetailViewController: UIViewController {
         favoriteButton.sizeToFit()
         favoriteButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        isFavorite = favorites.contains(gymClassInstance.classDetailId)
     }
 
     // MARK: - CONSTRAINTS
@@ -464,8 +470,8 @@ class ClassDetailViewController: UIViewController {
     }
 }
 
-// MARK: TableViewDataSource
-extension ClassDetailViewController: UICollectionViewDataSource {
+// MARK: - CollectionViewDataSource, CollectionViewDelegate
+extension ClassDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return nextSessions.count
     }
@@ -474,32 +480,42 @@ extension ClassDetailViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
         
         let gymClassInstance = nextSessions[indexPath.item]
+        
         cell.classLabel.text = gymClassInstance.className
-        cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
-        cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-        
+        cell.locationLabel.text = gymClassInstance.location
         cell.instructorLabel.text = gymClassInstance.instructor
+        cell.durationLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
         
-        cell.duration = Int(gymClassInstance.duration) / 60
-        cell.durationLabel.text = String(cell.duration) + " min"
+        let calendar = Calendar.current
+        
+        if calendar.dateComponents([.day], from: gymClassInstance.startTime) == calendar.dateComponents([.day], from: Date()) {
+            cell.timeLabel.text = "Today"
+        } else {
+            cell.timeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
+        }
+        
+        cell.classId = gymClassInstance.classDetailId
+        cell.isFavorite = isFavorite
+        cell.delegate = self
         
         return cell
     }
-}
-
-// MARK: TableViewDelegate
-extension ClassDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO : push detail view?
     }
 }
 
+// MARK: - ScrollViewDelegate
 extension ClassDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         statusBarUpdater?.refreshStatusBarStyle()
+    }
+}
+
+// MARK: - ClassListCellDelegate
+extension ClassDetailViewController: ClassListCellDelegate {
+    func toggleFavorite(classDetailId: String) {
+        isFavorite.toggle()
     }
 }
