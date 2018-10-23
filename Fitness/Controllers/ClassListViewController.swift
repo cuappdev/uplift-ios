@@ -365,7 +365,7 @@ extension ClassListViewController: FilterDelegate {
             
             if !params.tags.isEmpty {
                 guard (currClass.tags.contains { tag in
-                    return params.tags.contains(tag.name)}) else {return false}
+                    return params.tags.contains(tag.name)}) else { return false }
             }
             
             return true
