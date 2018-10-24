@@ -14,7 +14,7 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UITabBar.appearance().barTintColor = .yellow
+        UITabBar.appearance().barTintColor = .fitnessYellow
         UITabBar.appearance().tintColor = .fitnessBlack
         tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)

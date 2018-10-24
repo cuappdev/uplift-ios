@@ -97,7 +97,7 @@ class ClassListCell: UICollectionViewCell {
         instructorLabel = UILabel()
         instructorLabel.font = ._12MontserratRegular
         instructorLabel.textAlignment = .left
-        instructorLabel.textColor = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
+        instructorLabel.textColor = .fitnessDarkGrey
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
 
@@ -128,9 +128,9 @@ class ClassListCell: UICollectionViewCell {
         contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
         contentView.layer.shadowRadius = 5.0
-        contentView.layer.shadowOpacity = 0.5
+        contentView.layer.shadowOpacity = 0.2
         contentView.layer.masksToBounds = false
-        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 5, bottom: 10, right: 5))
+        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 5, bottom: 15, right: 5))
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
     }

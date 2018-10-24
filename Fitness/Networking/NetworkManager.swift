@@ -74,8 +74,9 @@ struct NetworkManager {
                 let classDescription = gymClassData.details.description
                 let classId = gymClassData.details.id
                 let className = gymClassData.details.name
-                let start = Date.convertTimeStringToDate(time: startTime)
-                let end = Date.convertTimeStringToDate(time: endTime)
+                let date = gymClassData.date
+                let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
+                let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
                 let graphTags = gymClassData.details.tags.compactMap { $0 }
                 let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
 

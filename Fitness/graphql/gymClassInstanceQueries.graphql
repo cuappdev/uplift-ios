@@ -39,6 +39,7 @@ query TodaysClasses($date: Date) {
     imageUrl
     startTime
     endTime
+    date
     instructor
     isCancelled
     location
