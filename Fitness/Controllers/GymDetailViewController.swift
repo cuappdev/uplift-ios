@@ -258,9 +258,9 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
             }
         }
 
-        backButton.snp.updateConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(16)
+        backButton.snp.makeConstraints { make in
+            make.left.equalTo(view).offset(20)
+            make.top.equalTo(view).offset(16 + topPadding)
             make.width.equalTo(23)
             make.height.equalTo(19)
         }

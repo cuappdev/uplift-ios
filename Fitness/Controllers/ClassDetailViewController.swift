@@ -50,7 +50,10 @@ class ClassDetailViewController: UIViewController {
                 }
             }
             
-            // TODO : update isFavorite for all cells
+            for i in 0..<classCollectionView.numberOfItems(inSection: 0) {
+                let cell = classCollectionView.cellForItem(at: IndexPath(item: i, section: 0)) as! ClassListCell
+                cell.isFavorite = isFavorite
+            }
         }
     }
 
@@ -77,7 +80,7 @@ class ClassDetailViewController: UIViewController {
     var nextSessions: [GymClassInstance]! {
         didSet {
             classCollectionView.reloadData()
-            setupConstraints()
+            remakeConstraints()
         }
     }
 
@@ -97,16 +100,14 @@ class ClassDetailViewController: UIViewController {
         scrollView.delegate = self
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.1)
         view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { (make) in
+        scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
         contentView = UIView()
         scrollView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.right.equalTo(view)
-            make.top.equalToSuperview()
-            make.bottom.equalTo(view.snp.bottom)
+        contentView.snp.makeConstraints { make in
+            make.edges.width.equalTo(scrollView)
         }
 
         // HEADER
@@ -291,11 +292,11 @@ class ClassDetailViewController: UIViewController {
         // HEADER
         let window = UIApplication.shared.keyWindow
         let topPadding = window?.safeAreaInsets.top ?? 0.0
+        let dividerSpacing = 24
 
         classImageView.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.left.right.equalToSuperview()
             make.top.equalToSuperview().inset(-topPadding)
-            make.right.equalToSuperview()
             make.height.equalTo(360)
         }
 
@@ -339,15 +340,15 @@ class ClassDetailViewController: UIViewController {
         }
 
         backButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(16)
+            make.left.equalTo(view).offset(20)
+            make.top.equalTo(view).offset(16 + topPadding)
             make.width.equalTo(23)
             make.height.equalTo(19)
         }
 
         favoriteButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-21)
-            make.top.equalToSuperview().offset(14)
+            make.right.equalTo(view).offset(-21)
+            make.top.equalTo(view).offset(14 + topPadding)
             make.width.equalTo(23)
             make.height.equalTo(22)
         }
@@ -355,7 +356,7 @@ class ClassDetailViewController: UIViewController {
         // DATE
         dateLabel.snp.makeConstraints { make in
             make.left.equalToSuperview()
-            make.top.equalTo(classImageView.snp.bottom).offset(40)
+            make.top.equalTo(classImageView.snp.bottom).offset(36)
             make.right.equalToSuperview()
             make.height.equalTo(19)
         }
@@ -386,13 +387,13 @@ class ClassDetailViewController: UIViewController {
             make.height.equalTo(1)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(36)
+            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(32)
         }
 
         // FUNCTION
         functionLabel.snp.makeConstraints { make in
             make.left.equalToSuperview()
-            make.top.equalTo(dateDivider.snp.bottom).offset(20)
+            make.top.equalTo(dateDivider.snp.bottom).offset(dividerSpacing)
             make.right.equalToSuperview()
             make.height.equalTo(19)
         }
@@ -408,34 +409,39 @@ class ClassDetailViewController: UIViewController {
             make.height.equalTo(1)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalTo(functionDescriptionLabel.snp.bottom).offset(32)
+            make.top.equalTo(functionDescriptionLabel.snp.bottom).offset(dividerSpacing)
         }
 
         // DESCRIPTION
         descriptionTextView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview().offset(-40)
-            make.top.equalTo(functionDivider.snp.bottom).offset(36)
+            make.top.equalTo(functionDivider.snp.bottom).offset(dividerSpacing)
         }
 
         // NEXT SESSIONS
-        nextSessionsLabel.snp.updateConstraints {make in
+        nextSessionsLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(descriptionTextView.snp.bottom).offset(64)
             make.height.equalTo(15)
         }
 
-        classCollectionView.snp.updateConstraints {make in
+        classCollectionView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    func remakeConstraints() {
+        classCollectionView.snp.remakeConstraints {make in
             make.left.right.equalToSuperview()
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
             make.height.equalTo(classCollectionView.numberOfItems(inSection: 0) * 112)
+            make.bottom.equalToSuperview()
         }
-
-        var height = 764 + descriptionTextView.frame.height + 111
-        height += CGFloat(classCollectionView.numberOfItems(inSection: 0)*112 + 110)
-        scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
     }
-
+    
     // MARK: - BUTTON METHODS
     @objc func back() {
         navigationController!.popViewController(animated: true)
@@ -447,8 +453,8 @@ class ClassDetailViewController: UIViewController {
 
     @objc func addToCalendar() {
         let store = EKEventStore()
-        store.requestAccess(to: .event) {(granted, error) in
-            guard !granted, let gymClassInstance = self.gymClassInstance else { return }
+        store.requestAccess(to: .event) { (granted, error) in
+            guard granted, let gymClassInstance = self.gymClassInstance else { self.noAccess(); return }
 
             let event = EKEvent(eventStore: store)
             event.title = gymClassInstance.className
@@ -457,15 +463,36 @@ class ClassDetailViewController: UIViewController {
             event.location = self.location
             event.calendar = store.defaultCalendarForNewEvents
 
-            let alert = UIAlertController(title: "\(self.gymClassInstance.className) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
-            self.present(alert, animated: true, completion: nil)
-
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "\(self.gymClassInstance.className) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
             do {
                 try store.save(event, span: .thisEvent, commit: true)
             } catch {
                 // should not happen
             }
+        }
+    }
+    
+    func noAccess() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Cannot add to calendar", message: "Uplift does not have permission to acess your calendar", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
+            
+            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: nil )
+                }
+            }
+            
+            alert.addAction(settingsAction)
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -502,7 +529,10 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO : push detail view?
+        let classDetailViewController = ClassDetailViewController()
+        classDetailViewController.gymClassInstance = nextSessions[indexPath.item]
+        navigationController?.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(classDetailViewController, animated: true)
     }
 }
 
