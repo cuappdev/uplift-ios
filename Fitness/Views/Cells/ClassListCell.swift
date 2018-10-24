@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol ClassListCellDelegate {
+    func toggleFavorite(classDetailId: String)
+}
+
 class ClassListCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
@@ -21,7 +25,7 @@ class ClassListCell: UICollectionViewCell {
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
     
-    var delegate: FavoritesDelegate?
+    var delegate: ClassListCellDelegate?
 
     var classId: String! {
         didSet {
@@ -37,6 +41,7 @@ class ClassListCell: UICollectionViewCell {
     var favoriteButton: UIButton!
     var isFavorite: Bool = false {
         didSet {
+            if oldValue == isFavorite { return }
             let defaults = UserDefaults.standard
             var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
             
@@ -185,7 +190,7 @@ class ClassListCell: UICollectionViewCell {
         isFavorite.toggle()
         
         if let delegate = delegate {
-            delegate.unFavorite(classDetailId: classId)
+            delegate.toggleFavorite(classDetailId: classId)
         }
     }
 }
