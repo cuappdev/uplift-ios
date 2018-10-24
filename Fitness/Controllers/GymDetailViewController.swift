@@ -74,6 +74,10 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
         setupHeaderAndWrappingViews()
         setupTimes()
+        
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
+        edgeSwipe.edges = .left
+        contentView.addGestureRecognizer(edgeSwipe)
 
         //FACILITIES
         facilitiesTitleLabel = UILabel()
@@ -414,7 +418,9 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
     // MARK: - BUTTON METHODS
     @objc func back() {
-        navigationController!.popViewController(animated: true)
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        }
     }
 }
 

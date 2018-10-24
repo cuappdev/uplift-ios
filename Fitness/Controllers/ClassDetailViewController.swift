@@ -109,6 +109,10 @@ class ClassDetailViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.width.equalTo(scrollView)
         }
+        
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
+        edgeSwipe.edges = .left
+        contentView.addGestureRecognizer(edgeSwipe)
 
         // HEADER
         setupHeader()
@@ -444,7 +448,9 @@ class ClassDetailViewController: UIViewController {
     
     // MARK: - BUTTON METHODS
     @objc func back() {
-        navigationController!.popViewController(animated: true)
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        }
     }
 
     @objc func favorite() {
