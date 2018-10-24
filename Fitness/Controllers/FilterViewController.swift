@@ -377,7 +377,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             return false
         }()
 
-        let filterParameters = FilterParameters(shouldFilter: shouldFilter, startTime: minDate, encodedStartTime: 0.0, endTime: maxDate, encodedEndTime: 0.0, instructorNames: selectedInstructors, classNames: selectedClasses, gymIds: selectedGyms)
+        let filterParameters = FilterParameters(shouldFilter: shouldFilter, startTime: minDate, encodedStartTime: 0.0, endTime: maxDate, encodedEndTime: 0.0, instructorNames: selectedInstructors, classNames: selectedClasses, gymIds: selectedGyms, tags: [])
 
         delegate?.filterOptions(params: filterParameters)
 

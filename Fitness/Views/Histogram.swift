@@ -25,7 +25,7 @@ class Histogram: UIView {
     var selectedTime: UILabel!
 
     var selectedTimeDescriptor: UILabel!
-    let timeDescriptors = ["Usually not too busy", "Usually a little busy", "Usually as busy as it gets"]
+    let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
     let mediumThreshold = 43
     let highThreshold = 85
 
