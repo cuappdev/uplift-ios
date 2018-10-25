@@ -45,3 +45,27 @@ query ClassesByType($classNames: [String])
             location
         }
     }
+
+query ClassesAtGymByDay($day: Date, $gym: String) {
+  classes(day: $day, gymId: $gym) {
+    id
+    gymId
+    gym {
+      name
+    }
+    details {
+      id
+      name
+      description
+      tags {
+        label
+      }
+    }
+    imageUrl
+    startTime
+    endTime
+    instructor
+    isCancelled
+    location
+  }
+}

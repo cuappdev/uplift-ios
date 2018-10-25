@@ -59,7 +59,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
     var facilitiesClassesDivider: UIView!
 
     var todaysClassesLabel: UILabel!
-    var classesTableView: UICollectionView!
+    var classesCollectionView: UICollectionView!
     var todaysClasses: [GymClassInstance] = []
 
     var gym: Gym!
@@ -68,7 +68,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-         updatesStatusBarAppearanceAutomatically = true
+        updatesStatusBarAppearanceAutomatically = true
 
         hoursData = HoursData(isDropped: false, data: [])
         facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"] //temp (until backend implements equiment)
@@ -114,16 +114,16 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         classFlowLayout.minimumLineSpacing = 12.0
         classFlowLayout.headerReferenceSize = .init(width: view.bounds.width - 32.0, height: 72.0)
         
-        classesTableView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
-        classesTableView.bounces = false
-        classesTableView.showsVerticalScrollIndicator = false
-        classesTableView.backgroundColor = .white
-        classesTableView.clipsToBounds = false
+        classesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
+        classesCollectionView.bounces = false
+        classesCollectionView.showsVerticalScrollIndicator = false
+        classesCollectionView.backgroundColor = .white
+        classesCollectionView.clipsToBounds = false
 
-        classesTableView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
+        classesCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
-        classesTableView.dataSource = self
-        contentView.addSubview(classesTableView)
+        classesCollectionView.dataSource = self
+        contentView.addSubview(classesCollectionView)
 
         //get gym class instances once branch merged
 
@@ -369,10 +369,10 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
             make.height.equalTo(15)
         }
 
-        classesTableView.snp.updateConstraints {make in
+        classesCollectionView.snp.updateConstraints {make in
             make.left.right.equalToSuperview()
             make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
-            make.height.equalTo(classesTableView.numberOfItems(inSection: 0) * 112)
+            make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * 112)
         }
 
         var dropHoursHeight = 27
@@ -381,7 +381,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         }
 
         let facilitiesHeight = facilitiesData.count*20
-        let todaysClassesHeight = classesTableView.numberOfItems(inSection: 0)*112
+        let todaysClassesHeight = classesCollectionView.numberOfItems(inSection: 0)*112
         let height: Int
 
         // THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
@@ -441,14 +441,14 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 extension GymDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if (collectionView == classesTableView) {
+        if (collectionView == classesCollectionView) {
             return todaysClasses.count
         }
         return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if (collectionView == classesTableView) {
+        if (collectionView == classesCollectionView) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
             let gymClassInstance = todaysClasses[indexPath.item]
             cell.classLabel.text = gymClassInstance.className
