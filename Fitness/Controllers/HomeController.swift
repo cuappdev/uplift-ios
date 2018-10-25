@@ -53,7 +53,7 @@ class HomeController: UIViewController {
 
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumInteritemSpacing = 6.0
-        flowLayout.minimumLineSpacing = 6.0
+        flowLayout.minimumLineSpacing = 12.0
 
         mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         mainCollectionView.dataSource = self
@@ -227,7 +227,9 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         switch sections[section] {
-        case .allGyms, .lookingFor:
+        case .allGyms:
+            return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
+        case .lookingFor:
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         case .todaysClasses:
             return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
@@ -249,9 +251,26 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             gymDetailViewController.gym = gyms[indexPath.row]
             navigationController?.pushViewController(gymDetailViewController, animated: true)
         case .lookingFor:
-            print("SELECTED LOOKING FOR")
-        default:
-            return
+            let cal = Calendar.current
+            let currDate = Date()
+            guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
+            let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate)!
+            
+            let filterParameters = FilterParameters(shouldFilter: true, startTime:startDate, encodedStartTime: 0.0, endTime: endDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [tags[indexPath.row].name])
+            
+            guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+            guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
+            
+            classListViewController.currentFilterParams = filterParameters
+            classNavigationController.setViewControllers([classListViewController], animated: false)
+            
+            tabBarController?.selectedIndex = 1
+            
+        case .todaysClasses:
+            let classDetailViewController = ClassDetailViewController()
+            classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(classDetailViewController, animated: true)
         }
     }
 }

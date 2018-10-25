@@ -9,10 +9,6 @@
 import UIKit
 import SnapKit
 
-protocol FavoritesDelegate {
-    func unFavorite(classDetailId: String)
-}
-
 class FavoritesViewController: UIViewController {
 
     // MARK: - INITIALIZATION
@@ -139,8 +135,8 @@ class FavoritesViewController: UIViewController {
     }
 }
 
-extension FavoritesViewController: FavoritesDelegate {
-    func unFavorite(classDetailId: String) {
+extension FavoritesViewController: ClassListCellDelegate {
+    func toggleFavorite(classDetailId: String) {
         favoritesNames = favoritesNames.filter {$0 != classDetailId}
         favorites = favorites.filter {$0.classDetailId != classDetailId}
         classesCollectionView.reloadData()

@@ -18,6 +18,8 @@ struct FilterParameters {
     var instructorNames: [String]
     var classNames: [String]
     var gymIds: [String]
+    var tags: [String]
+
 }
 
 class ClassListViewController: UIViewController {
@@ -108,6 +110,10 @@ class ClassListViewController: UIViewController {
         filterButton.layer.shadowRadius = 2.0
         filterButton.layer.shadowOpacity = 0.2
         filterButton.layer.masksToBounds = false
+        
+        if let params = currentFilterParams {
+            filterOptions(params: params)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -115,6 +121,11 @@ class ClassListViewController: UIViewController {
         for cell in classCollectionView.visibleCells {
             let classCell = cell as! ClassListCell
             classCell.classId = {classCell.classId}()
+        }
+        
+        // Update filtering
+        if let params = currentFilterParams {
+            filterOptions(params: params)
         }
     }
 
@@ -351,6 +362,12 @@ extension ClassListViewController: FilterDelegate {
             if !params.instructorNames.isEmpty {
                 guard params.instructorNames.contains(currClass.instructor) else { return false }
             }
+            
+            if !params.tags.isEmpty {
+                guard (currClass.tags.contains { tag in
+                    return params.tags.contains(tag.name)}) else { return false }
+            }
+            
             return true
         }
         classCollectionView.reloadData()

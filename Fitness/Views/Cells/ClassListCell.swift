@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol ClassListCellDelegate {
+    func toggleFavorite(classDetailId: String)
+}
+
 class ClassListCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
@@ -21,7 +25,7 @@ class ClassListCell: UICollectionViewCell {
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
     
-    var delegate: FavoritesDelegate?
+    var delegate: ClassListCellDelegate?
 
     var classId: String! {
         didSet {
@@ -37,6 +41,7 @@ class ClassListCell: UICollectionViewCell {
     var favoriteButton: UIButton!
     var isFavorite: Bool = false {
         didSet {
+            if oldValue == isFavorite { return }
             let defaults = UserDefaults.standard
             var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
             
@@ -92,7 +97,7 @@ class ClassListCell: UICollectionViewCell {
         instructorLabel = UILabel()
         instructorLabel.font = ._12MontserratRegular
         instructorLabel.textAlignment = .left
-        instructorLabel.textColor = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
+        instructorLabel.textColor = .fitnessDarkGrey
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
 
@@ -123,9 +128,9 @@ class ClassListCell: UICollectionViewCell {
         contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
         contentView.layer.shadowRadius = 5.0
-        contentView.layer.shadowOpacity = 0.5
+        contentView.layer.shadowOpacity = 0.2
         contentView.layer.masksToBounds = false
-        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 5, bottom: 10, right: 5))
+        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 5, bottom: 15, right: 5))
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
     }
@@ -185,7 +190,7 @@ class ClassListCell: UICollectionViewCell {
         isFavorite.toggle()
         
         if let delegate = delegate {
-            delegate.unFavorite(classDetailId: classId)
+            delegate.toggleFavorite(classDetailId: classId)
         }
     }
 }

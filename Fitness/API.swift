@@ -297,7 +297,7 @@ public final class AllClassesInstancesQuery: GraphQLQuery {
 
 public final class TodaysClassesQuery: GraphQLQuery {
   public let operationDefinition =
-    "query TodaysClasses($date: Date) {\n  classes(day: $date) {\n    __typename\n    id\n    gymId\n    gym {\n      __typename\n      name\n    }\n    details {\n      __typename\n      id\n      name\n      description\n      tags {\n        __typename\n        label\n      }\n    }\n    imageUrl\n    startTime\n    endTime\n    instructor\n    isCancelled\n    location\n  }\n}"
+    "query TodaysClasses($date: Date) {\n  classes(day: $date) {\n    __typename\n    id\n    gymId\n    gym {\n      __typename\n      name\n    }\n    details {\n      __typename\n      id\n      name\n      description\n      tags {\n        __typename\n        label\n      }\n    }\n    imageUrl\n    startTime\n    endTime\n    date\n    instructor\n    isCancelled\n    location\n  }\n}"
 
   public var date: String?
 
@@ -347,6 +347,7 @@ public final class TodaysClassesQuery: GraphQLQuery {
         GraphQLField("imageUrl", type: .nonNull(.scalar(String.self))),
         GraphQLField("startTime", type: .scalar(String.self)),
         GraphQLField("endTime", type: .scalar(String.self)),
+        GraphQLField("date", type: .nonNull(.scalar(String.self))),
         GraphQLField("instructor", type: .nonNull(.scalar(String.self))),
         GraphQLField("isCancelled", type: .nonNull(.scalar(Bool.self))),
         GraphQLField("location", type: .nonNull(.scalar(String.self))),
@@ -358,8 +359,8 @@ public final class TodaysClassesQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: String, gymId: String? = nil, gym: Gym? = nil, details: Detail, imageUrl: String, startTime: String? = nil, endTime: String? = nil, instructor: String, isCancelled: Bool, location: String) {
-        self.init(unsafeResultMap: ["__typename": "ClassType", "id": id, "gymId": gymId, "gym": gym.flatMap { (value: Gym) -> ResultMap in value.resultMap }, "details": details.resultMap, "imageUrl": imageUrl, "startTime": startTime, "endTime": endTime, "instructor": instructor, "isCancelled": isCancelled, "location": location])
+      public init(id: String, gymId: String? = nil, gym: Gym? = nil, details: Detail, imageUrl: String, startTime: String? = nil, endTime: String? = nil, date: String, instructor: String, isCancelled: Bool, location: String) {
+        self.init(unsafeResultMap: ["__typename": "ClassType", "id": id, "gymId": gymId, "gym": gym.flatMap { (value: Gym) -> ResultMap in value.resultMap }, "details": details.resultMap, "imageUrl": imageUrl, "startTime": startTime, "endTime": endTime, "date": date, "instructor": instructor, "isCancelled": isCancelled, "location": location])
       }
 
       public var __typename: String {
@@ -431,6 +432,15 @@ public final class TodaysClassesQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "endTime")
+        }
+      }
+
+      public var date: String {
+        get {
+          return resultMap["date"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "date")
         }
       }
 

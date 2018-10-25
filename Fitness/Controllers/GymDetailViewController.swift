@@ -33,7 +33,6 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
     var contentView: UIView!
 
     var backButton: UIButton!
-    var starButton: UIButton!
     var gymImageView: UIImageView!
     var titleLabel: UILabel!
 
@@ -75,6 +74,10 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
         setupHeaderAndWrappingViews()
         setupTimes()
+        
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
+        edgeSwipe.edges = .left
+        contentView.addGestureRecognizer(edgeSwipe)
 
         //FACILITIES
         facilitiesTitleLabel = UILabel()
@@ -177,12 +180,6 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
 
-        starButton = UIButton()
-        starButton.setImage(#imageLiteral(resourceName: "white-star"), for: .normal)
-        starButton.sizeToFit()
-        starButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
-        contentView.addSubview(starButton)
-
         titleLabel = UILabel()
         titleLabel.font = ._48Bebas
         titleLabel.textAlignment = .center
@@ -265,18 +262,11 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
             }
         }
 
-        backButton.snp.updateConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(16)
+        backButton.snp.makeConstraints { make in
+            make.left.equalTo(view).offset(20)
+            make.top.equalTo(view).offset(16 + topPadding)
             make.width.equalTo(23)
             make.height.equalTo(19)
-        }
-
-        starButton.snp.updateConstraints { make in
-            make.right.equalToSuperview().offset(-21)
-            make.top.equalToSuperview().offset(14)
-            make.width.equalTo(23)
-            make.height.equalTo(22)
         }
 
         titleLabel.snp.updateConstraints {make in
@@ -428,12 +418,9 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
     // MARK: - BUTTON METHODS
     @objc func back() {
-        navigationController!.popViewController(animated: true)
-    }
-
-    @objc func favorite() {
-        //TODO: Replace with favorite functionality
-        print("favorite")
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        }
     }
 }
 
