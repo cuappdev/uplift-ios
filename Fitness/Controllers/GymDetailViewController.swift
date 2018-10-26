@@ -33,6 +33,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
     var contentView: UIView!
 
     var backButton: UIButton!
+    var gymImageContainer: UIView!
     var gymImageView: UIImageView!
     var titleLabel: UILabel!
 
@@ -155,6 +156,10 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         }
 
         //HEADER
+        gymImageContainer = UIView()
+        gymImageContainer.backgroundColor = .darkGray
+        contentView.addSubview(gymImageContainer)
+        
         gymImageView = UIImageView()
         gymImageView.contentMode = UIView.ContentMode.scaleAspectFill
         gymImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -175,7 +180,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         }
 
         backButton = UIButton()
-        backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
+        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
@@ -248,10 +253,18 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         //HEADER
         let window = UIApplication.shared.keyWindow
         let topPadding = window?.safeAreaInsets.top ?? 0.0
-        gymImageView.snp.updateConstraints {make in
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview().inset(-topPadding)
+        
+        gymImageContainer.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(scrollView)
             make.height.equalTo(360)
+        }
+        
+        gymImageView.snp.updateConstraints { make in
+            make.leading.trailing.equalTo(gymImageContainer)
+            make.top.equalTo(view).priority(.high)
+            make.height.greaterThanOrEqualTo(gymImageContainer).priority(.high)
+            make.bottom.equalTo(gymImageContainer)
         }
 
         if !gym.isOpen {
@@ -538,8 +551,16 @@ extension GymDetailViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ScrollViewDelegate
 extension GymDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         statusBarUpdater?.refreshStatusBarStyle()
+        
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+        case .default:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+        }
     }
 }

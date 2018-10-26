@@ -23,6 +23,7 @@ class ClassDetailViewController: UIViewController {
     var durationLabel = UILabel()
     var location: String!
 
+    var classImageContainer: UIView!
     var classImageView = UIImageView()
     var imageFilterView: UIView!
     var semicircleView: UIImageView!
@@ -228,6 +229,10 @@ class ClassDetailViewController: UIViewController {
     }
 
     func setupHeader() {
+        classImageContainer = UIView()
+        classImageContainer.backgroundColor = .darkGray
+        contentView.addSubview(classImageContainer)
+        
         classImageView.contentMode = .scaleAspectFill
         classImageView.kf.setImage(with: gymClassInstance.imageURL)
         contentView.addSubview(classImageView)
@@ -272,7 +277,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(durationLabel)
 
         backButton = UIButton()
-        backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
+        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
@@ -297,11 +302,18 @@ class ClassDetailViewController: UIViewController {
         let window = UIApplication.shared.keyWindow
         let topPadding = window?.safeAreaInsets.top ?? 0.0
         let dividerSpacing = 24
+        
+        classImageContainer.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(scrollView)
+            make.height.equalTo(360)
+        }
 
         classImageView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview().inset(-topPadding)
-            make.height.equalTo(360)
+            make.leading.trailing.equalTo(classImageContainer)
+            make.top.equalTo(view).priority(.high)
+            make.height.greaterThanOrEqualTo(classImageContainer).priority(.high)
+            make.bottom.equalTo(classImageContainer)
         }
 
         imageFilterView.snp.makeConstraints { make in
@@ -546,6 +558,17 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
 extension ClassDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         statusBarUpdater?.refreshStatusBarStyle()
+        
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        case .default:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        }
     }
 }
 

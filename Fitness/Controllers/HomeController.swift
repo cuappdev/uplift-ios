@@ -62,6 +62,7 @@ class HomeController: UIViewController {
         mainCollectionView.showsVerticalScrollIndicator = false
 
         mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
+        mainCollectionView.register(TodaysClassesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
@@ -189,10 +190,18 @@ extension HomeController: UICollectionViewDataSource {
 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            // swiftlint:disable:next force_cast
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
-            headerView.setTitle(title: sections[indexPath.section].rawValue)
-            return headerView
+            switch sections[indexPath.section] {
+            case .todaysClasses:
+                // swiftlint:disable:next force_cast
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier, for: indexPath) as! TodaysClassesHeaderView
+                headerView.delegate = self
+                return headerView
+            case .lookingFor, .allGyms:
+                // swiftlint:disable:next force_cast
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
+                headerView.setTitle(title: sections[indexPath.section].rawValue)
+                return headerView
+            }
         default:
             fatalError("Unexpected element kind")
         }
@@ -232,7 +241,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .lookingFor:
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         case .todaysClasses:
-            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
     }
 
@@ -272,6 +281,13 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
         }
+    }
+}
+
+// MARK: - NavigationDelegate
+extension HomeController: NavigationDelegate {
+    func changeTab(index: Int) {
+        tabBarController?.selectedIndex = index
     }
 }
 
