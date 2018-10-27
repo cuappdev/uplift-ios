@@ -116,6 +116,10 @@ class ClassListViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController!.isNavigationBarHidden = false
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         // Update favorited
         for cell in classCollectionView.visibleCells {
@@ -230,6 +234,8 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             let dayOfMonth = cal.component(.day, from: dateForCell)
             cell.dayOfWeekLabel.text = daysOfWeek[dayOfWeek]
             cell.dateLabel.text = "\(dayOfMonth)"
+            cell.dateLabel.font = ._12MontserratRegular
+            cell.dayOfWeekLabel.font = ._12MontserratRegular
 
             if dateForCell < currDate {
                 cell.dateLabel.textColor = .fitnessMediumGrey
@@ -239,6 +245,8 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             if dateForCell == calendarDateSelected {
                 cell.dateLabelCircle.isHidden = false
                 cell.dateLabel.textColor = .white
+                cell.dateLabel.font = ._12MontserratSemiBold
+                cell.dayOfWeekLabel.font = ._12MontserratSemiBold
             }
             return cell
         }

@@ -159,9 +159,9 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
-        AppDelegate.networkManager.getClassNames { (classNames) in
-
+        AppDelegate.networkManager.getClassNames { classNames in
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
+            self.classTypeDropdownData.titles.sort()
 
             self.classTypeDropdownData.completed = true
             self.classTypeDropdown.reloadData()
@@ -185,16 +185,12 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDivider = UIView()
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
-
+        
         instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
-        AppDelegate.networkManager.getInstructors { (instructors) in
-
-            for instructor in instructors {
-                // self.instructorDropdownData.titles.append(instructor.name)
-                // self.instructorDropdownData.ids.append(instructor.id)
-                self.instructorDropdownData.titles.append(instructor)
-            }
+        AppDelegate.networkManager.getInstructors { instructors in
+            self.instructorDropdownData.titles.append(contentsOf: instructors)
+            self.instructorDropdownData.titles.sort()
 
             self.instructorDropdownData.completed = true
             self.instructorDropdown.reloadData()
