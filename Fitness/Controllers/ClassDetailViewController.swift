@@ -299,8 +299,7 @@ class ClassDetailViewController: UIViewController {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         // HEADER
-        let window = UIApplication.shared.keyWindow
-        let topPadding = window?.safeAreaInsets.top ?? 0.0
+        let topPadding = view.safeAreaInsets.top
         let dividerSpacing = 24
         
         classImageContainer.snp.makeConstraints { make in

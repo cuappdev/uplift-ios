@@ -162,7 +162,6 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         
         gymImageView = UIImageView()
         gymImageView.contentMode = UIView.ContentMode.scaleAspectFill
-        gymImageView.translatesAutoresizingMaskIntoConstraints = false
         gymImageView.clipsToBounds = true
         gymImageView.kf.setImage(with: gym.imageURL)
         contentView.addSubview(gymImageView)
@@ -251,8 +250,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         //HEADER
-        let window = UIApplication.shared.keyWindow
-        let topPadding = window?.safeAreaInsets.top ?? 0.0
+        let topPadding = view.safeAreaInsets.top
         
         gymImageContainer.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view)

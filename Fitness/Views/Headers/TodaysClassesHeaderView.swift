@@ -41,12 +41,13 @@ class TodaysClassesHeaderView: UICollectionReusableView {
         // MARK: - CONSTRAINTS
         titleLabel.snp.updateConstraints {make in
             make.leading.equalTo(16)
-            make.top.equalToSuperview()
+            make.top.trailing.equalToSuperview()
             make.height.equalTo(titleLabel.intrinsicContentSize.height)
         }
         
         viewAllButton.snp.updateConstraints { make in
-            make.trailing.equalToSuperview().offset(-15)
+            make.trailing.equalToSuperview()
+            make.width.equalTo(60)
             make.bottom.equalTo(titleLabel)
             make.height.equalTo(titleLabel)
         }

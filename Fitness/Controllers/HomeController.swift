@@ -241,7 +241,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .lookingFor:
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         case .todaysClasses:
-            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+            return .zero
         }
     }
 
