@@ -29,7 +29,6 @@ import UIKit
         completion?(self)
     }
 
-
     // MARK: - open stored properties
 
     open weak var delegate: RangeSeekSliderDelegate?
@@ -221,7 +220,6 @@ import UIKit
     /// The brief description displayed in accessibility mode for maximum value handler. If not set, the default is empty String.
     @IBInspectable open var maxLabelAccessibilityHint: String?
 
-
     // MARK: - private stored properties
 
     private enum HandleTracking { case none, left, right }
@@ -247,7 +245,6 @@ import UIKit
     // see http://stackoverflow.com/questions/13462046/custom-uiview-not-showing-accessibility-on-voice-over
     private var accessibleElements: [UIAccessibilityElement] = []
 
-
     // MARK: - private computed properties
 
     private var leftHandleAccessibilityElement: UIAccessibilityElement {
@@ -272,7 +269,6 @@ import UIKit
         return element
     }
 
-
     // MARK: - UIView
 
     open override func layoutSubviews() {
@@ -291,7 +287,6 @@ import UIKit
         return CGSize(width: UIView.noIntrinsicMetric, height: 65.0)
     }
 
-
     // MARK: - UIControl
 
     open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
@@ -301,7 +296,6 @@ import UIKit
         let isTouchingRightHandle: Bool = rightHandle.frame.insetBy(dx: insetExpansion, dy: insetExpansion).contains(touchLocation)
 
         guard isTouchingLeftHandle || isTouchingRightHandle else { return false }
-
 
         // the touch was inside one of the handles so we're definitely going to start movign one of them. But the handles might be quite close to each other, so now we need to find out which handle the touch was closest too, and activate that one.
         let distanceFromLeftHandle: CGFloat = touchLocation.distance(to: leftHandle.frame.center)
@@ -361,7 +355,6 @@ import UIKit
         delegate?.didEndTouches(in: self)
     }
 
-
     // MARK: - UIAccessibility
 
     open override func accessibilityElementCount() -> Int {
@@ -377,12 +370,10 @@ import UIKit
         return accessibleElements.index(of: element) ?? 0
     }
 
-
     // MARK: - open methods
 
     /// When subclassing **RangeSeekSlider** and setting each item in **setupStyle()**, the design is reflected in Interface Builder as well.
     open func setupStyle() {}
-
 
     // MARK: - private methods
 
@@ -701,7 +692,6 @@ import UIKit
     }
 }
 
-
 // MARK: - RangeSeekSliderLeftElement
 
 private final class RangeSeekSliderLeftElement: UIAccessibilityElement {
@@ -718,7 +708,6 @@ private final class RangeSeekSliderLeftElement: UIAccessibilityElement {
         accessibilityValue = slider.minLabel.string as? String
     }
 }
-
 
 // MARK: - RangeSeekSliderRightElement
 
@@ -739,7 +728,6 @@ private final class RangeSeekSliderRightElement: UIAccessibilityElement {
     }
 }
 
-
 // MARK: - CGRect
 
 private extension CGRect {
@@ -748,7 +736,6 @@ private extension CGRect {
         return CGPoint(x: midX, y: midY)
     }
 }
-
 
 // MARK: - CGPoint
 

@@ -264,17 +264,17 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             let currDate = Date()
             guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
             let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate)!
-            
-            let filterParameters = FilterParameters(shouldFilter: true, startTime:startDate, encodedStartTime: 0.0, endTime: endDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [tags[indexPath.row].name])
-            
+
+            let filterParameters = FilterParameters(shouldFilter: true, startTime: startDate, encodedStartTime: 0.0, endTime: endDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [tags[indexPath.row].name])
+
             guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
             guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
-            
+
             classListViewController.currentFilterParams = filterParameters
             classNavigationController.setViewControllers([classListViewController], animated: false)
-            
+
             tabBarController?.selectedIndex = 1
-            
+
         case .todaysClasses:
             let classDetailViewController = ClassDetailViewController()
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]

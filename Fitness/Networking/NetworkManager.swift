@@ -121,12 +121,12 @@ struct NetworkManager {
     func getGymClassInstance(gymClassInstanceId: Int, completion: @escaping (GymClassInstance) -> Void) {
 
     }
-    
+
     func getGymClassInstances(gymClassDetailIds: [String], completion: @escaping ([GymClassInstance]) -> Void) {
-        apollo.fetch(query: ClassesByTypeQuery(classNames: gymClassDetailIds)) { (result,error) in
+        apollo.fetch(query: ClassesByTypeQuery(classNames: gymClassDetailIds)) { (result, error) in
             guard let data = result?.data, let classes = data.classes else { return }
             var gymClassInstances: [GymClassInstance] = []
-            
+
             for gymClassData in classes {
                 guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
                 let instructor = gymClassData.instructor
@@ -141,9 +141,9 @@ struct NetworkManager {
                 let className = gymClassData.details.name
                 let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
                 let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
-                
+
                 let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
-                
+
                 gymClassInstances.append(gymClass)
             }
             let now = Date()
