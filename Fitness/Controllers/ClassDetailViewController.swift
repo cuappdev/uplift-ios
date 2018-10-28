@@ -33,10 +33,10 @@ class ClassDetailViewController: UIViewController {
     var isFavorite: Bool! {
         didSet {
             if oldValue == isFavorite { return }
-            
+
             let defaults = UserDefaults.standard
             var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
-            
+
             if isFavorite {
                 favoriteButton.isSelected = true
                 if !favorites.contains(gymClassInstance.classDetailId) {
@@ -50,7 +50,7 @@ class ClassDetailViewController: UIViewController {
                     defaults.set(favorites, forKey: Identifiers.favorites)
                 }
             }
-            
+
             for i in 0..<classCollectionView.numberOfItems(inSection: 0) {
                 let cell = classCollectionView.cellForItem(at: IndexPath(item: i, section: 0)) as! ClassListCell
                 cell.isFavorite = isFavorite
@@ -89,6 +89,7 @@ class ClassDetailViewController: UIViewController {
         navigationController!.isNavigationBarHidden = true
     }
 
+    //swiftlint:disable:next function_body_length
     override func viewDidLoad() {
         super.viewDidLoad()
         updatesStatusBarAppearanceAutomatically = true
@@ -110,7 +111,7 @@ class ClassDetailViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.width.equalTo(scrollView)
         }
-        
+
         let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
         edgeSwipe.edges = .left
         contentView.addGestureRecognizer(edgeSwipe)
@@ -203,7 +204,7 @@ class ClassDetailViewController: UIViewController {
         classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
         classFlowLayout.minimumLineSpacing = 12.0
         classFlowLayout.headerReferenceSize = .zero
-        
+
         classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
         classCollectionView.bounces = false
         classCollectionView.showsVerticalScrollIndicator = false
@@ -216,11 +217,11 @@ class ClassDetailViewController: UIViewController {
         classCollectionView.dataSource = self
         classCollectionView.delegate = self
         contentView.addSubview(classCollectionView)
-        
+
         nextSessions = []
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
-        
+
         NetworkManager.shared.getGymClassInstances(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
             self.nextSessions = gymClasses
         }
@@ -232,7 +233,7 @@ class ClassDetailViewController: UIViewController {
         classImageContainer = UIView()
         classImageContainer.backgroundColor = .darkGray
         contentView.addSubview(classImageContainer)
-        
+
         classImageView.contentMode = .scaleAspectFill
         classImageView.kf.setImage(with: gymClassInstance.imageURL)
         contentView.addSubview(classImageView)
@@ -288,10 +289,10 @@ class ClassDetailViewController: UIViewController {
         favoriteButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
     }
@@ -301,7 +302,7 @@ class ClassDetailViewController: UIViewController {
         // HEADER
         let topPadding = view.safeAreaInsets.top
         let dividerSpacing = 24
-        
+
         classImageContainer.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view)
             make.top.equalTo(scrollView)
@@ -447,7 +448,7 @@ class ClassDetailViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
     }
-    
+
     func remakeConstraints() {
         classCollectionView.snp.remakeConstraints {make in
             make.left.right.equalToSuperview()
@@ -456,7 +457,7 @@ class ClassDetailViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
     }
-    
+
     // MARK: - BUTTON METHODS
     @objc func back() {
         if let navigationController = navigationController {
@@ -485,7 +486,7 @@ class ClassDetailViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
                 self.present(alert, animated: true, completion: nil)
             }
-            
+
             do {
                 try store.save(event, span: .thisEvent, commit: true)
             } catch {
@@ -493,12 +494,12 @@ class ClassDetailViewController: UIViewController {
             }
         }
     }
-    
+
     func noAccess() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Cannot add to calendar", message: "Uplift does not have permission to acess your calendar", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
-            
+
             let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 
@@ -506,9 +507,9 @@ class ClassDetailViewController: UIViewController {
                     UIApplication.shared.open(settingsUrl, completionHandler: nil )
                 }
             }
-            
+
             alert.addAction(settingsAction)
-            
+
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -522,29 +523,29 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-        
+
         let gymClassInstance = nextSessions[indexPath.item]
-        
+
         cell.classLabel.text = gymClassInstance.className
         cell.locationLabel.text = gymClassInstance.location
         cell.instructorLabel.text = gymClassInstance.instructor
         cell.durationLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
-        
+
         let calendar = Calendar.current
-        
+
         if calendar.dateComponents([.day], from: gymClassInstance.startTime) == calendar.dateComponents([.day], from: Date()) {
             cell.timeLabel.text = "Today"
         } else {
             cell.timeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
         }
-        
+
         cell.classId = gymClassInstance.classDetailId
         cell.isFavorite = isFavorite
         cell.delegate = self
-        
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let classDetailViewController = ClassDetailViewController()
         classDetailViewController.gymClassInstance = nextSessions[indexPath.item]
@@ -557,7 +558,7 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
 extension ClassDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         statusBarUpdater?.refreshStatusBarStyle()
-        
+
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)

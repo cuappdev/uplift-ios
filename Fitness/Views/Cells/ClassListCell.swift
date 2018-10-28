@@ -24,7 +24,7 @@ class ClassListCell: UICollectionViewCell {
     var classLabel: UILabel!
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
-    
+
     var delegate: ClassListCellDelegate?
 
     var classId: String! {
@@ -37,14 +37,14 @@ class ClassListCell: UICollectionViewCell {
             }
         }
     }
-    
+
     var favoriteButton: UIButton!
     var isFavorite: Bool = false {
         didSet {
             if oldValue == isFavorite { return }
             let defaults = UserDefaults.standard
             var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
-            
+
             if isFavorite {
                 favoriteButton.isSelected = true
                 if !favorites.contains(classId) {
@@ -137,7 +137,7 @@ class ClassListCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     func setUpContstraints() {
-        
+
         //DESCRIPTION
         classLabel.snp.makeConstraints { make in
             make.leading.equalTo(101)
@@ -184,11 +184,11 @@ class ClassListCell: UICollectionViewCell {
         }
 
     }
-    
+
     // MARK: - FAVORITE
     @objc func favorite() {
         isFavorite.toggle()
-        
+
         if let delegate = delegate {
             delegate.toggleFavorite(classDetailId: classId)
         }

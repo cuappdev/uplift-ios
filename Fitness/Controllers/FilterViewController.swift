@@ -48,7 +48,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     var startTimeSlider: RangeSeekSlider!
     var timeRanges: [Date] = []
 
-
     var startTimeClassTypeDivider: UIView!
     var startTime = "6:00AM"
     var endTime = "10:00PM"
@@ -66,11 +65,11 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     convenience init(currentFilterParams: FilterParameters?) {
         self.init()
         //TODO: - See if we already have filter params, and apply them
-        
+
         guard let existingFilterParams = currentFilterParams else {
             return
         }
-        
+
         selectedGyms = existingFilterParams.gymIds
         selectedClasses = existingFilterParams.classNames
         selectedInstructors = existingFilterParams.instructorNames
@@ -185,7 +184,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDivider = UIView()
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
-        
+
         instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
         AppDelegate.networkManager.getInstructors { instructors in

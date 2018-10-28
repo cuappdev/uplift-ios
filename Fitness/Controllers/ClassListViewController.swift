@@ -110,23 +110,23 @@ class ClassListViewController: UIViewController {
         filterButton.layer.shadowRadius = 2.0
         filterButton.layer.shadowOpacity = 0.2
         filterButton.layer.masksToBounds = false
-        
+
         if let params = currentFilterParams {
             filterOptions(params: params)
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController!.isNavigationBarHidden = false
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         // Update favorited
         for cell in classCollectionView.visibleCells {
             let classCell = cell as! ClassListCell
             classCell.classId = {classCell.classId}()
         }
-        
+
         // Update filtering
         if let params = currentFilterParams {
             filterOptions(params: params)
@@ -207,7 +207,7 @@ class ClassListViewController: UIViewController {
 }
 
 extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if collectionView == classCollectionView {
@@ -263,7 +263,7 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.instructorLabel.text = classForCell.instructor
         cell.locationLabel.text = classForCell.location
         cell.classId = classForCell.classDetailId
-        
+
         return cell
     }
 
@@ -370,12 +370,12 @@ extension ClassListViewController: FilterDelegate {
             if !params.instructorNames.isEmpty {
                 guard params.instructorNames.contains(currClass.instructor) else { return false }
             }
-            
+
             if !params.tags.isEmpty {
                 guard (currClass.tags.contains { tag in
                     return params.tags.contains(tag.name)}) else { return false }
             }
-            
+
             return true
         }
         classCollectionView.reloadData()

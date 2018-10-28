@@ -75,7 +75,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
         setupHeaderAndWrappingViews()
         setupTimes()
-        
+
         let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
         edgeSwipe.edges = .left
         contentView.addGestureRecognizer(edgeSwipe)
@@ -117,7 +117,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
         classFlowLayout.minimumLineSpacing = 12.0
         classFlowLayout.headerReferenceSize = .init(width: view.bounds.width - 32.0, height: 72.0)
-        
+
         classesTableView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
         classesTableView.bounces = false
         classesTableView.showsVerticalScrollIndicator = false
@@ -159,7 +159,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         gymImageContainer = UIView()
         gymImageContainer.backgroundColor = .darkGray
         contentView.addSubview(gymImageContainer)
-        
+
         gymImageView = UIImageView()
         gymImageView.contentMode = UIView.ContentMode.scaleAspectFill
         gymImageView.clipsToBounds = true
@@ -251,13 +251,13 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
     func setupConstraints() {
         //HEADER
         let topPadding = view.safeAreaInsets.top
-        
+
         gymImageContainer.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view)
             make.top.equalTo(scrollView)
             make.height.equalTo(360)
         }
-        
+
         gymImageView.snp.updateConstraints { make in
             make.leading.trailing.equalTo(gymImageContainer)
             make.top.equalTo(view).priority(.high)
@@ -437,14 +437,14 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
 // MARK: CollectionViewDataSource
 extension GymDetailViewController: UICollectionViewDataSource {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == classesTableView) {
             return todaysClasses.count
         }
         return 0
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (collectionView == classesTableView) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
@@ -452,12 +452,12 @@ extension GymDetailViewController: UICollectionViewDataSource {
             cell.classLabel.text = gymClassInstance.className
             cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
             cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-            
+
             cell.instructorLabel.text = gymClassInstance.instructor
-            
+
             cell.duration = Int(gymClassInstance.duration) / 60
             cell.durationLabel.text = String(cell.duration) + " min"
-            
+
             return cell
         }
         return UICollectionViewCell()
@@ -466,7 +466,7 @@ extension GymDetailViewController: UICollectionViewDataSource {
 
 // MARK: TableViewDataSource
 extension GymDetailViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == hoursTableView) {
             if (hoursData.isDropped) {
@@ -478,7 +478,7 @@ extension GymDetailViewController: UITableViewDataSource {
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (tableView == hoursTableView) {
             let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
@@ -553,7 +553,7 @@ extension GymDetailViewController: UITableViewDelegate {
 extension GymDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         statusBarUpdater?.refreshStatusBarStyle()
-        
+
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)

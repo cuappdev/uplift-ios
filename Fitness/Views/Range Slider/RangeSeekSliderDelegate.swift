@@ -45,7 +45,6 @@ public protocol RangeSeekSliderDelegate: class {
     func rangeSeekSlider(_ slider: RangeSeekSlider, stringForMaxValue: CGFloat) -> String?
 }
 
-
 // MARK: - Default implementation
 
 public extension RangeSeekSliderDelegate {

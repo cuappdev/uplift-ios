@@ -59,7 +59,7 @@ class OnboardingViewController: PresentationController {
             imageView.contentMode = .scaleAspectFill
             imageView.snp.makeConstraints { make in
                 make.height.width.equalTo(214)
-            } 
+            }
             let position = Position(left: 0.5, top: 0.47)
             return Content(view: imageView, position: position)
         }
