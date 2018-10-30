@@ -30,6 +30,7 @@ class Histogram: UIView {
     let highThreshold = 85
 
     var openHour: Int!
+    var hours: DailyGymHours!
 
     var bottomAxis: UIView!
     var bottomAxisTicks: [UIView]!
@@ -37,6 +38,7 @@ class Histogram: UIView {
     init(frame: CGRect, data: [Int], todaysHours: DailyGymHours) {
         super.init(frame: frame)
         self.data = data
+        self.hours = todaysHours
 
         //AXIS
         bottomAxis = UIView()
@@ -82,13 +84,14 @@ class Histogram: UIView {
         selectedTime.textColor = .fitnessDarkGrey
         selectedTime.font = ._12LatoBold
         selectedTime.textAlignment = .right
-        if (openHour + selectedIndex) < 12 {
-            selectedTime.text = String(openHour + selectedIndex) + "AM :"
-        } else if (openHour + selectedIndex) > 12 {
-            selectedTime.text = String(openHour + selectedIndex - 12) + "PM :"
-        } else {
-            selectedTime.text = "12PM :"
-        }
+//        if (openHour + selectedIndex) < 12 {
+//            selectedTime.text = String(openHour + selectedIndex) + "AM :"
+//        } else if (openHour + selectedIndex) > 12 {
+//            selectedTime.text = String(openHour + selectedIndex - 12) + "PM :"
+//        } else {
+//            selectedTime.text = "12PM :"
+//        }
+        selectedTime.text = todaysHours.openTime.addingTimeInterval( Double(selectedIndex) * 3600 ).getStringOfDatetime(format: "ha :")
         selectedTime.sizeToFit()
         addSubview(selectedTime)
 
@@ -116,8 +119,8 @@ class Histogram: UIView {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         //AXIS
-        bottomAxis.snp.updateConstraints {make in
-            make.left.right.equalToSuperview()
+        bottomAxis.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-1)
             make.height.equalTo(2)
         }
@@ -127,8 +130,8 @@ class Histogram: UIView {
 
             let tick = bottomAxisTicks[i]
 
-            tick.snp.updateConstraints {make in
-                if (i == 0) {
+            tick.snp.makeConstraints { make in
+                if i == 0 {
                     make.left.equalToSuperview().offset(tickSpacing)
                 } else {
                     make.left.equalTo(bottomAxisTicks[i - 1].snp.right).offset(tickSpacing)
@@ -144,7 +147,7 @@ class Histogram: UIView {
 
             let bar = bars[i]
 
-            bar.snp.updateConstraints {make in
+            bar.snp.makeConstraints { make in
                 make.bottom.equalTo(bottomAxis.snp.top)
                 if i == 0 {
                     make.left.equalToSuperview().offset(2)
@@ -167,7 +170,7 @@ class Histogram: UIView {
     func setupSelectedConstraints() {
 
         if selectedIndex < bars.count {
-            selectedLine.snp.remakeConstraints {make in
+            selectedLine.snp.remakeConstraints { make in
                 make.centerX.equalTo(bars[selectedIndex].snp.centerX)
                 make.bottom.equalTo(bars[selectedIndex].snp.top)
                 make.width.equalTo(2)
@@ -175,23 +178,24 @@ class Histogram: UIView {
             }
         }
 
-        selectedTimeDescriptor.snp.remakeConstraints {make in
+        selectedTimeDescriptor.snp.remakeConstraints { make in
             make.top.equalToSuperview()
-            make.height.equalTo(15)
+            make.height.equalTo(18)
+            make.width.equalTo(selectedTimeDescriptor.intrinsicContentSize.width)
 
-            if CGFloat(selectedIndex)/CGFloat(bars.count) > 2/3 {
-                make.right.equalToSuperview()
-            } else if CGFloat(selectedIndex)/CGFloat(bars.count) < 1/3 {
-                make.left.equalToSuperview().offset(selectedTime.frame.width)
-            } else {
-                make.centerX.equalTo(selectedLine.snp.centerX)
-            }
+            let descriptorInset: CGFloat = 5
+            let timeWidth = 3 + selectedTime.intrinsicContentSize.width
+
+            make.centerX.equalTo(bars[selectedIndex]).priority(.high)
+            make.trailing.lessThanOrEqualToSuperview().offset(-descriptorInset).priority(.required)
+            make.leading.greaterThanOrEqualToSuperview().offset(timeWidth + descriptorInset).priority(.required)
         }
 
-        selectedTime.snp.remakeConstraints {make in
+        selectedTime.snp.remakeConstraints { make in
             make.top.equalToSuperview()
             make.height.equalTo(15)
-            make.right.equalTo(selectedTimeDescriptor.snp.left).offset(-3)
+            make.width.equalTo(selectedTime.intrinsicContentSize.width)
+            make.trailing.equalTo(selectedTimeDescriptor.snp.leading).offset(-3)
         }
     }
 
@@ -217,14 +221,8 @@ class Histogram: UIView {
             selectedTimeDescriptor.text = timeDescriptors[2]
         }
         selectedTimeDescriptor.sizeToFit()
-
-        if (openHour + selectedIndex) < 12 {
-            selectedTime.text = String(openHour + selectedIndex) + "AM :"
-        } else if (openHour + selectedIndex) > 12 {
-            selectedTime.text = String(openHour + selectedIndex - 12) + "PM :"
-        } else {
-            selectedTime.text = "12PM :"
-        }
+        
+        selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * 3600 ).getStringOfDatetime(format: "ha :")
         selectedTime.sizeToFit()
 
         setupSelectedConstraints()
