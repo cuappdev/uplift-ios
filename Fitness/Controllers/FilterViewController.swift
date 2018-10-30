@@ -381,23 +381,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     }
 
     @objc func reset() {
-        selectedGyms = []
-        for i in 0..<gymCollectionView.numberOfItems(inSection: 0) {
-            gymCollectionView.deselectItem(at: IndexPath(row: i, section: 0), animated: true)
-
-        }
-
-        startTimeLabel.text = "6:00AM - 10:00PM"
-        startTimeSlider.selectedMinValue = 0.0
-        startTimeSlider.selectedMaxValue = 960.0
-
-        classTypeDropdownData.dropStatus = .down
-        selectedClasses = []
-        dropClasses(sender: UITapGestureRecognizer(target: nil, action: nil))
-
-        instructorDropdownData.dropStatus = .down
-        selectedInstructors = []
-        dropInstructors(sender: UITapGestureRecognizer(target: nil, action: nil))
+        let minDate = timeRanges[0]
+        let maxDate = timeRanges[timeRanges.count - 1]
+        
+        let filterParameters = FilterParameters(shouldFilter: false, startTime: minDate, encodedStartTime: 0.0, endTime: maxDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [])
+        
+        delegate?.filterOptions(params: filterParameters)
+        
+        dismiss(animated: true, completion: nil)
 
     }
 

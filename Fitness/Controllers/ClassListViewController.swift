@@ -72,6 +72,10 @@ class ClassListViewController: UIViewController {
         textfield?.layer.cornerRadius = 18.0
 
         navigationItem.titleView = searchBar
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
 
         noClassesEmptyStateView = NoClassesEmptyStateView()
 
@@ -329,6 +333,14 @@ extension ClassListViewController: UISearchBarDelegate {
         filteredClasses = classList[calendarDatesList.firstIndex(of: calendarDateSelected)!]
         filteredClasses = filteredClasses.filter { $0.className.lowercased().contains(searchText.lowercased())}
         classCollectionView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    @objc func dismissKeyboard(){
+        searchBar.endEditing(true)
     }
 }
 
