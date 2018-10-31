@@ -225,6 +225,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         hoursTableView.separatorStyle = .none
         hoursTableView.backgroundColor = .white
         hoursTableView.isScrollEnabled = false
+        hoursTableView.allowsSelection = false
 
         hoursTableView.register(GymHoursCell.self, forCellReuseIdentifier: GymHoursCell.identifier)
         hoursTableView.register(GymHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: GymHoursHeaderView.identifier)
@@ -599,7 +600,7 @@ extension GymDetailViewController: UIScrollViewDelegate {
         case .lightContent:
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
         }
     }
 }

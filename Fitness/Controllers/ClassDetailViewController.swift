@@ -560,8 +560,8 @@ extension ClassDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
             favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
         case .default:
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)

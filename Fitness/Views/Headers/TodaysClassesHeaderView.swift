@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NavigationDelegate {
-    func changeTab(index: Int)
+    func viewTodaysClasses()
 }
 
 class TodaysClassesHeaderView: UICollectionReusableView {
@@ -59,6 +59,6 @@ class TodaysClassesHeaderView: UICollectionReusableView {
 
     @objc func viewAll() {
         guard let navigationDelegate = delegate else { return }
-        navigationDelegate.changeTab(index: 1)
+        navigationDelegate.viewTodaysClasses()
     }
 }

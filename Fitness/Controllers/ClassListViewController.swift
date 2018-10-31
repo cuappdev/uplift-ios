@@ -43,7 +43,7 @@ class ClassListViewController: UIViewController {
     lazy var calendarDateSelected: Date = {
         return currDate
     }()
-
+    
     override func viewDidLoad() {
         view.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
@@ -72,6 +72,10 @@ class ClassListViewController: UIViewController {
         textfield?.layer.cornerRadius = 18.0
 
         navigationItem.titleView = searchBar
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
 
         noClassesEmptyStateView = NoClassesEmptyStateView()
 
@@ -197,10 +201,11 @@ class ClassListViewController: UIViewController {
         NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date)) { classes in
             guard let index = self.calendarDatesList.firstIndex(of: date) else { return }
             self.classList[index] = classes
-            self.classCollectionView.reloadData()
-
+            
             if let filterParams = self.currentFilterParams {
                 self.filterOptions(params: filterParams)
+            } else {
+                self.classCollectionView.reloadData()
             }
         }
     }
@@ -329,6 +334,14 @@ extension ClassListViewController: UISearchBarDelegate {
         filteredClasses = classList[calendarDatesList.firstIndex(of: calendarDateSelected)!]
         filteredClasses = filteredClasses.filter { $0.className.lowercased().contains(searchText.lowercased())}
         classCollectionView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    @objc func dismissKeyboard(){
+        searchBar.endEditing(true)
     }
 }
 
