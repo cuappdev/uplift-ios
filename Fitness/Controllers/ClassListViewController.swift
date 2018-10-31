@@ -67,7 +67,7 @@ class ClassListViewController: UIViewController {
         currDate = calendarDatesList[3]
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        initializeCollecitonsViews()
+        initializeCollectionViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -191,7 +191,7 @@ class ClassListViewController: UIViewController {
         tabBarController?.present(filterNavController, animated: true, completion: nil)
     }
     
-    func initializeCollecitonsViews() {
+    func initializeCollectionViews() {
         let calendarFlowLayout = UICollectionViewFlowLayout()
         calendarFlowLayout.itemSize = CGSize(width: 24, height: 47)
         calendarFlowLayout.scrollDirection = .horizontal
@@ -426,7 +426,6 @@ extension ClassListViewController: FilterDelegate {
             return
         }
 
-        // TODO : add an offset to the date
         let offset = Int(calendarDateSelected.timeIntervalSince(params.startTime))/86400
         var components =  DateComponents()
         components.day = offset
@@ -436,8 +435,6 @@ extension ClassListViewController: FilterDelegate {
         
         filteredClasses = classList[calendarDatesList.firstIndex(of: calendarDateSelected)!]
         filteredClasses = filteredClasses.filter { currClass in
-            print( currClass.startTime >= adjustedStart )
-            
             guard currClass.startTime >= adjustedStart, currClass.endTime <= adjustedEnd else { return false }
             
             if !params.gymIds.isEmpty {
