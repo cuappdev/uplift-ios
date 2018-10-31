@@ -362,7 +362,7 @@ class ClassDetailViewController: UIViewController {
         }
 
         favoriteButton.snp.makeConstraints { make in
-            make.right.equalTo(view).offset(-21)
+            make.trailing.equalTo(view).offset(-21)
             make.top.equalTo(backButton.snp.top)
             make.width.equalTo(23)
             make.height.equalTo(22)

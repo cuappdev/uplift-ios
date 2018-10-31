@@ -384,7 +384,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         }
 
         classesCollectionView.snp.updateConstraints {make in
-            make.leading.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
             make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * 112)
         }
