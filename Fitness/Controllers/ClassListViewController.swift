@@ -12,21 +12,38 @@ import SnapKit
 struct FilterParameters {
     var shouldFilter: Bool
     var startTime: Date
-    var encodedStartTime: Double
     var endTime: Date
-    var encodedEndTime: Double
     var instructorNames: [String]
     var classNames: [String]
     var gymIds: [String]
     var tags: [String]
-
+    
+    init() {
+        shouldFilter = false
+        startTime = Date()
+        endTime = startTime
+        instructorNames = []
+        classNames = []
+        gymIds = []
+        tags = []
+    }
+    
+    init(applyFilter: Bool, startingTime: Date,  endingTime: Date, instructorsNames: [String], classesNames: [String], gymsIds: [String], tagsNames: [String]) {
+        shouldFilter = applyFilter
+        startTime = startingTime
+        endTime = endingTime
+        instructorNames = instructorsNames
+        classNames = classesNames
+        gymIds = gymsIds
+        tags = tagsNames
+    }
 }
 
 class ClassListViewController: UIViewController {
 
     let daysOfWeek = ["Su", "M", "T", "W", "Th", "F", "Sa"]
     let cal = Calendar.current
-    let currDate = Date()
+    let currDate: Date!
 
     var calendarCollectionView: UICollectionView!
     var classCollectionView: UICollectionView!
@@ -36,7 +53,7 @@ class ClassListViewController: UIViewController {
     var noClassesEmptyStateView: NoClassesEmptyStateView!
     var noResultsEmptyStateView: NoResultsEmptyStateView!
 
-    var classList: [[GymClassInstance]] = []
+    var classList: [[GymClassInstance]] = Array.init(repeating: [], count: 10)
     var filteredClasses: [GymClassInstance] = []
     var filteringIsActive = false
     var currentFilterParams: FilterParameters?
@@ -44,6 +61,18 @@ class ClassListViewController: UIViewController {
     lazy var calendarDateSelected: Date = {
         return currDate
     }()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        calendarDatesList = ClassListViewController.createCalendarDates()
+        currDate = calendarDatesList[3]
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        initializeCollecitonsViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         view.backgroundColor = .white
@@ -81,7 +110,6 @@ class ClassListViewController: UIViewController {
         noClassesEmptyStateView = NoClassesEmptyStateView()
         noResultsEmptyStateView = NoResultsEmptyStateView()
 
-        createCalendarDates()
         setupCollectionViews()
 
         view.addSubview(noClassesEmptyStateView)
@@ -139,16 +167,21 @@ class ClassListViewController: UIViewController {
         }
     }
 
-    func createCalendarDates() {
-        guard let startDate = cal.date(byAdding: .day, value: -3, to: currDate) else { return }
-        guard let endDate = cal.date(byAdding: .day, value: 6, to: currDate) else { return }
+    static func createCalendarDates() -> [Date] {
+        let cal = Calendar.current
+        let currDate = Date()
+        
+        guard let startDate = cal.date(byAdding: .day, value: -3, to: currDate) else { return  [] }
+        guard let endDate = cal.date(byAdding: .day, value: 6, to: currDate) else { return [] }
 
+        var dateList: [Date] = []
         var date = startDate
         while date <= endDate {
-            calendarDatesList.append(date)
-            classList.append([])
+            dateList.append(date)
             date = cal.date(byAdding: .day, value: 1, to: date) ?? Date()
         }
+        
+        return dateList
     }
 
     @objc func filterPressed() {
@@ -157,8 +190,8 @@ class ClassListViewController: UIViewController {
         let filterNavController = UINavigationController(rootViewController: filterVC)
         tabBarController?.present(filterNavController, animated: true, completion: nil)
     }
-
-    func setupCollectionViews() {
+    
+    func initializeCollecitonsViews() {
         let calendarFlowLayout = UICollectionViewFlowLayout()
         calendarFlowLayout.itemSize = CGSize(width: 24, height: 47)
         calendarFlowLayout.scrollDirection = .horizontal
@@ -166,9 +199,21 @@ class ClassListViewController: UIViewController {
         calendarFlowLayout.sectionInset = .init(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
 
         calendarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: calendarFlowLayout)
-        calendarCollectionView.showsHorizontalScrollIndicator = false
         calendarCollectionView.delegate = self
         calendarCollectionView.dataSource = self
+        
+        let classFlowLayout = UICollectionViewFlowLayout()
+        classFlowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32.0, height: 100.0)
+        classFlowLayout.minimumLineSpacing = 12.0
+        classFlowLayout.headerReferenceSize = .init(width: UIScreen.main.bounds.width - 32.0, height: 72.0)
+        
+        classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
+        classCollectionView.delegate = self
+        classCollectionView.dataSource = self
+    }
+
+    func setupCollectionViews() {
+        calendarCollectionView.showsHorizontalScrollIndicator = false
         calendarCollectionView.backgroundColor = .white
         calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: CalendarCell.identifier)
         view.addSubview(calendarCollectionView)
@@ -177,16 +222,9 @@ class ClassListViewController: UIViewController {
             make.height.equalTo(47)
             make.leading.trailing.equalToSuperview()
         }
-
-        let classFlowLayout = UICollectionViewFlowLayout()
-        classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
-        classFlowLayout.minimumLineSpacing = 12.0
-        classFlowLayout.headerReferenceSize = .init(width: view.bounds.width - 32.0, height: 72.0)
-
-        classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
-        classCollectionView.delegate = self
-        classCollectionView.dataSource = self
+        
         classCollectionView.backgroundColor = .white
+        classCollectionView.delaysContentTouches = false
         classCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "class-list-header")
         classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
         view.addSubview(classCollectionView)
@@ -290,17 +328,21 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-            cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
-        }, completion: nil)
+        if collectionView == classCollectionView {
+            guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+            UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+            }, completion: nil)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-            cell.transform = .identity
-        }, completion: nil)
+        if collectionView == classCollectionView {
+            guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+            UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                cell.transform = .identity
+            }, completion: nil)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -384,12 +426,20 @@ extension ClassListViewController: FilterDelegate {
             return
         }
 
+        // TODO : add an offset to the date
+        let offset = Int(calendarDateSelected.timeIntervalSince(params.startTime))/86400
+        var components =  DateComponents()
+        components.day = offset
+        
+        let adjustedStart = cal.date(byAdding: components, to: params.startTime) ?? params.startTime
+        let adjustedEnd = cal.date(byAdding: components, to: params.endTime) ?? params.endTime
+        
         filteredClasses = classList[calendarDatesList.firstIndex(of: calendarDateSelected)!]
         filteredClasses = filteredClasses.filter { currClass in
-            guard currClass.startTime >= params.startTime,
-                currClass.endTime <= params.endTime
-                else { return false }
-
+            print( currClass.startTime >= adjustedStart )
+            
+            guard currClass.startTime >= adjustedStart, currClass.endTime <= adjustedEnd else { return false }
+            
             if !params.gymIds.isEmpty {
                 guard params.gymIds.contains(currClass.gymId) else { return false }
             }

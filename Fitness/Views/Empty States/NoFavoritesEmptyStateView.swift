@@ -15,7 +15,7 @@ class NoFavoritesEmptyStateView: UIView {
     var emptyStateImageView: UIImageView!
     var findClassesButton: UIButton!
 
-    var tabBarController: UITabBarController?
+    var delegate: NavigationDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,6 +79,6 @@ class NoFavoritesEmptyStateView: UIView {
     }
 
     @objc func findClasses() {
-        tabBarController?.selectedIndex = 1
+        delegate?.viewTodaysClasses()
     }
 }

@@ -211,6 +211,7 @@ class ClassDetailViewController: UIViewController {
         classCollectionView.showsHorizontalScrollIndicator = false
         classCollectionView.backgroundColor = .white
         classCollectionView.clipsToBounds = false
+        classCollectionView.delaysContentTouches = false
 
         classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
@@ -559,6 +560,20 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
         classDetailViewController.gymClassInstance = nextSessions[indexPath.item]
         navigationController?.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(classDetailViewController, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+        }, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = .identity
+        }, completion: nil)
     }
 }
 
