@@ -286,8 +286,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
 
 // MARK: - NavigationDelegate
 extension HomeController: NavigationDelegate {
-    func changeTab(index: Int) {
-        tabBarController?.selectedIndex = index
+    func viewTodaysClasses() {
+        tabBarController?.selectedIndex = 1
     }
 }
 
