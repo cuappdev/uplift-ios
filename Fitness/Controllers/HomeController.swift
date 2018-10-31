@@ -56,6 +56,7 @@ class HomeController: UIViewController {
         flowLayout.minimumLineSpacing = 12.0
 
         mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        mainCollectionView.contentInset = UIEdgeInsets(top: 11, left: 0, bottom: 0, right: 0)
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.backgroundColor = .white
@@ -74,14 +75,14 @@ class HomeController: UIViewController {
         view.addSubview(mainCollectionView)
 
         mainCollectionView.snp.makeConstraints {make in
-            make.top.equalTo(headerView.snp.bottom).offset(18)
+            make.top.equalTo(headerView.snp.bottom).offset(7)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
 
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
-        statusBarBackgroundColor.backgroundColor = .white
+        statusBarBackgroundColor.backgroundColor = UIColor.fitnessWhite
         view.addSubview(statusBarBackgroundColor)
 
         // GET GYMS

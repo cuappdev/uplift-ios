@@ -66,6 +66,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
             remakeConstraints()
         }
     }
+    var noMoreClassesLabel: UILabel!
 
     var gym: Gym!
 
@@ -73,7 +74,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-         updatesStatusBarAppearanceAutomatically = true
+        updatesStatusBarAppearanceAutomatically = true
 
         hoursData = HoursData(isDropped: false, data: [])
         facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"] //temp (until backend implements equiment)
@@ -117,6 +118,14 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         todaysClassesLabel.textAlignment = .center
         todaysClassesLabel.sizeToFit()
         contentView.addSubview(todaysClassesLabel)
+        
+        noMoreClassesLabel = UILabel()
+        noMoreClassesLabel.font = UIFont._14MontserratLight
+        noMoreClassesLabel.textColor = .fitnessDarkGrey
+        noMoreClassesLabel.text = "We are done for today. \nCheck again tomorrow!\n🌟"
+        noMoreClassesLabel.numberOfLines = 0
+        noMoreClassesLabel.textAlignment = .center
+        contentView.addSubview(noMoreClassesLabel)
 
         let classFlowLayout = UICollectionViewFlowLayout()
         classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
@@ -217,6 +226,9 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         hoursTableView.separatorStyle = .none
         hoursTableView.backgroundColor = .white
         hoursTableView.isScrollEnabled = false
+        hoursTableView.estimatedRowHeight = 0
+        hoursTableView.estimatedSectionHeaderHeight = 0
+        hoursTableView.estimatedSectionFooterHeight = 0
 
         hoursTableView.register(GymHoursCell.self, forCellReuseIdentifier: GymHoursCell.identifier)
         hoursTableView.register(GymHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: GymHoursHeaderView.identifier)
@@ -302,6 +314,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.top.equalTo(hoursTitleLabel.snp.bottom).offset(12)
+//            make.height.equalTo(hoursTableView.contentSize.height)
             if (hoursData.isDropped) {
                 make.height.equalTo(181)
             } else {
@@ -379,34 +392,45 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
             make.left.right.equalToSuperview()
             make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
             make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * 112)
-            make.bottom.equalToSuperview()
         }
-
-//        var dropHoursHeight = 27
-//        if hoursData.isDropped {
-//            dropHoursHeight = 181
-//        }
-//
-//        let facilitiesHeight = facilitiesData.count*20
-//        let todaysClassesHeight = classesCollectionView.numberOfItems(inSection: 0)*112
-//        let height: Int
-//
-//        // THIS MUST BE CHANGED IF ANY OF THE SCREEN'S HARD-CODED HEIGHTS ARE ALTERED
-//        if gym.isOpen {
-//            height = 427 + dropHoursHeight + 282 + facilitiesHeight + 137 + todaysClassesHeight
-//        } else {
-//            height = 427 + dropHoursHeight + 89 + facilitiesHeight + 137 + todaysClassesHeight
-//        }
-//
-//        scrollView.contentSize = CGSize(width: view.frame.width, height: CGFloat(height))
+        
+        if todaysClasses.count == 0 {
+            noMoreClassesLabel.snp.makeConstraints {make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(classesCollectionView.snp.bottom)
+                make.bottom.equalToSuperview().inset(24)
+                make.height.equalTo(66)
+            }
+        } else {
+            noMoreClassesLabel.snp.makeConstraints {make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(classesCollectionView.snp.bottom)
+                make.bottom.equalToSuperview().inset(24)
+                make.height.equalTo(0)
+            }
+        }
     }
     
     func remakeConstraints() {
-        classesCollectionView.snp.updateConstraints {make in
+        classesCollectionView.snp.remakeConstraints {make in
             make.left.right.equalToSuperview()
             make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
             make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * 112)
-            make.bottom.equalToSuperview()
+        }
+        if todaysClasses.count == 0 {
+            noMoreClassesLabel.snp.remakeConstraints {make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(classesCollectionView.snp.bottom)
+                make.bottom.equalToSuperview().inset(24)
+                make.height.equalTo(66)
+            }
+        } else {
+            noMoreClassesLabel.snp.remakeConstraints {make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(classesCollectionView.snp.bottom)
+                make.bottom.equalToSuperview().inset(24)
+                make.height.equalTo(0)
+            }
         }
     }
     
@@ -428,18 +452,26 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
 
         if (hoursData.isDropped) {
             hoursData.isDropped = false
-            hoursTableView.deleteRows(at: modifiedIndices, with: .none)
+            hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = #imageLiteral(resourceName: "right-arrow-solid")
+            
+            UIView.animate(withDuration: 0.3) {
+                self.setupConstraints()
+                self.view.layoutIfNeeded()
+            }
         } else {
             hoursData.isDropped = true
-            hoursTableView.insertRows(at: modifiedIndices, with: .none)
+            hoursTableView.insertRows(at: modifiedIndices, with: .fade)
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = #imageLiteral(resourceName: "down-arrow-solid")
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = .none
+            
+            UIView.animate(withDuration: 0.5) {
+                self.setupConstraints()
+                self.view.layoutIfNeeded()
+            }
         }
-
         hoursTableView.endUpdates()
-        setupConstraints()
     }
 
     // MARK: - BUTTON METHODS
