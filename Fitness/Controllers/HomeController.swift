@@ -96,7 +96,9 @@ class HomeController: UIViewController {
         print("TRACE: today: \(stringDate)")
 
         NetworkManager.shared.getGymClassesForDate(date: stringDate) { (gymClassInstances) in
-            self.gymClassInstances = gymClassInstances
+            self.gymClassInstances = gymClassInstances.sorted { (first, second) in
+                return first.startTime < second.startTime
+            }
             self.mainCollectionView.reloadSections(IndexSet(integer: 1))
         }
 

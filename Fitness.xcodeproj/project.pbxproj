@@ -32,6 +32,7 @@
 		8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */; };
 		8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA478208EC31100E98E6C /* Histogram.swift */; };
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
+		8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */; };
 		8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */; };
 		8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8D6B2A18215B23DC00807544 /* gymQueries.graphql */; };
 		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
@@ -104,6 +105,7 @@
 		8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavoritesEmptyStateView.swift; sourceTree = "<group>"; };
 		8D5EA478208EC31100E98E6C /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsEmptyStateView.swift; sourceTree = "<group>"; };
 		8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		8D6B2A18215B23DC00807544 /* gymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */,
+				8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */,
 				8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */,
 			);
 			path = "Empty States";
@@ -602,6 +605,7 @@
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
+				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
@@ -753,7 +757,7 @@
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.iosk;
 				PRODUCT_NAME = Uplift;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -769,7 +773,7 @@
 				DEVELOPMENT_TEAM = 7Z4PU8M673;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.iosk;
 				PRODUCT_MODULE_NAME = Uplift;
 				PRODUCT_NAME = Uplift;
 				SWIFT_VERSION = 4.2;

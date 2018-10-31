@@ -68,10 +68,18 @@ class Histogram: UIView {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.selectBar(sender:)))
             bar.addGestureRecognizer(gesture)
         }
-
+        
         // TIME
         let currentHour = Calendar.current.component(.hour, from: Date())
-        selectedIndex = currentHour - openHour
+        
+        if currentHour >= closeHour {
+            selectedIndex = bars.count - 1
+        } else if currentHour < openHour {
+            selectedIndex = 0
+        } else {
+            selectedIndex = currentHour - openHour
+        }
+        
         if selectedIndex < bars.count {
             bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
         }
@@ -118,14 +126,16 @@ class Histogram: UIView {
             make.height.equalTo(2)
         }
 
-        let tickSpacing = (Int(frame.width) - bottomAxisTicks.count*2 + 4)/(bottomAxisTicks.count + 1)
+        let tickSpacing = (Int(frame.width) - bottomAxisTicks.count * 2 - 4) / (bottomAxisTicks.count + 1)
+        let padding = Int(frame.width) - (tickSpacing * (bottomAxisTicks.count + 1) + 4 + bottomAxisTicks.count * 2)
+        
         for i in 0..<bottomAxisTicks.count {
 
             let tick = bottomAxisTicks[i]
 
             tick.snp.makeConstraints { make in
                 if i == 0 {
-                    make.leading.equalToSuperview().offset(tickSpacing)
+                    make.leading.equalToSuperview().offset(padding / 2 + tickSpacing)
                 } else {
                     make.leading.equalTo(bottomAxisTicks[i - 1].snp.trailing).offset(tickSpacing)
                 }
@@ -143,14 +153,14 @@ class Histogram: UIView {
             bar.snp.makeConstraints { make in
                 make.bottom.equalTo(bottomAxis.snp.top)
                 if i == 0 {
-                    make.left.equalToSuperview().offset(2)
-                    make.right.equalTo(bottomAxisTicks[i].snp.left)
+                    make.width.equalTo(tickSpacing)
+                    make.trailing.equalTo(bottomAxisTicks[i].snp.leading)
                 } else if i == bars.count - 1 {
-                    make.right.equalToSuperview().offset(-2)
-                    make.left.equalTo(bottomAxisTicks[i - 1].snp.right)
+                    make.width.equalTo(tickSpacing)
+                    make.leading.equalTo(bottomAxisTicks[i - 1].snp.trailing)
                 } else {
-                    make.left.equalTo(bottomAxisTicks[i - 1].snp.right)
-                    make.right.equalTo(bottomAxisTicks[i].snp.left)
+                    make.leading.equalTo(bottomAxisTicks[i - 1].snp.trailing)
+                    make.trailing.equalTo(bottomAxisTicks[i].snp.leading)
                 }
                 let height = 72 * (data[i + openHour]) / 100
                 make.height.equalTo(height)
@@ -185,8 +195,7 @@ class Histogram: UIView {
         }
 
         selectedTime.snp.remakeConstraints { make in
-            make.top.equalToSuperview()
-            make.height.equalTo(15)
+            make.top.bottom.equalTo(selectedTimeDescriptor)
             make.width.equalTo(selectedTime.intrinsicContentSize.width)
             make.trailing.equalTo(selectedTimeDescriptor.snp.leading).offset(-3)
         }

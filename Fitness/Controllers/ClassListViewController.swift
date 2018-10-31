@@ -34,6 +34,7 @@ class ClassListViewController: UIViewController {
     var filterButton: UIButton!
 
     var noClassesEmptyStateView: NoClassesEmptyStateView!
+    var noResultsEmptyStateView: NoResultsEmptyStateView!
 
     var classList: [[GymClassInstance]] = []
     var filteredClasses: [GymClassInstance] = []
@@ -78,12 +79,17 @@ class ClassListViewController: UIViewController {
         view.addGestureRecognizer(tap)
 
         noClassesEmptyStateView = NoClassesEmptyStateView()
+        noResultsEmptyStateView = NoResultsEmptyStateView()
 
         createCalendarDates()
         setupCollectionViews()
 
         view.addSubview(noClassesEmptyStateView)
         noClassesEmptyStateView.snp.makeConstraints { make in
+            make.edges.equalTo(classCollectionView)
+        }
+        view.addSubview(noResultsEmptyStateView)
+        noResultsEmptyStateView.snp.makeConstraints { make in
             make.edges.equalTo(classCollectionView)
         }
 
@@ -114,10 +120,6 @@ class ClassListViewController: UIViewController {
         filterButton.layer.shadowRadius = 2.0
         filterButton.layer.shadowOpacity = 0.2
         filterButton.layer.masksToBounds = false
-
-        if let params = currentFilterParams {
-            filterOptions(params: params)
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -217,6 +219,7 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
 
         if collectionView == classCollectionView {
             noClassesEmptyStateView.isHidden = !classList[calendarDatesList.firstIndex(of: calendarDateSelected)!].isEmpty
+            noResultsEmptyStateView.isHidden = !((filteringIsActive && filteredClasses.isEmpty) && !classList[calendarDatesList.firstIndex(of: calendarDateSelected)!].isEmpty)
         }
 
         if collectionView == calendarCollectionView {
@@ -284,6 +287,20 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+        }, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = .identity
+        }, completion: nil)
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

@@ -295,6 +295,17 @@ class ClassDetailViewController: UIViewController {
 
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
+        
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        }
     }
 
     // MARK: - CONSTRAINTS
@@ -450,11 +461,8 @@ class ClassDetailViewController: UIViewController {
     }
 
     func remakeConstraints() {
-        classCollectionView.snp.remakeConstraints {make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
+        classCollectionView.snp.updateConstraints { make in
             make.height.equalTo(classCollectionView.numberOfItems(inSection: 0) * 112)
-            make.bottom.equalToSuperview()
         }
     }
 
@@ -561,12 +569,12 @@ extension ClassDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
-        case .default:
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
             favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
             favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
         }
     }
