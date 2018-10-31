@@ -222,7 +222,7 @@ class ClassDetailViewController: UIViewController {
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
 
-        NetworkManager.shared.getGymClassInstances(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
+        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
             self.nextSessions = gymClasses
         }
 
@@ -300,7 +300,6 @@ class ClassDetailViewController: UIViewController {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         // HEADER
-        let topPadding = view.safeAreaInsets.top
         let dividerSpacing = 24
 
         classImageContainer.snp.makeConstraints { make in
@@ -357,14 +356,14 @@ class ClassDetailViewController: UIViewController {
 
         backButton.snp.makeConstraints { make in
             make.left.equalTo(view).offset(20)
-            make.top.equalTo(view).offset(16 + topPadding)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
             make.width.equalTo(23)
             make.height.equalTo(19)
         }
 
         favoriteButton.snp.makeConstraints { make in
             make.right.equalTo(view).offset(-21)
-            make.top.equalTo(view).offset(14 + topPadding)
+            make.top.equalTo(backButton.snp.top)
             make.width.equalTo(23)
             make.height.equalTo(22)
         }
