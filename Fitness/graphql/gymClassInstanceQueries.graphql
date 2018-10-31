@@ -19,7 +19,7 @@ query AllClassesInstances {
       instructor
       isCancelled
     }
-  }
+}
 
 query TodaysClasses($date: Date) {
     classes(day: $date) {

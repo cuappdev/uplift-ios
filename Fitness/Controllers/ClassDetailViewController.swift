@@ -222,7 +222,7 @@ class ClassDetailViewController: UIViewController {
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
 
-        NetworkManager.shared.getGymClassInstances(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
+        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
             self.nextSessions = gymClasses
         }
 
@@ -300,7 +300,6 @@ class ClassDetailViewController: UIViewController {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         // HEADER
-        let topPadding = view.safeAreaInsets.top
         let dividerSpacing = 24
 
         classImageContainer.snp.makeConstraints { make in
@@ -328,23 +327,23 @@ class ClassDetailViewController: UIViewController {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalToSuperview().offset(126)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(57)
         }
 
         locationLabel.snp.makeConstraints { make in
-                make.left.equalToSuperview()
+                make.leading.equalToSuperview()
                 make.top.equalTo(titleLabel.snp.bottom)
-                make.right.equalToSuperview()
+                make.trailing.equalToSuperview()
                 make.height.equalTo(16)
         }
 
         instructorLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(locationLabel.snp.bottom).offset(20)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(21)
         }
 
@@ -356,31 +355,31 @@ class ClassDetailViewController: UIViewController {
         }
 
         backButton.snp.makeConstraints { make in
-            make.left.equalTo(view).offset(20)
-            make.top.equalTo(view).offset(16 + topPadding)
+            make.leading.equalTo(view).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
             make.width.equalTo(23)
             make.height.equalTo(19)
         }
 
         favoriteButton.snp.makeConstraints { make in
-            make.right.equalTo(view).offset(-21)
-            make.top.equalTo(view).offset(14 + topPadding)
+            make.trailing.equalTo(view).offset(-21)
+            make.top.equalTo(backButton.snp.top)
             make.width.equalTo(23)
             make.height.equalTo(22)
         }
 
         // DATE
         dateLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(classImageView.snp.bottom).offset(36)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(19)
         }
 
         timeLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(dateLabel.snp.bottom).offset(8)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(19)
         }
 
@@ -393,45 +392,45 @@ class ClassDetailViewController: UIViewController {
         }
 
         addToCalendarLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(addToCalendarButton.snp.bottom).offset(5)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(10)
         }
 
         dateDivider.snp.makeConstraints { make in
             make.height.equalTo(1)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalTo(addToCalendarLabel.snp.bottom).offset(32)
         }
 
         // FUNCTION
         functionLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(dateDivider.snp.bottom).offset(dividerSpacing)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(19)
         }
 
         functionDescriptionLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(functionLabel.snp.bottom).offset(12)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(20)
         }
 
         functionDivider.snp.makeConstraints { make in
             make.height.equalTo(1)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalTo(functionDescriptionLabel.snp.bottom).offset(dividerSpacing)
         }
 
         // DESCRIPTION
         descriptionTextView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview().offset(-40)
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().offset(-40)
             make.top.equalTo(functionDivider.snp.bottom).offset(dividerSpacing)
         }
 
@@ -443,7 +442,7 @@ class ClassDetailViewController: UIViewController {
         }
 
         classCollectionView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
             make.bottom.equalToSuperview()
         }
@@ -451,7 +450,7 @@ class ClassDetailViewController: UIViewController {
 
     func remakeConstraints() {
         classCollectionView.snp.remakeConstraints {make in
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
             make.height.equalTo(classCollectionView.numberOfItems(inSection: 0) * 112)
             make.bottom.equalToSuperview()
