@@ -1,24 +1,22 @@
 
-query AllGyms
-    {
-        gyms {
-            name
-            id
-            imageUrl
-            description
-            popular
-            times {
-                day
-                startTime
-                endTime
-            }
+query AllGyms {
+    gyms {
+        name
+        id
+        imageUrl
+        description
+        popular
+        times {
+            day
+            startTime
+            endTime
         }
     }
+}
 
-query AllGymNames
-    {
-        gyms {
-            name
-            id
-        }
+query AllGymNames {
+    gyms {
+        name
+        id
     }
+}

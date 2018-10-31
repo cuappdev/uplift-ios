@@ -84,7 +84,7 @@ class FavoritesViewController: UIViewController {
         favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         favorites = []
 
-        NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
+        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
             self.favorites = gymClasses
         }
     }
@@ -95,7 +95,7 @@ class FavoritesViewController: UIViewController {
         if newFavoritesNames != favoritesNames {
             favoritesNames = newFavoritesNames
             if !favoritesNames.isEmpty {
-                NetworkManager.shared.getGymClassInstances(gymClassDetailIds: favoritesNames) { gymClasses in
+                NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
                     self.favorites = gymClasses
                 }
             } else {
