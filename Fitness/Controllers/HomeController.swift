@@ -39,16 +39,15 @@ class HomeController: UIViewController {
 
         view.backgroundColor = UIColor.fitnessWhite
         headerView = HomeScreenHeaderView()
-        headerView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        headerView.layer.shadowRadius = 4
-        headerView.layer.shadowOpacity = 0.1
-        headerView.layer.shadowColor = UIColor.black.cgColor
+        headerView.layer.shadowOffset = CGSize(width: 0.0, height: 9.0)
+        headerView.layer.shadowOpacity = 0.25
+        headerView.layer.shadowColor = UIColor.buttonShadow.cgColor
         headerView.layer.masksToBounds = false
 
         view.addSubview(headerView)
         headerView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(100)
+            make.leading.trailing.top.equalTo(view)
+            make.height.equalTo(120)
         }
 
         let flowLayout = UICollectionViewFlowLayout()
@@ -75,7 +74,7 @@ class HomeController: UIViewController {
         view.addSubview(mainCollectionView)
 
         mainCollectionView.snp.makeConstraints {make in
-            make.top.equalTo(headerView.snp.bottom).offset(7)
+            make.top.equalTo(headerView.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()

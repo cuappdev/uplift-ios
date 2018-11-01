@@ -105,7 +105,7 @@ class ClassListCell: UICollectionViewCell {
         favoriteButton = UIButton()
         favoriteButton.setImage(UIImage(named: "grey-star"), for: .normal)
         favoriteButton.setImage(UIImage(named: "yellow-star"), for: .selected)
-        favoriteButton.sizeToFit()
+        favoriteButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         favoriteButton.addTarget(self, action: #selector(favorite), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
 
@@ -149,9 +149,9 @@ class ClassListCell: UICollectionViewCell {
         //FAVORITE
         favoriteButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(20)
-            make.width.equalTo(16)
-            make.height.equalTo(16)
+            make.trailing.equalToSuperview().inset(16)
+            make.width.equalTo(24)
+            make.height.equalTo(24)
         }
 
         //TIME
