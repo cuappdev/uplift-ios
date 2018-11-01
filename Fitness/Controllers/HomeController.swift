@@ -94,7 +94,9 @@ class HomeController: UIViewController {
         print("TRACE: today: \(stringDate)")
 
         NetworkManager.shared.getGymClassesForDate(date: stringDate) { (gymClassInstances) in
-            self.gymClassInstances = gymClassInstances
+            self.gymClassInstances = gymClassInstances.sorted { (first, second) in
+                return first.startTime < second.startTime
+            }
             self.mainCollectionView.reloadSections(IndexSet(integer: 1))
         }
 
@@ -263,8 +265,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
             let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate)!
 
-            let filterParameters = FilterParameters(shouldFilter: true, startTime: startDate, encodedStartTime: 0.0, endTime: endDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [tags[indexPath.row].name])
-
+            let filterParameters = FilterParameters(applyFilter: true, startingTime: startDate,  endingTime: endDate, instructorsNames: [], classesNames: [], gymsIds: [], tagsNames: [tags[indexPath.row].name])
+            
             guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
             guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
 
@@ -285,6 +287,16 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
 // MARK: - NavigationDelegate
 extension HomeController: NavigationDelegate {
     func viewTodaysClasses() {
+        guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+        guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
+        
+        classListViewController.calendarDateSelected = classListViewController.calendarDatesList[3]
+        classListViewController.calendarCollectionView.reloadData()
+        classListViewController.getClassesFor(date: classListViewController.calendarDateSelected)
+        classListViewController.filterOptions(params: FilterParameters())
+        
+        classNavigationController.setViewControllers([classListViewController], animated: false)
+        
         tabBarController?.selectedIndex = 1
     }
 }

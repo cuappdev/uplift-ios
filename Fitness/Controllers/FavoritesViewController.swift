@@ -56,7 +56,7 @@ class FavoritesViewController: UIViewController {
 
         // EMPTY STATE
         emptyStateView = NoFavoritesEmptyStateView(frame: .zero)
-        emptyStateView.tabBarController = tabBarController
+        emptyStateView.delegate = self
         view.addSubview(emptyStateView)
 
         // COLLECTION VIEW
@@ -132,11 +132,21 @@ class FavoritesViewController: UIViewController {
     }
 }
 
-extension FavoritesViewController: ClassListCellDelegate {
+extension FavoritesViewController: ClassListCellDelegate, NavigationDelegate {
     func toggleFavorite(classDetailId: String) {
-        favoritesNames = favoritesNames.filter {$0 != classDetailId}
-        favorites = favorites.filter {$0.classDetailId != classDetailId}
+        favoritesNames = favoritesNames.filter { $0 != classDetailId }
+        favorites = favorites.filter { $0.classDetailId != classDetailId }
         classesCollectionView.reloadData()
+    }
+    
+    func viewTodaysClasses() {
+        guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+        guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
+        
+        classListViewController.filterOptions(params: FilterParameters())
+        classNavigationController.setViewControllers([classListViewController], animated: false)
+        
+        tabBarController?.selectedIndex = 1
     }
 }
 

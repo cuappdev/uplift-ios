@@ -211,6 +211,7 @@ class ClassDetailViewController: UIViewController {
         classCollectionView.showsHorizontalScrollIndicator = false
         classCollectionView.backgroundColor = .white
         classCollectionView.clipsToBounds = false
+        classCollectionView.delaysContentTouches = false
 
         classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
@@ -295,6 +296,17 @@ class ClassDetailViewController: UIViewController {
 
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
+        
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        }
     }
 
     // MARK: - CONSTRAINTS
@@ -449,11 +461,8 @@ class ClassDetailViewController: UIViewController {
     }
 
     func remakeConstraints() {
-        classCollectionView.snp.remakeConstraints {make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
+        classCollectionView.snp.updateConstraints { make in
             make.height.equalTo(classCollectionView.numberOfItems(inSection: 0) * 112)
-            make.bottom.equalToSuperview()
         }
     }
 
@@ -551,6 +560,20 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
         navigationController?.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(classDetailViewController, animated: true)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+        }, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = .identity
+        }, completion: nil)
+    }
 }
 
 // MARK: - ScrollViewDelegate
@@ -560,12 +583,12 @@ extension ClassDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
-        case .default:
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
             favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
             favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
         }
     }

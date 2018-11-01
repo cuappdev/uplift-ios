@@ -372,7 +372,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             return false
         }()
 
-        let filterParameters = FilterParameters(shouldFilter: shouldFilter, startTime: minDate, encodedStartTime: 0.0, endTime: maxDate, encodedEndTime: 0.0, instructorNames: selectedInstructors, classNames: selectedClasses, gymIds: selectedGyms, tags: [])
+        let filterParameters = FilterParameters(applyFilter: shouldFilter, startingTime: minDate,  endingTime: maxDate, instructorsNames: selectedInstructors, classesNames: selectedClasses, gymsIds: selectedGyms, tagsNames: [])
 
         delegate?.filterOptions(params: filterParameters)
 
@@ -383,8 +383,8 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         let minDate = timeRanges[0]
         let maxDate = timeRanges[timeRanges.count - 1]
         
-        let filterParameters = FilterParameters(shouldFilter: false, startTime: minDate, encodedStartTime: 0.0, endTime: maxDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [])
-        
+        let filterParameters = FilterParameters(applyFilter: false, startingTime: minDate,  endingTime: maxDate, instructorsNames: [], classesNames: [], gymsIds: [], tagsNames: [])
+
         delegate?.filterOptions(params: filterParameters)
         
         dismiss(animated: true, completion: nil)

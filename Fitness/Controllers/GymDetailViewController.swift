@@ -150,6 +150,15 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
             self.todaysClasses = gymClasses
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+        }
+    }
 
     // MARK: - SETUP HEADER AND WRAPPING VIEWS
     func setupHeaderAndWrappingViews() {
@@ -223,7 +232,7 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         hoursTableView.bounces = false
         hoursTableView.showsVerticalScrollIndicator = false
         hoursTableView.separatorStyle = .none
-        hoursTableView.backgroundColor = .white
+        hoursTableView.backgroundColor = .clear
         hoursTableView.isScrollEnabled = false
         hoursTableView.allowsSelection = false
 
