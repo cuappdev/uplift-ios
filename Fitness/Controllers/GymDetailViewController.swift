@@ -26,7 +26,7 @@ enum Days {
     case saturday
 }
 
-class GymDetailViewController: UIViewController, UICollectionViewDelegate {
+class GymDetailViewController: UIViewController {
 
     // MARK: - INITIALIZATION
     var scrollView: UIScrollView!
@@ -137,10 +137,12 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
         classesCollectionView.isScrollEnabled = false
         classesCollectionView.backgroundColor = .white
         classesCollectionView.clipsToBounds = false
+        classesCollectionView.delaysContentTouches = false
 
         classesCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
         classesCollectionView.dataSource = self
+        classesCollectionView.delegate = self
         contentView.addSubview(classesCollectionView)
 
         todaysClasses = []
@@ -486,8 +488,8 @@ class GymDetailViewController: UIViewController, UICollectionViewDelegate {
     }
 }
 
-// MARK: CollectionViewDataSource
-extension GymDetailViewController: UICollectionViewDataSource {
+// MARK: CollectionViewDataSource, CollectionViewDelegate
+extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == classesCollectionView {
@@ -505,6 +507,7 @@ extension GymDetailViewController: UICollectionViewDataSource {
             cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
 
             cell.instructorLabel.text = gymClassInstance.instructor
+            cell.locationLabel.text = gymClassInstance.location
 
             cell.duration = Int(gymClassInstance.duration) / 60
             cell.durationLabel.text = String(cell.duration) + " min"
@@ -512,6 +515,27 @@ extension GymDetailViewController: UICollectionViewDataSource {
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+        }, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = .identity
+        }, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let classDetailViewController = ClassDetailViewController()
+        classDetailViewController.gymClassInstance = todaysClasses[indexPath.item]
+        navigationController?.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(classDetailViewController, animated: true)
     }
 }
 
