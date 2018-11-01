@@ -32,6 +32,8 @@ class ClassListViewController: UIViewController {
     var classCollectionView: UICollectionView!
     var searchBar: UISearchBar!
     var filterButton: UIButton!
+    var titleLabel: UILabel!
+    var titleView: UIView!
 
     var noClassesEmptyStateView: NoClassesEmptyStateView!
 
@@ -46,15 +48,6 @@ class ClassListViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
-        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        navigationController?.navigationBar.layer.shadowRadius = 4.0
-        navigationController?.navigationBar.layer.shadowOpacity = 0.1
-        navigationController?.navigationBar.layer.masksToBounds = false
 
         searchBar = UISearchBar()
         searchBar.showsCancelButton = false
@@ -71,7 +64,35 @@ class ClassListViewController: UIViewController {
         textfield?.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
         textfield?.layer.cornerRadius = 18.0
 
-        navigationItem.titleView = searchBar
+        navigationController?.isNavigationBarHidden = true
+
+        titleView = UIView()
+        titleView.backgroundColor = .white
+        titleView.layer.shadowOffset = CGSize(width: 0, height: 9)
+        titleView.layer.shadowColor = UIColor.buttonShadow.cgColor
+        titleView.layer.shadowOpacity = 0.25
+        titleView.clipsToBounds = false
+        view.addSubview(titleView)
+        
+        titleLabel = UILabel()
+        titleLabel.font = ._24MontserratBold
+        titleLabel.textColor = .fitnessBlack
+        titleLabel.text = "CLASSES"
+        titleView.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints {make in
+            make.leading.equalToSuperview().offset(24)
+            make.bottom.equalToSuperview().offset(-20)
+            make.height.equalTo(26)
+            make.trailing.lessThanOrEqualTo(titleView)
+        }
+
+        titleView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.height.equalTo(120)
+        }
+        
+//        navigationItem.titleView = searchBar
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -121,7 +142,7 @@ class ClassListViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController!.isNavigationBarHidden = false
+        navigationController!.isNavigationBarHidden = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -171,7 +192,7 @@ class ClassListViewController: UIViewController {
         calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: CalendarCell.identifier)
         view.addSubview(calendarCollectionView)
         calendarCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40.0)
+            make.top.equalTo(titleView.snp.bottom).offset(40.0)
             make.height.equalTo(47)
             make.leading.trailing.equalToSuperview()
         }
@@ -197,11 +218,19 @@ class ClassListViewController: UIViewController {
     func getClassesFor(date: Date) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-
-        NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date)) { classes in
-            guard let index = self.calendarDatesList.firstIndex(of: date) else { return }
-            self.classList[index] = classes
-            
+        
+        guard let index = self.calendarDatesList.firstIndex(of: date) else { return }
+        if classList[index].isEmpty {
+            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date)) { classes in
+                self.classList[index] = classes
+                
+                if let filterParams = self.currentFilterParams {
+                    self.filterOptions(params: filterParams)
+                } else {
+                    self.classCollectionView.reloadData()
+                }
+            }
+        } else {
             if let filterParams = self.currentFilterParams {
                 self.filterOptions(params: filterParams)
             } else {
@@ -332,7 +361,13 @@ extension ClassListViewController: UISearchBarDelegate {
         }
         filteringIsActive = true
         filteredClasses = classList[calendarDatesList.firstIndex(of: calendarDateSelected)!]
-        filteredClasses = filteredClasses.filter { $0.className.lowercased().contains(searchText.lowercased())}
+        filteredClasses = filteredClasses.filter {
+            $0.className.lowercased().contains(searchText.lowercased()) ||
+            $0.classDescription.lowercased().contains(searchText.lowercased()) ||
+            $0.gymId.lowercased().contains(searchText.lowercased()) ||
+            $0.instructor.lowercased().contains(searchText.lowercased()) ||
+            $0.location.lowercased().contains(searchText.lowercased())
+        }
         classCollectionView.reloadData()
     }
     

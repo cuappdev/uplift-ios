@@ -18,7 +18,6 @@ class FavoritesViewController: UIViewController {
     var favoritesNames: [String]! = []
     var favorites: [GymClassInstance]! = [] {
         didSet {
-
             if favoritesNames.isEmpty {
                 classesCollectionView.removeFromSuperview()
                 view.addSubview(emptyStateView)
@@ -27,7 +26,6 @@ class FavoritesViewController: UIViewController {
                 view.addSubview(classesCollectionView)
                 classesCollectionView.reloadData()
             }
-
             remakeConstraints()
         }
     }
@@ -53,7 +51,7 @@ class FavoritesViewController: UIViewController {
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
-        titleLabel.text = "Favorites"
+        titleLabel.text = "FAVORITES"
         titleBackground.addSubview(titleLabel)
 
         // EMPTY STATE
@@ -72,7 +70,7 @@ class FavoritesViewController: UIViewController {
         classesCollectionView.showsVerticalScrollIndicator = false
         classesCollectionView.delegate = self
         classesCollectionView.dataSource = self
-        classesCollectionView.backgroundColor = .white
+        classesCollectionView.backgroundColor = .clear
         classesCollectionView.bounces = true
 
         classesCollectionView.register(FavoritesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoritesHeaderView.identifier)
@@ -117,7 +115,6 @@ class FavoritesViewController: UIViewController {
             make.height.equalTo(26)
             make.trailing.lessThanOrEqualTo(titleBackground)
         }
-
     }
 
     func remakeConstraints() {
@@ -129,7 +126,7 @@ class FavoritesViewController: UIViewController {
         } else {
             classesCollectionView.snp.remakeConstraints { make in
                 make.leading.trailing.bottom.equalToSuperview()
-                make.top.equalTo(titleBackground.snp.bottom)
+                make.top.equalTo(titleBackground.snp.bottom).offset(12)
             }
         }
     }
