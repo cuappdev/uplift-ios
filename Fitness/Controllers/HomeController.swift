@@ -75,9 +75,7 @@ class HomeController: UIViewController {
 
         mainCollectionView.snp.makeConstraints {make in
             make.top.equalTo(headerView.snp.bottom).offset(12)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.centerX.width.bottom.equalToSuperview()
         }
 
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
