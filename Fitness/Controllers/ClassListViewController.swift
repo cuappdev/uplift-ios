@@ -107,7 +107,7 @@ class ClassListViewController: UIViewController {
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
-        titleLabel.text = "CLASSES"
+        titleLabel.text = "Classes"
         titleView.addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {make in

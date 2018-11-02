@@ -51,7 +51,7 @@ class FavoritesViewController: UIViewController {
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
-        titleLabel.text = "FAVORITES"
+        titleLabel.text = "Favorites"
         titleBackground.addSubview(titleLabel)
 
         // EMPTY STATE
