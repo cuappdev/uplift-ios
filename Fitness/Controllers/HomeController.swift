@@ -59,6 +59,7 @@ class HomeController: UIViewController {
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.backgroundColor = .white
+        mainCollectionView.delaysContentTouches = false
         mainCollectionView.showsVerticalScrollIndicator = false
 
         mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
@@ -243,6 +244,20 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .todaysClasses:
             return .zero
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+            guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+            UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+            }, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+            guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+            UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                cell.transform = .identity
+            }, completion: nil)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
