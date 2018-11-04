@@ -37,7 +37,7 @@ class GymDetailViewController: UIViewController {
     var gymImageView: UIImageView!
     var titleLabel: UILabel!
 
-    // Exists when gym.isOpen is false
+    /// Exists when gym.isOpen is false
     var closedLabel: UILabel?
 
     var hoursTitleLabel: UILabel!
