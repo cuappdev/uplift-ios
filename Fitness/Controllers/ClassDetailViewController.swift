@@ -23,6 +23,7 @@ class ClassDetailViewController: UIViewController {
     var durationLabel = UILabel()
     var location: String!
 
+    var classImageContainer: UIView!
     var classImageView = UIImageView()
     var imageFilterView: UIView!
     var semicircleView: UIImageView!
@@ -32,10 +33,10 @@ class ClassDetailViewController: UIViewController {
     var isFavorite: Bool! {
         didSet {
             if oldValue == isFavorite { return }
-            
+
             let defaults = UserDefaults.standard
             var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
-            
+
             if isFavorite {
                 favoriteButton.isSelected = true
                 if !favorites.contains(gymClassInstance.classDetailId) {
@@ -49,7 +50,7 @@ class ClassDetailViewController: UIViewController {
                     defaults.set(favorites, forKey: Identifiers.favorites)
                 }
             }
-            
+
             for i in 0..<classCollectionView.numberOfItems(inSection: 0) {
                 let cell = classCollectionView.cellForItem(at: IndexPath(item: i, section: 0)) as! ClassListCell
                 cell.isFavorite = isFavorite
@@ -88,6 +89,7 @@ class ClassDetailViewController: UIViewController {
         navigationController!.isNavigationBarHidden = true
     }
 
+    //swiftlint:disable:next function_body_length
     override func viewDidLoad() {
         super.viewDidLoad()
         updatesStatusBarAppearanceAutomatically = true
@@ -109,7 +111,7 @@ class ClassDetailViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.width.equalTo(scrollView)
         }
-        
+
         let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
         edgeSwipe.edges = .left
         contentView.addGestureRecognizer(edgeSwipe)
@@ -202,25 +204,26 @@ class ClassDetailViewController: UIViewController {
         classFlowLayout.itemSize = CGSize(width: view.bounds.width - 32.0, height: 100.0)
         classFlowLayout.minimumLineSpacing = 12.0
         classFlowLayout.headerReferenceSize = .zero
-        
+
         classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
         classCollectionView.bounces = false
         classCollectionView.showsVerticalScrollIndicator = false
         classCollectionView.showsHorizontalScrollIndicator = false
         classCollectionView.backgroundColor = .white
         classCollectionView.clipsToBounds = false
+        classCollectionView.delaysContentTouches = false
 
         classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
 
         classCollectionView.dataSource = self
         classCollectionView.delegate = self
         contentView.addSubview(classCollectionView)
-        
+
         nextSessions = []
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
-        
-        NetworkManager.shared.getGymClassInstances(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
+
+        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
             self.nextSessions = gymClasses
         }
 
@@ -228,6 +231,10 @@ class ClassDetailViewController: UIViewController {
     }
 
     func setupHeader() {
+        classImageContainer = UIView()
+        classImageContainer.backgroundColor = .darkGray
+        contentView.addSubview(classImageContainer)
+
         classImageView.contentMode = .scaleAspectFill
         classImageView.kf.setImage(with: gymClassInstance.imageURL)
         contentView.addSubview(classImageView)
@@ -272,7 +279,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(durationLabel)
 
         backButton = UIButton()
-        backButton.setImage(#imageLiteral(resourceName: "back-arrow"), for: .normal)
+        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         contentView.addSubview(backButton)
@@ -283,25 +290,41 @@ class ClassDetailViewController: UIViewController {
         favoriteButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
+        
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        }
     }
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         // HEADER
-        let window = UIApplication.shared.keyWindow
-        let topPadding = window?.safeAreaInsets.top ?? 0.0
         let dividerSpacing = 24
 
-        classImageView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview().inset(-topPadding)
+        classImageContainer.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(view)
+            make.top.equalTo(scrollView)
             make.height.equalTo(360)
+        }
+
+        classImageView.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(classImageContainer)
+            make.top.equalTo(view).priority(.high)
+            make.height.greaterThanOrEqualTo(classImageContainer).priority(.high)
+            make.bottom.equalTo(classImageContainer)
         }
 
         imageFilterView.snp.makeConstraints { make in
@@ -316,23 +339,23 @@ class ClassDetailViewController: UIViewController {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalToSuperview().offset(126)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(57)
         }
 
         locationLabel.snp.makeConstraints { make in
-                make.left.equalToSuperview()
+                make.leading.equalToSuperview()
                 make.top.equalTo(titleLabel.snp.bottom)
-                make.right.equalToSuperview()
+                make.trailing.equalToSuperview()
                 make.height.equalTo(16)
         }
 
         instructorLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(locationLabel.snp.bottom).offset(20)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(21)
         }
 
@@ -344,31 +367,31 @@ class ClassDetailViewController: UIViewController {
         }
 
         backButton.snp.makeConstraints { make in
-            make.left.equalTo(view).offset(20)
-            make.top.equalTo(view).offset(16 + topPadding)
+            make.leading.equalTo(view).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
             make.width.equalTo(23)
             make.height.equalTo(19)
         }
 
         favoriteButton.snp.makeConstraints { make in
-            make.right.equalTo(view).offset(-21)
-            make.top.equalTo(view).offset(14 + topPadding)
+            make.trailing.equalTo(view).offset(-21)
+            make.top.equalTo(backButton.snp.top)
             make.width.equalTo(23)
             make.height.equalTo(22)
         }
 
         // DATE
         dateLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(classImageView.snp.bottom).offset(36)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(19)
         }
 
         timeLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(dateLabel.snp.bottom).offset(8)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(19)
         }
 
@@ -381,45 +404,45 @@ class ClassDetailViewController: UIViewController {
         }
 
         addToCalendarLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(addToCalendarButton.snp.bottom).offset(5)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(10)
         }
 
         dateDivider.snp.makeConstraints { make in
             make.height.equalTo(1)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalTo(addToCalendarLabel.snp.bottom).offset(32)
         }
 
         // FUNCTION
         functionLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(dateDivider.snp.bottom).offset(dividerSpacing)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(19)
         }
 
         functionDescriptionLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
+            make.leading.equalToSuperview()
             make.top.equalTo(functionLabel.snp.bottom).offset(12)
-            make.right.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(20)
         }
 
         functionDivider.snp.makeConstraints { make in
             make.height.equalTo(1)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalTo(functionDescriptionLabel.snp.bottom).offset(dividerSpacing)
         }
 
         // DESCRIPTION
         descriptionTextView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview().offset(-40)
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().offset(-40)
             make.top.equalTo(functionDivider.snp.bottom).offset(dividerSpacing)
         }
 
@@ -431,21 +454,18 @@ class ClassDetailViewController: UIViewController {
         }
 
         classCollectionView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
             make.bottom.equalToSuperview()
         }
     }
-    
+
     func remakeConstraints() {
-        classCollectionView.snp.remakeConstraints {make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(nextSessionsLabel.snp.bottom).offset(32)
+        classCollectionView.snp.updateConstraints { make in
             make.height.equalTo(classCollectionView.numberOfItems(inSection: 0) * 112)
-            make.bottom.equalToSuperview()
         }
     }
-    
+
     // MARK: - BUTTON METHODS
     @objc func back() {
         if let navigationController = navigationController {
@@ -474,7 +494,7 @@ class ClassDetailViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
                 self.present(alert, animated: true, completion: nil)
             }
-            
+
             do {
                 try store.save(event, span: .thisEvent, commit: true)
             } catch {
@@ -482,12 +502,12 @@ class ClassDetailViewController: UIViewController {
             }
         }
     }
-    
+
     func noAccess() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Cannot add to calendar", message: "Uplift does not have permission to acess your calendar", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
-            
+
             let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 
@@ -495,9 +515,9 @@ class ClassDetailViewController: UIViewController {
                     UIApplication.shared.open(settingsUrl, completionHandler: nil )
                 }
             }
-            
+
             alert.addAction(settingsAction)
-            
+
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -511,34 +531,48 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-        
+
         let gymClassInstance = nextSessions[indexPath.item]
-        
+
         cell.classLabel.text = gymClassInstance.className
         cell.locationLabel.text = gymClassInstance.location
         cell.instructorLabel.text = gymClassInstance.instructor
         cell.durationLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
-        
+
         let calendar = Calendar.current
-        
+
         if calendar.dateComponents([.day], from: gymClassInstance.startTime) == calendar.dateComponents([.day], from: Date()) {
             cell.timeLabel.text = "Today"
         } else {
             cell.timeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
         }
-        
+
         cell.classId = gymClassInstance.classDetailId
         cell.isFavorite = isFavorite
         cell.delegate = self
-        
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let classDetailViewController = ClassDetailViewController()
         classDetailViewController.gymClassInstance = nextSessions[indexPath.item]
         navigationController?.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(classDetailViewController, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+        }, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.transform = .identity
+        }, completion: nil)
     }
 }
 
@@ -546,6 +580,17 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
 extension ClassDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         statusBarUpdater?.refreshStatusBarStyle()
+
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
+            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+        }
     }
 }
 

@@ -55,9 +55,6 @@ struct NetworkManager {
         }
     }
 
-    func getGym(gymId: String, completion: @escaping (Gym) -> Void) {
-    }
-
     func getGymClassesForDate(date: String, completion: @escaping ([GymClassInstance]) -> Void) {
         apollo.fetch(query: TodaysClassesQuery(date: date)) { result, error in
             guard let data = result?.data, let classes = data.classes else { return }
@@ -89,41 +86,8 @@ struct NetworkManager {
     }
 
     // MARK: - GYM CLASS INSTANCES
-    func getGymClassInstances(completion: @escaping ([GymClassInstance]) -> Void) {
-        apollo.fetch(query: AllClassesInstancesQuery()) { result, error in
-            guard let data = result?.data, let classes = data.classes else { return }
-            var gymClassInstances: [GymClassInstance] = []
-            for gymClassData in classes {
-                guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
-                let instructor = gymClassData.instructor
-                let startTime = gymClassData.startTime ?? ""
-                let endTime = gymClassData.endTime ?? ""
-                let isCancelled = gymClassData.isCancelled
-                let gymId = gymClassData.gymId ?? ""
-                let location = gymClassData.gym?.name ?? ""
-                let classDescription = gymClassData.details.description
-                let classDetailId = gymClassData.details.id
-                let className = gymClassData.details.name
-                let start = Date.getDatetimeFromString(datetime: startTime)
-                let end = Date.getDatetimeFromString(datetime: endTime)
-                let graphTags = gymClassData.details.tags.compactMap { $0 }
-                let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
-
-                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
-
-                gymClassInstances.append(gymClass)
-            }
-            completion(gymClassInstances)
-        }
-
-    }
-
-    func getGymClassInstance(gymClassInstanceId: Int, completion: @escaping (GymClassInstance) -> Void) {
-
-    }
-    
-    func getGymClassInstances(gymClassDetailIds: [String], completion: @escaping ([GymClassInstance]) -> Void) {
-        apollo.fetch(query: ClassesByTypeQuery(classNames: gymClassDetailIds)) { (result,error) in
+    func getGymClassInstancesByClass(gymClassDetailIds: [String], completion: @escaping ([GymClassInstance]) -> Void) {
+        apollo.fetch(query: ClassesByTypeQuery(classNames: gymClassDetailIds)) { (result, error) in
             guard let data = result?.data, let classes = data.classes else { return }
             var gymClassInstances: [GymClassInstance] = []
             
@@ -149,25 +113,41 @@ struct NetworkManager {
             let now = Date()
             gymClassInstances = gymClassInstances.filter {$0.startTime > now}
             gymClassInstances.sort {$0.startTime < $1.startTime}
-
+            
             completion(gymClassInstances)
         }
     }
-
-    func getGymClassInstancesSearch(startTime: String, endTime: String, instructorIDs: [String], gymIDs: [String], classNames: [String], completion: @escaping ([GymClassInstance]) -> Void) {
-
-    }
-
-    // MARK: - GYM CLASS DESCRIPTIONS
-    func getGymClassDescriptions(completion: @escaping ([GymClassDescription]) -> Void) {
-    }
-
-    func getGymClassDescription(gymClassDescriptionId: Int, completion: @escaping (GymClassDescription) -> Void) {
-
-    }
-
-    func getGymClassDescriptionsByTag(tag: Int, completion: @escaping ([GymClassDescription]) -> Void) {
-
+    
+    func getClassInstancesByGym(gymId: String, date: String, completion: @escaping([GymClassInstance]) -> Void) {
+        apollo.fetch(query: TodaysClassesAtGymQuery(gymId: gymId, date: date)) { (result, error) in
+            guard let data = result?.data, let classes = data.classes else { return }
+            var gymClassInstances: [GymClassInstance] = []
+            
+            for gymClassData in classes {
+                guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
+                let instructor = gymClassData.instructor
+                let startTime = gymClassData.startTime ?? ""
+                let endTime = gymClassData.endTime ?? ""
+                let date = gymClassData.date
+                let isCancelled = gymClassData.isCancelled
+                let gymId = gymClassData.gymId ?? ""
+                let location = gymClassData.location
+                let classDescription = gymClassData.details.description
+                let classDetailId = gymClassData.details.id
+                let className = gymClassData.details.name
+                let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
+                let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
+                
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
+                
+                gymClassInstances.append(gymClass)
+            }
+            let now = Date()
+            gymClassInstances = gymClassInstances.filter {$0.startTime > now}
+            gymClassInstances.sort {$0.startTime < $1.startTime}
+            
+            completion(gymClassInstances)
+        }
     }
 
     // MARK: - TAGS
@@ -196,9 +176,6 @@ struct NetworkManager {
     }
 
     // MARK: - GYM CLASSES
-    func getGymClasses(completion: @escaping ([GymClass]) -> Void) {
-    }
-
     func getClassNames(completion: @escaping (Set<String>) -> Void) {
         apollo.fetch(query: AllClassNamesQuery()) { (result, error) in
             var classNames: Set<String> = []
@@ -213,10 +190,7 @@ struct NetworkManager {
             completion(classNames)
         }
     }
-
-    func getGymClass(gymClassId: Int, completion: @escaping (GymClass) -> Void) {
-    }
-
+    
     // MARK: - INSTRUCTORS
     func getInstructors(completion: @escaping ([String]) -> Void) {
         apollo.fetch(query: GetInstructorsQuery()) { result, error in

@@ -32,6 +32,7 @@
 		8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */; };
 		8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA478208EC31100E98E6C /* Histogram.swift */; };
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
+		8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */; };
 		8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */; };
 		8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8D6B2A18215B23DC00807544 /* gymQueries.graphql */; };
 		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
@@ -39,6 +40,7 @@
 		8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */; };
 		8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB784E2139849B002BE0E0 /* Constants.swift */; };
 		8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */; };
+		8DC6F7A8218381980048C305 /* TodaysClassesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC6F7A7218381980048C305 /* TodaysClassesHeaderView.swift */; };
 		8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */; };
 		8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */; };
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
@@ -103,6 +105,7 @@
 		8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavoritesEmptyStateView.swift; sourceTree = "<group>"; };
 		8D5EA478208EC31100E98E6C /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsEmptyStateView.swift; sourceTree = "<group>"; };
 		8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		8D6B2A18215B23DC00807544 /* gymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 		8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursHeaderView.swift; sourceTree = "<group>"; };
 		8DBB784E2139849B002BE0E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		8DC6F7A7218381980048C305 /* TodaysClassesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
@@ -129,7 +133,7 @@
 		C76F715C208FD77300FDC958 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C76F715E20900AD400FDC958 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
-		C7DFABCB204206E000545B0B /* Fitness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7DFABCB204206E000545B0B /* Uplift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uplift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DFABCE204206E000545B0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7DFABD8204206E000545B0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7DFABDA204206E000545B0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -238,7 +242,7 @@
 		C7DFABCC204206E000545B0B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C7DFABCB204206E000545B0B /* Fitness.app */,
+				C7DFABCB204206E000545B0B /* Uplift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,6 +320,7 @@
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
 				8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */,
+				8DC6F7A7218381980048C305 /* TodaysClassesHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */,
+				8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */,
 				8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */,
 			);
 			path = "Empty States";
@@ -398,7 +404,7 @@
 			);
 			name = Fitness;
 			productName = Fitness;
-			productReference = C7DFABCB204206E000545B0B /* Fitness.app */;
+			productReference = C7DFABCB204206E000545B0B /* Uplift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -568,6 +574,7 @@
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
+				8DC6F7A8218381980048C305 /* TodaysClassesHeaderView.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
 				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
@@ -598,6 +605,7 @@
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
+				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
@@ -745,12 +753,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				DEVELOPMENT_TEAM = 7Z4PU8M673;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.Fitness;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
+				PRODUCT_NAME = Uplift;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -762,11 +770,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				DEVELOPMENT_TEAM = 7Z4PU8M673;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.Fitness;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
+				PRODUCT_MODULE_NAME = Uplift;
+				PRODUCT_NAME = Uplift;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

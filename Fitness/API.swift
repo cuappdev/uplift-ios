@@ -1188,27 +1188,27 @@ public final class ClassesByTypeQuery: GraphQLQuery {
   }
 }
 
-public final class ClassesAtGymByDayQuery: GraphQLQuery {
+public final class TodaysClassesAtGymQuery: GraphQLQuery {
   public let operationDefinition =
-    "query ClassesAtGymByDay($day: Date, $gym: String) {\n  classes(day: $day, gymId: $gym) {\n    __typename\n    id\n    gymId\n    gym {\n      __typename\n      name\n    }\n    details {\n      __typename\n      id\n      name\n      description\n      tags {\n        __typename\n        label\n      }\n    }\n    imageUrl\n    startTime\n    endTime\n    instructor\n    isCancelled\n    location\n  }\n}"
+    "query TodaysClassesAtGym($gymId: String, $date: Date) {\n  classes(gymId: $gymId, day: $date) {\n    __typename\n    id\n    gymId\n    details {\n      __typename\n      id\n      name\n      description\n    }\n    imageUrl\n    startTime\n    endTime\n    date\n    instructor\n    isCancelled\n    location\n  }\n}"
 
-  public var day: String?
-  public var gym: String?
+  public var gymId: String?
+  public var date: String?
 
-  public init(day: String? = nil, gym: String? = nil) {
-    self.day = day
-    self.gym = gym
+  public init(gymId: String? = nil, date: String? = nil) {
+    self.gymId = gymId
+    self.date = date
   }
 
   public var variables: GraphQLMap? {
-    return ["day": day, "gym": gym]
+    return ["gymId": gymId, "date": date]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("classes", arguments: ["day": GraphQLVariable("day"), "gymId": GraphQLVariable("gym")], type: .list(.object(Class.selections))),
+      GraphQLField("classes", arguments: ["gymId": GraphQLVariable("gymId"), "day": GraphQLVariable("date")], type: .list(.object(Class.selections))),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -1237,11 +1237,11 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(String.self))),
         GraphQLField("gymId", type: .scalar(String.self)),
-        GraphQLField("gym", type: .object(Gym.selections)),
         GraphQLField("details", type: .nonNull(.object(Detail.selections))),
         GraphQLField("imageUrl", type: .nonNull(.scalar(String.self))),
         GraphQLField("startTime", type: .scalar(String.self)),
         GraphQLField("endTime", type: .scalar(String.self)),
+        GraphQLField("date", type: .nonNull(.scalar(String.self))),
         GraphQLField("instructor", type: .nonNull(.scalar(String.self))),
         GraphQLField("isCancelled", type: .nonNull(.scalar(Bool.self))),
         GraphQLField("location", type: .nonNull(.scalar(String.self))),
@@ -1253,8 +1253,8 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: String, gymId: String? = nil, gym: Gym? = nil, details: Detail, imageUrl: String, startTime: String? = nil, endTime: String? = nil, instructor: String, isCancelled: Bool, location: String) {
-        self.init(unsafeResultMap: ["__typename": "ClassType", "id": id, "gymId": gymId, "gym": gym.flatMap { (value: Gym) -> ResultMap in value.resultMap }, "details": details.resultMap, "imageUrl": imageUrl, "startTime": startTime, "endTime": endTime, "instructor": instructor, "isCancelled": isCancelled, "location": location])
+      public init(id: String, gymId: String? = nil, details: Detail, imageUrl: String, startTime: String? = nil, endTime: String? = nil, date: String, instructor: String, isCancelled: Bool, location: String) {
+        self.init(unsafeResultMap: ["__typename": "ClassType", "id": id, "gymId": gymId, "details": details.resultMap, "imageUrl": imageUrl, "startTime": startTime, "endTime": endTime, "date": date, "instructor": instructor, "isCancelled": isCancelled, "location": location])
       }
 
       public var __typename: String {
@@ -1281,15 +1281,6 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "gymId")
-        }
-      }
-
-      public var gym: Gym? {
-        get {
-          return (resultMap["gym"] as? ResultMap).flatMap { Gym(unsafeResultMap: $0) }
-        }
-        set {
-          resultMap.updateValue(newValue?.resultMap, forKey: "gym")
         }
       }
 
@@ -1329,6 +1320,15 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
         }
       }
 
+      public var date: String {
+        get {
+          return resultMap["date"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "date")
+        }
+      }
+
       public var instructor: String {
         get {
           return resultMap["instructor"]! as! String
@@ -1356,43 +1356,6 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
         }
       }
 
-      public struct Gym: GraphQLSelectionSet {
-        public static let possibleTypes = ["GymType"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public init(name: String) {
-          self.init(unsafeResultMap: ["__typename": "GymType", "name": name])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var name: String {
-          get {
-            return resultMap["name"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
-          }
-        }
-      }
-
       public struct Detail: GraphQLSelectionSet {
         public static let possibleTypes = ["ClassDetailType"]
 
@@ -1401,7 +1364,6 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
           GraphQLField("id", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
           GraphQLField("description", type: .nonNull(.scalar(String.self))),
-          GraphQLField("tags", type: .nonNull(.list(.object(Tag.selections)))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -1410,8 +1372,8 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: String, name: String, description: String, tags: [Tag?]) {
-          self.init(unsafeResultMap: ["__typename": "ClassDetailType", "id": id, "name": name, "description": description, "tags": tags.map { (value: Tag?) -> ResultMap? in value.flatMap { (value: Tag) -> ResultMap in value.resultMap } }])
+        public init(id: String, name: String, description: String) {
+          self.init(unsafeResultMap: ["__typename": "ClassDetailType", "id": id, "name": name, "description": description])
         }
 
         public var __typename: String {
@@ -1447,52 +1409,6 @@ public final class ClassesAtGymByDayQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "description")
-          }
-        }
-
-        public var tags: [Tag?] {
-          get {
-            return (resultMap["tags"] as! [ResultMap?]).map { (value: ResultMap?) -> Tag? in value.flatMap { (value: ResultMap) -> Tag in Tag(unsafeResultMap: value) } }
-          }
-          set {
-            resultMap.updateValue(newValue.map { (value: Tag?) -> ResultMap? in value.flatMap { (value: Tag) -> ResultMap in value.resultMap } }, forKey: "tags")
-          }
-        }
-
-        public struct Tag: GraphQLSelectionSet {
-          public static let possibleTypes = ["TagType"]
-
-          public static let selections: [GraphQLSelection] = [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("label", type: .nonNull(.scalar(String.self))),
-          ]
-
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public init(label: String) {
-            self.init(unsafeResultMap: ["__typename": "TagType", "label": label])
-          }
-
-          public var __typename: String {
-            get {
-              return resultMap["__typename"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          public var label: String {
-            get {
-              return resultMap["label"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "label")
-            }
           }
         }
       }

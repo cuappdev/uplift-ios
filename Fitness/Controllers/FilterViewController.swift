@@ -48,7 +48,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     var startTimeSlider: RangeSeekSlider!
     var timeRanges: [Date] = []
 
-
     var startTimeClassTypeDivider: UIView!
     var startTime = "6:00AM"
     var endTime = "10:00PM"
@@ -66,11 +65,11 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     convenience init(currentFilterParams: FilterParameters?) {
         self.init()
         //TODO: - See if we already have filter params, and apply them
-        
+
         guard let existingFilterParams = currentFilterParams else {
             return
         }
-        
+
         selectedGyms = existingFilterParams.gymIds
         selectedClasses = existingFilterParams.classNames
         selectedInstructors = existingFilterParams.instructorNames
@@ -159,9 +158,9 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
-        AppDelegate.networkManager.getClassNames { (classNames) in
-
+        AppDelegate.networkManager.getClassNames { classNames in
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
+            self.classTypeDropdownData.titles.sort()
 
             self.classTypeDropdownData.completed = true
             self.classTypeDropdown.reloadData()
@@ -188,13 +187,9 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
 
-        AppDelegate.networkManager.getInstructors { (instructors) in
-
-            for instructor in instructors {
-                // self.instructorDropdownData.titles.append(instructor.name)
-                // self.instructorDropdownData.ids.append(instructor.id)
-                self.instructorDropdownData.titles.append(instructor)
-            }
+        AppDelegate.networkManager.getInstructors { instructors in
+            self.instructorDropdownData.titles.append(contentsOf: instructors)
+            self.instructorDropdownData.titles.sort()
 
             self.instructorDropdownData.completed = true
             self.instructorDropdown.reloadData()
@@ -377,7 +372,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             return false
         }()
 
-        let filterParameters = FilterParameters(shouldFilter: shouldFilter, startTime: minDate, encodedStartTime: 0.0, endTime: maxDate, encodedEndTime: 0.0, instructorNames: selectedInstructors, classNames: selectedClasses, gymIds: selectedGyms, tags: [])
+        let filterParameters = FilterParameters(applyFilter: shouldFilter, startingTime: minDate,  endingTime: maxDate, instructorsNames: selectedInstructors, classesNames: selectedClasses, gymsIds: selectedGyms, tagsNames: [])
 
         delegate?.filterOptions(params: filterParameters)
 
@@ -385,23 +380,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     }
 
     @objc func reset() {
-        selectedGyms = []
-        for i in 0..<gymCollectionView.numberOfItems(inSection: 0) {
-            gymCollectionView.deselectItem(at: IndexPath(row: i, section: 0), animated: true)
+        let minDate = timeRanges[0]
+        let maxDate = timeRanges[timeRanges.count - 1]
+        
+        let filterParameters = FilterParameters(applyFilter: false, startingTime: minDate,  endingTime: maxDate, instructorsNames: [], classesNames: [], gymsIds: [], tagsNames: [])
 
-        }
-
-        startTimeLabel.text = "6:00AM - 10:00PM"
-        startTimeSlider.selectedMinValue = 0.0
-        startTimeSlider.selectedMaxValue = 960.0
-
-        classTypeDropdownData.dropStatus = .down
-        selectedClasses = []
-        dropClasses(sender: UITapGestureRecognizer(target: nil, action: nil))
-
-        instructorDropdownData.dropStatus = .down
-        selectedInstructors = []
-        dropInstructors(sender: UITapGestureRecognizer(target: nil, action: nil))
+        delegate?.filterOptions(params: filterParameters)
+        
+        dismiss(animated: true, completion: nil)
 
     }
 

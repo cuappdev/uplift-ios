@@ -39,16 +39,15 @@ class HomeController: UIViewController {
 
         view.backgroundColor = UIColor.fitnessWhite
         headerView = HomeScreenHeaderView()
-        headerView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        headerView.layer.shadowRadius = 4
-        headerView.layer.shadowOpacity = 0.1
-        headerView.layer.shadowColor = UIColor.black.cgColor
+        headerView.layer.shadowOffset = CGSize(width: 0.0, height: 9.0)
+        headerView.layer.shadowOpacity = 0.25
+        headerView.layer.shadowColor = UIColor.buttonShadow.cgColor
         headerView.layer.masksToBounds = false
 
         view.addSubview(headerView)
         headerView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(100)
+            make.leading.trailing.top.equalTo(view)
+            make.height.equalTo(120)
         }
 
         let flowLayout = UICollectionViewFlowLayout()
@@ -56,12 +55,14 @@ class HomeController: UIViewController {
         flowLayout.minimumLineSpacing = 12.0
 
         mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        mainCollectionView.contentInset = UIEdgeInsets(top: 11, left: 0, bottom: 0, right: 0)
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.backgroundColor = .white
         mainCollectionView.showsVerticalScrollIndicator = false
 
         mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
+        mainCollectionView.register(TodaysClassesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
@@ -73,14 +74,12 @@ class HomeController: UIViewController {
         view.addSubview(mainCollectionView)
 
         mainCollectionView.snp.makeConstraints {make in
-            make.top.equalTo(headerView.snp.bottom).offset(18)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom).offset(12)
+            make.centerX.width.bottom.equalToSuperview()
         }
 
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
-        statusBarBackgroundColor.backgroundColor = .white
+        statusBarBackgroundColor.backgroundColor = .fitnessWhite
         view.addSubview(statusBarBackgroundColor)
 
         // GET GYMS
@@ -95,7 +94,9 @@ class HomeController: UIViewController {
         print("TRACE: today: \(stringDate)")
 
         NetworkManager.shared.getGymClassesForDate(date: stringDate) { (gymClassInstances) in
-            self.gymClassInstances = gymClassInstances
+            self.gymClassInstances = gymClassInstances.sorted { (first, second) in
+                return first.startTime < second.startTime
+            }
             self.mainCollectionView.reloadSections(IndexSet(integer: 1))
         }
 
@@ -189,10 +190,18 @@ extension HomeController: UICollectionViewDataSource {
 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            // swiftlint:disable:next force_cast
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
-            headerView.setTitle(title: sections[indexPath.section].rawValue)
-            return headerView
+            switch sections[indexPath.section] {
+            case .todaysClasses:
+                // swiftlint:disable:next force_cast
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier, for: indexPath) as! TodaysClassesHeaderView
+                headerView.delegate = self
+                return headerView
+            case .lookingFor, .allGyms:
+                // swiftlint:disable:next force_cast
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
+                headerView.setTitle(title: sections[indexPath.section].rawValue)
+                return headerView
+            }
         default:
             fatalError("Unexpected element kind")
         }
@@ -232,7 +241,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .lookingFor:
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         case .todaysClasses:
-            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
+            return .zero
         }
     }
 
@@ -255,23 +264,40 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             let currDate = Date()
             guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
             let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate)!
-            
-            let filterParameters = FilterParameters(shouldFilter: true, startTime:startDate, encodedStartTime: 0.0, endTime: endDate, encodedEndTime: 0.0, instructorNames: [], classNames: [], gymIds: [], tags: [tags[indexPath.row].name])
+
+            let filterParameters = FilterParameters(applyFilter: true, startingTime: startDate,  endingTime: endDate, instructorsNames: [], classesNames: [], gymsIds: [], tagsNames: [tags[indexPath.row].name])
             
             guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
             guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
-            
+
             classListViewController.currentFilterParams = filterParameters
             classNavigationController.setViewControllers([classListViewController], animated: false)
-            
+
             tabBarController?.selectedIndex = 1
-            
+
         case .todaysClasses:
             let classDetailViewController = ClassDetailViewController()
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
         }
+    }
+}
+
+// MARK: - NavigationDelegate
+extension HomeController: NavigationDelegate {
+    func viewTodaysClasses() {
+        guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+        guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
+        
+        classListViewController.calendarDateSelected = classListViewController.calendarDatesList[3]
+        classListViewController.calendarCollectionView.reloadData()
+        classListViewController.getClassesFor(date: classListViewController.calendarDateSelected)
+        classListViewController.filterOptions(params: FilterParameters())
+        
+        classNavigationController.setViewControllers([classListViewController], animated: false)
+        
+        tabBarController?.selectedIndex = 1
     }
 }
 

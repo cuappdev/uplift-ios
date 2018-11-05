@@ -1,71 +1,63 @@
 query ClassesAtGym {
-        classes(gymId:"") {
-            gym {
-                name
-                id
-            }
-            details {
-                name
-            }
-        }
-    }
-
-query AllIntructors
-    {
-        classes {
-            instructor
-        }
-    }
-
-query AllClassNames
-    {
-        classes {
-            details {
-                name
-            }
-        }
-    }
-
-query ClassesByType($classNames: [String])
-    {
-        classes(detailIds: $classNames) {
+    classes(gymId:"") {
+        gym {
+            name
             id
-            gymId
-            details {
-                id
-                name
-                description
-            }
-            imageUrl
-            startTime
-            endTime
-            date
-            instructor
-            isCancelled
-            location
+        }
+        details {
+            name
         }
     }
+}
 
-query ClassesAtGymByDay($day: Date, $gym: String) {
-  classes(day: $day, gymId: $gym) {
-    id
-    gymId
-    gym {
-      name
+query AllIntructors {
+    classes {
+        instructor
     }
-    details {
-      id
-      name
-      description
-      tags {
-        label
-      }
+}
+
+query AllClassNames {
+    classes {
+        details {
+            name
+        }
     }
-    imageUrl
-    startTime
-    endTime
-    instructor
-    isCancelled
-    location
-  }
+}
+
+query ClassesByType($classNames: [String]) {
+    classes(detailIds: $classNames) {
+        id
+        gymId
+        details {
+            id
+            name
+            description
+        }
+        imageUrl
+        startTime
+        endTime
+        date
+        instructor
+        isCancelled
+        location
+    }
+}
+
+query TodaysClassesAtGym($gymId: String, $date: Date) {
+    classes(gymId: $gymId, day: $date) {
+        id
+        gymId
+        details {
+            id
+            name
+            description
+        }
+        imageUrl
+        startTime
+        endTime
+        date
+        instructor
+        isCancelled
+        location
+    }
 }
