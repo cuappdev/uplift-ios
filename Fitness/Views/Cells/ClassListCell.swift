@@ -13,31 +13,55 @@ protocol ClassListCellDelegate {
     func toggleFavorite(classDetailId: String)
 }
 
+enum ClassListCellStyle {
+    /// Displays the time for the primary time label and the duration for the secconday
+    case time
+    /// Displays the date for the primary time label and the time for the secconday
+    case date
+}
+
 class ClassListCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.classListCell
-    var timeLabel: UILabel!
-    var durationLabel: UILabel!
-    var duration: Int!
-
-    var classLabel: UILabel!
-    var locationLabel: UILabel!
-    var instructorLabel: UILabel!
-
-    var delegate: ClassListCellDelegate?
-
-    var classId: String! {
+    var gymClassInstance: GymClassInstance! {
         didSet {
+            classLabel.text = gymClassInstance.className
+            locationLabel.text = gymClassInstance.location
+            instructorLabel.text = gymClassInstance.instructor
+            classId = gymClassInstance.classDetailId
             let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
             if favorites.contains(classId) {
                 isFavorite = true
             } else {
                 isFavorite = false
             }
+            
+            switch style {
+            case .time:
+                secondaryTimeLabel.text = "\(Int(gymClassInstance.duration / 60.0)) min"
+                primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mm a")
+            case .date:
+                secondaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
+                if gymClassInstance.startTime.isToday() {
+                    primaryTimeLabel.text = "Today"
+                } else {
+                    primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
+                }
+            }
         }
     }
+    var primaryTimeLabel: UILabel!
+    var secondaryTimeLabel: UILabel!
 
+    var classLabel: UILabel!
+    var locationLabel: UILabel!
+    var instructorLabel: UILabel!
+    var style: ClassListCellStyle = .date
+
+    var delegate: ClassListCellDelegate?
+
+    var classId: String!
     var favoriteButton: UIButton!
     var isFavorite: Bool = false {
         didSet {
@@ -66,19 +90,19 @@ class ClassListCell: UICollectionViewCell {
         self.contentView.backgroundColor = .blue
 
         //TIME
-        timeLabel = UILabel()
-        timeLabel.font = ._14MontserratMedium
-        timeLabel.textAlignment = .left
-        timeLabel.textColor = .fitnessBlack
-        timeLabel.sizeToFit()
-        contentView.addSubview(timeLabel)
+        primaryTimeLabel = UILabel()
+        primaryTimeLabel.font = ._14MontserratMedium
+        primaryTimeLabel.textAlignment = .left
+        primaryTimeLabel.textColor = .fitnessBlack
+        primaryTimeLabel.sizeToFit()
+        contentView.addSubview(primaryTimeLabel)
 
-        durationLabel = UILabel()
-        durationLabel.font = ._12MontserratLight
-        durationLabel.textAlignment = .left
-        durationLabel.textColor = .fitnessBlack
-        durationLabel.sizeToFit()
-        contentView.addSubview(durationLabel)
+        secondaryTimeLabel = UILabel()
+        secondaryTimeLabel.font = ._12MontserratLight
+        secondaryTimeLabel.textAlignment = .left
+        secondaryTimeLabel.textColor = .fitnessBlack
+        secondaryTimeLabel.sizeToFit()
+        contentView.addSubview(secondaryTimeLabel)
 
         //DESCRIPTION
         classLabel = UILabel()
@@ -154,15 +178,15 @@ class ClassListCell: UICollectionViewCell {
         }
 
         //TIME
-        timeLabel.snp.makeConstraints { make in
+        primaryTimeLabel.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().offset(16)
             make.trailing.lessThanOrEqualTo(classLabel.snp.leading).inset(4)
             make.height.equalTo(16)
         }
 
-        durationLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(timeLabel)
-            make.top.equalTo(timeLabel.snp.bottom)
+        secondaryTimeLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(primaryTimeLabel)
+            make.top.equalTo(primaryTimeLabel.snp.bottom)
             make.height.equalTo(16)
         }
 

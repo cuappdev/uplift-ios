@@ -134,6 +134,10 @@ extension Date {
     func getIntegerDayOfWeekTomorrow() -> Int {
         return Calendar.current.component(.weekday, from: self) % 7
     }
+    
+    func isToday() -> Bool {
+        return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: Date())
+    }
 
     // MARK: - String
     func getStringOfDatetime(format: String) -> String {

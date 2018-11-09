@@ -158,22 +158,8 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
 
-        let classForCell = favorites[indexPath.row]
-
-        cell.classLabel.text = classForCell.className
-        cell.durationLabel.text = classForCell.startTime.getStringOfDatetime(format: "h:mma")
-
-        let calendar = Calendar.current
-
-        if calendar.dateComponents([.day], from: classForCell.startTime) == calendar.dateComponents([.day], from: Date()) {
-            cell.timeLabel.text = "Today"
-        } else {
-            cell.timeLabel.text = classForCell.startTime.getStringOfDatetime(format: "MMM d")
-        }
-
-        cell.instructorLabel.text = classForCell.instructor
-        cell.locationLabel.text = classForCell.location
-        cell.classId = classForCell.classDetailId
+        cell.style = .date
+        cell.gymClassInstance = favorites[indexPath.row]
         cell.delegate = self
 
         return cell
