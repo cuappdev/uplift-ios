@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Crashlytics
 
 class TabBarController: UITabBarController {
-
+    
     // MARK: - INITIALIZATION
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,12 @@ class TabBarController: UITabBarController {
     }
 }
 
-//extension TabBarController: UITabBarControllerDelegate {
-//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-//        print(item.title)
-//    }
-//}
+extension TabBarController: UITabBarControllerDelegate {
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if let tabName = item.title {
+            if tabName == "browse" {
+                Answers.logCustomEvent(withName: "Opened \"browse\" Tab")
+            }
+        }
+    }
+}

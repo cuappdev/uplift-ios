@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 protocol NavigationDelegate {
     func viewTodaysClasses()
@@ -58,6 +59,11 @@ class TodaysClassesHeaderView: UICollectionReusableView {
     }
 
     @objc func viewAll() {
+        // MARK: - Fabric
+        Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
+            "Section": "\(SectionType.todaysClasses.rawValue)/viewAll"
+            ])
+
         guard let navigationDelegate = delegate else { return }
         navigationDelegate.viewTodaysClasses()
     }
