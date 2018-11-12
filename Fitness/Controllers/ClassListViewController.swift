@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Crashlytics
 
 struct FilterParameters {
     var shouldFilter: Bool
@@ -452,6 +453,9 @@ extension ClassListViewController: FilterDelegate {
             // Modify Button
             filterButton.backgroundColor = .fitnessYellow
             filterButton.setTitle("APPLIED FILTER", for: .normal)
+            
+            // MARK: - Fabric
+            Answers.logCustomEvent(withName: "Applied Filters")
         } else {
             currentFilterParams = nil
             // Modify Button
