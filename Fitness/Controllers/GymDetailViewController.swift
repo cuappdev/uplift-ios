@@ -502,9 +502,8 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         if collectionView == classesCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
             
-            cell.style = .date
-            cell.gymClassInstance = todaysClasses[indexPath.item]
-
+            cell.configure(gymClassInstance: todaysClasses[indexPath.item], style: .date)
+            
             return cell
         }
         return UICollectionViewCell()
@@ -553,7 +552,7 @@ extension GymDetailViewController: UITableViewDataSource {
             let date = Date()
             let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1) % 7
 
-            cell.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHoursToday)
+            cell.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHours[day])
 
             switch days[day] {
             case .sunday:

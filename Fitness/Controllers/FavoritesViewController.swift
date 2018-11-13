@@ -158,8 +158,7 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
 
-        cell.style = .date
-        cell.gymClassInstance = favorites[indexPath.row]
+        cell.configure(gymClassInstance: favorites[indexPath.row], style: .date)
         cell.delegate = self
 
         return cell

@@ -107,6 +107,14 @@ class HomeController: UIViewController {
             self.mainCollectionView.reloadSections(IndexSet(integer: 2))
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        for cell in mainCollectionView.visibleCells {
+            if let cell = cell as? GymsCell, let indexPath = mainCollectionView.indexPath(for: cell) {
+                cell.setGymStatus(isOpen: gyms[indexPath.item].isOpen)
+            }
+        }
+    }
 }
 
 // MARK: CollectionViewDataSource
@@ -308,7 +316,9 @@ extension HomeController: NavigationDelegate {
         classListViewController.calendarDateSelected = classListViewController.calendarDatesList[3]
         classListViewController.calendarCollectionView.reloadData()
         classListViewController.getClassesFor(date: classListViewController.calendarDateSelected)
-        classListViewController.filterOptions(params: FilterParameters())
+        if let _ = classListViewController.currentFilterParams {
+            classListViewController.filterOptions(params: FilterParameters())
+        }
         
         classNavigationController.setViewControllers([classListViewController], animated: false)
         
@@ -324,15 +334,34 @@ extension HomeController {
 
         let gymHoursToday = gym.gymHoursToday
         let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
+        
+        let format: String
 
         if gym.name == "Bartels" {
             return "Always open"
         } else if now > gymHoursToday.closeTime {
-            return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: "h a"))"
+            if Calendar.current.component(.minute, from: gymHoursTomorrow.openTime) == 0 {
+                format = "h a"
+            } else {
+                format = "h:mm a"
+            }
+            return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: format))"
+            
         } else if !isOpen {
-            return "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: "h a"))"
+            if Calendar.current.component(.minute, from: gymHoursToday.openTime) == 0 {
+                format = "h a"
+            } else {
+                format = "h:mm a"
+            }
+            return "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: format))"
+            
         } else {
-            return "Closes at \(gymHoursToday.closeTime.getStringOfDatetime(format: "h a"))"
+            if Calendar.current.component(.minute, from: gymHoursToday.closeTime) == 0 {
+                format = "h a"
+            } else {
+                format = "h:mm a"
+            }
+            return "Closes at \(gymHoursToday.closeTime.getStringOfDatetime(format: format))"
         }
     }
 }

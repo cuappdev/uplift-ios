@@ -327,11 +327,11 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         //swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-        cell.style = .date
         
         guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
-        cell.gymClassInstance = filteringIsActive ? filteredClasses[indexPath.item] : classList[index][indexPath.item]
-
+        let gymClassInstance = filteringIsActive ? filteredClasses[indexPath.item] : classList[index][indexPath.item]
+        cell.configure(gymClassInstance: gymClassInstance, style: .date)
+        
         return cell
     }
 

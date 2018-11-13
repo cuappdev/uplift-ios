@@ -530,10 +530,7 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
 
-        cell.style = .date
-        cell.gymClassInstance = nextSessions[indexPath.item]
-
-//        cell.isFavorite = isFavorite
+        cell.configure(gymClassInstance: nextSessions[indexPath.item], style: .date)
         cell.delegate = self
 
         return cell

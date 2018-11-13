@@ -24,40 +24,12 @@ class ClassListCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.classListCell
-    var gymClassInstance: GymClassInstance! {
-        didSet {
-            classLabel.text = gymClassInstance.className
-            locationLabel.text = gymClassInstance.location
-            instructorLabel.text = gymClassInstance.instructor
-            classId = gymClassInstance.classDetailId
-            let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
-            if favorites.contains(classId) {
-                isFavorite = true
-            } else {
-                isFavorite = false
-            }
-            
-            switch style {
-            case .time:
-                secondaryTimeLabel.text = "\(Int(gymClassInstance.duration / 60.0)) min"
-                primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mm a")
-            case .date:
-                secondaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
-                if gymClassInstance.startTime.isToday() {
-                    primaryTimeLabel.text = "Today"
-                } else {
-                    primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
-                }
-            }
-        }
-    }
     var primaryTimeLabel: UILabel!
     var secondaryTimeLabel: UILabel!
 
     var classLabel: UILabel!
     var locationLabel: UILabel!
     var instructorLabel: UILabel!
-    var style: ClassListCellStyle = .date
 
     var delegate: ClassListCellDelegate?
 
@@ -211,6 +183,34 @@ class ClassListCell: UICollectionViewCell {
 
         if let delegate = delegate {
             delegate.toggleFavorite(classDetailId: classId)
+        }
+    }
+    
+    // MARK: - CONFIGURE
+    func configure(gymClassInstance: GymClassInstance, style: ClassListCellStyle) {
+        
+            classLabel.text = gymClassInstance.className
+            locationLabel.text = gymClassInstance.location
+            instructorLabel.text = gymClassInstance.instructor
+            classId = gymClassInstance.classDetailId
+            let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+            if favorites.contains(classId) {
+                isFavorite = true
+            } else {
+                isFavorite = false
+            }
+            
+            switch style {
+            case .time:
+                secondaryTimeLabel.text = "\(Int(gymClassInstance.duration / 60.0)) min"
+                primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mm a")
+            case .date:
+                secondaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
+                if gymClassInstance.startTime.isToday() {
+                    primaryTimeLabel.text = "Today"
+                } else {
+                    primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
+                }
         }
     }
 }
