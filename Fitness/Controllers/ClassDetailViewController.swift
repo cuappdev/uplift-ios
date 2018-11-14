@@ -11,6 +11,7 @@ import SnapKit
 import EventKit
 import Kingfisher
 import Bartinter
+import Crashlytics
 
 class ClassDetailViewController: UIViewController {
 
@@ -94,6 +95,11 @@ class ClassDetailViewController: UIViewController {
         super.viewDidLoad()
         updatesStatusBarAppearanceAutomatically = true
         view.backgroundColor = .white
+        
+        // MARK: - Fabric
+        Answers.logCustomEvent(withName: "Checking Class Details", customAttributes: [
+            "Class Name": gymClassInstance.className
+            ])
 
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -475,6 +481,13 @@ class ClassDetailViewController: UIViewController {
 
     @objc func favorite() {
         isFavorite.toggle()
+        
+        // MARK: - Fabric
+        if isFavorite {
+            Answers.logCustomEvent(withName: "Added Class To Favourites", customAttributes: [
+                "Class Name": gymClassInstance.className
+                ])
+        }
     }
 
     @objc func addToCalendar() {

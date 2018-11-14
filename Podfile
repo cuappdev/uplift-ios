@@ -11,7 +11,7 @@ target 'Fitness' do
   pod 'SnapKit'
   pod 'SwiftLint'
   pod 'Apollo'
-  pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation.git'
+  pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation1'
   pod 'Bartinter'
   pod 'Kingfisher', '~> 4.0'
 end

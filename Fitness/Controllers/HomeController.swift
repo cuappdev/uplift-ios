@@ -10,6 +10,7 @@ import SnapKit
 import Alamofire
 import AlamofireImage
 import Kingfisher
+import Crashlytics
 
 enum SectionType: String {
     case allGyms = "ALL GYMS"
@@ -71,7 +72,6 @@ class HomeController: UIViewController {
         sections.insert(.allGyms, at: 0)
         sections.insert(.todaysClasses, at: 1)
         sections.insert(.lookingFor, at: 2)
-
         view.addSubview(mainCollectionView)
 
         mainCollectionView.snp.makeConstraints {make in
@@ -270,13 +270,17 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView != mainCollectionView {
+            // MARK: - Fabric
+            Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
+                "Section": SectionType.todaysClasses.rawValue
+                ])
             let classDetailViewController = ClassDetailViewController()
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
         }
-
+        
         switch sections[indexPath.section] {
         case .allGyms:
             let gymDetailViewController = GymDetailViewController()
@@ -286,10 +290,10 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             let cal = Calendar.current
             let currDate = Date()
             guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
-            let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate)!
+            let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate) ?? Date()
 
             let filterParameters = FilterParameters(applyFilter: true, startingTime: startDate,  endingTime: endDate, instructorsNames: [], classesNames: [], gymsIds: [], tagsNames: [tags[indexPath.row].name])
-            
+
             guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
             guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
 
@@ -304,6 +308,11 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
         }
+        
+        // MARK: - Fabric
+        Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
+            "Section": sections[indexPath.section].rawValue
+            ])
     }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 import Bartinter
+import Crashlytics
 
 struct HoursData {
     var isDropped: Bool!
@@ -73,6 +74,9 @@ class GymDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        // MARK: - Fabric
+        Answers.logCustomEvent(withName: "Checking Gym Details")
 
         updatesStatusBarAppearanceAutomatically = true
 
