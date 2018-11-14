@@ -193,12 +193,9 @@ class ClassListCell: UICollectionViewCell {
             locationLabel.text = gymClassInstance.location
             instructorLabel.text = gymClassInstance.instructor
             classId = gymClassInstance.classDetailId
+        
             let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
-            if favorites.contains(classId) {
-                isFavorite = true
-            } else {
-                isFavorite = false
-            }
+            isFavorite = favorites.contains(classId)
             
             switch style {
             case .time:

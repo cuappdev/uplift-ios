@@ -316,7 +316,7 @@ extension HomeController: NavigationDelegate {
         classListViewController.calendarDateSelected = classListViewController.calendarDatesList[3]
         classListViewController.calendarCollectionView.reloadData()
         classListViewController.getClassesFor(date: classListViewController.calendarDateSelected)
-        if let _ = classListViewController.currentFilterParams {
+        if classListViewController.currentFilterParams != nil {
             classListViewController.filterOptions(params: FilterParameters())
         }
         
