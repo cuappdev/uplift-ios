@@ -76,7 +76,7 @@ class GymDetailViewController: UIViewController {
         view.backgroundColor = .white
         
         // MARK: - Fabric
-        Answers.logCustomEvent(withName: "Checking Gym Details", customAttributes: [:])
+        Answers.logCustomEvent(withName: "Checking Gym Details")
 
         updatesStatusBarAppearanceAutomatically = true
 

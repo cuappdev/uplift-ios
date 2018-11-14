@@ -264,16 +264,15 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         if collectionView != mainCollectionView {
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
-                "Section": sections[indexPath.section].rawValue
+                "Section": SectionType.todaysClasses.rawValue
                 ])
-            
             let classDetailViewController = ClassDetailViewController()
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
         }
-
+        
         switch sections[indexPath.section] {
         case .allGyms:
             let gymDetailViewController = GymDetailViewController()
@@ -301,6 +300,11 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
         }
+        
+        // MARK: - Fabric
+        Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
+            "Section": sections[indexPath.section].rawValue
+            ])
     }
 }
 

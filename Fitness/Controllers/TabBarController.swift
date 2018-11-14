@@ -40,10 +40,8 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if let tabName = item.title {
-            if tabName == "browse" {
-                Answers.logCustomEvent(withName: "Opened \"browse\" Tab")
-            }
+        if let tabName = item.title, tabName == "browse" {
+            Answers.logCustomEvent(withName: "Opened \"browse\" Tab")
         }
     }
 }
