@@ -325,20 +325,13 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             }
             return cell
         }
-
-        guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
-        let classForCell = filteringIsActive ? filteredClasses[indexPath.item] : classList[index][indexPath.item]
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "h:mm a"
         //swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-        cell.classLabel.text = classForCell.className
-        cell.durationLabel.text = "\(Int(classForCell.duration / 60.0)) min"
-        cell.timeLabel.text = timeFormatter.string(from: classForCell.startTime)
-        cell.instructorLabel.text = classForCell.instructor
-        cell.locationLabel.text = classForCell.location
-        cell.classId = classForCell.classDetailId
-
+        
+        guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
+        let gymClassInstance = filteringIsActive ? filteredClasses[indexPath.item] : classList[index][indexPath.item]
+        cell.configure(gymClassInstance: gymClassInstance, style: .date)
+        
         return cell
     }
 

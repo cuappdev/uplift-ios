@@ -481,7 +481,6 @@ class ClassDetailViewController: UIViewController {
         let store = EKEventStore()
         store.requestAccess(to: .event) { (granted, error) in
             guard granted, let gymClassInstance = self.gymClassInstance else { self.noAccess(); return }
-
             let event = EKEvent(eventStore: store)
             event.title = gymClassInstance.className
             event.startDate = gymClassInstance.startTime
@@ -494,7 +493,6 @@ class ClassDetailViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
                 self.present(alert, animated: true, completion: nil)
             }
-
             do {
                 try store.save(event, span: .thisEvent, commit: true)
             } catch {
@@ -532,23 +530,7 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
 
-        let gymClassInstance = nextSessions[indexPath.item]
-
-        cell.classLabel.text = gymClassInstance.className
-        cell.locationLabel.text = gymClassInstance.location
-        cell.instructorLabel.text = gymClassInstance.instructor
-        cell.durationLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
-
-        let calendar = Calendar.current
-
-        if calendar.dateComponents([.day], from: gymClassInstance.startTime) == calendar.dateComponents([.day], from: Date()) {
-            cell.timeLabel.text = "Today"
-        } else {
-            cell.timeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
-        }
-
-        cell.classId = gymClassInstance.classDetailId
-        cell.isFavorite = isFavorite
+        cell.configure(gymClassInstance: nextSessions[indexPath.item], style: .date)
         cell.delegate = self
 
         return cell

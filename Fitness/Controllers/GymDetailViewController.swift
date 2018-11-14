@@ -501,17 +501,9 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == classesCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-            let gymClassInstance = todaysClasses[indexPath.item]
-            cell.classLabel.text = gymClassInstance.className
-            cell.timeLabel.text = Date.getStringDate(date: gymClassInstance.startTime)
-            cell.timeLabel.text = cell.timeLabel.text?.removeLeadingZero()
-
-            cell.instructorLabel.text = gymClassInstance.instructor
-            cell.locationLabel.text = gymClassInstance.location
-
-            cell.duration = Int(gymClassInstance.duration) / 60
-            cell.durationLabel.text = String(cell.duration) + " min"
-
+            
+            cell.configure(gymClassInstance: todaysClasses[indexPath.item], style: .date)
+            
             return cell
         }
         return UICollectionViewCell()
@@ -560,7 +552,7 @@ extension GymDetailViewController: UITableViewDataSource {
             let date = Date()
             let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1) % 7
 
-            cell.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHoursToday)
+            cell.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHours[day])
 
             switch days[day] {
             case .sunday:
