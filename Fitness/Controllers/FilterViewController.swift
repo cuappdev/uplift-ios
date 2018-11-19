@@ -416,7 +416,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
-
+            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).filtersApplied = !selectedInstructors.isEmpty
             instructorDropdownData.dropStatus = .up
             var i = 0
             while i < instructorDropdown.numberOfRows(inSection: 0) {
@@ -427,7 +427,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         } else {
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = #imageLiteral(resourceName: "down_arrow")
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = .none
-
             instructorDropdownData.dropStatus = .half
             for i in [0, 1, 2] {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
@@ -450,6 +449,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).filtersApplied = !selectedClasses.isEmpty
             classTypeDropdownData.dropStatus = .up
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {
@@ -726,10 +726,12 @@ extension FilterViewController: UITableViewDelegate {
 
         if tableView == instructorDropdown {
             header.titleLabel.text = "INSTRUCTOR"
+            header.filtersApplied = !selectedInstructors.isEmpty
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
             header.addGestureRecognizer(gesture)
         } else if tableView == classTypeDropdown {
             header.titleLabel.text = "CLASS TYPE"
+            header.filtersApplied = !selectedClasses.isEmpty
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
             header.addGestureRecognizer(gesture)
         }

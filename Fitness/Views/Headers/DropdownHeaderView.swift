@@ -13,8 +13,16 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.dropdownViewCell
     var titleLabel: UILabel!
+    var filtersAppliedCircle: UIView!
     var rightArrow: UIImageView!
     var downArrow: UIImageView!
+    
+    var filtersApplied: Bool = true {
+        didSet {
+            print(filtersApplied)
+            self.filtersAppliedCircle.layer.backgroundColor = filtersApplied ? UIColor.fitnessYellow.cgColor : UIColor.fitnessWhite.cgColor
+        }
+    }
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -25,6 +33,10 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         titleLabel.textColor = .fitnessDarkGrey
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
+        
+        filtersAppliedCircle = UIView()
+        filtersAppliedCircle.layer.cornerRadius = 4
+        contentView.addSubview(filtersAppliedCircle)
 
         rightArrow = UIImageView(image: #imageLiteral(resourceName: "right_arrow"))
         contentView.addSubview(rightArrow)
@@ -47,6 +59,12 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         titleLabel.snp.updateConstraints {make in
             make.left.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
+        }
+        
+        filtersAppliedCircle.snp.makeConstraints { make in
+            make.height.width.equalTo(8)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(12)
+            make.top.equalTo(titleLabel.snp.top).offset(4)
         }
 
         rightArrow.snp.updateConstraints {make in
