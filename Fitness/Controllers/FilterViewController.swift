@@ -417,6 +417,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).filtersApplied = !selectedInstructors.isEmpty
+            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).selectedFilters = selectedInstructors
             instructorDropdownData.dropStatus = .up
             var i = 0
             while i < instructorDropdown.numberOfRows(inSection: 0) {
@@ -450,6 +451,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).filtersApplied = !selectedClasses.isEmpty
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).selectedFilters = selectedClasses
             classTypeDropdownData.dropStatus = .up
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {

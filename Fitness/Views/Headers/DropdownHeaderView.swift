@@ -14,13 +14,18 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
     static let identifier = Identifiers.dropdownViewCell
     var titleLabel: UILabel!
     var filtersAppliedCircle: UIView!
+    var selectedFiltersLabel: UILabel!
     var rightArrow: UIImageView!
     var downArrow: UIImageView!
     
-    var filtersApplied: Bool = true {
+    var filtersApplied: Bool = false {
         didSet {
-            print(filtersApplied)
             self.filtersAppliedCircle.layer.backgroundColor = filtersApplied ? UIColor.fitnessYellow.cgColor : UIColor.fitnessWhite.cgColor
+        }
+    }
+    var selectedFilters: [String] = [] {
+        didSet {
+            selectedFiltersLabel.text = selectedFilters.joined(separator: "  ·  ")
         }
     }
 
@@ -38,10 +43,17 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         filtersAppliedCircle.layer.cornerRadius = 4
         contentView.addSubview(filtersAppliedCircle)
 
+        selectedFiltersLabel = UILabel()
+        selectedFiltersLabel.font = UIFont._14MontserratRegular
+        selectedFiltersLabel.textColor = UIColor.fitnessDarkGrey
+        selectedFiltersLabel.adjustsFontSizeToFitWidth = false
+        selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
+        contentView.addSubview(selectedFiltersLabel)
+        
         rightArrow = UIImageView(image: #imageLiteral(resourceName: "right_arrow"))
         contentView.addSubview(rightArrow)
-
-        downArrow = UIImageView(image: .none )
+        
+        downArrow = UIImageView(image: .none)
         contentView.addSubview(downArrow)
     }
 
@@ -64,7 +76,13 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         filtersAppliedCircle.snp.makeConstraints { make in
             make.height.width.equalTo(8)
             make.leading.equalTo(titleLabel.snp.trailing).offset(12)
-            make.top.equalTo(titleLabel.snp.top).offset(4)
+            make.centerY.equalTo(titleLabel)
+        }
+        
+        selectedFiltersLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(downArrow.snp.leading)
+            make.centerY.equalTo(filtersAppliedCircle)
+            make.leading.equalTo(contentView.snp.centerX)
         }
 
         rightArrow.snp.updateConstraints {make in
