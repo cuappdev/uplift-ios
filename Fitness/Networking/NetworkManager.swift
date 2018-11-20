@@ -63,10 +63,10 @@ struct NetworkManager {
                 guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
                 self.cacheImage(imageUrl: imageUrl)
                 let instructor = gymClassData.instructor
-                let startTime = gymClassData.startTime ?? "12:00:00"
-                let endTime = gymClassData.endTime ?? "12:00:00"
+                guard let startTime = gymClassData.startTime else { continue }
+                guard let endTime = gymClassData.endTime else { continue }
                 let isCancelled = gymClassData.isCancelled
-                let gymId = gymClassData.gymId ?? ""
+                guard let gymId = gymClassData.gymId else { continue }
                 let location = gymClassData.location
                 let classDescription = gymClassData.details.description
                 let classId = gymClassData.details.id
@@ -94,11 +94,11 @@ struct NetworkManager {
             for gymClassData in classes {
                 guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
                 let instructor = gymClassData.instructor
-                let startTime = gymClassData.startTime ?? ""
-                let endTime = gymClassData.endTime ?? ""
+                guard let startTime = gymClassData.startTime else { continue }
+                guard let endTime = gymClassData.endTime else { continue }
                 let date = gymClassData.date
                 let isCancelled = gymClassData.isCancelled
-                let gymId = gymClassData.gymId ?? ""
+                guard let gymId = gymClassData.gymId else { continue }
                 let location = gymClassData.location
                 let classDescription = gymClassData.details.description
                 let classDetailId = gymClassData.details.id
@@ -126,11 +126,11 @@ struct NetworkManager {
             for gymClassData in classes {
                 guard let gymClassData = gymClassData, let imageUrl = URL(string: gymClassData.imageUrl) else { continue }
                 let instructor = gymClassData.instructor
-                let startTime = gymClassData.startTime ?? ""
-                let endTime = gymClassData.endTime ?? ""
+                guard let startTime = gymClassData.startTime else { continue }
+                guard let endTime = gymClassData.endTime else { continue }
                 let date = gymClassData.date
                 let isCancelled = gymClassData.isCancelled
-                let gymId = gymClassData.gymId ?? ""
+                guard let gymId = gymClassData.gymId else { continue }
                 let location = gymClassData.location
                 let classDescription = gymClassData.details.description
                 let classDetailId = gymClassData.details.id

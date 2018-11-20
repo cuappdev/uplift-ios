@@ -28,7 +28,7 @@ DEPENDENCIES:
   - Fabric
   - Kingfisher (~> 4.0)
   - Moya
-  - Presentation (from `https://github.com/cuappdev/Presentation`)
+  - Presentation (from `https://github.com/cuappdev/Presentation.git`)
   - SnapKit
   - SwiftLint
 
@@ -48,12 +48,12 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Presentation:
-    :git: https://github.com/cuappdev/Presentation
+    :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
   Presentation:
     :commit: fe68b1b644b6015202430662d4db621eb1b621bc
-    :git: https://github.com/cuappdev/Presentation
+    :git: https://github.com/cuappdev/Presentation.git
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
@@ -69,6 +69,6 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: d4f1a5fd31066389394d81d8fd49ef353995196f
+PODFILE CHECKSUM: 0ea27e584635201a7261a22e645183ca82d7f6a7
 
 COCOAPODS: 1.5.3
