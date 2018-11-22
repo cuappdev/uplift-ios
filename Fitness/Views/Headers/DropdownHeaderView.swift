@@ -44,6 +44,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(filtersAppliedCircle)
 
         selectedFiltersLabel = UILabel()
+        selectedFiltersLabel.textAlignment = .right
         selectedFiltersLabel.font = UIFont._14MontserratRegular
         selectedFiltersLabel.textColor = UIColor.fitnessDarkGrey
         selectedFiltersLabel.adjustsFontSizeToFitWidth = false
@@ -57,6 +58,11 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(downArrow)
     }
 
+    func updateDropdownHeader(selectedFilters: [String]) {
+        self.filtersApplied = !selectedFilters.isEmpty
+        self.selectedFilters = selectedFilters
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,7 +86,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         }
         
         selectedFiltersLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(downArrow.snp.leading)
+            make.trailing.equalTo(downArrow.snp.leading).offset(-12)
             make.centerY.equalTo(filtersAppliedCircle)
             make.leading.equalTo(contentView.snp.centerX)
         }

@@ -416,8 +416,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).filtersApplied = !selectedInstructors.isEmpty
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).selectedFilters = selectedInstructors
             instructorDropdownData.dropStatus = .up
             var i = 0
             while i < instructorDropdown.numberOfRows(inSection: 0) {
@@ -450,8 +448,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).filtersApplied = !selectedClasses.isEmpty
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).selectedFilters = selectedClasses
             classTypeDropdownData.dropStatus = .up
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {
@@ -653,10 +649,12 @@ extension FilterViewController: UITableViewDelegate {
                     let name = selectedClasses[i]
                     if name == cell.titleLabel.text! {
                         selectedClasses.remove(at: i)
+                        (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedClasses)
                         return
                     }
                 }
             }
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedClasses)
         } else {
             if shouldAppend {
                 selectedInstructors.append(cell.titleLabel.text!)
@@ -665,10 +663,12 @@ extension FilterViewController: UITableViewDelegate {
                     let name = selectedInstructors[i]
                     if name == cell.titleLabel.text! {
                         selectedInstructors.remove(at: i)
+                        (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedInstructors)
                         return
                     }
                 }
             }
+            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedInstructors)
         }
     }
 
@@ -728,12 +728,12 @@ extension FilterViewController: UITableViewDelegate {
 
         if tableView == instructorDropdown {
             header.titleLabel.text = "INSTRUCTOR"
-            header.filtersApplied = !selectedInstructors.isEmpty
+            header.updateDropdownHeader(selectedFilters: selectedInstructors)
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
             header.addGestureRecognizer(gesture)
         } else if tableView == classTypeDropdown {
             header.titleLabel.text = "CLASS TYPE"
-            header.filtersApplied = !selectedClasses.isEmpty
+            header.updateDropdownHeader(selectedFilters: selectedClasses)
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
             header.addGestureRecognizer(gesture)
         }
