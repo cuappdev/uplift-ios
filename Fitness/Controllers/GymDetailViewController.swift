@@ -148,6 +148,8 @@ class GymDetailViewController: UIViewController {
         classesCollectionView.dataSource = self
         classesCollectionView.delegate = self
         contentView.addSubview(classesCollectionView)
+        
+        contentView.bringSubviewToFront(backButton)
 
         todaysClasses = []
         setupConstraints()
