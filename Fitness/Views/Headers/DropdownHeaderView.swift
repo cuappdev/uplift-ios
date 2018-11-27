@@ -86,7 +86,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         }
         
         selectedFiltersLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(downArrow.snp.leading).offset(-12)
+            make.trailing.equalTo(rightArrow.snp.leading).offset(-12)
             make.centerY.equalTo(filtersAppliedCircle)
             make.leading.equalTo(contentView.snp.centerX)
         }
