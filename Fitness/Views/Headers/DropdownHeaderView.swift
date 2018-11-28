@@ -13,8 +13,21 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.dropdownViewCell
     var titleLabel: UILabel!
+    var filtersAppliedCircle: UIView!
+    var selectedFiltersLabel: UILabel!
     var rightArrow: UIImageView!
     var downArrow: UIImageView!
+    
+    var filtersApplied: Bool = false {
+        didSet {
+            self.filtersAppliedCircle.layer.backgroundColor = filtersApplied ? UIColor.fitnessYellow.cgColor : UIColor.fitnessWhite.cgColor
+        }
+    }
+    var selectedFilters: [String] = [] {
+        didSet {
+            selectedFiltersLabel.text = selectedFilters.joined(separator: "  ·  ")
+        }
+    }
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -25,14 +38,31 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         titleLabel.textColor = .fitnessDarkGrey
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
+        
+        filtersAppliedCircle = UIView()
+        filtersAppliedCircle.layer.cornerRadius = 4
+        contentView.addSubview(filtersAppliedCircle)
 
+        selectedFiltersLabel = UILabel()
+        selectedFiltersLabel.textAlignment = .right
+        selectedFiltersLabel.font = UIFont._14MontserratRegular
+        selectedFiltersLabel.textColor = UIColor.fitnessDarkGrey
+        selectedFiltersLabel.adjustsFontSizeToFitWidth = false
+        selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
+        contentView.addSubview(selectedFiltersLabel)
+        
         rightArrow = UIImageView(image: #imageLiteral(resourceName: "right_arrow"))
         contentView.addSubview(rightArrow)
-
-        downArrow = UIImageView(image: .none )
+        
+        downArrow = UIImageView(image: .none)
         contentView.addSubview(downArrow)
     }
 
+    func updateDropdownHeader(selectedFilters: [String]) {
+        self.filtersApplied = !selectedFilters.isEmpty
+        self.selectedFilters = selectedFilters
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -47,6 +77,18 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         titleLabel.snp.updateConstraints {make in
             make.left.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
+        }
+        
+        filtersAppliedCircle.snp.makeConstraints { make in
+            make.height.width.equalTo(8)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(12)
+            make.centerY.equalTo(titleLabel)
+        }
+        
+        selectedFiltersLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(rightArrow.snp.leading).offset(-12)
+            make.centerY.equalTo(filtersAppliedCircle)
+            make.leading.equalTo(contentView.snp.centerX)
         }
 
         rightArrow.snp.updateConstraints {make in
