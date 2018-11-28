@@ -496,17 +496,15 @@ class ClassDetailViewController: UIViewController {
     }
 
     @objc func instructorSelected() {
-        print("selected: \(gymClassInstance.instructor)")
+        // leaving as a stub, future designs will make use of this
     }
 
     @objc func locationSelected() {
-        print("selected: \(gymClassInstance.location)")
-        
-        // TODO : make network method for just this gym
-        
-//        let gymDetailViewController = GymDetailViewController()
-//        gymDetailViewController.gym = gyms[indexPath.row]
-//        navigationController?.pushViewController(gymDetailViewController, animated: true)
+        NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
+            let gymDetailViewController = GymDetailViewController()
+            gymDetailViewController.gym = gym
+            self.navigationController?.pushViewController(gymDetailViewController, animated: true)
+        }
     }
 
     @objc func addToCalendar() {

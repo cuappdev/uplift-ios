@@ -37,6 +37,22 @@ struct NetworkManager {
             completion(gyms)
         }
     }
+    
+    func getGym(id: String, completion: @escaping (Gym) -> Void) {
+        apollo.fetch(query: GymByIdQuery(gymId: id)) { (result, error) in
+            
+            guard let gymsData = result?.data?.gyms else { return }
+            guard let gymData = gymsData[0] else { return }
+            
+            let gym = Gym(gymData: gymData)
+
+            if let imageUrl = gym.imageURL {
+                self.cacheImage(imageUrl: imageUrl)
+            }
+            
+            completion(gym)
+        }
+    }
 
     func getGymNames(completion: @escaping ([GymNameId]) -> Void) {
         apollo.fetch(query: AllGymsQuery()) { (result, error) in
