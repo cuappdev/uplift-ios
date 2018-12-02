@@ -55,6 +55,45 @@ struct Gym {
 
         gymHours = gymHoursList
     }
+    
+    init(gymData: GymByIdQuery.Data.Gym ) {
+        id = gymData.id
+        name = gymData.name
+        
+        equipment = "" // TODO : fetch equipment once it's availble from backend
+        imageURL = URL(string: gymData.imageUrl ?? "")
+        
+        var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
+        
+        if let popular = gymData.popular {
+            for i in 0..<popular.count {
+                if let dailyPopular = popular[i] {
+                    for j in 0..<dailyPopular.count {
+                        popularTimes[i][j] = dailyPopular[j] ?? 0
+                    }
+                }
+            }
+        }
+        popularTimesList = popularTimes
+        
+        // unwrap gym hours
+        var gymHoursList: [DailyGymHours] = Array.init(repeating: DailyGymHours(gymHoursData: nil), count: 7)
+        
+        let allGymHours = gymData.times
+        for i in 0..<allGymHours.count {
+            if let gymHoursData = allGymHours[i] {
+                gymHoursList[i].dayOfWeek = gymHoursData.day
+                gymHoursList[i].openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
+                gymHoursList[i].closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+            } else {
+                gymHoursList[i].openTime = Date()
+                gymHoursList[i].closeTime = gymHoursList[i].openTime
+                gymHoursList[i].dayOfWeek = 0
+            }
+        }
+        
+        gymHours = gymHoursList
+    }
 }
 
 struct DailyGymHours {
@@ -65,7 +104,7 @@ struct DailyGymHours {
     init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
 
         if let gymHoursData = gymHoursData {
-            dayOfWeek = gymHoursData.day ?? 0
+            dayOfWeek = gymHoursData.day
             openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
             closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
         } else {

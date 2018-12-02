@@ -19,8 +19,8 @@ class ClassDetailViewController: UIViewController {
     var gymClassInstance: GymClassInstance!
 
     var titleLabel: UILabel!
-    var locationLabel = UILabel()
-    var instructorLabel: UILabel!
+    var locationButton = UIButton()
+    var instructorButton: UIButton!
     var durationLabel = UILabel()
     var location: String!
 
@@ -224,6 +224,9 @@ class ClassDetailViewController: UIViewController {
         classCollectionView.dataSource = self
         classCollectionView.delegate = self
         contentView.addSubview(classCollectionView)
+        
+        contentView.bringSubviewToFront(backButton)
+        contentView.bringSubviewToFront(favoriteButton)
 
         nextSessions = []
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
@@ -262,20 +265,22 @@ class ClassDetailViewController: UIViewController {
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
 
-        locationLabel.font = ._14MontserratLight
-        locationLabel.textAlignment = .center
-        locationLabel.textColor = .white
-        locationLabel.text = gymClassInstance.location
-        locationLabel.sizeToFit()
-        contentView.addSubview(locationLabel)
+        locationButton.setTitleColor(.white, for: .normal)
+        locationButton.setTitle(gymClassInstance.location, for: .normal)
+        locationButton.titleLabel?.font = ._14MontserratLight
+        locationButton.titleLabel?.textAlignment = .center
+        locationButton.sizeToFit()
+        locationButton.addTarget(self, action: #selector(locationSelected), for: .touchUpInside)
+        contentView.addSubview(locationButton)
 
-        instructorLabel = UILabel()
-        instructorLabel.text = gymClassInstance.instructor
-        instructorLabel.font = ._18Bebas
-        instructorLabel.textAlignment = .center
-        instructorLabel.textColor = .white
-        instructorLabel.sizeToFit()
-        contentView.addSubview(instructorLabel)
+        instructorButton = UIButton()
+        instructorButton.setTitle(gymClassInstance.instructor.uppercased(), for: .normal)
+        instructorButton.titleLabel?.font = ._16MontserratBold
+        instructorButton.titleLabel?.textAlignment = .center
+        instructorButton.setTitleColor(.white, for: .normal)
+        instructorButton.addTarget(self, action: #selector(instructorSelected), for: .touchUpInside)
+        instructorButton.sizeToFit()
+        contentView.addSubview(instructorButton)
 
         durationLabel.font = ._18Bebas
         durationLabel.textAlignment = .center
@@ -351,16 +356,16 @@ class ClassDetailViewController: UIViewController {
             make.height.equalTo(57)
         }
 
-        locationLabel.snp.makeConstraints { make in
+        locationButton.snp.makeConstraints { make in
                 make.leading.equalToSuperview()
                 make.top.equalTo(titleLabel.snp.bottom)
                 make.trailing.equalToSuperview()
                 make.height.equalTo(16)
         }
 
-        instructorLabel.snp.makeConstraints { make in
+        instructorButton.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.equalTo(locationLabel.snp.bottom).offset(20)
+            make.top.equalTo(locationButton.snp.bottom).offset(20)
             make.trailing.equalToSuperview()
             make.height.equalTo(21)
         }
@@ -487,6 +492,18 @@ class ClassDetailViewController: UIViewController {
             Answers.logCustomEvent(withName: "Added Class To Favourites", customAttributes: [
                 "Class Name": gymClassInstance.className
                 ])
+        }
+    }
+
+    @objc func instructorSelected() {
+        // leaving as a stub, future designs will make use of this
+    }
+
+    @objc func locationSelected() {
+        NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
+            let gymDetailViewController = GymDetailViewController()
+            gymDetailViewController.gym = gym
+            self.navigationController?.pushViewController(gymDetailViewController, animated: true)
         }
     }
 
