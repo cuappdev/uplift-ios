@@ -7,7 +7,6 @@ target 'Fitness' do
   pod 'AlamofireImage'
   pod 'Crashlytics'
   pod 'Fabric'
-  pod 'Moya'
   pod 'SnapKit'
   pod 'SwiftLint'
   pod 'Apollo'
