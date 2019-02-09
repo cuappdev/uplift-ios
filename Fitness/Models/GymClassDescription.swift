@@ -12,10 +12,10 @@ struct GymClassDescription {
 
     let id: Int
     let description: String
-    let name: String
-    let tags: [Int]
     let gymClasses: [Int]
     let imageURL: String?
+    let name: String
+    let tags: [Int]
 }
 
 struct GymClassDescriptionsRootData: Decodable {
@@ -33,10 +33,10 @@ extension GymClassDescription: Decodable {
     enum Key: String, CodingKey {
         case id
         case description
-        case name
-        case tags = "class_tags"
         case gymClasses = "gym_classes"
         case imageURL = "image_url"
+        case name
+        case tags = "class_tags"
     }
 
     init(from decoder: Decoder) throws {
