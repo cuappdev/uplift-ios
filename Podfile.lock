@@ -6,19 +6,9 @@ PODS:
     - Apollo/Core (= 0.9.3)
   - Apollo/Core (0.9.3)
   - Bartinter (0.0.4)
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
   - Crashlytics (3.10.8):
     - Fabric (~> 1.7.12)
   - Fabric (1.7.12)
-  - FBSDKCoreKit (4.38.1):
-    - Bolts (~> 1.9)
-  - FBSDKLoginKit (4.38.1):
-    - FBSDKCoreKit
   - GoogleSignIn (4.3.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -56,7 +46,6 @@ DEPENDENCIES:
   - Bartinter
   - Crashlytics
   - Fabric
-  - FBSDKLoginKit
   - GoogleSignIn
   - Kingfisher (~> 4.0)
   - Moya
@@ -70,11 +59,8 @@ SPEC REPOS:
     - AlamofireImage
     - Apollo
     - Bartinter
-    - Bolts
     - Crashlytics
     - Fabric
-    - FBSDKCoreKit
-    - FBSDKLoginKit
     - GoogleSignIn
     - GoogleToolboxForMac
     - GTMOAuth2
@@ -99,11 +85,8 @@ SPEC CHECKSUMS:
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
   Apollo: 38270f8bdc031ac07d4de3ec068a2289d7d287e0
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Crashlytics: 058dc1ba579f6c100bc60a6878703779bff383c4
   Fabric: d7387db9a31aadff63b147a4b91d982c53afaa4f
-  FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
-  FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
   GoogleSignIn: 11183592dc63e105475c7305a325045ff95e02b7
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
@@ -115,6 +98,6 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: e0f800153cd78dbc474a9f7394d160d968d82463
+PODFILE CHECKSUM: 2bdbc6462c444e36b238d7973bada5c9b3b0223c
 
 COCOAPODS: 1.5.3

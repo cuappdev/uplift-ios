@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "facebookLogo.png",
+      "filename" : "green check.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "green check (1).png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "green check (2).png",
       "scale" : "3x"
     }
   ],

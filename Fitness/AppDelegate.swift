@@ -9,7 +9,6 @@
 import UIKit
 import Fabric
 import Crashlytics
-import FBSDKCoreKit
 import GoogleSignIn
 
 @UIApplicationMain
@@ -19,17 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let networkManager = NetworkManager()
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("Starts where it usually does")
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
         // Initialize Google sign-in
         GIDSignIn.sharedInstance().clientID = "915111778405-k1s68sljovgngrttogdtrifnf7h1hifb.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
-        // Facebook sign-in token
-        let facebookUserToken: FBSDKAccessToken?
         
         let defaults = UserDefaults.standard
         
@@ -54,15 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: Facebook + Google Login
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if let urlScheme = url.scheme {
-            if (urlScheme.hasPrefix("fb\(String(describing: FBSDKSettings.appID()))") && url.host == "authorize") { // Facebook
-                return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
-            } else if (urlScheme.hasPrefix(Bundle.main.bundleIdentifier!) || urlScheme.hasPrefix("com.googleusercontent.apps.")) { // Google
-                return GIDSignIn.sharedInstance().handle(url as URL?,
-                                                         sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                         annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-            }
-        }
+        return GIDSignIn.sharedInstance().handle(url as URL?,
+                                                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                                                 annotation: options[UIApplication.OpenURLOptionsKey.annotation])
         return false
     }
 }

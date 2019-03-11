@@ -8,8 +8,6 @@
 
 import UIKit
 import SnapKit
-import FBSDKCoreKit
-import FBSDKLoginKit
 import GoogleSignIn
 
 class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
@@ -18,42 +16,33 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
     var titleLabel: UILabel!
     var signUpLabel: UILabel!
     var emailField: UITextField!
-    var facebookBtn: UIButton!
     var googleBtn: UIButton!
     var nextButton: UIButton!
-    var checkSymbol: UIView! // To be an Image once the asset becomes available
+    var nextButtonArrow: UIImageView!
+    var checkSymbol: UIImageView!
     
     // Display Info
     let titleToContentPadding: CGFloat = 187
     let buttonPadding: CGFloat = 16
-    let finalButtonPadding: CGFloat = 39
     let edgePadding: CGFloat = 27
+    
     let buttonHeight: CGFloat = 48
-    let checkSymbolSize: CGFloat = 24
     let cornerRadius: CGFloat = 5
+
+    let nextButtonSize: CGFloat = 35
+    let nextButtonPadding = CGSize(width: 40, height: 70)
+    let buttonBorderSize: CGFloat = 2
     
-    // Facebook Login Manager
-    var facebookLoginManager: FBSDKLoginManager!
-    
+    let checkSymbolSize: CGFloat = 24
+    let checkArrowSize = CGSize(width: 16.95, height: 11.59)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .fitnessWhite
         
-        // Initialize Facebook Login Manager
-        facebookLoginManager = FBSDKLoginManager()
-        
         // DEBUG--- sign out
         GIDSignIn.sharedInstance().signOut()
-//        FBSDKAccessToken.setCurrent(nil)
-//        FBSDKProfile.setCurrent(nil)
         
-        FBSDKLoginManager().logOut()
-        
-        
-        print("Login Status?")
-        print("Google signed in: \(isGoogleSignedIn())")
-        print("Facebook signed in: \(isFacebookSignedIn())")
         
         // Google Sign in
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -89,19 +78,11 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
         emailField.addTarget(self, action: #selector(textChanged(sender:)), for: .editingDidEndOnExit)
         view.addSubview(emailField)
         
-        checkSymbol = UIView()
+        checkSymbol = UIImageView()
         checkSymbol.layer.cornerRadius = 12
-        checkSymbol.backgroundColor = .fitnessGreen
+        checkSymbol.image = UIImage(named: "green check")
         checkSymbol.alpha = 0
         emailField.addSubview(checkSymbol)
-        
-        facebookBtn = UIButton()
-        let facebookBlue = UIColor(displayP3Red: 66.0 / 255, green: 103 / 255, blue: 178 / 255, alpha: 1)
-        facebookBtn.backgroundColor = facebookBlue
-        facebookBtn.setImage(UIImage(named: "facebookLogo"), for: .normal)
-        facebookBtn.layer.cornerRadius = cornerRadius
-        facebookBtn.addTarget(self, action: #selector(facebookButtonTapped), for: .touchDown)
-        view.addSubview(facebookBtn)
         
         googleBtn = UIButton()
         let googleWhite = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
@@ -116,21 +97,20 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
         view.addSubview(googleBtn)
         
         nextButton = UIButton()
-        nextButton.backgroundColor = .fitnessMediumGrey
-        nextButton.setTitleShadowColor(.buttonShadow, for: .normal)
-        nextButton.setTitleColor(.fitnessWhite, for: .normal)
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.layer.cornerRadius = cornerRadius
-        nextButton.titleLabel?.font = ._16MontserratBold
-        nextButton.layer.shadowOpacity = 0.25
-        nextButton.layer.shadowRadius = 6
-        nextButton.layer.shadowOffset = CGSize(width: 2, height: 4)
+        nextButton.clipsToBounds = false
+        nextButton.layer.cornerRadius = nextButtonSize / 2
+        nextButton.backgroundColor = .fitnessWhite
+        nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+        nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
+        nextButtonArrow = UIImageView(image: UIImage(named: "darkBackArrow")) 
+        nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi) )
+        nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)
         
         // If already signed in, make Next Button Yellow
-        toggleNextButton(enabled: isGoogleSignedIn() || isFacebookSignedIn())
+        toggleNextButton(enabled: isGoogleSignedIn())
         
         setUpConstraints()
     }
@@ -144,7 +124,6 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
         }
         
         signUpLabel.snp.makeConstraints { (make) in
-            //make.top.equalTo(titleLabel.snp.bottom).offset(titleToContentPadding)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(titleToContentPadding)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
         }
@@ -161,22 +140,21 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
             make.trailing.equalToSuperview().inset(13)
         }
         
-        facebookBtn.snp.makeConstraints { (make) in
+        googleBtn.snp.makeConstraints { (make) in
             make.top.equalTo(emailField.snp.bottom).offset(buttonPadding)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
             make.height.equalTo(buttonHeight)
         }
         
-        googleBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(facebookBtn.snp.bottom).offset(buttonPadding)
-            make.leading.trailing.equalToSuperview().inset(edgePadding)
-            make.height.equalTo(buttonHeight)
+        nextButton.snp.makeConstraints { (make) in
+            make.size.equalTo(nextButtonSize)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.width)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.height)
         }
         
-        nextButton.snp.makeConstraints { (make) in
-            make.top.equalTo(googleBtn.snp.bottom).offset(finalButtonPadding)
-            make.leading.trailing.equalToSuperview().inset(edgePadding)
-            make.height.equalTo(buttonHeight)
+        nextButtonArrow.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.size.equalTo(checkArrowSize)
         }
     }
     
@@ -185,12 +163,12 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
         if enabled {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .fitnessYellow
-            nextButton.setTitleColor(.fitnessBlack, for: .normal)
+            nextButton.layer.borderColor = UIColor.fitnessBlack.cgColor
             checkSymbol.alpha = 1
         } else {
             nextButton.isEnabled = false
-            nextButton.backgroundColor = .fitnessMediumGrey
-            nextButton.setTitleColor(.fitnessWhite, for: .normal)
+            nextButton.backgroundColor = .fitnessWhite
+            nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
             checkSymbol.alpha = 0
         }
     }
@@ -202,8 +180,6 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
     
     // MARK: Email
     func validEmail(email: String) -> Bool {
-        // May have multiple .s but only after the @
-        
         // Check Validity
         if (email.count < 5 || !email.contains("@") || !email.split(separator: "@")[1].contains(".")) {
             return false
@@ -217,72 +193,21 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
             if textField.text != nil && validEmail(email: textField.text!) { // Valid
                toggleNextButton(enabled: true)
             } else { // Not Valid
-                toggleNextButton(enabled: false)
+                if (!isGoogleSignedIn()) {
+                    toggleNextButton(enabled: false)
+                }
             }
         }
-    }
-    
-    // MARK: Log in Helper Function
-    /// Returns true if the user is logged in with facebook or google
-    func isLoggedIn() -> Bool {
-        return isGoogleSignedIn() || false//isFacebookSignedIn() cuz it broke 
-    }
-    
-    
-    // MARK:- Facebook Sign In
-    @objc func facebookButtonTapped() {
-        print("Loggin In??? Google: \(isGoogleSignedIn())   Facebook: \(isFacebookSignedIn())")
-        if !isLoggedIn() {
-            logIntoFacebook()
-        }
-    }
-    
-    func logIntoFacebook() {
-        facebookLoginManager.logIn(withReadPermissions: ["email"], from: self) { (loginManagerResult, error) in
-            if let loginFailed = error { // Error
-                print("facebook login FAILED.")
-                print(loginFailed.localizedDescription)
-            } else { // Login Success
-                self.toggleNextButton(enabled: true)
-            }
-        }
-    }
-    
-    /// Should be called before actually logging out fo Facebook with the LoginManager
-    func logOutOfFacebook() {
-//        if !isFacebookSignedIn() { return }
-//        let tokenString = FBSDKAccessToken.description()
-//        let logout = FBSDKGraphRequest(
-//            graphPath: "me/permissions/",
-//            parameters: ["accessToken": tokenString],
-//            httpMethod: "DELETE")
-//        logout?.start(completionHandler: { (connection, whoKnows, error) in
-//            switch connection {
-//                case .
-//            }
-//        })
-//        logout?.start { (urlResponse, requestResult) in
-//            switch requestResult {
-//            case .failed(let error):
-//                print("Error in Graph: \(error.localizedDescription)")
-//            case .success(let graphResponse):
-//                self.facebookLoginManager.logOut()
-//            }
-//        }
-        
-    }
-    
-    func isFacebookSignedIn() -> Bool {
-        return FBSDKAccessToken.currentAccessTokenIsActive()
     }
     
     // MARK:- Google Sign In
+    
+    // ...pollo ios
+    
     @objc func googleButtonTapped() {
-        print("Loggin In??? Google: \(isGoogleSignedIn())   Facebook: \(isFacebookSignedIn())")
         GIDSignIn.sharedInstance()?.delegate = self
         GIDSignIn.sharedInstance()?.uiDelegate = self
-        
-        if !isLoggedIn() {
+        if !isGoogleSignedIn() {
             GIDSignIn.sharedInstance()?.signIn()
         } else {
             print("Shared Instance is:  \(GIDSignIn.sharedInstance())")
@@ -318,6 +243,7 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
             // Store Google Sign in stuff like userID, token, name, email, etc.
             // userID = user.userID
             toggleNextButton(enabled: true)
+            emailField.isUserInteractionEnabled = false
         } else {
             print(error.localizedDescription)
         }

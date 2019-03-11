@@ -60,6 +60,10 @@ class FavoriteGymCell: UITableViewCell {
         // Initialization code
     }
     
+    func configure(with gymName: String) {
+        gymLabel.text = gymName
+    }
+    
     func setUpConstraints() {
         gymLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().inset(leftPadding)

@@ -7,7 +7,6 @@ target 'Fitness' do
   pod 'AlamofireImage'
   pod 'Crashlytics'
   pod 'Fabric'
-  pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
   pod 'Moya'
   pod 'SnapKit'
