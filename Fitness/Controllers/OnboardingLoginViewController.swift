@@ -38,6 +38,9 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.isNavigationBarHidden = true
+        
         view.backgroundColor = .fitnessWhite
         
         // DEBUG--- sign out
@@ -104,8 +107,8 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
-        nextButtonArrow = UIImageView(image: UIImage(named: "darkBackArrow")) 
-        nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi) )
+        nextButtonArrow = UIImageView(image: UIImage(named: "arrow"))
+        nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)
         
@@ -164,18 +167,20 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
             nextButton.isEnabled = true
             nextButton.backgroundColor = .fitnessYellow
             nextButton.layer.borderColor = UIColor.fitnessBlack.cgColor
+            nextButtonArrow.alpha = 1
             checkSymbol.alpha = 1
         } else {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .fitnessWhite
             nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+            nextButtonArrow.alpha = 0.5
             checkSymbol.alpha = 0
         }
     }
     
     @objc func goToNextView() {
-        //navigationController?.pushViewController(OnboardingGymsViewController(), animated: true)
-        self.present(OnboardingGymsViewController(), animated: true, completion: nil)
+        navigationController?.pushViewController(OnboardingGymsViewController(), animated: true)
+        //self.present(OnboardingGymsViewController(), animated: true, completion: nil)
     }
     
     // MARK: Email
@@ -190,7 +195,7 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
     
     @objc func textChanged(sender: Any) {
         if let textField = sender as? UITextField {
-            if textField.text != nil && validEmail(email: textField.text!) { // Valid
+            if let textFieldText = textField.text, validEmail(email: textFieldText) { // Valid
                toggleNextButton(enabled: true)
             } else { // Not Valid
                 if (!isGoogleSignedIn()) {

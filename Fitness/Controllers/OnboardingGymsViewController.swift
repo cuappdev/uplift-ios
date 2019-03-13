@@ -12,7 +12,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
-    var gymTableView: UITableView!
     var nextButton: UIButton!
     var nextButtonArrow: UIImageView!
     var backButton: UIButton!
@@ -36,11 +35,13 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     let checkArrowSize = CGSize(width: 16.95, height: 11.59)
     
     let maxGymRows = 8
-    let gymCellHeight = 60
-    let gymSidePadding = 16
+    let gymCellHeight: CGFloat = 60
+    let gymSidePadding: CGFloat = 16
+    let gymCellVerticalPadding: CGFloat = 14
     
     // Gyms
     var gymNames: [String] = []
+    var favoriteGyms: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +59,9 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
         gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: reuseIdentifier)
+        gymsTableView.isScrollEnabled = false
+        gymsTableView.separatorStyle = .none
+        gymsTableView.clipsToBounds = false
         view.addSubview(gymsTableView)
         
         nextButton = UIButton()
@@ -68,8 +72,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
-        nextButtonArrow = UIImageView(image: UIImage(named: "darkBackArrow"))
-        nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi) )
+        nextButtonArrow = UIImageView(image: UIImage(named: "arrow"))
+        nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)
         
@@ -81,25 +85,25 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         backButton.layer.borderWidth = buttonBorderSize
         backButton.addTarget(self, action: #selector(goBackAView), for: .touchDown)
         backButton.isEnabled = false
-        backButtonArrow = UIImageView(image: UIImage(named: "darkBackArrow"))
+        backButtonArrow = UIImageView(image: UIImage(named: "arrow"))
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)
         
-        toggleButton(button: backButton, enabled: true)
+        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: true)
+        toggleButton(button: backButton, arrow: backButtonArrow, enabled: true)
         
         NetworkManager.shared.getGyms { (gyms) in
+            var namesArray = [String]()
             gyms.forEach {
-                var namesArray = [String]()
                 namesArray.append($0.name)
-                DispatchQueue.main.async {
-                    self.gymNames = namesArray
-                }
-                //print($0.name)
+                print($0.name)
+            }
+            DispatchQueue.main.async {
+                self.gymNames = namesArray
+                self.gymsTableView.reloadData()
             }
         }
-        print(gymNames)
 
-        gymsTableView.reloadData()
         setUpConstraints()
     }
 
@@ -110,11 +114,12 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
             make.top.equalTo(view.safeAreaLayoutGuide).inset(34)
         }
         
-        //TABLE VIEW...
+        // Table View
         gymsTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom).inset(28)
+            make.top.equalTo(titleLabel.snp.bottom).offset(28)
             make.leading.trailing.equalToSuperview().inset(gymSidePadding)
-            make.height.equalTo(356)
+            //make.trailing.equalToSuperview().inset()
+            make.bottom.equalTo(nextButton.snp.top).offset(14)
         }
         
         // Arrows
@@ -141,41 +146,81 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
+    func saveFavoriteGyms() {
+        let defaults = UserDefaults.standard
+        defaults.set(favoriteGyms, forKey: Identifiers.favoriteGyms)
+    }
+    
+    //MARK: UI Helper Methods
+    
     /// Toggles whether the Next button can be pressed (also adds the checkmark in the email field)
-    func toggleButton(button: UIButton, enabled: Bool) {
+    func toggleButton(button: UIButton, arrow: UIView, enabled: Bool) {
         if enabled {
             button.isEnabled = true
             button.backgroundColor = .fitnessYellow
             button.layer.borderColor = UIColor.fitnessBlack.cgColor
+            arrow.alpha = 1
         } else {
             button.isEnabled = false
             button.backgroundColor = .fitnessWhite
             button.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+            arrow.alpha = 0.5
         }
     }
     
+    //MARK: Button Actions
     @objc func goToNextView() {
-        //navigationController?.pushViewController(HomeController(), animated: true)
-        self.present(HomeController(), animated: true)
+        print(favoriteGyms)
+        navigationController?.pushViewController(HomeController(), animated: true)
     }
     
     @objc func goBackAView() {
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: UITableViewDelegate Methods
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = gymsTableView.cellForRow(at: indexPath) as! FavoriteGymCell
+        cell.toggleSelectedView(selected: !cell.isOn)
+        if cell.isOn {
+            favoriteGyms.append(gymNames[indexPath.section])
+        } else {
+            for i in 0...favoriteGyms.count {
+                if favoriteGyms[i] == gymNames[indexPath.section] {
+                    favoriteGyms.remove(at: i)
+                    break
+                }
+            }
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gymNames.count
+        return 1//gymNames.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(gymCellHeight)
+        return gymCellHeight
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return gymCellVerticalPadding
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let blankView = UIView()
+        blankView.backgroundColor = .clear
+        return blankView
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return gymNames.count
+    }
+
     // MARK: UITableViewDataSource Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! FavoriteGymCell
-        let gym = gymNames[indexPath.row]
+        let gym = gymNames[indexPath.section]
         cell.configure(with: gym)
         cell.setNeedsUpdateConstraints()
         cell.selectionStyle = .none

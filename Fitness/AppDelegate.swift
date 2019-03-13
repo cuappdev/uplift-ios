@@ -22,13 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
+        
         // Initialize Google sign-in
         GIDSignIn.sharedInstance().clientID = "915111778405-k1s68sljovgngrttogdtrifnf7h1hifb.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
         let defaults = UserDefaults.standard
         
-        window?.rootViewController = OnboardingLoginViewController()
+        window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
+        
         /*
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
             window?.rootViewController = TabBarController()

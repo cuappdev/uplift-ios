@@ -10,12 +10,18 @@ import UIKit
 
 class FavoriteGymCell: UITableViewCell {
     
-    
     // MARK: Initialization
+    var cellBackground: UIView!
     var gymLabel: UILabel!
-    var checkedSymbol: UIView!
+    var checkBackground: UIView!
+    var checkImage: UIImageView!
     
-    // Padding
+    // Whether it is in a selected state
+    var isOn = false
+    
+    // Padding and Sizing
+    let checkSize: CGFloat = 24
+    let checkBorderWidth: CGFloat = 1
     let leftPadding: CGFloat = 15
     let rightPadding: CGFloat = 16
     
@@ -24,29 +30,34 @@ class FavoriteGymCell: UITableViewCell {
         self.selectionStyle = .none
         self.contentView.backgroundColor = .white
         
-        // SHADOWING
-        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
-        contentView.layer.shadowRadius = 5.0
-        contentView.layer.shadowOpacity = 0.1
-        contentView.layer.masksToBounds = false
-        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 9, right: -3))
-        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
-        // Corner Radius
-        contentView.layer.cornerRadius = 6
+        cellBackground = UIView()
+        cellBackground.backgroundColor =  .fitnessWhite
+        cellBackground.layer.cornerRadius = 6
+        cellBackground.layer.borderWidth = checkBorderWidth
+        cellBackground.layer.borderColor = UIColor.fitnessLightGrey.cgColor
+        // Shadow
+        cellBackground.layer.shadowOpacity = 0.125
+        cellBackground.layer.shadowRadius = 6
+        cellBackground.layer.shadowOffset = CGSize(width: 1, height: 3)
+        
+        contentView.addSubview(cellBackground)
         
         gymLabel = UILabel()
         gymLabel.text = "A Gym"
         gymLabel.font = ._16MontserratMedium
         gymLabel.textColor = .fitnessMediumGrey
-        contentView.addSubview(gymLabel)
+        cellBackground.addSubview(gymLabel)
         
-        checkedSymbol = UIView()
-        checkedSymbol.tintColor = .fitnessWhite
-        checkedSymbol.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
-        checkedSymbol.layer.borderWidth = 1
-        checkedSymbol.layer.cornerRadius = 25
-        contentView.addSubview(checkedSymbol)
+        checkBackground = UIView()
+        checkBackground.tintColor = .fitnessWhite
+        checkBackground.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+        checkBackground.layer.borderWidth = 1
+        checkBackground.layer.cornerRadius = checkSize / 2
+        cellBackground.addSubview(checkBackground)
+        
+        checkImage = UIImageView(image: UIImage(named: "green check"))
+        checkImage.alpha = 0
+        checkBackground.addSubview(checkImage)
         
         setUpConstraints()
     }
@@ -65,24 +76,38 @@ class FavoriteGymCell: UITableViewCell {
     }
     
     func setUpConstraints() {
+        
+        cellBackground.snp.makeConstraints { (make) in
+            make.leading.trailing.top.bottom.equalToSuperview()
+        }
+        
         gymLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().inset(leftPadding)
             make.centerY.equalToSuperview()
         }
         
-        checkedSymbol.snp.makeConstraints { (make) in
+        checkBackground.snp.makeConstraints { (make) in
+            make.size.equalTo(checkSize)
             make.trailing.equalToSuperview().inset(rightPadding)
             make.centerY.equalToSuperview()
         }
+        
+        checkImage.snp.makeConstraints { (make) in
+            make.size.equalTo(checkSize + 1)
+            make.center.equalToSuperview()
+        }
     }
-    
+
     func toggleSelectedView(selected: Bool) {
+        isOn = selected
         if selected {
             gymLabel.textColor = .fitnessBlack
-            checkedSymbol.tintColor = .fitnessGreen
-            
+            checkImage.alpha = 1
+            checkBackground.layer.borderWidth = 0
         } else {
-            
+            gymLabel.textColor = .fitnessMediumGrey
+            checkImage.alpha = 0
+            checkBackground.layer.borderWidth = checkBorderWidth
         }
     }
 

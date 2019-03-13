@@ -36,4 +36,5 @@ struct Identifiers {
     // USER DEFAULTS
     static let hasSeenOnboarding = "hasSeenOnboarding"
     static let favorites = "Favorites"
+    static let favoriteGyms = "FavoriteGyms"
 }
