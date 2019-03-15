@@ -38,6 +38,8 @@
 		8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */; };
 		8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44D208718410095B8AB /* GymHoursCell.swift */; };
 		8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */; };
+		8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */; };
+		8DB8D76B2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */; };
 		8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB784E2139849B002BE0E0 /* Constants.swift */; };
 		8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */; };
 		8DC6F7A8218381980048C305 /* TodaysClassesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC6F7A7218381980048C305 /* TodaysClassesHeaderView.swift */; };
@@ -111,6 +113,8 @@
 		8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		8D95F44D208718410095B8AB /* GymHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursCell.swift; sourceTree = "<group>"; };
 		8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursHeaderView.swift; sourceTree = "<group>"; };
+		8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackingController.swift; sourceTree = "<group>"; };
+		8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerOnboardingCell.swift; sourceTree = "<group>"; };
 		8DBB784E2139849B002BE0E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		8DC6F7A7218381980048C305 /* TodaysClassesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesHeaderView.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 		C7DFABE22042081000545B0B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 				C75FAB1020420B7B008D455A /* HomeController.swift */,
 				635AF233204F85000020F6C6 /* ClassDetailViewController.swift */,
@@ -297,6 +302,7 @@
 		C7EBD5A92062E64F00D76A8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
 				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
 				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
@@ -597,6 +603,7 @@
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
+				8DB8D76B2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
@@ -605,6 +612,7 @@
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
+				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,

@@ -29,6 +29,7 @@ struct Identifiers {
     static let gymsCell = "gymsCell"
     static let classListCell = "classListCell"
     static let calendarCell = "calendarCell"
+    static let habitTrackerOnboardingCell = "habitTrackerOnboardingCell"
     
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
