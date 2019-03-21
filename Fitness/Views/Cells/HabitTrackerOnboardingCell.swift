@@ -10,10 +10,12 @@ import UIKit
 import SnapKit
 
 protocol HabitTrackerOnboardingDelegate: class {
-    func deleteCell(indexPath: IndexPath)
-    func prepareForEditing(indexPath: IndexPath)
-    func swipeLeft(indexPath: IndexPath) -> Bool
+    func deleteCell(cell: HabitTrackerOnboardingCell)
+    func prepareForEditing(cell: HabitTrackerOnboardingCell)
+    func endEditing()
+    func swipeLeft(cell: HabitTrackerOnboardingCell) -> Bool
     func swipeRight()
+    func featureHabit(cell: HabitTrackerOnboardingCell)
 }
 
 
@@ -35,7 +37,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     var clearTextButton: UIButton!
     
-    var indexPath: IndexPath!
+//    var indexPath: IndexPath!
     var canEdit: Bool!
     var editingTitle: Bool!
     
@@ -52,6 +54,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         titleLabel.textColor = .fitnessBlack
         titleLabel.sizeToFit()
         titleLabel.delegate = self
+        titleLabel.keyboardType = .alphabet
         contentView.addSubview(titleLabel)
         
         isUserInteractionEnabled = true
@@ -144,12 +147,20 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         dotsImage.snp.updateConstraints { make in
             make.leading.equalToSuperview().offset(15)
         }
+        
+//        titleLabel.snp.updateConstraints { make in
+//            make.trailing.equalTo(trashButton.snp.leading).offset(-8)
+//        }
     }
     
     func updateConstraintsRightSwipe() {
         dotsImage.snp.updateConstraints { make in
             make.leading.equalToSuperview().offset(35)
         }
+        
+//        titleLabel.snp.updateConstraints { make in
+//            make.trailing.equalToSuperview().offset(-21)
+//        }
     }
     
     func setTitle(activity: String) {
@@ -158,7 +169,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - BUTTON AND GESTURE METHODS
     @objc func swipeLeft() {
-        if !isSwiped && delegate?.swipeLeft(indexPath: indexPath) ?? false {
+        if !isSwiped && delegate?.swipeLeft(cell: self) ?? false {
             updateConstraintsLeftSwipe()
             isSwiped = true
             trashButton.isHidden = false
@@ -183,7 +194,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     @objc func deleteCell() {
         if let delegate = delegate {
-            delegate.deleteCell(indexPath: indexPath)
+            delegate.deleteCell(cell: self)
         }
     }
     
@@ -195,18 +206,19 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         
         canEdit = true
         editingTitle = true
-        delegate?.prepareForEditing(indexPath: indexPath)
+        delegate?.prepareForEditing(cell: self)
         titleLabel.becomeFirstResponder()
     }
     
     func finishEdit(){
         editingTitle = false
+        canEdit = false
         titleLabel.resignFirstResponder()
         swipeRight()
     }
     
     @objc func pin() {
-        
+        delegate?.featureHabit(cell: self)
     }
     
     @objc func clearText() {
@@ -220,4 +232,8 @@ extension HabitTrackerOnboardingCell: UITextFieldDelegate {
         return canEdit
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        delegate?.endEditing()
+        return true
+    }
 }

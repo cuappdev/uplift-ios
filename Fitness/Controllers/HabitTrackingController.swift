@@ -9,14 +9,13 @@
 import UIKit
 import SnapKit
 
-enum HabitTrackingType {
-    case cardio, strength, mindfulness
+enum HabitTrackingType: Int {
+    case cardio = 0, strength, mindfulness
 }
 
 class HabitTrackingController: UIViewController {
     
     // MARK: - INITIALIZATION
-    weak var delegate: UIViewController?
     var type: HabitTrackingType
     
     var scrollView: UIScrollView!
@@ -28,17 +27,48 @@ class HabitTrackingController: UIViewController {
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
     
-    var habitTableView: UITableView!
-    var habits: [String]!
-    
-    var saveButton: UIButton!
-    var editingIndex: IndexPath?
+    var saveHabitButton: UIButton!
+    var editingCell: HabitTrackerOnboardingCell?
     var canSwipe: Bool!
     /// Has the index of the swiped cell iff a cell is swiped
-    var swipedIndex: IndexPath?
+    var swipedCell: HabitTrackerOnboardingCell?
+    
+    var createHabitButton: UIButton!
     
     var nextButton: UIButton!
     var backButton: UIButton?
+    
+    var habitTableView: UITableView!
+    var habits: [String]!
+    var featuredHabit: String? {
+        didSet {
+            if featuredHabit == nil {
+                Habit.setActiveHabit(title: "", type: type)
+                
+                nextButton.isHidden = true
+                switch type {
+                case .cardio:
+                    widgetsView.image = UIImage(named: "widgets-empty")
+                case .strength:
+                    widgetsView.image = UIImage(named: "widgets-1")
+                case .mindfulness:
+                    widgetsView.image = UIImage(named: "widgets-2")
+                }
+            } else {
+                Habit.setActiveHabit(title: featuredHabit ?? "", type: type)
+                
+                nextButton.isHidden = false
+                switch type {
+                case .cardio:
+                    widgetsView.image = UIImage(named: "widgets-1")
+                case .strength:
+                    widgetsView.image = UIImage(named: "widgets-2")
+                case .mindfulness:
+                    widgetsView.image = UIImage(named: "widgets-3")
+                }
+            }
+        }
+    }
     
     init(type: HabitTrackingType) {
         self.type = type
@@ -52,6 +82,8 @@ class HabitTrackingController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .fitnessWhite
+        
+        tabBarController?.tabBar.isHidden = true
         
         // SCROLLVIEW
         scrollView = UIScrollView()
@@ -111,41 +143,78 @@ class HabitTrackingController: UIViewController {
         canSwipe = true
         
         // SAVE BUTTON
-        saveButton = UIButton()
-        saveButton.setTitle("Save", for: .normal)
-        saveButton.titleLabel?.font = ._18MontserratRegular
-        saveButton.setTitleColor(UIColor.fitnessBlack, for: .normal)
-        saveButton.backgroundColor = .fitnessYellow
-        saveButton.layer.cornerRadius = 30
-        saveButton.addTarget(self, action: #selector(doneEditingHabit), for: .touchUpInside)
-        view.addSubview(saveButton)
-        saveButton.isHidden = true
-        view.bringSubviewToFront(saveButton)
+        saveHabitButton = UIButton()
+        saveHabitButton.setTitle("Save", for: .normal)
+        saveHabitButton.titleLabel?.font = ._18MontserratRegular
+        saveHabitButton.setTitleColor(UIColor.fitnessBlack, for: .normal)
+        saveHabitButton.backgroundColor = .fitnessYellow
+        saveHabitButton.layer.cornerRadius = 30
+        saveHabitButton.addTarget(self, action: #selector(doneEditingHabit), for: .touchUpInside)
+        view.addSubview(saveHabitButton)
+        saveHabitButton.isHidden = true
+        view.bringSubviewToFront(saveHabitButton)
+        
+        // CREATE HABIT BUTTON
+        createHabitButton = UIButton()
+        createHabitButton.setTitle("Create your own", for: .normal)
+        createHabitButton.titleLabel?.font = ._14MontserratRegular
+        createHabitButton.titleLabel?.textAlignment = .left
+        createHabitButton.setTitleColor(.fitnessMediumDarkGrey, for: .normal)
+        createHabitButton.addTarget(self, action: #selector(createHabit), for: .touchUpInside)
+        contentView.addSubview(createHabitButton)
+        
+        // NEXT PAGE BUTTON
+        nextButton = UIButton()
+        nextButton.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
+        view.addSubview(nextButton)
+        view.bringSubviewToFront(nextButton)
+        nextButton.isHidden = true
+        
+        // BACK BUTTON
+        if type != .cardio {
+            backButton = UIButton()
+            backButton!.setImage(UIImage(named: "back-arrow-grey"), for: .normal)
+            backButton!.addTarget(self, action: #selector(back), for: .touchUpInside)
+            view.addSubview(backButton!)
+            view.bringSubviewToFront(backButton!)
+        }
         
         switch type {
         case .cardio:
             widgetsView.image = UIImage(named: "widgets-empty")
+            nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
             titleLabel.text = "Cardio"
             descriptionLabel.text = "Daily heart pump so you can jog to your 10AM with ease"
             habits = ["Run for 15 mins", "Play a sport for 30 mins", "Go for a walk after dinner"]
         case .strength:
             widgetsView.image = UIImage(named: "widgets-1")
+            nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
             titleLabel.text = "Strength"
             descriptionLabel.text = "Mann Library, WSH or Gates. No building’s door can slow you down now"
             habits = ["Curls for 20 mins", "30 Pushups", "Plank for 5 mins"]
         case .mindfulness:
             widgetsView.image = UIImage(named: "widgets-2")
+            nextButton.setImage(UIImage(named: "checkmark-yellow"), for: .normal)
             titleLabel.text = "Mindfulness"
             descriptionLabel.text = "Take care of your mind, As much as your grades."
             habits = ["Read favorite book for 10 mins", "Meditate for 5 mins", "Reflect on today"]
         }
         
+        if let activeHabit = Habit.getActiveHabit(type: type) {
+            featuredHabit = activeHabit
+            if habits.contains(activeHabit) {
+                habits.remove(at: habits.index(of: activeHabit) ?? 0)
+            }
+        }
+        
         // KEYBOARD
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doneEditingHabit))
-        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        
+        // TODO - add edge gesture recognizer to go back
         
         setupConstraints()
     }
@@ -184,55 +253,120 @@ class HabitTrackingController: UIViewController {
             make.top.equalTo(descriptionLabel.snp.bottom).offset(20) // TODO : get proper offset
             let height = 80 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )  // TODO: FIX HEADER HEIGHT
             make.height.equalTo(height)
+        }
+        
+        createHabitButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(56)
+            make.width.equalTo(120)
+            make.top.equalTo(habitTableView.snp.bottom).offset(14)
+            make.height.equalTo(16)
             make.bottom.equalToSuperview()
         }
         
-        saveButton.snp.makeConstraints { make in
+        saveHabitButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(60)
             make.centerY.equalTo(0)
         }
+        
+        nextButton.snp.makeConstraints { make in
+            make.height.width.equalTo(35)
+            make.trailing.equalToSuperview().offset(-40)
+            make.bottom.equalToSuperview().offset(-70)
+        }
+        
+        if type != .cardio {
+            backButton?.snp.makeConstraints { make in
+                make.height.width.equalTo(35)
+                make.leading.equalToSuperview().offset(40)
+                make.bottom.equalToSuperview().offset(-70)
+            }
+        }
+    }
+    
+    func updateTableviewConstraints() {
+        habitTableView.snp.updateConstraints { make in
+            let height = 80 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )  // TODO: FIX HEADER HEIGHT
+            make.height.equalTo(height)
+        }
     }
     
     @objc func cancel() {
-        delegate?.dismiss(animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func nextPage() {
+        var newType: HabitTrackingType
+        
+        switch type {
+        case .cardio:
+            newType = .strength
+        case .strength:
+            newType = .mindfulness
+        case .mindfulness:
+            cancel()
+            return
+        }
+        
+        let nextHabitTrackingViewController = HabitTrackingController(type: newType)
+        navigationController?.pushViewController(nextHabitTrackingViewController, animated: true)
+    }
+    
+    @objc func back() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
-        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
-        if let index = editingIndex {
-            let cell = habitTableView.cellForRow(at: index) as! HabitTrackerOnboardingCell
-            
+        if let cell = editingCell {
             if (habitTableView.frame.minY + cell.frame.maxY) > (keyboardSize.cgRectValue.minY - 100) {
                 let offset = cell.frame.maxY + habitTableView.frame.minY + 100 - keyboardSize.cgRectValue.minY
                 scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
             }
         }
         
-        saveButton.snp.updateConstraints { make in
+        
+        saveHabitButton.snp.updateConstraints { make in
             make.centerY.equalTo(keyboardSize.cgRectValue.minY - 44)
         }
-        saveButton.isHidden = false
+        saveHabitButton.isHidden = false
     }
     
     @objc func doneEditingHabit() {
-        if let index = editingIndex {
+        if let cell = editingCell {
             canSwipe = true
-            swipedIndex = nil
-            editingIndex = nil
-            saveButton.isHidden = true
+            swipedCell = nil
+            editingCell = nil
+            saveHabitButton.isHidden = true
             scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            guard let indexPath = habitTableView.indexPath(for: cell) else { return }
             
-            let cell = habitTableView.cellForRow(at: index) as! HabitTrackerOnboardingCell
+            if indexPath.section == 0 {
+                featuredHabit = cell.titleLabel.text
+            } else {
+                if let habit = cell.titleLabel.text {
+                    habits[indexPath.row] = habit
+                }
+            }
+            
             cell.finishEdit()
+            
+            // TODO - remove cell if text is empty
         }
+    }
+    
+    @objc func createHabit() {
+        habits.append("")
+        habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .fade)
+        
+        updateTableviewConstraints()
     }
 }
 
-// MARK: - TABLEVIEW
+// MARK: - TABLEVIEW DELEGATE AND DATA SOURCE
 extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UIView()
@@ -278,42 +412,87 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HabitTrackerOnboardingCell.identifier, for: indexPath) as! HabitTrackerOnboardingCell
-        
-        cell.setTitle(activity: habits[indexPath.row])
-        cell.indexPath = indexPath
-        cell.delegate = self
-        
-        return cell
-    }
-}
-
-
-extension HabitTrackingController: HabitTrackerOnboardingDelegate {
-    func prepareForEditing(indexPath: IndexPath) {
-        editingIndex = indexPath
-        canSwipe = false
-    }
-    
-    func deleteCell(indexPath: IndexPath) {
-        habits.remove(at: indexPath.row)
-        habitTableView.deleteRows(at: [indexPath], with: .fade)
-        
-        habitTableView.snp.updateConstraints { make in
-            let height = 80 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )  // TODO: FIX HEADER HEIGHT
-            make.height.equalTo(height)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let habitCell = cell as? HabitTrackerOnboardingCell else {
+            return
+        }
+        if habitCell.titleLabel.text == "" {
+            habitCell.swipeLeft()
+            habitCell.edit()
         }
     }
     
-    func swipeLeft(indexPath: IndexPath) -> Bool {
-        if canSwipe {
-            if let index = swipedIndex {
-                let cell = habitTableView.cellForRow(at: index) as! HabitTrackerOnboardingCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            if let habit = featuredHabit {
+                let cell = tableView.dequeueReusableCell(withIdentifier: HabitTrackerOnboardingCell.identifier, for: indexPath) as! HabitTrackerOnboardingCell
+                
+                cell.setTitle(activity: habit)
                 cell.swipeRight()
+                cell.delegate = self
+                
+                return cell
+            } else {
+                let cell = UITableViewCell()
+                
+                let titleLabel = UILabel()
+                titleLabel.text = "Drag one in to make your first goal!"
+                titleLabel.textAlignment = .center
+                titleLabel.font = ._14MontserratRegular
+                titleLabel.textColor = .fitnessMediumDarkGrey
+                cell.contentView.addSubview(titleLabel)
+                
+                titleLabel.snp.makeConstraints { make in
+                    make.leading.trailing.equalToSuperview()
+                    make.centerY.equalToSuperview()
+                    make.height.equalTo(16)
+                }
+                
+                return cell
+            }
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: HabitTrackerOnboardingCell.identifier, for: indexPath) as! HabitTrackerOnboardingCell
+            
+            cell.setTitle(activity: habits[indexPath.row])
+            cell.swipeRight()
+            cell.delegate = self
+            
+            return cell
+        }
+    }
+}
+
+// MARK: - HABIT TRACKER DELEGATE
+extension HabitTrackingController: HabitTrackerOnboardingDelegate {
+    func prepareForEditing(cell: HabitTrackerOnboardingCell) {
+        editingCell = cell
+        canSwipe = false
+    }
+    
+    func endEditing() {
+        doneEditingHabit()
+    }
+    
+    func deleteCell(cell: HabitTrackerOnboardingCell) {
+        guard let indexPath = habitTableView.indexPath(for: cell) else { return }
+        
+        if indexPath.section == 0 {
+            featuredHabit = nil
+            habitTableView.reloadRows(at: [indexPath], with: .fade)
+        } else {
+            habits.remove(at: indexPath.row)
+            habitTableView.deleteRows(at: [indexPath], with: .fade)
+            updateTableviewConstraints()
+        }
+    }
+    
+    func swipeLeft(cell: HabitTrackerOnboardingCell) -> Bool {
+        if canSwipe {
+            if let previousCell = swipedCell {
+                previousCell.swipeRight()
             }
             
-            swipedIndex = indexPath
+            swipedCell = cell
             return true
         } else {
             return false
@@ -321,6 +500,50 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
     }
     
     func swipeRight() {
-        swipedIndex = nil
+        swipedCell = nil
     }
+    
+    func featureHabit(cell: HabitTrackerOnboardingCell) {
+        guard let indexPath = habitTableView.indexPath(for: cell) else { return }
+        
+        if indexPath.section == 0 {
+            guard let habit = featuredHabit else { return }
+            
+            habits.append(habit)
+            featuredHabit = nil
+            updateTableviewConstraints()
+            
+            habitTableView.beginUpdates()
+            habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .fade)
+            habitTableView.reloadRows(at: [indexPath], with: .fade)
+            habitTableView.endUpdates()
+
+            return
+        }
+        
+        if let currentHabit = featuredHabit {
+            habits.append(currentHabit)
+            featuredHabit = habits[indexPath.row]
+            habits.remove(at: indexPath.row)
+            habitTableView.reloadData()
+        } else {
+            featuredHabit = habits[indexPath.row]
+            habits.remove(at: indexPath.row)
+            habitTableView.reloadData()
+            updateTableviewConstraints()
+        }
+    }
+}
+
+// MARK: - TABLEVIEW DRAG AND DROP DELEGATE
+extension HabitTrackingController: UITableViewDragDelegate, UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        <#code#>
+    }
+
+    
 }

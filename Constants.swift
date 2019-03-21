@@ -37,4 +37,15 @@ struct Identifiers {
     // USER DEFAULTS
     static let hasSeenOnboarding = "hasSeenOnboarding"
     static let favorites = "Favorites"
+    static let activeHabits = "ActiveHabits"
+    static func habitIdentifier(forType: HabitTrackingType) -> String {
+        switch forType {
+        case .cardio:
+            return "Cardio"
+        case .strength:
+            return "Strength"
+        case .mindfulness:
+            return "Mindfulness"
+        }
+    }
 }
