@@ -6,15 +6,15 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
-import SnapKit
-import Kingfisher
 import Bartinter
 import Crashlytics
+import Kingfisher
+import SnapKit
+import UIKit
 
 struct HoursData {
-    var isDropped: Bool!
     var data: [String]!
+    var isDropped: Bool!
 }
 
 enum Days {
@@ -30,8 +30,8 @@ enum Days {
 class GymDetailViewController: UIViewController {
 
     // MARK: - INITIALIZATION
-    var scrollView: UIScrollView!
     var contentView: UIView!
+    var scrollView: UIScrollView!
 
     var backButton: UIButton!
     var gymImageContainer: UIView!
@@ -41,26 +41,26 @@ class GymDetailViewController: UIViewController {
     /// Exists when gym.isOpen is false
     var closedLabel: UILabel?
 
-    var hoursTitleLabel: UILabel!
-    var hoursTableView: UITableView!
     var days: [Days]!
     var hoursData: HoursData!
     var hoursPopularTimesSeparator: UIView!
+    var hoursTableView: UITableView!
+    var hoursTitleLabel: UILabel!
 
     let separatorSpacing = 24
 
     // Exist when gym.isOpen is true
-    var popularTimesTitleLabel: UILabel?
-    var popularTimesHistogram: Histogram?
     var popularTimesFacilitiesSeparator: UIView?
+    var popularTimesHistogram: Histogram?
+    var popularTimesTitleLabel: UILabel?
 
-    var facilitiesTitleLabel: UILabel!
+    var facilitiesClassesDivider: UIView!
     var facilitiesData: [String]!       //temp (until backend implements equiment)
     var facilitiesLabelArray: [UILabel]!
-    var facilitiesClassesDivider: UIView!
+    var facilitiesTitleLabel: UILabel!
 
-    var todaysClassesLabel: UILabel!
     var classesCollectionView: UICollectionView!
+    var todaysClassesLabel: UILabel!
     var todaysClasses: [GymClassInstance]! {
         didSet {
             classesCollectionView.reloadData()

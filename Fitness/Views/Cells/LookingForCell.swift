@@ -5,9 +5,9 @@
 //  Created by Joseph Fulgieri on 3/18/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
 import Alamofire
 import AlamofireImage
+import UIKit
 
 class LookingForCell: UICollectionViewCell {
 
