@@ -6,14 +6,14 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class FavoritesViewController: UIViewController {
 
     // MARK: - INITIALIZATION
-    var titleLabel: UILabel!
     var titleBackground: UIView!
+    var titleLabel: UILabel!
 
     var favoritesNames: [String]! = []
     var favorites: [GymClassInstance]! = [] {
