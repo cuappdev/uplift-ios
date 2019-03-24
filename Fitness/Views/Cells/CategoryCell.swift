@@ -5,8 +5,8 @@
 //  Created by Joseph Fulgieri on 3/20/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
 import SnapKit
+import UIKit
 
 class CategoryCell: UICollectionViewCell {
 

@@ -6,23 +6,23 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
-import SnapKit
-import EventKit
-import Kingfisher
 import Bartinter
 import Crashlytics
+import EventKit
+import Kingfisher
+import SnapKit
+import UIKit
 
 class ClassDetailViewController: UIViewController {
 
     // MARK: - INITIALIZATION
     var gymClassInstance: GymClassInstance!
 
-    var titleLabel: UILabel!
-    var locationButton = UIButton()
-    var instructorButton: UIButton!
     var durationLabel = UILabel()
+    var instructorButton: UIButton!
     var location: String!
+    var locationButton = UIButton()
+    var titleLabel: UILabel!
 
     var classImageContainer: UIView!
     var classImageView = UIImageView()

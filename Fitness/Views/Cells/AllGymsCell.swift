@@ -5,12 +5,12 @@
 //  Created by Joseph Fulgieri on 3/18/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
 import SnapKit
+import UIKit
 
 struct SortedGyms {
-    var openGymsIndices: [Int]
     var closedGymsIndices: [Int]
+    var openGymsIndices: [Int]
 }
 
 class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {

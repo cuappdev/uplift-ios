@@ -6,8 +6,8 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import Foundation
 import Apollo
+import Foundation
 import Kingfisher
 
 enum APIEnvironment {

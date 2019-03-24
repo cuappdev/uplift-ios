@@ -5,17 +5,17 @@
 //  Created by Keivan Shahida on 2/24/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
-import SnapKit
 import Alamofire
 import AlamofireImage
-import Kingfisher
 import Crashlytics
+import Kingfisher
+import SnapKit
+import UIKit
 
 enum SectionType: String {
     case allGyms = "ALL GYMS"
-    case todaysClasses = "TODAY'S CLASSES"
     case lookingFor = "I'M LOOKING FOR..."
+    case todaysClasses = "TODAY'S CLASSES"
 }
 
 class HomeController: UIViewController {
@@ -24,16 +24,16 @@ class HomeController: UIViewController {
     var mainCollectionView: UICollectionView!
     var todayClassCollectionView: UICollectionView!
 
-    var statusBarBackgroundColor: UIView!
     var headerView: HomeScreenHeaderView!
+    var statusBarBackgroundColor: UIView!
 
-    var sections: [SectionType] = []
-    var gyms: [Gym] = []
+    var didRegisterCategoryCell = false
+    var didSetupHeaderShadow = false
     var gymClassInstances: [GymClassInstance] = []
     var gymLocations: [Int: String] = [:]
+    var gyms: [Gym] = []
+    var sections: [SectionType] = []
     var tags: [Tag] = []
-    var didSetupHeaderShadow = false
-    var didRegisterCategoryCell = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
