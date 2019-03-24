@@ -6,24 +6,23 @@
 //  Copyright © 2019 Keivan Shahida. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 protocol HabitTrackerOnboardingDelegate: class {
     func deleteCell(cell: HabitTrackerOnboardingCell)
-    func prepareForEditing(cell: HabitTrackerOnboardingCell)
     func endEditing()
+    func featureHabit(cell: HabitTrackerOnboardingCell)
+    func prepareForEditing(cell: HabitTrackerOnboardingCell)
     func swipeLeft(cell: HabitTrackerOnboardingCell) -> Bool
     func swipeRight()
-    func featureHabit(cell: HabitTrackerOnboardingCell)
 }
-
 
 class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - INITIALIZATION
-    static let identifier = Identifiers.habitTrackerOnboardingCell
     static let height = 40 // TODO: CORRECT THIS VALUE
+    static let identifier = Identifiers.habitTrackerOnboardingCell
     
     weak var delegate: HabitTrackerOnboardingDelegate!
 
@@ -37,26 +36,13 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     var clearTextButton: UIButton!
     
-//    var indexPath: IndexPath!
     var canEdit: Bool!
     var editingTitle: Bool!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        // TODO - GET IMAGE, UPDATE WIDTH/HEIGHT IN CONSTRAINTS
-        dotsImage = UIImageView(image: UIImage(named: "x"))
-        contentView.addSubview(dotsImage)
-        
-        titleLabel = UITextField()
-        titleLabel.font = ._14MontserratRegular
-        titleLabel.textAlignment = .left
-        titleLabel.textColor = .fitnessBlack
-        titleLabel.sizeToFit()
-        titleLabel.delegate = self
-        titleLabel.keyboardType = .alphabet
-        contentView.addSubview(titleLabel)
-        
+        // SWIPE INTERACTIONS
         isUserInteractionEnabled = true
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeLeft))
         swipeLeft.direction = .left
@@ -66,6 +52,22 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         swipeRight.direction = .right
         addGestureRecognizer(swipeRight)
         
+        // TODO - GET IMAGE, UPDATE WIDTH/HEIGHT IN CONSTRAINTS
+        // DRAG ICON
+        dotsImage = UIImageView(image: UIImage(named: "drag-icon"))
+        contentView.addSubview(dotsImage)
+        
+        // TITLE LABEL
+        titleLabel = UITextField()
+        titleLabel.font = ._14MontserratRegular
+        titleLabel.textAlignment = .left
+        titleLabel.textColor = .fitnessBlack
+        titleLabel.sizeToFit()
+        titleLabel.delegate = self
+        titleLabel.keyboardType = .alphabet
+        contentView.addSubview(titleLabel)
+        
+        // BUTTONS
         trashButton = UIButton()
         trashButton.setImage(UIImage(named: "trash-icon"), for: .normal)
         trashButton.addTarget(self, action: #selector(deleteCell), for: .touchUpInside)
@@ -169,6 +171,8 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - BUTTON AND GESTURE METHODS
     @objc func swipeLeft() {
+        // Unless a cell is editing swipe will succeed.
+        // If something else is swiped, they will be unswiped.
         if !isSwiped && delegate?.swipeLeft(cell: self) ?? false {
             updateConstraintsLeftSwipe()
             isSwiped = true
@@ -177,8 +181,6 @@ class HabitTrackerOnboardingCell: UITableViewCell {
             pinButton.isHidden = false
         }
     }
-    
-    // unless editing, swipe will succeed, if something else is swiped, it will be unswiped
     
     @objc func swipeRight() {
         if isSwiped && !editingTitle {
@@ -193,9 +195,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     }
     
     @objc func deleteCell() {
-        if let delegate = delegate {
-            delegate.deleteCell(cell: self)
-        }
+        delegate?.deleteCell(cell: self)
     }
     
     @objc func edit() {
@@ -226,7 +226,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     }
 }
 
-
+// MARK: - UITEXTFIELD DELEGATE
 extension HabitTrackerOnboardingCell: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return canEdit

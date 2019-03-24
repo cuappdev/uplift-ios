@@ -16,16 +16,21 @@ struct Habit {
     let title: String
     let dates: [Date]
     
-    static func getActiveHabit(type: HabitTrackingType) -> String? {
+    static func getActiveHabitTitle(type: HabitTrackingType) -> String? {
         let defaults = UserDefaults.standard
         
         guard let activeHabits = defaults.stringArray(forKey: Identifiers.activeHabits) else { return nil }
         
-        if activeHabits[type.rawValue] == "" {
+        if activeHabits.count < 3 || activeHabits[type.rawValue] == "" {
             return nil
         }
         
         return activeHabits[type.rawValue]
+    }
+    
+    static func getActiveHabit(type: HabitTrackingType) -> Habit? {
+        // TODO - implement
+        return Habit(title: "", dates: [])
     }
     
     // Creates a new habit if the habit doesn't already exist and sets it as the active habit for that category
@@ -39,13 +44,14 @@ struct Habit {
         
         if !habits.keys.contains(title) {
             habits[title] = []
+            defaults.set(habits, forKey: Identifiers.habitIdentifier(forType: type))
         }
         
-        defaults.set(habits, forKey: Identifiers.habitIdentifier(forType: type))
         defaults.set(activeHabits, forKey: Identifiers.activeHabits)
     }
     
     static func logDate(habit: Habit, date: Date) {
         // TODO - implement
+        // TODO - post check-in to backend
     }
 }

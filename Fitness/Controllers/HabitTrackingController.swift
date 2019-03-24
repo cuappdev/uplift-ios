@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import MobileCoreServices
 
 enum HabitTrackingType: Int {
     case cardio = 0, strength, mindfulness
@@ -42,30 +43,17 @@ class HabitTrackingController: UIViewController {
     var habits: [String]!
     var featuredHabit: String? {
         didSet {
+            Habit.setActiveHabit(title: featuredHabit ?? "", type: type)
+            
+            let imageNames = ["widgets-empty", "widgets-1", "widgets-2", "widgets-3"]
+            
             if featuredHabit == nil {
-                Habit.setActiveHabit(title: "", type: type)
-                
                 nextButton.isHidden = true
-                switch type {
-                case .cardio:
-                    widgetsView.image = UIImage(named: "widgets-empty")
-                case .strength:
-                    widgetsView.image = UIImage(named: "widgets-1")
-                case .mindfulness:
-                    widgetsView.image = UIImage(named: "widgets-2")
-                }
-            } else {
-                Habit.setActiveHabit(title: featuredHabit ?? "", type: type)
+                widgetsView.image = UIImage(named: imageNames[type.rawValue])
                 
+            } else {
                 nextButton.isHidden = false
-                switch type {
-                case .cardio:
-                    widgetsView.image = UIImage(named: "widgets-1")
-                case .strength:
-                    widgetsView.image = UIImage(named: "widgets-2")
-                case .mindfulness:
-                    widgetsView.image = UIImage(named: "widgets-3")
-                }
+                widgetsView.image = UIImage(named: imageNames[type.rawValue + 1])
             }
         }
     }
@@ -131,12 +119,16 @@ class HabitTrackingController: UIViewController {
         
         // TABLE VIEW
         habitTableView = UITableView()
-        habitTableView.dataSource = self
-        habitTableView.delegate = self
         habitTableView.allowsSelection = false
         habitTableView.isScrollEnabled = false
         habitTableView.delaysContentTouches = false
         habitTableView.showsVerticalScrollIndicator = false
+        
+        habitTableView.dataSource = self
+        habitTableView.delegate = self
+        habitTableView.dragDelegate = self
+        habitTableView.dropDelegate = self
+        habitTableView.dragInteractionEnabled = true
         
         habitTableView.register(HabitTrackerOnboardingCell.self, forCellReuseIdentifier: HabitTrackerOnboardingCell.identifier)
         contentView.addSubview(habitTableView)
@@ -200,21 +192,23 @@ class HabitTrackingController: UIViewController {
             habits = ["Read favorite book for 10 mins", "Meditate for 5 mins", "Reflect on today"]
         }
         
-        if let activeHabit = Habit.getActiveHabit(type: type) {
+        if let activeHabit = Habit.getActiveHabitTitle(type: type) {
             featuredHabit = activeHabit
-            if habits.contains(activeHabit) {
-                habits.remove(at: habits.index(of: activeHabit) ?? 0)
+            if let index = habits.index(of: activeHabit) {
+                habits.remove(at: index)
             }
         }
         
         // KEYBOARD
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        
+        // GESTURES
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doneEditingHabit))
         view.addGestureRecognizer(tap)
         
-        // TODO - add edge gesture recognizer to go back
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
+        edgeSwipe.edges = .left
+        contentView.addGestureRecognizer(edgeSwipe)
         
         setupConstraints()
     }
@@ -291,9 +285,16 @@ class HabitTrackingController: UIViewController {
             make.height.equalTo(height)
         }
     }
+}
+
+extension HabitTrackingController {
     
     @objc func cancel() {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func back() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func nextPage() {
@@ -313,10 +314,6 @@ class HabitTrackingController: UIViewController {
         navigationController?.pushViewController(nextHabitTrackingViewController, animated: true)
     }
     
-    @objc func back() {
-        navigationController?.popViewController(animated: true)
-    }
-    
     @objc func keyboardWillAppear(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
@@ -333,6 +330,13 @@ class HabitTrackingController: UIViewController {
             make.centerY.equalTo(keyboardSize.cgRectValue.minY - 44)
         }
         saveHabitButton.isHidden = false
+    }
+    
+    @objc func createHabit() {
+        habits.append("")
+        habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .fade)
+        
+        updateTableviewConstraints()
     }
     
     @objc func doneEditingHabit() {
@@ -354,15 +358,8 @@ class HabitTrackingController: UIViewController {
             
             cell.finishEdit()
             
-            // TODO - remove cell if text is empty
+            // TODO - remove cell if text is empty at this point
         }
-    }
-    
-    @objc func createHabit() {
-        habits.append("")
-        habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .fade)
-        
-        updateTableviewConstraints()
     }
 }
 
@@ -393,7 +390,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0 // TODO : figure out how to get this from figma
+        return 40.0 // TODO : get the proper amount from zeplin
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -412,6 +409,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // TODO - review that this is the best way to accomplish this
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let habitCell = cell as? HabitTrackerOnboardingCell else {
             return
@@ -434,6 +432,17 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             } else {
                 let cell = UITableViewCell()
+                
+                let backgroundImage = UIImageView()
+                backgroundImage.image = UIImage(named: "selection-area")
+                backgroundImage.clipsToBounds = false
+                cell.contentView.addSubview(backgroundImage)
+                
+                backgroundImage.snp.makeConstraints { make in
+                    make.top.bottom.equalToSuperview()
+                    make.leading.equalToSuperview().offset(21)
+                    make.trailing.equalToSuperview().offset(-21)
+                }
                 
                 let titleLabel = UILabel()
                 titleLabel.text = "Drag one in to make your first goal!"
@@ -479,6 +488,7 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
         if indexPath.section == 0 {
             featuredHabit = nil
             habitTableView.reloadRows(at: [indexPath], with: .fade)
+            // TODO - update userdefaults
         } else {
             habits.remove(at: indexPath.row)
             habitTableView.deleteRows(at: [indexPath], with: .fade)
@@ -536,14 +546,100 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
 }
 
 // MARK: - TABLEVIEW DRAG AND DROP DELEGATE
-extension HabitTrackingController: UITableViewDragDelegate, UITableViewDropDelegate {
+extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        <#code#>
+        
+        // TODO
+        var habit: String
+        if indexPath.section == 0 {
+            habit = featuredHabit ?? ""
+        } else {
+            habit = habits[indexPath.row]
+        }
+        
+        
+        let data = habit.data(using: .utf8)
+        let itemProvider = NSItemProvider()
+        
+        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
+            completion(data, nil)
+            return nil
+        }
+        
+        return [ UIDragItem(itemProvider: itemProvider) ]
     }
     
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        <#code#>
-    }
 
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        let destinationIndexPath: IndexPath
+        
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            // TODO - should I put the cell somewhere else? is this a real case??
+            
+            let section = tableView.numberOfSections - 1
+            let row = tableView.numberOfRows(inSection: section)
+            destinationIndexPath = IndexPath(row: row, section: section)
+        }
+        
+        coordinator.session.loadObjects(ofClass: NSString.self) { items in
+            
+            let stringItems = items as! [String]
+            guard let habit = stringItems.first else { return }
+            
+            if let index = self.habits.index(of: habit) {
+                // Habit is originating from the suggested section
+                self.habits.remove(at: index)
+                
+                if destinationIndexPath.section == 0 {
+                    // Moving suggested habit to featured
+                    
+                    tableView.beginUpdates()
+                    
+                    if let oldHabit = self.featuredHabit {
+                        self.habits.append(oldHabit)
+                        tableView.insertRows(at: [IndexPath(row: self.habits.count - 1, section: 1)], with: .automatic)
+                    }
+                    
+                    self.featuredHabit = habit
+                    
+                    tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .fade)
+                    tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+                    tableView.endUpdates()
+                    self.updateTableviewConstraints()
+                    
+                } else {
+                    // Moving suggested habit around
+                    self.habits.insert(habit, at: destinationIndexPath.row)
+                    tableView.reloadRows(at: [IndexPath(row: index, section: 1), destinationIndexPath], with: .fade)
+                }
+                
+            } else {
+                // Habit is currently featured
+                
+                if destinationIndexPath.section == 1 {
+                    // Moving featured habit back down
+                    tableView.beginUpdates()
+
+                    self.featuredHabit = nil
+                    self.habits.insert(habit, at: destinationIndexPath.row)
+
+                    tableView.insertRows(at: [destinationIndexPath], with: .fade)
+                    tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+                    tableView.endUpdates()
+
+                    self.updateTableviewConstraints()
+                }
+            }
+        }
+    }
     
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: NSString.self)
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
 }
