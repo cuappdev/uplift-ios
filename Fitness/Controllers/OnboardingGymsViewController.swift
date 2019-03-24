@@ -96,7 +96,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
             var namesArray = [String]()
             gyms.forEach {
                 namesArray.append($0.name)
-                print($0.name)
             }
             DispatchQueue.main.async {
                 self.gymNames = namesArray
@@ -170,8 +169,13 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     
     //MARK: Button Actions
     @objc func goToNextView() {
-        print(favoriteGyms)
-        navigationController?.pushViewController(HomeController(), animated: true)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            print("FAILED...")
+            return
+        }
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: Identifiers.hasSeenOnboarding)
+        appDelegate.window?.rootViewController = TabBarController()
     }
     
     @objc func goBackAView() {
@@ -196,7 +200,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1//gymNames.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

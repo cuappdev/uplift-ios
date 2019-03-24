@@ -16,8 +16,12 @@
 		1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7847C3216E77E30066E0DA /* Assets.xcassets */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
 		4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */; };
+		4F27D7F32244506800135DC4 /* OnboardingLetterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F22244506800135DC4 /* OnboardingLetterViewController.swift */; };
+		4F27D7F5224450A800135DC4 /* EndOnboardingLetterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F4224450A800135DC4 /* EndOnboardingLetterViewController.swift */; };
+		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
+		4FE6A1B32263880E0087BFAC /* GoogleTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE6A1B22263880E0087BFAC /* GoogleTokens.swift */; };
 		635AF234204F85000020F6C6 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AF233204F85000020F6C6 /* ClassDetailViewController.swift */; };
 		7E33C816CD97FA81CDFDDFCF /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C963E42AF2D49211610461 /* Pods_Fitness.framework */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
@@ -90,8 +94,12 @@
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		31939EB4A9BAC5DB1AD6B979 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLoginViewController.swift; sourceTree = "<group>"; };
+		4F27D7F22244506800135DC4 /* OnboardingLetterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLetterViewController.swift; sourceTree = "<group>"; };
+		4F27D7F4224450A800135DC4 /* EndOnboardingLetterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOnboardingLetterViewController.swift; sourceTree = "<group>"; };
+		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
+		4FE6A1B22263880E0087BFAC /* GoogleTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleTokens.swift; sourceTree = "<group>"; };
 		635AF233204F85000020F6C6 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		844312DC4A9667C4E73D7EED /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
@@ -223,6 +231,8 @@
 				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
 				C7434C10208D27C1006F3249 /* GymClassDescription.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
+				4F27D7F822445BDD00135DC4 /* User.swift */,
+				4FE6A1B22263880E0087BFAC /* GoogleTokens.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -293,6 +303,8 @@
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
 				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
 				4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */,
+				4F27D7F22244506800135DC4 /* OnboardingLetterViewController.swift */,
+				4F27D7F4224450A800135DC4 /* EndOnboardingLetterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -579,7 +591,6 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/Bartinter/Bartinter.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -596,7 +607,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bartinter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -623,11 +633,13 @@
 				8DC6F7A8218381980048C305 /* TodaysClassesHeaderView.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
+				4FE6A1B32263880E0087BFAC /* GoogleTokens.swift in Sources */,
 				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
+				4F27D7F5224450A800135DC4 /* EndOnboardingLetterViewController.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				0CA1047D2155C0AC00201D10 /* API.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
@@ -638,6 +650,7 @@
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
 				D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */,
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
+				4F27D7F32244506800135DC4 /* OnboardingLetterViewController.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
@@ -647,6 +660,7 @@
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
+				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */,
 				8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,

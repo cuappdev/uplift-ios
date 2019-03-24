@@ -1,48 +1,41 @@
 PODS:
-  - Alamofire (4.7.3)
-  - AlamofireImage (3.4.1):
-    - Alamofire (~> 4.7)
-  - Apollo (0.9.3):
-    - Apollo/Core (= 0.9.3)
-  - Apollo/Core (0.9.3)
+  - Alamofire (4.8.2)
+  - AlamofireImage (3.5.2):
+    - Alamofire (~> 4.8)
+  - Apollo (0.9.5):
+    - Apollo/Core (= 0.9.5)
+  - Apollo/Core (0.9.5)
   - Bartinter (0.0.4)
-  - Crashlytics (3.10.8):
-    - Fabric (~> 1.7.12)
-  - Fabric (1.7.12)
-  - GoogleSignIn (4.3.0):
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
+  - GoogleSignIn (4.4.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
-    - GTMOAuth2 (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.4):
-    - GoogleToolboxForMac/Defines (= 2.1.4)
-  - GoogleToolboxForMac/Defines (2.1.4)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
-    - GoogleToolboxForMac/DebugUtils (= 2.1.4)
-    - GoogleToolboxForMac/Defines (= 2.1.4)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
-  - GTMOAuth2 (1.1.6):
-    - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.2.0):
-    - GTMSessionFetcher/Full (= 1.2.0)
-  - GTMSessionFetcher/Core (1.2.0)
-  - GTMSessionFetcher/Full (1.2.0):
-    - GTMSessionFetcher/Core (= 1.2.0)
-  - Kingfisher (4.10.0)
-  - Moya (11.0.2):
-    - Moya/Core (= 11.0.2)
-  - Moya/Core (11.0.2):
+  - GoogleToolboxForMac/DebugUtils (2.2.0):
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+  - GoogleToolboxForMac/Defines (2.2.0)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.0)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.0)
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.0)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.0)"
+  - GTMSessionFetcher/Core (1.2.1)
+  - Kingfisher (4.10.1)
+  - Moya (13.0.0):
+    - Moya/Core (= 13.0.0)
+  - Moya/Core (13.0.0):
     - Alamofire (~> 4.1)
-    - Result (~> 3.0)
+    - Result (~> 4.1)
   - Presentation (4.1.2)
-  - Result (3.2.4)
-  - SnapKit (4.0.1)
-  - SwiftLint (0.27.0)
+  - Result (4.1.0)
+  - SnapKit (4.2.0)
+  - SwiftLint (0.31.0)
 
 DEPENDENCIES:
   - AlamofireImage
-  - Apollo
+  - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
   - Bartinter
   - Crashlytics
   - Fabric
@@ -57,13 +50,11 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - Apollo
     - Bartinter
     - Crashlytics
     - Fabric
     - GoogleSignIn
     - GoogleToolboxForMac
-    - GTMOAuth2
     - GTMSessionFetcher
     - Kingfisher
     - Moya
@@ -72,32 +63,37 @@ SPEC REPOS:
     - SwiftLint
 
 EXTERNAL SOURCES:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :commit: fe68b1b644b6015202430662d4db621eb1b621bc
     :git: https://github.com/cuappdev/Presentation.git
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
-  Apollo: 38270f8bdc031ac07d4de3ec068a2289d7d287e0
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
+  Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
-  Crashlytics: 058dc1ba579f6c100bc60a6878703779bff383c4
-  Fabric: d7387db9a31aadff63b147a4b91d982c53afaa4f
-  GoogleSignIn: 11183592dc63e105475c7305a325045ff95e02b7
-  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
-  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
-  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
-  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
-  Moya: a725035953bc1c0eb1be505ab903984501d82440
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  Moya: 161263550064ff8a4948e8ff63137fd72a876292
   Presentation: e8571efaa303ed9ce34c2a54d80457f881fd294e
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
-  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: 2bdbc6462c444e36b238d7973bada5c9b3b0223c
+PODFILE CHECKSUM: 3245ce1f0e5fb5dd586eb4248bd2c496ce3f14f3
 
 COCOAPODS: 1.5.3

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import Apollo
 import Kingfisher
 
@@ -20,6 +21,48 @@ struct NetworkManager {
     static let environment: APIEnvironment = .development
     static let shared = NetworkManager()
 
+    
+    // MARK: - Google
+    func sendGoogleLoginToken(token: String, completion: @escaping () -> Void) {
+        let tokenURL = "http://uplift-backend.cornellappdev.com/login/"
+        let parameters: [String: Any] = [
+            "token": token
+        ]
+        
+        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).validate().responseData{ (response) in
+            switch response.result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                if let tokenResults = try? decoder.decode(GoogleTokens.self, from: data) {
+                    print(
+                        """
+                        BackendToken:
+                        \(tokenResults.backendToken)
+                        Expires...:
+                        \(tokenResults.expiration)
+                        Refresh Token:
+                        \(tokenResults.refreshToken)
+                        """)
+                    UserGoogleTokens.backendToken = tokenResults.backendToken
+                    UserGoogleTokens.expiration = tokenResults.expiration
+                    UserGoogleTokens.refreshToken = tokenResults.refreshToken
+                    
+                    completion()
+                }
+                
+            case .failure(let error):
+                print("ERROR~~~:")
+                print(error.localizedDescription)
+            }
+            
+        }
+
+        
+        // Get: Backend Token, Expiration Date, Refresh Token
+        //        (String)         (DateTime)             (String)
+        // endpoint /login/
+    }
+    
     // MARK: - GYMS
     func getGyms(completion: @escaping ([Gym]) -> Void) {
         apollo.fetch(query: AllGymsQuery()) { (result, error) in

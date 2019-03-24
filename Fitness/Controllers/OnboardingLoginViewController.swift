@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import GoogleSignIn
 
-class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
     
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
@@ -42,10 +42,6 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
         navigationController?.isNavigationBarHidden = true
         
         view.backgroundColor = .fitnessWhite
-        
-        // DEBUG--- sign out
-        GIDSignIn.sharedInstance().signOut()
-        
         
         // Google Sign in
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -115,6 +111,9 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
         // If already signed in, make Next Button Yellow
         toggleNextButton(enabled: isGoogleSignedIn())
         
+        // Check for google sign in
+        NotificationCenter.default.addObserver(self, selector: #selector(userSignedInWithGoogle), name: NSNotification.Name("SuccessfulSignInNotification"), object: nil)
+        
         setUpConstraints()
     }
     
@@ -131,20 +130,21 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
             make.leading.trailing.equalToSuperview().inset(edgePadding)
         }
         
-        emailField.snp.makeConstraints { (make) in
-            make.top.equalTo(signUpLabel.snp.bottom).offset(buttonPadding / 2)
-            make.leading.trailing.equalToSuperview().inset(edgePadding)
-            make.height.equalTo(buttonHeight)
-        }
+//        emailField.snp.makeConstraints { (make) in
+//            make.top.equalTo(signUpLabel.snp.bottom).offset(buttonPadding / 2)
+//            make.leading.trailing.equalToSuperview().inset(edgePadding)
+//            make.height.equalTo(buttonHeight)
+//        }
         
-        checkSymbol.snp.makeConstraints { (make) in
-            make.size.equalTo(checkSymbolSize)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(13)
-        }
+//        checkSymbol.snp.makeConstraints { (make) in
+//            make.size.equalTo(checkSymbolSize)
+//            make.centerY.equalToSuperview()
+//            make.trailing.equalToSuperview().inset(13)
+//        }
         
         googleBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(emailField.snp.bottom).offset(buttonPadding)
+            //make.top.equalTo(emailField.snp.bottom).offset(buttonPadding)
+            make.top.equalTo(signUpLabel.snp.bottom).offset(buttonPadding / 2)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
             make.height.equalTo(buttonHeight)
         }
@@ -168,22 +168,44 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
             nextButton.backgroundColor = .fitnessYellow
             nextButton.layer.borderColor = UIColor.fitnessBlack.cgColor
             nextButtonArrow.alpha = 1
-            checkSymbol.alpha = 1
         } else {
             nextButton.isEnabled = false
             nextButton.backgroundColor = .fitnessWhite
             nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
             nextButtonArrow.alpha = 0.5
-            checkSymbol.alpha = 0
         }
     }
     
-    @objc func goToNextView() {
-        navigationController?.pushViewController(OnboardingGymsViewController(), animated: true)
-        //self.present(OnboardingGymsViewController(), animated: true, completion: nil)
+    /// Toggles whether the green check in the email field is displayed
+    func toggleEmailFieldCheck(enabled: Bool) {
+        checkSymbol.alpha = enabled ? 1 : 0
     }
     
-    // MARK: Email
+    @objc func goToNextView() {
+        if UserDefaults.standard.bool(forKey: Identifiers.hasSeenOnboarding) {
+            // Seen Onboarding and had to relogin
+            navigationController?.pushViewController(HomeController(), animated: true)
+        } else { // Continue rest of Onboarding
+            navigationController?.pushViewController(OnboardingGymsViewController(), animated: true)
+        }
+    }
+    
+    @objc func userSignedIn(didSignIn: Bool=true) {
+        toggleNextButton(enabled: didSignIn)
+        toggleEmailFieldCheck(enabled: didSignIn)
+        googleBtn.isUserInteractionEnabled = !didSignIn
+    }
+    
+    @objc func userSignedInWithGoogle() {
+        var isSignedIn = isGoogleSignedIn()
+        toggleNextButton(enabled: true)
+        emailField.text = ""
+        emailField.isUserInteractionEnabled = false
+        googleBtn.isUserInteractionEnabled = false
+    }
+    
+    // MARK: Regular Email
+    // Currently not used; only gmail
     func validEmail(email: String) -> Bool {
         // Check Validity
         if (email.count < 5 || !email.contains("@") || !email.split(separator: "@")[1].contains(".")) {
@@ -196,61 +218,26 @@ class OnboardingLoginViewController: UIViewController, GIDSignInDelegate, GIDSig
     @objc func textChanged(sender: Any) {
         if let textField = sender as? UITextField {
             if let textFieldText = textField.text, validEmail(email: textFieldText) { // Valid
-               toggleNextButton(enabled: true)
+                userSignedIn()
             } else { // Not Valid
                 if (!isGoogleSignedIn()) {
-                    toggleNextButton(enabled: false)
+                   userSignedIn(didSignIn: false)
                 }
             }
         }
     }
     
     // MARK:- Google Sign In
-    
-    // ...pollo ios
-    
     @objc func googleButtonTapped() {
-        GIDSignIn.sharedInstance()?.delegate = self
+        GIDSignIn.sharedInstance()?.delegate = UIApplication.shared.delegate as! GIDSignInDelegate
         GIDSignIn.sharedInstance()?.uiDelegate = self
         if !isGoogleSignedIn() {
             GIDSignIn.sharedInstance()?.signIn()
-        } else {
-            print("Shared Instance is:  \(GIDSignIn.sharedInstance())")
-            print("Has authentication? : \(GIDSignIn.sharedInstance()?.hasAuthInKeychain())")
         }
     }
     
-    // Helper
-    func isGoogleSignedIn() -> Bool {
-        return GIDSignIn.sharedInstance()?.hasAuthInKeychain() ?? false
-    }
-    
-    //MARK: Google Sign In Delegate
-    
-    // Sign in has stopped loading
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        // Nothing
-    }
-    
-    // Present View prompting user to sign in with Google
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-        self.present(viewController, animated: true, completion: nil)
-    }
-    
-    // Dismiss View that prompted user to sign in
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    // Sign in Complete
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if (error == nil) {
-            // Store Google Sign in stuff like userID, token, name, email, etc.
-            // userID = user.userID
-            toggleNextButton(enabled: true)
-            emailField.isUserInteractionEnabled = false
-        } else {
-            print(error.localizedDescription)
-        }
+    // MARK:- Helpers
+    private func isGoogleSignedIn() -> Bool {
+        return (UIApplication.shared.delegate as! AppDelegate).isGoogleLoggedIn()
     }
 }
