@@ -105,6 +105,8 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - CONSTRAINTS
     func setupConstraints() {
+        let buttonSize = 30
+        
         dotsImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(35)
             make.width.equalTo(10)
@@ -121,19 +123,19 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         }
         
         pinButton.snp.makeConstraints { make in
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(buttonSize)
             make.trailing.equalToSuperview().offset(-21)
             make.centerY.equalToSuperview()
         }
         
         editButton.snp.makeConstraints { make in
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(buttonSize)
             make.trailing.equalTo(pinButton.snp.leading).offset(-6)
             make.centerY.equalToSuperview()
         }
         
         trashButton.snp.makeConstraints { make in
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(buttonSize)
             make.trailing.equalTo(editButton.snp.leading).offset(-6)
             make.centerY.equalToSuperview()
         }
@@ -150,9 +152,9 @@ class HabitTrackerOnboardingCell: UITableViewCell {
             make.leading.equalToSuperview().offset(15)
         }
         
-//        titleLabel.snp.updateConstraints { make in
-//            make.trailing.equalTo(trashButton.snp.leading).offset(-8)
-//        }
+        titleLabel.snp.updateConstraints { make in
+            make.trailing.equalToSuperview().offset(-132)
+        }
     }
     
     func updateConstraintsRightSwipe() {
@@ -160,9 +162,9 @@ class HabitTrackerOnboardingCell: UITableViewCell {
             make.leading.equalToSuperview().offset(35)
         }
         
-//        titleLabel.snp.updateConstraints { make in
-//            make.trailing.equalToSuperview().offset(-21)
-//        }
+        titleLabel.snp.updateConstraints { make in
+            make.trailing.equalToSuperview().offset(-21)
+        }
     }
     
     func setTitle(activity: String) {
@@ -171,8 +173,8 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - BUTTON AND GESTURE METHODS
     @objc func swipeLeft() {
-        // Unless a cell is editing swipe will succeed.
-        // If something else is swiped, they will be unswiped.
+        // Unless a cell is editing, the swipe will succeed
+        // If something else is swiped, they will be unswiped by the delegate
         if !isSwiped && delegate?.swipeLeft(cell: self) ?? false {
             updateConstraintsLeftSwipe()
             isSwiped = true

@@ -549,14 +549,14 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
 extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
-        // TODO
         var habit: String
         if indexPath.section == 0 {
-            habit = featuredHabit ?? ""
+            if let featuredHabit = featuredHabit {
+                habit = featuredHabit
+            } else { return [] }
         } else {
             habit = habits[indexPath.row]
         }
-        
         
         let data = habit.data(using: .utf8)
         let itemProvider = NSItemProvider()
@@ -571,21 +571,11 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
     
 
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        let destinationIndexPath: IndexPath
-        
-        if let indexPath = coordinator.destinationIndexPath {
-            destinationIndexPath = indexPath
-        } else {
-            // TODO - should I put the cell somewhere else? is this a real case??
-            
-            let section = tableView.numberOfSections - 1
-            let row = tableView.numberOfRows(inSection: section)
-            destinationIndexPath = IndexPath(row: row, section: section)
-        }
+        guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
         
         coordinator.session.loadObjects(ofClass: NSString.self) { items in
             
-            let stringItems = items as! [String]
+            guard let stringItems = items as? [String] else { return }
             guard let habit = stringItems.first else { return }
             
             if let index = self.habits.index(of: habit) {
@@ -594,7 +584,6 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                 
                 if destinationIndexPath.section == 0 {
                     // Moving suggested habit to featured
-                    
                     tableView.beginUpdates()
                     
                     if let oldHabit = self.featuredHabit {
@@ -610,14 +599,13 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                     self.updateTableviewConstraints()
                     
                 } else {
-                    // Moving suggested habit around
+                    // Moving suggested habit around in section
                     self.habits.insert(habit, at: destinationIndexPath.row)
                     tableView.reloadRows(at: [IndexPath(row: index, section: 1), destinationIndexPath], with: .fade)
                 }
                 
             } else {
                 // Habit is currently featured
-                
                 if destinationIndexPath.section == 1 {
                     // Moving featured habit back down
                     tableView.beginUpdates()
