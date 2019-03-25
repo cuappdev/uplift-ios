@@ -6,9 +6,9 @@
 //  Copyright © 2019 Keivan Shahida. All rights reserved.
 //
 
-import UIKit
-import SnapKit
 import MobileCoreServices
+import SnapKit
+import UIKit
 
 enum HabitTrackingType: Int {
     case cardio = 0, strength, mindfulness
@@ -29,6 +29,7 @@ class HabitTrackingController: UIViewController {
     var descriptionLabel: UILabel!
     
     var saveHabitButton: UIButton!
+    /// Has the index of the editing cell iff a cell is editing
     var editingCell: HabitTrackerOnboardingCell?
     var canSwipe: Bool!
     /// Has the index of the swiped cell iff a cell is swiped
@@ -106,6 +107,7 @@ class HabitTrackingController: UIViewController {
         titleLabel.textAlignment = .left
         titleLabel.font = ._35MontserratRegular
         titleLabel.textColor = .fitnessBlack
+        titleLabel.clipsToBounds = false
         contentView.addSubview(titleLabel)
         
         // DESCRIPTION LABEL
@@ -138,8 +140,8 @@ class HabitTrackingController: UIViewController {
         saveHabitButton = UIButton()
         saveHabitButton.setTitle("Save", for: .normal)
         saveHabitButton.titleLabel?.font = ._18MontserratRegular
-        saveHabitButton.setTitleColor(UIColor.fitnessBlack, for: .normal)
-        saveHabitButton.backgroundColor = .fitnessYellow
+        saveHabitButton.setTitleColor(UIColor.fitnessWhite, for: .normal)
+        saveHabitButton.backgroundColor = .fitnessBlack
         saveHabitButton.layer.cornerRadius = 30
         saveHabitButton.addTarget(self, action: #selector(doneEditingHabit), for: .touchUpInside)
         view.addSubview(saveHabitButton)
@@ -232,7 +234,7 @@ class HabitTrackingController: UIViewController {
             make.leading.equalToSuperview().offset(21)
             make.trailing.equalToSuperview().offset(-21)
             make.top.equalTo(widgetsView.snp.bottom).offset(16)
-            make.height.equalTo(32)
+            make.height.equalTo(40)
         }
         
         descriptionLabel.snp.makeConstraints { make in
@@ -244,8 +246,8 @@ class HabitTrackingController: UIViewController {
         
         habitTableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(20) // TODO : get proper offset
-            let height = 80 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )  // TODO: FIX HEADER HEIGHT
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(8)
+            let height = 68 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
             make.height.equalTo(height)
         }
         
@@ -281,14 +283,14 @@ class HabitTrackingController: UIViewController {
     
     func updateTableviewConstraints() {
         habitTableView.snp.updateConstraints { make in
-            let height = 80 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )  // TODO: FIX HEADER HEIGHT
+            let height = 68 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
             make.height.equalTo(height)
         }
     }
 }
 
+// BUTTON AND GESTURE METHODS
 extension HabitTrackingController {
-    
     @objc func cancel() {
         navigationController?.popToRootViewController(animated: true)
     }
@@ -318,13 +320,13 @@ extension HabitTrackingController {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
+        // Move scrollview up so the cell being edited isn't covered by the keyboard
         if let cell = editingCell {
             if (habitTableView.frame.minY + cell.frame.maxY) > (keyboardSize.cgRectValue.minY - 100) {
                 let offset = cell.frame.maxY + habitTableView.frame.minY + 100 - keyboardSize.cgRectValue.minY
                 scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
             }
         }
-        
         
         saveHabitButton.snp.updateConstraints { make in
             make.centerY.equalTo(keyboardSize.cgRectValue.minY - 44)
@@ -334,7 +336,7 @@ extension HabitTrackingController {
     
     @objc func createHabit() {
         habits.append("")
-        habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .fade)
+        habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .automatic)
         
         updateTableviewConstraints()
     }
@@ -348,17 +350,28 @@ extension HabitTrackingController {
             scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             guard let indexPath = habitTableView.indexPath(for: cell) else { return }
             
-            if indexPath.section == 0 {
-                featuredHabit = cell.titleLabel.text
-            } else {
-                if let habit = cell.titleLabel.text {
-                    habits[indexPath.row] = habit
+            if cell.titleLabel.text == "" {
+                cell.finishEdit()
+                
+                if indexPath.section == 0 {
+                    featuredHabit = nil
+                    habitTableView.reloadRows(at: [indexPath], with: .automatic)
+                } else {
+                    habits.remove(at: indexPath.row)
+                    habitTableView.deleteRows(at: [indexPath], with: .automatic)
+                    updateTableviewConstraints()
                 }
+            } else {
+                if indexPath.section == 0 {
+                    featuredHabit = cell.titleLabel.text
+                } else {
+                    if let habit = cell.titleLabel.text {
+                        habits[indexPath.row] = habit
+                    }
+                }
+                
+                cell.finishEdit()
             }
-            
-            cell.finishEdit()
-            
-            // TODO - remove cell if text is empty at this point
         }
     }
 }
@@ -373,11 +386,11 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         title.textColor = .fitnessBlack
         header.addSubview(title)
         
-        // TODO : get proper constraints
         title.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(21)
-            make.top.bottom.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.height.equalTo(18)
         }
         
         if section == 0 {
@@ -390,7 +403,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0 // TODO : get the proper amount from zeplin
+        return 34.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -409,11 +422,10 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    // TODO - review that this is the best way to accomplish this
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let habitCell = cell as? HabitTrackerOnboardingCell else {
-            return
-        }
+        guard let habitCell = cell as? HabitTrackerOnboardingCell else { return }
+        
+        // The only time a cell will be displayed with the empty string is when a new habit is being created
         if habitCell.titleLabel.text == "" {
             habitCell.swipeLeft()
             habitCell.edit()
@@ -431,6 +443,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 
                 return cell
             } else {
+                // Empty state featured habit
                 let cell = UITableViewCell()
                 
                 let backgroundImage = UIImageView()
@@ -487,11 +500,10 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
         
         if indexPath.section == 0 {
             featuredHabit = nil
-            habitTableView.reloadRows(at: [indexPath], with: .fade)
-            // TODO - update userdefaults
+            habitTableView.reloadRows(at: [indexPath], with: .automatic)
         } else {
             habits.remove(at: indexPath.row)
-            habitTableView.deleteRows(at: [indexPath], with: .fade)
+            habitTableView.deleteRows(at: [indexPath], with: .automatic)
             updateTableviewConstraints()
         }
     }
@@ -501,6 +513,7 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
             if let previousCell = swipedCell {
                 previousCell.swipeRight()
             }
+            habitTableView.separatorStyle = .none
             
             swipedCell = cell
             return true
@@ -511,6 +524,7 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
     
     func swipeRight() {
         swipedCell = nil
+        habitTableView.separatorStyle = .singleLine
     }
     
     func featureHabit(cell: HabitTrackerOnboardingCell) {
@@ -524,8 +538,8 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
             updateTableviewConstraints()
             
             habitTableView.beginUpdates()
-            habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .fade)
-            habitTableView.reloadRows(at: [indexPath], with: .fade)
+            habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .automatic)
+            habitTableView.reloadRows(at: [indexPath], with: .automatic)
             habitTableView.endUpdates()
 
             return
@@ -593,15 +607,15 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                     
                     self.featuredHabit = habit
                     
-                    tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .fade)
-                    tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+                    tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .automatic)
+                    tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                     tableView.endUpdates()
                     self.updateTableviewConstraints()
                     
                 } else {
                     // Moving suggested habit around in section
                     self.habits.insert(habit, at: destinationIndexPath.row)
-                    tableView.reloadRows(at: [IndexPath(row: index, section: 1), destinationIndexPath], with: .fade)
+                    tableView.reloadSections(IndexSet(integersIn: 1..<2), with: .automatic)
                 }
                 
             } else {
@@ -613,8 +627,8 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                     self.featuredHabit = nil
                     self.habits.insert(habit, at: destinationIndexPath.row)
 
-                    tableView.insertRows(at: [destinationIndexPath], with: .fade)
-                    tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+                    tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+                    tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                     tableView.endUpdates()
 
                     self.updateTableviewConstraints()

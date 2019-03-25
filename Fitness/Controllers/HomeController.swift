@@ -361,8 +361,12 @@ extension HomeController {
             } else {
                 format = "h:mm a"
             }
-            return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: format))"
             
+            if gym.closedTomorrow {
+                return "Closed Tomorrow"
+            } else {
+                return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: format))"
+            }
         } else if !isOpen {
             if Calendar.current.component(.minute, from: gymHoursToday.openTime) == 0 {
                 format = "h a"

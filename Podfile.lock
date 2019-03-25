@@ -1,24 +1,18 @@
 PODS:
-  - Alamofire (4.7.3)
-  - AlamofireImage (3.4.1):
-    - Alamofire (~> 4.7)
-  - Apollo (0.9.3):
-    - Apollo/Core (= 0.9.3)
-  - Apollo/Core (0.9.3)
+  - Alamofire (4.8.1)
+  - AlamofireImage (3.5.0):
+    - Alamofire (~> 4.8)
+  - Apollo (0.9.5):
+    - Apollo/Core (= 0.9.5)
+  - Apollo/Core (0.9.5)
   - Bartinter (0.0.4)
-  - Crashlytics (3.10.8):
-    - Fabric (~> 1.7.12)
-  - Fabric (1.7.12)
-  - Kingfisher (4.10.0)
-  - Moya (11.0.2):
-    - Moya/Core (= 11.0.2)
-  - Moya/Core (11.0.2):
-    - Alamofire (~> 4.1)
-    - Result (~> 3.0)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
+  - Kingfisher (4.10.1)
   - Presentation (4.1.2)
-  - Result (3.2.4)
-  - SnapKit (4.0.1)
-  - SwiftLint (0.27.0)
+  - SnapKit (4.2.0)
+  - SwiftLint (0.30.1)
 
 DEPENDENCIES:
   - AlamofireImage
@@ -27,7 +21,6 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - Kingfisher (~> 4.0)
-  - Moya
   - Presentation (from `https://github.com/cuappdev/Presentation.git`)
   - SnapKit
   - SwiftLint
@@ -41,8 +34,6 @@ SPEC REPOS:
     - Crashlytics
     - Fabric
     - Kingfisher
-    - Moya
-    - Result
     - SnapKit
     - SwiftLint
 
@@ -56,19 +47,17 @@ CHECKOUT OPTIONS:
     :git: https://github.com/cuappdev/Presentation.git
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
-  Apollo: 38270f8bdc031ac07d4de3ec068a2289d7d287e0
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  AlamofireImage: 1aea346f4dda2f6c67622fa5a89fcbb80d79cc16
+  Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
-  Crashlytics: 058dc1ba579f6c100bc60a6878703779bff383c4
-  Fabric: d7387db9a31aadff63b147a4b91d982c53afaa4f
-  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
-  Moya: a725035953bc1c0eb1be505ab903984501d82440
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Presentation: e8571efaa303ed9ce34c2a54d80457f881fd294e
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
-  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
 
-PODFILE CHECKSUM: 0ea27e584635201a7261a22e645183ca82d7f6a7
+PODFILE CHECKSUM: e53e36f523c855ae6774a151019ee43359e1adb6
 
 COCOAPODS: 1.5.3

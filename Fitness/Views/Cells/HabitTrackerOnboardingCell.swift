@@ -21,7 +21,7 @@ protocol HabitTrackerOnboardingDelegate: class {
 class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - INITIALIZATION
-    static let height = 40 // TODO: CORRECT THIS VALUE
+    static let height = 54
     static let identifier = Identifiers.habitTrackerOnboardingCell
     
     weak var delegate: HabitTrackerOnboardingDelegate!
@@ -52,7 +52,6 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         swipeRight.direction = .right
         addGestureRecognizer(swipeRight)
         
-        // TODO - GET IMAGE, UPDATE WIDTH/HEIGHT IN CONSTRAINTS
         // DRAG ICON
         dotsImage = UIImageView(image: UIImage(named: "drag-icon"))
         contentView.addSubview(dotsImage)
@@ -64,6 +63,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         titleLabel.textColor = .fitnessBlack
         titleLabel.sizeToFit()
         titleLabel.delegate = self
+        titleLabel.textDropDelegate = self
         titleLabel.keyboardType = .alphabet
         contentView.addSubview(titleLabel)
         
@@ -109,15 +109,14 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         
         dotsImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(35)
-            make.width.equalTo(10)
-            make.height.equalTo(17)
+            make.width.equalTo(8)
+            make.height.equalTo(14)
             make.centerY.equalToSuperview()
         }
         
-        // TODO - FIX THESE
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(dotsImage.snp.trailing).offset(10)
-            make.height.equalTo(16)
+            make.height.equalTo(14)
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-21)
         }
@@ -237,5 +236,11 @@ extension HabitTrackerOnboardingCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.endEditing()
         return true
+    }
+}
+
+extension HabitTrackerOnboardingCell: UITextDropDelegate {
+    func textDroppableView(_ textDroppableView: UIView & UITextDroppable, proposalForDrop drop: UITextDropRequest) -> UITextDropProposal {
+        return UITextDropProposal(operation: .cancel)
     }
 }
