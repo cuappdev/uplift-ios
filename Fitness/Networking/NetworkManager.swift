@@ -93,7 +93,7 @@ struct NetworkManager {
                 let graphTags = gymClassData.details.tags.compactMap { $0 }
                 let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
 
-                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: tags)
 
                 gymClassInstances.append(gymClass)
             }
@@ -122,7 +122,7 @@ struct NetworkManager {
                 let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
                 let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
                 
-                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: [])
                 
                 gymClassInstances.append(gymClass)
             }
@@ -154,7 +154,7 @@ struct NetworkManager {
                 let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
                 let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
                 
-                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: [])
                 
                 gymClassInstances.append(gymClass)
             }

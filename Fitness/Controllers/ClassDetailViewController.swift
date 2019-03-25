@@ -31,6 +31,7 @@ class ClassDetailViewController: UIViewController {
 
     var backButton: UIButton!
     var favoriteButton = UIButton()
+    var shareButton: UIButton!
     var isFavorite: Bool! {
         didSet {
             if oldValue == isFavorite { return }
@@ -226,6 +227,7 @@ class ClassDetailViewController: UIViewController {
         contentView.addSubview(classCollectionView)
         
         contentView.bringSubviewToFront(backButton)
+        contentView.bringSubviewToFront(shareButton)
         contentView.bringSubviewToFront(favoriteButton)
 
         nextSessions = []
@@ -300,6 +302,12 @@ class ClassDetailViewController: UIViewController {
         favoriteButton.sizeToFit()
         favoriteButton.addTarget(self, action: #selector(self.favorite), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
+        
+        shareButton = UIButton()
+        shareButton.setImage(UIImage(named: "share_light"), for: .normal)
+        shareButton.sizeToFit()
+        shareButton.addTarget(self, action: #selector(self.share), for: .touchUpInside)
+        contentView.addSubview(shareButton)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -313,10 +321,12 @@ class ClassDetailViewController: UIViewController {
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
             favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
             favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+            shareButton.setImage(UIImage(named: "share_light"), for: .normal)
         case .default:
             backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
             favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
             favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+            shareButton.setImage(UIImage(named: "share_dark"), for: .normal)
         }
     }
 
@@ -388,6 +398,13 @@ class ClassDetailViewController: UIViewController {
             make.trailing.equalTo(view).offset(-21)
             make.top.equalTo(backButton.snp.top)
             make.width.equalTo(23)
+            make.height.equalTo(22)
+        }
+        
+        shareButton.snp.makeConstraints { make in
+            make.trailing.equalTo(favoriteButton.snp.leading).offset(-14)
+            make.top.equalTo(favoriteButton.snp.top)
+            make.width.equalTo(22)
             make.height.equalTo(22)
         }
 
@@ -494,6 +511,33 @@ class ClassDetailViewController: UIViewController {
                 ])
         }
     }
+    
+    @objc func share() {
+        
+        Answers.logCustomEvent(withName: "Shared Class", customAttributes: [
+            "Class": gymClassInstance.className
+            ])
+        
+        let shareText = """
+        \(gymClassInstance.className) from \(gymClassInstance.startTime.getStringOfDatetime(format: "h:mm")) \
+        to \(gymClassInstance.endTime.getStringOfDatetime(format: "h:mm")) \
+        on \(gymClassInstance.startTime.getStringOfDatetime(format: "M/d")) \
+        at \(gymClassInstance.location). Wanna go with me?
+        """
+        
+        var activityItems: [Any] = [shareText]
+        
+        if let classImage = classImageView.image {
+            activityItems.insert(classImage, at: 0)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        
+        activityVC.excludedActivityTypes = [.print, .assignToContact, .openInIBooks, .addToReadingList]
+        activityVC.popoverPresentationController?.sourceView = view
+        
+        self.navigationController?.present(activityVC, animated: true, completion: nil)
+    }
 
     @objc func instructorSelected() {
         // leaving as a stub, future designs will make use of this
@@ -515,7 +559,7 @@ class ClassDetailViewController: UIViewController {
             event.title = gymClassInstance.className
             event.startDate = gymClassInstance.startTime
             event.endDate = gymClassInstance.endTime
-            event.location = self.location
+            event.structuredLocation = EKStructuredLocation(title: gymClassInstance.location)
             event.calendar = store.defaultCalendarForNewEvents
 
             DispatchQueue.main.async {
@@ -598,10 +642,12 @@ extension ClassDetailViewController: UIScrollViewDelegate {
             backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
             favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
             favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+            shareButton.setImage(UIImage(named: "share_light"), for: .normal)
         case .default:
             backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
             favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
             favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
+            shareButton.setImage(UIImage(named: "share_dark"), for: .normal)
         }
     }
 }

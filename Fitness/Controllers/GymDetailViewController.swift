@@ -80,7 +80,7 @@ class GymDetailViewController: UIViewController {
 
         updatesStatusBarAppearanceAutomatically = true
 
-        hoursData = HoursData(isDropped: false, data: [])
+        hoursData = HoursData(data: [], isDropped: false)
         facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"] //temp (until backend implements equiment)
 
         setupHeaderAndWrappingViews()

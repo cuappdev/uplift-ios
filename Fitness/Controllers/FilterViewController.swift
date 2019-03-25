@@ -156,7 +156,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeInstructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(classTypeInstructorDivider)
 
-        classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
+        classTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
 
         AppDelegate.networkManager.getClassNames { classNames in
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
@@ -185,7 +185,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
 
-        instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
+        instructorDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
 
         AppDelegate.networkManager.getInstructors { instructors in
             self.instructorDropdownData.titles.append(contentsOf: instructors)

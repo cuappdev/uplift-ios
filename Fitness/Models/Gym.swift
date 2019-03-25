@@ -20,6 +20,12 @@ struct Gym {
     var isOpen: Bool {
         return Date() > gymHoursToday.openTime ? Date() < gymHoursToday.closeTime : false
     }
+    
+    var closedTomorrow: Bool {
+        let now = Date()
+        let gymHoursTomorrow = gymHours[now.getIntegerDayOfWeekTomorrow()]
+        return gymHoursTomorrow.openTime == gymHoursTomorrow.closeTime
+    }
 
     var gymHoursToday: DailyGymHours {
         return gymHours[Date().getIntegerDayOfWeekToday()]
