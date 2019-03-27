@@ -105,7 +105,7 @@ class HabitTrackingController: UIViewController {
         // TITLE LABEL
         titleLabel = UILabel()
         titleLabel.textAlignment = .left
-        titleLabel.font = ._35MontserratRegular
+        titleLabel.font = ._36MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.clipsToBounds = false
         contentView.addSubview(titleLabel)
@@ -113,7 +113,7 @@ class HabitTrackingController: UIViewController {
         // DESCRIPTION LABEL
         descriptionLabel = UILabel()
         descriptionLabel.textAlignment = .left
-        descriptionLabel.font = ._13MontserratRegular
+        descriptionLabel.font = ._14MontserratLight
         descriptionLabel.textColor = .fitnessBlack
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.numberOfLines = 0
@@ -139,7 +139,7 @@ class HabitTrackingController: UIViewController {
         // SAVE BUTTON
         saveHabitButton = UIButton()
         saveHabitButton.setTitle("Save", for: .normal)
-        saveHabitButton.titleLabel?.font = ._18MontserratRegular
+        saveHabitButton.titleLabel?.font = ._20MontserratSemiBold
         saveHabitButton.setTitleColor(UIColor.fitnessWhite, for: .normal)
         saveHabitButton.backgroundColor = .fitnessBlack
         saveHabitButton.layer.cornerRadius = 30
@@ -151,9 +151,9 @@ class HabitTrackingController: UIViewController {
         // CREATE HABIT BUTTON
         createHabitButton = UIButton()
         createHabitButton.setTitle("Create your own", for: .normal)
-        createHabitButton.titleLabel?.font = ._14MontserratRegular
+        createHabitButton.titleLabel?.font = ._16MontserratMedium
         createHabitButton.titleLabel?.textAlignment = .left
-        createHabitButton.setTitleColor(.fitnessMediumDarkGrey, for: .normal)
+        createHabitButton.setTitleColor(.fitnessMediumGrey, for: .normal)
         createHabitButton.addTarget(self, action: #selector(createHabit), for: .touchUpInside)
         contentView.addSubview(createHabitButton)
         
@@ -460,8 +460,8 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 let titleLabel = UILabel()
                 titleLabel.text = "Drag one in to make your first goal!"
                 titleLabel.textAlignment = .center
-                titleLabel.font = ._14MontserratRegular
-                titleLabel.textColor = .fitnessMediumDarkGrey
+                titleLabel.font = ._16MontserratMedium
+                titleLabel.textColor = .fitnessMediumGrey
                 cell.contentView.addSubview(titleLabel)
                 
                 titleLabel.snp.makeConstraints { make in

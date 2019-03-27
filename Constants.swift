@@ -37,8 +37,8 @@ struct Identifiers {
     // USER DEFAULTS
     static let favorites = "Favorites"
     static let activeHabits = "ActiveHabits"
-    static func habitIdentifier(forType: HabitTrackingType) -> String {
-        switch forType {
+    static func habitIdentifier(for type: HabitTrackingType) -> String {
+        switch type {
         case .cardio:
             return "Cardio"
         case .strength:

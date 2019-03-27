@@ -58,7 +58,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         
         // TITLE LABEL
         titleLabel = UITextField()
-        titleLabel.font = ._14MontserratRegular
+        titleLabel.font = ._16MontserratMedium
         titleLabel.textAlignment = .left
         titleLabel.textColor = .fitnessBlack
         titleLabel.sizeToFit()

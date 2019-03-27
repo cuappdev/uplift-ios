@@ -269,13 +269,6 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TEMP FOR TESTING
-        let habitTrackingVC = HabitTrackingController(type: .cardio)
-//        habitTrackingVC.delegate = self
-//        tabBarController?.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(habitTrackingVC, animated: true)
-        
-        return
         if collectionView != mainCollectionView {
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [

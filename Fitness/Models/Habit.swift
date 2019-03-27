@@ -37,14 +37,14 @@ struct Habit {
     static func setActiveHabit(title: String, type: HabitTrackingType) {
         let defaults = UserDefaults.standard
         
-        var habits: [String:[String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(forType: type)) as? [String: [String]] ?? [:]
+        var habits: [String:[String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: type)) as? [String: [String]] ?? [:]
         var activeHabits = defaults.stringArray(forKey: Identifiers.activeHabits) ?? ["", "", ""]
         
         activeHabits[type.rawValue] = title
         
         if !habits.keys.contains(title) {
             habits[title] = []
-            defaults.set(habits, forKey: Identifiers.habitIdentifier(forType: type))
+            defaults.set(habits, forKey: Identifiers.habitIdentifier(for: type))
         }
         
         defaults.set(activeHabits, forKey: Identifiers.activeHabits)
