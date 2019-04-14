@@ -16,7 +16,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage
-  - Apollo
+  - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
   - Bartinter
   - Crashlytics
   - Fabric
@@ -29,7 +29,6 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - Apollo
     - Bartinter
     - Crashlytics
     - Fabric
@@ -38,10 +37,16 @@ SPEC REPOS:
     - SwiftLint
 
 EXTERNAL SOURCES:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :commit: fe68b1b644b6015202430662d4db621eb1b621bc
     :git: https://github.com/cuappdev/Presentation.git
@@ -58,6 +63,6 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
 
-PODFILE CHECKSUM: e53e36f523c855ae6774a151019ee43359e1adb6
+PODFILE CHECKSUM: f6ead483ba70cf432aa4749a0dba957daa48be5d
 
 COCOAPODS: 1.5.3

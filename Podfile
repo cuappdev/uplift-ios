@@ -9,7 +9,7 @@ target 'Fitness' do
   pod 'Fabric'
   pod 'SnapKit'
   pod 'SwiftLint'
-  pod 'Apollo'
+  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc'
   pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation.git'
   pod 'Bartinter'
   pod 'Kingfisher', '~> 4.0'

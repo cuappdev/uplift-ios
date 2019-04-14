@@ -525,15 +525,9 @@ class ClassDetailViewController: UIViewController {
         at \(gymClassInstance.location). Wanna go with me?
         """
         
-        var activityItems: [Any] = [shareText]
+        let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
         
-        if let classImage = classImageView.image {
-            activityItems.insert(classImage, at: 0)
-        }
-        
-        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        
-        activityVC.excludedActivityTypes = [.print, .assignToContact, .openInIBooks, .addToReadingList]
+        activityVC.excludedActivityTypes = [.print, .assignToContact, .openInIBooks, .addToReadingList, .markupAsPDF, .airDrop]
         activityVC.popoverPresentationController?.sourceView = view
         
         self.navigationController?.present(activityVC, animated: true, completion: nil)
