@@ -105,7 +105,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        let buttonSize = 30
+        let buttonSize = 38
         
         dotsImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(35)
@@ -116,7 +116,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(dotsImage.snp.trailing).offset(10)
-            make.height.equalTo(14)
+            make.height.equalTo(18)
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-21)
         }
@@ -140,7 +140,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         }
         
         clearTextButton.snp.makeConstraints { make in
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(28)
             make.trailing.equalToSuperview().offset(-24)
             make.centerY.equalToSuperview()
         }
@@ -175,23 +175,38 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         // Unless a cell is editing, the swipe will succeed
         // If something else is swiped, they will be unswiped by the delegate
         if !isSwiped && delegate?.swipeLeft(cell: self) ?? false {
-            updateConstraintsLeftSwipe()
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
+                self.dotsImage.frame.origin.x = self.dotsImage.frame.minX - 15
+                self.titleLabel.frame.origin.x = self.titleLabel.frame.minX - 15
+                
+                self.trashButton.isHidden = false
+                self.editButton.isHidden = false
+                self.pinButton.isHidden = false
+                
+                self.updateConstraintsLeftSwipe()
+            }, completion: nil)
+            
             isSwiped = true
-            trashButton.isHidden = false
-            editButton.isHidden = false
-            pinButton.isHidden = false
         }
     }
     
     @objc func swipeRight() {
         if isSwiped && !editingTitle {
             delegate?.swipeRight()
-            updateConstraintsRightSwipe()
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
+                self.dotsImage.frame.origin.x = self.dotsImage.frame.minX + 15
+                self.titleLabel.frame.origin.x = self.titleLabel.frame.minX + 15
+                
+                self.trashButton.isHidden = true
+                self.editButton.isHidden = true
+                self.pinButton.isHidden = true
+                self.clearTextButton.isHidden = true
+                
+                self.updateConstraintsRightSwipe()
+            }, completion: nil)
+            
             isSwiped = false
-            trashButton.isHidden = true
-            editButton.isHidden = true
-            pinButton.isHidden = true
-            clearTextButton.isHidden = true
         }
     }
     

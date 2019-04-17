@@ -113,7 +113,7 @@ class HabitTrackingController: UIViewController {
         // DESCRIPTION LABEL
         descriptionLabel = UILabel()
         descriptionLabel.textAlignment = .left
-        descriptionLabel.font = ._14MontserratLight
+        descriptionLabel.font = ._16MontserratLight
         descriptionLabel.textColor = .fitnessBlack
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.numberOfLines = 0
@@ -138,8 +138,8 @@ class HabitTrackingController: UIViewController {
         
         // SAVE BUTTON
         saveHabitButton = UIButton()
-        saveHabitButton.setTitle("Save", for: .normal)
-        saveHabitButton.titleLabel?.font = ._20MontserratSemiBold
+        saveHabitButton.setTitle("SAVE", for: .normal)
+        saveHabitButton.titleLabel?.font = ._12MontserratBold
         saveHabitButton.setTitleColor(UIColor.fitnessWhite, for: .normal)
         saveHabitButton.backgroundColor = .fitnessBlack
         saveHabitButton.layer.cornerRadius = 30
@@ -219,7 +219,7 @@ class HabitTrackingController: UIViewController {
     func setupConstraints() {
         widgetsView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(21)
-            make.top.equalToSuperview().offset(50)
+            make.top.equalToSuperview().offset(48)
             make.width.equalTo(107)
             make.height.equalTo(29)
         }
@@ -253,9 +253,9 @@ class HabitTrackingController: UIViewController {
         
         createHabitButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(56)
-            make.width.equalTo(120)
-            make.top.equalTo(habitTableView.snp.bottom).offset(14)
-            make.height.equalTo(16)
+            make.width.equalTo(145)
+            make.top.equalTo(habitTableView.snp.bottom).offset(10)
+            make.height.equalTo(24)
             make.bottom.equalToSuperview()
         }
         
@@ -331,6 +331,8 @@ extension HabitTrackingController {
         saveHabitButton.snp.updateConstraints { make in
             make.centerY.equalTo(keyboardSize.cgRectValue.minY - 44)
         }
+        
+        createHabitButton.isHidden = true
         saveHabitButton.isHidden = false
     }
     
@@ -347,7 +349,8 @@ extension HabitTrackingController {
             swipedCell = nil
             editingCell = nil
             saveHabitButton.isHidden = true
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            createHabitButton.isHidden = false
+            
             guard let indexPath = habitTableView.indexPath(for: cell) else { return }
             
             if cell.titleLabel.text == "" {
@@ -356,10 +359,19 @@ extension HabitTrackingController {
                 if indexPath.section == 0 {
                     featuredHabit = nil
                     habitTableView.reloadRows(at: [indexPath], with: .automatic)
+                    scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
                 } else {
                     habits.remove(at: indexPath.row)
                     habitTableView.deleteRows(at: [indexPath], with: .automatic)
-                    updateTableviewConstraints()
+                    
+                    UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
+                        self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+                        
+                        let height = 68 + HabitTrackerOnboardingCell.height * ( self.habits.count + 1 )
+                        self.habitTableView.frame.size.height = CGFloat(height)
+                        self.updateTableviewConstraints()
+                        
+                    }, completion: nil)
                 }
             } else {
                 if indexPath.section == 0 {
@@ -370,6 +382,7 @@ extension HabitTrackingController {
                     }
                 }
                 
+                scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
                 cell.finishEdit()
             }
         }
@@ -383,7 +396,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         let title = UILabel()
         title.font = ._14MontserratBold
         title.textAlignment = .left
-        title.textColor = .fitnessBlack
+        title.textColor = .fitnessDarkGrey
         header.addSubview(title)
         
         title.snp.makeConstraints { make in
@@ -394,9 +407,9 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if section == 0 {
-            title.text = "Featured"
+            title.text = "FEATURED"
         } else {
-            title.text = "Suggestions"
+            title.text = "SUGGESTIONS"
         }
         
         return header
@@ -457,17 +470,29 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                     make.trailing.equalToSuperview().offset(-21)
                 }
                 
+                let addHabitWidget = UIImageView()
+                addHabitWidget.image = UIImage(named: "add-habit")
+                cell.contentView.addSubview(addHabitWidget)
+                
+                addHabitWidget.snp.makeConstraints { make in
+                    make.width.height.equalTo(20)
+                    make.leading.equalTo(backgroundImage).offset(15)
+                    make.centerY.equalToSuperview()
+                }
+                
                 let titleLabel = UILabel()
-                titleLabel.text = "Drag one in to make your first goal!"
-                titleLabel.textAlignment = .center
+                titleLabel.text = "The first step is the hardest."
+                titleLabel.textAlignment = .left
+                titleLabel.clipsToBounds = false
                 titleLabel.font = ._16MontserratMedium
                 titleLabel.textColor = .fitnessMediumGrey
                 cell.contentView.addSubview(titleLabel)
                 
                 titleLabel.snp.makeConstraints { make in
-                    make.leading.trailing.equalToSuperview()
+                    make.leading.equalTo(addHabitWidget.snp.trailing).offset(8)
+                    make.trailing.equalToSuperview()
                     make.centerY.equalToSuperview()
-                    make.height.equalTo(16)
+                    make.height.equalTo(22)
                 }
                 
                 return cell
