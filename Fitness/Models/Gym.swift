@@ -52,11 +52,11 @@ struct Gym {
         popularTimesList = popularTimes
 
         // unwrap gym hours
-        var gymHoursList: [DailyGymHours] = Array.init(repeating: DailyGymHours(gymHoursData: nil), count: 7)
+        var gymHoursList: [DailyGymHours] = []
 
         let allGymHours = gymData.times
         for i in 0..<allGymHours.count {
-            gymHoursList[i] = DailyGymHours(gymHoursData: allGymHours[i])
+            gymHoursList.append(DailyGymHours(gymHoursData: allGymHours[i]))
         }
 
         gymHours = gymHoursList
@@ -83,19 +83,11 @@ struct Gym {
         popularTimesList = popularTimes
         
         // unwrap gym hours
-        var gymHoursList: [DailyGymHours] = Array.init(repeating: DailyGymHours(gymHoursData: nil), count: 7)
+        var gymHoursList: [DailyGymHours] = []
         
         let allGymHours = gymData.times
         for i in 0..<allGymHours.count {
-            if let gymHoursData = allGymHours[i] {
-                gymHoursList[i].dayOfWeek = gymHoursData.day
-                gymHoursList[i].openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
-                gymHoursList[i].closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
-            } else {
-                gymHoursList[i].openTime = Date()
-                gymHoursList[i].closeTime = gymHoursList[i].openTime
-                gymHoursList[i].dayOfWeek = 0
-            }
+            gymHoursList.append(DailyGymHours(gymHoursDataId: allGymHours[i]))
         }
         
         gymHours = gymHoursList
@@ -110,6 +102,19 @@ struct DailyGymHours {
     init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
 
         if let gymHoursData = gymHoursData {
+            dayOfWeek = gymHoursData.day
+            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
+            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+        } else {
+            openTime = Date()
+            closeTime = openTime
+            dayOfWeek = 0
+        }
+    }
+    
+    init(gymHoursDataId: GymByIdQuery.Data.Gym.Time?) {
+        
+        if let gymHoursData = gymHoursDataId {
             dayOfWeek = gymHoursData.day
             openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
             closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
