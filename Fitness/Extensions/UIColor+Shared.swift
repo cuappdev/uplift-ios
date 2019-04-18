@@ -11,7 +11,7 @@ import UIKit
 extension UIColor {
 
     @nonobjc static let buttonShadow = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-    @nonobjc static let fitnessBlack = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1.0)
+    @nonobjc static let fitnessBlack = UIColor(red: 43/255, green: 43/255, blue: 43/255, alpha: 1.0)
     @nonobjc static let fitnessDarkGrey = UIColor(red: 112/255, green: 112/255, blue: 112/255, alpha: 1.0)
     @nonobjc static let fitnessDisabledGrey = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
     @nonobjc static let fitnessGreen = UIColor(red: 100/255, green: 194/255, blue: 112/255, alpha: 1.0)

@@ -27,6 +27,7 @@ struct Identifiers {
     static let gymFilterCell = "gymFilterCell"
     static let gymHoursCell = "gymHoursCell"
     static let gymsCell = "gymsCell"
+    static let habitTrackerOnboardingCell = "habitTrackerOnboardingCell"
     static let lookingForCell = "lookingForCell"
     static let todaysClassesCell = "todaysClassesCell"
     
@@ -35,5 +36,16 @@ struct Identifiers {
     
     // USER DEFAULTS
     static let favorites = "Favorites"
+    static let activeHabits = "ActiveHabits"
+    static func habitIdentifier(for type: HabitTrackingType) -> String {
+        switch type {
+        case .cardio:
+            return "Cardio"
+        case .strength:
+            return "Strength"
+        case .mindfulness:
+            return "Mindfulness"
+        }
+    }
     static let hasSeenOnboarding = "hasSeenOnboarding"
 }
