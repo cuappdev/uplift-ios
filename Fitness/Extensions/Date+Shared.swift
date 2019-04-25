@@ -103,6 +103,14 @@ extension Date {
 
         return calendar.date(from: dateComponents)!
     }
+    
+    static public func getDateFromString(date: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMddyyyy"
+        dateFormatter.timeZone = TimeZone.current
+        
+        return dateFormatter.date(from: date) ?? Date()
+    }
 
     // MARK: - DATE
     static func getStringDate(date: Date) -> String? {
@@ -120,6 +128,10 @@ extension Date {
         return Calendar.current.component(.weekday, from: self) % 7
     }
     
+    func isYesterday() -> Bool {
+        return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: (Date() - 86400.0))
+    }
+    
     func isToday() -> Bool {
         return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: Date())
     }
@@ -128,6 +140,7 @@ extension Date {
     func getStringOfDatetime(format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
+        dateFormatter.timeZone = TimeZone.current
         return dateFormatter.string(from: self)
     }
 }

@@ -125,12 +125,14 @@ class HabitTrackingController: UIViewController {
         habitTableView.isScrollEnabled = false
         habitTableView.delaysContentTouches = false
         habitTableView.showsVerticalScrollIndicator = false
+        habitTableView.tableFooterView = UIView(frame: CGRect.zero)
         
         habitTableView.dataSource = self
         habitTableView.delegate = self
         habitTableView.dragDelegate = self
         habitTableView.dropDelegate = self
         habitTableView.dragInteractionEnabled = true
+        habitTableView.separatorStyle = .none
         
         habitTableView.register(HabitTrackerOnboardingCell.self, forCellReuseIdentifier: HabitTrackerOnboardingCell.identifier)
         contentView.addSubview(habitTableView)
@@ -215,6 +217,11 @@ class HabitTrackingController: UIViewController {
         setupConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.tabBarController?.tabBar.isHidden = true
+    }
+    
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         widgetsView.snp.makeConstraints { make in
@@ -247,7 +254,7 @@ class HabitTrackingController: UIViewController {
         habitTableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(descriptionLabel.snp.bottom).offset(8)
-            let height = 68 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
+            let height = 84 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
             make.height.equalTo(height)
         }
         
@@ -283,7 +290,7 @@ class HabitTrackingController: UIViewController {
     
     func updateTableviewConstraints() {
         habitTableView.snp.updateConstraints { make in
-            let height = 68 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
+            let height = 84 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
             make.height.equalTo(height)
         }
     }
@@ -401,7 +408,11 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         
         title.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(21)
-            make.bottom.equalToSuperview()
+            if section == 0{
+                make.centerY.equalToSuperview()
+            } else {
+                make.bottom.equalToSuperview()
+            }
             make.trailing.equalToSuperview()
             make.height.equalTo(18)
         }
@@ -416,7 +427,11 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 34.0
+        if section == 0 {
+            return 50.0
+        } else {
+            return 34.0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -453,10 +468,12 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 cell.setTitle(activity: habit)
                 cell.swipeRight()
                 cell.delegate = self
+                cell.separator.isHidden = true
                 
                 return cell
             } else {
                 // Empty state featured habit
+                // TODO - replace this with the NoHabitsCell class once it is converted to a tableview
                 let cell = UITableViewCell()
                 
                 let backgroundImage = UIImageView()
@@ -538,7 +555,14 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
             if let previousCell = swipedCell {
                 previousCell.swipeRight()
             }
-            habitTableView.separatorStyle = .none
+            
+            for indexPath in habitTableView.indexPathsForVisibleRows ?? [] {
+                if let cell = habitTableView.cellForRow(at: indexPath) as? HabitTrackerOnboardingCell {
+                    if indexPath.section == 1 {
+                        cell.separator.isHidden = true
+                    }
+                }
+            }
             
             swipedCell = cell
             return true
@@ -549,7 +573,14 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
     
     func swipeRight() {
         swipedCell = nil
-        habitTableView.separatorStyle = .singleLine
+        
+        for indexPath in habitTableView.indexPathsForVisibleRows ?? [] {
+            if let cell = habitTableView.cellForRow(at: indexPath) as? HabitTrackerOnboardingCell {
+                if indexPath.section == 1 {
+                    cell.separator.isHidden = false
+                }
+            }
+        }
     }
     
     func featureHabit(cell: HabitTrackerOnboardingCell) {

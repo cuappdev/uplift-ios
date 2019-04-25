@@ -13,6 +13,7 @@ import SnapKit
 import UIKit
 
 enum SectionType: String {
+    case checkIns = "DAILY CHECK-INS"
     case allGyms = "ALL GYMS"
     case lookingFor = "I'M LOOKING FOR..."
     case todaysClasses = "TODAY'S CLASSES"
@@ -32,6 +33,7 @@ class HomeController: UIViewController {
     var gymClassInstances: [GymClassInstance] = []
     var gymLocations: [Int: String] = [:]
     var gyms: [Gym] = []
+    var habits: [Habit] = []
     var sections: [SectionType] = []
     var tags: [Tag] = []
 
@@ -64,14 +66,16 @@ class HomeController: UIViewController {
         mainCollectionView.showsVerticalScrollIndicator = false
 
         mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
-        mainCollectionView.register(TodaysClassesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier)
+        mainCollectionView.register(HomeSectionEditButtonHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionEditButtonHeaderView.identifier)
+        
+        mainCollectionView.register(NoHabitsCell.self, forCellWithReuseIdentifier: NoHabitsCell.identifier)
+        mainCollectionView.register(HabitTrackerCheckinCell.self, forCellWithReuseIdentifier: HabitTrackerCheckinCell.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
 
-        sections.insert(.allGyms, at: 0)
-        sections.insert(.todaysClasses, at: 1)
-        sections.insert(.lookingFor, at: 2)
+        
+        sections = [.checkIns, .allGyms, .todaysClasses, .lookingFor]
         view.addSubview(mainCollectionView)
 
         mainCollectionView.snp.makeConstraints {make in
@@ -82,37 +86,52 @@ class HomeController: UIViewController {
         statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
         statusBarBackgroundColor.backgroundColor = .fitnessWhite
         view.addSubview(statusBarBackgroundColor)
+        
+        // GET HABITS
+        habits = Habit.getActiveHabits()
+        mainCollectionView.reloadSections(IndexSet(integer: 0))
 
         // GET GYMS
         NetworkManager.shared.getGyms { (gyms) in
             self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
-            self.mainCollectionView.reloadSections(IndexSet(integer: 0))
+            self.mainCollectionView.reloadSections(IndexSet(integer: 1))
         }
 
         // GET TODAY'S CLASSES
-
         let stringDate = Date.getNowString()
-        print("TRACE: today: \(stringDate)")
 
         NetworkManager.shared.getGymClassesForDate(date: stringDate) { (gymClassInstances) in
             self.gymClassInstances = gymClassInstances.sorted { (first, second) in
                 return first.startTime < second.startTime
             }
-            self.mainCollectionView.reloadSections(IndexSet(integer: 1))
+            self.mainCollectionView.reloadSections(IndexSet(integer: 2))
         }
 
         // GET TAGS
         NetworkManager.shared.getTags { tags in
             self.tags = tags
-            self.mainCollectionView.reloadSections(IndexSet(integer: 2))
+            self.mainCollectionView.reloadSections(IndexSet(integer: 3))
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         for cell in mainCollectionView.visibleCells {
             if let cell = cell as? GymsCell, let indexPath = mainCollectionView.indexPath(for: cell) {
                 cell.setGymStatus(isOpen: gyms[indexPath.item].isOpen)
             }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.tabBarController?.tabBar.isHidden = false
+        // todo -- update habits
+        
+        let newHabits = Habit.getActiveHabits()
+        if habits != newHabits {
+            habits = newHabits
+            mainCollectionView.reloadSections(IndexSet(integer: 0))
         }
     }
 }
@@ -126,6 +145,8 @@ extension HomeController: UICollectionViewDataSource {
         }
 
         switch sections[section] {
+        case .checkIns:
+            return habits.count == 3 ? 3 : 1
         case .allGyms:
             return gyms.count
         case .todaysClasses:
@@ -163,6 +184,19 @@ extension HomeController: UICollectionViewDataSource {
         }
 
         switch sections[indexPath.section] {
+        case .checkIns:
+            if habits.count == 0 {
+                let noHabitsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NoHabitsCell.identifier, for: indexPath) as! NoHabitsCell
+                
+                return noHabitsCell
+            } else {
+                let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitTrackerCheckinCell.identifier, for: indexPath) as! HabitTrackerCheckinCell
+                
+                habitCell.configure(habit: habits[indexPath.row])
+                
+                return habitCell
+            }
+            
         case .allGyms:
             let gym = gyms[indexPath.row]
             // swiftlint:disable:next force_cast
@@ -190,7 +224,7 @@ extension HomeController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView != mainCollectionView { return 1 }
-        return 3
+        return 4
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -202,8 +236,12 @@ extension HomeController: UICollectionViewDataSource {
             switch sections[indexPath.section] {
             case .todaysClasses:
                 // swiftlint:disable:next force_cast
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier, for: indexPath) as! TodaysClassesHeaderView
-                headerView.delegate = self
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionEditButtonHeaderView.identifier, for: indexPath) as! HomeSectionEditButtonHeaderView
+                headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "view all", completion: viewTodaysClasses)
+                return headerView
+            case .checkIns:
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionEditButtonHeaderView.identifier, for: indexPath) as! HomeSectionEditButtonHeaderView
+                headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "edit", completion: pushHabitOnboarding)
                 return headerView
             case .lookingFor, .allGyms:
                 // swiftlint:disable:next force_cast
@@ -230,6 +268,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             return CGSize(width: 228.0, height: 195.0)}
 
         switch sections[indexPath.section] {
+        case .checkIns:
+            return CGSize(width: collectionView.bounds.width, height: 53.0)
         case .allGyms:
             let spacingInsets: CGFloat = 32.0
             //12.0 is the spacing between each cell
@@ -244,7 +284,13 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == todayClassCollectionView {
+            return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
+        }
+        
         switch sections[section] {
+        case .checkIns:
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
         case .allGyms:
             return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
         case .lookingFor:
@@ -307,6 +353,11 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
+        case .checkIns:
+            if habits.count == 0 {
+                pushHabitOnboarding()
+            }
+            return
         }
         
         // MARK: - Fabric
@@ -316,8 +367,14 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 }
 
-// MARK: - NavigationDelegate
-extension HomeController: NavigationDelegate {
+extension HomeController {
+    
+    func pushHabitOnboarding() {
+        let habitViewController = HabitTrackingController(type: .cardio)
+        self.navigationController?.pushViewController(habitViewController, animated: true)
+        return
+    }
+    
     func viewTodaysClasses() {
         guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
@@ -330,12 +387,9 @@ extension HomeController: NavigationDelegate {
         }
         
         classNavigationController.setViewControllers([classListViewController], animated: false)
-        
+        tabBarController?.hidesBottomBarWhenPushed = false
         tabBarController?.selectedIndex = 1
     }
-}
-
-extension HomeController {
 
     func getHourString(gym: Gym) -> String {
         let now = Date()

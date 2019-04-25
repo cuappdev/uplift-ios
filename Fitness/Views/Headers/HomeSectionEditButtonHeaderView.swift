@@ -13,13 +13,14 @@ protocol NavigationDelegate {
     func viewTodaysClasses()
 }
 
-class TodaysClassesHeaderView: UICollectionReusableView {
+class HomeSectionEditButtonHeaderView: UICollectionReusableView {
 
     // MARK: - INITIALIZATION
-    static let identifier = Identifiers.todaysClassesHeaderView
+    static let identifier = Identifiers.homeSectionEditButtonHeaderView
     var titleLabel: UILabel!
     var viewAllButton: UIButton!
-    var delegate: NavigationDelegate?
+//    var delegate: NavigationDelegate?
+    var buttonCompletion: () -> Void = {}
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,11 +30,10 @@ class TodaysClassesHeaderView: UICollectionReusableView {
         titleLabel = UILabel()
         titleLabel.font = ._14MontserratBold
         titleLabel.textColor = .fitnessDarkGrey
-        titleLabel.text = "TODAY'S CLASSES"
+        titleLabel.text = ""
         addSubview(titleLabel)
 
         viewAllButton = UIButton()
-        viewAllButton.setTitle("view all", for: .normal)
         viewAllButton.setTitleColor(.fitnessDarkGrey, for: .normal)
         viewAllButton.titleLabel?.font = ._12LatoBlack
         viewAllButton.addTarget(self, action: #selector(viewAll), for: .touchUpInside)
@@ -43,7 +43,7 @@ class TodaysClassesHeaderView: UICollectionReusableView {
         titleLabel.snp.updateConstraints {make in
             make.leading.equalTo(16)
             make.top.trailing.equalToSuperview()
-            make.height.equalTo(titleLabel.intrinsicContentSize.height)
+            make.height.equalTo(20)
         }
 
         viewAllButton.snp.updateConstraints { make in
@@ -57,6 +57,12 @@ class TodaysClassesHeaderView: UICollectionReusableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configure(title: String, buttonTitle: String, completion: @escaping (() -> Void) ) {
+        titleLabel.text = title
+        viewAllButton.setTitle(buttonTitle, for: .normal)
+        buttonCompletion = completion
+    }
 
     @objc func viewAll() {
         // MARK: - Fabric
@@ -64,7 +70,6 @@ class TodaysClassesHeaderView: UICollectionReusableView {
             "Section": "\(SectionType.todaysClasses.rawValue)/viewAll"
             ])
 
-        guard let navigationDelegate = delegate else { return }
-        navigationDelegate.viewTodaysClasses()
+        buttonCompletion()
     }
 }

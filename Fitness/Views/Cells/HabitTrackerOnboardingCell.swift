@@ -28,7 +28,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
 
     var dotsImage: UIImageView!
     var titleLabel: UITextField!
-    var isSwiped: Bool!
+    var separator: UIView!
     
     var trashButton: UIButton!
     var editButton: UIButton!
@@ -36,6 +36,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     var clearTextButton: UIButton!
     
+    var isSwiped: Bool!
     var canEdit: Bool!
     var editingTitle: Bool!
     
@@ -67,6 +68,11 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         titleLabel.keyboardType = .alphabet
         contentView.addSubview(titleLabel)
         
+        // SEPARATOR
+        separator = UIView()
+        separator.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(separator)
+        
         // BUTTONS
         trashButton = UIButton()
         trashButton.setImage(UIImage(named: "trash-icon"), for: .normal)
@@ -97,6 +103,11 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         clearTextButton.isHidden = true
         
         setupConstraints()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        separator.isHidden = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -144,6 +155,13 @@ class HabitTrackerOnboardingCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-24)
             make.centerY.equalToSuperview()
         }
+        
+        separator.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.leading.equalToSuperview().offset(24)
+            make.trailing.equalToSuperview().offset(-24)
+            make.bottom.equalToSuperview()
+        }
     }
     
     func updateConstraintsLeftSwipe() {
@@ -152,7 +170,7 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         }
         
         titleLabel.snp.updateConstraints { make in
-            make.trailing.equalToSuperview().offset(-132)
+            make.trailing.equalToSuperview().offset(-145)
         }
     }
     
@@ -163,6 +181,12 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         
         titleLabel.snp.updateConstraints { make in
             make.trailing.equalToSuperview().offset(-21)
+        }
+    }
+    
+    func updateConstraintsEdit() {
+        titleLabel.snp.updateConstraints { make in
+            make.trailing.equalToSuperview().offset(-55)
         }
     }
     
@@ -219,6 +243,8 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         editButton.isHidden = true
         pinButton.isHidden = true
         clearTextButton.isHidden = false
+        
+        updateConstraintsEdit()
         
         canEdit = true
         editingTitle = true
