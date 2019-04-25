@@ -16,8 +16,6 @@
 		1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7847C3216E77E30066E0DA /* Assets.xcassets */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
 		4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */; };
-		4F27D7F32244506800135DC4 /* OnboardingLetterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F22244506800135DC4 /* OnboardingLetterViewController.swift */; };
-		4F27D7F5224450A800135DC4 /* EndOnboardingLetterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F4224450A800135DC4 /* EndOnboardingLetterViewController.swift */; };
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
@@ -94,8 +92,6 @@
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		31939EB4A9BAC5DB1AD6B979 /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLoginViewController.swift; sourceTree = "<group>"; };
-		4F27D7F22244506800135DC4 /* OnboardingLetterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLetterViewController.swift; sourceTree = "<group>"; };
-		4F27D7F4224450A800135DC4 /* EndOnboardingLetterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOnboardingLetterViewController.swift; sourceTree = "<group>"; };
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
@@ -303,8 +299,6 @@
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
 				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
 				4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */,
-				4F27D7F22244506800135DC4 /* OnboardingLetterViewController.swift */,
-				4F27D7F4224450A800135DC4 /* EndOnboardingLetterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -639,7 +633,6 @@
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
-				4F27D7F5224450A800135DC4 /* EndOnboardingLetterViewController.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				0CA1047D2155C0AC00201D10 /* API.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
@@ -650,7 +643,6 @@
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
 				D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */,
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
-				4F27D7F32244506800135DC4 /* OnboardingLetterViewController.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,

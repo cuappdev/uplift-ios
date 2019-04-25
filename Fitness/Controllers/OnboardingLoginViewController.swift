@@ -74,7 +74,7 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: emailField.frame.height))
         emailField.leftView = paddingView
         emailField.leftViewMode = UITextField.ViewMode.always
-        emailField.addTarget(self, action: #selector(textChanged(sender:)), for: .editingDidEndOnExit)
+//        emailField.addTarget(self, action: #selector(textChanged(sender:)), for: .editingDidEndOnExit)
         view.addSubview(emailField)
         
         checkSymbol = UIImageView()
@@ -202,31 +202,9 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
         emailField.text = ""
         emailField.isUserInteractionEnabled = false
         googleBtn.isUserInteractionEnabled = false
+        print(User.currentUser?.email)
     }
-    
-    // MARK: Regular Email
-    // Currently not used; only gmail
-    func validEmail(email: String) -> Bool {
-        // Check Validity
-        if (email.count < 5 || !email.contains("@") || !email.split(separator: "@")[1].contains(".")) {
-            return false
-        }
-        // ( Send an email to see if it exists )
-        return true
-    }
-    
-    @objc func textChanged(sender: Any) {
-        if let textField = sender as? UITextField {
-            if let textFieldText = textField.text, validEmail(email: textFieldText) { // Valid
-                userSignedIn()
-            } else { // Not Valid
-                if (!isGoogleSignedIn()) {
-                   userSignedIn(didSignIn: false)
-                }
-            }
-        }
-    }
-    
+
     // MARK:- Google Sign In
     @objc func googleButtonTapped() {
         GIDSignIn.sharedInstance()?.delegate = UIApplication.shared.delegate as! GIDSignInDelegate

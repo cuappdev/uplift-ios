@@ -68,7 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return GIDSignIn.sharedInstance().handle(url as URL?,
                                                  sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                                                  annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-        return false
     }
 }
 
@@ -86,20 +85,19 @@ extension AppDelegate: GIDSignInDelegate {
             let netId = String(email.split(separator: "@")[0])
             User.currentUser = User(id: userId, name: fullName, netId: netId, givenName: givenName, familyName: familyName, email: email)
             
-            print("ID Token: \(idToken)")
-            print("Client ID: \(googleClientID)")
-            
             // So other view controllers will know when it signs in
             NotificationCenter.default.post(
                 name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
             
             NetworkManager.shared.sendGoogleLoginToken(token: idToken) { () in
-                print("The Completion Part")
+                // Store in User Defualts
+                let defaults = UserDefaults.standard
+                defaults.set(UserGoogleTokens.backendToken, forKey: Identifiers.googleToken)
+                defaults.set(UserGoogleTokens.expiration, forKey: Identifiers.googleExpiration)
+                defaults.set(UserGoogleTokens.refreshToken, forKey: Identifiers.googleRefresh)
             }
-            
         }
     }
-    
     
     func logout() {
         GIDSignIn.sharedInstance().signOut()

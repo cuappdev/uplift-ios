@@ -34,15 +34,6 @@ struct NetworkManager {
             case .success(let data):
                 let decoder = JSONDecoder()
                 if let tokenResults = try? decoder.decode(GoogleTokens.self, from: data) {
-                    print(
-                        """
-                        BackendToken:
-                        \(tokenResults.backendToken)
-                        Expires...:
-                        \(tokenResults.expiration)
-                        Refresh Token:
-                        \(tokenResults.refreshToken)
-                        """)
                     UserGoogleTokens.backendToken = tokenResults.backendToken
                     UserGoogleTokens.expiration = tokenResults.expiration
                     UserGoogleTokens.refreshToken = tokenResults.refreshToken
@@ -56,11 +47,32 @@ struct NetworkManager {
             }
             
         }
-
+    }
+    
+    func refreshGoogleToken(token: String, completion: @escaping () -> Void) {
+        let tokenURL = "http://uplift-backend.cornellappdev.com/session/"
+        let parameters: [String: Any] = [
+            "bearer_token": token
+        ]
         
-        // Get: Backend Token, Expiration Date, Refresh Token
-        //        (String)         (DateTime)             (String)
-        // endpoint /login/
+        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).validate().responseData{ (response) in
+            switch response.result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                if let tokenResults = try? decoder.decode(GoogleTokens.self, from: data) {
+                    UserGoogleTokens.backendToken = tokenResults.backendToken
+                    UserGoogleTokens.expiration = tokenResults.expiration
+                    UserGoogleTokens.refreshToken = tokenResults.refreshToken
+                    
+                    completion()
+                }
+                
+            case .failure(let error):
+                print("ERROR~~~:")
+                print(error.localizedDescription)
+            }
+            
+        }
     }
     
     // MARK: - GYMS
