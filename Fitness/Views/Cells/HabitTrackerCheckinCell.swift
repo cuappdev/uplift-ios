@@ -44,6 +44,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         contentView.addSubview(streakLabel)
         
         separator = UIView()
+        separator.translatesAutoresizingMaskIntoConstraints = false
         separator.backgroundColor = .fitnessLightGrey
         contentView.addSubview(separator)
         
@@ -65,29 +66,26 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(checkinCircle.snp.trailing).offset(11)
+            make.leading.equalTo(checkinCircle.snp.trailing).offset(11).priority(.high)
             make.centerY.equalToSuperview()
             make.height.equalTo(22)
             make.trailing.lessThanOrEqualTo(streakLabel.snp.leading).offset(-2)
 
         }
         
-        // todo - fix nonsensical constraint error
         separator.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-32)
+            make.trailing.equalToSuperview().offset(-32).priority(.high)
             make.bottom.equalToSuperview()
         }
     }
     
     func configure(habit: Habit) {
-        titleLabel.text = habit.title
+        self.habit = habit
         
-        let streak = habit.streak
-        if streak > 1 {
-            streakLabel.text = getStreakEmoji(streak: streak, type: habit.type) + String(habit.streak)
-        }
+        titleLabel.text = habit.title
+        streakLabel.text = getStreakEmoji()
         
         if let mostRecentCheckin = habit.dates.sorted().last {
             if Date() - 86400.0 < mostRecentCheckin {
@@ -99,8 +97,6 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
                 titleLabel.textColor = .fitnessMediumGrey
             }
         }
-        
-        self.habit = habit
     }
     
     @objc func checkIn() {
@@ -124,19 +120,43 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         habit = Habit.getHabit(habit: habit.title, type: habit.type)
         
         checkinCircle.isSelected.toggle()
-        
-        let streak = habit.streak
-        if streak > 1 {
-            streakLabel.text = getStreakEmoji(streak: streak, type: habit.type) + String(habit.streak)
-        } else {
-            streakLabel.text = ""
-        }
+        streakLabel.text = getStreakEmoji()
     }
     
-    func getStreakEmoji(streak: Int, type: HabitTrackingType) -> String {
-        // TODO
+    func getStreakEmoji() -> String {
+        let streak = habit.streak
         
-        return "🌈 "
+        if streak <= 1 {
+            return ""
+        }
+        
+        let level: Int
+        if streak < 3 {
+            level = 0
+        } else if streak < 5 {
+            level = 1
+        } else if streak < 8 {
+            level = 2
+        } else if streak < 10 {
+            level = 3
+        } else if streak < 14 {
+            level = 4
+        } else if streak < 20 {
+            level = 5
+        } else if streak < 30 {
+            level = 6
+        } else {
+            level = 7
+        }
+        
+        switch habit.type {
+        case .cardio:
+            return "\(["💧","💦","🌧","⛲️","🌊", "🏝","🧜‍♀️","🌏"][level]) \(streak)"
+        case .strength:
+            return "\(["🐛","🦋","🦔","🐒","🦍","🦏","🐆","🐉"][level]) \(streak)"
+        case .mindfulness:
+            return "\(["☁️","🚁","✈️","🚀","👨‍🚀","🛰","🛸","🌞"][level]) \(streak)"
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

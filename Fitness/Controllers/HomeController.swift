@@ -23,7 +23,9 @@ class HomeController: UIViewController {
 
     // MARK: - INITIALIZATION
     var mainCollectionView: UICollectionView!
-    var todayClassCollectionView: UICollectionView!
+    
+    var todayClassCollectionView: UICollectionView?
+    var allGymsCollectionView: UICollectionView?
 
     var headerView: HomeScreenHeaderView!
     var statusBarBackgroundColor: UIView!
@@ -33,6 +35,7 @@ class HomeController: UIViewController {
     var gymClassInstances: [GymClassInstance] = []
     var gymLocations: [Int: String] = [:]
     var gyms: [Gym] = []
+    var favoriteGyms: [Gym] = []
     var habits: [Habit] = []
     var sections: [SectionType] = []
     var tags: [Tag] = []
@@ -70,7 +73,8 @@ class HomeController: UIViewController {
         
         mainCollectionView.register(NoHabitsCell.self, forCellWithReuseIdentifier: NoHabitsCell.identifier)
         mainCollectionView.register(HabitTrackerCheckinCell.self, forCellWithReuseIdentifier: HabitTrackerCheckinCell.identifier)
-        mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
+//        mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
+        mainCollectionView.register(AllGymsCell.self, forCellWithReuseIdentifier: AllGymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
 
@@ -92,8 +96,19 @@ class HomeController: UIViewController {
         mainCollectionView.reloadSections(IndexSet(integer: 0))
 
         // GET GYMS
-        NetworkManager.shared.getGyms { (gyms) in
+        NetworkManager.shared.getGyms { gyms in
             self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
+            
+            let gymNames: [String] = []     // TODO --GET FAVORITE GYMS ONCE MERGED
+            
+            for favoriteGym in gymNames {
+                for gym in self.gyms {
+                    if gym.name == favoriteGym {
+                        self.favoriteGyms.append(gym)
+                    }
+                }
+            }
+            
             self.mainCollectionView.reloadSections(IndexSet(integer: 1))
         }
 
@@ -116,9 +131,10 @@ class HomeController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        for cell in mainCollectionView.visibleCells {
+        
+        for cell in allGymsCollectionView?.visibleCells ?? [] {
             if let cell = cell as? GymsCell, let indexPath = mainCollectionView.indexPath(for: cell) {
-                cell.setGymStatus(isOpen: gyms[indexPath.item].isOpen)
+                cell.setGymStatus(isOpen: favoriteGyms[indexPath.item].isOpen)
             }
         }
     }
@@ -126,7 +142,6 @@ class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.tabBarController?.tabBar.isHidden = false
-        // todo -- update habits
         
         let newHabits = Habit.getActiveHabits()
         if habits != newHabits {
@@ -140,15 +155,17 @@ class HomeController: UIViewController {
 extension HomeController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView != mainCollectionView {
+        if collectionView == todayClassCollectionView {
             return gymClassInstances.count
+        } else if collectionView == allGymsCollectionView {
+            return favoriteGyms.count
         }
 
         switch sections[section] {
         case .checkIns:
             return habits.count == 3 ? 3 : 1
         case .allGyms:
-            return gyms.count
+            return 1
         case .todaysClasses:
             return 1
         case .lookingFor:
@@ -157,8 +174,8 @@ extension HomeController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        if collectionView != mainCollectionView {
+        // Today's classes cells
+        if collectionView == todayClassCollectionView {
             let classInstance = gymClassInstances[indexPath.row]
             let reuseIdentifier = classInstance.isCancelled ? ClassesCell.cancelledIdentifier : ClassesCell.identifier
             // swiftlint:disable:next force_cast
@@ -181,33 +198,40 @@ extension HomeController: UICollectionViewDataSource {
 
             }
             return cell
-        }
-
-        switch sections[indexPath.section] {
-        case .checkIns:
-            if habits.count == 0 {
-                let noHabitsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NoHabitsCell.identifier, for: indexPath) as! NoHabitsCell
-                
-                return noHabitsCell
-            } else {
-                let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitTrackerCheckinCell.identifier, for: indexPath) as! HabitTrackerCheckinCell
-                
-                habitCell.configure(habit: habits[indexPath.row])
-                
-                return habitCell
-            }
-            
-        case .allGyms:
-            let gym = gyms[indexPath.row]
+        } else if collectionView == allGymsCollectionView {
+            // Gym cells
+            let gym = favoriteGyms[indexPath.row]
             // swiftlint:disable:next force_cast
             let gymCell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
             gymCell.setGymName(name: gym.name)
             gymCell.setGymStatus(isOpen: gym.isOpen)
             gymCell.setGymHours(hours: getHourString(gym: gym))
             return gymCell
+        }
+
+        switch sections[indexPath.section] {
+        case .checkIns:
+            if habits.count == 0 {
+                let noHabitsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NoHabitsCell.identifier, for: indexPath) as! NoHabitsCell
+                return noHabitsCell
+            } else {
+                let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitTrackerCheckinCell.identifier, for: indexPath) as! HabitTrackerCheckinCell
+                
+                habitCell.configure(habit: habits[indexPath.row])
+                return habitCell
+            }
+        case .allGyms:
+            let allGymsCell = collectionView.dequeueReusableCell(withReuseIdentifier: AllGymsCell.identifier, for: indexPath) as! AllGymsCell
+            
+            allGymsCollectionView = allGymsCell.collectionView
+            allGymsCell.collectionView.dataSource = self
+            allGymsCell.collectionView.delegate = self
+            return allGymsCell
         case .todaysClasses:
             // swiftlint:disable:next force_cast
             let todayClassesCell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysClassesCell.identifier, for: indexPath) as! TodaysClassesCell
+            
+            todayClassCollectionView = todayClassesCell.collectionView
             todayClassesCell.collectionView.dataSource = self
             todayClassesCell.collectionView.delegate = self
             return todayClassesCell
@@ -224,7 +248,7 @@ extension HomeController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView != mainCollectionView { return 1 }
-        return 4
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -243,10 +267,15 @@ extension HomeController: UICollectionViewDataSource {
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionEditButtonHeaderView.identifier, for: indexPath) as! HomeSectionEditButtonHeaderView
                 headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "edit", completion: pushHabitOnboarding)
                 return headerView
-            case .lookingFor, .allGyms:
+            case .lookingFor:
                 // swiftlint:disable:next force_cast
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
                 headerView.setTitle(title: sections[indexPath.section].rawValue)
+                return headerView
+            case .allGyms:
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionEditButtonHeaderView.identifier, for: indexPath) as! HomeSectionEditButtonHeaderView
+                headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "edit", completion: {})
+                // TODO - setup completion
                 return headerView
             }
         default:
@@ -264,17 +293,17 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView != mainCollectionView {
-            return CGSize(width: 228.0, height: 195.0)}
+        if collectionView == todayClassCollectionView {
+            return CGSize(width: 228.0, height: 195.0)
+        } else if collectionView == allGymsCollectionView {
+            return CGSize(width: 271, height: 90.0)
+        }
 
         switch sections[indexPath.section] {
         case .checkIns:
             return CGSize(width: collectionView.bounds.width, height: 53.0)
         case .allGyms:
-            let spacingInsets: CGFloat = 32.0
-            //12.0 is the spacing between each cell
-            let totalWidth = collectionView.bounds.width - spacingInsets - 12.0
-            return CGSize(width: totalWidth/2.0, height: 60.0)
+            return CGSize(width: collectionView.bounds.width, height: 123.0)
         case .todaysClasses:
             return CGSize(width: collectionView.bounds.width, height: 227.0)
         case .lookingFor:
@@ -284,7 +313,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if collectionView == todayClassCollectionView {
+        if collectionView != mainCollectionView {
             return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
         }
         
@@ -292,7 +321,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .checkIns:
             return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
         case .allGyms:
-            return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
+            return .zero
         case .lookingFor:
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         case .todaysClasses:
@@ -315,7 +344,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView != mainCollectionView {
+        if collectionView == todayClassCollectionView {
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
                 "Section": SectionType.todaysClasses.rawValue
@@ -325,13 +354,14 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
+        } else if collectionView == allGymsCollectionView {
+            let gymDetailViewController = GymDetailViewController()
+            gymDetailViewController.gym = favoriteGyms[indexPath.row]
+            navigationController?.pushViewController(gymDetailViewController, animated: true)
+            return
         }
         
         switch sections[indexPath.section] {
-        case .allGyms:
-            let gymDetailViewController = GymDetailViewController()
-            gymDetailViewController.gym = gyms[indexPath.row]
-            navigationController?.pushViewController(gymDetailViewController, animated: true)
         case .lookingFor:
             let cal = Calendar.current
             let currDate = Date()
@@ -347,16 +377,12 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             classNavigationController.setViewControllers([classListViewController], animated: false)
 
             tabBarController?.selectedIndex = 1
-
-        case .todaysClasses:
-            let classDetailViewController = ClassDetailViewController()
-            classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
-            navigationController?.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(classDetailViewController, animated: true)
         case .checkIns:
             if habits.count == 0 {
                 pushHabitOnboarding()
             }
+            return
+        case .todaysClasses, .allGyms:
             return
         }
         
@@ -400,9 +426,7 @@ extension HomeController {
         
         let format: String
 
-        if gym.name == "Bartels" {
-            return "Always open"
-        } else if now > gymHoursToday.closeTime {
+        if now > gymHoursToday.closeTime {
             if Calendar.current.component(.minute, from: gymHoursTomorrow.openTime) == 0 {
                 format = "h a"
             } else {
@@ -428,7 +452,10 @@ extension HomeController {
             } else {
                 format = "h:mm a"
             }
-            return "Closes at \(gymHoursToday.closeTime.getStringOfDatetime(format: format))"
+            let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)
+            let closeTime = gymHoursToday.closeTime.getStringOfDatetime(format: format)
+            
+            return "\(openTime) - \(closeTime)"
         }
     }
 }

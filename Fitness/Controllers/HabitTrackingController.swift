@@ -181,7 +181,7 @@ class HabitTrackingController: UIViewController {
             nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
             titleLabel.text = "Cardio"
             descriptionLabel.text = "Daily heart pump so you can jog to your 10AM with ease"
-            habits = ["Run for 15 mins", "Play a sport for 30 mins", "Go for a walk after dinner"]
+            habits = ["Walking to class", "Walk 10000 steps per day", "Running on a treadmill for 20 minutes", "Jumprope for 5 minutes"]
         case .strength:
             widgetsView.image = UIImage(named: "widgets-1")
             nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)

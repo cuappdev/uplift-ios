@@ -47,18 +47,19 @@ class GymsCell: UICollectionViewCell {
         //LOCATION NAME
         locationName = UILabel()
         locationName.font = ._16MontserratMedium
+        locationName.textColor = .fitnessBlack
         locationName.textAlignment = .left
         contentView.addSubview(locationName)
 
         //STATUS
         status = UILabel()
-        status.font = ._12MontserratMedium
+        status.font = ._14MontserratMedium
         contentView.addSubview(status)
 
         //HOURS
         hours = UILabel()
-        hours.font = ._12MontserratMedium
-        hours.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
+        hours.font = ._14MontserratMedium
+        hours.textColor = .fitnessDarkGrey
         contentView.addSubview(hours)
 
         setupConstraints()
@@ -70,28 +71,32 @@ class GymsCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        colorBar.snp.updateConstraints {make in
+        colorBar.snp.updateConstraints { make in
             make.leading.equalToSuperview()
             make.height.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(32)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(5)
         }
 
-        locationName.snp.updateConstraints {make in
-            make.top.equalToSuperview().offset(12)
-            make.leading.equalToSuperview().offset(15)
+        locationName.snp.updateConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.height.equalTo(22)
             make.trailing.lessThanOrEqualToSuperview().inset(4)
         }
 
-        status.snp.updateConstraints {make in
+        status.snp.updateConstraints { make in
             make.leading.equalTo(locationName)
+            make.trailing.lessThanOrEqualToSuperview().inset(4)
             make.height.equalTo(15)
-            make.top.equalTo(locationName.snp.bottom).offset(2)
+            make.top.equalTo(locationName.snp.bottom).offset(6)
         }
 
-        hours.snp.updateConstraints {make in
-            make.leading.equalTo(status.snp.trailing).offset(5)
+        hours.snp.updateConstraints { make in
+            make.leading.equalTo(status)
             make.trailing.lessThanOrEqualToSuperview().inset(4)
-            make.height.top.equalTo(status)
+            make.height.equalTo(status)
+            make.top.equalTo(status.snp.bottom).offset(3)
         }
     }
 
@@ -101,7 +106,7 @@ class GymsCell: UICollectionViewCell {
 
     func setGymStatus(isOpen: Bool) {
         let color: UIColor = isOpen ? .fitnessGreen : .fitnessRed
-        self.status.text = isOpen ? "Open" : "Closed"
+        self.status.text = isOpen ? "Currently Open" : "Closed"
         self.status.textColor = color
     }
 
