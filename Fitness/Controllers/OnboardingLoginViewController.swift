@@ -15,14 +15,12 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
     var signUpLabel: UILabel!
-    var emailField: UITextField!
     var googleBtn: UIButton!
     var nextButton: UIButton!
     var nextButtonArrow: UIImageView!
-    var checkSymbol: UIImageView!
     
     // Display Info
-    let titleToContentPadding: CGFloat = 187
+    let titleToContentPadding: CGFloat = 120//187
     let buttonPadding: CGFloat = 16
     let edgePadding: CGFloat = 27
     
@@ -60,30 +58,9 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
         signUpLabel.textColor = .fitnessBlack
         view.addSubview(signUpLabel)
         
-        emailField = UITextField()
-        emailField.layer.masksToBounds = false
-        emailField.layer.cornerRadius = cornerRadius
-        emailField.textColor = .fitnessDarkGrey
-        emailField.backgroundColor = .fitnessWhite
-        emailField.placeholder = "Email"
-        emailField.layer.borderWidth = 1
-        emailField.layer.borderColor = UIColor.fitnessDarkGrey.cgColor
-        emailField.autocorrectionType = .no
-        emailField.autocapitalizationType = .none
-        // Padding
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: emailField.frame.height))
-        emailField.leftView = paddingView
-        emailField.leftViewMode = UITextField.ViewMode.always
-//        emailField.addTarget(self, action: #selector(textChanged(sender:)), for: .editingDidEndOnExit)
-        view.addSubview(emailField)
-        
-        checkSymbol = UIImageView()
-        checkSymbol.layer.cornerRadius = 12
-        checkSymbol.image = UIImage(named: "green check")
-        checkSymbol.alpha = 0
-        emailField.addSubview(checkSymbol)
-        
         googleBtn = UIButton()
+        googleBtn.titleLabel?.font = ._16MontserratBold
+        googleBtn.setTitleColor(.fitnessLightGrey, for: .normal)
         let googleWhite = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         let googleBorder = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1).cgColor
         googleBtn.backgroundColor = googleWhite
@@ -118,44 +95,30 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     // MARK: UI Control
-    
     func setUpConstraints() {
-        titleLabel.snp.makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(edgePadding)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
         }
         
-        signUpLabel.snp.makeConstraints { (make) in
+        signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(titleToContentPadding)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
         }
         
-//        emailField.snp.makeConstraints { (make) in
-//            make.top.equalTo(signUpLabel.snp.bottom).offset(buttonPadding / 2)
-//            make.leading.trailing.equalToSuperview().inset(edgePadding)
-//            make.height.equalTo(buttonHeight)
-//        }
-        
-//        checkSymbol.snp.makeConstraints { (make) in
-//            make.size.equalTo(checkSymbolSize)
-//            make.centerY.equalToSuperview()
-//            make.trailing.equalToSuperview().inset(13)
-//        }
-        
-        googleBtn.snp.makeConstraints { (make) in
-            //make.top.equalTo(emailField.snp.bottom).offset(buttonPadding)
+        googleBtn.snp.makeConstraints { make in
             make.top.equalTo(signUpLabel.snp.bottom).offset(buttonPadding / 2)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
             make.height.equalTo(buttonHeight)
         }
         
-        nextButton.snp.makeConstraints { (make) in
+        nextButton.snp.makeConstraints { make in
             make.size.equalTo(nextButtonSize)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.width)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.height)
         }
         
-        nextButtonArrow.snp.makeConstraints { (make) in
+        nextButtonArrow.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.size.equalTo(checkArrowSize)
         }
@@ -167,24 +130,30 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .fitnessYellow
             nextButton.layer.borderColor = UIColor.fitnessBlack.cgColor
+            nextButton.alpha = 1
             nextButtonArrow.alpha = 1
         } else {
             nextButton.isEnabled = false
-            nextButton.backgroundColor = .fitnessWhite
-            nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
-            nextButtonArrow.alpha = 0.5
+            nextButton.alpha = 0
+            nextButtonArrow.alpha = 0
         }
     }
     
-    /// Toggles whether the green check in the email field is displayed
-    func toggleEmailFieldCheck(enabled: Bool) {
-        checkSymbol.alpha = enabled ? 1 : 0
+    func displayEmail() {
+        /// Changes the google button to display the user's email instead of the google logo
+        googleBtn.setImage(nil, for: .normal)
+        googleBtn.contentHorizontalAlignment = .left;
+        googleBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: buttonPadding, bottom: 0, right: 0)
+        googleBtn.setTitle(User.currentUser?.email, for: .normal)
     }
     
     @objc func goToNextView() {
         if UserDefaults.standard.bool(forKey: Identifiers.hasSeenOnboarding) {
             // Seen Onboarding and had to relogin
-            navigationController?.pushViewController(HomeController(), animated: true)
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            appDelegate.window?.rootViewController = TabBarController()
         } else { // Continue rest of Onboarding
             navigationController?.pushViewController(OnboardingGymsViewController(), animated: true)
         }
@@ -192,17 +161,14 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
     
     @objc func userSignedIn(didSignIn: Bool=true) {
         toggleNextButton(enabled: didSignIn)
-        toggleEmailFieldCheck(enabled: didSignIn)
         googleBtn.isUserInteractionEnabled = !didSignIn
     }
     
     @objc func userSignedInWithGoogle() {
-        var isSignedIn = isGoogleSignedIn()
         toggleNextButton(enabled: true)
-        emailField.text = ""
-        emailField.isUserInteractionEnabled = false
+        signUpLabel.alpha = 0
+        displayEmail()
         googleBtn.isUserInteractionEnabled = false
-        print(User.currentUser?.email)
     }
 
     // MARK:- Google Sign In

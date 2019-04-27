@@ -19,7 +19,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     
     // TableView
     var gymsTableView: UITableView!
-    let reuseIdentifier = "gymsTableView"
+    
     
     // Display Info
     let tableViewToNext: CGFloat = 94
@@ -58,7 +58,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         gymsTableView = UITableView(frame: .zero, style: .plain)
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
-        gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: reuseIdentifier)
+        gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.reuseIdentifier)
         gymsTableView.isScrollEnabled = false
         gymsTableView.separatorStyle = .none
         gymsTableView.clipsToBounds = false
@@ -67,8 +67,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         nextButton = UIButton()
         nextButton.clipsToBounds = false
         nextButton.layer.cornerRadius = nextButtonSize / 2
-        nextButton.backgroundColor = .fitnessWhite
-        nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+        nextButton.backgroundColor = .fitnessYellow
+        nextButton.layer.borderColor = UIColor.fitnessBlack.cgColor
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
@@ -84,13 +84,13 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         backButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
         backButton.layer.borderWidth = buttonBorderSize
         backButton.addTarget(self, action: #selector(goBackAView), for: .touchDown)
-        backButton.isEnabled = false
+        backButton.isEnabled = true
         backButtonArrow = UIImageView(image: UIImage(named: "arrow"))
+        backButtonArrow.alpha = 0.5
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)
         
-        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: true)
-        toggleButton(button: backButton, arrow: backButtonArrow, enabled: true)
+        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: false)
         
         NetworkManager.shared.getGyms { (gyms) in
             var namesArray = [String]()
@@ -107,44 +107,44 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func setUpConstraints() {
-        titleLabel.snp.makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(27)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(22)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(34)
         }
         
         // Table View
-        gymsTableView.snp.makeConstraints { (make) in
+        gymsTableView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(28)
             make.leading.trailing.equalToSuperview().inset(gymSidePadding)
-            //make.trailing.equalToSuperview().inset()
             make.bottom.equalTo(nextButton.snp.top).offset(14)
         }
         
         // Arrows
-        nextButton.snp.makeConstraints { (make) in
+        nextButton.snp.makeConstraints { make in
             make.size.equalTo(nextButtonSize)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.width)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.height)
         }
         
-        nextButtonArrow.snp.makeConstraints { (make) in
+        nextButtonArrow.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.size.equalTo(checkArrowSize)
         }
         
-        backButton.snp.makeConstraints { (make) in
+        backButton.snp.makeConstraints { make in
             make.size.equalTo(nextButtonSize)
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.width)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.height)
         }
         
-        backButtonArrow.snp.makeConstraints { (make) in
+        backButtonArrow.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.size.equalTo(checkArrowSize)
         }
     }
     
+    /// Save favorite gyms to UserDefualts
     func saveFavoriteGyms() {
         let defaults = UserDefaults.standard
         defaults.set(favoriteGyms, forKey: Identifiers.favoriteGyms)
@@ -156,21 +156,23 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     func toggleButton(button: UIButton, arrow: UIView, enabled: Bool) {
         if enabled {
             button.isEnabled = true
-            button.backgroundColor = .fitnessYellow
-            button.layer.borderColor = UIColor.fitnessBlack.cgColor
+            button.alpha = 1
             arrow.alpha = 1
         } else {
             button.isEnabled = false
-            button.backgroundColor = .fitnessWhite
-            button.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
-            arrow.alpha = 0.5
+            button.alpha = 0
+            arrow.alpha = 0
         }
+    }
+    
+    /// Checks whether the user has selected at least one gym, so the continue button can be enabled
+    func checkNextCriteria() -> Bool {
+        return favoriteGyms.count >= 1
     }
     
     //MARK: Button Actions
     @objc func goToNextView() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            print("FAILED...")
             return
         }
         let defaults = UserDefaults.standard
@@ -196,6 +198,9 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
         }
+        
+        // Update next button with whether the user has selected at least one gym
+        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: checkNextCriteria())
         
     }
     
@@ -223,7 +228,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
 
     // MARK: UITableViewDataSource Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! FavoriteGymCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.reuseIdentifier, for: indexPath) as! FavoriteGymCell
         let gym = gymNames[indexPath.section]
         cell.configure(with: gym)
         cell.setNeedsUpdateConstraints()

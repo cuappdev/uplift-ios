@@ -27,14 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let defaults = UserDefaults.standard
         
-        // DEBUG--- sign out
-        GIDSignIn.sharedInstance().signOut()
+        // Delete
+        logout()
         defaults.set(false, forKey: Identifiers.hasSeenOnboarding)
+        //---
         
-        // END GOAL
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) { // Seen onboarding and...
             if isGoogleLoggedIn() { // Is logged in
-                window?.rootViewController = UINavigationController(rootViewController: HomeController())
+                window?.rootViewController = TabBarController()
             } else { // Needs to relogin
                 window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
             }

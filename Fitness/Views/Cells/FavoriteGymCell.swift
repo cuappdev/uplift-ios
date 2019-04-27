@@ -25,6 +25,9 @@ class FavoriteGymCell: UITableViewCell {
     let leftPadding: CGFloat = 15
     let rightPadding: CGFloat = 16
     
+    // Reuse Identfier
+    static let reuseIdentifier = "gymsTableView"
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
