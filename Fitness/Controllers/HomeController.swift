@@ -42,7 +42,7 @@ class HomeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor.fitnessWhite
         headerView = HomeScreenHeaderView()
         headerView.layer.shadowOffset = CGSize(width: 0.0, height: 9.0)
