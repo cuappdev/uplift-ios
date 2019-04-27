@@ -11,8 +11,8 @@ import UIKit
 class NoFavoritesEmptyStateView: UIView {
 
     // MARK: - INITIALIZATION
-    var emptyStateTitleLabel: UILabel!
     var emptyStateImageView: UIImageView!
+    var emptyStateTitleLabel: UILabel!
     var findClassesButton: UIButton!
 
     var delegate: NavigationDelegate?

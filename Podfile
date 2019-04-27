@@ -8,7 +8,6 @@ target 'Fitness' do
   pod 'Crashlytics'
   pod 'Fabric'
   pod 'GoogleSignIn'
-  pod 'Moya'
   pod 'SnapKit'
   pod 'SwiftLint'
   pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc' 

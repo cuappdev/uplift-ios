@@ -14,8 +14,8 @@ class NoResultsEmptyStateView: UIView {
     // MARK: - INITIALIZATION
     var emptyStateImage: UIImageView!
     
-    var emptyStateTitleLabel: UILabel!
     var emptyStateMessageLabel: UILabel!
+    var emptyStateTitleLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

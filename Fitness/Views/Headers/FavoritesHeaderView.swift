@@ -6,15 +6,15 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class FavoritesHeaderView: UICollectionReusableView {
 
     // MARK: - INITIALIZAITON
     static let identifier =  Identifiers.favoritesHeaderView
-    var quoteLabel: UILabel!
     var nextSessionsLabel: UILabel!
+    var quoteLabel: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

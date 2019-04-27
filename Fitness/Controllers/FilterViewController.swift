@@ -6,17 +6,17 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 enum Dropped {
     case up, half, down
 }
 
 struct DropdownData {
+    var completed: Bool!
     var dropStatus: Dropped!
     var titles: [String]!
-    var completed: Bool!
 }
 
 struct GymNameId {
@@ -31,35 +31,35 @@ protocol FilterDelegate {
 class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - INITIALIZATION
-    var timeFormatter: DateFormatter!
-    var scrollView: UIScrollView!
     var contentView: UIView!
+    var scrollView: UIScrollView!
+    var timeFormatter: DateFormatter!
 
     var collectionViewTitle: UILabel!
+    var delegate: FilterDelegate?
     var gymCollectionView: UICollectionView!
     var gyms: [GymNameId]!
-    var delegate: FilterDelegate?
     /// ids of the selected gyms
     var selectedGyms: [String] = []
 
     var fitnessCenterStartTimeDivider: UIView!
-    var startTimeTitleLabel: UILabel!
     var startTimeLabel: UILabel!
     var startTimeSlider: RangeSeekSlider!
+    var startTimeTitleLabel: UILabel!
     var timeRanges: [Date] = []
 
-    var startTimeClassTypeDivider: UIView!
-    var startTime = "6:00AM"
     var endTime = "10:00PM"
+    var startTime = "6:00AM"
+    var startTimeClassTypeDivider: UIView!
 
     var classTypeDropdown: UITableView!
     var classTypeDropdownData: DropdownData!
     var classTypeInstructorDivider: UIView!
     var selectedClasses: [String] = []
 
+    var instructorDivider: UIView!
     var instructorDropdown: UITableView!
     var instructorDropdownData: DropdownData!
-    var instructorDivider: UIView!
     var selectedInstructors: [String] = []
 
     convenience init(currentFilterParams: FilterParameters?) {
@@ -156,7 +156,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeInstructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(classTypeInstructorDivider)
 
-        classTypeDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
+        classTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
 
         AppDelegate.networkManager.getClassNames { classNames in
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
@@ -185,7 +185,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(instructorDivider)
 
-        instructorDropdownData = DropdownData(dropStatus: .up, titles: [], completed: false)
+        instructorDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
 
         AppDelegate.networkManager.getInstructors { instructors in
             self.instructorDropdownData.titles.append(contentsOf: instructors)

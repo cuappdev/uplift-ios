@@ -6,8 +6,8 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
 import Crashlytics
+import UIKit
 
 protocol NavigationDelegate {
     func viewTodaysClasses()

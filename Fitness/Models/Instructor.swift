@@ -11,9 +11,9 @@ import Foundation
 struct Instructor {
 
     let id: Int
+    let gymClasses: [Int]
     let name: String
     var gymClassDescriptions: [GymClassDescription]?
-    let gymClasses: [Int]
 }
 
 struct InstructorsRootData: Decodable {
@@ -30,17 +30,17 @@ extension Instructor: Decodable {
 
     enum Key: String, CodingKey {
         case id
-        case name
         case classes
         case gymClasses = "gym_classes"
+        case name
     }
 
     enum GymClassDescriptionsKey: String, CodingKey {
         case id
-        case tags = "class_tags"
+        case description
         case gymClasses = "gym_classes"
         case name
-        case description
+        case tags = "class_tags"
     }
 
     init(from decoder: Decoder) throws {

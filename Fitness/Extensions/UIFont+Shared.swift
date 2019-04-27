@@ -43,10 +43,12 @@ extension UIFont {
     static let _16MontserratBold = UIFont(name: "Montserrat-Bold", size: 16)
     static let _20MontserratBold = UIFont(name: "Montserrat-Bold", size: 20)
     static let _24MontserratBold = UIFont(name: "Montserrat-Bold", size: 24)
+    static let _36MontserratBold = UIFont(name: "Montserrat-Bold", size: 36)
 
     static let _12MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 12)
     static let _14MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
     static let _16MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 16)
+    static let _20MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 20)
 
     //LATO
     static let _12LatoBlack = UIFont(name: "Lato-Black", size: 12)

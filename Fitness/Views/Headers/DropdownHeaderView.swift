@@ -12,11 +12,11 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.dropdownViewCell
-    var titleLabel: UILabel!
-    var filtersAppliedCircle: UIView!
-    var selectedFiltersLabel: UILabel!
-    var rightArrow: UIImageView!
     var downArrow: UIImageView!
+    var filtersAppliedCircle: UIView!
+    var rightArrow: UIImageView!
+    var selectedFiltersLabel: UILabel!
+    var titleLabel: UILabel!
     
     var filtersApplied: Bool = false {
         didSet {

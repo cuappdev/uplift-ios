@@ -41,7 +41,6 @@ DEPENDENCIES:
   - Fabric
   - GoogleSignIn
   - Kingfisher (~> 4.0)
-  - Moya
   - Presentation (from `https://github.com/cuappdev/Presentation.git`)
   - SnapKit
   - SwiftLint
@@ -57,8 +56,6 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GTMSessionFetcher
     - Kingfisher
-    - Moya
-    - Result
     - SnapKit
     - SwiftLint
 
