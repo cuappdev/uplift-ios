@@ -36,10 +36,6 @@ struct Identifiers {
     
     // USER DEFAULTS
     static let favorites = "Favorites"
-    static let favoriteGyms = "FavoriteGyms"
-    static let googleToken = "googleToken"
-    static let googleExpiration = "googleExpiration"
-    static let googleRefresh = "googleRefresh"
     static let activeHabits = "ActiveHabits"
     static func habitIdentifier(for type: HabitTrackingType) -> String {
         switch type {
