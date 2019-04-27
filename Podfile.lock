@@ -23,14 +23,8 @@ PODS:
   - "GoogleToolboxForMac/NSString+URLArguments (2.2.0)"
   - GTMSessionFetcher/Core (1.2.1)
   - Kingfisher (4.10.1)
-  - Moya (13.0.0):
-    - Moya/Core (= 13.0.0)
-  - Moya/Core (13.0.0):
-    - Alamofire (~> 4.1)
-    - Result (~> 4.1)
   - Presentation (4.1.2)
-  - Result (4.1.0)
-  - SnapKit (4.2.0)
+  - SnapKit (5.0.0)
   - SwiftLint (0.31.0)
 
 DEPENDENCIES:
@@ -85,12 +79,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
-  Moya: 161263550064ff8a4948e8ff63137fd72a876292
   Presentation: e8571efaa303ed9ce34c2a54d80457f881fd294e
-  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: 3245ce1f0e5fb5dd586eb4248bd2c496ce3f14f3
+PODFILE CHECKSUM: 5b7c0f15cdfa942a339a8b31eeb84e55ae19d811
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

@@ -27,11 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let defaults = UserDefaults.standard
         
-        // Delete
-        logout()
-        defaults.set(false, forKey: Identifiers.hasSeenOnboarding)
-        //---
-        
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) { // Seen onboarding and...
             if isGoogleLoggedIn() { // Is logged in
                 window?.rootViewController = TabBarController()
