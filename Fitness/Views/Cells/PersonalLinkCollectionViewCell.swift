@@ -26,7 +26,6 @@ class PersonalLinkCollectionViewCell: UICollectionViewCell {
     
     func configure(for site: PersonalLinkObject) {
         self.site = site
-        print(siteImageView.image == nil)
         switch site.site {
         case PersonalLink.facebook: siteImageView.image = #imageLiteral(resourceName: "Facebook.png")
         case PersonalLink.linkedin: siteImageView.image = #imageLiteral(resourceName: "Linkedin.png")

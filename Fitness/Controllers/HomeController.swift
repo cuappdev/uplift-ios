@@ -35,7 +35,7 @@ class HomeController: UIViewController {
     var tags: [Tag] = []
     var didSetupHeaderShadow = false
     var didRegisterCategoryCell = false
-    var pros = [ProBio.getClaire(), ProBio.getClaire(), ProBio.getClaire()]
+    var pros = ProBio.getAllPros()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +69,6 @@ class HomeController: UIViewController {
         mainCollectionView.register(TodaysClassesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
-        mainCollectionView.register(DiscoverProsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscoverProsSectionHeaderView.identifier)
         mainCollectionView.register(DiscoverProsCell.self, forCellWithReuseIdentifier: DiscoverProsCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
 
@@ -170,7 +169,7 @@ extension HomeController: UICollectionViewDataSource {
             return cell
         } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProCell.identifier, for: indexPath) as! ProCell
-            cell.setPro(pro: ProBio.getClaire())
+            cell.setPro(pro: pros[indexPath.row])
             return cell
         }
 
@@ -228,7 +227,7 @@ extension HomeController: UICollectionViewDataSource {
                 headerView.setTitle(title: sections[indexPath.section].rawValue)
                 return headerView
             case .pros:
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscoverProsSectionHeaderView.identifier, for: indexPath) as! DiscoverProsSectionHeaderView
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
                 headerView.setTitle(title: sections[indexPath.section].rawValue)
                 return headerView
             }
@@ -297,7 +296,6 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("here")
         if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
@@ -309,7 +307,6 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
         } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
-            print("here")
             let proDetailViewController = ProBioPageViewController()
             proDetailViewController.pro = pros[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true

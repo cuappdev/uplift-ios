@@ -13,7 +13,6 @@ class ProRoutineView: UIView {
     var routine: ProRoutine!
     
     var containerView: UIView!
-//    var headerView: UIView!
     var titleLabel: UILabel!
     var routineTypeImage: UIImageView!
     var routineTypeLabel: UILabel!
@@ -78,20 +77,9 @@ class ProRoutineView: UIView {
     }
     
     override func updateConstraints() {
-//        headerView.snp.makeConstraints{make in
-//            make.leading.equalToSuperview().offset(10)
-//            make.trailing.equalToSuperview().offset(-10)
-//            make.top.equalToSuperview().offset(3)
-//        }
-        
-//        containerView.snp.makeConstraints{make in
-//            make.leading.trailing.top.bottom.equalToSuperview()
-//        }
-        
         titleLabel.snp.makeConstraints{make in
             make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(16)
-//            make.trailing.equalTo(addButton.snp.leading).offset(-16)
             make.trailing.equalToSuperview().offset(-16)
         }
         

@@ -59,7 +59,6 @@ class ProCell: UICollectionViewCell {
     
     func setPro(pro: ProBio) {
         image.image = pro.secondaryProfilePic
-        image.image = #imageLiteral(resourceName: "Helen Newman.jpg")
         nameLabel.text = pro.name
     }
 }

@@ -76,13 +76,11 @@
 		E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9C222B93DF00F89275 /* ProRoutine.swift */; };
 		E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */; };
 		E60F23F4223A3310008E472C /* ProRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */; };
-		E60F23F6223A4CEF008E472C /* OtherProCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60F23F5223A4CEF008E472C /* OtherProCollectionViewCell.swift */; };
 		E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639A22445803005C2930 /* ProRoutineView.swift */; };
 		E6AB639D2244584F005C2930 /* AllProRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */; };
 		E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639E22445897005C2930 /* PersonalLink.swift */; };
 		E6B5806A2228B3CB00A864D6 /* ProBioPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B580692228B3CB00A864D6 /* ProBioPageViewController.swift */; };
 		E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5806B2228B51100A864D6 /* ProBio.swift */; };
-		E6D4E571226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D4E570226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift */; };
 		E6D4E573226E6AD000A41C4F /* DiscoverProsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */; };
 		E6FCEE52226E791000CEE2BC /* ProCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProCell.swift */; };
 /* End PBXBuildFile section */
@@ -162,13 +160,11 @@
 		E60A1B9C222B93DF00F89275 /* ProRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLinkCollectionViewCell.swift; sourceTree = "<group>"; };
 		E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProRoutineTableViewCell.swift; path = Fitness/Views/Cells/ProRoutineTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		E60F23F5223A4CEF008E472C /* OtherProCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OtherProCollectionViewCell.swift; path = Fitness/Views/Cells/OtherProCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		E6AB639A22445803005C2930 /* ProRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProRoutineView.swift; path = Fitness/Views/ProRoutineView.swift; sourceTree = SOURCE_ROOT; };
 		E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProRoutinesView.swift; sourceTree = "<group>"; };
 		E6AB639E22445897005C2930 /* PersonalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLink.swift; sourceTree = "<group>"; };
 		E6B580692228B3CB00A864D6 /* ProBioPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProBioPageViewController.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/Fitness/Views/ProBioPageViewController.swift"; sourceTree = "<absolute>"; };
 		E6B5806B2228B51100A864D6 /* ProBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
-		E6D4E570226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverProsSectionHeaderView.swift; sourceTree = "<group>"; };
 		E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverProsCell.swift; sourceTree = "<group>"; };
 		E6FCEE51226E791000CEE2BC /* ProCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -338,7 +334,6 @@
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
 				8D03EE0E206C481A00EF83C7 /* GymsCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
-				E60F23F5223A4CEF008E472C /* OtherProCollectionViewCell.swift */,
 				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
 				E6FCEE51226E791000CEE2BC /* ProCell.swift */,
 				E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */,
@@ -350,7 +345,6 @@
 		C7EBD5AC2062E72300D76A8B /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				E6D4E570226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift */,
 				8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */,
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */,
@@ -650,9 +644,7 @@
 				E60F23F4223A3310008E472C /* ProRoutineTableViewCell.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
-				E60F23F6223A4CEF008E472C /* OtherProCollectionViewCell.swift in Sources */,
 				E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */,
-				E6D4E571226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				E6B5806A2228B3CB00A864D6 /* ProBioPageViewController.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,

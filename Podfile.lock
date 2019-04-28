@@ -2,9 +2,9 @@ PODS:
   - Alamofire (4.7.3)
   - AlamofireImage (3.4.1):
     - Alamofire (~> 4.7)
-  - Apollo (0.9.3):
-    - Apollo/Core (= 0.9.3)
-  - Apollo/Core (0.9.3)
+  - Apollo (0.10.1):
+    - Apollo/Core (= 0.10.1)
+  - Apollo/Core (0.10.1)
   - Bartinter (0.0.4)
   - Crashlytics (3.10.8):
     - Fabric (~> 1.7.12)
@@ -58,7 +58,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
-  Apollo: 38270f8bdc031ac07d4de3ec068a2289d7d287e0
+  Apollo: 4d690a9b2e48e8820182df4b988d7a253e1ee589
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
   Crashlytics: 058dc1ba579f6c100bc60a6878703779bff383c4
   Fabric: d7387db9a31aadff63b147a4b91d982c53afaa4f

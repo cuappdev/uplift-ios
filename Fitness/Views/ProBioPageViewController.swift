@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
+class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var backButton: UIButton!
     
@@ -30,7 +30,6 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     var expertiseRoutinesDivider: UIView!
     
     var routinesTitleLabel: UILabel!
-    var routinesTableView: UITableView!
     var routinesView: AllProRoutinesView!
     
     var linksCollectionView: UICollectionView!
@@ -65,7 +64,6 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         bioTitleLabel = UILabel()
         bioTitleLabel.textColor = .black
         bioTitleLabel.font = ._20MontserratSemiBold
-        bioTitleLabel.text = "\"I meditate and eat healthy.\""
         bioTitleLabel.textAlignment = .center
         bioTitleLabel.sizeToFit()
         bioTitleLabel.numberOfLines = 0
@@ -159,6 +157,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         let attributes = [NSAttributedString.Key.paragraphStyle : style, NSAttributedString.Key.font : UIFont._14MontserratLight]
         bioTextView.attributedText = NSAttributedString(string: pro.bio, attributes: attributes)
         bioTextView.textAlignment = .center
+        bioTitleLabel.text = pro.summary
         expertiseTextView.text = pro.expertise.joined(separator: " · ")
         
         linksCollectionView.reloadData()
@@ -184,7 +183,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         
         profilePicContainerView.snp.makeConstraints{ make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(view.frame.width * 1.16) /// 434.68 * 375.99)
+            make.height.equalTo(view.frame.width * 1.16)
         }
         
         profilePicView.snp.makeConstraints{ make in
@@ -195,7 +194,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         
         nameLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(profilePicContainerView.snp.bottom).offset(-64)//-120.99)
+            make.top.equalTo(profilePicContainerView.snp.bottom).offset(-64)
         }
         
         bioTitleLabel.snp.makeConstraints{ make in
@@ -221,8 +220,6 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         expertiseTitleLabel.snp.makeConstraints{ make in
             make.top.equalTo(bioExpertiseDivider.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
-//            make.leading.equalToSuperview().offset(142)
-//            make.trailing.equalToSuperview().offset(-142)
         }
         
         expertiseTextView.snp.makeConstraints{ make in
@@ -243,19 +240,10 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
             make.top.equalTo(expertiseRoutinesDivider.snp.bottom).offset(24)
         }
         
-//        routinesTableView.layoutIfNeeded()
-//        routinesTableView.snp.makeConstraints{ make in
-//            make.leading.equalToSuperview().offset(33)
-//            make.trailing.equalToSuperview().offset(-33)
-//            make.top.equalTo(routinesTitleLabel.snp.bottom).offset(17)
-//            make.height.equalTo(0)
-//        }
-        
         routinesView.snp.makeConstraints{ make in
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.top.equalTo(routinesTitleLabel.snp.bottom).offset(17)
-//            make.height.equalTo(500)
         }
         
         linksTitleLabel.snp.makeConstraints{ make in
@@ -269,7 +257,6 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
             make.height.equalTo(30)
             make.width.equalTo(30 * pro.links.count + (pro.links.count - 1) * 6)
             make.bottom.equalToSuperview().offset(-100)
-//            make.width.equalToSuperview()
         }
     }
     
@@ -285,9 +272,6 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.linksCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonalLinkCollectionViewCell.identifier, for: indexPath) as! PersonalLinkCollectionViewCell
-            print(pro.links[indexPath.row].site)
-            print(pro.links[indexPath.row].url.absoluteString)
-            print(pro.links)
             cell.configure(for: pro.links[indexPath.row])
             return cell
         } else {
@@ -314,46 +298,4 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pro.routines.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProRoutineTableViewCell.identifier, for: indexPath) as! ProRoutineTableViewCell
-        cell.configure(for: pro.routines[indexPath.row])
-        cell.setNeedsUpdateConstraints()
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let yOffset = self.scrollView.contentOffset.y
-//        let screenHeight = UIScreen.main.bounds.height
-//
-////        if scrollView == self.scrollView {
-////            if yOffset >= self.scrollView.contentSize.height - screenHeight {
-////                self.scrollView.isScrollEnabled = false
-////                routinesTableView.isScrollEnabled = true
-////            } else {
-////                self.scrollView.isScrollEnabled = true
-////                routinesTableView.isScrollEnabled = false
-////            }
-////        }
-//
-//            if scrollView == self.scrollView {
-//                routinesTableView.isScrollEnabled = (self.scrollView.contentOffset.y >= 200)
-//            }
-//
-//            if scrollView == routinesTableView {
-//                routinesTableView.isScrollEnabled = (routinesTableView.contentOffset.y > 0)
-//            }
-//    }
-    
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
 }

@@ -69,8 +69,6 @@ class AllProRoutinesView: UIView {
                 var curView = routineViews[i]
                 curView.snp.makeConstraints{make in
                     make.leading.trailing.equalToSuperview()
-//                    make.leading.equalToSuperview().offset(34)
-//                    make.trailing.equalToSuperview().offset(-34)
                     make.top.equalTo(previousView.snp.bottom).offset(16)
                 }
                 previousView = curView

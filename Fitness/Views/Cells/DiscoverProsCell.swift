@@ -16,7 +16,6 @@ class DiscoverProsCell: UICollectionViewCell {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.discoverProsCell
     var collectionView: UICollectionView!
-    var gymClassInstances = [ProBio.getClaire(), ProBio.getClaire(), ProBio.getClaire()]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +23,6 @@ class DiscoverProsCell: UICollectionViewCell {
         //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-//        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16 )
         layout.minimumInteritemSpacing = 16
         layout.itemSize = CGSize(width: 228.0, height: 195.0)
         
