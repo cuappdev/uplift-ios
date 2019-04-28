@@ -104,9 +104,29 @@ class GymsCell: UICollectionViewCell {
         locationName.text = name
     }
 
-    func setGymStatus(isOpen: Bool) {
-        let color: UIColor = isOpen ? .fitnessGreen : .fitnessRed
-        self.status.text = isOpen ? "Currently Open" : "Closed"
+    func setGymStatus(isOpen: Bool, closingSoon: Bool) {
+        
+        var color: UIColor
+        var status: String
+        if isOpen {
+            if closingSoon {
+                color = .fitnessOrange
+                status = "Closing soon"
+            } else {
+                color = .fitnessGreen
+                status = "Currently open"
+            }
+        } else {
+            if closingSoon {
+                color = .fitnessOrange
+                status = "Opening soon"
+            } else {
+                color = .fitnessRed
+                status = "Closed"
+            }
+        }
+        
+        self.status.text = status
         self.status.textColor = color
     }
 

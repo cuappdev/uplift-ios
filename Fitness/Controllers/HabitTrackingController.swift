@@ -169,7 +169,8 @@ class HabitTrackingController: UIViewController {
         // BACK BUTTON
         if type != .cardio {
             backButton = UIButton()
-            backButton!.setImage(UIImage(named: "back-arrow-grey"), for: .normal)
+            backButton!.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
+            backButton!.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             backButton!.addTarget(self, action: #selector(back), for: .touchUpInside)
             view.addSubview(backButton!)
             view.bringSubviewToFront(backButton!)

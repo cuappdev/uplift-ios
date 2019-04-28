@@ -21,6 +21,7 @@ class NoHabitsCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundImage = UIImageView()
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.image = UIImage(named: "selection-area")
         backgroundImage.clipsToBounds = false
         contentView.addSubview(backgroundImage)
@@ -54,7 +55,7 @@ class NoHabitsCell: UICollectionViewCell {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(addHabitWidget.snp.trailing).offset(8)
+            make.leading.equalTo(addHabitWidget.snp.trailing).offset(8).priority(.high)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
             make.height.equalTo(22)

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ChooseGymsDelegate {
+    func updateFavorites(favorites: [String])
+}
+
 class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - INITIALIZATION
@@ -42,6 +46,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     // Gyms
     var gymNames: [String] = []
     var favoriteGyms: [String] = []
+    
+    var delegate: ChooseGymsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,6 +183,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         }
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: Identifiers.hasSeenOnboarding)
+        saveFavoriteGyms()
         appDelegate.window?.rootViewController = TabBarController()
     }
     

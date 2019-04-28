@@ -26,7 +26,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         
         checkinCircle = UIButton()
         checkinCircle.translatesAutoresizingMaskIntoConstraints = false
-        checkinCircle.setImage(UIImage(named: "empty_circle"), for: .normal) // todo -images
+        checkinCircle.setImage(UIImage(named: "empty_circle"), for: .normal)
         checkinCircle.setImage(UIImage(named: "checked_circle"), for: .selected)
         checkinCircle.addTarget(self, action: #selector(checkIn), for: .touchUpInside)
         contentView.addSubview(checkinCircle)
@@ -51,7 +51,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         setupConstraints()
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         checkinCircle.snp.makeConstraints { make in
             make.height.width.equalTo(23)
             make.leading.equalToSuperview().offset(16)
@@ -62,7 +62,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-32)
             make.height.equalTo(22)
             make.centerY.equalToSuperview()
-            make.width.equalTo(36)  // todo - adjust once we have the streak
+            make.width.equalTo(36)
         }
 
         titleLabel.snp.makeConstraints { make in
@@ -79,6 +79,12 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-32).priority(.high)
             make.bottom.equalToSuperview()
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.textColor = .fitnessBlack
+        checkinCircle.isSelected = false
     }
     
     func configure(habit: Habit) {

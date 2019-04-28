@@ -53,5 +53,5 @@ struct Identifiers {
             return "Mindfulness"
         }
     }
-    static let hasSeenOnboarding = "hasSeenOnboarding"
+    static let hasSeenOnboarding = "hasSeenOnboarding2.0"
 }

@@ -35,19 +35,20 @@ class HomeSectionEditButtonHeaderView: UICollectionReusableView {
 
         viewAllButton = UIButton()
         viewAllButton.setTitleColor(.fitnessDarkGrey, for: .normal)
-        viewAllButton.titleLabel?.font = ._12LatoBlack
+        viewAllButton.contentHorizontalAlignment = .right
+        viewAllButton.titleLabel?.font = ._14LatoBlack
         viewAllButton.addTarget(self, action: #selector(viewAll), for: .touchUpInside)
         addSubview(viewAllButton)
 
         // MARK: - CONSTRAINTS
-        titleLabel.snp.updateConstraints {make in
+        titleLabel.snp.updateConstraints { make in
             make.leading.equalTo(16)
             make.top.trailing.equalToSuperview()
             make.height.equalTo(20)
         }
 
         viewAllButton.snp.updateConstraints { make in
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-16)
             make.width.equalTo(60)
             make.bottom.equalTo(titleLabel)
             make.height.equalTo(titleLabel)
