@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C97AC2722766E210086D699 /* GymFacilitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2622766E210086D699 /* GymFacilitiesView.swift */; };
+		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
+		0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */; };
 		0CA1047D2155C0AC00201D10 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA1047C2155C0AC00201D10 /* API.swift */; };
 		1C1D28372166E188003FE839 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C1D28362166E188003FE839 /* Keys.plist */; };
 		1C1D283B2166E215003FE839 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D283A2166E215003FE839 /* Keys.swift */; };
@@ -76,6 +79,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C97AC2622766E210086D699 /* GymFacilitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFacilitiesView.swift; sourceTree = "<group>"; };
+		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
+		0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursHeaderView.swift; sourceTree = "<group>"; };
 		0CA1047C2155C0AC00201D10 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = Fitness/API.swift; sourceTree = "<group>"; };
 		1C1D28362166E188003FE839 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		1C1D283A2166E215003FE839 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -287,6 +293,7 @@
 				D95810A6216E95A500D4436C /* Range Slider */,
 				D9936A27216D9F8B002802F4 /* Empty States */,
 				8D5EA478208EC31100E98E6C /* Histogram.swift */,
+				0C97AC2622766E210086D699 /* GymFacilitiesView.swift */,
 				8DD7C7782084418F004EB196 /* Footers */,
 				C7EBD5AC2062E72300D76A8B /* Headers */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
@@ -297,6 +304,7 @@
 		C7EBD5A92062E64F00D76A8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0C97AC282276840F0086D699 /* FacilityHoursCell.swift */,
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
 				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
 				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
@@ -316,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */,
+				0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */,
 				8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */,
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
@@ -504,7 +513,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
@@ -525,7 +534,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8D29EFD320431FCA005B1CC8 /* Run Fabric build */ = {
@@ -577,6 +586,7 @@
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
+				0C97AC2722766E210086D699 /* GymFacilitiesView.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				0CA1047D2155C0AC00201D10 /* API.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
@@ -590,6 +600,7 @@
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
+				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
@@ -610,6 +621,7 @@
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
 				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
+				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,
 				C76F715F20900AD400FDC958 /* Tag.swift in Sources */,
 				8D03EE07206C475200EF83C7 /* HomeSectionHeaderView.swift in Sources */,
@@ -750,7 +762,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -769,7 +781,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;

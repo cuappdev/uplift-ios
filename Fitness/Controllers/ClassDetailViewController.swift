@@ -331,6 +331,7 @@ class ClassDetailViewController: UIViewController {
     }
 
     // MARK: - CONSTRAINTS
+    // swiftlint:disable:next function_body_length
     func setupConstraints() {
         // HEADER
         let dividerSpacing = 24
@@ -367,10 +368,10 @@ class ClassDetailViewController: UIViewController {
         }
 
         locationButton.snp.makeConstraints { make in
-                make.leading.equalToSuperview()
-                make.top.equalTo(titleLabel.snp.bottom)
-                make.trailing.equalToSuperview()
-                make.height.equalTo(16)
+            make.leading.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.trailing.equalToSuperview()
+            make.height.equalTo(16)
         }
 
         instructorButton.snp.makeConstraints { make in
