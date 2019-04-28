@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
             window?.rootViewController = TabBarController()
+            
         } else {
             window?.rootViewController = OnboardingViewController()
         }

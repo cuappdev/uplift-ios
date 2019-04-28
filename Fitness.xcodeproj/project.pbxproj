@@ -73,6 +73,18 @@
 		D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810A9216E95D900D4436C /* RangeSeekSlider.swift */; };
 		D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */; };
 		D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */; };
+		E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9C222B93DF00F89275 /* ProRoutine.swift */; };
+		E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */; };
+		E60F23F4223A3310008E472C /* ProRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */; };
+		E60F23F6223A4CEF008E472C /* OtherProCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60F23F5223A4CEF008E472C /* OtherProCollectionViewCell.swift */; };
+		E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639A22445803005C2930 /* ProRoutineView.swift */; };
+		E6AB639D2244584F005C2930 /* AllProRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */; };
+		E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639E22445897005C2930 /* PersonalLink.swift */; };
+		E6B5806A2228B3CB00A864D6 /* ProBioPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B580692228B3CB00A864D6 /* ProBioPageViewController.swift */; };
+		E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5806B2228B51100A864D6 /* ProBio.swift */; };
+		E6D4E571226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D4E570226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift */; };
+		E6D4E573226E6AD000A41C4F /* DiscoverProsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */; };
+		E6FCEE52226E791000CEE2BC /* ProCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +159,18 @@
 		D95810A9216E95D900D4436C /* RangeSeekSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
 		D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
+		E60A1B9C222B93DF00F89275 /* ProRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
+		E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLinkCollectionViewCell.swift; sourceTree = "<group>"; };
+		E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProRoutineTableViewCell.swift; path = Fitness/Views/Cells/ProRoutineTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		E60F23F5223A4CEF008E472C /* OtherProCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OtherProCollectionViewCell.swift; path = Fitness/Views/Cells/OtherProCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		E6AB639A22445803005C2930 /* ProRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProRoutineView.swift; path = Fitness/Views/ProRoutineView.swift; sourceTree = SOURCE_ROOT; };
+		E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProRoutinesView.swift; sourceTree = "<group>"; };
+		E6AB639E22445897005C2930 /* PersonalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLink.swift; sourceTree = "<group>"; };
+		E6B580692228B3CB00A864D6 /* ProBioPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProBioPageViewController.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/Fitness/Views/ProBioPageViewController.swift"; sourceTree = "<absolute>"; };
+		E6B5806B2228B51100A864D6 /* ProBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
+		E6D4E570226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverProsSectionHeaderView.swift; sourceTree = "<group>"; };
+		E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverProsCell.swift; sourceTree = "<group>"; };
+		E6FCEE51226E791000CEE2BC /* ProCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,8 +230,11 @@
 			children = (
 				C73637272082F170004751F5 /* Gym.swift */,
 				C73637292082F193004751F5 /* GymClass.swift */,
-				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
 				C7434C10208D27C1006F3249 /* GymClassDescription.swift */,
+				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
+				E6AB639E22445897005C2930 /* PersonalLink.swift */,
+				E6B5806B2228B51100A864D6 /* ProBio.swift */,
+				E60A1B9C222B93DF00F89275 /* ProRoutine.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 			);
 			path = Models;
@@ -269,14 +296,15 @@
 		C7DFABE22042081000545B0B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C75FAB0E20420B42008D455A /* TabBarController.swift */,
-				C75FAB1020420B7B008D455A /* HomeController.swift */,
 				635AF233204F85000020F6C6 /* ClassDetailViewController.swift */,
-				8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */,
-				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
-				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
+				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
+				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
+				8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */,
+				C75FAB1020420B7B008D455A /* HomeController.swift */,
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
+				E6B580692228B3CB00A864D6 /* ProBioPageViewController.swift */,
+				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -284,6 +312,8 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E6AB639A22445803005C2930 /* ProRoutineView.swift */,
+				E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				D9936A27216D9F8B002802F4 /* Empty States */,
 				8D5EA478208EC31100E98E6C /* Histogram.swift */,
@@ -297,17 +327,22 @@
 		C7EBD5A92062E64F00D76A8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
-				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
-				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
-				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
-				8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */,
-				8D03EE0E206C481A00EF83C7 /* GymsCell.swift */,
-				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
-				8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */,
-				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
 				8D03EE08206C477600EF83C7 /* AllGymsCell.swift */,
 				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
+				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
+				8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */,
+				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
+				E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */,
+				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
+				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
+				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
+				8D03EE0E206C481A00EF83C7 /* GymsCell.swift */,
+				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
+				E60F23F5223A4CEF008E472C /* OtherProCollectionViewCell.swift */,
+				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
+				E6FCEE51226E791000CEE2BC /* ProCell.swift */,
+				E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */,
+				8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -315,9 +350,10 @@
 		C7EBD5AC2062E72300D76A8B /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */,
+				E6D4E570226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift */,
 				8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */,
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
+				8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
 				8D03EE06206C475200EF83C7 /* HomeSectionHeaderView.swift */,
 				8DC6F7A7218381980048C305 /* TodaysClassesHeaderView.swift */,
@@ -504,7 +540,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
@@ -529,7 +565,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fitness/Pods-Fitness-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8D29EFD320431FCA005B1CC8 /* Run Fabric build */ = {
@@ -572,14 +608,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
+				E6AB639D2244584F005C2930 /* AllProRoutinesView.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
+				E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */,
 				8DC6F7A8218381980048C305 /* TodaysClassesHeaderView.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
 				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
+				E6FCEE52226E791000CEE2BC /* ProCell.swift in Sources */,
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
+				E6D4E573226E6AD000A41C4F /* DiscoverProsCell.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				0CA1047D2155C0AC00201D10 /* API.swift in Sources */,
@@ -594,6 +634,7 @@
 				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
+				E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
@@ -605,9 +646,15 @@
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
+				E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */,
+				E60F23F4223A3310008E472C /* ProRoutineTableViewCell.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
+				E60F23F6223A4CEF008E472C /* OtherProCollectionViewCell.swift in Sources */,
+				E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */,
+				E6D4E571226E68A100A41C4F /* DiscoverProsSectionHeaderView.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
+				E6B5806A2228B3CB00A864D6 /* ProBioPageViewController.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
 				8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */,
 				D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */,
@@ -618,6 +665,7 @@
 				C76F715F20900AD400FDC958 /* Tag.swift in Sources */,
 				8D03EE07206C475200EF83C7 /* HomeSectionHeaderView.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
+				E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -753,7 +801,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				DEVELOPMENT_TEAM = LL74343538;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -770,7 +818,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				DEVELOPMENT_TEAM = LL74343538;
 				INFOPLIST_FILE = Fitness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;

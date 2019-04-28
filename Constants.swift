@@ -16,6 +16,7 @@ struct Identifiers {
     static let favoritesHeaderView = "favoritesHeaderView"
     static let homeSectionHeaderView = "homeSectionHeaderView"
     static let todaysClassesHeaderView = "todaysClassesHeaderView"
+    static let DiscoverProsSectionHeaderView = "DiscoverProsSectionHeaderView"
     
     // CELLS
     static let allGymsCell = "allGymsCell"
@@ -29,6 +30,11 @@ struct Identifiers {
     static let gymsCell = "gymsCell"
     static let classListCell = "classListCell"
     static let calendarCell = "calendarCell"
+    static let personalSiteCell = "personalCiteCell"
+    static let proRoutineCell = "proRoutineCell"
+    static let otherProCell = "otherProCell"
+    static let discoverProsCell = "discoverProsCell"
+    static let proCell = "proCell"
     
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
@@ -36,4 +42,11 @@ struct Identifiers {
     // USER DEFAULTS
     static let hasSeenOnboarding = "hasSeenOnboarding"
     static let favorites = "Favorites"
+}
+
+// MARK: - PROS
+struct Pros {
+    
+    
+    
 }

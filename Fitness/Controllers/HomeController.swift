@@ -16,6 +16,7 @@ enum SectionType: String {
     case allGyms = "ALL GYMS"
     case todaysClasses = "TODAY'S CLASSES"
     case lookingFor = "I'M LOOKING FOR..."
+    case pros = "LEARN FROM THE PROS"
 }
 
 class HomeController: UIViewController {
@@ -34,6 +35,7 @@ class HomeController: UIViewController {
     var tags: [Tag] = []
     var didSetupHeaderShadow = false
     var didRegisterCategoryCell = false
+    var pros = [ProBio.getClaire(), ProBio.getClaire(), ProBio.getClaire()]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,11 +69,14 @@ class HomeController: UIViewController {
         mainCollectionView.register(TodaysClassesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
+        mainCollectionView.register(DiscoverProsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscoverProsSectionHeaderView.identifier)
+        mainCollectionView.register(DiscoverProsCell.self, forCellWithReuseIdentifier: DiscoverProsCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
 
         sections.insert(.allGyms, at: 0)
         sections.insert(.todaysClasses, at: 1)
         sections.insert(.lookingFor, at: 2)
+        sections.insert(.pros, at: 3)
         view.addSubview(mainCollectionView)
 
         mainCollectionView.snp.makeConstraints {make in
@@ -121,10 +126,11 @@ class HomeController: UIViewController {
 extension HomeController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView != mainCollectionView {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             return gymClassInstances.count
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            return pros.count
         }
-
         switch sections[section] {
         case .allGyms:
             return gyms.count
@@ -132,12 +138,14 @@ extension HomeController: UICollectionViewDataSource {
             return 1
         case .lookingFor:
             return tags.count
+        case .pros:
+            return 1
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        if collectionView != mainCollectionView {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             let classInstance = gymClassInstances[indexPath.row]
             let reuseIdentifier = classInstance.isCancelled ? ClassesCell.cancelledIdentifier : ClassesCell.identifier
             // swiftlint:disable:next force_cast
@@ -159,6 +167,10 @@ extension HomeController: UICollectionViewDataSource {
                 cell.classIsCancelled()
 
             }
+            return cell
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProCell.identifier, for: indexPath) as! ProCell
+            cell.setPro(pro: ProBio.getClaire())
             return cell
         }
 
@@ -185,12 +197,17 @@ extension HomeController: UICollectionViewDataSource {
             let url = URL(string: tags[indexPath.row].imageURL)
             categoryCell.image.kf.setImage(with: url)
             return categoryCell
+        case .pros:
+            let discoverPros = collectionView.dequeueReusableCell(withReuseIdentifier: DiscoverProsCell.identifier, for: indexPath) as! DiscoverProsCell
+            discoverPros.collectionView.dataSource = self
+            discoverPros.collectionView.delegate = self
+            return discoverPros
         }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView != mainCollectionView { return 1 }
-        return 3
+        return 4
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -210,6 +227,10 @@ extension HomeController: UICollectionViewDataSource {
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
                 headerView.setTitle(title: sections[indexPath.section].rawValue)
                 return headerView
+            case .pros:
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DiscoverProsSectionHeaderView.identifier, for: indexPath) as! DiscoverProsSectionHeaderView
+                headerView.setTitle(title: sections[indexPath.section].rawValue)
+                return headerView
             }
         default:
             fatalError("Unexpected element kind")
@@ -226,8 +247,11 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView != mainCollectionView {
-            return CGSize(width: 228.0, height: 195.0)}
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell{
+            return CGSize(width: 228.0, height: 195.0)
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell{
+            return CGSize(width: 280, height: 110.0)
+        }
 
         switch sections[indexPath.section] {
         case .allGyms:
@@ -240,6 +264,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         case .lookingFor:
             let width = (collectionView.bounds.width-48)/2
             return CGSize(width: width, height: width*0.78)
+        case .pros:
+            return CGSize(width: view.bounds.width, height: 145)
         }
     }
 
@@ -251,6 +277,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         case .todaysClasses:
             return .zero
+        case .pros:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         }
     }
     
@@ -269,7 +297,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView != mainCollectionView {
+        print("here")
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
                 "Section": SectionType.todaysClasses.rawValue
@@ -279,8 +308,15 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            print("here")
+            let proDetailViewController = ProBioPageViewController()
+            proDetailViewController.pro = pros[indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(proDetailViewController, animated: true)
+            return
         }
-        
+
         switch sections[indexPath.section] {
         case .allGyms:
             let gymDetailViewController = GymDetailViewController()
@@ -307,8 +343,13 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
+
+        case .pros:
+            let proDetailViewController = ProBioPageViewController()
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(proDetailViewController, animated: true)
         }
-        
+
         // MARK: - Fabric
         Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
             "Section": sections[indexPath.section].rawValue

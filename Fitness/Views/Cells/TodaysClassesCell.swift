@@ -51,6 +51,7 @@ class TodaysClassesCell: UICollectionViewCell {
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delaysContentTouches = false
+        collectionView.accessibilityIdentifier = Identifiers.todaysClassesCell
 
         collectionView.register(ClassesCell.self, forCellWithReuseIdentifier: ClassesCell.identifier)
         collectionView.register(ClassesCell.self, forCellWithReuseIdentifier: ClassesCell.cancelledIdentifier)
