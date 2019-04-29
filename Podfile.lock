@@ -6,28 +6,35 @@ PODS:
     - Apollo/Core (= 0.10.1)
   - Apollo/Core (0.10.1)
   - Bartinter (0.0.4)
-  - Crashlytics (3.10.8):
-    - Fabric (~> 1.7.12)
-  - Fabric (1.7.12)
-  - Kingfisher (4.10.0)
-  - Moya (11.0.2):
-    - Moya/Core (= 11.0.2)
-  - Moya/Core (11.0.2):
-    - Alamofire (~> 4.1)
-    - Result (~> 3.0)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
+  - GoogleSignIn (4.4.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.2.0):
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+  - GoogleToolboxForMac/Defines (2.2.0)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.0)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.0)
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.0)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.0)"
+  - GTMSessionFetcher/Core (1.2.1)
+  - Kingfisher (4.10.1)
   - Presentation (4.1.2)
-  - Result (3.2.4)
-  - SnapKit (4.0.1)
-  - SwiftLint (0.27.0)
+  - SnapKit (5.0.0)
+  - SwiftLint (0.31.0)
 
 DEPENDENCIES:
   - AlamofireImage
-  - Apollo
+  - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
   - Bartinter
   - Crashlytics
   - Fabric
+  - GoogleSignIn
   - Kingfisher (~> 4.0)
-  - Moya
   - Presentation (from `https://github.com/cuappdev/Presentation.git`)
   - SnapKit
   - SwiftLint
@@ -36,21 +43,27 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - Apollo
     - Bartinter
     - Crashlytics
     - Fabric
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
     - Kingfisher
-    - Moya
-    - Result
     - SnapKit
     - SwiftLint
 
 EXTERNAL SOURCES:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :commit: fe68b1b644b6015202430662d4db621eb1b621bc
     :git: https://github.com/cuappdev/Presentation.git
@@ -60,15 +73,16 @@ SPEC CHECKSUMS:
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
   Apollo: 4d690a9b2e48e8820182df4b988d7a253e1ee589
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
-  Crashlytics: 058dc1ba579f6c100bc60a6878703779bff383c4
-  Fabric: d7387db9a31aadff63b147a4b91d982c53afaa4f
-  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
-  Moya: a725035953bc1c0eb1be505ab903984501d82440
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Presentation: e8571efaa303ed9ce34c2a54d80457f881fd294e
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
-  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
+  SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: 0ea27e584635201a7261a22e645183ca82d7f6a7
+PODFILE CHECKSUM: 5b7c0f15cdfa942a339a8b31eeb84e55ae19d811
 
 COCOAPODS: 1.6.1

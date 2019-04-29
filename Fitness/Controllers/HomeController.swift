@@ -5,18 +5,18 @@
 //  Created by Keivan Shahida on 2/24/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
-import SnapKit
 import Alamofire
 import AlamofireImage
-import Kingfisher
 import Crashlytics
+import Kingfisher
+import SnapKit
+import UIKit
 
 enum SectionType: String {
     case allGyms = "ALL GYMS"
-    case todaysClasses = "TODAY'S CLASSES"
     case lookingFor = "I'M LOOKING FOR..."
     case pros = "LEARN FROM THE PROS"
+    case todaysClasses = "TODAY'S CLASSES"
 }
 
 enum SectionInsets {
@@ -30,6 +30,12 @@ class HomeController: UIViewController {
     
     // MARK: - INITIALIZATION
     let pros = ProBio.getAllPros()
+    var mainCollectionView: UICollectionView!
+
+    var headerView: HomeScreenHeaderView!
+    var statusBarBackgroundColor: UIView!
+
+    private var todayClassCollectionView: UICollectionView!
     var didRegisterCategoryCell = false
     var didSetupHeaderShadow = false
     var gymClassInstances: [GymClassInstance] = []
@@ -40,11 +46,10 @@ class HomeController: UIViewController {
     var sections: [SectionType] = []
     var statusBarBackgroundColor: UIView!
     var tags: [Tag] = []
-    private var todayClassCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor.fitnessWhite
         headerView = HomeScreenHeaderView()
         headerView.layer.shadowOffset = CGSize(width: 0.0, height: 9.0)
@@ -409,7 +414,11 @@ extension HomeController {
             } else {
                 format = "h:mm a"
             }
-            return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: format))"
+            if gym.closedTomorrow {
+                return "Closed Tomorrow"
+            } else {
+                return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: format))"
+            }
         } else if !isOpen {
             if Calendar.current.component(.minute, from: gymHoursToday.openTime) == 0 {
                 format = "h a"

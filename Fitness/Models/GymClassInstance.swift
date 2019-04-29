@@ -11,13 +11,13 @@ struct GymClassInstance {
     let classDescription: String
     let classDetailId: String
     let className: String
-    let instructor: String
-    let startTime: Date
+    let duration: Double
     let endTime: Date
     let gymId: String
-    let duration: Double
-    let location: String
     let imageURL: URL
+    let instructor: String
     let isCancelled: Bool
+    let location: String
+    let startTime: Date
     let tags: [Tag]
 }

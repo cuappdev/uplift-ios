@@ -6,8 +6,8 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class DropdownFooterView: UITableViewHeaderFooterView {
 

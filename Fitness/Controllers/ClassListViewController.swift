@@ -6,17 +6,17 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
-import SnapKit
 import Crashlytics
+import SnapKit
+import UIKit
 
 struct FilterParameters {
+    var classNames: [String]
+    var endTime: Date
+    var gymIds: [String]
+    var instructorNames: [String]
     var shouldFilter: Bool
     var startTime: Date
-    var endTime: Date
-    var instructorNames: [String]
-    var classNames: [String]
-    var gymIds: [String]
     var tags: [String]
     
     init() {
