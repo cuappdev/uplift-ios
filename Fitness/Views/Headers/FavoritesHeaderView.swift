@@ -19,10 +19,10 @@ class FavoritesHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        // BACKGROUND COLOR
+        //BACKGROUND COLOR
         backgroundColor = .white
 
-        // QUOTE LABEL
+        //QUOTE LABEL
         quoteLabel = UILabel()
         quoteLabel.font = ._32Bebas
         quoteLabel.textColor = .fitnessBlack
@@ -32,7 +32,7 @@ class FavoritesHeaderView: UICollectionReusableView {
         quoteLabel.text = "NOTHING CAN STOP YOU BUT YOURSELF."
         addSubview(quoteLabel)
 
-        // SESSIONS LABEL
+        //SESSIONS LABEL
         nextSessionsLabel = UILabel()
         nextSessionsLabel.font = ._12LatoBlack
         nextSessionsLabel.textColor = .fitnessDarkGrey
@@ -49,13 +49,13 @@ class FavoritesHeaderView: UICollectionReusableView {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        quoteLabel.snp.updateConstraints { make in
+        quoteLabel.snp.updateConstraints {make in
             make.trailing.equalToSuperview().offset(-30)
             make.leading.equalToSuperview().offset(30)
             make.top.equalToSuperview().offset(64)
         }
 
-        nextSessionsLabel.snp.updateConstraints { make in
+        nextSessionsLabel.snp.updateConstraints {make in
             make.top.equalTo(quoteLabel.snp.bottom).offset(62)
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview().offset(40)

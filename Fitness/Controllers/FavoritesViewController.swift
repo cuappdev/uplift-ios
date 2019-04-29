@@ -109,7 +109,7 @@ class FavoritesViewController: UIViewController {
             make.height.equalTo(120)
         }
 
-        titleLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints {make in
             make.leading.equalToSuperview().offset(24)
             make.bottom.equalToSuperview().offset(-20)
             make.height.equalTo(26)

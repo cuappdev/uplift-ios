@@ -37,7 +37,7 @@ class DropdownFooterView: UITableViewHeaderFooterView {
     }
 
     func setupConstraints() {
-        showHideLabel.snp.updateConstraints { make in
+        showHideLabel.snp.updateConstraints {make in
             make.bottom.equalToSuperview().offset(-16)
             make.left.equalToSuperview().offset(16)
         }

@@ -30,7 +30,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // COLLECTION VIEW LAYOUT
+        //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 19, bottom: 12, right: 40 )
@@ -46,7 +46,7 @@ class AllGymsCell: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollec
 
         contentView.addSubview(collectionView)
 
-        collectionView.snp.updateConstraints { make in
+        collectionView.snp.updateConstraints {make in
             make.center.equalToSuperview()
             make.size.equalToSuperview()
         }
