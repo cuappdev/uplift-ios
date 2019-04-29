@@ -17,10 +17,10 @@ class HomeScreenHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        //BACKGROUND COLOR
+        // BACKGROUND COLOR
         backgroundColor = .white
 
-        //WELCOME MESSAGE
+        // WELCOME MESSAGE
         welcomeMessage = UILabel()
         welcomeMessage.font = ._24MontserratBold
         welcomeMessage.textColor = .fitnessBlack

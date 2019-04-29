@@ -15,24 +15,36 @@ import UIKit
 enum SectionType: String {
     case allGyms = "ALL GYMS"
     case lookingFor = "I'M LOOKING FOR..."
+    case pros = "LEARN FROM THE PROS"
     case todaysClasses = "TODAY'S CLASSES"
 }
 
-class HomeController: UIViewController {
+enum SectionInsets {
+    static let allGyms = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
+    static let lookingFor = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
+    static let todaysClasses = UIEdgeInsets.zero
+    static let pros = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
+}
 
+class HomeController: UIViewController {
+    
     // MARK: - INITIALIZATION
+    let pros = ProBio.getAllPros()
     var mainCollectionView: UICollectionView!
-    var todayClassCollectionView: UICollectionView!
 
     var headerView: HomeScreenHeaderView!
     var statusBarBackgroundColor: UIView!
 
+    private var todayClassCollectionView: UICollectionView!
     var didRegisterCategoryCell = false
     var didSetupHeaderShadow = false
     var gymClassInstances: [GymClassInstance] = []
     var gymLocations: [Int: String] = [:]
     var gyms: [Gym] = []
+    var headerView: HomeScreenHeaderView!
+    var mainCollectionView: UICollectionView!
     var sections: [SectionType] = []
+    var statusBarBackgroundColor: UIView!
     var tags: [Tag] = []
 
     override func viewDidLoad() {
@@ -67,14 +79,13 @@ class HomeController: UIViewController {
         mainCollectionView.register(TodaysClassesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier)
         mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
+        mainCollectionView.register(DiscoverProsCell.self, forCellWithReuseIdentifier: DiscoverProsCell.identifier)
         mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
 
-        sections.insert(.allGyms, at: 0)
-        sections.insert(.todaysClasses, at: 1)
-        sections.insert(.lookingFor, at: 2)
+        sections = [.allGyms, .todaysClasses, .lookingFor, .pros]
         view.addSubview(mainCollectionView)
 
-        mainCollectionView.snp.makeConstraints {make in
+        mainCollectionView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(12)
             make.centerX.width.bottom.equalToSuperview()
         }
@@ -115,29 +126,54 @@ class HomeController: UIViewController {
             }
         }
     }
+    
+    func getCollectionViewCellSize(_ collectionView: UICollectionView, identifier: String) -> CGSize {
+        let allGymsCellSize = CGSize(width: (collectionView.bounds.width - 32.0 - 12.0)/2.0, height: 60.0)
+        let classCellSize = CGSize(width: 228.0, height: 195.0)
+        let discoverProsCellSize = CGSize(width: 280, height: 110.0)
+        let lookingForCellSize = CGSize(width: (collectionView.bounds.width-48)/2, height: ((collectionView.bounds.width-48)/2)*0.78)
+        let proCellSize = CGSize(width: view.bounds.width, height: 145)
+        let todaysClassesCellSize = CGSize(width: collectionView.bounds.width, height: 227.0)
+        
+        if identifier == Identifiers.classesCell {
+            return classCellSize
+        } else if identifier == Identifiers.discoverProsCell {
+            return discoverProsCellSize
+        } else if identifier == Identifiers.allGymsCell {
+            return allGymsCellSize
+        } else if identifier == Identifiers.todaysClassesCell {
+            return todaysClassesCellSize
+        } else if identifier == Identifiers.lookingForCell {
+            return lookingForCellSize
+        } else if identifier == Identifiers.proCell {
+            return proCellSize
+        }
+        return CGSize(width: 0, height: 0)
+    }
 }
 
 // MARK: CollectionViewDataSource
 extension HomeController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView != mainCollectionView {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             return gymClassInstances.count
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            return pros.count
         }
-
         switch sections[section] {
         case .allGyms:
             return gyms.count
-        case .todaysClasses:
-            return 1
         case .lookingFor:
             return tags.count
+        case .pros, .todaysClasses:
+            return 1
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        if collectionView != mainCollectionView {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             let classInstance = gymClassInstances[indexPath.row]
             let reuseIdentifier = classInstance.isCancelled ? ClassesCell.cancelledIdentifier : ClassesCell.identifier
             // swiftlint:disable:next force_cast
@@ -147,7 +183,7 @@ extension HomeController: UICollectionViewDataSource {
             cell.locationName.text = classInstance.location
             cell.image.kf.setImage(with: classInstance.imageURL)
 
-            //HOURS
+            // HOURS
             if !classInstance.isCancelled {
                 var calendar = Calendar.current
                 calendar.timeZone = TimeZone(abbreviation: "EDT")!
@@ -160,6 +196,10 @@ extension HomeController: UICollectionViewDataSource {
 
             }
             return cell
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProCell.identifier, for: indexPath) as! ProCell
+            cell.setPro(pros[indexPath.row])
+            return cell
         }
 
         switch sections[indexPath.section] {
@@ -171,44 +211,51 @@ extension HomeController: UICollectionViewDataSource {
             gymCell.setGymStatus(isOpen: gym.isOpen)
             gymCell.setGymHours(hours: getHourString(gym: gym))
             return gymCell
+        case .lookingFor:
+            // swiftlint:disable:next force_cast
+            let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+            categoryCell.title.text = tags[indexPath.row].name
+            let url = URL(string: tags[indexPath.row].imageURL)
+            categoryCell.image.kf.setImage(with: url)
+            return categoryCell
+        case .pros:
+            let discoverPros = collectionView.dequeueReusableCell(withReuseIdentifier: DiscoverProsCell.identifier, for: indexPath) as! DiscoverProsCell
+            discoverPros.collectionView.dataSource = self
+            discoverPros.collectionView.delegate = self
+            return discoverPros
         case .todaysClasses:
             // swiftlint:disable:next force_cast
             let todayClassesCell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysClassesCell.identifier, for: indexPath) as! TodaysClassesCell
             todayClassesCell.collectionView.dataSource = self
             todayClassesCell.collectionView.delegate = self
             return todayClassesCell
-        case .lookingFor:
-            // swiftlint:disable:next force_cast
-            let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
-            categoryCell.title.text = tags[indexPath.row].name
-
-            let url = URL(string: tags[indexPath.row].imageURL)
-            categoryCell.image.kf.setImage(with: url)
-            return categoryCell
         }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView != mainCollectionView { return 1 }
-        return 3
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
         if collectionView != mainCollectionView { return UICollectionReusableView() }
 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             switch sections[indexPath.section] {
+            case .allGyms, .lookingFor:
+                // swiftlint:disable:next force_cast
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
+                headerView.setTitle(title: sections[indexPath.section].rawValue)
+                return headerView
+            case .pros:
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
+                headerView.setTitle(title: sections[indexPath.section].rawValue)
+                return headerView
             case .todaysClasses:
                 // swiftlint:disable:next force_cast
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier, for: indexPath) as! TodaysClassesHeaderView
                 headerView.delegate = self
-                return headerView
-            case .lookingFor, .allGyms:
-                // swiftlint:disable:next force_cast
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
-                headerView.setTitle(title: sections[indexPath.section].rawValue)
                 return headerView
             }
         default:
@@ -221,36 +268,40 @@ extension HomeController: UICollectionViewDataSource {
 extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let mainCollectionViewHeights = 32.0
         if collectionView != mainCollectionView { return .zero }
         return CGSize(width: collectionView.bounds.width, height: 32.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView != mainCollectionView {
-            return CGSize(width: 228.0, height: 195.0)}
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.classesCell)
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell{
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.discoverProsCell)
+        }
 
         switch sections[indexPath.section] {
         case .allGyms:
-            let spacingInsets: CGFloat = 32.0
-            //12.0 is the spacing between each cell
-            let totalWidth = collectionView.bounds.width - spacingInsets - 12.0
-            return CGSize(width: totalWidth/2.0, height: 60.0)
-        case .todaysClasses:
-            return CGSize(width: collectionView.bounds.width, height: 227.0)
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.allGymsCell)
         case .lookingFor:
-            let width = (collectionView.bounds.width-48)/2
-            return CGSize(width: width, height: width*0.78)
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.lookingForCell)
+        case .pros:
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.proCell)
+        case .todaysClasses:
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.todaysClassesCell)
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         switch sections[section] {
         case .allGyms:
-            return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
+            return SectionInsets.allGyms
         case .lookingFor:
-            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
+            return SectionInsets.lookingFor
+        case .pros:
+            return SectionInsets.pros
         case .todaysClasses:
-            return .zero
+            return SectionInsets.todaysClasses
         }
     }
     
@@ -269,7 +320,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView != mainCollectionView {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
                 "Section": SectionType.todaysClasses.rawValue
@@ -279,8 +330,14 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            let proDetailViewController = ProBioPageViewController()
+            proDetailViewController.pro = pros[indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(proDetailViewController, animated: true)
+            return
         }
-        
+
         switch sections[indexPath.section] {
         case .allGyms:
             let gymDetailViewController = GymDetailViewController()
@@ -301,14 +358,17 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             classNavigationController.setViewControllers([classListViewController], animated: false)
 
             tabBarController?.selectedIndex = 1
-
+        case .pros:
+            let proDetailViewController = ProBioPageViewController()
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(proDetailViewController, animated: true)
         case .todaysClasses:
             let classDetailViewController = ClassDetailViewController()
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
         }
-        
+
         // MARK: - Fabric
         Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
             "Section": sections[indexPath.section].rawValue
@@ -354,7 +414,6 @@ extension HomeController {
             } else {
                 format = "h:mm a"
             }
-            
             if gym.closedTomorrow {
                 return "Closed Tomorrow"
             } else {
@@ -367,7 +426,6 @@ extension HomeController {
                 format = "h:mm a"
             }
             return "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: format))"
-            
         } else {
             if Calendar.current.component(.minute, from: gymHoursToday.closeTime) == 0 {
                 format = "h a"

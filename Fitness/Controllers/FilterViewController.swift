@@ -95,7 +95,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         setupWrappingViews()
 
-        //START TIME SLIDER SECTION
+        // START TIME SLIDER SECTION
         fitnessCenterStartTimeDivider = UIView()
         fitnessCenterStartTimeDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(fitnessCenterStartTimeDivider)
@@ -138,7 +138,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         startTimeClassTypeDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(startTimeClassTypeDivider)
 
-        //CLASS TYPE SECTION
+        // CLASS TYPE SECTION
         classTypeDropdown = UITableView(frame: .zero, style: .grouped)
         classTypeDropdown.separatorStyle = .none
         classTypeDropdown.showsVerticalScrollIndicator = false
@@ -167,7 +167,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             self.setupConstraints()
         }
 
-        //INSTRUCTOR SECTION
+        // INSTRUCTOR SECTION
         instructorDropdown = UITableView(frame: .zero, style: .grouped)
         instructorDropdown.separatorStyle = .none
         instructorDropdown.bounces = false
@@ -201,7 +201,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - SETUP WRAPPING VIEWS
     func setupWrappingViews() {
-        //NAVIGATION BAR
+        // NAVIGATION BAR
         let titleView = UILabel()
         titleView.text = "Refine Search"
         titleView.font = ._14LatoBlack
@@ -215,7 +215,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         resetBarButton.tintColor = .fitnessBlack
         self.navigationItem.leftBarButtonItem = resetBarButton
 
-        //SCROLL VIEW
+        // SCROLL VIEW
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
@@ -228,12 +228,12 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         contentView = UIView()
         scrollView.addSubview(contentView)
-        contentView.snp.makeConstraints {make in
+        contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalTo(scrollView)
         }
 
-        //COLLECTION VIEW
+        // COLLECTION VIEW
         collectionViewTitle = UILabel()
         collectionViewTitle.font = ._12LatoBlack
         collectionViewTitle.textColor = .fitnessDarkGrey
@@ -269,53 +269,53 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        //COLLECTION VIEW SECTION
-        collectionViewTitle.snp.remakeConstraints {make in
+        // COLLECTION VIEW SECTION
+        collectionViewTitle.snp.remakeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(20)
             make.bottom.equalTo(collectionViewTitle.snp.top).offset(15)
         }
 
-        gymCollectionView.snp.remakeConstraints {make in
+        gymCollectionView.snp.remakeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(51)
             make.bottom.equalTo(collectionViewTitle.snp.bottom).offset(47)
         }
 
-        //SLIDER SECTION
-        fitnessCenterStartTimeDivider.snp.remakeConstraints {make in
+        // SLIDER SECTION
+        fitnessCenterStartTimeDivider.snp.remakeConstraints { make in
             make.top.equalTo(gymCollectionView.snp.bottom).offset(16)
             make.bottom.equalTo(gymCollectionView.snp.bottom).offset(17)
             make.width.centerX.equalToSuperview()
         }
 
-        startTimeTitleLabel.snp.remakeConstraints {make in
+        startTimeTitleLabel.snp.remakeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(35)
         }
 
-        startTimeLabel.snp.remakeConstraints {make in
+        startTimeLabel.snp.remakeConstraints { make in
             make.right.equalToSuperview().offset(-22)
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(36)
         }
 
-        startTimeSlider.snp.remakeConstraints {make in
+        startTimeSlider.snp.remakeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
             make.leading.equalToSuperview().offset(16)
             make.top.equalTo(startTimeLabel.snp.bottom).offset(12)
             make.height.equalTo(30)
         }
 
-        startTimeClassTypeDivider.snp.remakeConstraints {make in
+        startTimeClassTypeDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(90)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(91)
         }
 
-        //CLASS TYPE SECTION
-        classTypeDropdown.snp.remakeConstraints {make in
+        // CLASS TYPE SECTION
+        classTypeDropdown.snp.remakeConstraints { make in
             make.top.equalTo(startTimeClassTypeDivider.snp.bottom)
             make.left.right.equalToSuperview()
 
@@ -329,14 +329,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
         }
 
-        classTypeInstructorDivider.snp.remakeConstraints {make in
+        classTypeInstructorDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(classTypeDropdown.snp.bottom)
             make.bottom.equalTo(classTypeDropdown.snp.bottom).offset(1)
         }
 
-        //INSTRUCTOR SECTION
-        instructorDropdown.snp.remakeConstraints {make in
+        // INSTRUCTOR SECTION
+        instructorDropdown.snp.remakeConstraints { make in
             make.top.equalTo(classTypeInstructorDivider.snp.bottom)
             make.left.right.equalToSuperview()
 
@@ -350,7 +350,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
         }
 
-        instructorDivider.snp.remakeConstraints {make in
+        instructorDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(instructorDropdown.snp.bottom)
             make.height.equalTo(1)
