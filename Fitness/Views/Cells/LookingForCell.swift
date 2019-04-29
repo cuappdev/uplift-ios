@@ -18,7 +18,7 @@ class LookingForCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        // COLLECTION VIEW LAYOUT
+        //COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 15, right: 16 )

@@ -59,6 +59,7 @@ class CalendarCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     func setConstraints() {
+
         dateLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(dayOfWeekLabel.snp.bottom).offset(12)

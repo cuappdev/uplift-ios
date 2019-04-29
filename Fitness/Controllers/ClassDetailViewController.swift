@@ -167,7 +167,7 @@ class ClassDetailViewController: UIViewController {
         dateDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(dateDivider)
 
-        // FUNCTION
+        //FUNCTION
         functionLabel = UILabel()
         functionLabel.text = "FUNCTION"
         functionLabel.font = ._16MontserratMedium

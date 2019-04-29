@@ -111,7 +111,7 @@ class ClassListViewController: UIViewController {
         titleLabel.text = "Classes"
         titleView.addSubview(titleLabel)
         
-        titleLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints {make in
             make.leading.equalToSuperview().offset(24)
             make.bottom.equalToSuperview().offset(-20)
             make.height.equalTo(26)

@@ -43,13 +43,13 @@ class GymHoursCell: UITableViewCell {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        hoursLabel.snp.updateConstraints { make in
+        hoursLabel.snp.updateConstraints {make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview()
             make.height.equalTo(19)
         }
 
-        dayLabel.snp.updateConstraints { make in
+        dayLabel.snp.updateConstraints {make in
             make.right.equalTo(hoursLabel.snp.left).offset(-4)
             make.top.equalToSuperview()
             make.height.equalTo(18)
