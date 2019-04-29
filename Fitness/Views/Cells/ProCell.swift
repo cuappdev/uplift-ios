@@ -30,7 +30,6 @@ class ProCell: UICollectionViewCell {
         
         // CLASS NAME
         nameLabel = UILabel()
-        nameLabel.text = "a"
         nameLabel.font = ._20MontserratBold
         nameLabel.textColor = .white
         nameLabel.layer.shadowRadius = 2

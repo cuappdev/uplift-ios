@@ -31,7 +31,7 @@ class DropdownViewCell: UITableViewCell {
         titleLabel.text = ""
         addSubview(titleLabel)
 
-        //n CHECKBOX
+        // CHECKBOX
         checkBox = UIView()
         checkBox.layer.cornerRadius = 3
         checkBox.layer.borderColor = UIColor.fitnessLightGrey.cgColor

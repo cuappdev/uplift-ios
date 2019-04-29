@@ -18,7 +18,7 @@ class AllProRoutinesView: UIView {
         super.init(frame: .zero)
         
         self.routines = routines
-        for routine in routines {
+        routines.forEach { routine in
             var newRoutineView = ProRoutineView(routine: routine)
             routineViews.append(newRoutineView)
             self.addSubview(newRoutineView)
@@ -30,7 +30,7 @@ class AllProRoutinesView: UIView {
     }
     
     func setupConstraints() {
-        var firstView = routineViews[0]
+        let firstView = routineViews[0]
         firstView.snp.makeConstraints{ make in
             make.top.leading.trailing.equalToSuperview()
         }
@@ -38,8 +38,8 @@ class AllProRoutinesView: UIView {
         var previousView = firstView
         var lastView: ProRoutineView!
         if routineViews.count != 1 {
-            for i in 1..<routineViews.count - 1 {
-                var curView = routineViews[i]
+            for i in 1..<routineViews.count - 1 { // Looping from 1 instead of 0 here because by this point constraints are already set for the first routineView
+                let curView = routineViews[i]
                 curView.snp.makeConstraints{ make in
                     make.leading.trailing.equalToSuperview()
                     make.top.equalTo(previousView.snp.bottom).offset(interViewSpacing)

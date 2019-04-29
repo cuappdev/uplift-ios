@@ -40,7 +40,7 @@ class HomeController: UIViewController {
     var sections: [SectionType] = []
     var statusBarBackgroundColor: UIView!
     var tags: [Tag] = []
-    var todayClassCollectionView: UICollectionView!
+    private var todayClassCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,21 +127,21 @@ class HomeController: UIViewController {
         let classCellSize = CGSize(width: 228.0, height: 195.0)
         let discoverProsCellSize = CGSize(width: 280, height: 110.0)
         let lookingForCellSize = CGSize(width: (collectionView.bounds.width-48)/2, height: ((collectionView.bounds.width-48)/2)*0.78)
-        let prosCellSize = CGSize(width: view.bounds.width, height: 145)
+        let proCellSize = CGSize(width: view.bounds.width, height: 145)
         let todaysClassesCellSize = CGSize(width: collectionView.bounds.width, height: 227.0)
         
-        if identifier == "classCell" {
+        if identifier == Identifiers.classesCell {
             return classCellSize
-        } else if identifier == "discoverProsCell" {
+        } else if identifier == Identifiers.discoverProsCell {
             return discoverProsCellSize
-        } else if identifier == "allGymsCell" {
+        } else if identifier == Identifiers.allGymsCell {
             return allGymsCellSize
-        } else if identifier == "todaysClassesCell" {
+        } else if identifier == Identifiers.todaysClassesCell {
             return todaysClassesCellSize
-        } else if identifier == "lookingForCell" {
+        } else if identifier == Identifiers.lookingForCell {
             return lookingForCellSize
-        } else if identifier == "prosCell" {
-            return prosCellSize
+        } else if identifier == Identifiers.proCell {
+            return proCellSize
         }
         return CGSize(width: 0, height: 0)
     }
@@ -210,7 +210,6 @@ extension HomeController: UICollectionViewDataSource {
             // swiftlint:disable:next force_cast
             let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
             categoryCell.title.text = tags[indexPath.row].name
-            
             let url = URL(string: tags[indexPath.row].imageURL)
             categoryCell.image.kf.setImage(with: url)
             return categoryCell
@@ -270,21 +269,21 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell{
-            return getCollectionViewCellSize(collectionView, identifier: "classCell")
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.classesCell)
         } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell{
-            return getCollectionViewCellSize(collectionView, identifier: "discoverProsCell")
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.discoverProsCell)
         }
 
         switch sections[indexPath.section] {
         case .allGyms:
-            return getCollectionViewCellSize(collectionView, identifier: "allGymsCell")
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.allGymsCell)
         case .lookingFor:
-            return getCollectionViewCellSize(collectionView, identifier: "lookingForCell")
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.lookingForCell)
         case .pros:
-            return getCollectionViewCellSize(collectionView, identifier: "prosCell")
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.proCell)
         case .todaysClasses:
-            return getCollectionViewCellSize(collectionView, identifier: "todaysClassesCell")
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.todaysClassesCell)
         }
     }
     

@@ -26,16 +26,12 @@ class DiscoverProsCell: UICollectionViewCell {
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 16
         layout.itemSize = itemSize
-        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delaysContentTouches = false
         collectionView.accessibilityIdentifier = Identifiers.discoverProsCell
-        
         collectionView.register(ProCell.self, forCellWithReuseIdentifier: ProCell.identifier)
-        
         contentView.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in
@@ -46,5 +42,4 @@ class DiscoverProsCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

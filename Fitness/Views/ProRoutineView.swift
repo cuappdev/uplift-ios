@@ -14,13 +14,13 @@ class ProRoutineView: UIView {
         static let textViewSpacing = 13
     }
     
-    var addButton: UIButton!
-    var containerView: UIView!
-    var routine: ProRoutine!
-    var routineTypeImage: UIImageView!
-    var routineTypeLabel: UILabel!
-    var stepsTextView: UITextView!
-    var titleLabel: UILabel!
+    private var addButton: UIButton!
+    private var containerView: UIView!
+    private var routine: ProRoutine!
+    private var routineTypeImage: UIImageView!
+    private var routineTypeLabel: UILabel!
+    private var stepsTextView: UITextView!
+    private var titleLabel: UILabel!
     
     init(routine: ProRoutine) {
         super.init(frame: .zero)
@@ -132,6 +132,7 @@ class ProRoutineView: UIView {
             make.centerY.equalTo(routineTypeImage)
         }
         
+        // Temporarily commenting out this code until we have a way to display favourited Routines and the addButton is added back in
 //        addButton.snp.makeConstraints{ make in
 //            make.height.width.equalTo(24)
 //            make.trailing.equalToSuperview().offset(-16)

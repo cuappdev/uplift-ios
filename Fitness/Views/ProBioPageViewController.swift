@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ProBioPageViewController: UIViewController {
     enum ConstraintConstants {
         static let bioTextViewLeadingTrailing = 44
         static let bioTitleLeadingTrailing = 40
@@ -151,9 +151,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     @objc func back() {
-        if let navigationController = navigationController {
-            navigationController.popViewController(animated: true)
-        }
+        navigationController?.popViewController(animated: true)
     }
     
     func setPro() {
@@ -277,8 +275,10 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
             make.bottom.equalToSuperview().offset(-ConstraintConstants.largeVerticalSpacing)
         }
     }
-    
-        
+}
+
+
+extension ProBioPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pro.links.count
     }
@@ -292,18 +292,22 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+}
+
+extension ProBioPageViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let url = pro.links[indexPath.row].url {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+}
+
+extension ProBioPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 30, height: 30)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let url = pro.links[indexPath.row].url {
-            UIApplication.shared.open(url, options: [:])
-        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
