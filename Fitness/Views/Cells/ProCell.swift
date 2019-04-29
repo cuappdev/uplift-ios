@@ -22,20 +22,24 @@ class ProCell: UICollectionViewCell {
         layer.cornerRadius = frame.height/16
         clipsToBounds = true
         
-        //IMAGE
+        // IMAGE
         image = UIImageView()
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
         contentView.addSubview(image)
         
-        //CLASS NAME
+        // CLASS NAME
         nameLabel = UILabel()
         nameLabel.text = "a"
         nameLabel.font = ._20MontserratBold
         nameLabel.textColor = .white
-        nameLabel.layer.shadowRadius = 10
+        nameLabel.layer.shadowRadius = 2
+        nameLabel.layer.shadowOpacity = 1.0
+        nameLabel.layer.shadowOffset = CGSize(width: 4, height: 4)
         nameLabel.layer.shadowColor = UIColor.black.cgColor
         nameLabel.sizeToFit()
+        nameLabel.textAlignment = .center
+        nameLabel.numberOfLines = 0
         contentView.addSubview(nameLabel)
         
         setupConstraints()
@@ -47,17 +51,18 @@ class ProCell: UICollectionViewCell {
     
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        
-        image.snp.makeConstraints {make in
+        image.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalToSuperview()
         }
         
-        nameLabel.snp.makeConstraints{make in
+        nameLabel.snp.makeConstraints{ make in
             make.centerX.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
         }
     }
     
-    func setPro(pro: ProBio) {
+    func setPro(_ pro: ProBio) {
         image.image = pro.secondaryProfilePic
         nameLabel.text = pro.name
     }

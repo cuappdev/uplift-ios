@@ -9,20 +9,20 @@
 import Foundation
 
 struct ProRoutine {
-    let title: String
+    enum ProRoutineType {
+        case cardio
+        case mindfullness
+        case other
+        case strength
+    }
+    
     let routineType: ProRoutineType
     let text: String
+    let title: String
     
     init(title: String, routineType: ProRoutineType, text: String) {
         self.title = title
         self.routineType = routineType
         self.text = text
     }
-}
-
-enum ProRoutineType {
-    case mindfullness
-    case cardio
-    case strength
-    case other
 }

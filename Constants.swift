@@ -29,7 +29,7 @@ struct Identifiers {
     static let gymsCell = "gymsCell"
     static let classListCell = "classListCell"
     static let calendarCell = "calendarCell"
-    static let personalSiteCell = "personalCiteCell"
+    static let personalSiteCell = "personalSiteCell"
     static let proRoutineCell = "proRoutineCell"
     static let discoverProsCell = "discoverProsCell"
     static let proCell = "proCell"

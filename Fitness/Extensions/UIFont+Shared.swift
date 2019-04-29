@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIFont {
-    //SYSTEM
+    // SYSTEM
     static let _14SFLight = UIFont.systemFont(ofSize: 14, weight: .light)
     static let _16SFLight = UIFont.systemFont(ofSize: 16, weight: .light)
 
@@ -19,12 +19,12 @@ extension UIFont {
     static let _16SFBold = UIFont.systemFont(ofSize: 16, weight: .bold)
     static let _18SFBold = UIFont.systemFont(ofSize: 18, weight: .bold)
 
-    //BEBAS
+    // BEBAS
     static let _18Bebas = UIFont(name: "BebasNeue-Regular", size: 18)
     static let _32Bebas = UIFont(name: "BebasNeue-Regular", size: 32)
     static let _48Bebas = UIFont(name: "BebasNeue-Regular", size: 48)
 
-    //MONTSERRAT
+    // MONTSERRAT
     static let _12MontserratLight = UIFont(name: "Montserrat-Light", size: 12)
     static let _14MontserratLight = UIFont(name: "Montserrat-Light", size: 14)
     static let _16MontserratLight = UIFont(name: "Montserrat-Light", size: 16)
@@ -54,7 +54,7 @@ extension UIFont {
     static let _16MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 16)
     static let _20MontserratSemiBold = UIFont(name: "Montserrat-SemiBold", size: 20)
 
-    //LATO
+    // LATO
     static let _12LatoBlack = UIFont(name: "Lato-Black", size: 12)
     static let _14LatoBlack = UIFont(name: "Lato-Black", size: 14)
 

@@ -75,7 +75,6 @@
 		D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */; };
 		E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9C222B93DF00F89275 /* ProRoutine.swift */; };
 		E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */; };
-		E60F23F4223A3310008E472C /* ProRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */; };
 		E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639A22445803005C2930 /* ProRoutineView.swift */; };
 		E6AB639D2244584F005C2930 /* AllProRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */; };
 		E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639E22445897005C2930 /* PersonalLink.swift */; };
@@ -159,7 +158,6 @@
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E60A1B9C222B93DF00F89275 /* ProRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLinkCollectionViewCell.swift; sourceTree = "<group>"; };
-		E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProRoutineTableViewCell.swift; path = Fitness/Views/Cells/ProRoutineTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		E6AB639A22445803005C2930 /* ProRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProRoutineView.swift; path = Fitness/Views/ProRoutineView.swift; sourceTree = SOURCE_ROOT; };
 		E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProRoutinesView.swift; sourceTree = "<group>"; };
 		E6AB639E22445897005C2930 /* PersonalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLink.swift; sourceTree = "<group>"; };
@@ -336,7 +334,6 @@
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
 				E6FCEE51226E791000CEE2BC /* ProCell.swift */,
-				E60F23F3223A3310008E472C /* ProRoutineTableViewCell.swift */,
 				8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */,
 			);
 			path = Cells;
@@ -641,7 +638,6 @@
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */,
-				E60F23F4223A3310008E472C /* ProRoutineTableViewCell.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */,

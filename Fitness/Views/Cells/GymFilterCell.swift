@@ -55,7 +55,7 @@ class GymFilterCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        gymNameLabel.snp.updateConstraints {make in
+        gymNameLabel.snp.updateConstraints { make in
             make.top.equalToSuperview().offset(6)
             make.left.equalToSuperview().offset(14)
             make.right.equalToSuperview().offset(-14)

@@ -21,11 +21,11 @@ class CategoryCell: UICollectionViewCell {
         layer.cornerRadius = frame.height/32
         clipsToBounds = true
 
-        //IMAGE
+        // IMAGE
         image = UIImageView()
         contentView.addSubview(image)
 
-        //TITLE
+        // TITLE
         title = UILabel()
         title.font = ._16MontserratSemiBold
         title.textColor = .white
@@ -40,12 +40,12 @@ class CategoryCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        image.snp.updateConstraints {make in
+        image.snp.updateConstraints { make in
             make.size.equalToSuperview()
             make.center.equalToSuperview()
         }
 
-        title.snp.updateConstraints {make in
+        title.snp.updateConstraints { make in
             make.center.equalToSuperview()
         }
     }

@@ -8,20 +8,22 @@
 
 import Foundation
 
-struct PersonalLinkObject {
-    let url: URL
-    let site: PersonalLink
+struct PersonalLink {
+    enum PersonalLinkType {
+        case facebook
+        case instagram
+        case linkedin
+        case other
+        case twitter
+    }
     
-    init(url: String, site: PersonalLink) {
+    let site: PersonalLinkType
+    let url: URL
+    
+    init(url: String, site: PersonalLinkType) {
         self.url = URL(string: url)!
         self.site = site
     }
 }
 
-enum PersonalLink {
-    case facebook
-    case linkedin
-    case instagram
-    case twitter
-    case other
-}
+

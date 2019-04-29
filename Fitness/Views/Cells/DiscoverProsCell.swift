@@ -16,15 +16,16 @@ class DiscoverProsCell: UICollectionViewCell {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.discoverProsCell
     var collectionView: UICollectionView!
+    let itemSize = CGSize(width: 228.0, height: 195.0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        //COLLECTION VIEW LAYOUT
+        // COLLECTION VIEW LAYOUT
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 16
-        layout.itemSize = CGSize(width: 228.0, height: 195.0)
+        layout.itemSize = itemSize
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -37,7 +38,7 @@ class DiscoverProsCell: UICollectionViewCell {
         
         contentView.addSubview(collectionView)
         
-        collectionView.snp.makeConstraints {make in
+        collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

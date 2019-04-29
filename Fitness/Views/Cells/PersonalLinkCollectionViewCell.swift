@@ -12,7 +12,6 @@ import SnapKit
 class PersonalLinkCollectionViewCell: UICollectionViewCell {
     static let identifier = Identifiers.personalSiteCell
     var siteImageView: UIImageView!
-    var site: PersonalLinkObject!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,19 +23,18 @@ class PersonalLinkCollectionViewCell: UICollectionViewCell {
         setupConstraints()
     }
     
-    func configure(for site: PersonalLinkObject) {
-        self.site = site
+    func configure(for site: PersonalLink) {
         switch site.site {
-        case PersonalLink.facebook: siteImageView.image = #imageLiteral(resourceName: "Facebook.png")
-        case PersonalLink.linkedin: siteImageView.image = #imageLiteral(resourceName: "Linkedin.png")
-        case PersonalLink.instagram: siteImageView.image = #imageLiteral(resourceName: "Insta.png")
-        case PersonalLink.twitter: siteImageView.image = #imageLiteral(resourceName: "Rectangle.png")
-        case PersonalLink.other: siteImageView.image = #imageLiteral(resourceName: "Web.png")
+        case PersonalLink.PersonalLinkType.facebook: siteImageView.image = #imageLiteral(resourceName: "Facebook.png")
+        case PersonalLink.PersonalLinkType.instagram: siteImageView.image = #imageLiteral(resourceName: "Insta.png")
+        case PersonalLink.PersonalLinkType.linkedin: siteImageView.image = #imageLiteral(resourceName: "Linkedin.png")
+        case PersonalLink.PersonalLinkType.other: siteImageView.image = #imageLiteral(resourceName: "Web.png")
+        case PersonalLink.PersonalLinkType.twitter: siteImageView.image = #imageLiteral(resourceName: "Rectangle.png")
         }
     }
     
     func setupConstraints() {
-        siteImageView.snp.updateConstraints {make in
+        siteImageView.snp.updateConstraints { make in
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
             make.height.equalToSuperview()

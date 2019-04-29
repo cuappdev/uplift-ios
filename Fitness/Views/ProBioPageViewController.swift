@@ -10,30 +10,21 @@ import UIKit
 class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var backButton: UIButton!
-    
-    var pro: ProBio!
-    
-    var scrollView: UIScrollView!
-    
-    var profilePicContainerView: UIView!
-    var profilePicView: UIImageView!
-    var nameLabel: UILabel!
-    
-    var bioTitleLabel: UILabel!
-    var bioTextView: UITextView!
-    
     var bioExpertiseDivider: UIView!
-    
-    var expertiseTitleLabel: UILabel!
-    var expertiseTextView: UITextView!
-    
+    var bioTextView: UITextView!
+    var bioTitleLabel: UILabel!
     var expertiseRoutinesDivider: UIView!
-    
-    var routinesTitleLabel: UILabel!
-    var routinesView: AllProRoutinesView!
-    
+    var expertiseTextView: UITextView!
+    var expertiseTitleLabel: UILabel!
     var linksCollectionView: UICollectionView!
     var linksTitleLabel: UILabel!
+    var nameLabel: UILabel!
+    var pro: ProBio!
+    var profilePicContainerView: UIView!
+    var profilePicView: UIImageView!
+    var routinesTitleLabel: UILabel!
+    var routinesView: AllProRoutinesView!
+    var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +49,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         nameLabel.textColor = .white
         nameLabel.font = ._36MontserratBold
         nameLabel.textAlignment = .center
+        nameLabel.numberOfLines = 0
         nameLabel.sizeToFit()
         scrollView.addSubview(nameLabel)
         
@@ -70,7 +62,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         scrollView.addSubview(bioTitleLabel)
         
         bioTextView = UITextView()
-        bioTextView.textColor = UIColor.colorFromCode(0x222222)
+        bioTextView.textColor = UIColor.fitnessBlack
         bioTextView.font = ._14MontserratRegular
         bioTextView.sizeToFit()
         bioTextView.isScrollEnabled = false
@@ -79,7 +71,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         scrollView.addSubview(bioTextView)
 
         bioExpertiseDivider = UIView()
-        bioExpertiseDivider.backgroundColor = UIColor.colorFromCode(0xE5ECED)
+        bioExpertiseDivider.backgroundColor = UIColor.fitnessMutedGreen
         scrollView.addSubview(bioExpertiseDivider)
         
         expertiseTitleLabel = UILabel()
@@ -91,8 +83,8 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         scrollView.addSubview(expertiseTitleLabel)
         
         expertiseTextView = UITextView()
-        expertiseTextView.textColor = UIColor.colorFromCode(0x222222)
-        expertiseTextView.font = ._14MontserratRegular
+        expertiseTextView.textColor = UIColor.fitnessBlack
+        expertiseTextView.font = ._14MontserratLight
         expertiseTextView.sizeToFit()
         expertiseTextView.isScrollEnabled = false
         expertiseTextView.textAlignment = .center
@@ -100,7 +92,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         scrollView.addSubview(expertiseTextView)
         
         expertiseRoutinesDivider = UIView()
-        expertiseRoutinesDivider.backgroundColor = UIColor.colorFromCode(0xE5ECED)
+        expertiseRoutinesDivider.backgroundColor = UIColor.fitnessMutedGreen
         scrollView.addSubview(expertiseRoutinesDivider)
         
         routinesTitleLabel = UILabel()
@@ -149,15 +141,16 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func setPro() {
-
         nameLabel.text = pro.name.uppercased()
         
         let style = NSMutableParagraphStyle()
-        style.lineSpacing = 10
+        style.lineSpacing = 5
         let attributes = [NSAttributedString.Key.paragraphStyle : style, NSAttributedString.Key.font : UIFont._14MontserratLight]
         bioTextView.attributedText = NSAttributedString(string: pro.bio, attributes: attributes)
         bioTextView.textAlignment = .center
+        
         bioTitleLabel.text = pro.summary
+        
         expertiseTextView.text = pro.expertise.joined(separator: " · ")
         
         linksCollectionView.reloadData()
@@ -194,7 +187,9 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         
         nameLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(profilePicContainerView.snp.bottom).offset(-64)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-15)
+            make.bottom.equalTo(profilePicContainerView.snp.bottom).offset(-64)
         }
         
         bioTitleLabel.snp.makeConstraints{ make in
@@ -206,32 +201,32 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         
         bioTextView.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(bioTitleLabel.snp.bottom).offset(44)
+            make.top.equalTo(bioTitleLabel.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(44)
             make.trailing.equalToSuperview().offset(-44)
         }
         
         bioExpertiseDivider.snp.makeConstraints{ make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(2)
-            make.top.equalTo(bioTextView.snp.bottom).offset(36)
+            make.height.equalTo(1)
+            make.top.equalTo(bioTextView.snp.bottom).offset(24)
         }
         
         expertiseTitleLabel.snp.makeConstraints{ make in
-            make.top.equalTo(bioExpertiseDivider.snp.bottom).offset(23)
+            make.top.equalTo(bioExpertiseDivider.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
         }
         
         expertiseTextView.snp.makeConstraints{ make in
             make.top.equalTo(expertiseTitleLabel.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(55)
-            make.trailing.equalToSuperview().offset(-55)
+            make.leading.equalToSuperview().offset(48)
+            make.trailing.equalToSuperview().offset(-48)
         }
         
         expertiseRoutinesDivider.snp.makeConstraints{ make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(2)
-            make.top.equalTo(expertiseTextView.snp.bottom).offset(23)
+            make.height.equalTo(1)
+            make.top.equalTo(expertiseTextView.snp.bottom).offset(24)
         }
         
         routinesTitleLabel.snp.makeConstraints{ make in
@@ -243,12 +238,12 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         routinesView.snp.makeConstraints{ make in
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
-            make.top.equalTo(routinesTitleLabel.snp.bottom).offset(17)
+            make.top.equalTo(routinesTitleLabel.snp.bottom).offset(16)
         }
         
         linksTitleLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(routinesView.snp.bottom).offset(61)
+            make.top.equalTo(routinesView.snp.bottom).offset(64)
         }
         
         linksCollectionView.snp.makeConstraints{ make in
@@ -256,13 +251,13 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
             make.top.equalTo(linksTitleLabel.snp.bottom).offset(12)
             make.height.equalTo(30)
             make.width.equalTo(30 * pro.links.count + (pro.links.count - 1) * 6)
-            make.bottom.equalToSuperview().offset(-100)
+            make.bottom.equalToSuperview().offset(-64)
         }
     }
     
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.linksCollectionView {
+        if collectionView == linksCollectionView {
             return pro.links.count
         } else {
             return 0
@@ -280,19 +275,11 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == self.linksCollectionView {
-            return 1
-        } else {
-            return 1
-        }
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.linksCollectionView {
-            return CGSize(width: 30, height: 30)
-        } else {
-            return CGSize(width: 0, height: 0)
-        }
+        return CGSize(width: 30, height: 30)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
