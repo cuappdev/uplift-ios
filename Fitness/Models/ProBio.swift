@@ -38,18 +38,18 @@ struct ProBio {
     
     public static func getClarie() -> ProBio {
         var urls: [PersonalLink] = []
-        urls.append(PersonalLink(url: "https://www.instagram.com/thenvironmentalistbodybuilder/", site: .instagram))
+        urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/thenvironmentalistbodybuilder/"), site: .instagram))
         let routine1 = ProRoutine(title: "Read a book for 10 mins", routineType: .mindfullness, text: "Do it in the morning and or before bed. Also don’t leave the house without your reading material and make sure to make use of your commuting times. Finally, find genres that interests you.")
         let routine2 = ProRoutine(title: "Go for a run", routineType: .cardio, text: "Start out with small, achievable goals. Start by running up to a mile at a time every time you run, and don’t increase by more than a mile each week. Listen to your body, get the right shoes, and make sure someone checks your form!")
         let routine3 = ProRoutine(title: "Lift weights for 30 mins", routineType: .strength, text: "First of all, form is EVERYTHING. Work with someone who can spot you for the movements as you start. Muscle fatigue each time is not desired, so start by doing small rep/low weight circuits of simple movements (back squats, presses, deadlifts) 3x a week, increasing weight 5-10lbs each week.")
-        let proClarie = ProBio(id: "test", name: "Clarie Ng", profilePic: "claire", secondaryProfilePic: "claireSecondary", bio: "Hi everyone! My name is Claire and some people know me as \"The Environmentalist Bodybuilder\". I'm currently a senior studying Marine Biology in the College of Agriculture and Life Sciences.", links: urls, expertise: ["Meditation", "Healthy Eating", "Cutting"], routines: [routine1, routine2, routine3], summary: "Meditation & eating healthy")
+        let proClarie = ProBio(id: "test", name: "Clarie Ng", profilePic: "claire", secondaryProfilePic: "claireSecondary", bio: "Hi everyone! My name is Clarie and some people know me as \"The Environmentalist Bodybuilder\". I'm currently a senior studying Marine Biology in the College of Agriculture and Life Sciences.", links: urls, expertise: ["Meditation", "Healthy Eating", "Cutting"], routines: [routine1, routine2, routine3], summary: "Meditation & eating healthy")
         return proClarie
     }
     
     public static func getJuan() -> ProBio {
         var urls: [PersonalLink] = []
-        urls.append(PersonalLink(url: "https://www.instagram.com/jv_gar1012/", site: .instagram))
-        urls.append(PersonalLink(url: "https://www.facebook.com/profile.php?id=100010308969934", site: .facebook))
+        urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/jv_gar1012/"), site: .instagram))
+            urls.append(PersonalLink(url: URL(string: "https://www.facebook.com/profile.php?id=100010308969934"), site: .facebook))
         let routine1 = ProRoutine(title: "Relax", routineType: .mindfullness, text: "I’d recommend either reading a book for 10 min a day or going on a walk for 10-15 without music playing.")
         let routine2 = ProRoutine(title: "Go for a run", routineType: .cardio, text: "If you’re going for distance, start off at a distance that you are comfortable with(i.e. 1 mile) and add .25-.5 miles to it with every week that you go to challenge yourself to reach your hidden potential. On the other hand, if you’re going for speed, do short bursts(10-20 seconds) of sprinting on the treadmill followed by 45 seconds to a minute of rest and repeat 8-10 times.")
         let routine3 = ProRoutine(title: "Weightlifting", routineType: .strength, text: "Know what your one rep max is for compound movements which include Bench Press, Squats, and Deadlifts to name a few. From there, begin performing these movements ranging from 3 reps to 5 reps for 3 to 5 sets with a weight that is 70-75% of your one rep max. In addition, work on accessories that are needed for each compound movement(i.e. Chest, shoulders and triceps for Bench Press). Never do the same exercises when you go to the gym, best thing for muscle growth/strength is shocking your muscles with different routines or training methods. For example, one training method that I like to do is dropsetting, which consists of starting at a particular weight and performing reps with it until failure, followed by dropping the weight by 5-10 pounds and repeating this cycle of reaching failure until you get to a weight that stops challenging you.")
@@ -59,7 +59,7 @@ struct ProBio {
     
     public static func getMadeline() -> ProBio {
         var urls: [PersonalLink] = []
-        urls.append(PersonalLink(url: "https://www.instagram.com/trainwithmadeline/", site: .instagram))
+        urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/trainwithmadeline/"), site: .instagram))
         let routine1 = ProRoutine(title: "Make time for yourself", routineType: .mindfullness, text: "Give yourself 30 minutes a day to do something that makes you happy. I wake up earlier than I need to every morning for an oat milk latte and 30 minutes to lightly stretch and go through my Instagram feed--just to have some time to myself!")
         let routine2 = ProRoutine(title: "Enroll in a fitness class", routineType: .cardio, text: "You're already probably getting your steps in without even realizing it (you can thank all the Cornell hills for that!). So to step it up a notch I'd recommend a group fitness class like Spinning for beginners so they can increase their cardio performance with some guidance!")
         let routine3 = ProRoutine(title: "Start small", routineType: .strength, text: "Start small, stay consistent and pick something you actually like! My advice would be to pick a skill that you'd like to improve and incorporate it consistently at the end of your workouts or throughout the day. When I first started out I really wanted to get better at pushups so I always ended my workouts with 10 pushups, now it's part of my warm up instead!")
@@ -69,7 +69,7 @@ struct ProBio {
     
     public static func getStarks() -> ProBio {
         var urls: [PersonalLink] = []
-        urls.append(PersonalLink(url: "https://www.instagram.com/starkstwins/", site: .instagram))
+        urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/starkstwins/"), site: .instagram))
         let routine1 = ProRoutine(title: "Make time for yourself", routineType: .mindfullness, text: "Take time for yourself everyday. It is important to relax your mind and brain and do something you enjoy, even if it is just for 20 minutes a day.")
         let routine2 = ProRoutine(title: "Walk to class everyday", routineType: .cardio, text: "Unless it's sub-zero outside, walking to class on a campus like Cornell will get thousands of steps per day. Plus, with all of the slopes and hills, you are bound to get an effective cardio workout everyday.")
         let routine3 = ProRoutine(title: "Go to the gym", routineType: .strength, text: "Go to the gym, and go consistently. Even if you plan to go twice per week, it is important to establish the routine. Going consistently is what will get you to your goals.")
@@ -79,7 +79,7 @@ struct ProBio {
     
     public static func getCleo() -> ProBio {
         var urls: [PersonalLink] = []
-        urls.append(PersonalLink(url: "https://instagram.com/fitnessbycleo", site: .instagram))
+        urls.append(PersonalLink(url: URL(string: "https://instagram.com/fitnessbycleo"), site: .instagram))
         let routine1 = ProRoutine(title: "Relax and reflect", routineType: .mindfullness, text: "I am an avid knitter and I do yoga regularly. Find something that relaxes you that isn’t physically taxing and turn it into a habit! Additionally, take time to reflect at the beginning or end of each day, actively watching thoughts pass through your head without dwelling on them.")
         let routine2 = ProRoutine(title: "Go for a run", routineType: .cardio, text: "Start out with small, achievable goals. Start by running up to a mile at a time every time you run, and don’t increase by more than a mile each week. Listen to your body, get the right shoes, and make sure someone checks your form!")
         let routine3 = ProRoutine(title: "Weightlifting", routineType: .strength, text: "First of all, form is EVERYTHING. Work with someone who can spot you for the movements as you start. Muscle fatigue each time is not desired, so start by doing small rep/low weight circuits of simple movements (back squats, presses, deadlifts) 3x a week, increasing weight 5-10lbs each week.")
@@ -89,7 +89,7 @@ struct ProBio {
     
     public static func getMark() -> ProBio {
         var urls: [PersonalLink] = []
-        urls.append(PersonalLink(url: "https://www.facebook.com/mark.rittiboon", site: .facebook))
+        urls.append(PersonalLink(url: URL(string: "https://www.facebook.com/mark.rittiboon"), site: .facebook))
         let routine1 = ProRoutine(title: "Cook", routineType: .mindfullness, text: "I love to cook! Nothing like Spotify's \"cooking music\" playlist and eggs in the morning :)")
         let routine2 = ProRoutine(title: "Go for a swim", routineType: .cardio, text: "I don't enjoy running and Ithaca is really cold so I don't do it haha... I find swimming to be really fun and effective. For me, it's also the best form of active recovery!")
         let routine3 = ProRoutine(title: "Weightlifting", routineType: .strength, text: "I think everyone looking to build strength should focus on compound lifts (Squats, Deadlifts, Bench, etc). A 5x5 beginner program is a good start!")

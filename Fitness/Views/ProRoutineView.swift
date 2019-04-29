@@ -9,7 +9,11 @@
 import UIKit
 
 class ProRoutineView: UIView {
-
+    enum ConstraintConstants {
+        static let outerSpacing = 16
+        static let textViewSpacing = 13
+    }
+    
     var addButton: UIButton!
     var containerView: UIView!
     var routine: ProRoutine!
@@ -107,20 +111,24 @@ class ProRoutineView: UIView {
     }
     
     override func updateConstraints() {
+        let iconRoutineLabelSpacing = 8
+        let iconSize = 15
+        let titleIconSpacing = 3
+        
         titleLabel.snp.makeConstraints{ make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview().offset(ConstraintConstants.outerSpacing)
+            make.top.equalToSuperview().offset(ConstraintConstants.outerSpacing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.outerSpacing)
         }
         
         routineTypeImage.snp.makeConstraints{ make in
-            make.height.width.equalTo(15)
-            make.top.equalTo(titleLabel.snp.bottom).offset(3)
+            make.height.width.equalTo(iconSize)
+            make.top.equalTo(titleLabel.snp.bottom).offset(titleIconSpacing)
             make.leading.equalTo(titleLabel)
         }
         
         routineTypeLabel.snp.makeConstraints{ make in
-            make.leading.equalTo(routineTypeImage.snp.trailing).offset(8)
+            make.leading.equalTo(routineTypeImage.snp.trailing).offset(iconRoutineLabelSpacing)
             make.centerY.equalTo(routineTypeImage)
         }
         
@@ -131,10 +139,10 @@ class ProRoutineView: UIView {
 //        }
         
         stepsTextView.snp.makeConstraints{ make in
-            make.leading.equalToSuperview().offset(13)
-            make.trailing.equalToSuperview().offset(-13)
-            make.top.equalTo(routineTypeImage.snp.bottom).offset(16)
-            make.bottom.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview().offset(ConstraintConstants.textViewSpacing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.textViewSpacing)
+            make.top.equalTo(routineTypeImage.snp.bottom).offset(ConstraintConstants.outerSpacing)
+            make.bottom.equalToSuperview().offset(-ConstraintConstants.outerSpacing)
         }
         
         super.updateConstraints()

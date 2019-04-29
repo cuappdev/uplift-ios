@@ -8,7 +8,23 @@
 import UIKit
 
 class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
+    enum ConstraintConstants {
+        static let bioTextViewLeadingTrailing = 44
+        static let bioTitleLeadingTrailing = 40
+        static let dividerHeight = 1
+        static let dividerSpacing = 24
+        static let expertiseTextViewLeadingTrailing = 44
+        static let largeVerticalSpacing = 64
+        static let linksCollectionCellHeight = 30
+        static let mediumVerticalSpacing = 32
+        static let nameLabelLeadingTrailing = 15
+        static let routinesTitleLabelLeadingTrailing = 33
+        static let routinesViewLeadingTrailing = 24
+        static let smallVerticalSpacing = 16
+    }
+    
+    let personalLinksInteritemSpacing = 6
+    
     var backButton: UIButton!
     var bioExpertiseDivider: UIView!
     var bioTextView: UITextView!
@@ -104,7 +120,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         scrollView.addSubview(routinesTitleLabel)
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.minimumInteritemSpacing = 6.0
+        flowLayout.minimumInteritemSpacing = CGFloat(personalLinksInteritemSpacing)
         flowLayout.minimumLineSpacing = 0
         flowLayout.scrollDirection = .vertical
         
@@ -162,11 +178,18 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func setupConstraints() {
+        let backButtonHeight = 19
+        let backButtonLeading = 20
+        let backButtonTop = 30
+        let backButtonWidth = 23
+        let linksTitleCollectionViewSpacing = 12
+        let profilePicHeightWidthRatio = 1.16
+       
         backButton.snp.makeConstraints { make in
-            make.leading.equalTo(view).offset(20)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
-            make.width.equalTo(23)
-            make.height.equalTo(19)
+            make.leading.equalTo(view).offset(backButtonLeading)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(backButtonTop)
+            make.width.equalTo(backButtonWidth)
+            make.height.equalTo(backButtonHeight)
         }
         
         scrollView.snp.makeConstraints{ make in
@@ -176,7 +199,7 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         
         profilePicContainerView.snp.makeConstraints{ make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(view.frame.width * 1.16)
+            make.height.equalTo(Double(view.frame.width) * profilePicHeightWidthRatio)
         }
         
         profilePicView.snp.makeConstraints{ make in
@@ -187,91 +210,83 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
         
         nameLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)
-            make.bottom.equalTo(profilePicContainerView.snp.bottom).offset(-64)
+            make.leading.equalToSuperview().offset(ConstraintConstants.nameLabelLeadingTrailing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.nameLabelLeadingTrailing)
+            make.bottom.equalTo(profilePicContainerView.snp.bottom).offset(-ConstraintConstants.largeVerticalSpacing)
         }
         
         bioTitleLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(profilePicContainerView.snp.bottom).offset(64)
-            make.leading.equalToSuperview().offset(40)
-            make.trailing.equalToSuperview().offset(-40)
+            make.top.equalTo(profilePicContainerView.snp.bottom).offset(ConstraintConstants.largeVerticalSpacing)
+            make.leading.equalToSuperview().offset(ConstraintConstants.bioTitleLeadingTrailing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.bioTitleLeadingTrailing)
         }
         
         bioTextView.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(bioTitleLabel.snp.bottom).offset(32)
-            make.leading.equalToSuperview().offset(44)
-            make.trailing.equalToSuperview().offset(-44)
+            make.top.equalTo(bioTitleLabel.snp.bottom).offset(ConstraintConstants.mediumVerticalSpacing)
+            make.leading.equalToSuperview().offset(ConstraintConstants.bioTextViewLeadingTrailing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.bioTextViewLeadingTrailing)
         }
         
         bioExpertiseDivider.snp.makeConstraints{ make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
-            make.top.equalTo(bioTextView.snp.bottom).offset(24)
+            make.height.equalTo(ConstraintConstants.dividerHeight)
+            make.top.equalTo(bioTextView.snp.bottom).offset(ConstraintConstants.dividerSpacing)
         }
         
         expertiseTitleLabel.snp.makeConstraints{ make in
-            make.top.equalTo(bioExpertiseDivider.snp.bottom).offset(24)
+            make.top.equalTo(bioExpertiseDivider.snp.bottom).offset(ConstraintConstants.dividerSpacing)
             make.centerX.equalToSuperview()
         }
         
         expertiseTextView.snp.makeConstraints{ make in
-            make.top.equalTo(expertiseTitleLabel.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(48)
-            make.trailing.equalToSuperview().offset(-48)
+            make.top.equalTo(expertiseTitleLabel.snp.bottom).offset(ConstraintConstants.smallVerticalSpacing)
+            make.leading.equalToSuperview().offset(ConstraintConstants.expertiseTextViewLeadingTrailing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.expertiseTextViewLeadingTrailing)
         }
         
         expertiseRoutinesDivider.snp.makeConstraints{ make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
-            make.top.equalTo(expertiseTextView.snp.bottom).offset(24)
+            make.height.equalTo(ConstraintConstants.dividerHeight)
+            make.top.equalTo(expertiseTextView.snp.bottom).offset(ConstraintConstants.dividerSpacing)
         }
         
         routinesTitleLabel.snp.makeConstraints{ make in
-            make.leading.equalToSuperview().offset(33)
-            make.trailing.equalToSuperview().offset(-33)
-            make.top.equalTo(expertiseRoutinesDivider.snp.bottom).offset(24)
+            make.leading.equalToSuperview().offset(ConstraintConstants.routinesTitleLabelLeadingTrailing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.routinesTitleLabelLeadingTrailing)
+            make.top.equalTo(expertiseRoutinesDivider.snp.bottom).offset(ConstraintConstants.dividerSpacing)
         }
         
         routinesView.snp.makeConstraints{ make in
-            make.leading.equalToSuperview().offset(24)
-            make.trailing.equalToSuperview().offset(-24)
-            make.top.equalTo(routinesTitleLabel.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(ConstraintConstants.routinesViewLeadingTrailing)
+            make.trailing.equalToSuperview().offset(-ConstraintConstants.routinesViewLeadingTrailing)
+            make.top.equalTo(routinesTitleLabel.snp.bottom).offset(ConstraintConstants.smallVerticalSpacing)
         }
         
         linksTitleLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(routinesView.snp.bottom).offset(64)
+            make.top.equalTo(routinesView.snp.bottom).offset(ConstraintConstants.largeVerticalSpacing)
         }
         
         linksCollectionView.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(linksTitleLabel.snp.bottom).offset(12)
-            make.height.equalTo(30)
-            make.width.equalTo(30 * pro.links.count + (pro.links.count - 1) * 6)
-            make.bottom.equalToSuperview().offset(-64)
+            make.top.equalTo(linksTitleLabel.snp.bottom).offset(linksTitleCollectionViewSpacing)
+            make.height.equalTo(ConstraintConstants.linksCollectionCellHeight)
+            make.width.equalTo(ConstraintConstants.linksCollectionCellHeight * pro.links.count + (pro.links.count - 1) * personalLinksInteritemSpacing)
+            make.bottom.equalToSuperview().offset(-ConstraintConstants.largeVerticalSpacing)
         }
     }
     
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == linksCollectionView {
-            return pro.links.count
-        } else {
-            return 0
-        }
+        return pro.links.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.linksCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonalLinkCollectionViewCell.identifier, for: indexPath) as! PersonalLinkCollectionViewCell
-            cell.configure(for: pro.links[indexPath.row])
-            return cell
-        } else {
-            return UICollectionViewCell()
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonalLinkCollectionViewCell.identifier, for: indexPath) as! PersonalLinkCollectionViewCell
+        cell.configure(for: pro.links[indexPath.row])
+        return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -284,5 +299,11 @@ class ProBioPageViewController: UIViewController, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let url = pro.links[indexPath.row].url {
+            UIApplication.shared.open(url, options: [:])
+        }
     }
 }

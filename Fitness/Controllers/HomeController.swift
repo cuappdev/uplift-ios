@@ -123,18 +123,25 @@ class HomeController: UIViewController {
     }
     
     func getCollectionViewCellSize(_ collectionView: UICollectionView, identifier: String) -> CGSize {
+        let allGymsCellSize = CGSize(width: (collectionView.bounds.width - 32.0 - 12.0)/2.0, height: 60.0)
+        let classCellSize = CGSize(width: 228.0, height: 195.0)
+        let discoverProsCellSize = CGSize(width: 280, height: 110.0)
+        let lookingForCellSize = CGSize(width: (collectionView.bounds.width-48)/2, height: ((collectionView.bounds.width-48)/2)*0.78)
+        let prosCellSize = CGSize(width: view.bounds.width, height: 145)
+        let todaysClassesCellSize = CGSize(width: collectionView.bounds.width, height: 227.0)
+        
         if identifier == "classCell" {
-            return CGSize(width: 228.0, height: 195.0)
+            return classCellSize
         } else if identifier == "discoverProsCell" {
-            return CGSize(width: 280, height: 110.0)
+            return discoverProsCellSize
         } else if identifier == "allGymsCell" {
-            return CGSize(width: (collectionView.bounds.width - 32.0 - 12.0)/2.0, height: 60.0)
+            return allGymsCellSize
         } else if identifier == "todaysClassesCell" {
-            return CGSize(width: collectionView.bounds.width, height: 227.0)
+            return todaysClassesCellSize
         } else if identifier == "lookingForCell" {
-            return CGSize(width: (collectionView.bounds.width-48)/2, height: ((collectionView.bounds.width-48)/2)*0.78)
+            return lookingForCellSize
         } else if identifier == "prosCell" {
-            return CGSize(width: view.bounds.width, height: 145)
+            return prosCellSize
         }
         return CGSize(width: 0, height: 0)
     }
@@ -257,6 +264,7 @@ extension HomeController: UICollectionViewDataSource {
 extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let mainCollectionViewHeights = 32.0
         if collectionView != mainCollectionView { return .zero }
         return CGSize(width: collectionView.bounds.width, height: 32.0)
     }

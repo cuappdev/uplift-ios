@@ -18,10 +18,10 @@ struct PersonalLink {
     }
     
     let site: PersonalLinkType
-    let url: URL
+    let url: URL?
     
-    init(url: String, site: PersonalLinkType) {
-        self.url = URL(string: url)!
+    init(url: URL?, site: PersonalLinkType) {
+        self.url = url
         self.site = site
     }
 }
