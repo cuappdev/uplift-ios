@@ -192,7 +192,7 @@ extension HomeController: UICollectionViewDataSource {
             }
             return cell
         } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProCell.identifier, for: indexPath) as! ProCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProCollectionViewCell.identifier, for: indexPath) as! ProCollectionViewCell
             cell.setPro(pros[indexPath.row])
             return cell
         }

@@ -31,7 +31,7 @@ class DiscoverProsCell: UICollectionViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delaysContentTouches = false
         collectionView.accessibilityIdentifier = Identifiers.discoverProsCell
-        collectionView.register(ProCell.self, forCellWithReuseIdentifier: ProCell.identifier)
+        collectionView.register(ProCollectionViewCell.self, forCellWithReuseIdentifier: ProCollectionViewCell.identifier)
         contentView.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in

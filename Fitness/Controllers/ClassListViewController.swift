@@ -78,6 +78,11 @@ class ClassListViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        let titleLeadingConstant = 24
+        let titleBottomConstant = -20
+        let titleHeightConstant = 26
+        let titleViewHeightConstant = 120
+        
         view.backgroundColor = .white
 
         searchBar = UISearchBar()
@@ -112,15 +117,15 @@ class ClassListViewController: UIViewController {
         titleView.addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(24)
-            make.bottom.equalToSuperview().offset(-20)
-            make.height.equalTo(26)
+            make.leading.equalToSuperview().offset(titleLeadingConstant)
+            make.bottom.equalToSuperview().offset(titleBottomConstant)
+            make.height.equalTo(titleHeightConstant)
             make.trailing.lessThanOrEqualTo(titleView)
         }
 
         titleView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(120)
+            make.height.equalTo(titleViewHeightConstant)
         }
         
 //        navigationItem.titleView = searchBar

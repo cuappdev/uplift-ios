@@ -9,8 +9,6 @@
 import UIKit
 
 class AllProRoutinesView: UIView {
-
-    let interViewSpacing = 16
     var routines: [ProRoutine]!
     var routineViews: [ProRoutineView] = []
     
@@ -30,6 +28,7 @@ class AllProRoutinesView: UIView {
     }
     
     func setupConstraints() {
+        let interViewSpacing = 16
         let firstView = routineViews[0]
         firstView.snp.makeConstraints{ make in
             make.top.leading.trailing.equalToSuperview()

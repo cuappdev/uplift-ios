@@ -191,8 +191,8 @@ class ProBioPageViewController: UIViewController {
         }
         
         scrollView.snp.makeConstraints{ make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-            make.width.equalTo(view.snp.width)
+            make.top.leading.trailing.bottom.width.equalToSuperview()
+//            make.width.equalTo(view.snp.width)
         }
         
         profilePicContainerView.snp.makeConstraints{ make in

@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class ProCell: UICollectionViewCell {
+class ProCollectionViewCell: UICollectionViewCell {
     
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.proCell

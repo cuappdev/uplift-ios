@@ -9,7 +9,7 @@
 import Foundation
 
 struct PersonalLink {
-    enum PersonalLinkType {
+    enum SiteType {
         case facebook
         case instagram
         case linkedin
@@ -17,10 +17,10 @@ struct PersonalLink {
         case twitter
     }
     
-    let site: PersonalLinkType
+    let site: SiteType
     let url: URL?
     
-    init(url: URL?, site: PersonalLinkType) {
+    init(url: URL?, site: SiteType) {
         self.url = url
         self.site = site
     }
