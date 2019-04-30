@@ -5,18 +5,18 @@
 //  Created by Joseph Fulgieri on 3/7/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
 import SnapKit
+import UIKit
 
 class GymsCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.gymsCell
     var colorBar: UIView!
-    var locationName: UILabel!
     var hours: UILabel!
-    var status: UILabel!
+    var locationName: UILabel!
     var shadowView: UIView!
+    var status: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

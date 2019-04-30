@@ -12,10 +12,10 @@ class CalendarCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.calendarCell
-    var dateLabel: UILabel!
-    var dayOfWeekLabel: UILabel!
-    var dateLabelCircle: UIView!
     var date: String!
+    var dateLabel: UILabel!
+    var dateLabelCircle: UIView!
+    var dayOfWeekLabel: UILabel!
 
     override func prepareForReuse() {
         dateLabelCircle.isHidden = true

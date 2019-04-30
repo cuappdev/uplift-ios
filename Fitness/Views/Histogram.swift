@@ -16,22 +16,22 @@ import SnapKit
 class Histogram: UIView {
 
     // MARK: - INITIALIZATION
-    var data: [Int]!
     var bars: [UIView]!
+    var data: [Int]!
 
     /// index of bars representing the bar that is currently selected. Must be in range 0..bars.count-1
     var selectedIndex: Int!
     var selectedLine: UIView!
     var selectedTime: UILabel!
 
-    var selectedTimeDescriptor: UILabel!
-    let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
-    let mediumThreshold = 43
     let highThreshold = 85
+    let mediumThreshold = 43
     let secondsPerHour: Double = 3600.0
+    let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
+    var selectedTimeDescriptor: UILabel!
 
-    var openHour: Int!
     var hours: DailyGymHours!
+    var openHour: Int!
 
     var bottomAxis: UIView!
     var bottomAxisTicks: [UIView]!

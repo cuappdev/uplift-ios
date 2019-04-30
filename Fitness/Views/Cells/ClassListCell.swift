@@ -6,8 +6,8 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 protocol ClassListCellDelegate {
     func toggleFavorite(classDetailId: String)
@@ -28,8 +28,8 @@ class ClassListCell: UICollectionViewCell {
     var secondaryTimeLabel: UILabel!
 
     var classLabel: UILabel!
-    var locationLabel: UILabel!
     var instructorLabel: UILabel!
+    var locationLabel: UILabel!
 
     var delegate: ClassListCellDelegate?
 

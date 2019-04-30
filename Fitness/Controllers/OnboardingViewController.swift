@@ -6,9 +6,9 @@
 //  Copyright © 2018 Keivan Shahida. All rights reserved.
 //
 
-import UIKit
 import Presentation
 import SnapKit
+import UIKit
 
 class OnboardingViewController: PresentationController {
 

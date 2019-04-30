@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import Alamofire
 import Apollo
+import Foundation
 import Kingfisher
 
 enum APIEnvironment {
@@ -20,6 +22,60 @@ struct NetworkManager {
     static let environment: APIEnvironment = .development
     static let shared = NetworkManager()
 
+    
+    // MARK: - Google
+    func sendGoogleLoginToken(token: String, completion: @escaping () -> Void) {
+        let tokenURL = "http://uplift-backend.cornellappdev.com/login/"
+        let parameters: [String: Any] = [
+            "token": token
+        ]
+        
+        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).validate().responseData{ (response) in
+            switch response.result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                if let tokenResults = try? decoder.decode(GoogleTokens.self, from: data) {
+                    UserGoogleTokens.backendToken = tokenResults.backendToken
+                    UserGoogleTokens.expiration = tokenResults.expiration
+                    UserGoogleTokens.refreshToken = tokenResults.refreshToken
+                    
+                    completion()
+                }
+                
+            case .failure(let error):
+                print("ERROR~~~:")
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+    
+    func refreshGoogleToken(token: String, completion: @escaping () -> Void) {
+        let tokenURL = "http://uplift-backend.cornellappdev.com/session/"
+        let parameters: [String: Any] = [
+            "bearer_token": token
+        ]
+        
+        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).validate().responseData{ (response) in
+            switch response.result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                if let tokenResults = try? decoder.decode(GoogleTokens.self, from: data) {
+                    UserGoogleTokens.backendToken = tokenResults.backendToken
+                    UserGoogleTokens.expiration = tokenResults.expiration
+                    UserGoogleTokens.refreshToken = tokenResults.refreshToken
+                    
+                    completion()
+                }
+                
+            case .failure(let error):
+                print("ERROR~~~:")
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+    
     // MARK: - GYMS
     func getGyms(completion: @escaping ([Gym]) -> Void) {
         apollo.fetch(query: AllGymsQuery()) { (result, error) in
@@ -93,7 +149,7 @@ struct NetworkManager {
                 let graphTags = gymClassData.details.tags.compactMap { $0 }
                 let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
 
-                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: tags)
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: tags)
 
                 gymClassInstances.append(gymClass)
             }
@@ -122,7 +178,7 @@ struct NetworkManager {
                 let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
                 let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
                 
-                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: [])
                 
                 gymClassInstances.append(gymClass)
             }
@@ -154,7 +210,7 @@ struct NetworkManager {
                 let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
                 let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
                 
-                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, instructor: instructor, startTime: start, endTime: end, gymId: gymId, duration: end.timeIntervalSince(start), location: location, imageURL: imageUrl, isCancelled: isCancelled, tags: [])
+                let gymClass = GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: [])
                 
                 gymClassInstances.append(gymClass)
             }

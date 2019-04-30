@@ -5,22 +5,22 @@
 //  Created by Joseph Fulgieri on 3/7/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
 import SnapKit
+import UIKit
 
 class ClassesCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
-    static let identifier = Identifiers.classesCell
     static let cancelledIdentifier = Identifiers.classesCell + "-cancelled"
-    var image: UIImageView!
-    var cancelledView: UIView!
+    static let identifier = Identifiers.classesCell
     var cancelledLabel: UILabel!
+    var cancelledView: UIView!
     var className: UILabel!
-    var locationName: UILabel!
-    var hours: UILabel!
-    var locationWidget: UIImageView!
     var duration: Int!
+    var hours: UILabel!
+    var image: UIImageView!
+    var locationName: UILabel!
+    var locationWidget: UIImageView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -5,10 +5,10 @@
 //  Created by Joseph Fulgieri on 3/18/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
-import UIKit
-import SnapKit
 import Alamofire
 import AlamofireImage
+import SnapKit
+import UIKit
 
 class TodaysClassesCell: UICollectionViewCell {
 

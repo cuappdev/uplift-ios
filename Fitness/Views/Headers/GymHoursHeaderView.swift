@@ -14,8 +14,8 @@ class GymHoursHeaderView: UITableViewHeaderFooterView {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.gymHoursHeaderView
     var clockImageView: UIImageView!
-    var hoursLabel: UILabel!
     var downArrow: UIImageView!
+    var hoursLabel: UILabel!
     var rightArrow: UIImageView!
 
     override init(reuseIdentifier: String?) {
