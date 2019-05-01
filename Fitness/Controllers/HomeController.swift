@@ -30,12 +30,8 @@ class HomeController: UIViewController {
     
     // MARK: - INITIALIZATION
     let pros = ProBio.getAllPros()
-    var mainCollectionView: UICollectionView!
-
-    var headerView: HomeScreenHeaderView!
-    var statusBarBackgroundColor: UIView!
-
     private var todayClassCollectionView: UICollectionView!
+    
     var didRegisterCategoryCell = false
     var didSetupHeaderShadow = false
     var gymClassInstances: [GymClassInstance] = []
