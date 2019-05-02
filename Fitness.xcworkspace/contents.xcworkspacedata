@@ -2,6 +2,30 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Constants.swift">
+   </FileRef>
+   <FileRef
+      location = "group:Fitness">
+   </FileRef>
+   <FileRef
+      location = "group:Fonts">
+   </FileRef>
+   <FileRef
+      location = "group:Podfile">
+   </FileRef>
+   <FileRef
+      location = "group:Podfile.lock">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:schema.json">
+   </FileRef>
+   <FileRef
+      location = "group:Secrets">
+   </FileRef>
+   <FileRef
       location = "group:Fitness.xcodeproj">
    </FileRef>
    <FileRef

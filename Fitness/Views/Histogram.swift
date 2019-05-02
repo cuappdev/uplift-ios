@@ -171,7 +171,6 @@ class Histogram: UIView {
     }
 
     func setupSelectedConstraints() {
-
         if selectedIndex < bars.count {
             selectedLine.snp.remakeConstraints { make in
                 make.centerX.equalTo(bars[selectedIndex].snp.centerX)

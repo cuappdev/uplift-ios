@@ -24,7 +24,7 @@ class HomeSectionHeaderView: UICollectionReusableView {
         addSubview(titleLabel)
 
         // MARK: - CONSTRAINTS
-        titleLabel.snp.updateConstraints {make in
+        titleLabel.snp.updateConstraints { make in
             make.leading.equalTo(16)
             make.top.equalToSuperview()
             make.height.equalTo(titleLabel.intrinsicContentSize.height)
