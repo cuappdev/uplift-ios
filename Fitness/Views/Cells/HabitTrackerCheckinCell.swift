@@ -12,14 +12,15 @@ import UIKit
 
 class HabitTrackerCheckinCell: UICollectionViewCell {
     
+    // MARK: - INITIALIZATION
     static let identifier = Identifiers.habitTrackerCheckinCell
     
-    var checkinCircle: UIButton!
-    var titleLabel: UILabel!
-    var streakLabel: UILabel!
-    var separator: UIView!
+    private var checkinCircle: UIButton!
+    private var separator: UIView!
+    private var streakLabel: UILabel!
+    private var titleLabel: UILabel!
     
-    var habit: Habit!
+    private var habit: Habit!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,6 +52,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         setupConstraints()
     }
     
+    // MARK: - CONSTRAINTS
     private func setupConstraints() {
         checkinCircle.snp.makeConstraints { make in
             make.height.width.equalTo(23)
@@ -105,7 +107,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         }
     }
     
-    @objc func checkIn() {
+    @objc private func checkIn() {
         switch checkinCircle.isSelected {
         case true:
             Habit.removeDate(habit: habit, date: Date())
@@ -129,7 +131,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         streakLabel.text = getStreakEmoji()
     }
     
-    func getStreakEmoji() -> String {
+    private func getStreakEmoji() -> String {
         let streak = habit.streak
         
         if streak <= 1 {

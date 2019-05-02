@@ -5,6 +5,7 @@
 //  Created by Joseph Fulgieri on 3/7/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
+
 import SnapKit
 import UIKit
 
@@ -12,22 +13,22 @@ class GymsCell: UICollectionViewCell {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.gymsCell
-    var colorBar: UIView!
-    var hours: UILabel!
-    var locationName: UILabel!
-    var shadowView: UIView!
-    var status: UILabel!
+    private var colorBar: UIView!
+    private var hours: UILabel!
+    private var locationName: UILabel!
+    private var shadowView: UIView!
+    private var status: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        //BORDER
+        // BORDER
         contentView.layer.cornerRadius = 5
         contentView.layer.backgroundColor = UIColor.white.cgColor
         contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
         contentView.layer.borderWidth = 0.5
 
-        //SHADOWING
+        // SHADOWING
         contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
         contentView.layer.shadowRadius = 5.0
@@ -36,7 +37,7 @@ class GymsCell: UICollectionViewCell {
         let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 9, right: -3))
         contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
-        //YELLOW BAR
+        // YELLOW BAR
         colorBar = UIView()
         colorBar.backgroundColor = .fitnessYellow
         colorBar.clipsToBounds = true
@@ -44,19 +45,19 @@ class GymsCell: UICollectionViewCell {
         colorBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         contentView.addSubview(colorBar)
 
-        //LOCATION NAME
+        // LOCATION NAME
         locationName = UILabel()
         locationName.font = ._16MontserratMedium
         locationName.textColor = .fitnessBlack
         locationName.textAlignment = .left
         contentView.addSubview(locationName)
 
-        //STATUS
+        // STATUS
         status = UILabel()
         status.font = ._14MontserratMedium
         contentView.addSubview(status)
 
-        //HOURS
+        // HOURS
         hours = UILabel()
         hours.font = ._14MontserratMedium
         hours.textColor = .fitnessDarkGrey
@@ -70,7 +71,11 @@ class GymsCell: UICollectionViewCell {
     }
 
     // MARK: - CONSTRAINTS
-    func setupConstraints() {
+    private func setupConstraints() {
+        let descriptionLabelHieght = 15
+        let leadingPadding = 16
+        let trailingPadding = 4
+        
         colorBar.snp.updateConstraints { make in
             make.leading.equalToSuperview()
             make.height.equalToSuperview()
@@ -80,22 +85,22 @@ class GymsCell: UICollectionViewCell {
 
         locationName.snp.updateConstraints { make in
             make.top.equalToSuperview().offset(16)
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(leadingPadding)
             make.height.equalTo(22)
-            make.trailing.lessThanOrEqualToSuperview().inset(4)
+            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
         }
 
         status.snp.updateConstraints { make in
             make.leading.equalTo(locationName)
-            make.trailing.lessThanOrEqualToSuperview().inset(4)
-            make.height.equalTo(15)
+            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
+            make.height.equalTo(descriptionLabelHieght)
             make.top.equalTo(locationName.snp.bottom).offset(6)
         }
 
         hours.snp.updateConstraints { make in
             make.leading.equalTo(status)
-            make.trailing.lessThanOrEqualToSuperview().inset(4)
-            make.height.equalTo(status)
+            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
+            make.height.equalTo(descriptionLabelHieght)
             make.top.equalTo(status.snp.bottom).offset(3)
         }
     }
@@ -104,12 +109,12 @@ class GymsCell: UICollectionViewCell {
         locationName.text = name
     }
 
-    func setGymStatus(isOpen: Bool, closingSoon: Bool) {
+    func setGymStatus(isOpen: Bool, changingSoon: Bool) {
         
         var color: UIColor
         var status: String
         if isOpen {
-            if closingSoon {
+            if changingSoon {
                 color = .fitnessOrange
                 status = "Closing soon"
             } else {
@@ -117,7 +122,7 @@ class GymsCell: UICollectionViewCell {
                 status = "Currently open"
             }
         } else {
-            if closingSoon {
+            if changingSoon {
                 color = .fitnessOrange
                 status = "Opening soon"
             } else {

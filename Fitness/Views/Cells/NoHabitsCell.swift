@@ -11,11 +11,12 @@ import UIKit
 
 class NoHabitsCell: UICollectionViewCell {
     
+    // MARK: - INITIALIZATION
     static let identifier = Identifiers.noHabitsCell
     
-    var addHabitWidget: UIImageView!
-    var backgroundImage: UIImageView!
-    var titleLabel: UILabel!
+    private var addHabitWidget: UIImageView!
+    private var backgroundImage: UIImageView!
+    private var titleLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,6 +42,7 @@ class NoHabitsCell: UICollectionViewCell {
         setupConstraints()
     }
     
+    // MARK: - CONSTRAINTS
     func setupConstraints() {
         backgroundImage.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()

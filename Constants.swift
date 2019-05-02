@@ -14,7 +14,6 @@ struct Identifiers {
     static let favoritesHeaderView = "favoritesHeaderView"
     static let gymHoursHeaderView = "gymHoursHeaderView"
     static let homeScreenHeaderView = "homeScreenHeaderView"
-    static let homeSectionEditButtonHeaderView = "homeSectionEditButtonHeaderView"
     static let homeSectionHeaderView = "homeSectionHeaderView"
     
     // CELLS
@@ -23,6 +22,7 @@ struct Identifiers {
     static let categoryCell = "categoryCell"
     static let classListCell = "classListCell"
     static let classesCell = "classesCell"
+    static let discoverProsCell = "discoverProsCell"
     static let dropdownViewCell = "dropdownViewCell"
     static let gymFilterCell = "gymFilterCell"
     static let gymHoursCell = "gymHoursCell"
@@ -31,6 +31,9 @@ struct Identifiers {
     static let habitTrackerOnboardingCell = "habitTrackerOnboardingCell"
     static let lookingForCell = "lookingForCell"
     static let noHabitsCell = "noHabitsCell"
+    static let personalSiteCell = "personalSiteCell"
+    static let proCell = "proCell"
+    static let proRoutineCell = "proRoutineCell"
     static let todaysClassesCell = "todaysClassesCell"
     
     // FOOTERS

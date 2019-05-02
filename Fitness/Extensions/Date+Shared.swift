@@ -12,7 +12,7 @@ extension Date {
     static public func getNowString() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
-        //2018-10-04T07:00:00
+        // 2018-10-04T07:00:00
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: date)
     }
@@ -54,7 +54,7 @@ extension Date {
             return Date()
         }
         let dateFormatter = DateFormatter()
-        //2018-10-04T07:00:00
+        // 2018-10-04T07:00:00
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
 
         return dateFormatter.date(from: datetime) ?? Date()
@@ -104,6 +104,7 @@ extension Date {
         return calendar.date(from: dateComponents)!
     }
     
+    /// Returns the date associated with the string of form "MMddyyyy"
     static public func getDateFromString(date: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMddyyyy"

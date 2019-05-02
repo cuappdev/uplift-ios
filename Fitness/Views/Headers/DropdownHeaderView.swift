@@ -74,7 +74,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
     }
 
     func setupConstraints() {
-        titleLabel.snp.updateConstraints {make in
+        titleLabel.snp.updateConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
         }
@@ -91,14 +91,14 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
             make.leading.equalTo(contentView.snp.centerX)
         }
 
-        rightArrow.snp.updateConstraints {make in
+        rightArrow.snp.updateConstraints { make in
             make.centerY.equalToSuperview()
             make.height.equalToSuperview().dividedBy(4)
             make.right.equalToSuperview().offset(-31)
             make.left.equalTo(rightArrow.snp.right).offset(-8)
         }
 
-        downArrow.snp.updateConstraints {make in
+        downArrow.snp.updateConstraints { make in
             make.centerY.equalToSuperview()
             make.height.equalToSuperview().dividedBy(6)
             make.right.equalToSuperview().offset(-29)

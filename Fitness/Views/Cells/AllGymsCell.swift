@@ -14,18 +14,7 @@ class AllGymsCell: UICollectionViewCell {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.allGymsCell
     var collectionView: UICollectionView!
-//    var gymClassInstances: [GymClassInstance] = [] {
-//        didSet {
-//            gymClassInstances = gymClassInstances.filter {
-//                Date() < $0.startTime
-//            }
-//            gymClassInstances.sort {
-//                $0.startTime < $1.startTime
-//            }
-//
-//            collectionView.reloadData()
-//        }
-//    }
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +26,7 @@ class AllGymsCell: UICollectionViewCell {
         layout.itemSize = CGSize(width: 271.0, height: 90.0)
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.accessibilityIdentifier = Identifiers.allGymsCell
         
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false

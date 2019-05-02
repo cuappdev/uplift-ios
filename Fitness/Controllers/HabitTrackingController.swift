@@ -125,7 +125,6 @@ class HabitTrackingController: UIViewController {
         habitTableView.isScrollEnabled = false
         habitTableView.delaysContentTouches = false
         habitTableView.showsVerticalScrollIndicator = false
-        habitTableView.tableFooterView = UIView(frame: CGRect.zero)
         
         habitTableView.dataSource = self
         habitTableView.delegate = self

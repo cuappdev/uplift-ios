@@ -47,26 +47,26 @@ class GymHoursHeaderView: UITableViewHeaderFooterView {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        hoursLabel.snp.updateConstraints {make in
+        hoursLabel.snp.updateConstraints { make in
             make.top.centerX.equalToSuperview()
             make.height.equalTo(19)
         }
 
-        clockImageView.snp.updateConstraints {make in
+        clockImageView.snp.updateConstraints { make in
             make.right.equalTo(hoursLabel.snp.left).offset(-8)
             make.centerY.equalTo(hoursLabel.snp.centerY)
             make.height.equalTo(14)
             make.width.equalTo(14)
         }
 
-        rightArrow.snp.updateConstraints {make in
+        rightArrow.snp.updateConstraints { make in
             make.left.equalTo(hoursLabel.snp.right).offset(8)
             make.centerY.equalTo(hoursLabel.snp.centerY)
             make.height.equalTo(9)
             make.width.equalTo(5)
         }
 
-        downArrow.snp.updateConstraints {make in
+        downArrow.snp.updateConstraints { make in
             make.left.equalTo(hoursLabel.snp.right).offset(8)
             make.centerY.equalTo(hoursLabel.snp.centerY)
             make.height.equalTo(5)
