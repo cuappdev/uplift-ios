@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ChooseGymsDelegate {
+protocol ChooseGymsDelegate: class {
     func updateFavorites(favorites: [String])
 }
 
@@ -23,7 +23,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     
     // TableView
     var gymsTableView: UITableView!
-    
     
     // Display Info
     let tableViewToNext: CGFloat = 94
@@ -44,10 +43,10 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     let gymCellVerticalPadding: CGFloat = 14
     
     // Gyms
-    var gymNames: [String] = []
-    var favoriteGyms: [String] = []
+    private var gymNames: [String] = []
+    private var favoriteGyms: [String] = []
     
-    var delegate: ChooseGymsDelegate?
+    private weak var delegate: ChooseGymsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +107,10 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
                 self.gymsTableView.reloadData()
             }
         }
+
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(goBackAView))
+        edgeSwipe.edges = .left
+        view.addGestureRecognizer(edgeSwipe)
 
         setUpConstraints()
     }

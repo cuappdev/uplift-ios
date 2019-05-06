@@ -9,6 +9,8 @@
 import Foundation
 
 extension Date {
+    static let secondsPerDay = 86400.0
+    
     static public func getNowString() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -109,7 +111,6 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMddyyyy"
         dateFormatter.timeZone = TimeZone.current
-        
         return dateFormatter.date(from: date) ?? Date()
     }
 
@@ -130,7 +131,7 @@ extension Date {
     }
     
     func isYesterday() -> Bool {
-        return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: (Date() - 86400.0))
+        return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: (Date() - Date.secondsPerDay))
     }
     
     func isToday() -> Bool {

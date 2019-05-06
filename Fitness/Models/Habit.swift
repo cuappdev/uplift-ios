@@ -27,15 +27,15 @@ struct Habit {
         var sortedDates = dates.sorted()
         sortedDates.reverse()
         
-        if !( sortedDates[0].isToday() || sortedDates[0].isYesterday() ) {
+        if !(sortedDates[0].isToday() || sortedDates[0].isYesterday()) {
             return 0
         }
         
         var streak = 1
 
-        for i in 0..<(sortedDates.count-1) {
-            if sortedDates[i] - TimeInterval(floatLiteral: 86400) == sortedDates[i+1] {
-                streak = streak + 1
+        for i in 0..<(sortedDates.count - 1) {
+            if sortedDates[i] - Date.secondsPerDay == sortedDates[i + 1] {
+                streak += 1
             } else {
                 break
             }
@@ -63,15 +63,8 @@ struct Habit {
         
         var habits: [String:[String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: type)) as? [String: [String]] ?? [:]
         
-        let dateStrings = (habits[habit] ?? []).compactMap({ (date) -> String? in
-            return date
-        })
-        var dates: [Date] = []
-        
-        
-        for dateString in dateStrings {
-            dates.append(Date.getDateFromString(date: dateString))
-        }
+        let dateStrings = (habits[habit] ?? []).compactMap({ $0 })
+        let dates = dateStrings.map { Date.getDateFromString(date: $0) }
         
         return Habit(title: habit, dates: dates, type: type)
     }
@@ -86,13 +79,16 @@ struct Habit {
         let habitTypes: [HabitTrackingType] = [.cardio, .strength, .mindfulness]
         
         var habitArray: [Habit] = []
-        
-        for i in 0..<3 {
-            guard let habit = getHabit(habit: activeHabits[i], type: habitTypes[i]) else { return [] }
-            habitArray.append(habit)
+
+        // 3 loops to get each active habit [cardio, strength, mindulfness]
+        (0..<3).forEach { i in
+            if let habit = getHabit(habit: activeHabits[i], type: habitTypes[i]) {
+                habitArray.append(habit)
+            }
         }
-        
-        return habitArray
+
+        // only return the habit array if we have a habit for each of the 3 type
+        return habitArray.count == 3 ? habitArray : []
     }
     
     /// Creates a new habit if the habit doesn't already exist and sets it as the active habit for that category

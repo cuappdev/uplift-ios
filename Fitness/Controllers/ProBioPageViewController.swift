@@ -145,6 +145,10 @@ class ProBioPageViewController: UIViewController {
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)
+
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
+        edgeSwipe.edges = .left
+        scrollView.addGestureRecognizer(edgeSwipe)
         
         setPro()
         setupConstraints()

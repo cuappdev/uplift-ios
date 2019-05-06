@@ -116,6 +116,7 @@ class ProRoutineView: UIView {
     }
     
     override func updateConstraints() {
+        let addButtonDiameter = 24
         let iconRoutineLabelSpacing = 8
         let iconSize = 15
         let titleIconSpacing = 3
@@ -138,8 +139,8 @@ class ProRoutineView: UIView {
         }
         
         addButton.snp.makeConstraints{ make in
-            make.height.width.equalTo(24)
-            make.trailing.equalToSuperview().offset(-16)
+            make.height.width.equalTo(addButtonDiameter)
+            make.trailing.equalToSuperview().inset(ConstraintConstants.outerSpacing)
             make.centerY.equalTo(titleLabel.snp.centerY)
         }
         
@@ -159,7 +160,6 @@ class ProRoutineView: UIView {
 
     @objc func addHabit() {
         Habit.setActiveHabit(title: routine.title, type: routine.routineType)
-        
         delegate?.pushAlert(habitTitle: routine.title)
     }
 }

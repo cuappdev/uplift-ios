@@ -22,7 +22,6 @@ class NoHabitsCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundImage = UIImageView()
-        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.image = UIImage(named: "selection-area")
         backgroundImage.clipsToBounds = false
         contentView.addSubview(backgroundImage)
@@ -44,14 +43,18 @@ class NoHabitsCell: UICollectionViewCell {
     
     // MARK: - CONSTRAINTS
     func setupConstraints() {
+        let addHabitWidgetDiameter = 20
+        let backgroundInset = 21
+        let titleLabelHeight = 22
+        
         backgroundImage.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().offset(21)
-            make.trailing.equalToSuperview().offset(-21)
+            make.leading.equalToSuperview().inset(backgroundInset)
+            make.trailing.equalToSuperview().inset(backgroundInset).priority(.high)
         }
         
         addHabitWidget.snp.makeConstraints { make in
-            make.width.height.equalTo(20)
+            make.width.height.equalTo(addHabitWidgetDiameter)
             make.leading.equalTo(backgroundImage).offset(15)
             make.centerY.equalToSuperview()
         }
@@ -60,7 +63,7 @@ class NoHabitsCell: UICollectionViewCell {
             make.leading.equalTo(addHabitWidget.snp.trailing).offset(8).priority(.high)
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.height.equalTo(22)
+            make.height.equalTo(titleLabelHeight)
         }
     }
     

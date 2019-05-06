@@ -17,7 +17,7 @@ class HomeSectionHeaderView: UICollectionReusableView {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.homeSectionHeaderView
-    static let height = CGFloat(32)
+    static let height: CGFloat = 32
     
     private var titleLabel: UILabel!
     private var navigationButton: UIButton!
@@ -42,18 +42,28 @@ class HomeSectionHeaderView: UICollectionReusableView {
         navigationButton.addTarget(self, action: #selector(viewAll), for: .touchUpInside)
         addSubview(navigationButton)
 
-        // MARK: - CONSTRAINTS
+        setupConstraints()
+    }
+
+    // MARK: - CONSTRAINTS
+    private func setupConstraints() {
+        let leadingInset = 16
+        let navigationButtonHeight = 20
+        let titleLabelHeight = 20
+        let trailingInset = 16
+        
         titleLabel.snp.updateConstraints { make in
-            make.leading.equalTo(16)
-            make.top.trailing.equalToSuperview()
-            make.height.equalTo(20)
+            make.leading.equalToSuperview().inset(leadingInset)
+            make.trailing.equalToSuperview().inset(trailingInset)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(titleLabelHeight)
         }
 
         navigationButton.snp.updateConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.width.equalTo(60)
+            make.trailing.equalToSuperview().inset(trailingInset)
             make.bottom.equalTo(titleLabel)
-            make.height.equalTo(titleLabel)
+            make.height.equalTo(navigationButtonHeight)
+            make.width.equalTo(0)
         }
     }
 
@@ -66,6 +76,10 @@ class HomeSectionHeaderView: UICollectionReusableView {
         if let buttonTitle = buttonTitle {
             navigationButton.isHidden = false
             navigationButton.setTitle(buttonTitle, for: .normal)
+            
+            navigationButton.snp.updateConstraints { make in
+                make.width.equalTo(navigationButton.intrinsicContentSize.width)
+            }
         } else {
             navigationButton.isHidden = true
         }

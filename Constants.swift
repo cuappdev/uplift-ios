@@ -58,3 +58,28 @@ struct Identifiers {
     }
     static let hasSeenOnboarding = "hasSeenOnboarding2.0"
 }
+
+// MARK: - SUGGESTED HABITS
+struct HabitConstants {
+    static func suggestedHabits(type: HabitTrackingType) -> [String] {
+        switch type {
+        case .cardio:
+            return ["Walking to class", "Walk 10000 steps per day", "Running on a treadmill for 20 minutes", "Jumprope for 5 minutes"]
+        case .strength:
+            return ["Curls for 20 mins", "30 Pushups", "Plank for 5 mins"]
+        case .mindfulness:
+            return ["Read favorite book for 10 mins", "Meditate for 5 mins", "Reflect on today"]
+        }
+    }
+    
+    static func habitTypeDescription(type: HabitTrackingType) -> String {
+        switch type {
+        case .cardio:
+            return "Daily heart pump so you can jog to your 10AM with ease"
+        case .strength:
+            return "Mann Library, WSH or Gates. No building’s door can slow you down now"
+        case .mindfulness:
+            return "Take care of your mind, As much as your grades."
+        }
+    }
+}

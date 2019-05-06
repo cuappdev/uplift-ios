@@ -9,13 +9,12 @@
 import SnapKit
 import UIKit
 
-
 class HabitTrackerCheckinCell: UICollectionViewCell {
     
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.habitTrackerCheckinCell
     
-    private var checkinCircle: UIButton!
+    private var checkinButton: UIButton!
     private var separator: UIView!
     private var streakLabel: UILabel!
     private var titleLabel: UILabel!
@@ -25,27 +24,23 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        checkinCircle = UIButton()
-        checkinCircle.translatesAutoresizingMaskIntoConstraints = false
-        checkinCircle.setImage(UIImage(named: "empty_circle"), for: .normal)
-        checkinCircle.setImage(UIImage(named: "checked_circle"), for: .selected)
-        checkinCircle.addTarget(self, action: #selector(checkIn), for: .touchUpInside)
-        contentView.addSubview(checkinCircle)
+        checkinButton = UIButton()
+        checkinButton.setImage(UIImage(named: "empty_circle"), for: .normal)
+        checkinButton.setImage(UIImage(named: "checked_circle"), for: .selected)
+        checkinButton.addTarget(self, action: #selector(checkIn), for: .touchUpInside)
+        contentView.addSubview(checkinButton)
         
         titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = .fitnessBlack
         titleLabel.font = ._16MontserratMedium
         contentView.addSubview(titleLabel)
         
         streakLabel = UILabel()
-        streakLabel.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.textColor = .black
         streakLabel.font = ._16MontserratBold
         contentView.addSubview(streakLabel)
         
         separator = UIView()
-        separator.translatesAutoresizingMaskIntoConstraints = false
         separator.backgroundColor = .fitnessLightGrey
         contentView.addSubview(separator)
         
@@ -54,31 +49,39 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
     
     // MARK: - CONSTRAINTS
     private func setupConstraints() {
-        checkinCircle.snp.makeConstraints { make in
-            make.height.width.equalTo(23)
-            make.leading.equalToSuperview().offset(16)
+        let checkinButtonDiameter = 23
+        let labelHeight = 22
+        let separatorHeight = 1
+        let streakLabelWidth = 36
+        
+        let leadingPadding = 16
+        let trailingPadding = 32
+        
+        checkinButton.snp.makeConstraints { make in
+            make.height.width.equalTo(checkinButtonDiameter)
+            make.leading.equalToSuperview().inset(leadingPadding)
             make.centerY.equalToSuperview()
         }
 
         streakLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-32)
-            make.height.equalTo(22)
+            make.trailing.equalToSuperview().inset(trailingPadding)
+            make.height.equalTo(labelHeight)
             make.centerY.equalToSuperview()
-            make.width.equalTo(36)
+            make.width.equalTo(streakLabelWidth)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(checkinCircle.snp.trailing).offset(11).priority(.high)
+            make.leading.equalTo(checkinButton.snp.trailing).offset(11).priority(.high)
             make.centerY.equalToSuperview()
-            make.height.equalTo(22)
+            make.height.equalTo(labelHeight)
             make.trailing.lessThanOrEqualTo(streakLabel.snp.leading).offset(-2)
 
         }
         
         separator.snp.makeConstraints { make in
-            make.height.equalTo(1)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-32).priority(.high)
+            make.height.equalTo(separatorHeight)
+            make.leading.equalToSuperview().inset(leadingPadding)
+            make.trailing.equalToSuperview().inset(trailingPadding).priority(.high)
             make.bottom.equalToSuperview()
         }
     }
@@ -86,7 +89,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.textColor = .fitnessBlack
-        checkinCircle.isSelected = false
+        checkinButton.isSelected = false
     }
     
     func configure(habit: Habit) {
@@ -96,8 +99,8 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         streakLabel.text = getStreakEmoji()
         
         if let mostRecentCheckin = habit.dates.sorted().last {
-            if Date() - 86400.0 < mostRecentCheckin {
-                checkinCircle.isSelected = true
+            if Date() - Date.secondsPerDay < mostRecentCheckin {
+                checkinButton.isSelected = true
                 
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: habit.title)
                 attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
@@ -108,15 +111,14 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
     }
     
     @objc private func checkIn() {
-        switch checkinCircle.isSelected {
-        case true:
+        if checkinButton.isSelected {
             Habit.removeDate(habit: habit, date: Date())
             habit.dates.removeFirst()
             
             titleLabel.attributedText = nil
             titleLabel.text = habit.title
             titleLabel.textColor = .fitnessBlack
-        case false:
+        } else {
             Habit.logDate(habit: habit, date: Date())
             
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: habit.title)
@@ -127,7 +129,7 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         
         habit = Habit.getHabit(habit: habit.title, type: habit.type)
         
-        checkinCircle.isSelected.toggle()
+        checkinButton.isSelected.toggle()
         streakLabel.text = getStreakEmoji()
     }
     
@@ -138,23 +140,15 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
             return ""
         }
         
-        let level: Int
-        if streak < 3 {
-            level = 0
-        } else if streak < 5 {
-            level = 1
-        } else if streak < 8 {
-            level = 2
-        } else if streak < 10 {
-            level = 3
-        } else if streak < 14 {
-            level = 4
-        } else if streak < 20 {
-            level = 5
-        } else if streak < 30 {
-            level = 6
-        } else {
-            level = 7
+        // Stores pairs of form [level:upper threshold (not inclusive)]
+        let levelThresholdDict = [ 0:3, 1:5, 2:8, 3:10, 4:14, 5:20, 6:30, 7:Int.max ]
+        
+        var level = 0
+        for (potentialLevel, threshold) in levelThresholdDict {
+            if streak < threshold {
+                level = potentialLevel
+                break
+            }
         }
         
         switch habit.type {

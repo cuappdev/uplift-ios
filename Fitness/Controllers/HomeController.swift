@@ -19,32 +19,35 @@ enum SectionType: String {
     case pros = "LEARN FROM THE PROS"
 }
 
-enum SectionInsets {
-    static let checkIns = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
-    static let allGyms = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
-    static let todaysClasses = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
-    static let pros = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
+private enum SectionInsets {
+    static func getInsets(section: SectionType) -> UIEdgeInsets {
+        switch section {
+        case .checkIns:
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
+        case .allGyms:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
+        case .todaysClasses:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
+        case .pros:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
+        }
+    }
 }
 
 class HomeController: UIViewController {
     
     // MARK: - INITIALIZATION
-    var mainCollectionView: UICollectionView!
+    private var allGymsCollectionView: UICollectionView?
+    private var headerView: HomeScreenHeaderView!
+    private var mainCollectionView: UICollectionView!
     
-    var allGymsCollectionView: UICollectionView?
-
-    var headerView: HomeScreenHeaderView!
-    var statusBarBackgroundColor: UIView!
-
-    let pros = ProBio.getAllPros()
-    
-    var didSetupHeaderShadow = false
-    var gymClassInstances: [GymClassInstance] = []
-    var gymLocations: [Int: String] = [:]
-    var gyms: [Gym] = []
-    var favoriteGyms: [Gym] = []
-    var habits: [Habit] = []
-    var sections: [SectionType] = []
+    private var gymClassInstances: [GymClassInstance] = []
+    private var gymLocations: [Int: String] = [:]
+    private var gyms: [Gym] = []
+    private var favoriteGyms: [Gym] = []
+    private var habits: [Habit] = []
+    private let pros = ProBio.getAllPros()
+    private var sections: [SectionType] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,10 +93,6 @@ class HomeController: UIViewController {
             make.top.equalTo(headerView.snp.bottom).offset(12)
             make.centerX.width.bottom.equalToSuperview()
         }
-
-        statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
-        statusBarBackgroundColor.backgroundColor = .fitnessWhite
-        view.addSubview(statusBarBackgroundColor)
         
         // GET HABITS
         habits = Habit.getActiveHabits()
@@ -124,11 +123,11 @@ class HomeController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        for cell in allGymsCollectionView?.visibleCells ?? [] {
+        allGymsCollectionView?.visibleCells.forEach({ cell in
             if let cell = cell as? GymsCell, let indexPath = mainCollectionView.indexPath(for: cell) {
                 cell.setGymStatus(isOpen: favoriteGyms[indexPath.item].isOpen, changingSoon: isGymStatusChangingSoon(gym: favoriteGyms[indexPath.item]))
             }
-        }
+        })
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -143,17 +142,26 @@ class HomeController: UIViewController {
     }
 
     func getCollectionViewCellSize(_ collectionView: UICollectionView, identifier: String) -> CGSize {
+        // Heights
+        let allGymsCellHeight = CGFloat(123.0)
+        let checkinCellHeight = CGFloat(53.0)
+        let classCellHeight = CGFloat(195.0)
+        let discoverProsCellHeight = CGFloat(110.0)
+        let gymCellHeight = CGFloat(90.0)
+        let proCellHeight = CGFloat(145.0)
+        let todaysClassesCellHeight = CGFloat(227.0)
+        
         // Habits
-        let checkInCellSize = CGSize(width: collectionView.bounds.width, height: 53.0)
+        let checkInCellSize = CGSize(width: collectionView.bounds.width, height: checkinCellHeight)
         // Gyms
-        let allGymsCellSize = CGSize(width: collectionView.bounds.width, height: 123.0)
-        let gymCellSize = CGSize(width: 271, height: 90.0)
+        let allGymsCellSize = CGSize(width: collectionView.bounds.width, height: allGymsCellHeight)
+        let gymCellSize = CGSize(width: 271, height: gymCellHeight)
         // Classes
-        let todaysClassesCellSize = CGSize(width: collectionView.bounds.width, height: 227.0)
-        let classCellSize = CGSize(width: 228.0, height: 195.0)
+        let todaysClassesCellSize = CGSize(width: collectionView.bounds.width, height: todaysClassesCellHeight)
+        let classCellSize = CGSize(width: 228.0, height: classCellHeight)
         //Pros
-        let discoverProsCellSize = CGSize(width: 280, height: 110.0)
-        let proCellSize = CGSize(width: view.bounds.width, height: 145)
+        let discoverProsCellSize = CGSize(width: 280.0, height: discoverProsCellHeight)
+        let proCellSize = CGSize(width: collectionView.bounds.width, height: proCellHeight)
         
         if identifier == Identifiers.habitTrackerCheckinCell {
             return checkInCellSize
@@ -189,7 +197,8 @@ extension HomeController: UICollectionViewDataSource {
     
         switch sections[section] {
         case .checkIns:
-            return habits.count == 3 ? 3 : 1
+            // Either a cell for each habit, or if no habits one empty state cell
+            return habits.count > 0 ? habits.count : 1
         case .pros, .todaysClasses, .allGyms:
             return 1
         }
@@ -221,7 +230,7 @@ extension HomeController: UICollectionViewDataSource {
             return cell
             
         } else if collectionView.accessibilityIdentifier == Identifiers.allGymsCell {
-            let gym = gyms[indexPath.row]
+            let gym = favoriteGyms[indexPath.row]
             
             // swiftlint:disable:next force_cast
             let gymCell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
@@ -329,16 +338,16 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
-            return SectionInsets.todaysClasses
+            return SectionInsets.getInsets(section: .todaysClasses)
         } else if collectionView.accessibilityIdentifier == Identifiers.allGymsCell {
-            return SectionInsets.allGyms
+            return SectionInsets.getInsets(section: .allGyms)
         } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
-            return SectionInsets.pros
+            return SectionInsets.getInsets(section: .pros)
         }
         
         switch sections[section] {
         case .checkIns:
-            return SectionInsets.checkIns
+            return SectionInsets.getInsets(section: .checkIns)
         case .allGyms, .pros, .todaysClasses:
             // Insets for these are handled within their internal collectionViews
             return .zero
@@ -398,14 +407,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
 extension HomeController: ChooseGymsDelegate {
     func updateFavorites(favorites: [String]) {
         favoriteGyms = []
-        
-        for favoriteGym in favorites {
-            for gym in self.gyms {
-                if gym.name == favoriteGym {
-                    self.favoriteGyms.append(gym)
-                    continue
-                }
-            }
+        favoriteGyms = favorites.compactMap { favorite in
+            self.gyms.first { $0.name == favorite }
         }
     }
     
@@ -440,20 +443,14 @@ extension HomeController: ChooseGymsDelegate {
     }
     
     func isGymStatusChangingSoon(gym: Gym) -> Bool {
+        let changingSoonThreshold = 3600.0
+        let now = Date()
         
         if gym.isOpen {
-            if (gym.gymHoursToday.closeTime - 3600) < Date() {
-                return true
-            } else {
-                return false
-            }
+            return (gym.gymHoursToday.closeTime - changingSoonThreshold) < now
         } else {
-            let openTime = gym.gymHours[Date().getIntegerDayOfWeekTomorrow()].openTime + 86400
-            if (openTime - 3600) < Date() {
-                return true
-            } else {
-                return false
-            }
+            let openTime = gym.gymHours[now.getIntegerDayOfWeekTomorrow()].openTime + Date.secondsPerDay
+            return (openTime - changingSoonThreshold) < now
         }
     }
 

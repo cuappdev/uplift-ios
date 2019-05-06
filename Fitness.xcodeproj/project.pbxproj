@@ -353,24 +353,24 @@
 		C7EBD5A92062E64F00D76A8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
-				8D5D586B226FE52500A996D7 /* HabitTrackerCheckinCell.swift */,
-				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
+				8D03EE08206C477600EF83C7 /* AllGymsCell.swift */,
+				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
 				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
 				8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */,
+				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
 				E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */,
 				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
+				4FC04780222EF69300165594 /* FavoriteGymCell.swift */,
 				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
 				8D03EE0E206C481A00EF83C7 /* GymsCell.swift */,
+				8D5D586B226FE52500A996D7 /* HabitTrackerCheckinCell.swift */,
+				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
+				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
 				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
 				E6FCEE51226E791000CEE2BC /* ProCollectionViewCell.swift */,
 				8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */,
-				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
-				8D03EE08206C477600EF83C7 /* AllGymsCell.swift */,
-				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
-				4FC04780222EF69300165594 /* FavoriteGymCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";

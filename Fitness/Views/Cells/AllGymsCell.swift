@@ -10,12 +10,12 @@ import SnapKit
 import UIKit
 
 class AllGymsCell: UICollectionViewCell {
-    
+
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.allGymsCell
     var collectionView: UICollectionView!
 
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -27,22 +27,20 @@ class AllGymsCell: UICollectionViewCell {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.accessibilityIdentifier = Identifiers.allGymsCell
-        
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delaysContentTouches = false
         
         collectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
-        
         contentView.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }

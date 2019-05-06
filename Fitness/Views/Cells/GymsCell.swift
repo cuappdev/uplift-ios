@@ -72,35 +72,38 @@ class GymsCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     private func setupConstraints() {
-        let descriptionLabelHieght = 15
+        let colorBarWidth = 5
+        let descriptionLabelHeight = 15
         let leadingPadding = 16
+        let locationLabelHeight = 22
+        let locationLabelVerticalInset = 16
         let trailingPadding = 4
         
         colorBar.snp.updateConstraints { make in
             make.leading.equalToSuperview()
             make.height.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.width.equalTo(5)
+            make.width.equalTo(colorBarWidth)
         }
 
         locationName.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(locationLabelVerticalInset)
             make.leading.equalToSuperview().offset(leadingPadding)
-            make.height.equalTo(22)
+            make.height.equalTo(locationLabelHeight)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
         }
 
         status.snp.updateConstraints { make in
             make.leading.equalTo(locationName)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.height.equalTo(descriptionLabelHieght)
+            make.height.equalTo(descriptionLabelHeight)
             make.top.equalTo(locationName.snp.bottom).offset(6)
         }
 
         hours.snp.updateConstraints { make in
             make.leading.equalTo(status)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.height.equalTo(descriptionLabelHieght)
+            make.height.equalTo(descriptionLabelHeight)
             make.top.equalTo(status.snp.bottom).offset(3)
         }
     }
@@ -110,29 +113,23 @@ class GymsCell: UICollectionViewCell {
     }
 
     func setGymStatus(isOpen: Bool, changingSoon: Bool) {
-        
-        var color: UIColor
-        var status: String
         if isOpen {
             if changingSoon {
-                color = .fitnessOrange
-                status = "Closing soon"
+                status.textColor = .fitnessOrange
+                status.text = "Closing soon"
             } else {
-                color = .fitnessGreen
-                status = "Currently open"
+                status.textColor = .fitnessGreen
+                status.text = "Currently open"
             }
         } else {
             if changingSoon {
-                color = .fitnessOrange
-                status = "Opening soon"
+                status.textColor = .fitnessOrange
+                status.text = "Opening soon"
             } else {
-                color = .fitnessRed
-                status = "Closed"
+                status.textColor = .fitnessRed
+                status.text = "Closed"
             }
         }
-        
-        self.status.text = status
-        self.status.textColor = color
     }
 
     func setGymHours(hours: String) {
