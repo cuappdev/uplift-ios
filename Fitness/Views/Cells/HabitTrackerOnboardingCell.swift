@@ -18,6 +18,15 @@ protocol HabitTrackerOnboardingDelegate: class {
     func swipeRight()
 }
 
+private enum FileConstants {
+    static let normalDotsLeadingPadding = 35
+    static let swipedDotsLeadingPadding = 15
+    
+    static let editingTitleLabelTrailingPadding = 50
+    static let normalTitleLabelTrailingPadding = 21
+    static let swipedTitleLabelTrailingPadding = 145
+}
+
 class HabitTrackerOnboardingCell: UITableViewCell {
     
     // MARK: - INITIALIZATION
@@ -26,18 +35,19 @@ class HabitTrackerOnboardingCell: UITableViewCell {
     
     weak var delegate: HabitTrackerOnboardingDelegate!
 
-    var dotsImage: UIImageView!
+    private var dotsImage: UIImageView!
     var titleLabel: UITextField!
-    var isSwiped: Bool!
+    var separator: UIView!
     
-    var trashButton: UIButton!
-    var editButton: UIButton!
-    var pinButton: UIButton!
+    private var trashButton: UIButton!
+    private var editButton: UIButton!
+    private var pinButton: UIButton!
     
-    var clearTextButton: UIButton!
+    private var clearTextButton: UIButton!
     
-    var canEdit: Bool!
-    var editingTitle: Bool!
+    private var isSwiped: Bool!
+    private var canEdit: Bool!
+    private var editingTitle: Bool!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,6 +76,11 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         titleLabel.textDropDelegate = self
         titleLabel.keyboardType = .alphabet
         contentView.addSubview(titleLabel)
+        
+        // SEPARATOR
+        separator = UIView()
+        separator.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(separator)
         
         // BUTTONS
         trashButton = UIButton()
@@ -99,16 +114,25 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         setupConstraints()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        separator.isHidden = false
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - CONSTRAINTS
-    func setupConstraints() {
+    private func setupConstraints() {
         let buttonSize = 38
+        let buttonSpacing = 6
+        let buttonTrailingPadding = 16
+        let separatorHeight = 1
+        let separatorInset = 24
         
         dotsImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(35)
+            make.leading.equalToSuperview().offset(FileConstants.normalDotsLeadingPadding)
             make.width.equalTo(8)
             make.height.equalTo(14)
             make.centerY.equalToSuperview()
@@ -118,51 +142,63 @@ class HabitTrackerOnboardingCell: UITableViewCell {
             make.leading.equalTo(dotsImage.snp.trailing).offset(10)
             make.height.equalTo(18)
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-21)
+            make.trailing.equalToSuperview().inset(FileConstants.normalTitleLabelTrailingPadding)
         }
         
         pinButton.snp.makeConstraints { make in
             make.width.height.equalTo(buttonSize)
-            make.trailing.equalToSuperview().offset(-21)
+            make.trailing.equalToSuperview().inset(buttonTrailingPadding)
             make.centerY.equalToSuperview()
         }
         
         editButton.snp.makeConstraints { make in
             make.width.height.equalTo(buttonSize)
-            make.trailing.equalTo(pinButton.snp.leading).offset(-6)
+            make.trailing.equalTo(pinButton.snp.leading).offset(-buttonSpacing)
             make.centerY.equalToSuperview()
         }
         
         trashButton.snp.makeConstraints { make in
             make.width.height.equalTo(buttonSize)
-            make.trailing.equalTo(editButton.snp.leading).offset(-6)
+            make.trailing.equalTo(editButton.snp.leading).offset(-buttonSpacing)
             make.centerY.equalToSuperview()
         }
         
         clearTextButton.snp.makeConstraints { make in
             make.height.width.equalTo(28)
-            make.trailing.equalToSuperview().offset(-24)
+            make.trailing.equalToSuperview().inset(buttonTrailingPadding)
             make.centerY.equalToSuperview()
         }
-    }
-    
-    func updateConstraintsLeftSwipe() {
-        dotsImage.snp.updateConstraints { make in
-            make.leading.equalToSuperview().offset(15)
-        }
         
-        titleLabel.snp.updateConstraints { make in
-            make.trailing.equalToSuperview().offset(-132)
+        separator.snp.makeConstraints { make in
+            make.height.equalTo(separatorHeight)
+            make.leading.trailing.equalToSuperview().inset(separatorInset)
+            make.bottom.equalToSuperview()
         }
     }
     
-    func updateConstraintsRightSwipe() {
+    private func updateConstraintsLeftSwipe() {
         dotsImage.snp.updateConstraints { make in
-            make.leading.equalToSuperview().offset(35)
+            make.leading.equalToSuperview().inset(FileConstants.swipedDotsLeadingPadding)
         }
         
         titleLabel.snp.updateConstraints { make in
-            make.trailing.equalToSuperview().offset(-21)
+            make.trailing.equalToSuperview().inset(FileConstants.swipedTitleLabelTrailingPadding)
+        }
+    }
+    
+    private func updateConstraintsRightSwipe() {
+        dotsImage.snp.updateConstraints { make in
+            make.leading.equalToSuperview().inset(FileConstants.normalDotsLeadingPadding)
+        }
+        
+        titleLabel.snp.updateConstraints { make in
+            make.trailing.equalToSuperview().inset(FileConstants.normalTitleLabelTrailingPadding)
+        }
+    }
+    
+    private func updateConstraintsEdit() {
+        titleLabel.snp.updateConstraints { make in
+            make.trailing.equalToSuperview().inset(FileConstants.editingTitleLabelTrailingPadding)
         }
     }
     
@@ -219,6 +255,8 @@ class HabitTrackerOnboardingCell: UITableViewCell {
         editButton.isHidden = true
         pinButton.isHidden = true
         clearTextButton.isHidden = false
+        
+        updateConstraintsEdit()
         
         canEdit = true
         editingTitle = true

@@ -145,6 +145,10 @@ class ProBioPageViewController: UIViewController {
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)
+
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
+        edgeSwipe.edges = .left
+        scrollView.addGestureRecognizer(edgeSwipe)
         
         setPro()
         setupConstraints()
@@ -169,7 +173,7 @@ class ProBioPageViewController: UIViewController {
         
         linksCollectionView.reloadData()
         
-        routinesView = AllProRoutinesView(routines: pro.routines)
+        routinesView = AllProRoutinesView(routines: pro.routines, delegate: self)
         scrollView.addSubview(routinesView)
         
         profilePicView.image = pro.profilePic
@@ -309,5 +313,13 @@ extension ProBioPageViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+}
+
+extension ProBioPageViewController: HabitAlertDelegate {
+    func pushAlert(habitTitle: String) {
+        let alert = UIAlertController(title: "Habit added", message: "\"\(habitTitle)\" set to favorite", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

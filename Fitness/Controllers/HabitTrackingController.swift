@@ -14,6 +14,14 @@ enum HabitTrackingType: Int {
     case cardio = 0, strength, mindfulness
 }
 
+private enum FileConstants {
+    static let featuredHabitSection = 0
+    static let suggestedHabitSection = 1
+    
+    static let featuredSectionHeaderHeight = 50
+    static let suggestedSectionHeaderHeight = 34
+}
+
 class HabitTrackingController: UIViewController {
     
     // MARK: - INITIALIZATION
@@ -131,6 +139,7 @@ class HabitTrackingController: UIViewController {
         habitTableView.dragDelegate = self
         habitTableView.dropDelegate = self
         habitTableView.dragInteractionEnabled = true
+        habitTableView.separatorStyle = .none
         
         habitTableView.register(HabitTrackerOnboardingCell.self, forCellReuseIdentifier: HabitTrackerOnboardingCell.identifier)
         contentView.addSubview(habitTableView)
@@ -167,31 +176,32 @@ class HabitTrackingController: UIViewController {
         // BACK BUTTON
         if type != .cardio {
             backButton = UIButton()
-            backButton!.setImage(UIImage(named: "back-arrow-grey"), for: .normal)
-            backButton!.addTarget(self, action: #selector(back), for: .touchUpInside)
-            view.addSubview(backButton!)
-            view.bringSubviewToFront(backButton!)
+            
+            if let backButton = backButton {
+                backButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
+                backButton.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+                backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+                view.addSubview(backButton)
+                view.bringSubviewToFront(backButton)
+            }
         }
+        
+        habits = HabitConstants.suggestedHabits(type: type)
+        descriptionLabel.text = HabitConstants.habitTypeDescription(type: type)
         
         switch type {
         case .cardio:
             widgetsView.image = UIImage(named: "widgets-empty")
             nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
             titleLabel.text = "Cardio"
-            descriptionLabel.text = "Daily heart pump so you can jog to your 10AM with ease"
-            habits = ["Run for 15 mins", "Play a sport for 30 mins", "Go for a walk after dinner"]
         case .strength:
             widgetsView.image = UIImage(named: "widgets-1")
             nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
             titleLabel.text = "Strength"
-            descriptionLabel.text = "Mann Library, WSH or Gates. No building’s door can slow you down now"
-            habits = ["Curls for 20 mins", "30 Pushups", "Plank for 5 mins"]
         case .mindfulness:
             widgetsView.image = UIImage(named: "widgets-2")
             nextButton.setImage(UIImage(named: "checkmark-yellow"), for: .normal)
             titleLabel.text = "Mindfulness"
-            descriptionLabel.text = "Take care of your mind, As much as your grades."
-            habits = ["Read favorite book for 10 mins", "Meditate for 5 mins", "Reflect on today"]
         }
         
         if let activeHabit = Habit.getActiveHabitTitle(type: type) {
@@ -215,77 +225,102 @@ class HabitTrackingController: UIViewController {
         setupConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.tabBarController?.tabBar.isHidden = true
+    }
+    
     // MARK: - CONSTRAINTS
     func setupConstraints() {
+        let cancelButtonDiameter = 17
+        let createHabitButtonHeight = 24
+        let createHabitButtonInset = 56
+        let createHabitButtonWidth = 145
+        let descriptionLabelHeight = 44
+        let leadingInset = 24
+        let navigationButtonBottomInset = 70
+        let navigationButtonDiameter = 35
+        let navigationButtonHorizontalInset = 40
+        let saveButtonHeight = 60
+        let saveButtonInsets = 24
+        let titleLabelHeight = 40
+        let trailingInset = 24
+        let widgetsViewHeight = 29
+        let widgetsViewVerticalInset = 48
+        let widgetsViewWidth = 107
+        
         widgetsView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(21)
-            make.top.equalToSuperview().offset(48)
-            make.width.equalTo(107)
-            make.height.equalTo(29)
+            make.leading.equalToSuperview().inset(leadingInset)
+            make.top.equalToSuperview().inset(widgetsViewVerticalInset)
+            make.width.equalTo(widgetsViewWidth)
+            make.height.equalTo(widgetsViewHeight)
         }
         
         cancelButton.snp.makeConstraints { make in
-            make.height.width.equalTo(17)
+            make.height.width.equalTo(cancelButtonDiameter)
             make.centerY.equalTo(widgetsView)
-            make.trailing.equalToSuperview().offset(-22)
+            make.trailing.equalToSuperview().inset(trailingInset)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(21)
-            make.trailing.equalToSuperview().offset(-21)
+            make.leading.equalToSuperview().inset(leadingInset)
+            make.trailing.equalToSuperview().inset(trailingInset)
             make.top.equalTo(widgetsView.snp.bottom).offset(16)
-            make.height.equalTo(40)
+            make.height.equalTo(titleLabelHeight)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(21)
-            make.trailing.equalToSuperview().offset(-54)
+            make.leading.equalToSuperview().inset(leadingInset)
+            make.trailing.equalToSuperview().inset(trailingInset)
             make.top.equalTo(titleLabel.snp.bottom).offset(18)
-            make.height.equalTo(44)
+            make.height.equalTo(descriptionLabelHeight)
         }
         
         habitTableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(descriptionLabel.snp.bottom).offset(8)
-            let height = 68 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
-            make.height.equalTo(height)
+            make.height.equalTo(getTableViewHeight())
         }
         
         createHabitButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(56)
-            make.width.equalTo(145)
+            make.leading.equalToSuperview().offset(createHabitButtonInset)
+            make.width.equalTo(createHabitButtonWidth)
             make.top.equalTo(habitTableView.snp.bottom).offset(10)
-            make.height.equalTo(24)
+            make.height.equalTo(createHabitButtonHeight)
             make.bottom.equalToSuperview()
         }
         
         saveHabitButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(24)
-            make.trailing.equalToSuperview().offset(-24)
-            make.height.equalTo(60)
+            make.leading.equalToSuperview().inset(saveButtonInsets)
+            make.trailing.equalToSuperview().inset(saveButtonInsets)
+            make.height.equalTo(saveButtonHeight)
             make.centerY.equalTo(0)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.height.width.equalTo(35)
-            make.trailing.equalToSuperview().offset(-40)
-            make.bottom.equalToSuperview().offset(-70)
+            make.height.width.equalTo(navigationButtonDiameter)
+            make.trailing.equalToSuperview().inset(navigationButtonHorizontalInset)
+            make.bottom.equalToSuperview().inset(navigationButtonBottomInset)
         }
         
         if type != .cardio {
             backButton?.snp.makeConstraints { make in
-                make.height.width.equalTo(35)
-                make.leading.equalToSuperview().offset(40)
-                make.bottom.equalToSuperview().offset(-70)
+                make.height.width.equalTo(navigationButtonDiameter)
+                make.leading.equalToSuperview().inset(navigationButtonHorizontalInset)
+                make.bottom.equalToSuperview().offset(navigationButtonBottomInset)
             }
         }
     }
     
-    func updateTableviewConstraints() {
+    func updateTableViewConstraints() {
         habitTableView.snp.updateConstraints { make in
-            let height = 68 + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
-            make.height.equalTo(height)
+            make.height.equalTo(getTableViewHeight())
         }
+    }
+    
+    func getTableViewHeight() -> Int {
+        // 1 cell in section zero + `habits.count` cells in section one
+        return FileConstants.featuredSectionHeaderHeight + FileConstants.suggestedSectionHeaderHeight + HabitTrackerOnboardingCell.height * ( habits.count + 1 )
     }
 }
 
@@ -338,9 +373,9 @@ extension HabitTrackingController {
     
     @objc func createHabit() {
         habits.append("")
-        habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .automatic)
+        habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: FileConstants.suggestedHabitSection)], with: .automatic)
         
-        updateTableviewConstraints()
+        updateTableViewConstraints()
     }
     
     @objc func doneEditingHabit() {
@@ -356,7 +391,7 @@ extension HabitTrackingController {
             if cell.titleLabel.text == "" {
                 cell.finishEdit()
                 
-                if indexPath.section == 0 {
+                if indexPath.section == FileConstants.featuredHabitSection {
                     featuredHabit = nil
                     habitTableView.reloadRows(at: [indexPath], with: .automatic)
                     scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -367,14 +402,14 @@ extension HabitTrackingController {
                     UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
                         self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
                         
-                        let height = 68 + HabitTrackerOnboardingCell.height * ( self.habits.count + 1 )
+                        let height = self.getTableViewHeight()
                         self.habitTableView.frame.size.height = CGFloat(height)
-                        self.updateTableviewConstraints()
+                        self.updateTableViewConstraints()
                         
                     }, completion: nil)
                 }
             } else {
-                if indexPath.section == 0 {
+                if indexPath.section == FileConstants.featuredHabitSection {
                     featuredHabit = cell.titleLabel.text
                 } else {
                     if let habit = cell.titleLabel.text {
@@ -401,12 +436,16 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         
         title.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(21)
-            make.bottom.equalToSuperview()
+            if section == FileConstants.featuredHabitSection {
+                make.centerY.equalToSuperview()
+            } else {
+                make.bottom.equalToSuperview()
+            }
             make.trailing.equalToSuperview()
             make.height.equalTo(18)
         }
         
-        if section == 0 {
+        if section == FileConstants.featuredHabitSection {
             title.text = "FEATURED"
         } else {
             title.text = "SUGGESTIONS"
@@ -416,7 +455,11 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 34.0
+        if section == FileConstants.featuredHabitSection {
+            return CGFloat(FileConstants.featuredSectionHeaderHeight)
+        } else {
+            return CGFloat(FileConstants.suggestedSectionHeaderHeight)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -428,7 +471,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == FileConstants.featuredHabitSection {
             return 1
         } else {
             return habits.count
@@ -446,17 +489,19 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        if indexPath.section == FileConstants.featuredHabitSection {
             if let habit = featuredHabit {
                 let cell = tableView.dequeueReusableCell(withIdentifier: HabitTrackerOnboardingCell.identifier, for: indexPath) as! HabitTrackerOnboardingCell
                 
                 cell.setTitle(activity: habit)
                 cell.swipeRight()
                 cell.delegate = self
+                cell.separator.isHidden = true
                 
                 return cell
             } else {
                 // Empty state featured habit
+                // TODO - replace this with the NoHabitsCell class once it is converted to a tableview
                 let cell = UITableViewCell()
                 
                 let backgroundImage = UIImageView()
@@ -523,13 +568,13 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
     func deleteCell(cell: HabitTrackerOnboardingCell) {
         guard let indexPath = habitTableView.indexPath(for: cell) else { return }
         
-        if indexPath.section == 0 {
+        if indexPath.section == FileConstants.featuredHabitSection {
             featuredHabit = nil
             habitTableView.reloadRows(at: [indexPath], with: .automatic)
         } else {
             habits.remove(at: indexPath.row)
             habitTableView.deleteRows(at: [indexPath], with: .automatic)
-            updateTableviewConstraints()
+            updateTableViewConstraints()
         }
     }
     
@@ -538,7 +583,14 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
             if let previousCell = swipedCell {
                 previousCell.swipeRight()
             }
-            habitTableView.separatorStyle = .none
+            
+            habitTableView.indexPathsForVisibleRows?.forEach({ indexPath in
+                if let cell = habitTableView.cellForRow(at: indexPath) as? HabitTrackerOnboardingCell {
+                    if indexPath.section == FileConstants.suggestedHabitSection {
+                        cell.separator.isHidden = true
+                    }
+                }
+            })
             
             swipedCell = cell
             return true
@@ -549,18 +601,25 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
     
     func swipeRight() {
         swipedCell = nil
-        habitTableView.separatorStyle = .singleLine
+        
+        habitTableView.indexPathsForVisibleRows?.forEach({ indexPath in
+            if let cell = habitTableView.cellForRow(at: indexPath) as? HabitTrackerOnboardingCell {
+                if indexPath.section == FileConstants.suggestedHabitSection {
+                    cell.separator.isHidden = false
+                }
+            }
+        })
     }
     
     func featureHabit(cell: HabitTrackerOnboardingCell) {
         guard let indexPath = habitTableView.indexPath(for: cell) else { return }
         
-        if indexPath.section == 0 {
+        if indexPath.section == FileConstants.featuredHabitSection {
             guard let habit = featuredHabit else { return }
             
             habits.append(habit)
             featuredHabit = nil
-            updateTableviewConstraints()
+            updateTableViewConstraints()
             
             habitTableView.beginUpdates()
             habitTableView.insertRows(at: [IndexPath(row: habits.count - 1, section: 1)], with: .automatic)
@@ -579,7 +638,7 @@ extension HabitTrackingController: HabitTrackerOnboardingDelegate {
             featuredHabit = habits[indexPath.row]
             habits.remove(at: indexPath.row)
             habitTableView.reloadData()
-            updateTableviewConstraints()
+            updateTableViewConstraints()
         }
     }
 }
@@ -589,7 +648,7 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
         var habit: String
-        if indexPath.section == 0 {
+        if indexPath.section == FileConstants.featuredHabitSection {
             if let featuredHabit = featuredHabit {
                 habit = featuredHabit
             } else { return [] }
@@ -621,7 +680,7 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                 // Habit is originating from the suggested section
                 self.habits.remove(at: index)
                 
-                if destinationIndexPath.section == 0 {
+                if destinationIndexPath.section == FileConstants.featuredHabitSection {
                     // Moving suggested habit to featured
                     tableView.beginUpdates()
                     
@@ -635,7 +694,7 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                     tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .automatic)
                     tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                     tableView.endUpdates()
-                    self.updateTableviewConstraints()
+                    self.updateTableViewConstraints()
                     
                 } else {
                     // Moving suggested habit around in section
@@ -645,7 +704,7 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                 
             } else {
                 // Habit is currently featured
-                if destinationIndexPath.section == 1 {
+                if destinationIndexPath.section == FileConstants.suggestedHabitSection {
                     // Moving featured habit back down
                     tableView.beginUpdates()
 
@@ -656,7 +715,7 @@ extension HabitTrackingController:  UITableViewDragDelegate, UITableViewDropDele
                     tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                     tableView.endUpdates()
 
-                    self.updateTableviewConstraints()
+                    self.updateTableViewConstraints()
                 }
             }
         }

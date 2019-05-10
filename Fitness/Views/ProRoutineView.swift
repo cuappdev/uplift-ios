@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HabitAlertDelegate: class {
+    func pushAlert(habitTitle: String)
+}
+
 class ProRoutineView: UIView {
     enum ConstraintConstants {
         static let outerSpacing = 16
@@ -22,10 +26,13 @@ class ProRoutineView: UIView {
     private var stepsTextView: UITextView!
     private var titleLabel: UILabel!
     
+    weak var delegate: HabitAlertDelegate?
+    
     init(routine: ProRoutine) {
         super.init(frame: .zero)
         
         self.backgroundColor = .white
+        self.routine = routine
         
         titleLabel = UILabel()
         titleLabel.textColor = .black
@@ -51,21 +58,18 @@ class ProRoutineView: UIView {
         case .cardio:
             routineTypeImage.image = #imageLiteral(resourceName: "small cardio icon.png")
             routineTypeLabel.text = "Cardio"
-        case .mindfullness:
+        case .mindfulness:
             routineTypeImage.image = #imageLiteral(resourceName: "smaller mindfulness icon.png")
             routineTypeLabel.text = "Mindfulness"
         case .strength:
             routineTypeImage.image = #imageLiteral(resourceName: "small strength icon.png")
             routineTypeLabel.text = "Strength"
-        case .other:
-            routineTypeImage.image = #imageLiteral(resourceName: "smaller mindfulness icon.png")
-            routineTypeLabel.text = "Other"
         }
         
         addButton = UIButton()
         addButton.setBackgroundImage(#imageLiteral(resourceName: "add habit.png"), for: .normal)
-//        self.addSubview(addButton)
-        // Commenting out the add button until more functionality to save and display favourited routines is implemented
+        addButton.addTarget(self, action: #selector(addHabit), for: .touchUpInside)
+        self.addSubview(addButton)
         
         stepsTextView = UITextView()
         stepsTextView.textColor = UIColor.fitnessBlack
@@ -112,6 +116,7 @@ class ProRoutineView: UIView {
     }
     
     override func updateConstraints() {
+        let addButtonDiameter = 24
         let iconRoutineLabelSpacing = 8
         let iconSize = 15
         let titleIconSpacing = 3
@@ -133,12 +138,11 @@ class ProRoutineView: UIView {
             make.centerY.equalTo(routineTypeImage)
         }
         
-        // Temporarily commenting out this code until we have a way to display favourited Routines and the addButton is added back in
-//        addButton.snp.makeConstraints{ make in
-//            make.height.width.equalTo(24)
-//            make.trailing.equalToSuperview().offset(-16)
-//            make.centerY.equalTo(titleLabel.snp.centerY)
-//        }
+        addButton.snp.makeConstraints{ make in
+            make.height.width.equalTo(addButtonDiameter)
+            make.trailing.equalToSuperview().inset(ConstraintConstants.outerSpacing)
+            make.centerY.equalTo(titleLabel.snp.centerY)
+        }
         
         stepsTextView.snp.makeConstraints{ make in
             make.leading.equalToSuperview().offset(ConstraintConstants.textViewSpacing)
@@ -154,4 +158,8 @@ class ProRoutineView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc func addHabit() {
+        Habit.setActiveHabit(title: routine.title, type: routine.routineType)
+        delegate?.pushAlert(habitTitle: routine.title)
+    }
 }

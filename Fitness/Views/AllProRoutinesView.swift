@@ -12,12 +12,13 @@ class AllProRoutinesView: UIView {
     var routines: [ProRoutine]!
     var routineViews: [ProRoutineView] = []
     
-    init(routines: [ProRoutine]) {
+    init(routines: [ProRoutine], delegate: HabitAlertDelegate?) {
         super.init(frame: .zero)
         
         self.routines = routines
         routines.forEach { routine in
-            var newRoutineView = ProRoutineView(routine: routine)
+            let newRoutineView = ProRoutineView(routine: routine)
+            newRoutineView.delegate = delegate
             routineViews.append(newRoutineView)
             self.addSubview(newRoutineView)
         }

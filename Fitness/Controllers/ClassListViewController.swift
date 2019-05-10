@@ -463,7 +463,7 @@ extension ClassListViewController: FilterDelegate {
             return
         }
 
-        let offset = Int(calendarDateSelected.timeIntervalSince(params.startTime))/86400
+        let offset = Int(calendarDateSelected.timeIntervalSince(params.startTime) / Date.secondsPerDay)
         var components =  DateComponents()
         components.day = offset
         

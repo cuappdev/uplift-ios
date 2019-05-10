@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ChooseGymsDelegate: class {
+    func updateFavorites(favorites: [String])
+}
+
 class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - INITIALIZATION
@@ -19,7 +23,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     
     // TableView
     var gymsTableView: UITableView!
-    
     
     // Display Info
     let tableViewToNext: CGFloat = 94
@@ -40,8 +43,10 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     let gymCellVerticalPadding: CGFloat = 14
     
     // Gyms
-    var gymNames: [String] = []
-    var favoriteGyms: [String] = []
+    private var gymNames: [String] = []
+    private var favoriteGyms: [String] = []
+    
+    private weak var delegate: ChooseGymsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +107,10 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
                 self.gymsTableView.reloadData()
             }
         }
+
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(goBackAView))
+        edgeSwipe.edges = .left
+        view.addGestureRecognizer(edgeSwipe)
 
         setUpConstraints()
     }
@@ -177,6 +186,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         }
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: Identifiers.hasSeenOnboarding)
+        saveFavoriteGyms()
         appDelegate.window?.rootViewController = TabBarController()
     }
     
