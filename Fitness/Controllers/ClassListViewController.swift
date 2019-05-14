@@ -78,6 +78,11 @@ class ClassListViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        let titleLeadingConstant = 24
+        let titleBottomConstant = -20
+        let titleHeightConstant = 26
+        let titleViewHeightConstant = 120
+        
         view.backgroundColor = .white
 
         searchBar = UISearchBar()
@@ -111,16 +116,16 @@ class ClassListViewController: UIViewController {
         titleLabel.text = "Classes"
         titleView.addSubview(titleLabel)
         
-        titleLabel.snp.makeConstraints {make in
-            make.leading.equalToSuperview().offset(24)
-            make.bottom.equalToSuperview().offset(-20)
-            make.height.equalTo(26)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(titleLeadingConstant)
+            make.bottom.equalToSuperview().offset(titleBottomConstant)
+            make.height.equalTo(titleHeightConstant)
             make.trailing.lessThanOrEqualTo(titleView)
         }
 
         titleView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(120)
+            make.height.equalTo(titleViewHeightConstant)
         }
         
 //        navigationItem.titleView = searchBar
@@ -458,7 +463,7 @@ extension ClassListViewController: FilterDelegate {
             return
         }
 
-        let offset = Int(calendarDateSelected.timeIntervalSince(params.startTime))/86400
+        let offset = Int(calendarDateSelected.timeIntervalSince(params.startTime) / Date.secondsPerDay)
         var components =  DateComponents()
         components.day = offset
         

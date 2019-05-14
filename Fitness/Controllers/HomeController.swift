@@ -13,31 +13,45 @@ import SnapKit
 import UIKit
 
 enum SectionType: String {
+    case checkIns = "DAILY CHECK-INS"
     case allGyms = "ALL GYMS"
-    case lookingFor = "I'M LOOKING FOR..."
     case todaysClasses = "TODAY'S CLASSES"
+    case pros = "LEARN FROM THE PROS"
+}
+
+private enum SectionInsets {
+    static func getInsets(section: SectionType) -> UIEdgeInsets {
+        switch section {
+        case .checkIns:
+            return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 32.0, right: 0.0)
+        case .allGyms:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
+        case .todaysClasses:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
+        case .pros:
+            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
+        }
+    }
 }
 
 class HomeController: UIViewController {
-
+    
     // MARK: - INITIALIZATION
-    var mainCollectionView: UICollectionView!
-    var todayClassCollectionView: UICollectionView!
-
-    var headerView: HomeScreenHeaderView!
-    var statusBarBackgroundColor: UIView!
-
-    var didRegisterCategoryCell = false
-    var didSetupHeaderShadow = false
-    var gymClassInstances: [GymClassInstance] = []
-    var gymLocations: [Int: String] = [:]
-    var gyms: [Gym] = []
-    var sections: [SectionType] = []
-    var tags: [Tag] = []
+    private var allGymsCollectionView: UICollectionView?
+    private var headerView: HomeScreenHeaderView!
+    private var mainCollectionView: UICollectionView!
+    
+    private var gymClassInstances: [GymClassInstance] = []
+    private var gymLocations: [Int: String] = [:]
+    private var gyms: [Gym] = []
+    private var favoriteGyms: [Gym] = []
+    private var habits: [Habit] = []
+    private let pros = ProBio.getAllPros()
+    private var sections: [SectionType] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor.fitnessWhite
         headerView = HomeScreenHeaderView()
         headerView.layer.shadowOffset = CGSize(width: 0.0, height: 9.0)
@@ -64,56 +78,108 @@ class HomeController: UIViewController {
         mainCollectionView.showsVerticalScrollIndicator = false
 
         mainCollectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
-        mainCollectionView.register(TodaysClassesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier)
-        mainCollectionView.register(GymsCell.self, forCellWithReuseIdentifier: GymsCell.identifier)
+        
+        mainCollectionView.register(NoHabitsCell.self, forCellWithReuseIdentifier: NoHabitsCell.identifier)
+        mainCollectionView.register(HabitTrackerCheckinCell.self, forCellWithReuseIdentifier: HabitTrackerCheckinCell.identifier)
+        mainCollectionView.register(AllGymsCell.self, forCellWithReuseIdentifier: AllGymsCell.identifier)
         mainCollectionView.register(TodaysClassesCell.self, forCellWithReuseIdentifier: TodaysClassesCell.identifier)
-        mainCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
+        mainCollectionView.register(DiscoverProsCell.self, forCellWithReuseIdentifier: DiscoverProsCell.identifier)
+        
+        sections = [.checkIns, .allGyms, .todaysClasses, .pros]
 
-        sections.insert(.allGyms, at: 0)
-        sections.insert(.todaysClasses, at: 1)
-        sections.insert(.lookingFor, at: 2)
         view.addSubview(mainCollectionView)
 
-        mainCollectionView.snp.makeConstraints {make in
+        mainCollectionView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(12)
             make.centerX.width.bottom.equalToSuperview()
         }
-
-        statusBarBackgroundColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 21))
-        statusBarBackgroundColor.backgroundColor = .fitnessWhite
-        view.addSubview(statusBarBackgroundColor)
+        
+        // GET HABITS
+        habits = Habit.getActiveHabits()
+        mainCollectionView.reloadSections(IndexSet(integer: 0))
 
         // GET GYMS
-        NetworkManager.shared.getGyms { (gyms) in
+        NetworkManager.shared.getGyms { gyms in
             self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
-            self.mainCollectionView.reloadSections(IndexSet(integer: 0))
+            
+            let gymNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteGyms) ?? []
+            self.updateFavorites(favorites: gymNames)
+            
+            self.mainCollectionView.reloadSections(IndexSet(integer: 1))
         }
 
         // GET TODAY'S CLASSES
-
         let stringDate = Date.getNowString()
-        print("TRACE: today: \(stringDate)")
 
         NetworkManager.shared.getGymClassesForDate(date: stringDate) { (gymClassInstances) in
             self.gymClassInstances = gymClassInstances.sorted { (first, second) in
                 return first.startTime < second.startTime
             }
-            self.mainCollectionView.reloadSections(IndexSet(integer: 1))
-        }
-
-        // GET TAGS
-        NetworkManager.shared.getTags { tags in
-            self.tags = tags
             self.mainCollectionView.reloadSections(IndexSet(integer: 2))
         }
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        for cell in mainCollectionView.visibleCells {
+        super.viewDidAppear(animated)
+        
+        allGymsCollectionView?.visibleCells.forEach({ cell in
             if let cell = cell as? GymsCell, let indexPath = mainCollectionView.indexPath(for: cell) {
-                cell.setGymStatus(isOpen: gyms[indexPath.item].isOpen)
+                cell.setGymStatus(isOpen: favoriteGyms[indexPath.item].isOpen, changingSoon: isGymStatusChangingSoon(gym: favoriteGyms[indexPath.item]))
             }
+        })
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.tabBarController?.tabBar.isHidden = false
+        
+        let newHabits = Habit.getActiveHabits()
+        if habits != newHabits {
+            habits = newHabits
+            mainCollectionView.reloadSections(IndexSet(integer: 0))
         }
+    }
+
+    func getCollectionViewCellSize(_ collectionView: UICollectionView, identifier: String) -> CGSize {
+        // Heights
+        let allGymsCellHeight = CGFloat(123.0)
+        let checkinCellHeight = CGFloat(53.0)
+        let classCellHeight = CGFloat(195.0)
+        let discoverProsCellHeight = CGFloat(110.0)
+        let gymCellHeight = CGFloat(90.0)
+        let proCellHeight = CGFloat(145.0)
+        let todaysClassesCellHeight = CGFloat(227.0)
+        
+        // Habits
+        let checkInCellSize = CGSize(width: collectionView.bounds.width, height: checkinCellHeight)
+        // Gyms
+        let allGymsCellSize = CGSize(width: collectionView.bounds.width, height: allGymsCellHeight)
+        let gymCellSize = CGSize(width: 271, height: gymCellHeight)
+        // Classes
+        let todaysClassesCellSize = CGSize(width: collectionView.bounds.width, height: todaysClassesCellHeight)
+        let classCellSize = CGSize(width: 228.0, height: classCellHeight)
+        //Pros
+        let discoverProsCellSize = CGSize(width: 280.0, height: discoverProsCellHeight)
+        let proCellSize = CGSize(width: collectionView.bounds.width, height: proCellHeight)
+        
+        if identifier == Identifiers.habitTrackerCheckinCell {
+            return checkInCellSize
+        } else if identifier == Identifiers.allGymsCell {
+            return allGymsCellSize
+        } else if identifier == Identifiers.gymsCell {
+            return gymCellSize
+        } else if identifier == Identifiers.todaysClassesCell {
+            return todaysClassesCellSize
+        } else if identifier == Identifiers.classesCell {
+            return classCellSize
+        } else if identifier == Identifiers.discoverProsCell {
+            return discoverProsCellSize
+        } else if identifier == Identifiers.proCell {
+            return proCellSize
+        }
+        
+        return CGSize(width: 0, height: 0)
     }
 }
 
@@ -121,23 +187,25 @@ class HomeController: UIViewController {
 extension HomeController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView != mainCollectionView {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             return gymClassInstances.count
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            return pros.count
+        } else if collectionView.accessibilityIdentifier == Identifiers.allGymsCell {
+            return favoriteGyms.count
         }
-
+    
         switch sections[section] {
-        case .allGyms:
-            return gyms.count
-        case .todaysClasses:
+        case .checkIns:
+            // Either a cell for each habit, or if no habits one empty state cell
+            return habits.isEmpty ? habits.count : 1
+        case .pros, .todaysClasses, .allGyms:
             return 1
-        case .lookingFor:
-            return tags.count
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        if collectionView != mainCollectionView {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             let classInstance = gymClassInstances[indexPath.row]
             let reuseIdentifier = classInstance.isCancelled ? ClassesCell.cancelledIdentifier : ClassesCell.identifier
             // swiftlint:disable:next force_cast
@@ -147,7 +215,7 @@ extension HomeController: UICollectionViewDataSource {
             cell.locationName.text = classInstance.location
             cell.image.kf.setImage(with: classInstance.imageURL)
 
-            //HOURS
+            // HOURS
             if !classInstance.isCancelled {
                 var calendar = Calendar.current
                 calendar.timeZone = TimeZone(abbreviation: "EDT")!
@@ -160,55 +228,77 @@ extension HomeController: UICollectionViewDataSource {
 
             }
             return cell
-        }
-
-        switch sections[indexPath.section] {
-        case .allGyms:
-            let gym = gyms[indexPath.row]
+            
+        } else if collectionView.accessibilityIdentifier == Identifiers.allGymsCell {
+            let gym = favoriteGyms[indexPath.row]
+            
             // swiftlint:disable:next force_cast
             let gymCell = collectionView.dequeueReusableCell(withReuseIdentifier: GymsCell.identifier, for: indexPath) as! GymsCell
             gymCell.setGymName(name: gym.name)
-            gymCell.setGymStatus(isOpen: gym.isOpen)
+            gymCell.setGymStatus(isOpen: gym.isOpen, changingSoon: isGymStatusChangingSoon(gym: gym))
             gymCell.setGymHours(hours: getHourString(gym: gym))
             return gymCell
+            
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProCollectionViewCell.identifier, for: indexPath) as! ProCollectionViewCell
+            cell.setPro(pros[indexPath.row])
+            return cell
+        }
+
+        switch sections[indexPath.section] {
+        case .checkIns:
+            if habits.isEmpty {
+                let noHabitsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NoHabitsCell.identifier, for: indexPath) as! NoHabitsCell
+                return noHabitsCell
+            } else {
+                let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitTrackerCheckinCell.identifier, for: indexPath) as! HabitTrackerCheckinCell
+                habitCell.configure(habit: habits[indexPath.row])
+                return habitCell
+            }
+        case .allGyms:
+            let allGymsCell = collectionView.dequeueReusableCell(withReuseIdentifier: AllGymsCell.identifier, for: indexPath) as! AllGymsCell
+            allGymsCollectionView = allGymsCell.collectionView
+            allGymsCell.collectionView.dataSource = self
+            allGymsCell.collectionView.delegate = self
+            return allGymsCell
+        case .pros:
+            let discoverPros = collectionView.dequeueReusableCell(withReuseIdentifier: DiscoverProsCell.identifier, for: indexPath) as! DiscoverProsCell
+            discoverPros.collectionView.dataSource = self
+            discoverPros.collectionView.delegate = self
+            return discoverPros
         case .todaysClasses:
             // swiftlint:disable:next force_cast
             let todayClassesCell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysClassesCell.identifier, for: indexPath) as! TodaysClassesCell
             todayClassesCell.collectionView.dataSource = self
             todayClassesCell.collectionView.delegate = self
             return todayClassesCell
-        case .lookingFor:
-            // swiftlint:disable:next force_cast
-            let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
-            categoryCell.title.text = tags[indexPath.row].name
-
-            let url = URL(string: tags[indexPath.row].imageURL)
-            categoryCell.image.kf.setImage(with: url)
-            return categoryCell
         }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView != mainCollectionView { return 1 }
-        return 3
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
         if collectionView != mainCollectionView { return UICollectionReusableView() }
 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
+            
             switch sections[indexPath.section] {
-            case .todaysClasses:
-                // swiftlint:disable:next force_cast
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TodaysClassesHeaderView.identifier, for: indexPath) as! TodaysClassesHeaderView
-                headerView.delegate = self
+            case .checkIns:
+                headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "edit", completion: pushHabitOnboarding)
                 return headerView
-            case .lookingFor, .allGyms:
-                // swiftlint:disable:next force_cast
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier, for: indexPath) as! HomeSectionHeaderView
-                headerView.setTitle(title: sections[indexPath.section].rawValue)
+            case .allGyms:
+                headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "edit", completion: pushGymOnboarding)
+                return headerView
+            case .pros:
+                headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: nil)
+                return headerView
+            case .todaysClasses:
+                headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "view all", completion: viewTodaysClasses)
                 return headerView
             }
         default:
@@ -222,34 +312,44 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if collectionView != mainCollectionView { return .zero }
-        return CGSize(width: collectionView.bounds.width, height: 32.0)
+        return CGSize(width: collectionView.bounds.width, height: HomeSectionHeaderView.height)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView != mainCollectionView {
-            return CGSize(width: 228.0, height: 195.0)}
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.classesCell)
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell{
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.discoverProsCell)
+        } else if collectionView.accessibilityIdentifier == Identifiers.allGymsCell {
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.gymsCell)
+        }
 
         switch sections[indexPath.section] {
+        case .checkIns:
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.habitTrackerCheckinCell)
         case .allGyms:
-            let spacingInsets: CGFloat = 32.0
-            //12.0 is the spacing between each cell
-            let totalWidth = collectionView.bounds.width - spacingInsets - 12.0
-            return CGSize(width: totalWidth/2.0, height: 60.0)
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.allGymsCell)
+        case .pros:
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.proCell)
         case .todaysClasses:
-            return CGSize(width: collectionView.bounds.width, height: 227.0)
-        case .lookingFor:
-            let width = (collectionView.bounds.width-48)/2
-            return CGSize(width: width, height: width*0.78)
+            return getCollectionViewCellSize(collectionView, identifier: Identifiers.todaysClassesCell)
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
+            return SectionInsets.getInsets(section: .todaysClasses)
+        } else if collectionView.accessibilityIdentifier == Identifiers.allGymsCell {
+            return SectionInsets.getInsets(section: .allGyms)
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            return SectionInsets.getInsets(section: .pros)
+        }
+        
         switch sections[section] {
-        case .allGyms:
-            return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
-        case .lookingFor:
-            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
-        case .todaysClasses:
+        case .checkIns:
+            return SectionInsets.getInsets(section: .checkIns)
+        case .allGyms, .pros, .todaysClasses:
+            // Insets for these are handled within their internal collectionViews
             return .zero
         }
     }
@@ -269,55 +369,63 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView != mainCollectionView {
-            // MARK: - Fabric
-            Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
-                "Section": SectionType.todaysClasses.rawValue
-                ])
+        if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
             let classDetailViewController = ClassDetailViewController()
             classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
+        } else if collectionView.accessibilityIdentifier == Identifiers.allGymsCell {
+            let gymDetailViewController = GymDetailViewController()
+            gymDetailViewController.gym = favoriteGyms[indexPath.row]
+            navigationController?.pushViewController(gymDetailViewController, animated: true)
+            return
+        } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
+            let proDetailViewController = ProBioPageViewController()
+            proDetailViewController.pro = pros[indexPath.row]
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(proDetailViewController, animated: true)
+            return
         }
         
         switch sections[indexPath.section] {
-        case .allGyms:
-            let gymDetailViewController = GymDetailViewController()
-            gymDetailViewController.gym = gyms[indexPath.row]
-            navigationController?.pushViewController(gymDetailViewController, animated: true)
-        case .lookingFor:
-            let cal = Calendar.current
-            let currDate = Date()
-            guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
-            let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate) ?? Date()
-
-            let filterParameters = FilterParameters(applyFilter: true, startingTime: startDate,  endingTime: endDate, instructorsNames: [], classesNames: [], gymsIds: [], tagsNames: [tags[indexPath.row].name])
-
-            guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
-            guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
-
-            classListViewController.currentFilterParams = filterParameters
-            classNavigationController.setViewControllers([classListViewController], animated: false)
-
-            tabBarController?.selectedIndex = 1
-
-        case .todaysClasses:
-            let classDetailViewController = ClassDetailViewController()
-            classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
+        case .checkIns:
+            if habits.isEmpty {
+                pushHabitOnboarding()
+            }
+            return
+        case .pros:
+            let proDetailViewController = ProBioPageViewController()
             navigationController?.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(classDetailViewController, animated: true)
+            navigationController?.pushViewController(proDetailViewController, animated: true)
+        case .todaysClasses, .allGyms:
+            return
         }
-        
-        // MARK: - Fabric
-        Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
-            "Section": sections[indexPath.section].rawValue
-            ])
     }
 }
 
-// MARK: - NavigationDelegate
-extension HomeController: NavigationDelegate {
+extension HomeController: ChooseGymsDelegate {
+    func updateFavorites(favorites: [String]) {
+        favoriteGyms = []
+        favoriteGyms = favorites.compactMap { favorite in
+            self.gyms.first { $0.name == favorite }
+        }
+    }
+    
+    func pushHabitOnboarding() {
+        let habitViewController = HabitTrackingController(type: .cardio)
+        self.navigationController?.pushViewController(habitViewController, animated: true)
+        return
+    }
+    
+    func pushGymOnboarding() {
+        navigationController?.tabBarController?.tabBar.isHidden = true
+        let onboardingGymsViewController = OnboardingGymsViewController()
+        onboardingGymsViewController.delegate = self
+        navigationController?.pushViewController(onboardingGymsViewController, animated: true)
+        return
+    }
+    
     func viewTodaysClasses() {
         guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
@@ -330,12 +438,21 @@ extension HomeController: NavigationDelegate {
         }
         
         classNavigationController.setViewControllers([classListViewController], animated: false)
-        
+        tabBarController?.hidesBottomBarWhenPushed = false
         tabBarController?.selectedIndex = 1
     }
-}
-
-extension HomeController {
+    
+    func isGymStatusChangingSoon(gym: Gym) -> Bool {
+        let changingSoonThreshold = 3600.0
+        let now = Date()
+        
+        if gym.isOpen {
+            return (gym.gymHoursToday.closeTime - changingSoonThreshold) < now
+        } else {
+            let openTime = gym.gymHours[now.getIntegerDayOfWeekTomorrow()].openTime + Date.secondsPerDay
+            return (openTime - changingSoonThreshold) < now
+        }
+    }
 
     func getHourString(gym: Gym) -> String {
         let now = Date()
@@ -346,15 +463,12 @@ extension HomeController {
         
         let format: String
 
-        if gym.name == "Bartels" {
-            return "Always open"
-        } else if now > gymHoursToday.closeTime {
+        if now > gymHoursToday.closeTime {
             if Calendar.current.component(.minute, from: gymHoursTomorrow.openTime) == 0 {
                 format = "h a"
             } else {
                 format = "h:mm a"
             }
-            
             if gym.closedTomorrow {
                 return "Closed Tomorrow"
             } else {
@@ -367,14 +481,16 @@ extension HomeController {
                 format = "h:mm a"
             }
             return "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: format))"
-            
         } else {
             if Calendar.current.component(.minute, from: gymHoursToday.closeTime) == 0 {
                 format = "h a"
             } else {
                 format = "h:mm a"
             }
-            return "Closes at \(gymHoursToday.closeTime.getStringOfDatetime(format: format))"
+            let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)
+            let closeTime = gymHoursToday.closeTime.getStringOfDatetime(format: format)
+            
+            return "\(openTime) - \(closeTime)"
         }
     }
 }

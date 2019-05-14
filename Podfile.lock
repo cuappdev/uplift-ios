@@ -2,13 +2,26 @@ PODS:
   - Alamofire (4.8.2)
   - AlamofireImage (3.5.2):
     - Alamofire (~> 4.8)
-  - Apollo (0.10.1):
-    - Apollo/Core (= 0.10.1)
-  - Apollo/Core (0.10.1)
+  - Apollo (0.9.5):
+    - Apollo/Core (= 0.9.5)
+  - Apollo/Core (0.9.5)
   - Bartinter (0.0.4)
   - Crashlytics (3.13.0):
     - Fabric (~> 1.10.0)
   - Fabric (1.10.0)
+  - GoogleSignIn (4.4.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.2.0):
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+  - GoogleToolboxForMac/Defines (2.2.0)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.0)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.0)
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.0)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.0)"
+  - GTMSessionFetcher/Core (1.2.1)
   - Kingfisher (4.10.1)
   - Presentation (4.1.2)
   - SnapKit (5.0.0)
@@ -16,10 +29,11 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage
-  - Apollo
+  - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
   - Bartinter
   - Crashlytics
   - Fabric
+  - GoogleSignIn
   - Kingfisher (~> 4.0)
   - Presentation (from `https://github.com/cuappdev/Presentation.git`)
   - SnapKit
@@ -29,19 +43,27 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - Apollo
     - Bartinter
     - Crashlytics
     - Fabric
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
     - Kingfisher
     - SnapKit
     - SwiftLint
 
 EXTERNAL SOURCES:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
+  Apollo:
+    :commit: b28c3dc
+    :git: https://github.com/apollographql/apollo-ios.git
   Presentation:
     :commit: fe68b1b644b6015202430662d4db621eb1b621bc
     :git: https://github.com/cuappdev/Presentation.git
@@ -49,15 +71,18 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  Apollo: 4d690a9b2e48e8820182df4b988d7a253e1ee589
+  Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
   Crashlytics: 1f5f752c7feac0add0cc1774756f96444fa3b1a7
   Fabric: 09de1e053eb7dc415593166ad3e53d4c88123405
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Presentation: e8571efaa303ed9ce34c2a54d80457f881fd294e
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
-PODFILE CHECKSUM: e53e36f523c855ae6774a151019ee43359e1adb6
+PODFILE CHECKSUM: 5b7c0f15cdfa942a339a8b31eeb84e55ae19d811
 
 COCOAPODS: 1.6.1

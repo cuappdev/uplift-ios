@@ -61,7 +61,7 @@ class ClassListCell: UICollectionViewCell {
         super.init(frame: frame)
         self.contentView.backgroundColor = .blue
 
-        //TIME
+        // TIME
         primaryTimeLabel = UILabel()
         primaryTimeLabel.font = ._14MontserratMedium
         primaryTimeLabel.textAlignment = .left
@@ -76,7 +76,7 @@ class ClassListCell: UICollectionViewCell {
         secondaryTimeLabel.sizeToFit()
         contentView.addSubview(secondaryTimeLabel)
 
-        //DESCRIPTION
+        // DESCRIPTION
         classLabel = UILabel()
         classLabel.font = ._16MontserratMedium
         classLabel.textAlignment = .left
@@ -97,7 +97,7 @@ class ClassListCell: UICollectionViewCell {
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
 
-        //FAVORITE
+        // FAVORITE
         favoriteButton = UIButton()
         favoriteButton.setImage(UIImage(named: "grey-star"), for: .normal)
         favoriteButton.setImage(UIImage(named: "yellow-star"), for: .selected)
@@ -133,8 +133,7 @@ class ClassListCell: UICollectionViewCell {
 
     // MARK: - CONSTRAINTS
     func setUpContstraints() {
-
-        //DESCRIPTION
+        // DESCRIPTION
         classLabel.snp.makeConstraints { make in
             make.leading.equalTo(101)
             make.top.equalToSuperview().offset(16)
@@ -142,14 +141,14 @@ class ClassListCell: UICollectionViewCell {
             make.height.equalTo(19)
         }
 
-        //FAVORITE
+        // FAVORITE
         favoriteButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(16)
             make.width.height.equalTo(24)
         }
 
-        //TIME
+        // TIME
         primaryTimeLabel.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().offset(16)
             make.trailing.lessThanOrEqualTo(classLabel.snp.leading).inset(4)

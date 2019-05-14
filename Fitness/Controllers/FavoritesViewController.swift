@@ -104,15 +104,20 @@ class FavoritesViewController: UIViewController {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
+        let titleBackgroundHeight = 120
+        let titleLeading = 24
+        let titleBottom = -20
+        let titleHeight = 26
+        
         titleBackground.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(120)
+            make.height.equalTo(titleBackgroundHeight)
         }
 
-        titleLabel.snp.makeConstraints {make in
-            make.leading.equalToSuperview().offset(24)
-            make.bottom.equalToSuperview().offset(-20)
-            make.height.equalTo(26)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(titleLeading)
+            make.bottom.equalToSuperview().offset(titleBottom)
+            make.height.equalTo(titleHeight)
             make.trailing.lessThanOrEqualTo(titleBackground)
         }
     }
