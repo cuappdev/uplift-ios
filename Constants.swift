@@ -15,7 +15,9 @@ struct Identifiers {
     static let gymHoursHeaderView = "gymHoursHeaderView"
     static let homeScreenHeaderView = "homeScreenHeaderView"
     static let homeSectionHeaderView = "homeSectionHeaderView"
-    
+    static let todaysClassesHeaderView = "todaysClassesHeaderView"
+    static let facilityHoursHeaderView = "facilityHoursHeaderView"
+
     // CELLS
     static let allGymsCell = "allGymsCell"
     static let calendarCell = "calendarCell"
@@ -35,6 +37,7 @@ struct Identifiers {
     static let proCell = "proCell"
     static let proRoutineCell = "proRoutineCell"
     static let todaysClassesCell = "todaysClassesCell"
+    static let facilityHoursCell = "facilityHoursCell"
     
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"

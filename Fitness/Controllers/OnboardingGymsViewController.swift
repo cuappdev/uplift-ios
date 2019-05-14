@@ -46,7 +46,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     private var gymNames: [String] = []
     private var favoriteGyms: [String] = []
     
-    private weak var delegate: ChooseGymsDelegate?
+    weak var delegate: ChooseGymsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

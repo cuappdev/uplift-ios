@@ -17,6 +17,12 @@ struct HoursData {
     var isDropped: Bool!
 }
 
+struct FacilityData {
+    var facility: String!
+    var isDropped: Bool!
+    var data: [(String, String)]!
+}
+
 enum Days {
     case sunday
     case monday
@@ -54,10 +60,12 @@ class GymDetailViewController: UIViewController {
     var popularTimesHistogram: Histogram?
     var popularTimesTitleLabel: UILabel?
 
+    var facilityData: FacilityData!
     var facilitiesClassesDivider: UIView!
     var facilitiesData: [String]!       //temp (until backend implements equiment)
     var facilitiesLabelArray: [UILabel]!
     var facilitiesTitleLabel: UILabel!
+    var facilityTableView: GymFacilitiesTableView!
 
     var classesCollectionView: UICollectionView!
     var todaysClassesLabel: UILabel!
@@ -81,7 +89,6 @@ class GymDetailViewController: UIViewController {
         updatesStatusBarAppearanceAutomatically = true
 
         hoursData = HoursData(data: [], isDropped: false)
-        facilitiesData = ["Pool", "Two-court Gymnasium", "Dance Studio", "16-lane Bowling Center"] //temp (until backend implements equiment)
 
         setupHeaderAndWrappingViews()
         setupTimes()
@@ -98,18 +105,8 @@ class GymDetailViewController: UIViewController {
         facilitiesTitleLabel.sizeToFit()
         facilitiesTitleLabel.text = "FACILITIES"
         contentView.addSubview(facilitiesTitleLabel)
-
-        facilitiesLabelArray = []
-        for i in 0..<facilitiesData.count {  //temp (until backend implements equiment)
-            let facilitiesLabel = UILabel()
-            facilitiesLabel.font = ._14MontserratLight
-            facilitiesLabel.textColor = .fitnessBlack
-            facilitiesLabel.text = facilitiesData[i]
-            facilitiesLabel.textAlignment = .center
-            contentView.addSubview(facilitiesLabel)
-            facilitiesLabelArray.append(facilitiesLabel)
-        }
-
+        
+        setupFacilities()
         facilitiesClassesDivider = UIView()
         facilitiesClassesDivider.backgroundColor = .fitnessLightGrey
         contentView.addSubview(facilitiesClassesDivider)
@@ -224,6 +221,25 @@ class GymDetailViewController: UIViewController {
         titleLabel.text = gym.name
         contentView.addSubview(titleLabel)
     }
+    
+    // MARK: - SETUP FACILITIES TABLE
+    func setupFacilities() {
+        let appelGymID = "7c53229a64f4794f57a715a9ec0c7f806db23514"
+        let helenNewmanGymID = "7045d11329b3645c93556c5aaf44bb21d56934f5"
+        let teagleGymID = "939c7a2c16d2299cc8558475a8007defc414069c"
+        let teagleGymID2 = "043c57f3b63411c7a3500c0986fa4b1c8712798c"
+
+        if (gym.id == helenNewmanGymID) {
+            facilityTableView = GymFacilitiesTableView(facilityName: .helenNewman)
+        } else if (gym.id == teagleGymID || gym.id == teagleGymID2) {
+            facilityTableView = GymFacilitiesTableView(facilityName: .teagle)
+        } else if (gym.id == appelGymID){
+            facilityTableView = GymFacilitiesTableView(facilityName: .appel)
+        } else {
+            facilityTableView = GymFacilitiesTableView(facilityName: .noyes)
+        }
+        contentView.addSubview(facilityTableView)
+    }
 
     // MARK: - HOURS AND POPULAR TIMES
     func setupTimes() {
@@ -281,11 +297,40 @@ class GymDetailViewController: UIViewController {
     }
 
     // MARK: - CONSTRAINTS
+    // swiftlint:disable:next function_body_length
     func setupConstraints() {
+        let backButtonLeftPadding = 20
+        let backButtonSize = CGSize(width: 23, height: 19)
+        let backButtonTopPadding = 30
+        let classesCollectionViewItemHeight = 112
+        let classesCollectionViewTopPadding = 32
+        let closedLabelHeight = 60
+        let facilitiesClassesDividerHeight = 1
+        let facilitiesTitleLabelHeight = 19
+        let facilityTableViewTopPadding = 20
+        let gymImageContainerHeight = 360
+        let hoursPopularTimesHeight = 1
+        let hoursPopularTimesSeparatorTopPadding = 32
+        let hoursTableViewDroppedHeight = 181
+        let hoursTableViewHeight = 27
+        let hoursTableViewTopPadding = 12
+        let hoursTitleLabelHeight = 19
+        let hoursTitleLabelTopPadding = 36
+        let noMoreClassesLabelBottomPadding = 24
+        let noMoreClassesLabelHeight = 66
+        let popularTimesFacilitiesSeparatorHeight = 1
+        let popularTimesHistogramHeight = 101
+        let popularTimesHistogramHorizontalPadding = 18
+        let popularTimesTitleLabelHeight = 19
+        let titleLabelHeight = 57
+        let titleLabelTopPadding = 134
+        let todaysClassesLabelHeight = 15
+        let todaysClassesLabelTopPadding = 64
+
         gymImageContainer.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view)
             make.top.equalTo(scrollView)
-            make.height.equalTo(360)
+            make.height.equalTo(gymImageContainerHeight)
         }
 
         gymImageView.snp.updateConstraints { make in
@@ -299,44 +344,43 @@ class GymDetailViewController: UIViewController {
             closedLabel?.snp.updateConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.bottom.equalTo(gymImageView.snp.bottom)
-                make.height.equalTo(60)
+                make.height.equalTo(closedLabelHeight)
             }
         }
 
         backButton.snp.makeConstraints { make in
-            make.leading.equalTo(view).offset(20)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
-            make.width.equalTo(23)
-            make.height.equalTo(19)
+            make.leading.equalTo(view).offset(backButtonLeftPadding)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(backButtonTopPadding)
+            make.size.equalTo(backButtonSize)
         }
 
         titleLabel.snp.updateConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(134)
-            make.height.equalTo(57)
+            make.top.equalToSuperview().offset(titleLabelTopPadding)
+            make.height.equalTo(titleLabelHeight)
         }
 
         // HOURS
         hoursTitleLabel.snp.updateConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(gymImageView.snp.bottom).offset(36)
-            make.height.equalTo(19)
+            make.top.equalTo(gymImageView.snp.bottom).offset(hoursTitleLabelTopPadding)
+            make.height.equalTo(hoursTitleLabelHeight)
         }
 
         hoursTableView.snp.updateConstraints { make in
             make.centerX.width.equalToSuperview()
-            make.top.equalTo(hoursTitleLabel.snp.bottom).offset(12)
+            make.top.equalTo(hoursTitleLabel.snp.bottom).offset(hoursTableViewTopPadding)
             if (hoursData.isDropped) {
-                make.height.equalTo(181)
+                make.height.equalTo(hoursTableViewDroppedHeight)
             } else {
-                make.height.equalTo(27)
+                make.height.equalTo(hoursTableViewHeight)
             }
         }
 
-        hoursPopularTimesSeparator.snp.updateConstraints { make in
-            make.top.equalTo(hoursTableView.snp.bottom).offset(32)
+        hoursPopularTimesSeparator.snp.updateConstraints {make in
+            make.top.equalTo(hoursTableView.snp.bottom).offset(hoursPopularTimesSeparatorTopPadding)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(hoursPopularTimesHeight)
         }
 
         // POPULAR TIMES
@@ -344,34 +388,39 @@ class GymDetailViewController: UIViewController {
             popularTimesTitleLabel?.snp.updateConstraints { make in
                 make.top.equalTo(hoursPopularTimesSeparator.snp.bottom).offset(separatorSpacing)
                 make.centerX.width.equalToSuperview()
-                make.height.equalTo(19)
+                make.height.equalTo(popularTimesTitleLabelHeight)
             }
 
             popularTimesHistogram?.snp.updateConstraints { make in
                 make.top.equalTo(popularTimesTitleLabel!.snp.bottom).offset(separatorSpacing)
-                make.leading.equalToSuperview().offset(18)
-                make.trailing.equalToSuperview().offset(-18)
-                make.height.equalTo(101)
+                make.leading.equalToSuperview().offset(popularTimesHistogramHorizontalPadding)
+                make.trailing.equalToSuperview().offset(-popularTimesHistogramHorizontalPadding)
+                make.height.equalTo(popularTimesHistogramHeight)
             }
 
             popularTimesFacilitiesSeparator?.snp.updateConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.top.equalTo(popularTimesHistogram!.snp.bottom).offset(separatorSpacing)
-                make.height.equalTo(1)
+                make.height.equalTo(popularTimesFacilitiesSeparatorHeight)
             }
 
             // FACILITIES
             facilitiesTitleLabel.snp.updateConstraints { make in
                 make.top.equalTo(popularTimesFacilitiesSeparator!.snp.bottom).offset(separatorSpacing)
                 make.centerX.width.equalToSuperview()
-                make.height.equalTo(19)
+                make.height.equalTo(facilitiesTitleLabelHeight)
             }
         } else {
             facilitiesTitleLabel.snp.updateConstraints { make in
                 make.top.equalTo(hoursPopularTimesSeparator.snp.bottom).offset(separatorSpacing)
                 make.centerX.width.equalToSuperview()
-                make.height.equalTo(19)
+                make.height.equalTo(facilitiesTitleLabelHeight)
             }
+        }
+
+        facilityTableView.snp.updateConstraints {make in
+            make.width.centerX.equalToSuperview()
+            make.top.equalTo(facilitiesTitleLabel.snp.bottom).offset(facilityTableViewTopPadding)
         }
 
         for i in 0..<facilitiesLabelArray.count {
@@ -388,35 +437,35 @@ class GymDetailViewController: UIViewController {
 
         facilitiesClassesDivider.snp.updateConstraints { make in
             make.width.centerX.equalToSuperview()
-            make.top.equalTo(facilitiesLabelArray.last!.snp.bottom).offset(separatorSpacing)
-            make.height.equalTo(1)
+            make.top.equalTo(facilityTableView.snp.bottom).offset(separatorSpacing)
+            make.height.equalTo(facilitiesClassesDividerHeight)
         }
 
         // CLASSES
         todaysClassesLabel.snp.updateConstraints { make in
             make.centerX.width.equalToSuperview()
-            make.top.equalTo(facilitiesClassesDivider.snp.bottom).offset(64)
-            make.height.equalTo(15)
+            make.top.equalTo(facilitiesClassesDivider.snp.bottom).offset(todaysClassesLabelTopPadding)
+            make.height.equalTo(todaysClassesLabelHeight)
         }
 
         classesCollectionView.snp.updateConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
-            make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * 112)
+            make.top.equalTo(todaysClassesLabel.snp.bottom).offset(classesCollectionViewTopPadding)
+            make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * classesCollectionViewItemHeight)
         }
-        
+
         if todaysClasses.isEmpty {
             noMoreClassesLabel.snp.makeConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(24)
-                make.height.equalTo(66)
+                make.bottom.equalToSuperview().inset(noMoreClassesLabelBottomPadding)
+                make.height.equalTo(noMoreClassesLabelHeight)
             }
         } else {
             noMoreClassesLabel.snp.makeConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(24)
+                make.bottom.equalToSuperview().inset(noMoreClassesLabelBottomPadding)
                 make.height.equalTo(0)
             }
         }
@@ -546,7 +595,8 @@ extension GymDetailViewController: UITableViewDataSource {
             } else {
                 return 0
             }
-        } else {
+        } 
+        else {
             return 0
         }
     }

@@ -198,7 +198,7 @@ extension HomeController: UICollectionViewDataSource {
         switch sections[section] {
         case .checkIns:
             // Either a cell for each habit, or if no habits one empty state cell
-            return habits.count > 0 ? habits.count : 1
+            return habits.isEmpty ? habits.count : 1
         case .pros, .todaysClasses, .allGyms:
             return 1
         }
@@ -247,7 +247,7 @@ extension HomeController: UICollectionViewDataSource {
 
         switch sections[indexPath.section] {
         case .checkIns:
-            if habits.count == 0 {
+            if habits.isEmpty {
                 let noHabitsCell = collectionView.dequeueReusableCell(withReuseIdentifier: NoHabitsCell.identifier, for: indexPath) as! NoHabitsCell
                 return noHabitsCell
             } else {
@@ -390,7 +390,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         
         switch sections[indexPath.section] {
         case .checkIns:
-            if habits.count == 0 {
+            if habits.isEmpty {
                 pushHabitOnboarding()
             }
             return

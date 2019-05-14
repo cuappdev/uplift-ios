@@ -11,10 +11,10 @@ import UIKit
 class AllProRoutinesView: UIView {
     var routines: [ProRoutine]!
     var routineViews: [ProRoutineView] = []
-    
+
     init(routines: [ProRoutine], delegate: HabitAlertDelegate?) {
         super.init(frame: .zero)
-        
+
         self.routines = routines
         routines.forEach { routine in
             let newRoutineView = ProRoutineView(routine: routine)
@@ -23,7 +23,7 @@ class AllProRoutinesView: UIView {
             self.addSubview(newRoutineView)
         }
         
-        if routineViews.count > 0 {
+        if routineViews.isEmpty {
             setupConstraints()
         }
     }

@@ -20,7 +20,7 @@ struct Habit {
     /// Number of consective days going back from today that this habit has been logged;
     /// includes today if the habit has been logged today
     var streak: Int {
-        if dates.count == 0 {
+        if dates.isEmpty {
             return 0
         }
         
