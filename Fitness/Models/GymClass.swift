@@ -29,9 +29,9 @@ struct GymClassRootData: Decodable {
 extension GymClass: Decodable {
 
     enum Key: String, CodingKey {
-        case id
         case classDesc = "class_desc"
         case gymClassInstances = "gym_class_instances"
+        case id
         case instructor
         case users
     }

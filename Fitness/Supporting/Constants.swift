@@ -11,12 +11,12 @@ import Foundation
 // MARK: - IDENTIFIERS
 struct Identifiers {
     // HEADERS
+    static let facilityHoursHeaderView = "facilityHoursHeaderView"
     static let favoritesHeaderView = "favoritesHeaderView"
     static let gymHoursHeaderView = "gymHoursHeaderView"
     static let homeScreenHeaderView = "homeScreenHeaderView"
     static let homeSectionHeaderView = "homeSectionHeaderView"
     static let todaysClassesHeaderView = "todaysClassesHeaderView"
-    static let facilityHoursHeaderView = "facilityHoursHeaderView"
 
     // CELLS
     static let allGymsCell = "allGymsCell"
@@ -26,6 +26,7 @@ struct Identifiers {
     static let classesCell = "classesCell"
     static let discoverProsCell = "discoverProsCell"
     static let dropdownViewCell = "dropdownViewCell"
+    static let facilityHoursCell = "facilityHoursCell"
     static let gymFilterCell = "gymFilterCell"
     static let gymHoursCell = "gymHoursCell"
     static let gymsCell = "gymsCell"
@@ -37,18 +38,17 @@ struct Identifiers {
     static let proCell = "proCell"
     static let proRoutineCell = "proRoutineCell"
     static let todaysClassesCell = "todaysClassesCell"
-    static let facilityHoursCell = "facilityHoursCell"
-    
+
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
     
     // USER DEFAULTS
-    static let favorites = "Favorites"
+    static let activeHabits = "ActiveHabits"
     static let favoriteGyms = "FavoriteGyms"
-    static let googleToken = "googleToken"
+    static let favorites = "Favorites"
     static let googleExpiration = "googleExpiration"
     static let googleRefresh = "googleRefresh"
-    static let activeHabits = "ActiveHabits"
+    static let googleToken = "googleToken"
     static func habitIdentifier(for type: HabitTrackingType) -> String {
         switch type {
         case .cardio:

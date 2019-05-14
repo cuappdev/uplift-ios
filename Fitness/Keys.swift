@@ -5,7 +5,9 @@ import Foundation
  developer information like API keys and secrets.
  */
 enum Keys: String {
+    case apiURL = "api-url"
     case fabricAPIKey = "fabric-api-key"
+    case googleClientID = "google-client-id"
 
     /**
      `value` is the string representation of the key. Implicitly unwrapped because
