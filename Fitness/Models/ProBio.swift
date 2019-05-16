@@ -19,7 +19,7 @@ struct ProBio {
     let routines: [ProRoutine]
     let secondaryProfilePic: UIImage?
     let summary: String
-    
+
     init(id: String, name: String, profilePic: String, secondaryProfilePic: String, bio: String, links: [PersonalLink], expertise: [String], routines: [ProRoutine], summary: String) {
         self.id = id
         self.name = name
@@ -31,11 +31,11 @@ struct ProBio {
         self.routines = routines
         self.summary = summary
     }
-    
+
     public static func getAllPros() -> [ProBio] {
         return [getClarie(), getJuan(), getMadeline(), getStarks(), getCleo()]
     }
-    
+
     public static func getClarie() -> ProBio {
         var urls: [PersonalLink] = []
         urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/thenvironmentalistbodybuilder/"), site: .instagram))
@@ -45,18 +45,18 @@ struct ProBio {
         let proClarie = ProBio(id: "test", name: "Clarie Ng", profilePic: "claire", secondaryProfilePic: "claireSecondary", bio: "Hi everyone! My name is Clarie and some people know me as \"The Environmentalist Bodybuilder\". I'm currently a senior studying Marine Biology in the College of Agriculture and Life Sciences.", links: urls, expertise: ["Meditation", "Healthy Eating", "Cutting"], routines: [routine1, routine2, routine3], summary: "Meditation & eating healthy")
         return proClarie
     }
-    
+
     public static func getJuan() -> ProBio {
         var urls: [PersonalLink] = []
         urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/jv_gar1012/"), site: .instagram))
-            urls.append(PersonalLink(url: URL(string: "https://www.facebook.com/profile.php?id=100010308969934"), site: .facebook))
+        urls.append(PersonalLink(url: URL(string: "https://www.facebook.com/profile.php?id=100010308969934"), site: .facebook))
         let routine1 = ProRoutine(title: "Relax", routineType: .mindfulness, text: "I’d recommend either reading a book for 10 min a day or going on a walk for 10-15 without music playing.")
         let routine2 = ProRoutine(title: "Go for a run", routineType: .cardio, text: "If you’re going for distance, start off at a distance that you are comfortable with(i.e. 1 mile) and add .25-.5 miles to it with every week that you go to challenge yourself to reach your hidden potential. On the other hand, if you’re going for speed, do short bursts(10-20 seconds) of sprinting on the treadmill followed by 45 seconds to a minute of rest and repeat 8-10 times.")
         let routine3 = ProRoutine(title: "Weightlifting", routineType: .strength, text: "Know what your one rep max is for compound movements which include Bench Press, Squats, and Deadlifts to name a few. From there, begin performing these movements ranging from 3 reps to 5 reps for 3 to 5 sets with a weight that is 70-75% of your one rep max. In addition, work on accessories that are needed for each compound movement(i.e. Chest, shoulders and triceps for Bench Press). Never do the same exercises when you go to the gym, best thing for muscle growth/strength is shocking your muscles with different routines or training methods. For example, one training method that I like to do is dropsetting, which consists of starting at a particular weight and performing reps with it until failure, followed by dropping the weight by 5-10 pounds and repeating this cycle of reaching failure until you get to a weight that stops challenging you.")
         let proJuan = ProBio(id: "test", name: "Juan Garcia", profilePic: "juan", secondaryProfilePic: "juanSecondary", bio: "My name is Juan Garcia and I’m a junior studying Operations Research and Information Engineering with a minor in Business. I’m from Edinburg, Texas which is a border town alongside the Rio Grande River which separates Texas and Mexico. I began my lifting career the summer after high school when I was here at Cornell participating in the Prefreshman Summer Program.(shoutout to my 2016 PSP class!) Outside of classes and lifting, I enjoy playing a variety of sports, more importantly basketball, hiking when it’s a beautiful day outside, playing video games, and collaborating with others on ideas that can potentially make positive impacts on communities.", links: urls, expertise: ["Weightlifting"], routines: [routine1, routine2, routine3], summary: "Weightlifting and strength training")
         return proJuan
     }
-    
+
     public static func getMadeline() -> ProBio {
         var urls: [PersonalLink] = []
         urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/trainwithmadeline/"), site: .instagram))
@@ -66,7 +66,7 @@ struct ProBio {
         let proMadeline = ProBio(id: "test", name: "Madeline Ugarte", profilePic: "madeline", secondaryProfilePic: "madelineSecondary", bio: "I’m a National Academy of Sports Medicine Certified Personal Trainer and Performance Enhancement Specialist (NASM-CPT, PES), and I’m a certified instructor in Spinning, SpinPower, TRX, Power HIIT and Shockwave. Other than that, I’m a proud Chicago native and a senior at Cornell. Can't wait to see you in a class!", links: urls, expertise: ["Spinning", "Weightlifting", "Strength", "Conditioning"], routines: [routine1, routine2, routine3], summary: "Strength and Conditioning")
         return proMadeline
     }
-    
+
     public static func getStarks() -> ProBio {
         var urls: [PersonalLink] = []
         urls.append(PersonalLink(url: URL(string: "https://www.instagram.com/starkstwins/"), site: .instagram))
@@ -76,7 +76,7 @@ struct ProBio {
         let proStarks = ProBio(id: "test", name: "Austin and Justin Starks", profilePic: "starks", secondaryProfilePic: "starksSecondary", bio: "We're twin powerbuilders: people who lift to get stronger and look better. As students, we're computational biology majors who intend to attend graduate school in bioinformatics, computational biology, or computer science.", links: urls, expertise: ["Powerlifting", "BodyBuilding"], routines: [routine1, routine2, routine3], summary: "Strength and Resistance Training")
         return proStarks
     }
-    
+
     public static func getCleo() -> ProBio {
         var urls: [PersonalLink] = []
         urls.append(PersonalLink(url: URL(string: "https://instagram.com/fitnessbycleo"), site: .instagram))
@@ -86,7 +86,7 @@ struct ProBio {
         let proCleo = ProBio(id: "test", name: "Cleo Kyriakides", profilePic: "cleo", secondaryProfilePic: "cleoSecondary", bio: "I’m a long distance runner who got hooked onto CrossFit along the way! I love feeling strong and sharing my knowledge to help people reach their goals. I’m also the 2018-19 Fitness Club prez and a member of Track Club!", links: urls, expertise: ["Running", "Olympic lifting", "CrossFit"], routines: [routine1, routine2, routine3], summary: "Resistance Training and Cardio")
         return proCleo
     }
-    
+
     public static func getMark() -> ProBio {
         var urls: [PersonalLink] = []
         urls.append(PersonalLink(url: URL(string: "https://www.facebook.com/mark.rittiboon"), site: .facebook))
@@ -96,6 +96,5 @@ struct ProBio {
         let proMark = ProBio(id: "test", name: "Cleo Kyriakides", profilePic: "mark", secondaryProfilePic: "markSecondary", bio: "I used to be a competitive strength athlete participating in powerlifting and strongman competitions. However, I've transitioned into combat sports ~ recently completing a fighting camp in Phuket, Thailand!", links: urls, expertise: ["Weightlifting"], routines: [routine1, routine2, routine3], summary: "Weightlifting and Combat Sports")
         return proMark
     }
-    
-    
+
 }

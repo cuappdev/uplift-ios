@@ -158,7 +158,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         classTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
 
-        AppDelegate.networkManager.getClassNames { classNames in
+        NetworkManager.shared.getClassNames { classNames in
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
             self.classTypeDropdownData.titles.sort()
 
@@ -187,7 +187,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         instructorDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
 
-        AppDelegate.networkManager.getInstructors { instructors in
+        NetworkManager.shared.getInstructors { instructors in
             self.instructorDropdownData.titles.append(contentsOf: instructors)
             self.instructorDropdownData.titles.sort()
 
@@ -260,7 +260,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         gyms = []
 
-        AppDelegate.networkManager.getGymNames { (gyms) in
+        NetworkManager.shared.getGymNames { (gyms) in
 
             self.gyms = gyms
             self.gymCollectionView.reloadData()

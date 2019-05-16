@@ -63,7 +63,7 @@ class GymDetailViewController: UIViewController {
     var facilityData: FacilityData!
     var facilitiesClassesDivider: UIView!
     var facilitiesData: [String]!       //temp (until backend implements equiment)
-    var facilitiesLabelArray: [UILabel]!
+    var facilitiesLabelArray: [UILabel] = []
     var facilitiesTitleLabel: UILabel!
     var facilityTableView: GymFacilitiesTableView!
 

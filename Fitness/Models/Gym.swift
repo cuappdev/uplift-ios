@@ -20,7 +20,7 @@ struct Gym {
     var isOpen: Bool {
         return Date() > gymHoursToday.openTime ? Date() < gymHoursToday.closeTime : false
     }
-    
+
     var closedTomorrow: Bool {
         let now = Date()
         let gymHoursTomorrow = gymHours[now.getIntegerDayOfWeekTomorrow()]
@@ -34,19 +34,17 @@ struct Gym {
     init(gymData: AllGymsQuery.Data.Gym ) {
         id = gymData.id
         name = gymData.name
-
-        equipment = "" // TODO : fetch equipment once it's availble from backend
+        // TODO : fetch equipment once it's availble from backend
+        equipment = ""
         imageURL = URL(string: gymData.imageUrl ?? "")
 
         var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
 
         if let popular = gymData.popular {
-            for i in 0..<popular.count {
-                if let dailyPopular = popular[i] {
-                    for j in 0..<dailyPopular.count {
-                        popularTimes[i][j] = dailyPopular[j] ?? 0
-                    }
-                }
+            popular.enumerated().forEach { (i, dailyPopular) in
+                dailyPopular?.enumerated().forEach({ (j, dailyPopularItem) in
+                    popularTimes[i][j] = dailyPopularItem ?? 0
+                })
             }
         }
         popularTimesList = popularTimes
@@ -61,36 +59,29 @@ struct Gym {
 
         gymHours = gymHoursList
     }
-    
+
     init(gymData: GymByIdQuery.Data.Gym ) {
         id = gymData.id
         name = gymData.name
-        
-        equipment = "" // TODO : fetch equipment once it's availble from backend
+        // TODO : fetch equipment once it's availble from backend
+        equipment = ""
         imageURL = URL(string: gymData.imageUrl ?? "")
-        
+
         var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
-        
         if let popular = gymData.popular {
-            for i in 0..<popular.count {
-                if let dailyPopular = popular[i] {
-                    for j in 0..<dailyPopular.count {
-                        popularTimes[i][j] = dailyPopular[j] ?? 0
-                    }
-                }
+            popular.enumerated().forEach { (i, dailyPopular) in
+                dailyPopular?.enumerated().forEach({ (j, dailyPopularItem) in
+                    popularTimes[i][j] = dailyPopularItem ?? 0
+                })
             }
         }
         popularTimesList = popularTimes
-        
+
         // unwrap gym hours
-        var gymHoursList: [DailyGymHours] = []
-        
-        let allGymHours = gymData.times
-        for i in 0..<allGymHours.count {
-            gymHoursList.append(DailyGymHours(gymHoursDataId: allGymHours[i]))
-        }
-        
-        gymHours = gymHoursList
+        gymHours = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
+            guard let gymHoursDataId = gymHoursDataId else { return nil}
+            return DailyGymHours(gymHoursDataId: gymHoursDataId)
+        })
     }
 }
 
@@ -100,7 +91,6 @@ struct DailyGymHours {
     var closeTime: Date
 
     init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
-
         if let gymHoursData = gymHoursData {
             dayOfWeek = gymHoursData.day
             openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
@@ -111,9 +101,8 @@ struct DailyGymHours {
             dayOfWeek = 0
         }
     }
-    
+
     init(gymHoursDataId: GymByIdQuery.Data.Gym.Time?) {
-        
         if let gymHoursData = gymHoursDataId {
             dayOfWeek = gymHoursData.day
             openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)

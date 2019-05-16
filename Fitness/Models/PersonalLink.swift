@@ -16,14 +16,12 @@ struct PersonalLink {
         case other
         case twitter
     }
-    
+
     let site: SiteType
     let url: URL?
-    
+
     init(url: URL?, site: SiteType) {
         self.url = url
         self.site = site
     }
 }
-
-

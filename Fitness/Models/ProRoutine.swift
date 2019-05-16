@@ -9,11 +9,11 @@
 import Foundation
 
 struct ProRoutine {
-    
+
     let routineType: HabitTrackingType
     let text: String
     let title: String
-    
+
     init(title: String, routineType: HabitTrackingType, text: String) {
         self.title = title
         self.routineType = routineType

@@ -9,7 +9,6 @@
 import Foundation
 
 struct GymClassDescription {
-
     let id: Int
     let description: String
     let gymClasses: [Int]
@@ -31,9 +30,9 @@ struct GymClassDescriptionRootData: Decodable {
 extension GymClassDescription: Decodable {
 
     enum Key: String, CodingKey {
-        case id
         case description
         case gymClasses = "gym_classes"
+        case id
         case imageURL = "image_url"
         case name
         case tags = "class_tags"

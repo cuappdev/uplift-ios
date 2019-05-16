@@ -6,19 +6,16 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import UIKit
-import Fabric
 import Crashlytics
+import Fabric
 import GoogleSignIn
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    static let networkManager = NetworkManager()
-    let googleClientID = "915111778405-k1s68sljovgngrttogdtrifnf7h1hifb.apps.googleusercontent.com"
-    
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
@@ -49,8 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Google Login Related
     func setupGoogleSignIn() {
-        GIDSignIn.sharedInstance().clientID = googleClientID
-        GIDSignIn.sharedInstance().serverClientID = googleClientID
+        GIDSignIn.sharedInstance().clientID = Keys.googleClientID.value
+        GIDSignIn.sharedInstance().serverClientID = Keys.googleClientID.value
         GIDSignIn.sharedInstance().delegate = self
         if GIDSignIn.sharedInstance().hasAuthInKeychain() {
             DispatchQueue.main.async {
@@ -84,12 +81,12 @@ extension AppDelegate: GIDSignInDelegate {
             NotificationCenter.default.post(
                 name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
             
-            NetworkManager.shared.sendGoogleLoginToken(token: idToken) { () in
+            NetworkManager.shared.sendGoogleLoginToken(token: idToken) { (tokens) in
                 // Store in User Defualts
                 let defaults = UserDefaults.standard
-                defaults.set(UserGoogleTokens.backendToken, forKey: Identifiers.googleToken)
-                defaults.set(UserGoogleTokens.expiration, forKey: Identifiers.googleExpiration)
-                defaults.set(UserGoogleTokens.refreshToken, forKey: Identifiers.googleRefresh)
+                defaults.set(tokens.backendToken, forKey: Identifiers.googleToken)
+                defaults.set(tokens.expiration, forKey: Identifiers.googleExpiration)
+                defaults.set(tokens.refreshToken, forKey: Identifiers.googleRefresh)
             }
         }
     }
