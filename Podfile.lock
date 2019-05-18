@@ -9,6 +9,7 @@ PODS:
   - Crashlytics (3.13.0):
     - Fabric (~> 1.10.0)
   - Fabric (1.10.0)
+  - FLEX (2.4.0)
   - GoogleSignIn (4.4.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - Bartinter
   - Crashlytics
   - Fabric
+  - FLEX (~> 2.0)
   - GoogleSignIn
   - Kingfisher (~> 4.0)
   - Presentation (from `https://github.com/cuappdev/Presentation.git`)
@@ -46,6 +48,7 @@ SPEC REPOS:
     - Bartinter
     - Crashlytics
     - Fabric
+    - FLEX
     - GoogleSignIn
     - GoogleToolboxForMac
     - GTMSessionFetcher
@@ -75,6 +78,7 @@ SPEC CHECKSUMS:
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
   Crashlytics: 1f5f752c7feac0add0cc1774756f96444fa3b1a7
   Fabric: 09de1e053eb7dc415593166ad3e53d4c88123405
+  FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
@@ -83,6 +87,6 @@ SPEC CHECKSUMS:
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
-PODFILE CHECKSUM: 5b7c0f15cdfa942a339a8b31eeb84e55ae19d811
+PODFILE CHECKSUM: f80b49589c176e9b3059f7f3b1cc3e72571d93fe
 
 COCOAPODS: 1.6.1
