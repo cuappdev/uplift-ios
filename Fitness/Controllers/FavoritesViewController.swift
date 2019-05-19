@@ -181,8 +181,7 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let classDetailViewController = ClassDetailViewController()
-        classDetailViewController.gymClassInstance = favorites[indexPath.row]
+        let classDetailViewController = ClassDetailViewController(gymClassInstance: favorites[indexPath.row])
         navigationController?.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(classDetailViewController, animated: true)
     }

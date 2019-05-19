@@ -187,7 +187,6 @@ class ClassListCell: UICollectionViewCell {
     
     // MARK: - CONFIGURE
     func configure(gymClassInstance: GymClassInstance, style: ClassListCellStyle) {
-        
             classLabel.text = gymClassInstance.className
             locationLabel.text = gymClassInstance.location
             instructorLabel.text = gymClassInstance.instructor

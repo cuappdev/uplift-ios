@@ -578,8 +578,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let classDetailViewController = ClassDetailViewController()
-        classDetailViewController.gymClassInstance = todaysClasses[indexPath.item]
+        let classDetailViewController = ClassDetailViewController(gymClassInstance: todaysClasses[indexPath.item])
         navigationController?.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(classDetailViewController, animated: true)
     }

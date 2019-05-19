@@ -370,8 +370,8 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.accessibilityIdentifier == Identifiers.todaysClassesCell {
-            let classDetailViewController = ClassDetailViewController()
-            classDetailViewController.gymClassInstance = gymClassInstances[indexPath.row]
+            let gymClassInstance = gymClassInstances[indexPath.row]
+            let classDetailViewController = ClassDetailViewController(gymClassInstance: gymClassInstance)
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(classDetailViewController, animated: true)
             return
