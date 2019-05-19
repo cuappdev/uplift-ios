@@ -5,13 +5,14 @@ target 'Fitness' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'AlamofireImage'
+  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc'
+  pod 'Bartinter'
   pod 'Crashlytics'
+  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
   pod 'Fabric'
   pod 'GoogleSignIn'
+  pod 'Kingfisher', '~> 4.0'
+  pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation.git'
   pod 'SnapKit'
   pod 'SwiftLint'
-  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc'
-  pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation.git'
-  pod 'Bartinter'
-  pod 'Kingfisher', '~> 4.0'
 end

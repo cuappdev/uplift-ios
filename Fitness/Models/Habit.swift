@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 3/20/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import Foundation

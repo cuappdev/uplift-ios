@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Ji Hwan Seung on 4/28/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import UIKit

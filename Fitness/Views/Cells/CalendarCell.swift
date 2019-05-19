@@ -2,7 +2,7 @@
 //  CalendarCell.swift
 //  Fitness
 //
-//  Created by Keivan Shahida on 3/26/18.
+//  Created by Cornell AppDev on 3/26/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 

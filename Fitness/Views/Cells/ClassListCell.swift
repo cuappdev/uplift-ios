@@ -2,7 +2,7 @@
 //  ClassListCell.swift
 //  Fitness
 //
-//  Created by Keivan Shahida on 3/21/18.
+//  Created by Cornell AppDev on 3/21/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
@@ -187,7 +187,6 @@ class ClassListCell: UICollectionViewCell {
     
     // MARK: - CONFIGURE
     func configure(gymClassInstance: GymClassInstance, style: ClassListCellStyle) {
-        
             classLabel.text = gymClassInstance.className
             locationLabel.text = gymClassInstance.location
             instructorLabel.text = gymClassInstance.instructor
