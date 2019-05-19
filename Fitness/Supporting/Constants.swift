@@ -20,7 +20,6 @@ struct Identifiers {
 
     // CELLS
     static let allGymsCell = "allGymsCell"
-    static let calendarCell = "calendarCell"
     static let categoryCell = "categoryCell"
     static let classListCell = "classListCell"
     static let classesCell = "classesCell"
