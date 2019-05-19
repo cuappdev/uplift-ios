@@ -516,7 +516,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = "Keivan Shahida";
+				ORGANIZATIONNAME = "Cornell AppDev";
 				TargetAttributes = {
 					C7DFABCA204206E000545B0B = {
 						CreatedOnToolsVersion = 9.2;

@@ -3,11 +3,28 @@
 //  Fitness
 //
 //  Created by Kevin Chan on 5/18/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import EventKit
 import UIKit
+
+extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
+
+    func classDetailHeaderViewLocationSelected() {
+        NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
+            let gymDetailViewController = GymDetailViewController()
+            gymDetailViewController.gym = gym
+            self.navigationController?.pushViewController(gymDetailViewController, animated: true)
+        }
+    }
+
+    func classDetailHeaderViewInstructorSelected() {
+        // leaving as a stub, future designs will make use of this
+        print("Instructor selected")
+    }
+
+}
 
 extension ClassDetailViewController: ClassDetailTimeCellDelegate {
 
@@ -26,7 +43,7 @@ extension ClassDetailViewController: ClassDetailTimeCellDelegate {
             event.calendar = store.defaultCalendarForNewEvents
 
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "\(self.gymClassInstance.className) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
+                let alert = UIAlertController(title: "\(gymClassInstance.className) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
                 self.present(alert, animated: true, completion: nil)
             }

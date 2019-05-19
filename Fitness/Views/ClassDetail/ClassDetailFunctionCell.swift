@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Kevin Chan on 5/18/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import UIKit
@@ -33,13 +33,11 @@ class ClassDetailFunctionCell: UICollectionViewCell {
         functionLabel.font = ._16MontserratMedium
         functionLabel.textAlignment = .center
         functionLabel.textColor = .fitnessBlack
-        functionLabel.sizeToFit()
         contentView.addSubview(functionLabel)
 
         descriptionLabel.font = ._14MontserratLight
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = .fitnessBlack
-        descriptionLabel.sizeToFit()
         contentView.addSubview(descriptionLabel)
 
         dividerView.backgroundColor = .fitnessLightGrey
@@ -73,7 +71,6 @@ class ClassDetailFunctionCell: UICollectionViewCell {
             make.trailing.equalToSuperview()
             make.top.equalTo(descriptionLabel.snp.bottom).offset(dividerSpacing)
         }
-
     }
 
     required init?(coder aDecoder: NSCoder) {

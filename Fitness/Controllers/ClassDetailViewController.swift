@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Kevin Chan on 5/18/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import Bartinter
@@ -97,7 +97,7 @@ class ClassDetailViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController!.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -155,18 +155,6 @@ class ClassDetailViewController: UIViewController {
         activityVC.popoverPresentationController?.sourceView = view
 
         self.navigationController?.present(activityVC, animated: true, completion: nil)
-    }
-
-    @objc func instructorSelected() {
-        // leaving as a stub, future designs will make use of this
-    }
-
-    @objc func locationSelected() {
-        NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
-            let gymDetailViewController = GymDetailViewController()
-            gymDetailViewController.gym = gym
-            self.navigationController?.pushViewController(gymDetailViewController, animated: true)
-        }
     }
 
     // MARK: - Private helpers
@@ -229,7 +217,7 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Constants.classDetailHeaderViewIdentifier,
             for: indexPath) as! ClassDetailHeaderView
-        headerView.configure(for: gymClassInstance)
+        headerView.configure(for: self, gymClassInstance: gymClassInstance)
         return headerView
     }
 

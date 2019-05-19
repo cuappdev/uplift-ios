@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Phillip OReggio on 3/5/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import UIKit

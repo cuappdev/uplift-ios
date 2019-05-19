@@ -3,10 +3,15 @@
 //  Fitness
 //
 //  Created by Kevin Chan on 5/18/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import UIKit
+
+protocol ClassDetailHeaderViewDelegate: class {
+    func classDetailHeaderViewLocationSelected()
+    func classDetailHeaderViewInstructorSelected()
+}
 
 class ClassDetailHeaderView: UICollectionReusableView {
 
@@ -19,6 +24,9 @@ class ClassDetailHeaderView: UICollectionReusableView {
     private let instructorButton = UIButton()
     private let durationLabel = UILabel()
 
+    // MARK: - Private data vars
+    private weak var delegate: ClassDetailHeaderViewDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -27,7 +35,8 @@ class ClassDetailHeaderView: UICollectionReusableView {
     }
 
     // MARK: - Public configure
-    func configure(for gymClassInstance: GymClassInstance) {
+    func configure(for delegate: ClassDetailHeaderViewDelegate, gymClassInstance: GymClassInstance) {
+        self.delegate = delegate
         imageView.kf.setImage(with: gymClassInstance.imageURL)
         titleLabel.text = gymClassInstance.className
         locationButton.setTitle(gymClassInstance.location, for: .normal)
@@ -37,11 +46,11 @@ class ClassDetailHeaderView: UICollectionReusableView {
 
     // MARK: - Targets
     @objc func locationSelected() {
-        print("TODO")
+        delegate?.classDetailHeaderViewLocationSelected()
     }
 
     @objc func instructorSelected() {
-        print("TODO")
+        delegate?.classDetailHeaderViewInstructorSelected()
     }
 
     // MARK: - CONSTRAINTS
@@ -59,13 +68,11 @@ class ClassDetailHeaderView: UICollectionReusableView {
         titleLabel.font = ._48Bebas
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
-        titleLabel.sizeToFit()
         addSubview(titleLabel)
 
         locationButton.setTitleColor(.white, for: .normal)
         locationButton.titleLabel?.font = ._14MontserratLight
         locationButton.titleLabel?.textAlignment = .center
-        locationButton.sizeToFit()
         locationButton.addTarget(self, action: #selector(locationSelected), for: .touchUpInside)
         addSubview(locationButton)
 
@@ -73,13 +80,11 @@ class ClassDetailHeaderView: UICollectionReusableView {
         instructorButton.titleLabel?.textAlignment = .center
         instructorButton.setTitleColor(.white, for: .normal)
         instructorButton.addTarget(self, action: #selector(instructorSelected), for: .touchUpInside)
-        instructorButton.sizeToFit()
         addSubview(instructorButton)
 
         durationLabel.font = ._18Bebas
         durationLabel.textAlignment = .center
         durationLabel.textColor = .fitnessBlack
-        durationLabel.sizeToFit()
         addSubview(durationLabel)
     }
 

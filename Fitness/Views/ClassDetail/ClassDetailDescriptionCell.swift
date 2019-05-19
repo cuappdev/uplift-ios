@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Kevin Chan on 5/18/19.
-//  Copyright © 2019 Keivan Shahida. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import UIKit
@@ -30,7 +30,6 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
         descriptionTextView.font = ._14MontserratLight
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
-        descriptionTextView.sizeToFit()
         descriptionTextView.isScrollEnabled = false
         contentView.addSubview(descriptionTextView)
     }

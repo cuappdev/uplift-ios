@@ -3,7 +3,7 @@
 //  Fitness
 //
 //  Created by Yassin Mziya on 10/6/18.
-//  Copyright © 2018 Keivan Shahida. All rights reserved.
+//  Copyright © 2018 Cornell AppDev. All rights reserved.
 //
 
 import Presentation
