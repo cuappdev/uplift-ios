@@ -145,4 +145,10 @@ extension Date {
         dateFormatter.timeZone = TimeZone.current
         return dateFormatter.string(from: self)
     }
+
+    func getHourFormat() -> String {
+        return Calendar.current.component(.minute, from: self) == 0
+            ? "h a"
+            : "h:mm a"
+    }
 }

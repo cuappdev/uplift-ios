@@ -9,6 +9,7 @@
 import Foundation
 
 struct Gym {
+
     let id: String
     let equipment: String
     let gymHours: [DailyGymHours]
@@ -83,6 +84,19 @@ struct Gym {
             return DailyGymHours(gymHoursDataId: gymHoursDataId)
         })
     }
+
+    func isStatusChangingSoon() -> Bool {
+        let changingSoonThreshold = 3600.0
+        let now = Date()
+
+        if isOpen {
+            return (gymHoursToday.closeTime - changingSoonThreshold) < now
+        } else {
+            let openTime = gymHours[now.getIntegerDayOfWeekTomorrow()].openTime + Date.secondsPerDay
+            return (openTime - changingSoonThreshold) < now
+        }
+    }
+
 }
 
 struct DailyGymHours {
