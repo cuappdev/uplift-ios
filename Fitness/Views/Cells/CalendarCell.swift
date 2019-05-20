@@ -10,12 +10,10 @@ import UIKit
 
 class CalendarCell: UICollectionViewCell {
 
-    // MARK: - INITIALIZATION
-    static let identifier = Identifiers.calendarCell
-    var date: String!
-    var dateLabel: UILabel!
-    var dateLabelCircle: UIView!
-    var dayOfWeekLabel: UILabel!
+    // MARK: - Private view vars
+    private let dateLabel = UILabel()
+    private let dateLabelCircle = UIView()
+    private let dayOfWeekLabel = UILabel()
 
     override func prepareForReuse() {
         dateLabelCircle.isHidden = true
@@ -28,13 +26,44 @@ class CalendarCell: UICollectionViewCell {
 
         backgroundColor = .clear
 
-        dateLabelCircle = UIView()
+        setupViews()
+        setupConstraints()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Public configure
+    func configure(for dateLabelText: String,
+                   dateLabelTextColor: UIColor?,
+                   dateLabelFont: UIFont,
+                   dayOfWeekLabelText: String,
+                   dayOfWeekLabelTextColor: UIColor?,
+                   dayOfWeekLabelFont: UIFont,
+                   dateLabelCircleIsHidden: Bool
+        ) {
+        if let dateLabelTextColor = dateLabelTextColor {
+            dateLabel.textColor = dateLabelTextColor
+        }
+        if let dayOfWeekLabelTextColor = dayOfWeekLabelTextColor {
+            dayOfWeekLabel.textColor = dayOfWeekLabelTextColor
+        }
+
+        dateLabel.text = dateLabelText
+        dateLabel.font = dateLabelFont
+        dayOfWeekLabel.text = dayOfWeekLabelText
+        dayOfWeekLabel.font = dayOfWeekLabelFont
+        dateLabelCircle.isHidden = dateLabelCircleIsHidden
+    }
+
+    // MARK: - Private helpers
+    private func setupViews() {
         dateLabelCircle.backgroundColor = .fitnessBlack
         dateLabelCircle.isHidden = true
         dateLabelCircle.layer.cornerRadius = 12
         addSubview(dateLabelCircle)
 
-        dateLabel = UILabel()
         dateLabel.text = "15"
         dateLabel.font = ._12MontserratRegular
         dateLabel.textAlignment = .center
@@ -42,26 +71,21 @@ class CalendarCell: UICollectionViewCell {
         dateLabel.sizeToFit()
         addSubview(dateLabel)
 
-        dayOfWeekLabel = UILabel()
         dayOfWeekLabel.text = "Th"
         dayOfWeekLabel.font = ._12MontserratRegular
         dayOfWeekLabel.textAlignment = .center
         dayOfWeekLabel.textColor = .fitnessDarkGrey
         dayOfWeekLabel.sizeToFit()
         addSubview(dayOfWeekLabel)
-
-        setConstraints()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private func setupConstraints() {
+        let dateLabelCircleLength = 24
+        let dateLabelTopPadding = 12
 
-    // MARK: - CONSTRAINTS
-    func setConstraints() {
         dateLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(dayOfWeekLabel.snp.bottom).offset(12)
+            make.top.equalTo(dayOfWeekLabel.snp.bottom).offset(dateLabelTopPadding)
         }
 
         dayOfWeekLabel.snp.makeConstraints { make in
@@ -70,7 +94,7 @@ class CalendarCell: UICollectionViewCell {
         }
 
         dateLabelCircle.snp.makeConstraints { make in
-            make.height.width.equalTo(24)
+            make.height.width.equalTo(dateLabelCircleLength)
             make.center.equalTo(dateLabel)
         }
     }

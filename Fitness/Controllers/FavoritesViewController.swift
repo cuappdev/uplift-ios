@@ -147,14 +147,9 @@ extension FavoritesViewController: ClassListCellDelegate, NavigationDelegate {
     func viewTodaysClasses() {
         guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
-        
-        classListViewController.calendarDateSelected = classListViewController.calendarDatesList[3]
-        classListViewController.calendarCollectionView.reloadData()
-        classListViewController.getClassesFor(date: classListViewController.calendarDateSelected)
-        if classListViewController.currentFilterParams != nil {
-            classListViewController.filterOptions(params: FilterParameters())
-        }
-        
+
+        classListViewController.updateCalendarDateSelectedToToday()
+
         classNavigationController.setViewControllers([classListViewController], animated: false)
         
         tabBarController?.selectedIndex = 1
