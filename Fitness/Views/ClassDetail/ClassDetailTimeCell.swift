@@ -19,7 +19,7 @@ class ClassDetailTimeCell: UICollectionViewCell {
     private let timeLabel = UILabel()
     private let addToCalendarButton = UIButton()
     private let addToCalendarLabel = UILabel()
-    private let dateDivider = UIView()
+    private let dividerView = UIView()
 
     // MARK: - Private data vars
     private weak var delegate: ClassDetailTimeCellDelegate?
@@ -78,8 +78,8 @@ class ClassDetailTimeCell: UICollectionViewCell {
         addToCalendarButton.addTarget(self, action: #selector(addToCalendar), for: .touchUpInside)
         contentView.addSubview(addToCalendarLabel)
 
-        dateDivider.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(dateDivider)
+        dividerView.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(dividerView)
     }
 
     private func setupConstraints() {
@@ -87,10 +87,10 @@ class ClassDetailTimeCell: UICollectionViewCell {
         let addToCalendarButtonTopPadding = 26
         let addToCalendarLabelHeight = 10
         let addToCalendarLabelTopPadding = 5
-        let dateDividerHeight = 1
-        let dateDividerTopPadding = 32
         let dateLabelHeight = 19
         let dateLabelTopPadding = 36
+        let dividerViewHeight = 1
+        let dividerViewTopPadding = 32
         let timeLabelHeight = 19
         let timeLabelTopPadding = 8
 
@@ -121,11 +121,11 @@ class ClassDetailTimeCell: UICollectionViewCell {
             make.height.equalTo(addToCalendarLabelHeight)
         }
 
-        dateDivider.snp.makeConstraints { make in
-            make.height.equalTo(dateDividerHeight)
+        dividerView.snp.makeConstraints { make in
+            make.height.equalTo(dividerViewHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(dateDividerTopPadding)
+            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(dividerViewTopPadding)
         }
     }
 

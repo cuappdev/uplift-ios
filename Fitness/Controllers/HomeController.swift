@@ -380,8 +380,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             navigationController?.pushViewController(gymDetailViewController, animated: true)
             return
         } else if collectionView.accessibilityIdentifier == Identifiers.discoverProsCell {
-            let proDetailViewController = ProBioPageViewController()
-            proDetailViewController.pro = pros[indexPath.row]
+            let proDetailViewController = ProBioViewController(pro: pros[indexPath.row])
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(proDetailViewController, animated: true)
             return
@@ -394,7 +393,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDelegateFlow
             }
             return
         case .pros:
-            let proDetailViewController = ProBioPageViewController()
+            let proDetailViewController = ProBioViewController(pro: pros[indexPath.row])
             navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(proDetailViewController, animated: true)
         case .todaysClasses, .allGyms:

@@ -13,7 +13,7 @@ class ClassDetailFunctionCell: UICollectionViewCell {
     // MARK: - Private view vars
     private let functionLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let dividerView = UILabel()
+    private let dividerView = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,13 +47,13 @@ class ClassDetailFunctionCell: UICollectionViewCell {
     private func setupConstraints() {
         let descriptionLabelHeight = 20
         let descriptionLabelTopPadding = 12
-        let dividerSpacing = 24
         let dividerViewHeight = 1
         let functionLabelHeight = 19
+        let topPadding = 23
 
         functionLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(dividerSpacing)
+            make.top.equalToSuperview().offset(topPadding)
             make.trailing.equalToSuperview()
             make.height.equalTo(functionLabelHeight)
         }
@@ -69,7 +69,7 @@ class ClassDetailFunctionCell: UICollectionViewCell {
             make.height.equalTo(dividerViewHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(dividerSpacing)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(topPadding)
         }
     }
 
