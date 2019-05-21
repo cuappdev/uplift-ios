@@ -49,13 +49,14 @@ class ProBioRoutinesCell: UICollectionViewCell {
         routinesLabel.sizeToFit()
         contentView.addSubview(routinesLabel)
 
-        let classFlowLayout = UICollectionViewFlowLayout()
-        classFlowLayout.itemSize = CGSize(width: contentView.bounds.width - 38.0, height: 100.0)
-        classFlowLayout.minimumLineSpacing = 16.0
-        classFlowLayout.headerReferenceSize = .zero
+        let routineFlowLayout = UICollectionViewFlowLayout()
+        routineFlowLayout.itemSize = CGSize(width: contentView.bounds.width - 38.0, height: 100.0)
+        routineFlowLayout.minimumLineSpacing = 16.0
+        routineFlowLayout.headerReferenceSize = .zero
 
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: routineFlowLayout)
         collectionView.isScrollEnabled = false
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.bounces = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -94,7 +95,7 @@ class ProBioRoutinesCell: UICollectionViewCell {
     }
 }
 
-extension ProBioRoutinesCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProBioRoutinesCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return routines.count
     }
@@ -102,12 +103,9 @@ extension ProBioRoutinesCell: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProRoutineCollectionViewCell.identifier, for: indexPath) as! ProRoutineCollectionViewCell
         cell.configure(for: self, for: routines[indexPath.row])
-//        cell.configure(for: routines[indexPath.row])
         return cell
     }
-}
-
-extension ProBioRoutinesCell: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = 327
 
@@ -120,10 +118,6 @@ extension ProBioRoutinesCell: UICollectionViewDelegateFlowLayout {
         let descriptionTextViewHeight = routines[indexPath.row].text.height(withConstrainedWidth: descriptionTextViewWidth, font: UIFont._14MontserratLight!)
         let height = CGFloat(cellPadding + titleLabelHeight + routineTypeTopPadding + routineTypeLabelHeight + cellPadding + cellPadding) + descriptionTextViewHeight
         return CGSize(width: CGFloat(width), height: height)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 

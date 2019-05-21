@@ -109,7 +109,6 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
         case .routines:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioRoutinesCellIdentifier, for: indexPath) as! ProBioRoutinesCell
             cell.configure(for: self, for: pro)
-//            cell.configure(for: pro)
             return cell
         case .links:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioLinksCellIdentifier, for: indexPath) as! ProBioLinksCell

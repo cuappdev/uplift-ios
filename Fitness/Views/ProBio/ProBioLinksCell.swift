@@ -52,6 +52,7 @@ class ProBioLinksCell: UICollectionViewCell {
         linksCollectionView = UICollectionView(frame: .zero, collectionViewLayout: linksFlowLayout)
         linksCollectionView.isScrollEnabled = false
         linksCollectionView.bounces = false
+        linksCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         linksCollectionView.showsVerticalScrollIndicator = false
         linksCollectionView.showsHorizontalScrollIndicator = false
         linksCollectionView.backgroundColor = .white
@@ -130,13 +131,5 @@ extension ProBioLinksCell: UICollectionViewDataSource, UICollectionViewDelegate 
 extension ProBioLinksCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 24, height: 24)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(linksInterItemSpacing)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
