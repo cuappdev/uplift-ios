@@ -61,7 +61,7 @@ class ProBioBiographyCell: UICollectionViewCell {
         bioTextView.textContainer.lineFragmentPadding = 0
         contentView.addSubview(bioTextView)
 
-        dividerView.backgroundColor = .fitnessLightGrey
+        dividerView.backgroundColor = .fitnessMutedGreen
         contentView.addSubview(dividerView)
     }
 

@@ -10,6 +10,17 @@ import UIKit
 
 class ClassDetailDescriptionCell: UICollectionViewCell {
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let descriptionTextViewBottomPadding: CGFloat = 64
+        static let descriptionTextViewTopPadding: CGFloat = 24
+    }
+
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return Constants.descriptionTextViewTopPadding + Constants.descriptionTextViewBottomPadding
+    }
+
     // MARK: - Private view vars
     private let descriptionTextView = UITextView()
 
@@ -31,6 +42,8 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
         descriptionTextView.isScrollEnabled = false
+        descriptionTextView.textContainerInset = UIEdgeInsets.zero
+        descriptionTextView.textContainer.lineFragmentPadding = 0
         contentView.addSubview(descriptionTextView)
     }
 
@@ -51,4 +64,3 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
     }
 
 }
-

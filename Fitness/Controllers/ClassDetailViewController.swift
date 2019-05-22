@@ -225,47 +225,36 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
         return CGSize(width: collectionView.frame.width, height: 360)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let addToCalendarButtonHeight = 23
-        let addToCalendarButtonTopPadding = 26
-        let addToCalendarLabelHeight = 10
-        let addToCalendarLabelTopPadding = 5
-        let dateLabelHeight = 19
-        let dateLabelTopPadding = 36
         let descriptionTextViewHorizontalPadding = 40
-        let dividerSpacing = 24
-        let dividerViewHeight = 1
-        let functionDescriptionLabelHeight = 20
-        let functionDescriptionLabelTopPadding = 12
-        let functionLabelHeight = 19
-        let nextSessionsCollectionViewBottomPadding = 12
-        let nextSessionsCollectionViewTopPadding = 32
-        let nextSessionsLabelHeight = 15
-        let timeLabelHeight = 19
-        let timeLabelTopPadding = 8
+        let descriptionLabelHorizontalPadding = 48
 
         let width = collectionView.frame.width
         let itemType = sections[indexPath.section].items[indexPath.item]
         switch itemType {
         case .time:
-            let height = CGFloat(dateLabelTopPadding + dateLabelHeight + timeLabelTopPadding + timeLabelHeight +
-                addToCalendarButtonTopPadding + addToCalendarButtonHeight + addToCalendarLabelTopPadding +
-                addToCalendarLabelHeight + dividerSpacing + dividerViewHeight)
-            return CGSize(width: width, height: height)
+            return CGSize(width: width, height: ClassDetailTimeCell.height)
         case .function:
-            let height = CGFloat(dividerSpacing + functionLabelHeight +
-                functionDescriptionLabelTopPadding + functionDescriptionLabelHeight + dividerSpacing + dividerViewHeight)
-            return CGSize(width: width, height: height)
+            let descriptionLabelWidth = width - CGFloat(descriptionLabelHorizontalPadding * 2)
+            let string = gymClassInstance.tags.map { $0.name }.joined(separator: " · ")
+            let descriptionLabelHeight = string.height(withConstrainedWidth: descriptionLabelWidth, font: UIFont._14MontserratLight!)
+            return CGSize(width: width, height: ClassDetailFunctionCell.baseHeight + descriptionLabelHeight)
         case .description:
-            let width = collectionView.frame.width
             let descriptionTextViewWidth = width - CGFloat(descriptionTextViewHorizontalPadding * 2)
             let descriptionTextViewHeight = gymClassInstance.classDescription.height(withConstrainedWidth: descriptionTextViewWidth, font: UIFont._14MontserratLight!)
-            let height = CGFloat(dividerSpacing + dividerSpacing) + descriptionTextViewHeight
+            let height = ClassDetailDescriptionCell.baseHeight + descriptionTextViewHeight
             return CGSize(width: width, height: height)
         case .nextSessions(let nextSessions):
             let nextSesssionsCollectionViewHeight = nextSessions.count * 112
-            let height = CGFloat(dividerSpacing + nextSessionsLabelHeight + nextSessionsCollectionViewTopPadding +
-                nextSesssionsCollectionViewHeight + nextSessionsCollectionViewBottomPadding)
+            let height = ClassDetailNextSessionsCell.baseHeight + CGFloat(nextSesssionsCollectionViewHeight)
             return CGSize(width: width, height: height)
         }
     }

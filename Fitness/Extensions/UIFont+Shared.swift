@@ -10,6 +10,7 @@ import UIKit
 
 extension UIFont {
     // SYSTEM
+    static let _8SFLight = UIFont.systemFont(ofSize: 8, weight: .light)
     static let _14SFLight = UIFont.systemFont(ofSize: 14, weight: .light)
     static let _16SFLight = UIFont.systemFont(ofSize: 16, weight: .light)
 

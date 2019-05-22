@@ -55,7 +55,7 @@ class ProBioExpertiseCell: UICollectionViewCell {
         descriptionLabel.textColor = .lightBlack
         contentView.addSubview(descriptionLabel)
 
-        dividerView.backgroundColor = .fitnessLightGrey
+        dividerView.backgroundColor = .fitnessMutedGreen
         contentView.addSubview(dividerView)
     }
 

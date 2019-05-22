@@ -157,6 +157,7 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
             return CGSize(width: width, height: ProBioLinksCell.baseHeight)
         }
     }
+
     private func routinesCollectionViewHeight() -> CGFloat {
         var totalHeight: CGFloat = 0
 
