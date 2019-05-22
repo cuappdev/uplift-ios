@@ -21,7 +21,7 @@
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
-		7E10287122931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E10287022931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift */; };
+		7E038C702295782D00418500 /* ProRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */; };
 		7E33C816CD97FA81CDFDDFCF /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C963E42AF2D49211610461 /* Pods_Fitness.framework */; };
 		7E4FD0D82292389300AC9F90 /* ProBioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */; };
 		7E4FD0DA229243DA00AC9F90 /* ProBioHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */; };
@@ -30,18 +30,15 @@
 		7E4FD0E222925AE800AC9F90 /* ProBioRoutinesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */; };
 		7E4FD0E422925E3700AC9F90 /* ProBioLinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
-		8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE08206C477600EF83C7 /* AllGymsCell.swift */; };
 		8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */; };
-		8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */; };
-		8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymsCell.swift */; };
+		8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymListItemCell.swift */; };
 		8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE10206C483500EF83C7 /* LookingForCell.swift */; };
-		8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */; };
 		8D24AF962140B23F002D850C /* String+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D24AF952140B23F002D850C /* String+Shared.swift */; };
 		8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB082072BCE000144BFC /* FilterViewController.swift */; };
 		8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0A2072C31400144BFC /* Lato-Black.ttf */; };
 		8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */; };
 		8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */; };
-		8D5D586C226FE52500A996D7 /* HabitTrackerCheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D586B226FE52500A996D7 /* HabitTrackerCheckinCell.swift */; };
+		8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D586B226FE52500A996D7 /* CheckInListItemCell.swift */; };
 		8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */; };
 		8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA478208EC31100E98E6C /* Histogram.swift */; };
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
@@ -62,6 +59,12 @@
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
 		C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */; };
+		C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14C2292374400B5D219 /* HomeViewController.swift */; };
+		C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14F2292409D00B5D219 /* CheckInsListCell.swift */; };
+		C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */; };
+		C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */; };
+		C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE15722926F8700B5D219 /* GymsListCell.swift */; };
+		C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */; };
 		C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */; };
 		C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F62290D1C4007C415D /* ClassDetailViewController.swift */; };
 		C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F82290D397007C415D /* ClassDetailHeaderView.swift */; };
@@ -70,6 +73,10 @@
 		C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236FF2290E1BA007C415D /* ClassDetailDescriptionCell.swift */; };
 		C26237022290E2C5007C415D /* ClassDetailNextSessionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26237012290E2C5007C415D /* ClassDetailNextSessionsCell.swift */; };
 		C2623704229107BA007C415D /* ClassDetailViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2623703229107BA007C415D /* ClassDetailViewController+Extensions.swift */; };
+		C288019E2293367E00EC48B7 /* ProsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C288019D2293367E00EC48B7 /* ProsListCell.swift */; };
+		C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C288019F22933B3000EC48B7 /* TodaysClassesListCell.swift */; };
+		C28801A222933BBC00EC48B7 /* TodaysClassListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */; };
+		C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */; };
 		C289B16C228A844A00934A2A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C289B16B228A844A00934A2A /* API.swift */; };
 		C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */; };
 		C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
@@ -81,7 +88,6 @@
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
 		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
-		C75FAB1120420B7B008D455A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB1020420B7B008D455A /* HomeController.swift */; };
 		C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */; };
 		C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */; };
 		C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */; };
@@ -104,8 +110,7 @@
 		E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */; };
 		E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639E22445897005C2930 /* PersonalLink.swift */; };
 		E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5806B2228B51100A864D6 /* ProBio.swift */; };
-		E6D4E573226E6AD000A41C4F /* DiscoverProsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */; };
-		E6FCEE52226E791000CEE2BC /* ProCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProCollectionViewCell.swift */; };
+		E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +130,7 @@
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
+		7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
 		7E10287022931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
 		7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioViewController.swift; sourceTree = "<group>"; };
 		7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioHeaderView.swift; sourceTree = "<group>"; };
@@ -134,12 +140,9 @@
 		7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioLinksCell.swift; sourceTree = "<group>"; };
 		844312DC4A9667C4E73D7EED /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
-		8D03EE08206C477600EF83C7 /* AllGymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGymsCell.swift; sourceTree = "<group>"; };
 		8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-		8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesCell.swift; sourceTree = "<group>"; };
-		8D03EE0E206C481A00EF83C7 /* GymsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsCell.swift; sourceTree = "<group>"; };
+		8D03EE0E206C481A00EF83C7 /* GymListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymListItemCell.swift; sourceTree = "<group>"; };
 		8D03EE10206C483500EF83C7 /* LookingForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForCell.swift; sourceTree = "<group>"; };
-		8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesCell.swift; sourceTree = "<group>"; };
 		8D24AF952140B23F002D850C /* String+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Shared.swift"; sourceTree = "<group>"; };
 		8D26DB082072BCE000144BFC /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		8D26DB0A2072C31400144BFC /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -147,7 +150,7 @@
 		8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFilterCell.swift; sourceTree = "<group>"; };
 		8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavoritesEmptyStateView.swift; sourceTree = "<group>"; };
-		8D5D586B226FE52500A996D7 /* HabitTrackerCheckinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerCheckinCell.swift; sourceTree = "<group>"; };
+		8D5D586B226FE52500A996D7 /* CheckInListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInListItemCell.swift; sourceTree = "<group>"; };
 		8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoHabitsCell.swift; sourceTree = "<group>"; };
 		8D5EA478208EC31100E98E6C /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -168,6 +171,12 @@
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
 		C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
+		C21BE14C2292374400B5D219 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C21BE14F2292409D00B5D219 /* CheckInsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInsListCell.swift; sourceTree = "<group>"; };
+		C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
+		C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		C21BE15722926F8700B5D219 /* GymsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsListCell.swift; sourceTree = "<group>"; };
+		C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Shared.swift"; sourceTree = "<group>"; };
 		C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		C26236F62290D1C4007C415D /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		C26236F82290D397007C415D /* ClassDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -176,6 +185,10 @@
 		C26236FF2290E1BA007C415D /* ClassDetailDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailDescriptionCell.swift; sourceTree = "<group>"; };
 		C26237012290E2C5007C415D /* ClassDetailNextSessionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailNextSessionsCell.swift; sourceTree = "<group>"; };
 		C2623703229107BA007C415D /* ClassDetailViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClassDetailViewController+Extensions.swift"; sourceTree = "<group>"; };
+		C288019D2293367E00EC48B7 /* ProsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProsListCell.swift; sourceTree = "<group>"; };
+		C288019F22933B3000EC48B7 /* TodaysClassesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesListCell.swift; sourceTree = "<group>"; };
+		C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassListItemCell.swift; sourceTree = "<group>"; };
+		C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Extensions.swift"; sourceTree = "<group>"; };
 		C289B16B228A844A00934A2A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = Fitness/API.swift; sourceTree = "<group>"; };
 		C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTrackingController+Extensions.swift"; sourceTree = "<group>"; };
 		C71E8A032091726600542FA3 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
@@ -186,7 +199,6 @@
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
 		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		C75FAB1020420B7B008D455A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
@@ -211,8 +223,7 @@
 		E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLinkCollectionViewCell.swift; sourceTree = "<group>"; };
 		E6AB639E22445897005C2930 /* PersonalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLink.swift; sourceTree = "<group>"; };
 		E6B5806B2228B51100A864D6 /* ProBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
-		E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverProsCell.swift; sourceTree = "<group>"; };
-		E6FCEE51226E791000CEE2BC /* ProCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProCollectionViewCell.swift; sourceTree = "<group>"; };
+		E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProListItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +262,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		7E038C6E2295777400418500 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				7E10287022931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		7E4FD0DE22924C1C00AC9F90 /* ProBio */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,8 +302,24 @@
 			isa = PBXGroup;
 			children = (
 				C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */,
+				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
 			);
 			path = ClassList;
+			sourceTree = "<group>";
+		};
+		C21BE14E2292406400B5D219 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C21BE14F2292409D00B5D219 /* CheckInsListCell.swift */,
+				8D5D586B226FE52500A996D7 /* CheckInListItemCell.swift */,
+				C21BE15722926F8700B5D219 /* GymsListCell.swift */,
+				8D03EE0E206C481A00EF83C7 /* GymListItemCell.swift */,
+				E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */,
+				C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */,
+				C288019F22933B3000EC48B7 /* TodaysClassesListCell.swift */,
+				C288019D2293367E00EC48B7 /* ProsListCell.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		C26236FA2290D696007C415D /* ClassDetail */ = {
@@ -339,6 +374,7 @@
 				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
 				C71E8A032091726600542FA3 /* Date+Shared.swift */,
 				8D24AF952140B23F002D850C /* String+Shared.swift */,
+				C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -354,6 +390,7 @@
 				C7DFABCC204206E000545B0B /* Products */,
 				C81ACE807AA0169E1CA71704 /* Pods */,
 				617FB0ECFB15315DBB057217 /* Frameworks */,
+				7E038C6E2295777400418500 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -396,7 +433,8 @@
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
 				8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */,
-				C75FAB1020420B7B008D455A /* HomeController.swift */,
+				C21BE14C2292374400B5D219 /* HomeViewController.swift */,
+				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
@@ -409,6 +447,9 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */,
+				C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */,
+				C21BE14E2292406400B5D219 /* Home */,
 				C21BE14922920EB200B5D219 /* ClassList */,
 				C26236FA2290D696007C415D /* ClassDetail */,
 				D95810A6216E95A500D4436C /* Range Slider */,
@@ -428,25 +469,17 @@
 			isa = PBXGroup;
 			children = (
 				0C97AC282276840F0086D699 /* FacilityHoursCell.swift */,
-				8D03EE08206C477600EF83C7 /* AllGymsCell.swift */,
-				C7ABE48E2069BF1A0042CFA7 /* CalendarCell.swift */,
 				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
-				8D03EE0C206C47EE00EF83C7 /* ClassesCell.swift */,
 				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
-				E6D4E572226E6AD000A41C4F /* DiscoverProsCell.swift */,
 				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
 				4FC04780222EF69300165594 /* FavoriteGymCell.swift */,
 				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
-				8D03EE0E206C481A00EF83C7 /* GymsCell.swift */,
-				8D5D586B226FE52500A996D7 /* HabitTrackerCheckinCell.swift */,
 				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
 				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
-				E6FCEE51226E791000CEE2BC /* ProCollectionViewCell.swift */,
-				7E10287022931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift */,
-				8D03EE12206C484D00EF83C7 /* TodaysClassesCell.swift */,
+				7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -737,7 +770,6 @@
 			files = (
 				7E4FD0DC22924BE400AC9F90 /* ProBioBiographyCell.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
-				7E10287122931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
 				C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */,
@@ -746,22 +778,23 @@
 				E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
-				8D5D586C226FE52500A996D7 /* HabitTrackerCheckinCell.swift in Sources */,
 				7E4FD0E222925AE800AC9F90 /* ProBioRoutinesCell.swift in Sources */,
+				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
+				C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */,
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
-				8D03EE09206C477600EF83C7 /* AllGymsCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
-				E6FCEE52226E791000CEE2BC /* ProCollectionViewCell.swift in Sources */,
+				E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */,
 				C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */,
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C26237022290E2C5007C415D /* ClassDetailNextSessionsCell.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
-				E6D4E573226E6AD000A41C4F /* DiscoverProsCell.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
+				C288019E2293367E00EC48B7 /* ProsListCell.swift in Sources */,
 				0C97AC2722766E210086D699 /* GymFacilitiesView.swift in Sources */,
 				C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
+				C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
@@ -771,23 +804,25 @@
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
 				7E4FD0D82292389300AC9F90 /* ProBioViewController.swift in Sources */,
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
-				8D03EE0F206C481A00EF83C7 /* GymsCell.swift in Sources */,
 				7E4FD0E422925E3700AC9F90 /* ProBioLinksCell.swift in Sources */,
+				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
+				7E038C702295782D00418500 /* ProRoutineCollectionViewCell.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */,
+				C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
-				8D03EE13206C484D00EF83C7 /* TodaysClassesCell.swift in Sources */,
 				8DB8D76B2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift in Sources */,
+				C28801A222933BBC00EC48B7 /* TodaysClassListItemCell.swift in Sources */,
+				C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
 				C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */,
-				8D03EE0D206C47EE00EF83C7 /* ClassesCell.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
@@ -804,16 +839,19 @@
 				D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */,
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
+				C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */,
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
-				C75FAB1120420B7B008D455A /* HomeController.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,
 				C289B16C228A844A00934A2A /* API.swift in Sources */,
+				C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */,
 				C76F715F20900AD400FDC958 /* Tag.swift in Sources */,
 				4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */,
 				8DD74F362242A2DA00CE1274 /* Habit.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
 				E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */,
+				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
+				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
 				8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */,
 			);
