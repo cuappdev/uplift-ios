@@ -10,10 +10,24 @@ import UIKit
 
 class ProBioExpertiseCell: UICollectionViewCell {
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let descriptionLabelTopPadding: CGFloat = 16
+        static let dividerViewHeight: CGFloat = 1
+        static let dividerViewTopPadding: CGFloat = 23
+        static let expertiseLabelHeight: CGFloat = 20
+        static let expertiseLabelTopPadding: CGFloat = 23
+    }
+
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return Constants.expertiseLabelTopPadding + Constants.expertiseLabelHeight + Constants.descriptionLabelTopPadding + Constants.dividerViewTopPadding + Constants.dividerViewHeight
+    }
+
     // MARK: - Private view vars
-    private let expertiseLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let dividerView = UIView()
+    private let expertiseLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,27 +61,22 @@ class ProBioExpertiseCell: UICollectionViewCell {
 
     private func setupConstraints() {
         let descriptionLabelHorizontalPadding = 48
-        let descriptionLabelTopPadding = 16
-        let dividerViewHeight = 1
-        let dividerViewTopPadding = 23
-        let expertiseLabelHeight = 20
-        let expertiseLabelTopPadding = 23
 
         expertiseLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(expertiseLabelTopPadding)
-            make.height.equalTo(expertiseLabelHeight)
+            make.top.equalToSuperview().offset(Constants.expertiseLabelTopPadding)
+            make.height.equalTo(Constants.expertiseLabelHeight)
         }
 
         descriptionLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(descriptionLabelHorizontalPadding)
-            make.top.equalTo(expertiseLabel.snp.bottom).offset(descriptionLabelTopPadding)
+            make.top.equalTo(expertiseLabel.snp.bottom).offset(Constants.descriptionLabelTopPadding)
         }
 
         dividerView.snp.makeConstraints { make in
-            make.height.equalTo(dividerViewHeight)
+            make.height.equalTo(Constants.dividerViewHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(dividerViewTopPadding)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(Constants.dividerViewTopPadding)
         }
     }
 

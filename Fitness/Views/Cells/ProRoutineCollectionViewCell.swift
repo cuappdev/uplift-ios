@@ -16,6 +16,18 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
 
     static let identifier = Identifiers.proRoutineCell
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let cellPadding: CGFloat = 16
+        static let routineTypeLabelHeight: CGFloat = 15
+        static let routineTypeTopPadding: CGFloat = 3
+        static let titleLabelHeight: CGFloat = 20
+    }
+
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return 3 * Constants.cellPadding + Constants.titleLabelHeight + Constants.routineTypeTopPadding + Constants.routineTypeLabelHeight
+    }
     // MARK: - Private view vars
     private let addButton = UIButton()
     private var descriptionTextView = UITextView()

@@ -10,13 +10,26 @@ import UIKit
 
 class ProBioLinksCell: UICollectionViewCell {
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let collectionViewBottomPadding: CGFloat = 57
+        static let collectionViewCellSize: CGFloat = 24
+        static let collectionViewTopPadding: CGFloat = 12
+        static let linksTitleLabelHeight: CGFloat = 18
+    }
+
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return Constants.linksTitleLabelHeight + Constants.collectionViewTopPadding + Constants.collectionViewCellSize + Constants.collectionViewBottomPadding
+    }
+
     // MARK: - Private view vars
     private var linksCollectionView: UICollectionView!
     private let linksTitleLabel = UILabel()
-    private let linksInterItemSpacing = 6
 
     // MARK: - Private data vars
     private var links: [PersonalLink] = []
+    private let linksInterItemSpacing = 6
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +45,6 @@ class ProBioLinksCell: UICollectionViewCell {
             self.updateCollectionViewConstraints()
             self.linksCollectionView.reloadData()
         }
-        linksCollectionView.reloadData()
     }
 
     // MARK: - Private helpers
@@ -65,42 +77,29 @@ class ProBioLinksCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let collectionViewCellSize = 24
-        let collectionViewTopPadding = 12
-        let linksTitleLabelHeight = 18
-
         linksTitleLabel.snp.makeConstraints { make in
             make.centerX.top.equalToSuperview()
-            make.height.equalTo(linksTitleLabelHeight)
+            make.height.equalTo(Constants.linksTitleLabelHeight)
         }
 
         linksCollectionView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(linksTitleLabel.snp.bottom).offset(collectionViewTopPadding)
-            make.height.equalTo(collectionViewCellSize)
-            let linksWidth = collectionViewCellSize * links.count + (links.count - 1) * linksInterItemSpacing
-            if linksWidth < 0 {
-                make.width.equalTo(0)
-            } else {
-                make.width.equalTo(linksWidth)
-            }
+            make.top.equalTo(linksTitleLabel.snp.bottom).offset(Constants.collectionViewTopPadding)
+            make.height.equalTo(Constants.collectionViewCellSize)
+            let linksWidth = Int(Constants.collectionViewCellSize) * links.count + (links.count - 1) * linksInterItemSpacing
+            let width = linksWidth < 0 ? 0 : linksWidth
+            make.width.equalTo(width)
         }
     }
 
     private func updateCollectionViewConstraints() {
-        let collectionViewCellSize = 24
-        let collectionViewTopPadding = 12
-
         linksCollectionView.snp.remakeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(linksTitleLabel.snp.bottom).offset(collectionViewTopPadding)
-            make.height.equalTo(collectionViewCellSize)
-            let linksWidth = collectionViewCellSize * links.count + (links.count - 1) * linksInterItemSpacing
-            if linksWidth < 0 {
-                make.width.equalTo(0)
-            } else {
-                make.width.equalTo(linksWidth)
-            }
+            make.top.equalTo(linksTitleLabel.snp.bottom).offset(Constants.collectionViewTopPadding)
+            make.height.equalTo(Constants.collectionViewCellSize)
+            let linksWidth = Int(Constants.collectionViewCellSize) * links.count + (links.count - 1) * linksInterItemSpacing
+            let width = linksWidth < 0 ? 0 : linksWidth
+            make.width.equalTo(width)
         }
     }
 

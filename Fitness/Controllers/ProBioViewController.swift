@@ -10,7 +10,6 @@ import UIKit
 
 class ProBioViewController: UIViewController {
 
-    // MARK: - Public data vars
     // MARK: - Private view vars
     private let backButton = UIButton()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
@@ -64,7 +63,7 @@ class ProBioViewController: UIViewController {
         setupViews()
         setupConstraints()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
     }
@@ -132,26 +131,9 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bioTextViewHorizontalPadding = 40
-        let bioTextViewTopPadding = 32
         let bioSummaryHorizontalPadding = 40
-        let bioSummaryTopPadding = 64
-        let dividerViewHeight = 1
-        let dividerViewTopPaddingLarge = 36
 
-        let dividerViewTopPaddingSmall = 23
         let descriptionLabelHorizontalPadding = 48
-        let descriptionLabelTopPadding = 16
-        let expertiseLabelHeight = 20
-        let expertiseLabelTopPadding = 23
-
-        let routinesCollectionViewBottomPadding = 61
-        let routinesLabelHeight = 20
-        let routinesLabelTopPadding = 24
-
-        let linksCollectionViewBottomPadding = 57
-        let linksCollectionViewCellSize = 24
-        let linksCollectionViewTopPadding = 12
-        let linksTitleLabelHeight = 18
 
         let width = collectionView.frame.width
         let itemType = sections[indexPath.section].items[indexPath.item]
@@ -161,20 +143,18 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
             let bioSummaryHeight = pro.summary.height(withConstrainedWidth: bioSummaryWidth, font: UIFont._20MontserratSemiBold!)
             let bioTextViewWidth = width - CGFloat(bioTextViewHorizontalPadding * 2)
             let bioTextViewHeight = pro.bio.height(withConstrainedWidth: bioTextViewWidth, font: UIFont._14MontserratLight!)
-            let textHeight = CGFloat(bioSummaryTopPadding + bioTextViewTopPadding) + bioSummaryHeight + bioTextViewHeight
-            let height = textHeight + CGFloat(dividerViewTopPaddingLarge + dividerViewHeight)
+            let height = ProBioBiographyCell.baseHeight + bioSummaryHeight + bioTextViewHeight
             return CGSize(width: width, height: height)
         case .expertise:
             let descriptionLabelWidth = width - CGFloat(descriptionLabelHorizontalPadding * 2)
             let descriptionLabelHeight = pro.expertise.joined(separator: " · ").height(withConstrainedWidth: descriptionLabelWidth, font: UIFont._14MontserratLight!)
-            let height = CGFloat(expertiseLabelTopPadding + expertiseLabelHeight + descriptionLabelTopPadding + dividerViewTopPaddingSmall + dividerViewHeight) + descriptionLabelHeight
+            let height = ProBioExpertiseCell.baseHeight + descriptionLabelHeight
             return CGSize(width: width, height: height)
         case .routines:
-            let height = routinesCollectionViewHeight() + CGFloat(routinesLabelTopPadding + routinesLabelHeight + routinesCollectionViewBottomPadding)
+            let height = routinesCollectionViewHeight() + ProBioRoutinesCell.baseHeight
             return CGSize(width: width, height: height)
         case .links:
-            let height = CGFloat(linksTitleLabelHeight + linksCollectionViewTopPadding + linksCollectionViewCellSize + linksCollectionViewBottomPadding)
-            return CGSize(width: width, height: height)
+            return CGSize(width: width, height: ProBioLinksCell.baseHeight)
         }
     }
     private func routinesCollectionViewHeight() -> CGFloat {
@@ -216,7 +196,6 @@ extension ProBioViewController {
         view.addSubview(collectionView)
 
         backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
-        backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)

@@ -9,7 +9,20 @@
 import UIKit
 
 class ProBioBiographyCell: UICollectionViewCell {
+    
+    // MARK: - Constraint constants
+    enum Constants {
+        static let bioSummaryTopPadding: CGFloat = 64
+        static let bioTextViewTopPadding: CGFloat = 32
+        static let dividerViewHeight: CGFloat = 1
+        static let dividerViewTopPadding: CGFloat = 36
+    }
 
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return Constants.bioSummaryTopPadding + Constants.bioTextViewTopPadding + Constants.dividerViewTopPadding + Constants.dividerViewHeight
+    }
+    
     // MARK: - Private view vars
     private let bioSummary = UITextView()
     private let bioTextView = UITextView()
@@ -17,7 +30,7 @@ class ProBioBiographyCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setupViews()
         setupConstraints()
     }
@@ -53,29 +66,24 @@ class ProBioBiographyCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let bioTextViewHorizontalPadding = 40
-        let bioTextViewTopPadding = 32
-        let bioSummaryHorizontalPadding = 40
-        let bioSummaryTopPadding = 64
-        let dividerViewHeight = 1
-        let dividerViewTopPadding = 36
+        let horizontalPadding = 40
 
         bioSummary.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(bioSummaryHorizontalPadding)
-            make.top.equalToSuperview().inset(bioSummaryTopPadding)
+            make.leading.trailing.equalToSuperview().inset(horizontalPadding)
+            make.top.equalToSuperview().inset(Constants.bioSummaryTopPadding)
         }
 
         bioTextView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(bioTextViewHorizontalPadding)
-            make.top.equalTo(bioSummary.snp.bottom).offset(bioTextViewTopPadding)
+            make.leading.trailing.equalToSuperview().inset(horizontalPadding)
+            make.top.equalTo(bioSummary.snp.bottom).offset(Constants.bioTextViewTopPadding)
         }
 
         dividerView.snp.makeConstraints { make in
-            make.height.equalTo(dividerViewHeight)
+            make.height.equalTo(Constants.dividerViewHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(bioTextView.snp.bottom).offset(dividerViewTopPadding)
+            make.top.equalTo(bioTextView.snp.bottom).offset(Constants.dividerViewTopPadding)
         }
     }
 

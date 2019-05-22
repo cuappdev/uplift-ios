@@ -14,6 +14,18 @@ protocol ProBioRoutinesCellDelegate: class {
 
 class ProBioRoutinesCell: UICollectionViewCell {
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let collectionViewBottomPadding: CGFloat = 61
+        static let routinesLabelHeight: CGFloat = 20
+        static let routinesLabelTopPadding: CGFloat = 24
+    }
+
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return Constants.routinesLabelTopPadding + Constants.routinesLabelHeight + Constants.collectionViewBottomPadding
+    }
+
     // MARK: - Private view vars
     private let routinesLabel = UILabel()
     private var collectionView: UICollectionView!
@@ -36,17 +48,14 @@ class ProBioRoutinesCell: UICollectionViewCell {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
-        collectionView.reloadData()
     }
 
     // MARK: - Private helpers
     private func setupViews() {
-
         routinesLabel.font = ._16MontserratMedium
         routinesLabel.text = "SUGGESTED ROUTINES"
         routinesLabel.textAlignment = .center
         routinesLabel.textColor = .lightBlack
-        routinesLabel.sizeToFit()
         contentView.addSubview(routinesLabel)
 
         let routineFlowLayout = UICollectionViewFlowLayout()
@@ -70,23 +79,20 @@ class ProBioRoutinesCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let collectionViewBottomPadding = 61
         let collectionViewTopPadding = 16
         let collectionViewWidth = 327
-        let routinesLabelHeight = 20
-        let routinesLabelTopPadding = 24
 
         routinesLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(routinesLabelTopPadding)
-            make.height.equalTo(routinesLabelHeight)
+            make.top.equalToSuperview().offset(Constants.routinesLabelTopPadding)
+            make.height.equalTo(Constants.routinesLabelHeight)
         }
 
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(routinesLabel.snp.bottom).offset(collectionViewTopPadding)
             make.width.equalTo(collectionViewWidth)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(collectionViewBottomPadding)
+            make.bottom.equalToSuperview().inset(Constants.collectionViewBottomPadding)
         }
     }
 
@@ -105,19 +111,15 @@ extension ProBioRoutinesCell: UICollectionViewDelegate, UICollectionViewDataSour
         cell.configure(for: self, for: routines[indexPath.row])
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = 327
-
+        let cellWidth = 327
         let cellPadding = 16
-        let routineTypeLabelHeight = 15
-        let routineTypeTopPadding = 3
-        let titleLabelHeight = 20
 
-        let descriptionTextViewWidth = CGFloat(width - 2 * cellPadding)
+        let descriptionTextViewWidth = CGFloat(cellWidth - 2 * cellPadding)
         let descriptionTextViewHeight = routines[indexPath.row].text.height(withConstrainedWidth: descriptionTextViewWidth, font: UIFont._14MontserratLight!)
-        let height = CGFloat(cellPadding + titleLabelHeight + routineTypeTopPadding + routineTypeLabelHeight + cellPadding + cellPadding) + descriptionTextViewHeight
-        return CGSize(width: CGFloat(width), height: height)
+        let height = ProRoutineCollectionViewCell.baseHeight + descriptionTextViewHeight
+        return CGSize(width: CGFloat(cellWidth), height: height)
     }
 }
 
