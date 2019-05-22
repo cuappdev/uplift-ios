@@ -81,9 +81,7 @@ class ProBioViewController: UIViewController {
 
     // MARK: - Targets
     @objc func back() {
-        if let navigationController = navigationController {
-            navigationController.popViewController(animated: true)
-        }
+        navigationController?.popViewController(animated: true)
     }
 
 }
@@ -169,7 +167,7 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
         let titleLabelHeight = 20
         let cellHeight = CGFloat(cellPadding + titleLabelHeight + routineTypeTopPadding + routineTypeLabelHeight + cellPadding + cellPadding)
 
-        for routine in pro.routines {
+        pro.routines.forEach { routine in
             let descriptionTextViewHeight = routine.text.height(withConstrainedWidth: CGFloat(constrainedWidth), font: UIFont._14MontserratLight!)
             totalHeight += (cellHeight + descriptionTextViewHeight + CGFloat(cellPadding))
         }
