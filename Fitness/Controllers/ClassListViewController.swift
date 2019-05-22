@@ -70,6 +70,7 @@ class ClassListViewController: UIViewController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
+        initializeCollectionViews()
         calendarDatesList = createCalendarDates()
         // Set currDate to be today's date
         currDate = calendarDatesList[3]
@@ -361,6 +362,24 @@ extension ClassListViewController: FilterDelegate {
 // MARK: - Layout
 extension ClassListViewController {
 
+    private func initializeCollectionViews() {
+        let calendarFlowLayout = UICollectionViewFlowLayout()
+        calendarFlowLayout.itemSize = CGSize(width: 24, height: 47)
+        calendarFlowLayout.scrollDirection = .horizontal
+        calendarFlowLayout.minimumLineSpacing = 40.0
+        calendarFlowLayout.sectionInset = .init(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+
+        calendarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: calendarFlowLayout)
+
+        let classFlowLayout = UICollectionViewFlowLayout()
+        let screenWidth = UIScreen.main.bounds.width
+        classFlowLayout.itemSize = CGSize(width: screenWidth - 32.0, height: 100.0)
+        classFlowLayout.minimumLineSpacing = 12.0
+        classFlowLayout.headerReferenceSize = .init(width: screenWidth - 32.0, height: 72.0)
+
+        classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
+    }
+
     private func setupViews() {
         setupCollectionViews()
 
@@ -449,13 +468,6 @@ extension ClassListViewController {
     }
 
     private func setupCollectionViews() {
-        let calendarFlowLayout = UICollectionViewFlowLayout()
-        calendarFlowLayout.itemSize = CGSize(width: 24, height: 47)
-        calendarFlowLayout.scrollDirection = .horizontal
-        calendarFlowLayout.minimumLineSpacing = 40.0
-        calendarFlowLayout.sectionInset = .init(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
-
-        calendarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: calendarFlowLayout)
         calendarCollectionView.delegate = self
         calendarCollectionView.dataSource = self
         calendarCollectionView.showsHorizontalScrollIndicator = false
@@ -463,12 +475,6 @@ extension ClassListViewController {
         calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: Constants.calendarCellIdentifier)
         view.addSubview(calendarCollectionView)
 
-        let classFlowLayout = UICollectionViewFlowLayout()
-        classFlowLayout.itemSize = CGSize(width: view.frame.width - 32.0, height: 100.0)
-        classFlowLayout.minimumLineSpacing = 12.0
-        classFlowLayout.headerReferenceSize = .init(width: view.frame.width - 32.0, height: 72.0)
-
-        classCollectionView = UICollectionView(frame: .zero, collectionViewLayout: classFlowLayout)
         classCollectionView.delegate = self
         classCollectionView.dataSource = self
         classCollectionView.contentInset = .init(top: 0.0, left: 0.0, bottom: 84.0, right: 0.0)

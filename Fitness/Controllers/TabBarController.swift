@@ -20,7 +20,7 @@ class TabBarController: UITabBarController {
         tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
 
-        let homeController = HomeController()
+        let homeController = HomeViewController()
         homeController.tabBarItem = UITabBarItem(title: "browse", image: UIImage(named: "home-tab"), selectedImage: UIImage(named: "home-tab-selected"))
 
         let classListController = ClassListViewController()

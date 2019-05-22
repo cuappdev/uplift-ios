@@ -1,5 +1,5 @@
 //
-//  HabitTrackerCheckinCell.swift
+//  CheckInListItemCell.swift
 //  Fitness
 //
 //  Created by Joseph Fulgieri on 4/23/19.
@@ -9,56 +9,76 @@
 import SnapKit
 import UIKit
 
-class HabitTrackerCheckinCell: UICollectionViewCell {
+class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
     
-    // MARK: - INITIALIZATION
+    // MARK: - Public static vars
     static let identifier = Identifiers.habitTrackerCheckinCell
-    
-    private var checkinButton: UIButton!
-    private var separator: UIView!
-    private var streakLabel: UILabel!
-    private var titleLabel: UILabel!
-    
+
+    // MARK: - Private view vars
+    private let checkInButton = UIButton()
+    private let dividerView = UIView()
+    private let streakLabel = UILabel()
+    private let titleLabel = UILabel()
+
+    // MARK: - Private data vars
     private var habit: Habit!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        checkinButton = UIButton()
-        checkinButton.setImage(UIImage(named: "empty_circle"), for: .normal)
-        checkinButton.setImage(UIImage(named: "checked_circle"), for: .selected)
-        checkinButton.addTarget(self, action: #selector(checkIn), for: .touchUpInside)
-        contentView.addSubview(checkinButton)
-        
-        titleLabel = UILabel()
+
+        setupViews()
+        setupConstraints()
+    }
+
+    // MARK: - Overrides
+    override func configure(for item: Habit) {
+        habit = item
+        titleLabel.text = habit.title
+        streakLabel.text = getStreakEmoji()
+
+        if let mostRecentCheckin = habit.dates.sorted().last {
+            if Date() - Date.secondsPerDay < mostRecentCheckin {
+                checkInButton.isSelected = true
+
+                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: habit.title)
+                attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+                titleLabel.attributedText = attributeString
+                titleLabel.textColor = .fitnessMediumGrey
+            }
+        }
+    }
+
+    // MARK: - Private helpers
+    private func setupViews() {
+        checkInButton.setImage(UIImage(named: "empty_circle"), for: .normal)
+        checkInButton.setImage(UIImage(named: "checked_circle"), for: .selected)
+        checkInButton.addTarget(self, action: #selector(checkIn), for: .touchUpInside)
+        contentView.addSubview(checkInButton)
+
         titleLabel.textColor = .fitnessBlack
         titleLabel.font = ._16MontserratMedium
         contentView.addSubview(titleLabel)
-        
-        streakLabel = UILabel()
+
         streakLabel.textColor = .black
         streakLabel.font = ._16MontserratBold
         contentView.addSubview(streakLabel)
-        
-        separator = UIView()
-        separator.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(separator)
-        
-        setupConstraints()
+
+        dividerView.backgroundColor = .fitnessLightGrey
+        contentView.addSubview(dividerView)
     }
-    
-    // MARK: - CONSTRAINTS
+
     private func setupConstraints() {
-        let checkinButtonDiameter = 23
+        let checkInButtonDiameter = 23
+        let dividerViewHeight = 1
         let labelHeight = 22
-        let separatorHeight = 1
-        let streakLabelWidth = 36
-        
         let leadingPadding = 16
+        let streakLabelWidth = 36
+        let titleLabelLeftPadding = 11
+        let titleLabelRightPadding = 2
         let trailingPadding = 32
-        
-        checkinButton.snp.makeConstraints { make in
-            make.height.width.equalTo(checkinButtonDiameter)
+
+        checkInButton.snp.makeConstraints { make in
+            make.height.width.equalTo(checkInButtonDiameter)
             make.leading.equalToSuperview().inset(leadingPadding)
             make.centerY.equalToSuperview()
         }
@@ -71,15 +91,15 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(checkinButton.snp.trailing).offset(11).priority(.high)
+            make.leading.equalTo(checkInButton.snp.trailing).offset(titleLabelLeftPadding).priority(.high)
             make.centerY.equalToSuperview()
             make.height.equalTo(labelHeight)
-            make.trailing.lessThanOrEqualTo(streakLabel.snp.leading).offset(-2)
+            make.trailing.lessThanOrEqualTo(streakLabel.snp.leading).offset(-titleLabelRightPadding)
 
         }
-        
-        separator.snp.makeConstraints { make in
-            make.height.equalTo(separatorHeight)
+
+        dividerView.snp.makeConstraints { make in
+            make.height.equalTo(dividerViewHeight)
             make.leading.equalToSuperview().inset(leadingPadding)
             make.trailing.equalToSuperview().inset(trailingPadding).priority(.high)
             make.bottom.equalToSuperview()
@@ -89,38 +109,20 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.textColor = .fitnessBlack
-        checkinButton.isSelected = false
-    }
-    
-    func configure(habit: Habit) {
-        self.habit = habit
-        
-        titleLabel.text = habit.title
-        streakLabel.text = getStreakEmoji()
-        
-        if let mostRecentCheckin = habit.dates.sorted().last {
-            if Date() - Date.secondsPerDay < mostRecentCheckin {
-                checkinButton.isSelected = true
-                
-                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: habit.title)
-                attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-                titleLabel.attributedText = attributeString
-                titleLabel.textColor = .fitnessMediumGrey
-            }
-        }
+        checkInButton.isSelected = false
     }
     
     @objc private func checkIn() {
-        if checkinButton.isSelected {
+        if checkInButton.isSelected {
             Habit.removeDate(habit: habit, date: Date())
             habit.dates.removeFirst()
-            
+
             titleLabel.attributedText = nil
             titleLabel.text = habit.title
             titleLabel.textColor = .fitnessBlack
         } else {
             Habit.logDate(habit: habit, date: Date())
-            
+
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: habit.title)
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
             titleLabel.attributedText = attributeString
@@ -128,21 +130,30 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
         }
         
         habit = Habit.getHabit(habit: habit.title, type: habit.type)
-        
-        checkinButton.isSelected.toggle()
+
+        checkInButton.isSelected.toggle()
         streakLabel.text = getStreakEmoji()
     }
-    
+
     private func getStreakEmoji() -> String {
         let streak = habit.streak
-        
+
         if streak <= 1 {
             return ""
         }
-        
+
         // Stores pairs of form [level:upper threshold (not inclusive)]
-        let levelThresholdDict = [ 0:3, 1:5, 2:8, 3:10, 4:14, 5:20, 6:30, 7:Int.max ]
-        
+        let levelThresholdDict = [
+            0: 3,
+            1: 5,
+            2: 8,
+            3: 10,
+            4: 14,
+            5: 20,
+            6: 30,
+            7: Int.max
+        ]
+
         var level = 0
         for (potentialLevel, threshold) in levelThresholdDict {
             if streak < threshold {
@@ -150,17 +161,17 @@ class HabitTrackerCheckinCell: UICollectionViewCell {
                 break
             }
         }
-        
+
         switch habit.type {
         case .cardio:
-            return "\(["💧","💦","🌧","⛲️","🌊", "🏝","🧜‍♀️","🌏"][level]) \(streak)"
+            return "\(["💧", "💦", "🌧", "⛲️", "🌊", "🏝", "🧜‍♀️", "🌏"][level]) \(streak)"
         case .strength:
-            return "\(["🐛","🦋","🦔","🐒","🦍","🦏","🐆","🐉"][level]) \(streak)"
+            return "\(["🐛", "🦋", "🦔", "🐒", "🦍", "🦏", "🐆", "🐉"][level]) \(streak)"
         case .mindfulness:
-            return "\(["☁️","🚁","✈️","🚀","👨‍🚀","🛰","🛸","🌞"][level]) \(streak)"
+            return "\(["☁️", "🚁", "✈️", "🚀", "👨‍🚀", "🛰", "🛸", "🌞"][level]) \(streak)"
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
