@@ -14,12 +14,31 @@ protocol ClassDetailTimeCellDelegate: class {
 
 class ClassDetailTimeCell: UICollectionViewCell {
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let addToCalendarButtonHeight: CGFloat = 21
+        static let addToCalendarButtonTopPadding: CGFloat = 26
+        static let addToCalendarLabelHeight: CGFloat = 10
+        static let addToCalendarLabelTopPadding: CGFloat = 5
+        static let dateLabelHeight: CGFloat = 19
+        static let dateLabelTopPadding: CGFloat = 36
+        static let dividerViewTopPadding: CGFloat = 32
+        static let dividerViewHeight: CGFloat = 1
+        static let timeLabelHeight: CGFloat = 19
+        static let timeLabelTopPadding: CGFloat = 8
+    }
+
+    // MARK: - Public data vars
+    static var height: CGFloat {
+        return Constants.dateLabelTopPadding + Constants.dateLabelHeight + Constants.timeLabelTopPadding + Constants.timeLabelHeight + Constants.addToCalendarButtonTopPadding + Constants.addToCalendarButtonHeight + Constants.addToCalendarLabelTopPadding + Constants.addToCalendarLabelHeight + Constants.dividerViewTopPadding + Constants.dividerViewHeight
+    }
+
     // MARK: - Private view vars
-    private let dateLabel = UILabel()
-    private let timeLabel = UILabel()
     private let addToCalendarButton = UIButton()
     private let addToCalendarLabel = UILabel()
-    private let dateDivider = UIView()
+    private let dateLabel = UILabel()
+    private let dividerView = UIView()
+    private let timeLabel = UILabel()
 
     // MARK: - Private data vars
     private weak var delegate: ClassDetailTimeCellDelegate?
@@ -56,13 +75,13 @@ class ClassDetailTimeCell: UICollectionViewCell {
     private func setupViews() {
         dateLabel.font = ._16MontserratLight
         dateLabel.textAlignment = .center
-        dateLabel.textColor = .fitnessBlack
+        dateLabel.textColor = .lightBlack
         dateLabel.sizeToFit()
         contentView.addSubview(dateLabel)
 
         timeLabel.font = ._16MontserratMedium
         timeLabel.textAlignment = .center
-        timeLabel.textColor = .fitnessBlack
+        timeLabel.textColor = .lightBlack
         timeLabel.sizeToFit()
         contentView.addSubview(timeLabel)
 
@@ -71,61 +90,52 @@ class ClassDetailTimeCell: UICollectionViewCell {
         contentView.addSubview(addToCalendarButton)
 
         addToCalendarLabel.text = "ADD TO CALENDAR"
-        addToCalendarLabel.font = ._8SFBold
+        addToCalendarLabel.font = ._8SFLight
         addToCalendarLabel.textAlignment = .center
-        addToCalendarLabel.textColor = .fitnessBlack
+        addToCalendarLabel.textColor = .lightBlack
         addToCalendarLabel.sizeToFit()
         addToCalendarButton.addTarget(self, action: #selector(addToCalendar), for: .touchUpInside)
         contentView.addSubview(addToCalendarLabel)
 
-        dateDivider.backgroundColor = .fitnessLightGrey
-        contentView.addSubview(dateDivider)
+        dividerView.backgroundColor = .fitnessMutedGreen
+        contentView.addSubview(dividerView)
     }
 
     private func setupConstraints() {
-        let addToCalendarButtonSize = CGSize(width: 23, height: 23)
-        let addToCalendarButtonTopPadding = 26
-        let addToCalendarLabelHeight = 10
-        let addToCalendarLabelTopPadding = 5
-        let dateDividerHeight = 1
-        let dateDividerTopPadding = 32
-        let dateLabelHeight = 19
-        let dateLabelTopPadding = 36
-        let timeLabelHeight = 19
-        let timeLabelTopPadding = 8
+        let addToCalendarButtonWidth = 21
 
         dateLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(dateLabelTopPadding)
+            make.top.equalToSuperview().offset(Constants.dateLabelTopPadding)
             make.trailing.equalToSuperview()
-            make.height.equalTo(dateLabelHeight)
+            make.height.equalTo(Constants.dateLabelHeight)
         }
 
         timeLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.equalTo(dateLabel.snp.bottom).offset(timeLabelTopPadding)
+            make.top.equalTo(dateLabel.snp.bottom).offset(Constants.timeLabelTopPadding)
             make.trailing.equalToSuperview()
-            make.height.equalTo(timeLabelHeight)
+            make.height.equalTo(Constants.timeLabelHeight)
         }
 
         addToCalendarButton.snp.makeConstraints { make in
-            make.size.equalTo(addToCalendarButtonSize)
+            make.width.equalTo(addToCalendarButtonWidth)
+            make.height.equalTo(Constants.addToCalendarButtonHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(timeLabel.snp.bottom).offset(addToCalendarButtonTopPadding)
+            make.top.equalTo(timeLabel.snp.bottom).offset(Constants.addToCalendarButtonTopPadding)
         }
 
         addToCalendarLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalTo(addToCalendarButton.snp.bottom).offset(addToCalendarLabelTopPadding)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(addToCalendarLabelHeight)
+            make.top.equalTo(addToCalendarButton.snp.bottom).offset(Constants.addToCalendarLabelTopPadding)
+            make.height.equalTo(Constants.addToCalendarLabelHeight)
+            make.centerX.equalToSuperview()
         }
 
-        dateDivider.snp.makeConstraints { make in
-            make.height.equalTo(dateDividerHeight)
+        dividerView.snp.makeConstraints { make in
+            make.height.equalTo(Constants.dividerViewHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(dateDividerTopPadding)
+            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(Constants.dividerViewTopPadding)
         }
     }
 

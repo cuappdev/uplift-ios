@@ -132,8 +132,7 @@ extension HomeViewController: TodaysClassesListCellDelegate {
 extension HomeViewController: ProsListCellDelegate {
 
     func prosListCellShouldOpenProBio(_ proBio: ProBio) {
-        let proDetailViewController = ProBioPageViewController()
-        proDetailViewController.pro = proBio
+        let proDetailViewController = ProBioViewController(pro: proBio)
         navigationController?.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(proDetailViewController, animated: true)
     }

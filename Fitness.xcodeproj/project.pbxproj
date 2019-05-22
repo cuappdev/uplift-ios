@@ -21,7 +21,14 @@
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
+		7E038C702295782D00418500 /* ProRoutineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */; };
 		7E33C816CD97FA81CDFDDFCF /* Pods_Fitness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C963E42AF2D49211610461 /* Pods_Fitness.framework */; };
+		7E4FD0D82292389300AC9F90 /* ProBioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */; };
+		7E4FD0DA229243DA00AC9F90 /* ProBioHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */; };
+		7E4FD0DC22924BE400AC9F90 /* ProBioBiographyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0DB22924BE400AC9F90 /* ProBioBiographyCell.swift */; };
+		7E4FD0E022924FBB00AC9F90 /* ProBioExpertiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */; };
+		7E4FD0E222925AE800AC9F90 /* ProBioRoutinesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */; };
+		7E4FD0E422925E3700AC9F90 /* ProBioLinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
 		8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */; };
 		8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymListItemCell.swift */; };
@@ -101,12 +108,9 @@
 		D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */; };
 		E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9C222B93DF00F89275 /* ProRoutine.swift */; };
 		E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */; };
-		E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639A22445803005C2930 /* ProRoutineView.swift */; };
-		E6AB639D2244584F005C2930 /* AllProRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */; };
 		E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639E22445897005C2930 /* PersonalLink.swift */; };
 		E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5806B2228B51100A864D6 /* ProBio.swift */; };
 		E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */; };
-		E6FEE6712277B37F003743ED /* ProBioPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FEE6702277B37F003743ED /* ProBioPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +130,14 @@
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
+		7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
+		7E10287022931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
+		7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioViewController.swift; sourceTree = "<group>"; };
+		7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioHeaderView.swift; sourceTree = "<group>"; };
+		7E4FD0DB22924BE400AC9F90 /* ProBioBiographyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioBiographyCell.swift; sourceTree = "<group>"; };
+		7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioExpertiseCell.swift; sourceTree = "<group>"; };
+		7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProBioRoutinesCell.swift; path = Fitness/Views/ProBio/ProBioRoutinesCell.swift; sourceTree = SOURCE_ROOT; };
+		7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioLinksCell.swift; sourceTree = "<group>"; };
 		844312DC4A9667C4E73D7EED /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
 		8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -209,12 +221,9 @@
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E60A1B9C222B93DF00F89275 /* ProRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLinkCollectionViewCell.swift; sourceTree = "<group>"; };
-		E6AB639A22445803005C2930 /* ProRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProRoutineView.swift; path = Fitness/Views/ProRoutineView.swift; sourceTree = SOURCE_ROOT; };
-		E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProRoutinesView.swift; sourceTree = "<group>"; };
 		E6AB639E22445897005C2930 /* PersonalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLink.swift; sourceTree = "<group>"; };
 		E6B5806B2228B51100A864D6 /* ProBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
 		E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProListItemCell.swift; sourceTree = "<group>"; };
-		E6FEE6702277B37F003743ED /* ProBioPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProBioPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +260,26 @@
 				8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7E038C6E2295777400418500 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				7E10287022931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		7E4FD0DE22924C1C00AC9F90 /* ProBio */ = {
+			isa = PBXGroup;
+			children = (
+				7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */,
+				7E4FD0DB22924BE400AC9F90 /* ProBioBiographyCell.swift */,
+				7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */,
+				7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */,
+				7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */,
+			);
+			path = ProBio;
 			sourceTree = "<group>";
 		};
 		8D95F448208704010095B8AB /* Secrets */ = {
@@ -361,6 +390,7 @@
 				C7DFABCC204206E000545B0B /* Products */,
 				C81ACE807AA0169E1CA71704 /* Pods */,
 				617FB0ECFB15315DBB057217 /* Frameworks */,
+				7E038C6E2295777400418500 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -406,10 +436,10 @@
 				C21BE14C2292374400B5D219 /* HomeViewController.swift */,
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
-				E6FEE6702277B37F003743ED /* ProBioPageViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
 				4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */,
+				7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -422,8 +452,6 @@
 				C21BE14E2292406400B5D219 /* Home */,
 				C21BE14922920EB200B5D219 /* ClassList */,
 				C26236FA2290D696007C415D /* ClassDetail */,
-				E6AB639A22445803005C2930 /* ProRoutineView.swift */,
-				E6AB639C2244584F005C2930 /* AllProRoutinesView.swift */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				D9936A27216D9F8B002802F4 /* Empty States */,
 				8D5EA478208EC31100E98E6C /* Histogram.swift */,
@@ -432,6 +460,7 @@
 				C7EBD5AC2062E72300D76A8B /* Headers */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
 				C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */,
+				7E4FD0DE22924C1C00AC9F90 /* ProBio */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -450,6 +479,7 @@
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
 				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
+				7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -661,7 +691,7 @@
 		};
 		1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -738,8 +768,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E4FD0DC22924BE400AC9F90 /* ProBioBiographyCell.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
-				E6AB639D2244584F005C2930 /* AllProRoutinesView.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
 				C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */,
@@ -748,6 +778,7 @@
 				E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
+				7E4FD0E222925AE800AC9F90 /* ProBioRoutinesCell.swift in Sources */,
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
 				C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */,
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
@@ -767,12 +798,16 @@
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
+				7E4FD0DA229243DA00AC9F90 /* ProBioHeaderView.swift in Sources */,
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
 				D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */,
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
+				7E4FD0D82292389300AC9F90 /* ProBioViewController.swift in Sources */,
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
+				7E4FD0E422925E3700AC9F90 /* ProBioLinksCell.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
+				7E038C702295782D00418500 /* ProRoutineCollectionViewCell.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */,
@@ -789,15 +824,14 @@
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
-				E6FEE6712277B37F003743ED /* ProBioPageViewController.swift in Sources */,
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */,
+				7E4FD0E022924FBB00AC9F90 /* ProBioExpertiseCell.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
-				E6AB639B22445803005C2930 /* ProRoutineView.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
 				8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */,

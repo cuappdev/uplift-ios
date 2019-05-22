@@ -15,6 +15,18 @@ protocol ClassDetailNextSessionsCellDelegate: class {
 
 class ClassDetailNextSessionsCell: UICollectionViewCell {
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let collectionViewBottomPadding: CGFloat = 12
+        static let collectionViewTopPadding: CGFloat = 32
+        static let nextSessionsLabelHeight: CGFloat = 15
+    }
+
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return Constants.nextSessionsLabelHeight + Constants.collectionViewTopPadding + Constants.collectionViewBottomPadding
+    }
+
     // MARK: - Private view vars
     private let nextSessionsLabel = UILabel()
     private var collectionView: UICollectionView!
@@ -70,21 +82,15 @@ class ClassDetailNextSessionsCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let collectionViewTopPadding = 32
-        let collectionViewBottomPadding = 12
-        let nextSessionsLabelHeight = 15
-        let nextSessionsLabelTopPadding = 24
-
         nextSessionsLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(nextSessionsLabelTopPadding)
-            make.height.equalTo(nextSessionsLabelHeight)
+            make.centerX.top.equalToSuperview()
+            make.height.equalTo(Constants.nextSessionsLabelHeight)
         }
 
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(nextSessionsLabel.snp.bottom).offset(collectionViewTopPadding)
-            make.bottom.equalToSuperview().offset(-collectionViewBottomPadding)
+            make.top.equalTo(nextSessionsLabel.snp.bottom).offset(Constants.collectionViewTopPadding)
+            make.bottom.equalToSuperview().offset(-Constants.collectionViewBottomPadding)
         }
     }
 
