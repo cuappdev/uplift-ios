@@ -139,7 +139,6 @@ CHECKOUT OPTIONS:
     :commit: 0a69032bfa1ef06965036c149e20d14b5bc67db0
     :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
-    :commit: fe68b1b644b6015202430662d4db621eb1b621bc
     :git: https://github.com/cuappdev/Presentation.git
 
 SPEC CHECKSUMS:
