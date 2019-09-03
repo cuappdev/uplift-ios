@@ -6,7 +6,7 @@ target 'Fitness' do
   use_frameworks!
   pod 'AlamofireImage'
   pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc'
-  pod 'AppDevAnalytics', :git => 'https://github.com/cuappdev/ios-analytics.git', :commit => '6cc49135579c13c5af72e8e7db12a2bb6e962b4b'
+  pod 'AppDevAnalytics', :git => 'https://github.com/cuappdev/ios-analytics.git'
   pod 'Bartinter'
   pod 'Crashlytics'
   pod 'FLEX', '~> 2.0', :configurations => ['Debug']
