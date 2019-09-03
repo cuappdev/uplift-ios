@@ -85,7 +85,7 @@ class ProBioViewController: UIViewController {
     }
 
 }
-// MARK: - CollectionViewDataSource, CollectionViewDelegate
+// MARK: - CollectionViewDataSource, CollectionViewDelegate, CollectionViewDelegateFlowLayout
 extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sections[section].items.count
@@ -96,18 +96,22 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
 
         switch itemType {
         case .biography:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioBiographyCellIdentifier, for: indexPath) as! ProBioBiographyCell
             cell.configure(for: pro)
             return cell
         case .expertise:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioExpertiseCellIdentifier, for: indexPath) as! ProBioExpertiseCell
             cell.configure(for: pro)
             return cell
         case .routines:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioRoutinesCellIdentifier, for: indexPath) as! ProBioRoutinesCell
             cell.configure(for: self, for: pro)
             return cell
         case .links:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioLinksCellIdentifier, for: indexPath) as! ProBioLinksCell
             cell.configure(for: pro)
             return cell

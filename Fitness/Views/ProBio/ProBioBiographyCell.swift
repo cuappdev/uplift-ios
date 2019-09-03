@@ -34,7 +34,7 @@ class ProBioBiographyCell: UICollectionViewCell {
         setupViews()
         setupConstraints()
     }
-    
+
     // MARK: - Public configure
     func configure(for pro: ProBio) {
         bioSummary.text = pro.summary
@@ -53,7 +53,7 @@ class ProBioBiographyCell: UICollectionViewCell {
         contentView.addSubview(bioSummary)
 
         bioTextView.font = ._14MontserratLight
-        bioTextView.textColor = .lightBlack
+        bioTextView.textColor = .fitnessLightBlack
         bioTextView.textAlignment = .center
         bioTextView.isScrollEnabled = false
         bioTextView.isSelectable = false

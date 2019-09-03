@@ -1,0 +1,264 @@
+//
+//  GymDetailHoursCell.swift
+//  Fitness
+//
+//  Created by Yana Sang on 5/26/19.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
+//
+
+import UIKit
+
+protocol GymDetailHoursCellDelegate: class {
+    func didDropHours(isDropped: Bool)
+}
+
+class GymDetailHoursCell: UICollectionViewCell {
+
+    // MARK: - Constraint constants
+    private enum Constants {
+        static let dividerHeight = 1
+        static let dividerTopPadding = 32
+        static let closedLabelHeight = 60
+        static let hoursTableViewDroppedHeight = 181
+        static let hoursTableViewHeight = 19
+        static let hoursTableViewTopPadding = 12
+        static let hoursTitleLabelHeight = 19
+        static let hoursTitleLabelTopPadding = 36
+    }
+
+    // MARK: - Public data vars
+    static var height: CGFloat {
+        var height = Constants.hoursTitleLabelTopPadding + Constants.hoursTitleLabelHeight + Constants.hoursTableViewTopPadding + Constants.dividerTopPadding + Constants.dividerHeight
+        height = hoursData.isDropped ? height + Constants.hoursTableViewDroppedHeight : height + Constants.hoursTableViewHeight
+        height = isOpen ? height : height + Constants.closedLabelHeight
+        return CGFloat(height)
+    }
+
+    // MARK: - Private structs/classes
+    private struct HoursData {
+        var data: [String]!
+        var isDropped: Bool!
+    }
+
+    // MARK: - Private data vars
+    private enum Days {
+        case sunday
+        case monday
+        case tuesday
+        case wednesday
+        case thursday
+        case friday
+        case saturday
+    }
+
+    private let days: [Days] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
+    private weak var delegate: GymDetailHoursCellDelegate?
+    private var hours: [DailyGymHours] = []
+    private static var hoursData = HoursData(data: [], isDropped: false)
+    private var hoursToday: DailyGymHours!
+    private static var isOpen: Bool = true
+
+    // MARK: - Private view vars
+    private let closedLabel = UILabel()
+    private let dividerView = UIView()
+    private var hoursTableView: UITableView!
+    private let hoursTitleLabel = UILabel()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        setupViews()
+        setupConstraints()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Public configure
+    func configure(for delegate: GymDetailHoursCellDelegate, gym: Gym) {
+        self.delegate = delegate
+        self.hours = gym.gymHours
+        self.hoursToday = gym.gymHoursToday
+        self.isOpen = gym.isOpen
+        DispatchQueue.main.async {
+            // reload table view & remake constraints
+        }
+    }
+
+    // MARK: - Private helpers
+    private func setupViews() {
+        closedLabel.font = ._16MontserratSemiBold
+        closedLabel.textColor = .white
+        closedLabel.textAlignment = .center
+        closedLabel.backgroundColor = .fitnessBlack
+        closedLabel.text = "CLOSED"
+        contentView.addSubview(closedLabel)
+
+        hoursTitleLabel.font = ._16MontserratMedium
+        hoursTitleLabel.textColor = .fitnessBlack
+        hoursTitleLabel.textAlignment = .center
+        hoursTitleLabel.sizeToFit()
+        hoursTitleLabel.text = "HOURS"
+        contentView.addSubview(hoursTitleLabel)
+
+        hoursTableView = UITableView(frame: .zero, style: .grouped)
+        hoursTableView.bounces = false
+        hoursTableView.showsVerticalScrollIndicator = false
+        hoursTableView.separatorStyle = .none
+        hoursTableView.backgroundColor = .clear
+        hoursTableView.isScrollEnabled = false
+        hoursTableView.allowsSelection = false
+        hoursTableView.register(GymHoursCell.self, forCellReuseIdentifier: GymHoursCell.identifier)
+        hoursTableView.register(GymHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: GymHoursHeaderView.identifier)
+        hoursTableView.delegate = self
+        hoursTableView.dataSource = self
+        contentView.addSubview(hoursTableView)
+
+        dividerView.backgroundColor = .fitnessMutedGreen
+        contentView.addSubview(dividerView)
+    }
+
+    private func setupConstraints() {
+        if isOpen {
+            closedLabel.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                make.height.equalTo(Constants.closedLabelHeight)
+            }
+        } else {
+            closedLabel.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                make.height.equalTo(0)
+            }
+        }
+
+        hoursTitleLabel.snp.updateConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(closedLabel.snp.bottom).offset(Constants.hoursTitleLabelTopPadding)
+            make.height.equalTo(Constants.hoursTitleLabelHeight)
+        }
+
+        hoursTableView.snp.updateConstraints { make in
+            make.centerX.width.equalToSuperview()
+            make.top.equalTo(hoursTitleLabel.snp.bottom).offset(Constants.hoursTableViewTopPadding)
+            if hours.isEmpty || hoursToday == nil {
+                make.height.equalTo(0)
+            } else {
+                if hoursData.isDropped {
+                    make.height.equalTo(Constants.hoursTableViewDroppedHeight)
+                } else {
+                    make.height.equalTo(Constants.hoursTableViewHeight)
+                }
+            }
+        }
+
+        dividerView.snp.updateConstraints {make in
+            make.top.equalTo(hoursTableView.snp.bottom).offset(Constants.dividerTopPadding)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(Constants.dividerHeight)
+        }
+    }
+
+    func getStringFromDailyHours(dailyGymHours: DailyGymHours) -> String {
+        if dailyGymHours.openTime != dailyGymHours.closeTime {
+            return "\(dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")) - \(dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a"))"
+        } else {
+            return "Closed"
+        }
+    }
+
+    // MARK: - Targets
+    @objc func dropHours(sender: UITapGestureRecognizer) {
+        hoursTableView.beginUpdates()
+        var modifiedIndices: [IndexPath] = []
+        for i in 0..<6 {
+            modifiedIndices.append(IndexPath(row: i, section: 0))
+        }
+
+        if hoursData.isDropped { // collapsing details
+            hoursData.isDropped = false
+            hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
+            // swiftlint:disable:next force_cast
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
+            // swiftlint:disable:next force_cast
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = #imageLiteral(resourceName: "right-arrow-solid")
+
+            UIView.animate(withDuration: 0.3) {
+                self.delegate?.didDropHours(isDropped: false)
+                self.setupConstraints()
+                self.contentView.layoutIfNeeded()
+            }
+        } else { // expanding details
+            hoursData.isDropped = true
+            hoursTableView.insertRows(at: modifiedIndices, with: .fade)
+            // swiftlint:disable:next force_cast
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = #imageLiteral(resourceName: "down-arrow-solid")
+            // swiftlint:disable:next force_cast
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = .none
+
+            UIView.animate(withDuration: 0.5) {
+                self.delegate?.didDropHours(isDropped: true)
+                self.setupConstraints()
+                self.contentView.layoutIfNeeded()
+            }
+        }
+        hoursTableView.endUpdates()
+    }
+}
+
+extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let numRows = hoursData.isDropped ? 6 : 0
+        return numRows
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // swiftlint:disable:next force_cast
+        let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
+
+        let date = Date()
+        let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1) % 7
+        cell.hoursLabel.text = getStringFromDailyHours(dailyGymHours: hours[day])
+
+        switch days[day] {
+        case .sunday:
+            cell.dayLabel.text = "Su"
+        case .monday:
+            cell.dayLabel.text = "M"
+        case .tuesday:
+            cell.dayLabel.text = "T"
+        case .wednesday:
+            cell.dayLabel.text = "W"
+        case .thursday:
+            cell.dayLabel.text = "Th"
+        case .friday:
+            cell.dayLabel.text = "F"
+        case .saturday:
+            cell.dayLabel.text = "Sa"
+        }
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // swiftlint:disable:next force_cast
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: GymHoursHeaderView.identifier) as! GymHoursHeaderView
+
+        header.hoursLabel.text = getStringFromDailyHours(dailyGymHours: hoursToday)
+
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))
+        header.addGestureRecognizer(gesture)
+
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.row == 5 ? 19 : 27
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let height: CGFloat = hoursData.isDropped ? 27 : 19
+        return height
+    }
+}

@@ -46,7 +46,7 @@ class ClassDetailFunctionCell: UICollectionViewCell {
         functionLabel.text = "FUNCTION"
         functionLabel.font = ._16MontserratMedium
         functionLabel.textAlignment = .center
-        functionLabel.textColor = .lightBlack
+        functionLabel.textColor = .fitnessLightBlack
         contentView.addSubview(functionLabel)
 
         descriptionLabel.font = ._14MontserratLight

@@ -73,9 +73,8 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
-    
+
     convenience init(facilityName: FacilityName) {
         self.init(frame: .zero)
         self.facilityName = facilityName
@@ -96,7 +95,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
         guard let unwrappedFacilityName = self.facilityName else {
             return
         }
-        
+
         switch unwrappedFacilityName {
         case .helenNewman:
             bowlingTableView = UITableView(frame: .zero, style: .grouped)
@@ -113,7 +112,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             bowlingTableView!.delegate = self
             bowlingTableView!.dataSource = self
             addSubview(bowlingTableView!)
-            
+
             basketballTableView = UITableView(frame: .zero, style: .grouped)
             basketballTableView!.bounces = false
             basketballTableView!.showsVerticalScrollIndicator = false
@@ -121,14 +120,14 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             basketballTableView!.backgroundColor = .clear
             basketballTableView!.isScrollEnabled = false
             basketballTableView!.allowsSelection = false
-            
+
             basketballTableView!.register(FacilityHoursCell.self, forCellReuseIdentifier: FacilityHoursCell.identifier)
             basketballTableView!.register(FacilityHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: FacilityHoursHeaderView.identifier)
             
             basketballTableView!.delegate = self
             basketballTableView!.dataSource = self
             addSubview(basketballTableView!)
-            
+
             poolTableView = UITableView(frame: .zero, style: .grouped)
             poolTableView!.bounces = false
             poolTableView!.showsVerticalScrollIndicator = false
@@ -143,7 +142,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             poolTableView!.delegate = self
             poolTableView!.dataSource = self
             addSubview(poolTableView!)
-            
+
             basketballSeparator = UIView()
             basketballSeparator!.backgroundColor = .fitnessLightGrey
             addSubview(basketballSeparator!)
@@ -160,7 +159,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             poolTableView!.backgroundColor = .clear
             poolTableView!.isScrollEnabled = false
             poolTableView!.allowsSelection = false
-            
+
             poolTableView!.register(FacilityHoursCell.self, forCellReuseIdentifier: FacilityHoursCell.identifier)
             poolTableView!.register(FacilityHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: FacilityHoursHeaderView.identifier)
             
@@ -171,7 +170,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             return
         }
     }
-    
+
     func setupConstraints() {
         guard let unwrappedFacilityName = self.facilityName else {
             return
@@ -179,29 +178,28 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
 
         let basketballSeparatorHeight = 1
         let basketballSeparatorHorizontalPadding = 24
-        let basketballTableViewDroppedHeight = 260
-        let basketballTableViewHeight = 42
-        let bowlingTableViewDroppedHeight = 260
-        let bowlingTableViewHeight = 42
+        let basketballTableViewDroppedHeight = 286
+        let basketballTableViewHeight = 76
+        let bowlingTableViewDroppedHeight = 286
+        let bowlingTableViewHeight = 76
         let poolSeparatorHeight = 1
         let poolSeparatorHorizontalPadding = 24
-        let poolSeparatorTopPadding = 16
-        let poolTableViewDroppedHeight = 260
-        let poolTableViewHeight = 42
+        let poolTableViewDroppedHeight = 286
+        let poolTableViewHeight = 76
 
         switch unwrappedFacilityName {
         case .helenNewman:
             basketballTableView!.snp.updateConstraints {make in
                 make.width.centerX.top.equalToSuperview()
-                if (facilityData[0].isDropped) {
+                if facilityData[0].isDropped {
                     make.height.equalTo(basketballTableViewDroppedHeight)
                 } else {
                     make.height.equalTo(basketballTableViewHeight)
                 }
             }
-            
+
             basketballSeparator!.snp.updateConstraints {make in
-                make.top.equalTo(basketballTableView!.snp.bottom).offset(16)
+                make.top.equalTo(basketballTableView!.snp.bottom)
                 make.leading.equalToSuperview().offset(basketballSeparatorHorizontalPadding)
                 make.trailing.equalToSuperview().offset(-basketballSeparatorHorizontalPadding)
                 make.height.equalTo(basketballSeparatorHeight)
@@ -209,8 +207,8 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
 
             bowlingTableView!.snp.updateConstraints {make in
                 make.width.centerX.equalToSuperview()
-                make.top.equalTo(basketballSeparator!.snp.bottom).offset(16)
-                if (facilityData[1].isDropped) {
+                make.top.equalTo(basketballSeparator!.snp.bottom)
+                if facilityData[1].isDropped {
                     make.height.equalTo(bowlingTableViewDroppedHeight)
                 } else {
                     make.height.equalTo(bowlingTableViewHeight)
@@ -218,7 +216,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             }
             
             poolSeparator!.snp.updateConstraints {make in
-                make.top.equalTo(bowlingTableView!.snp.bottom).offset(16)
+                make.top.equalTo(bowlingTableView!.snp.bottom)
                 make.leading.equalToSuperview().offset(poolSeparatorHorizontalPadding)
                 make.trailing.equalToSuperview().offset(-poolSeparatorHorizontalPadding)
                 make.height.equalTo(poolSeparatorHeight)
@@ -226,8 +224,8 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             
             poolTableView!.snp.updateConstraints {make in
                 make.width.centerX.bottom.equalToSuperview()
-                make.top.equalTo(poolSeparator!.snp.bottom).offset(16)
-                if (facilityData[2].isDropped) {
+                make.top.equalTo(poolSeparator!.snp.bottom)
+                if facilityData[2].isDropped {
                     make.height.equalTo(poolTableViewDroppedHeight)
                 } else {
                     make.height.equalTo(poolTableViewHeight)
@@ -236,7 +234,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
         case .teagle:
             poolTableView!.snp.updateConstraints {make in
                 make.width.centerX.bottom.top.equalToSuperview()
-                if (facilityData[0].isDropped) {
+                if facilityData[0].isDropped {
                     make.height.equalTo(poolTableViewDroppedHeight)
                 } else {
                     make.height.equalTo(poolTableViewHeight)
@@ -247,11 +245,11 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             return
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     @objc func dropFacilityHours(sender: FacilitiesGestureRecognizer) {
         guard let unwrappedFacilityName = self.facilityName else {
             return
@@ -265,47 +263,47 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
                 for i in 0..<7 {
                     modifiedIndices.append(IndexPath(row: i, section: 0))
                 }
-                
+
                 if (facilityData[0].isDropped) {
                     facilityData[0].isDropped = false
                     basketballTableView!.deleteRows(at: modifiedIndices, with: .fade)
-                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = .none
-                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = UIImage(named: "down_arrow")
+                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = UIImage(named: "down_arrow")
+                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = .none
 
                     self.setupConstraints()
                     self.layoutIfNeeded()
                 } else {
                     facilityData[0].isDropped = true
                     basketballTableView!.insertRows(at: modifiedIndices, with: .fade)
-                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = UIImage(named: "down_arrow")
-                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = .none
-                    
+                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = .none
+                    (basketballTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = UIImage(named: "down_arrow")
+
                     self.setupConstraints()
                     self.layoutIfNeeded()
                 }
                 basketballTableView!.endUpdates()
             } else if sender.title == "bowling" {
-                
+
                 bowlingTableView!.beginUpdates()
                 var modifiedIndices: [IndexPath] = []
                 for i in 0..<7 {
                     modifiedIndices.append(IndexPath(row: i, section: 0))
                 }
-                
+
                 if (facilityData[1].isDropped) {
                     facilityData[1].isDropped = false
                     bowlingTableView!.deleteRows(at: modifiedIndices, with: .fade)
-                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = .none
-                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = UIImage(named: "down_arrow")
-                    
+                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = UIImage(named: "down_arrow")
+                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = .none
+
                     self.setupConstraints()
                     self.layoutIfNeeded()
                 } else {
                     facilityData[1].isDropped = true
                     bowlingTableView!.insertRows(at: modifiedIndices, with: .fade)
-                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = UIImage(named: "down_arrow")
-                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = .none
-                    
+                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = .none
+                    (bowlingTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = UIImage(named: "down_arrow")
+
                     self.setupConstraints()
                     self.layoutIfNeeded()
                 }
@@ -316,21 +314,21 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
                 for i in 0..<7 {
                     modifiedIndices.append(IndexPath(row: i, section: 0))
                 }
-                
-                if (facilityData[2].isDropped) {
+
+                if facilityData[2].isDropped {
                     facilityData[2].isDropped = false
                     poolTableView!.deleteRows(at: modifiedIndices, with: .fade)
-                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = .none
-                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = UIImage(named: "down_arrow")
-                    
+                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = UIImage(named: "down_arrow")
+                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = .none
+
                     self.setupConstraints()
                     self.layoutIfNeeded()
                 } else {
                     facilityData[2].isDropped = true
                     poolTableView!.insertRows(at: modifiedIndices, with: .fade)
-                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = UIImage(named: "down_arrow")
-                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = .none
-                    
+                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = .none
+                    (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = UIImage(named: "down_arrow")
+
                     self.setupConstraints()
                     self.layoutIfNeeded()
                 }
@@ -342,13 +340,13 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             for i in 0..<7 {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
             }
-            
-            if (facilityData[0].isDropped) {
+
+            if facilityData[0].isDropped {
                 facilityData[0].isDropped = false
                 poolTableView!.deleteRows(at: modifiedIndices, with: .fade)
                 (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = .none
                 (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = UIImage(named: "down_arrow")
-                
+
                 self.setupConstraints()
                 self.layoutIfNeeded()
             } else {
@@ -356,7 +354,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
                 poolTableView!.insertRows(at: modifiedIndices, with: .fade)
                 (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).downArrow.image = UIImage(named: "down_arrow")
                 (poolTableView!.headerView(forSection: 0) as! FacilityHoursHeaderView).upArrow.image = .none
-                
+
                 self.setupConstraints()
                 self.layoutIfNeeded()
             }
@@ -365,12 +363,12 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             return
         }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let unwrappedFacilityName = self.facilityName else {
             return 0
         }
-        
+
         switch unwrappedFacilityName {
         case .helenNewman:
             if tableView == basketballTableView! {
@@ -386,54 +384,53 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let unwrappedFacilityName = self.facilityName else {
             return UITableViewCell()
         }
-        
+
         switch unwrappedFacilityName {
         case .helenNewman:
             let cell = tableView.dequeueReusableCell(withIdentifier: FacilityHoursCell.identifier, for: indexPath) as! FacilityHoursCell
-            
+
             if tableView == basketballTableView {
                 cell.hoursLabel.text = facilityData[0].data[indexPath.row].0
                 cell.dayLabel.text = facilityData[0].data[indexPath.row].1
-                cell.textLabel
-                
+
                 return cell
             } else if tableView == bowlingTableView {
                 cell.hoursLabel.text = facilityData[1].data[indexPath.row].0
                 cell.dayLabel.text = facilityData[1].data[indexPath.row].1
-                
+
                 return cell
             } else {
                 cell.hoursLabel.text = facilityData[2].data[indexPath.row].0
                 cell.dayLabel.text = facilityData[2].data[indexPath.row].1
-                
+
                 return cell
             }
         case .teagle:
             let cell = tableView.dequeueReusableCell(withIdentifier: FacilityHoursCell.identifier, for: indexPath) as! FacilityHoursCell
             cell.hoursLabel.text = facilityData[0].data[indexPath.row].0
             cell.dayLabel.text = facilityData[0].data[indexPath.row].1
-            
+
             return cell
         default:
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let unwrappedFacilityName = self.facilityName else {
             return nil
         }
-        
+
         switch unwrappedFacilityName {
         case .helenNewman:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FacilityHoursHeaderView.identifier) as! FacilityHoursHeaderView
             var gesture: FacilitiesGestureRecognizer!
-            
+
             if tableView == basketballTableView {
                 header.iconImageView.image = UIImage(named: "basketball")
                 header.facilityNameLabel.text = facilityData[0].facility
@@ -451,9 +448,9 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
                 gesture = FacilitiesGestureRecognizer(target: self, action: #selector(self.dropFacilityHours(sender:) ))
                 gesture.title = "pool"
             }
-            
+
             header.addGestureRecognizer(gesture)
-            
+
             return header
         case .teagle:
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FacilityHoursHeaderView.identifier) as! FacilityHoursHeaderView
@@ -461,25 +458,25 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             header.facilityNameLabel.text = facilityData[0].facility
             let gesture = FacilitiesGestureRecognizer(target: self, action: #selector(self.dropFacilityHours(sender:) ))
             header.addGestureRecognizer(gesture)
-            
+
             return header
         default:
             return nil
         }
     }
-        
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 28
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard let unwrappedFacilityName = self.facilityName else {
             return 0
         }
-        
+
         switch unwrappedFacilityName {
         case .helenNewman, .teagle:
-            return 36
+            return 76
         default:
             return 0
         }

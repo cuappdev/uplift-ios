@@ -29,6 +29,12 @@
 		7E4FD0E022924FBB00AC9F90 /* ProBioExpertiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */; };
 		7E4FD0E222925AE800AC9F90 /* ProBioRoutinesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */; };
 		7E4FD0E422925E3700AC9F90 /* ProBioLinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */; };
+		7E80876D229B6984007D9EDD /* GymDetailTodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */; };
+		7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */; };
+		7E808771229B76BD007D9EDD /* GymDetailHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */; };
+		7E9D6DEF22961B860054F710 /* GymDetailViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DEE22961B860054F710 /* GymDetailViewControllerNew.swift */; };
+		7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */; };
+		7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
 		8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */; };
 		8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymListItemCell.swift */; };
@@ -138,6 +144,12 @@
 		7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioExpertiseCell.swift; sourceTree = "<group>"; };
 		7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProBioRoutinesCell.swift; path = Fitness/Views/ProBio/ProBioRoutinesCell.swift; sourceTree = SOURCE_ROOT; };
 		7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioLinksCell.swift; sourceTree = "<group>"; };
+		7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTodaysClassesCell.swift; sourceTree = "<group>"; };
+		7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GymDetailViewController+Extensions.swift"; sourceTree = "<group>"; };
+		7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailHoursCell.swift; sourceTree = "<group>"; };
+		7E9D6DEE22961B860054F710 /* GymDetailViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GymDetailViewControllerNew.swift; path = Fitness/GymDetailViewControllerNew.swift; sourceTree = SOURCE_ROOT; };
+		7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailHeaderView.swift; sourceTree = "<group>"; };
+		7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailPopularTimesCell.swift; sourceTree = "<group>"; };
 		844312DC4A9667C4E73D7EED /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
 		8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -282,6 +294,18 @@
 			path = ProBio;
 			sourceTree = "<group>";
 		};
+		7E9D6DED22961B1B0054F710 /* GymDetail */ = {
+			isa = PBXGroup;
+			children = (
+				7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */,
+				7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */,
+				7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */,
+				7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */,
+				0C97AC2622766E210086D699 /* GymFacilitiesView.swift */,
+			);
+			path = GymDetail;
+			sourceTree = "<group>";
+		};
 		8D95F448208704010095B8AB /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +434,7 @@
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				C71E8A022091653900542FA3 /* Networking */,
 				C736372D2082F1F2004751F5 /* Models */,
+				7E9D6DEE22961B860054F710 /* GymDetailViewControllerNew.swift */,
 				C7DFABE22042081000545B0B /* Controllers */,
 				C7EBD5A82062E64700D76A8B /* Views */,
 				C75EC94E2059AC75007BC98A /* Extensions */,
@@ -433,6 +458,7 @@
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
 				8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */,
+				7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */,
 				C21BE14C2292374400B5D219 /* HomeViewController.swift */,
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
@@ -449,13 +475,13 @@
 			children = (
 				C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */,
 				C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */,
+				7E9D6DED22961B1B0054F710 /* GymDetail */,
 				C21BE14E2292406400B5D219 /* Home */,
 				C21BE14922920EB200B5D219 /* ClassList */,
 				C26236FA2290D696007C415D /* ClassDetail */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				D9936A27216D9F8B002802F4 /* Empty States */,
 				8D5EA478208EC31100E98E6C /* Histogram.swift */,
-				0C97AC2622766E210086D699 /* GymFacilitiesView.swift */,
 				8DD7C7782084418F004EB196 /* Footers */,
 				C7EBD5AC2062E72300D76A8B /* Headers */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
@@ -768,6 +794,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
 				7E4FD0DC22924BE400AC9F90 /* ProBioBiographyCell.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
@@ -818,6 +845,7 @@
 				C28801A222933BBC00EC48B7 /* TodaysClassListItemCell.swift in Sources */,
 				C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
+				7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
 				C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
@@ -825,6 +853,8 @@
 				4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
+				7E9D6DEF22961B860054F710 /* GymDetailViewControllerNew.swift in Sources */,
+				7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */,
@@ -836,7 +866,9 @@
 				8D95F44C20870F9C0095B8AB /* GymDetailViewController.swift in Sources */,
 				8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */,
 				C2623704229107BA007C415D /* ClassDetailViewController+Extensions.swift in Sources */,
+				7E808771229B76BD007D9EDD /* GymDetailHoursCell.swift in Sources */,
 				D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */,
+				7E80876D229B6984007D9EDD /* GymDetailTodaysClassesCell.swift in Sources */,
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
 				C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */,

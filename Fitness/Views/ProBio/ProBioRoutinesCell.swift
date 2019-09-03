@@ -55,7 +55,7 @@ class ProBioRoutinesCell: UICollectionViewCell {
         routinesLabel.font = ._16MontserratMedium
         routinesLabel.text = "SUGGESTED ROUTINES"
         routinesLabel.textAlignment = .center
-        routinesLabel.textColor = .lightBlack
+        routinesLabel.textColor = .fitnessLightBlack
         contentView.addSubview(routinesLabel)
 
         let routineFlowLayout = UICollectionViewFlowLayout()
@@ -107,6 +107,7 @@ extension ProBioRoutinesCell: UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProRoutineCollectionViewCell.identifier, for: indexPath) as! ProRoutineCollectionViewCell
         cell.configure(for: self, for: routines[indexPath.row])
         return cell

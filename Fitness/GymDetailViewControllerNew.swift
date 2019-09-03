@@ -1,0 +1,198 @@
+//
+//  GymDetailViewControllerNew.swift
+//  Fitness
+//
+//  Created by Yana Sang on 5/22/19.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
+//
+
+import Crashlytics
+import UIKit
+
+class GymDetailViewControllerNew: UIViewController {
+
+    // MARK: - Private view vars
+    private let backButton = UIButton()
+
+    // MARK: - Public view vars
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
+
+    // MARK: - Private data vars
+    private var gym: Gym!
+    private var sections: [Section] = []
+    private var todaysClasses: [GymClassInstance] = []
+
+    // MARK: - Public data vars
+    var hoursIsDropped: Bool = false
+
+    private enum Constants {
+        static let gymDetailClassesCellIdentifier = "gymDetailClassesCellIdentifier"
+        static let gymDetailFacilitiesCellIdentifier = "gymDetailFacilitiesCellIdentifier"
+        static let gymDetailHeaderViewIdentifier = "gymDetailHeaderViewIdentifier"
+        static let gymDetailHoursCellIdentifier = "gymDetailHoursCellIdentifier"
+        static let gymDetailPopularTimesCellIdentifier = "gymDetailPopularTimesCellIdentifier"
+    }
+
+    // MARK: - Private classes/enums
+    private struct Section {
+        var items: [ItemType]
+    }
+
+    private enum ItemType {
+        case busyTimes
+        case classes([GymClassInstance])
+        case facilities
+        case hours
+    }
+
+    // MARK: - Custom Initializer
+    init(gym: Gym) {
+        super.init(nibName: nil, bundle: nil)
+        self.gym = gym
+        self.sections = [
+            Section(items: [.hours, .busyTimes, .facilities, .classes([])])
+        ]
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updatesStatusBarAppearanceAutomatically = true
+        view.backgroundColor = .white
+
+        // MARK: - Fabric
+        Answers.logCustomEvent(withName: "Checking Gym Details")
+
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
+        edgeSwipe.edges = .left
+        view.addGestureRecognizer(edgeSwipe)
+
+        setupViews()
+
+        NetworkManager.shared.getClassInstancesByGym(gymId: gym.id, date: Date.getNowString()) { gymClasses in
+            self.todaysClasses = gymClasses
+            let items = self.sections[0].items
+            self.sections[0].items[items.count - 1] = .classes(gymClasses)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+
+        setupConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+        }
+    }
+
+    // MARK: - Targets
+    @objc func back() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - CollectionViewDataSource, CollectionViewDelegate, CollectionViewDelegateFlowLayout
+extension GymDetailViewControllerNew: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return sections[section].items.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let itemType = sections[indexPath.section].items[indexPath.item]
+
+        switch itemType {
+        case .hours:
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailHoursCellIdentifier, for: indexPath) as! ProBioBiographyCell
+            // cell.configure(for: pro)
+            return cell
+        case .busyTimes:
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier, for: indexPath) as! GymDetailPopularTimesCell
+            cell.configure(for: gym)
+            return cell
+        case .facilities:
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! ProBioRoutinesCell
+            // cell.configure(for: self, for: pro)
+            return cell
+        case .classes:
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailClassesCellIdentifier, for: indexPath) as! GymDetailTodaysClassesCell
+            cell.configure(for: self, classes: todaysClasses)
+            return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier, for: indexPath) as! GymDetailHeaderView
+        headerView.configure(for: gym)
+        return headerView
+    }
+}
+
+// MARK: - Layout
+extension GymDetailViewControllerNew {
+    private func setupViews() {
+        collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(GymDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier)
+        collectionView.register(GymDetailHoursCell.self, forCellWithReuseIdentifier: Constants.gymDetailHoursCellIdentifier)
+        collectionView.register(GymDetailPopularTimesCell.self, forCellWithReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier)
+        // collectionView.register(ProBioRoutinesCell.self, forCellWithReuseIdentifier: Constants.proBioRoutinesCellIdentifier)
+        // collectionView.register(ProBioLinksCell.self, forCellWithReuseIdentifier: Constants.proBioLinksCellIdentifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        view.addSubview(collectionView)
+
+        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
+        view.addSubview(backButton)
+        view.bringSubviewToFront(backButton)
+    }
+
+    private func setupConstraints() {
+        let backButtonLeftPadding = 20
+        let backButtonSize = CGSize(width: 23, height: 19)
+        let backButtonTopPadding = 30
+
+        collectionView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+
+        backButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(backButtonLeftPadding)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(backButtonTopPadding)
+            make.size.equalTo(backButtonSize)
+        }
+    }
+}
+
+// MARK: - ScrollViewDelegate
+extension GymDetailViewControllerNew: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        statusBarUpdater?.refreshStatusBarStyle()
+
+        switch UIApplication.shared.statusBarStyle {
+        case .lightContent:
+            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+        case .default:
+            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+        }
+    }
+}

@@ -74,7 +74,7 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(addButton)
 
         descriptionTextView.font = ._14MontserratLight
-        descriptionTextView.textColor = .lightBlack
+        descriptionTextView.textColor = .fitnessLightBlack
         descriptionTextView.textAlignment = .left
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isSelectable = false
@@ -87,7 +87,7 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(routineTypeImage)
 
         routineTypeLabel.font = ._12MontserratRegular
-        routineTypeLabel.textColor = .secondaryBlack
+        routineTypeLabel.textColor = .fitnessSecondaryBlack
         routineTypeLabel.textAlignment = .left
         contentView.addSubview(routineTypeLabel)
 
