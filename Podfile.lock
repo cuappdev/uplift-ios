@@ -79,7 +79,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - Presentation (4.1.2)
+  - Presentation (4.2.3)
   - SnapKit (5.0.0)
   - SwiftLint (0.32.0)
   - SwiftyJSON (5.0.0)
@@ -95,7 +95,7 @@ DEPENDENCIES:
   - FLEX (~> 2.0)
   - GoogleSignIn
   - Kingfisher (~> 4.0)
-  - Presentation (from `https://github.com/cuappdev/Presentation.git`)
+  - Presentation (from `https://github.com/cuappdev/Presentation.git`, commit `d4aa2d3ad5901f6ebce0727af592824982f88d13`)
   - SnapKit
   - SwiftLint
 
@@ -129,6 +129,7 @@ EXTERNAL SOURCES:
   AppDevAnalytics:
     :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
+    :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13
     :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
@@ -139,6 +140,7 @@ CHECKOUT OPTIONS:
     :commit: 0a69032bfa1ef06965036c149e20d14b5bc67db0
     :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
+    :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13
     :git: https://github.com/cuappdev/Presentation.git
 
 SPEC CHECKSUMS:
@@ -161,11 +163,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Presentation: e8571efaa303ed9ce34c2a54d80457f881fd294e
+  Presentation: 3c02ab6268b15e44b6146c511686eb9c3f81b7d0
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 70f549b164cdf49d033613d6dce731063622c5fd
+PODFILE CHECKSUM: 403835549813ac0a93bf72e33541f303eff1e454
 
 COCOAPODS: 1.6.1
