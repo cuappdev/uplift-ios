@@ -5,11 +5,43 @@ PODS:
   - Apollo (0.9.5):
     - Apollo/Core (= 0.9.5)
   - Apollo/Core (0.9.5)
+  - AppDevAnalytics (0.1.7):
+    - Crashlytics (~> 3.12)
+    - SwiftyJSON (= 4.2)
   - Bartinter (0.0.4)
   - Crashlytics (3.13.0):
     - Fabric (~> 1.10.0)
   - Fabric (1.10.0)
+  - Firebase/Analytics (6.1.0):
+    - Firebase/Core
+  - Firebase/Core (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.0.1)
+  - Firebase/CoreOnly (6.1.0):
+    - FirebaseCore (= 6.0.1)
+  - FirebaseAnalytics (6.0.1):
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleAppMeasurement (= 6.0.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (6.0.1):
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseInstanceID (4.1.0):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
   - FLEX (2.4.0)
+  - GoogleAppMeasurement (6.0.1):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
   - GoogleSignIn (4.4.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -22,22 +54,48 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.2.0)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.0)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.2.0)"
+  - GoogleUtilities/AppDelegateSwizzler (6.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.1.0)
+  - GoogleUtilities/Logger (6.1.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.1.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.1.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.1.0)"
+  - GoogleUtilities/Reachability (6.1.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.1.0):
+    - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
   - Kingfisher (4.10.1)
-  - Presentation (4.1.2)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - Presentation (4.2.3)
   - SnapKit (5.0.0)
   - SwiftLint (0.32.0)
+  - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - AlamofireImage
   - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
+  - AppDevAnalytics (from `https://github.com/cuappdev/ios-analytics.git`)
   - Bartinter
   - Crashlytics
   - Fabric
+  - Firebase/Analytics
   - FLEX (~> 2.0)
   - GoogleSignIn
   - Kingfisher (~> 4.0)
-  - Presentation (from `https://github.com/cuappdev/Presentation.git`)
+  - Presentation (from `https://github.com/cuappdev/Presentation.git`, commit `d4aa2d3ad5901f6ebce0727af592824982f88d13`)
   - SnapKit
   - SwiftLint
 
@@ -48,45 +106,68 @@ SPEC REPOS:
     - Bartinter
     - Crashlytics
     - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
     - FLEX
+    - GoogleAppMeasurement
     - GoogleSignIn
     - GoogleToolboxForMac
+    - GoogleUtilities
     - GTMSessionFetcher
     - Kingfisher
+    - nanopb
     - SnapKit
     - SwiftLint
+    - SwiftyJSON
 
 EXTERNAL SOURCES:
   Apollo:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
+  AppDevAnalytics:
+    :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
+    :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13
     :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
   Apollo:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
+  AppDevAnalytics:
+    :commit: 06d443f7c87c1e7c6f415d1d685debd200b89bf2
+    :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
-    :commit: fe68b1b644b6015202430662d4db621eb1b621bc
+    :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13
     :git: https://github.com/cuappdev/Presentation.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
+  AppDevAnalytics: c9547d111f8da5525818ca93dc460405f2fce944
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
   Crashlytics: 1f5f752c7feac0add0cc1774756f96444fa3b1a7
   Fabric: 09de1e053eb7dc415593166ad3e53d4c88123405
+  Firebase: 8d77bb33624ae9b62d745d82ec023de5f70f7e4f
+  FirebaseAnalytics: 629301c2b9925f3537d4093a17a72751ae5b7084
+  FirebaseCore: 66bdef3b310a026880e2a5bc8aa586ab62ce4543
+  FirebaseInstanceID: 27bed93a59b6685f5c3e0c028a878a764fd75c33
   FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
+  GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
+  GoogleUtilities: 84df567c76ca84f67b7bb40e769fdd4acc746a10
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
-  Presentation: e8571efaa303ed9ce34c2a54d80457f881fd294e
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Presentation: 3c02ab6268b15e44b6146c511686eb9c3f81b7d0
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: f13b28f9e5b97659d322cae568c01afec6734815
+PODFILE CHECKSUM: 403835549813ac0a93bf72e33541f303eff1e454
 
-COCOAPODS: 1.6.0.beta.1
+COCOAPODS: 1.6.1
