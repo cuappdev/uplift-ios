@@ -714,7 +714,7 @@ extension FilterViewController: UITableViewDelegate {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
             footer.addGestureRecognizer(gesture)
             if (classTypeDropdownData.dropStatus == .half) {
-                footer.showHideLabel.text = "Show All Classe Types"
+                footer.showHideLabel.text = "Show All Class Types"
             } else {
                 footer.showHideLabel.text = "Hide"
             }
