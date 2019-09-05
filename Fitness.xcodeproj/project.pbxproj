@@ -428,21 +428,21 @@
 		C7DFABE22042081000545B0B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
-				C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */,
 				C26236F62290D1C4007C415D /* ClassDetailViewController.swift */,
 				C2623703229107BA007C415D /* ClassDetailViewController+Extensions.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
 				8D95F44B20870F9C0095B8AB /* GymDetailViewController.swift */,
+				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
+				C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */,
 				C21BE14C2292374400B5D219 /* HomeViewController.swift */,
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
-				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
-				C75FAB0E20420B42008D455A /* TabBarController.swift */,
-				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
 				4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */,
+				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
+				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
 				7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */,
+				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
