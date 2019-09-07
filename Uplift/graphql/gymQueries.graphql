@@ -1,0 +1,37 @@
+
+query AllGyms {
+    gyms {
+        name
+        id
+        imageUrl
+        description
+        popular
+        times {
+            day
+            startTime
+            endTime
+        }
+    }
+}
+
+query GymById($gymId: String) {
+    gyms(id: $gymId) {
+        name
+        id
+        imageUrl
+        description
+        popular
+        times {
+            day
+            startTime
+            endTime
+        }
+    }
+}
+
+query AllGymNames {
+    gyms {
+        name
+        id
+    }
+}

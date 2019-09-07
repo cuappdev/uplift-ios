@@ -1,0 +1,17 @@
+# query GoogleInitSession($token: String) {
+#     sessionToken
+#     sessionExpiration
+#     updateToken
+# }
+
+# input GoogleUpdateSession($token: String) {
+#     sessionToken
+#     sessionExpiration
+#     updateToken
+# }
+
+input GoogleInitSession {
+    # sessionToken
+    # sessionExpiration
+    # updateToken
+}
