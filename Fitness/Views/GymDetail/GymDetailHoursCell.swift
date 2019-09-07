@@ -18,7 +18,6 @@ class GymDetailHoursCell: UICollectionViewCell {
     private enum Constants {
         static let dividerHeight = 1
         static let dividerTopPadding = 32
-        static let closedLabelHeight = 60
         static let hoursTableViewDroppedHeight = 181
         static let hoursTableViewHeight = 19
         static let hoursTableViewTopPadding = 12
@@ -27,10 +26,9 @@ class GymDetailHoursCell: UICollectionViewCell {
     }
 
     // MARK: - Public data vars
-    static var height: CGFloat {
+    static var baseHeight: CGFloat {
         var height = Constants.hoursTitleLabelTopPadding + Constants.hoursTitleLabelHeight + Constants.hoursTableViewTopPadding + Constants.dividerTopPadding + Constants.dividerHeight
         height = hoursData.isDropped ? height + Constants.hoursTableViewDroppedHeight : height + Constants.hoursTableViewHeight
-        height = isOpen ? height : height + Constants.closedLabelHeight
         return CGFloat(height)
     }
 
@@ -56,7 +54,7 @@ class GymDetailHoursCell: UICollectionViewCell {
     private var hours: [DailyGymHours] = []
     private static var hoursData = HoursData(data: [], isDropped: false)
     private var hoursToday: DailyGymHours!
-    private static var isOpen: Bool = true
+    private var isOpen: Bool = true
 
     // MARK: - Private view vars
     private let closedLabel = UILabel()
@@ -83,6 +81,7 @@ class GymDetailHoursCell: UICollectionViewCell {
         self.isOpen = gym.isOpen
         DispatchQueue.main.async {
             // reload table view & remake constraints
+            self.setupConstraints()
         }
     }
 
@@ -98,7 +97,6 @@ class GymDetailHoursCell: UICollectionViewCell {
         hoursTitleLabel.font = ._16MontserratMedium
         hoursTitleLabel.textColor = .fitnessBlack
         hoursTitleLabel.textAlignment = .center
-        hoursTitleLabel.sizeToFit()
         hoursTitleLabel.text = "HOURS"
         contentView.addSubview(hoursTitleLabel)
 
@@ -120,18 +118,6 @@ class GymDetailHoursCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        if isOpen {
-            closedLabel.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                make.height.equalTo(Constants.closedLabelHeight)
-            }
-        } else {
-            closedLabel.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                make.height.equalTo(0)
-            }
-        }
-
         hoursTitleLabel.snp.updateConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(closedLabel.snp.bottom).offset(Constants.hoursTitleLabelTopPadding)
@@ -144,7 +130,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             if hours.isEmpty || hoursToday == nil {
                 make.height.equalTo(0)
             } else {
-                if hoursData.isDropped {
+                if GymDetailHoursCell.hoursData.isDropped {
                     make.height.equalTo(Constants.hoursTableViewDroppedHeight)
                 } else {
                     make.height.equalTo(Constants.hoursTableViewHeight)
@@ -175,13 +161,13 @@ class GymDetailHoursCell: UICollectionViewCell {
             modifiedIndices.append(IndexPath(row: i, section: 0))
         }
 
-        if hoursData.isDropped { // collapsing details
-            hoursData.isDropped = false
+        if GymDetailHoursCell.hoursData.isDropped { // collapsing details
+            GymDetailHoursCell.hoursData.isDropped = false
             hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
             // swiftlint:disable:next force_cast
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = #imageLiteral(resourceName: "right-arrow-solid")
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = UIImage(named: "right-arrow-solid")
 
             UIView.animate(withDuration: 0.3) {
                 self.delegate?.didDropHours(isDropped: false)
@@ -189,10 +175,10 @@ class GymDetailHoursCell: UICollectionViewCell {
                 self.contentView.layoutIfNeeded()
             }
         } else { // expanding details
-            hoursData.isDropped = true
+            GymDetailHoursCell.hoursData.isDropped = true
             hoursTableView.insertRows(at: modifiedIndices, with: .fade)
             // swiftlint:disable:next force_cast
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = #imageLiteral(resourceName: "down-arrow-solid")
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = UIImage(named: "down-arrow-solid")
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = .none
 
@@ -209,7 +195,7 @@ class GymDetailHoursCell: UICollectionViewCell {
 extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numRows = hoursData.isDropped ? 6 : 0
+        let numRows = GymDetailHoursCell.hoursData.isDropped ? 6 : 0
         return numRows
     }
 
@@ -258,7 +244,7 @@ extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let height: CGFloat = hoursData.isDropped ? 27 : 19
+        let height: CGFloat = GymDetailHoursCell.hoursData.isDropped ? 27 : 19
         return height
     }
 }

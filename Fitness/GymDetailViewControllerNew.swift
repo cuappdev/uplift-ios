@@ -49,9 +49,16 @@ class GymDetailViewControllerNew: UIViewController {
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
         self.gym = gym
-        self.sections = [
-            Section(items: [.hours, .busyTimes, .facilities, .classes([])])
-        ]
+
+        if gym.isOpen {
+            self.sections = [
+                Section(items: [.hours, .busyTimes, .facilities, .classes([])])
+            ]
+        } else {
+            self.sections = [
+                Section(items: [.hours, .facilities, .classes([])])
+            ]
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -117,8 +124,8 @@ extension GymDetailViewControllerNew: UICollectionViewDataSource, UICollectionVi
         switch itemType {
         case .hours:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailHoursCellIdentifier, for: indexPath) as! ProBioBiographyCell
-            // cell.configure(for: pro)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailHoursCellIdentifier, for: indexPath) as! GymDetailHoursCell
+             cell.configure(for: self, gym: gym)
             return cell
         case .busyTimes:
             // swiftlint:disable:next force_cast
@@ -127,8 +134,9 @@ extension GymDetailViewControllerNew: UICollectionViewDataSource, UICollectionVi
             return cell
         case .facilities:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! ProBioRoutinesCell
-            // cell.configure(for: self, for: pro)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
+             cell.configure(for: gym)
+            // TODO: config w/ delegate?
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -138,10 +146,43 @@ extension GymDetailViewControllerNew: UICollectionViewDataSource, UICollectionVi
         }
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemType = sections[indexPath.section].items[indexPath.item]
+        let width = collectionView.frame.width
+
+        switch itemType {
+        case .hours:
+            return CGSize(width: width, height: GymDetailHoursCell.baseHeight)
+        case .busyTimes:
+            return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
+        case.facilities:
+            return CGSize(width: width, height: 500)
+        case.classes:
+            return (todaysClasses.isEmpty) ? CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelBottomPadding) :
+            CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight + 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding + classesCollectionViewHeight())
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier, for: indexPath) as! GymDetailHeaderView
+        let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier,
+            // swiftlint:disable:next force_cast
+            for: indexPath) as! GymDetailHeaderView
         headerView.configure(for: gym)
         return headerView
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 360)
+    }
+
+    private func classesCollectionViewHeight() -> CGFloat {
+        let cellPadding: CGFloat = 12
+        let cellHeight: CGFloat = 100
+        let numberOfClasses = CGFloat(todaysClasses.count)
+
+        return numberOfClasses * cellHeight + (numberOfClasses - 1) * cellPadding
     }
 }
 
@@ -153,8 +194,8 @@ extension GymDetailViewControllerNew {
         collectionView.register(GymDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier)
         collectionView.register(GymDetailHoursCell.self, forCellWithReuseIdentifier: Constants.gymDetailHoursCellIdentifier)
         collectionView.register(GymDetailPopularTimesCell.self, forCellWithReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier)
-        // collectionView.register(ProBioRoutinesCell.self, forCellWithReuseIdentifier: Constants.proBioRoutinesCellIdentifier)
-        // collectionView.register(ProBioLinksCell.self, forCellWithReuseIdentifier: Constants.proBioLinksCellIdentifier)
+        collectionView.register(GymDetailFacilitiesCell.self, forCellWithReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier)
+        collectionView.register(GymDetailTodaysClassesCell.self, forCellWithReuseIdentifier: Constants.gymDetailClassesCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)

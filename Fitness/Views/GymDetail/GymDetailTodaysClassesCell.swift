@@ -16,21 +16,26 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let classesCollectionViewItemHeight = 112
-        static let classesCollectionViewTopPadding = 32
-        static let noMoreClassesLabelBottomPadding = 57
-        static let noMoreClassesLabelHeight = 66
-        static let todaysClassesLabelHeight = 18
-        static let todaysClassesLabelTopPadding = 64
+        static let classesCollectionViewVerticalPadding: CGFloat = 32
+        static let noMoreClassesLabelBottomPadding: CGFloat = 57
+        static let noMoreClassesLabelHeight: CGFloat = 66
+        static let noMoreClassesLabelTopPadding: CGFloat = 22
+        static let todaysClassesLabelHeight: CGFloat = 18
+        static let todaysClassesLabelTopPadding: CGFloat = 64
+    }
+
+    // MARK: - Public data vars
+    static var baseHeight: CGFloat {
+        return Constants.todaysClassesLabelTopPadding + Constants.todaysClassesLabelHeight
     }
 
     // MARK: - Private view vars
     private var classesCollectionView: UICollectionView!
-    private weak var delegate: GymDetailTodaysClassesCellDelegate?
     private let noMoreClassesLabel = UILabel()
     private let todaysClassesLabel = UILabel()
 
     // MARK: - Private data vars
+    private weak var delegate: GymDetailTodaysClassesCellDelegate?
     private var isFavorite: Bool!
     private var todaysClasses: [GymClassInstance] = []
 
@@ -41,10 +46,6 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
         setupConstraints()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     // MARK: - Public configure
     func configure(for delegate: GymDetailTodaysClassesCellDelegate, classes: [GymClassInstance]) {
         self.delegate = delegate
@@ -53,6 +54,7 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
             self.classesCollectionView.reloadData()
             self.remakeConstraints()
         }
+        classesCollectionView.reloadData()
     }
 
     // MARK: - Private helpers
@@ -68,7 +70,7 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
         noMoreClassesLabel.text = "We are done for today. \nCheck again tomorrow!\n🌟"
         noMoreClassesLabel.numberOfLines = 0
         noMoreClassesLabel.textAlignment = .center
-        
+
         let classFlowLayout = UICollectionViewFlowLayout()
         classFlowLayout.itemSize = CGSize(width: contentView.bounds.width - 32.0, height: 100.0)
         classFlowLayout.minimumLineSpacing = 12.0
@@ -85,61 +87,45 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
         classesCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
         classesCollectionView.dataSource = self
         classesCollectionView.delegate = self
-        contentView.addSubview(classesCollectionView)
     }
 
     private func setupConstraints() {
         todaysClassesLabel.snp.makeConstraints { make in
-            make.centerX.top.equalToSuperview()
+            make.top.equalToSuperview().inset(Constants.todaysClassesLabelTopPadding)
+            make.centerX.equalToSuperview()
             make.height.equalTo(Constants.todaysClassesLabelHeight)
-        }
-
-        classesCollectionView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constants.classesCollectionViewTopPadding)
-            make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * Constants.classesCollectionViewItemHeight)
-        }
-
-        if todaysClasses.isEmpty {
-            noMoreClassesLabel.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(Constants.noMoreClassesLabelBottomPadding)
-                make.height.equalTo(Constants.noMoreClassesLabelHeight)
-            }
-        } else {
-            noMoreClassesLabel.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(Constants.noMoreClassesLabelBottomPadding)
-                make.height.equalTo(0)
-            }
         }
     }
 
     private func remakeConstraints() {
-        classesCollectionView.snp.remakeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constants.classesCollectionViewTopPadding)
-            make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * Constants.classesCollectionViewItemHeight)
-        }
-
         if todaysClasses.isEmpty {
+            classesCollectionView.removeFromSuperview()
+            contentView.addSubview(noMoreClassesLabel)
+
             noMoreClassesLabel.snp.remakeConstraints { make in
                 make.leading.trailing.equalToSuperview()
-                make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(Constants.noMoreClassesLabelBottomPadding)
+                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constants.noMoreClassesLabelTopPadding)
                 make.height.equalTo(Constants.noMoreClassesLabelHeight)
             }
         } else {
-            noMoreClassesLabel.snp.remakeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(Constants.noMoreClassesLabelBottomPadding)
-                make.height.equalTo(0)
+            let classesCollectionViewHorizontalPadding = 16.0
+
+            noMoreClassesLabel.removeFromSuperview()
+            contentView.addSubview(classesCollectionView)
+
+            classesCollectionView.snp.remakeConstraints { make in
+                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constants.classesCollectionViewVerticalPadding)
+                make.bottom.equalToSuperview().inset(Constants.classesCollectionViewVerticalPadding)
+                make.left.right.equalToSuperview().inset(classesCollectionViewHorizontalPadding)
+                make.centerX.equalToSuperview()
             }
         }
     }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 }
 
 // MARK: - CollectionViewDataSource, CollectionViewDelegate

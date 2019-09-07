@@ -35,6 +35,7 @@
 		7E9D6DEF22961B860054F710 /* GymDetailViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DEE22961B860054F710 /* GymDetailViewControllerNew.swift */; };
 		7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */; };
 		7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */; };
+		7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
 		8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */; };
 		8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE0E206C481A00EF83C7 /* GymListItemCell.swift */; };
@@ -151,6 +152,7 @@
 		7E9D6DEE22961B860054F710 /* GymDetailViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GymDetailViewControllerNew.swift; path = Fitness/GymDetailViewControllerNew.swift; sourceTree = SOURCE_ROOT; };
 		7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailHeaderView.swift; sourceTree = "<group>"; };
 		7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailPopularTimesCell.swift; sourceTree = "<group>"; };
+		7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFacilitiesCell.swift; sourceTree = "<group>"; };
 		844312DC4A9667C4E73D7EED /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
 		8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -302,8 +304,9 @@
 				7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */,
 				7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */,
 				7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */,
-				7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */,
+				7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */,
 				0C97AC2622766E210086D699 /* GymFacilitiesView.swift */,
+				7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */,
 			);
 			path = GymDetail;
 			sourceTree = "<group>";
@@ -814,6 +817,7 @@
 				8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */,
 				E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
+				7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
 				7E4FD0E222925AE800AC9F90 /* ProBioRoutinesCell.swift in Sources */,
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,

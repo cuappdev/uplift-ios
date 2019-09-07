@@ -122,6 +122,7 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Constants.proBioHeaderViewIdentifier,
+            // swiftlint:disable:next force_cast
             for: indexPath) as! ProBioHeaderView
         headerView.configure(for: pro)
         return headerView

@@ -414,7 +414,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
             (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
             instructorDropdownData.dropStatus = .up
             var i = 0
             while i < instructorDropdown.numberOfRows(inSection: 0) {
