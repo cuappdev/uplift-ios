@@ -3,8 +3,8 @@ SwiftLintXcode/
 
 # Auto-gen build files
 node_modules/
-Fitness/API.swift
-Fitness/GoogleService-Info.plist
+Uplift/API.swift
+Uplift/GoogleService-Info.plist
 schema.json
 # Secrets
 Secrets/

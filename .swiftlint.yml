@@ -9,12 +9,12 @@ opt_in_rules: # some rules are only opt-in
 - colon
 - comma
 included: # paths to include during linting. `--path` is ignored if present.
-- Fitness
+- Uplift
 excluded: # paths to ignore during linting. Takes precedence over `included`.
 - Pods
-- Fitness/R.generated.swift
-- Fitness/AppDelegate.swift
-- Fitness/API.swift
+- Uplift/R.generated.swift
+- Uplift/AppDelegate.swift
+- Uplift/API.swift
 
 # configurable rules can be customized from this configuration file
 # binary rules can set their severity level
