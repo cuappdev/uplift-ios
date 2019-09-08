@@ -1,4 +1,4 @@
-# Fitness iOS Client 
+# Uplift iOS Client 
 [![GitHub release](https://img.shields.io/github/release/cuappdev/fitness-ios.svg)]()
 [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)]()
 [![GitHub contributors](https://img.shields.io/github/contributors/cuappdev/fitness-ios.svg)]()
@@ -11,14 +11,14 @@ We use [CocoaPods](http://cocoapods.org) for our dependency manager. This should
 
 Clone the project with
 ```
-git clone https://github.com/cuappdev/fitness-ios.git
+git clone https://github.com/cuappdev/uplift-ios.git
 ```
 
 After cloning the project, `cd` into the new directory and install dependencies with
 ```
 pod install
 ```
-Open the Clicker Xcode workspace, `Fitness.xcworkspace`.
+Open the Clicker Xcode workspace, `Uplift.xcworkspace`.
 
 ## Configuration (optional)
 We store secret keys for Fabric. To use Fabric, include a `Keys.plist` file under a `Secrets/` directory with your `fabric-api-key` string value and `fabric-build-secret` string value.
