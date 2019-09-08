@@ -36,9 +36,10 @@ class FacilityHoursCell: UITableViewCell {
         hoursLabel.text = "6: 00 AM - 9: 00 PM"
         hoursScrollView.addSubview(hoursLabel)
 
+        setupViews()
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

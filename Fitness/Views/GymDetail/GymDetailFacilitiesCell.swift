@@ -54,7 +54,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         let teagleGymID = "939c7a2c16d2299cc8558475a8007defc414069c"
         let teagleGymID2 = "043c57f3b63411c7a3500c0986fa4b1c8712798c"
 
-        if gymId == "" {
+        if gymId == "" || gymFacilitiesView != nil {
             return
         }
 

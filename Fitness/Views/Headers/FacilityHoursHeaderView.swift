@@ -32,19 +32,17 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(facilityNameLabel)
         
         iconImageView = UIImageView()
-        iconImageView.contentMode = .scaleAspectFit
         contentView.addSubview(iconImageView)
         
-        downArrow = UIImageView(image: UIImage(named: "down_arrow"))
+        downArrow = UIImageView(image: .none)
         contentView.addSubview(downArrow)
         
-        upArrow = UIImageView(image: .none)
+        upArrow = UIImageView(image: UIImage(named:"down_arrow"))
         contentView.addSubview(upArrow)
         
         statusLabel = UILabel()
         statusLabel.font = ._12MontserratMedium
         statusLabel.textColor = .fitnessGreen
-        statusLabel.text = "Open"
         statusLabel.sizeToFit()
         statusLabel.textAlignment = .left
         contentView.addSubview(statusLabel)
@@ -68,47 +66,41 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        let facilityNameLabelHeight = 20
-        let facilityNameLeftPadding = 8
-        let facilityNameTopPadding = 16.5
-        let iconImageViewLeftPadding = 24
-        let iconImageViewSize = 16
-        let iconImageViewTopPadding = 18.5
-
-        iconImageView.snp.updateConstraints { make in
-            make.leading.equalToSuperview().inset(iconImageViewLeftPadding)
-            make.top.equalToSuperview().offset(iconImageViewTopPadding)
-            make.height.equalTo(iconImageViewSize)
-            make.width.equalTo(iconImageViewSize)
+        
+        iconImageView.snp.updateConstraints {make in
+            make.left.equalToSuperview().offset(24)
+            make.centerY.equalToSuperview().offset(4)
+            make.height.equalTo(14)
+            make.width.equalTo(16)
         }
-
-        downArrow.snp.updateConstraints { make in
+        
+        facilityNameLabel.snp.updateConstraints {make in
+            make.centerY.centerX.equalToSuperview()
+            make.left.equalTo(iconImageView.snp.right).offset(8)
+            make.height.equalTo(20)
+        }
+        
+        downArrow.snp.updateConstraints {make in
             make.right.equalToSuperview().offset(-24)
             make.centerY.equalTo(facilityNameLabel.snp.centerY).offset(2)
             make.height.equalTo(8)
             make.width.equalTo(16)
         }
-
-        upArrow.snp.updateConstraints { make in
+        
+        upArrow.snp.updateConstraints {make in
             make.right.equalToSuperview().offset(-24)
             make.centerY.equalTo(facilityNameLabel.snp.centerY).offset(2)
             make.height.equalTo(8)
             make.width.equalTo(16)
         }
-
-        facilityNameLabel.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(facilityNameTopPadding)
-            make.leading.equalTo(iconImageView.snp.trailing).offset(facilityNameLeftPadding)
-            make.height.equalTo(facilityNameLabelHeight)
-        }
-
-        statusLabel.snp.makeConstraints { make in
+        
+        statusLabel.snp.makeConstraints {make in
             make.left.equalTo(iconImageView.snp.left)
             make.top.equalTo(facilityNameLabel.snp.bottom).offset(8)
             make.height.equalTo(15)
         }
-
-        todayTimeLabel.snp.makeConstraints { make in
+        
+        todayTimeLabel.snp.makeConstraints {make in
             make.left.equalTo(statusLabel.snp.right).offset(4)
             make.top.equalTo(statusLabel.snp.top)
             make.height.equalTo(15)
