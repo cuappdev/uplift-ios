@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GymDetailHoursCellDelegate: class {
-    func didDropHours(isDropped: Bool)
+    func didDropHours(isDropped: Bool, completion: @escaping () -> Void)
 }
 
 class GymDetailHoursCell: UICollectionViewCell {
@@ -168,11 +168,12 @@ class GymDetailHoursCell: UICollectionViewCell {
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = UIImage(named: "right-arrow-solid")
-
-            UIView.animate(withDuration: 0.3) {
-                self.delegate?.didDropHours(isDropped: false)
-                self.setupConstraints()
-                self.contentView.layoutIfNeeded()
+            
+            self.delegate?.didDropHours(isDropped: false) { () in
+                UIView.animate(withDuration: 0.3) {
+                    self.setupConstraints()
+                    self.contentView.layoutIfNeeded()
+                }
             }
         } else { // expanding details
             GymDetailHoursCell.hoursData.isDropped = true
@@ -182,10 +183,11 @@ class GymDetailHoursCell: UICollectionViewCell {
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = .none
 
-            UIView.animate(withDuration: 0.5) {
-                self.delegate?.didDropHours(isDropped: true)
-                self.setupConstraints()
-                self.contentView.layoutIfNeeded()
+            self.delegate?.didDropHours(isDropped: true) { () in
+                UIView.animate(withDuration: 0.5) {
+                    self.setupConstraints()
+                    self.contentView.layoutIfNeeded()
+                }
             }
         }
         hoursTableView.endUpdates()

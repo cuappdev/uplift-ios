@@ -64,7 +64,7 @@ class GymDetailHeaderView: UICollectionReusableView {
             make.center.equalToSuperview()
         }
 
-        if isOpen {
+        if !isOpen {
             addSubview(closedLabel)
 
             closedLabel.snp.makeConstraints { make in

@@ -5,9 +5,9 @@ PODS:
   - Apollo (0.9.5):
     - Apollo/Core (= 0.9.5)
   - Apollo/Core (0.9.5)
-  - AppDevAnalytics (0.1.7):
+  - AppDevAnalytics (0.1.9):
     - Crashlytics (~> 3.12)
-    - SwiftyJSON (= 4.2)
+    - SwiftyJSON (~> 4.2)
   - Bartinter (0.0.4)
   - Crashlytics (3.13.0):
     - Fabric (~> 1.10.0)
@@ -82,7 +82,7 @@ PODS:
   - Presentation (4.2.3)
   - SnapKit (5.0.0)
   - SwiftLint (0.32.0)
-  - SwiftyJSON (4.2.0)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - AlamofireImage
@@ -137,7 +137,7 @@ CHECKOUT OPTIONS:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
   AppDevAnalytics:
-    :commit: 06d443f7c87c1e7c6f415d1d685debd200b89bf2
+    :commit: bdeef81c5da3365f30a3cb537460cc83b9056cdb
     :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
     :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13
@@ -147,7 +147,7 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
-  AppDevAnalytics: c9547d111f8da5525818ca93dc460405f2fce944
+  AppDevAnalytics: 9a59d848a6b6320ac3a32edb75930b7da6014262
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
   Crashlytics: 1f5f752c7feac0add0cc1774756f96444fa3b1a7
   Fabric: 09de1e053eb7dc415593166ad3e53d4c88123405
@@ -166,7 +166,7 @@ SPEC CHECKSUMS:
   Presentation: 3c02ab6268b15e44b6146c511686eb9c3f81b7d0
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
-  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
 PODFILE CHECKSUM: 403835549813ac0a93bf72e33541f303eff1e454
 
