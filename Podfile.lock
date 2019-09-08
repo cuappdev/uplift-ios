@@ -5,9 +5,6 @@ PODS:
   - Apollo (0.9.5):
     - Apollo/Core (= 0.9.5)
   - Apollo/Core (0.9.5)
-  - AppDevAnalytics (0.1.9):
-    - Crashlytics (~> 3.12)
-    - SwiftyJSON (~> 4.2)
   - Bartinter (0.0.4)
   - Crashlytics (3.13.0):
     - Fabric (~> 1.10.0)
@@ -82,12 +79,10 @@ PODS:
   - Presentation (4.2.3)
   - SnapKit (5.0.0)
   - SwiftLint (0.32.0)
-  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - AlamofireImage
   - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
-  - AppDevAnalytics (from `https://github.com/cuappdev/ios-analytics.git`)
   - Bartinter
   - Crashlytics
   - Fabric
@@ -120,14 +115,11 @@ SPEC REPOS:
     - nanopb
     - SnapKit
     - SwiftLint
-    - SwiftyJSON
 
 EXTERNAL SOURCES:
   Apollo:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
-  AppDevAnalytics:
-    :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
     :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13
     :git: https://github.com/cuappdev/Presentation.git
@@ -136,9 +128,6 @@ CHECKOUT OPTIONS:
   Apollo:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
-  AppDevAnalytics:
-    :commit: bdeef81c5da3365f30a3cb537460cc83b9056cdb
-    :git: https://github.com/cuappdev/ios-analytics.git
   Presentation:
     :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13
     :git: https://github.com/cuappdev/Presentation.git
@@ -147,7 +136,6 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
-  AppDevAnalytics: 9a59d848a6b6320ac3a32edb75930b7da6014262
   Bartinter: cfc2ebf2fb8560a7d878dcbdc7d3c667c79090c9
   Crashlytics: 1f5f752c7feac0add0cc1774756f96444fa3b1a7
   Fabric: 09de1e053eb7dc415593166ad3e53d4c88123405
@@ -166,8 +154,7 @@ SPEC CHECKSUMS:
   Presentation: 3c02ab6268b15e44b6146c511686eb9c3f81b7d0
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
-  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: b87e9b1a04d184de424d7b86e23ed492ed26108c
+PODFILE CHECKSUM: ca9c618c624a6daa3599209186f8519b726f5ede
 
 COCOAPODS: 1.6.1
