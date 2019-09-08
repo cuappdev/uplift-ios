@@ -16,7 +16,7 @@ class GymDetailHeaderView: UICollectionReusableView {
     private let nameLabel = UILabel()
 
     // MARK: - Private data vars
-    private var isOpen: Bool = false
+    private var isOpen: Bool = true
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,6 +30,8 @@ class GymDetailHeaderView: UICollectionReusableView {
         self.isOpen = gym.isOpen
         imageView.kf.setImage(with: gym.imageURL)
         nameLabel.text = gym.name.uppercased()
+        
+        setupConstraints()
     }
 
     // MARK: - CONSTRAINTS

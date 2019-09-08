@@ -26,6 +26,7 @@ extension UIColor {
     @nonobjc static let fitnessYellow = UIColor(red: 248/255, green: 231/255, blue: 28/255, alpha: 1.0)
     @nonobjc static let fitnessLightBlack = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1.0)
     @nonobjc static let fitnessSecondaryBlack = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+    @nonobjc static let fitnessSelectedYellow = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
 
     public static func colorFromCode(_ code: Int) -> UIColor {
         let red = CGFloat(((code & 0xFF0000) >> 16)) / 255

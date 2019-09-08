@@ -50,7 +50,7 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
         let todaysHours = gym.gymHoursToday
         let isOpen = gym.isOpen
 
-        if isOpen {
+        if isOpen && popularTimesHistogram == nil {
             popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: contentView.frame.width - 36, height: 0), data: data, todaysHours: todaysHours)
             contentView.addSubview(popularTimesHistogram)
 
