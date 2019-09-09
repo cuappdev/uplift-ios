@@ -62,9 +62,9 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
         gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.reuseIdentifier)
-        gymsTableView.isScrollEnabled = false
+        gymsTableView.isScrollEnabled = true
         gymsTableView.separatorStyle = .none
-        gymsTableView.clipsToBounds = false
+        gymsTableView.clipsToBounds = true
         view.addSubview(gymsTableView)
         
         nextButton = UIButton()
@@ -114,21 +114,14 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func setUpConstraints() {
-        // title
-        let titleLeadingPadding = 27 
+        let titleLeadingPadding = 27
         let titleTrailingPadding = 22
         let titleTopPadding = 34
-        // table view
         let tableViewTopPadding = 28
         let tableViewSidePadding = 16
-        let tableViewBottomPadding = 14
-        // next button
-        let nextButtonPaddingWidth = 40
-        let nextButtonPaddingHeight = 70
-        // check arrow
-        let checkArrowWidth = 16.95
-        let checkArrowHeight = 11.59
-        let checkArrowSize = CGSize(width: checkArrowWidth, height: checkArrowHeight)
+        let tableViewBottomPadding = -14
+        let nextButtonPadding = CGSize(width: 40, height: 70)
+        let checkArrowSize = CGSize(width: 16.95, height: 11.59)
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(titleLeadingPadding)
