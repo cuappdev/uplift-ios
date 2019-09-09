@@ -15,32 +15,19 @@ protocol ChooseGymsDelegate: class {
 class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - INITIALIZATION
-    var titleLabel: UILabel!
-    var nextButton: UIButton!
-    var nextButtonArrow: UIImageView!
-    var backButton: UIButton!
-    var backButtonArrow: UIImageView!
+    private var titleLabel: UILabel!
+    private var nextButton: UIButton!
+    private var nextButtonArrow: UIImageView!
+    private var backButton: UIButton!
+    private var backButtonArrow: UIImageView!
     
     // TableView
-    var gymsTableView: UITableView!
+    private var gymsTableView: UITableView!
     
     // Display Info
-    let tableViewToNext: CGFloat = 94
-    let buttonPadding: CGFloat = 27
-    let buttonHeight: CGFloat = 48
-    let cornerRadius: CGFloat = 5
-    
-    let nextButtonSize: CGFloat = 35
-    let nextButtonPadding = CGSize(width: 40, height: 70)
-    let buttonBorderSize: CGFloat = 2
-    
-    let checkSymbolSize: CGFloat = 24
-    let checkArrowSize = CGSize(width: 16.95, height: 11.59)
-    
-    let maxGymRows = 8
-    let gymCellHeight: CGFloat = 60
-    let gymSidePadding: CGFloat = 16
-    let gymCellVerticalPadding: CGFloat = 14
+    private let nextButtonSize: CGFloat = 35
+    private let gymCellHeight: CGFloat = 60
+    private let gymCellVerticalPadding: CGFloat = 14
     
     // Gyms
     private var gymNames: [String] = []
@@ -51,6 +38,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .fitnessWhite
+
+        let buttonBorderSize: CGFloat = 2
         
         titleLabel = UILabel()
         titleLabel.text = "Pick a Gym! Any gym! Cuz we know their Hours!"
@@ -64,9 +53,9 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
         gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.reuseIdentifier)
-        gymsTableView.isScrollEnabled = false
+        gymsTableView.isScrollEnabled = true
         gymsTableView.separatorStyle = .none
-        gymsTableView.clipsToBounds = false
+        gymsTableView.clipsToBounds = true
         view.addSubview(gymsTableView)
         
         nextButton = UIButton()
@@ -116,17 +105,26 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func setUpConstraints() {
+        let titleLeadingPadding = 27
+        let titleTrailingPadding = 22
+        let titleTopPadding = 34
+        let tableViewTopPadding = 28
+        let tableViewSidePadding = 16
+        let tableViewBottomPadding = -14
+        let nextButtonPadding = CGSize(width: 40, height: 70)
+        let checkArrowSize = CGSize(width: 16.95, height: 11.59)
+
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(view.safeAreaLayoutGuide).inset(27)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(22)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(34)
+            make.leading.equalTo(view.safeAreaLayoutGuide).inset(titleLeadingPadding)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(titleTrailingPadding)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(titleTopPadding)
         }
         
         // Table View
         gymsTableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(28)
-            make.leading.trailing.equalToSuperview().inset(gymSidePadding)
-            make.bottom.equalTo(nextButton.snp.top).offset(14)
+            make.top.equalTo(titleLabel.snp.bottom).offset(tableViewTopPadding)
+            make.leading.trailing.equalToSuperview().inset(tableViewSidePadding)
+            make.bottom.equalTo(nextButton.snp.top).offset(tableViewBottomPadding)
         }
         
         // Arrows
