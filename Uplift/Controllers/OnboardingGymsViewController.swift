@@ -41,6 +41,24 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         view.backgroundColor = .fitnessWhite
         let defaults = UserDefaults.standard
         let buttonBorderSize: CGFloat = 2
+        // Set up screen size
+        var safeInsetHeight: CGFloat = 0
+        var safeInsetWidth: CGFloat = 0
+        if #available(iOS 11.0, *) { // Compensate for safe area layout guide insets
+            let window = UIApplication.shared.keyWindow
+            safeInsetHeight = window?.safeAreaInsets.top ?? 0
+            safeInsetWidth = window?.safeAreaInsets.left ?? 0
+        }
+        let screenRect = UIScreen.main.bounds
+        let screenHeight: Double = Double(screenRect.height - safeInsetHeight)
+        let screenWidth: Double = Double(screenRect.width - safeInsetWidth)
+        currentScreenSize = CGSize(width: screenWidth, height: screenHeight)
+        xrSize = CGSize(width: 375, height: 768)
+//         xrSize = CGSize(width: 414, height: 852)
+        print("xrSize is \(xrSize)")
+        print("current size is \(currentScreenSize)")
+        print("----------")
+
         
         // Get Favorite Gyms from UserDefaults
         if let favorites = defaults.array(forKey: Identifiers.favoriteGyms) as? [String] {
@@ -56,15 +74,16 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
+        titleLabel.fitTextToBounds()
         view.addSubview(titleLabel)
         
         gymsTableView = UITableView(frame: .zero, style: .plain)
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
         gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.reuseIdentifier)
-        gymsTableView.isScrollEnabled = true
+        gymsTableView.isScrollEnabled = false 
         gymsTableView.separatorStyle = .none
-        gymsTableView.clipsToBounds = true
+        gymsTableView.clipsToBounds = false 
         view.addSubview(gymsTableView)
         
         nextButton = UIButton()
@@ -114,19 +133,33 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func setUpConstraints() {
-        let titleLeadingPadding = 27
-        let titleTrailingPadding = 22
-        let titleTopPadding = 34
-        let tableViewTopPadding = 28
-        let tableViewSidePadding = 16
-        let tableViewBottomPadding = -14
-        let nextButtonPadding = CGSize(width: 40, height: 70)
-        let checkArrowSize = CGSize(width: 16.95, height: 11.59)
+        // Scaling functions
+        
+        // Calculate padding based on screen size
+        // +1 is to account for truncation
+        print("27 scales to \(scale(width: 27)) while the old way scaled to ")
+        // title
+        let titleLeadingPadding = scale(width: 27) 
+        let titleTrailingPadding = scale(width: 22)
+        let titleTopPadding = scale(height: 34)
+        let titleHeight = scale(height: 64)
+        // table view
+        let tableViewTopPadding = scale(height: 28)
+        let tableViewSidePadding = scale(width: 16)
+        let tableViewBottomPadding = scale(height: 14)
+        // next button
+        let nextButtonPaddingWidth = 40//scale(width: 40)
+        let nextButtonPaddingHeight = 70//scale(height: 70)
+        // check arrow
+        let checkArrowWidth = 16.95//scale(width: 16.95)
+        let checkArrowHeight = 11.59//scale(height: 11.59)
+        let checkArrowSize = CGSize(width: checkArrowWidth, height: checkArrowHeight)
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(titleLeadingPadding)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(titleTrailingPadding)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(titleTopPadding)
+//            make.height.equalTo(titleHeight)
         }
         
         // Table View
