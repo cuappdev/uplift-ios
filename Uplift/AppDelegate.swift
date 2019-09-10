@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGoogleSignIn()
         
         let defaults = UserDefaults.standard
-        defaults.set(false, forKey: Identifiers.hasSeenOnboarding)
         
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) { // Seen onboarding and...
             if isGoogleLoggedIn() { // Is logged in
