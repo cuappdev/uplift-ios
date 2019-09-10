@@ -25,7 +25,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     private var gymsTableView: UITableView!
     
     // Display Info
-    private var currentScreenSize = CGSize()
+    private var currentScreenSize: CGSize?
     private var xrSize = CGSize(width: 768, height: 375)
     private let nextButtonSize: CGFloat = 35
     private let gymCellHeight: CGFloat = 60
@@ -42,24 +42,10 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         view.backgroundColor = .fitnessWhite
 
         let buttonBorderSize: CGFloat = 2
-        // Set up screen size
-        var safeInsetHeight: CGFloat = 0
-        var safeInsetWidth: CGFloat = 0
-        if #available(iOS 11.0, *) { // Compensate for safe area layout guide insets
-            let window = UIApplication.shared.keyWindow
-            safeInsetHeight = window?.safeAreaInsets.top ?? 0
-            safeInsetWidth = window?.safeAreaInsets.left ?? 0
-        }
-        let screenRect = UIScreen.main.bounds
-        let screenHeight: Double = Double(screenRect.height - safeInsetHeight)
-        let screenWidth: Double = Double(screenRect.width - safeInsetWidth)
-        currentScreenSize = CGSize(width: screenWidth, height: screenHeight)
+        
+        // Set up screen sizes for scaling
+        currentScreenSize = computeScreenDimensions()
         xrSize = CGSize(width: 375, height: 768)
-//         xrSize = CGSize(width: 414, height: 852)
-        print("xrSize is \(xrSize)")
-        print("current size is \(currentScreenSize)")
-        print("----------")
-
         
         titleLabel = UILabel()
         titleLabel.text = "Pick a Gym! Any gym! Cuz we know their Hours!"
@@ -126,33 +112,26 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func setUpConstraints() {
-        // Scaling functions
-        
-        // Calculate padding based on screen size
-        // +1 is to account for truncation
-        print("27 scales to \(scale(width: 27)) while the old way scaled to ")
         // title
         let titleLeadingPadding = scale(width: 27) 
         let titleTrailingPadding = scale(width: 22)
         let titleTopPadding = scale(height: 34)
-        let titleHeight = scale(height: 64)
         // table view
         let tableViewTopPadding = scale(height: 28)
         let tableViewSidePadding = scale(width: 16)
         let tableViewBottomPadding = scale(height: 14)
         // next button
-        let nextButtonPaddingWidth = 40//scale(width: 40)
-        let nextButtonPaddingHeight = 70//scale(height: 70)
+        let nextButtonPaddingWidth = 40
+        let nextButtonPaddingHeight = 70
         // check arrow
-        let checkArrowWidth = 16.95//scale(width: 16.95)
-        let checkArrowHeight = 11.59//scale(height: 11.59)
+        let checkArrowWidth = 16.95
+        let checkArrowHeight = 11.59
         let checkArrowSize = CGSize(width: checkArrowWidth, height: checkArrowHeight)
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(titleLeadingPadding)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(titleTrailingPadding)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(titleTopPadding)
-//            make.height.equalTo(titleHeight)
         }
         
         // Table View
@@ -195,26 +174,27 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     //MARK: UI Helper Methods
     /// Scales measurements based off the height of an iPhone XR
     func scale(height: Double) -> Double {
-        let val = Double(currentScreenSize.height) * (height / Double(xrSize.height))
-        print("----------")
-        print("height: \(height)")
-        print("xrSize.height \(xrSize.height)")
-        print("curScreen.height \(currentScreenSize.height)")
-        print("height / xrSize: \(height / Double(xrSize.height))")
-        print("end prod \(val)")
-        return val
+        return Double(currentScreenSize?.height ?? 0) * (height / Double(xrSize.height))
     }
 
     /// Scales measurements based off the width of an iPhone XR
     func scale(width: Double) -> Double {
-        let val = Double(currentScreenSize.width) * (width / Double(xrSize.width))
-        print("----------")
-        print("Width: \(width)")
-        print("xrSize.width\(xrSize.width)")
-        print("curScreen.width\(currentScreenSize.width)")
-        print("width / xrSize: \(width / Double(xrSize.width))")
-        print("end prod \(val)")
-        return val
+        return Double(currentScreenSize?.width ?? 0) * (width / Double(xrSize.width))
+    }
+
+    /// Computes the dimensions of the current device
+    func computeScreenDimensions() -> CGSize {
+        var safeInsetHeight: CGFloat = 0
+        var safeInsetWidth: CGFloat = 0
+        if #available(iOS 11.0, *) { // Compensate for safe area layout guide insets
+            let window = UIApplication.shared.keyWindow
+            safeInsetHeight = window?.safeAreaInsets.top ?? 0
+            safeInsetWidth = window?.safeAreaInsets.left ?? 0
+        }
+        let screenRect = UIScreen.main.bounds
+        let screenHeight: Double = Double(screenRect.height - safeInsetHeight)
+        let screenWidth: Double = Double(screenRect.width - safeInsetWidth)
+        return CGSize(width: screenWidth, height: screenHeight)
     }
     
     /// Toggles whether the Next button can be pressed (also adds the checkmark in the email field)
@@ -301,62 +281,5 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         cell.setNeedsUpdateConstraints()
         cell.selectionStyle = .none
         return cell
-    }
-}
-
-//MARK: Font resizing
-extension UILabel {
-    
-    /// Will auto resize the contained text to a font size which fits the frames bounds.
-    /// Uses the pre-set font to dynamically determine the proper sizing
-    func fitTextToBounds() {
-        guard let text = text, let currentFont = font else { return }
-        
-        let bestFittingFont = UIFont.bestFittingFont(for: text, in: bounds, fontDescriptor: currentFont.fontDescriptor, additionalAttributes: basicStringAttributes)
-        font = bestFittingFont
-    }
-    
-    private var basicStringAttributes: [NSAttributedString.Key: Any] {
-        var attribs = [NSAttributedString.Key: Any]()
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = self.textAlignment
-        paragraphStyle.lineBreakMode = self.lineBreakMode
-        attribs[.paragraphStyle] = paragraphStyle
-        
-        return attribs
-    }
-}
-
-extension UIFont {
-    
-    /**
-     Will return the best font conforming to the descriptor which will fit in the provided bounds.
-     */
-    static func bestFittingFontSize(for text: String, in bounds: CGRect, fontDescriptor: UIFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> CGFloat {
-        let constrainingDimension = min(bounds.width, bounds.height)
-        let properBounds = CGRect(origin: .zero, size: bounds.size)
-        var attributes = additionalAttributes ?? [:]
-        
-        let infiniteBounds = CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
-        var bestFontSize: CGFloat = constrainingDimension
-        
-        for fontSize in stride(from: bestFontSize, through: 0, by: -1) {
-            let newFont = UIFont(descriptor: fontDescriptor, size: fontSize)
-            attributes[.font] = newFont
-            
-            let currentFrame = text.boundingRect(with: infiniteBounds, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
-            
-            if properBounds.contains(currentFrame) {
-                bestFontSize = fontSize
-                break
-            }
-        }
-        return bestFontSize
-    }
-    
-    static func bestFittingFont(for text: String, in bounds: CGRect, fontDescriptor: UIFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> UIFont {
-        let bestSize = bestFittingFontSize(for: text, in: bounds, fontDescriptor: fontDescriptor, additionalAttributes: additionalAttributes)
-        return UIFont(descriptor: fontDescriptor, size: bestSize)
     }
 }
