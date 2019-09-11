@@ -48,7 +48,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         xrSize = CGSize(width: 375, height: 768)
         
         titleLabel = UILabel()
-        titleLabel.text = "Pick a Gym! Any gym! Cuz we know their Hours!"
+        titleLabel.text = "Select the gyms you go to!"
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
