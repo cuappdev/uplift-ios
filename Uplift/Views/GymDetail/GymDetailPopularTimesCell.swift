@@ -25,8 +25,7 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
         let labelHeight = Constants.popularTimesLabelTopPadding + Constants.popularTimesLabelHeight
         let histogramHeight = Constants.popularTimesHistogramTopPadding + Constants.popularTimesHistogramHeight
         let dividerHeight = Constants.dividerViewTopPadding + Constants.dividerViewHeight
-        let height = isOpen ? CGFloat(labelHeight + histogramHeight + dividerHeight) : 0
-        return height
+        return CGFloat(labelHeight + histogramHeight + dividerHeight)
     }
 
     // MARK: - Private view vars
@@ -35,7 +34,9 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
     private let dividerView = UIView()
 
     // MARK: - Private data vars
-    private static var isOpen: Bool = true
+    private var data: [Int] = []
+    private var isOpen: Bool = true
+    private var todaysHours: DailyGymHours!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,29 +47,13 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
 
     // MARK: - Public configure
     func configure(for gym: Gym) {
-        let data = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
-        let todaysHours = gym.gymHoursToday
-        let isOpen = gym.isOpen
+        data = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
+        isOpen = gym.isOpen
+        todaysHours = gym.gymHoursToday
 
-        if isOpen && popularTimesHistogram == nil {
-            popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: contentView.frame.width - 36, height: 0), data: data, todaysHours: todaysHours)
-            contentView.addSubview(popularTimesHistogram)
-
-            if let histogram = popularTimesHistogram {
-                let popularTimesHistogramHorizontalPadding = 18
-
-                histogram.snp.makeConstraints { make in
-                    make.leading.trailing.equalToSuperview().inset(popularTimesHistogramHorizontalPadding)
-                    make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constants.popularTimesLabelTopPadding)
-                    make.height.equalTo(Constants.popularTimesHistogramHeight)
-                }
-
-                dividerView.snp.remakeConstraints { make in
-                    make.top.equalTo(histogram.snp.bottom).offset(Constants.dividerViewTopPadding)
-                    make.height.equalTo(Constants.dividerViewHeight)
-                    make.leading.trailing.equalToSuperview()
-                }
-            }
+        DispatchQueue.main.async {
+            self.setupHistogram()
+            self.setupConstraints()
         }
     }
 
@@ -84,6 +69,13 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
         contentView.addSubview(dividerView)
     }
 
+    private func setupHistogram() {
+        if isOpen && popularTimesHistogram == nil {
+            popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: contentView.frame.width - 36, height: 0), data: data, todaysHours: todaysHours)
+            contentView.addSubview(popularTimesHistogram)
+        }
+    }
+
     private func setupConstraints() {
         popularTimesLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
@@ -92,7 +84,15 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
         }
 
         if let histogram = popularTimesHistogram {
-            dividerView.snp.makeConstraints { make in
+            let popularTimesHistogramHorizontalPadding = 18
+
+            histogram.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview().inset(popularTimesHistogramHorizontalPadding)
+                make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constants.popularTimesLabelTopPadding)
+                make.height.equalTo(Constants.popularTimesHistogramHeight)
+            }
+
+            dividerView.snp.remakeConstraints { make in
                 make.top.equalTo(histogram.snp.bottom).offset(Constants.dividerViewTopPadding)
                 make.height.equalTo(Constants.dividerViewHeight)
                 make.leading.trailing.equalToSuperview()

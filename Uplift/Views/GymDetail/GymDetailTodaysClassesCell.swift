@@ -50,11 +50,12 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
     func configure(for delegate: GymDetailTodaysClassesCellDelegate, classes: [GymClassInstance]) {
         self.delegate = delegate
         self.todaysClasses = classes
+
         DispatchQueue.main.async {
             self.classesCollectionView.reloadData()
             self.remakeConstraints()
         }
-        classesCollectionView.reloadData()
+//        classesCollectionView.reloadData()
     }
 
     // MARK: - Private helpers

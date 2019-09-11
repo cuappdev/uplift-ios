@@ -81,6 +81,7 @@ class GymDetailHoursCell: UICollectionViewCell {
         self.isOpen = gym.isOpen
         DispatchQueue.main.async {
             // reload table view & remake constraints
+            self.hoursTableView.reloadData()
             self.setupConstraints()
         }
     }
@@ -168,7 +169,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = UIImage(named: "right-arrow-solid")
-            
+
             self.delegate?.didDropHours(isDropped: false) { () in
                 UIView.animate(withDuration: 0.3) {
                     self.setupConstraints()

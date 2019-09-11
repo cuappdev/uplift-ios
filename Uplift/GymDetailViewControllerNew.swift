@@ -156,7 +156,8 @@ extension GymDetailViewControllerNew: UICollectionViewDataSource, UICollectionVi
         case .busyTimes:
             return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
         case.facilities:
-            return CGSize(width: width, height: 500)
+            let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight * CGFloat(GymDetailFacilitiesCell.gymFacilitiesCount)
+            return CGSize(width: width, height: GymDetailFacilitiesCell.baseHeight + tableViewHeight)
         case.classes:
             return (todaysClasses.isEmpty) ? CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelBottomPadding) :
             CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight + 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding + classesCollectionViewHeight())
