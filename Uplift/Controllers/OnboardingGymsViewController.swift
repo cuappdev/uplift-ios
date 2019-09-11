@@ -53,7 +53,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
-        titleLabel.fitTextToBounds()
         view.addSubview(titleLabel)
         
         gymsTableView = UITableView(frame: .zero, style: .plain)
@@ -99,7 +98,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
                 namesArray.append($0.name)
             }
             DispatchQueue.main.async {
-                self.gymNames = namesArray
+                self.gymNames = namesArray.sorted { $0 < $1 }
                 self.gymsTableView.reloadData()
             }
         }
