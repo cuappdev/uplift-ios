@@ -40,8 +40,11 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .fitnessWhite
-
+        let defaults = UserDefaults.standard
         let buttonBorderSize: CGFloat = 2
+        
+        // Get Favorite Gyms from UserDefaulys
+        favoriteGyms = defaults.array(forKey: Identifiers.favoriteGyms) as! [String]
         
         // Set up screen sizes for scaling
         currentScreenSize = computeScreenDimensions()
@@ -277,6 +280,10 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.reuseIdentifier, for: indexPath) as! FavoriteGymCell
         let gym = gymNames[indexPath.section]
         cell.configure(with: gym)
+        // Toggle if already in UserDefaults
+        if favoriteGyms.contains(gym) {
+            cell.toggleSelectedView(selected: true)
+        }
         cell.setNeedsUpdateConstraints()
         cell.selectionStyle = .none
         return cell
