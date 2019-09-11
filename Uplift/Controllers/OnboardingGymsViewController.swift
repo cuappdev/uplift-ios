@@ -60,7 +60,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
-        titleLabel.fitTextToBounds()
         view.addSubview(titleLabel)
         
         gymsTableView = UITableView(frame: .zero, style: .plain)
