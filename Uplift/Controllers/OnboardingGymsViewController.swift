@@ -26,7 +26,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     
     // Display Info
     private var currentScreenSize: CGSize?
-    private var xrSize = CGSize(width: 768, height: 375)
     private let nextButtonSize: CGFloat = 35
     private let gymCellHeight: CGFloat = 60
     private let gymCellVerticalPadding: CGFloat = 14
@@ -43,12 +42,13 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         let defaults = UserDefaults.standard
         let buttonBorderSize: CGFloat = 2
         
-        // Get Favorite Gyms from UserDefaulys
-        favoriteGyms = defaults.array(forKey: Identifiers.favoriteGyms) as! [String]
+        // Get Favorite Gyms from UserDefaults
+        if let favorites = defaults.array(forKey: Identifiers.favoriteGyms) as? [String] {
+            favoriteGyms = favorites
+        }
         
         // Set up screen sizes for scaling
         currentScreenSize = computeScreenDimensions()
-        xrSize = CGSize(width: 375, height: 768)
         
         titleLabel = UILabel()
         titleLabel.text = "Select the gyms you go to!"
@@ -115,13 +115,13 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
 
     func setUpConstraints() {
         // title
-        let titleLeadingPadding = scale(width: 27) 
-        let titleTrailingPadding = scale(width: 22)
-        let titleTopPadding = scale(height: 34)
+        let titleLeadingPadding = 27 
+        let titleTrailingPadding = 22
+        let titleTopPadding = 34
         // table view
-        let tableViewTopPadding = scale(height: 28)
-        let tableViewSidePadding = scale(width: 16)
-        let tableViewBottomPadding = scale(height: 14)
+        let tableViewTopPadding = 28
+        let tableViewSidePadding = 16
+        let tableViewBottomPadding = 14
         // next button
         let nextButtonPaddingWidth = 40
         let nextButtonPaddingHeight = 70
@@ -167,7 +167,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    /// Save favorite gyms to UserDefualts
+    /// Save favorite gyms to UserDefaults
     func saveFavoriteGyms() {
         let defaults = UserDefaults.standard
         defaults.set(favoriteGyms, forKey: Identifiers.favoriteGyms)
@@ -176,12 +176,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     //MARK: UI Helper Methods
     /// Scales measurements based off the height of an iPhone XR
     func scale(height: Double) -> Double {
-        return Double(currentScreenSize?.height ?? 0) * (height / Double(xrSize.height))
-    }
-
-    /// Scales measurements based off the width of an iPhone XR
-    func scale(width: Double) -> Double {
-        return Double(currentScreenSize?.width ?? 0) * (width / Double(xrSize.width))
+        let xrHeight = 768
+        return Double(currentScreenSize?.height ?? 0) * (height / Double(xrHeight))
     }
 
     /// Computes the dimensions of the current device
@@ -257,7 +253,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return gymCellHeight
         return CGFloat(scale(height: Double(gymCellHeight)))
     }
     
