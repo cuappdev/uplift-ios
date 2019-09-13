@@ -52,17 +52,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = Keys.googleClientID.value
         GIDSignIn.sharedInstance().serverClientID = Keys.googleClientID.value
         GIDSignIn.sharedInstance().delegate = self
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+        if GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false {
             DispatchQueue.main.async {
-                GIDSignIn.sharedInstance().signInSilently()
+                GIDSignIn.sharedInstance()?.restorePreviousSignIn()
             }
         }
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url as URL?,
-                                                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                 annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+        return GIDSignIn.sharedInstance().handle(url as URL?)
     }
 }
 
@@ -99,6 +97,6 @@ extension AppDelegate: GIDSignInDelegate {
     }
     
     func isGoogleLoggedIn() -> Bool {
-        return GIDSignIn.sharedInstance()?.hasAuthInKeychain() ?? false
+        return GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false
     }
 }
