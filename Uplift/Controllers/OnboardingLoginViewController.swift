@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import GoogleSignIn
 
-class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
+class OnboardingLoginViewController: UIViewController {
     
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
@@ -42,7 +42,7 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
         view.backgroundColor = .fitnessWhite
         
         // Google Sign in
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
         
         titleLabel = UILabel()
         titleLabel.text = "Welcome to Uplift!\nStart your Journey Today!"
@@ -173,8 +173,9 @@ class OnboardingLoginViewController: UIViewController, GIDSignInUIDelegate {
 
     // MARK:- Google Sign In
     @objc func googleButtonTapped() {
-        GIDSignIn.sharedInstance()?.delegate = UIApplication.shared.delegate as! GIDSignInDelegate
-        GIDSignIn.sharedInstance()?.uiDelegate = self
+        if let appDelegate = UIApplication.shared.delegate as? GIDSignInDelegate {
+            GIDSignIn.sharedInstance()?.delegate = appDelegate
+        }
         if !isGoogleSignedIn() {
             GIDSignIn.sharedInstance()?.signIn()
         }
