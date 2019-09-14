@@ -142,7 +142,7 @@
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
 		7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
 		7E10287022931EAA00C1A0CE /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
-		7E3667C6232DA39D00C5971E /* OldGymDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OldGymDetailViewController.swift; path = "../../../uplift files/OldGymDetailViewController.swift"; sourceTree = "<group>"; };
+		7E3667C6232DA39D00C5971E /* OldGymDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldGymDetailViewController.swift; sourceTree = "<group>"; };
 		7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioViewController.swift; sourceTree = "<group>"; };
 		7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioHeaderView.swift; sourceTree = "<group>"; };
 		7E4FD0DB22924BE400AC9F90 /* ProBioBiographyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioBiographyCell.swift; sourceTree = "<group>"; };
