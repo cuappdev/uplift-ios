@@ -5,6 +5,11 @@ PODS:
   - Apollo (0.9.5):
     - Apollo/Core (= 0.9.5)
   - Apollo/Core (0.9.5)
+  - AppAuth (1.2.0):
+    - AppAuth/Core (= 1.2.0)
+    - AppAuth/ExternalUserAgent (= 1.2.0)
+  - AppAuth/Core (1.2.0)
+  - AppAuth/ExternalUserAgent (1.2.0)
   - Bartinter (0.0.5)
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
@@ -51,18 +56,10 @@ PODS:
   - GoogleDataTransportCCTSupport (1.0.3):
     - GoogleDataTransport (~> 1.2)
     - nanopb
-  - GoogleSignIn (4.4.0):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+  - GoogleSignIn (5.0.0):
+    - AppAuth (~> 1.1)
+    - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.2.1):
-    - GoogleToolboxForMac/Defines (= 2.2.1)
-  - GoogleToolboxForMac/Defines (2.2.1)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.1)":
-    - GoogleToolboxForMac/DebugUtils (= 2.2.1)
-    - GoogleToolboxForMac/Defines (= 2.2.1)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
   - GoogleUtilities/AppDelegateSwizzler (6.2.5):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -81,7 +78,14 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.2.5):
     - GoogleUtilities/Logger
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.2.2):
+    - GTMSessionFetcher/Full (= 1.2.2)
   - GTMSessionFetcher/Core (1.2.2)
+  - GTMSessionFetcher/Full (1.2.2):
+    - GTMSessionFetcher/Core (= 1.2.2)
   - Kingfisher (4.10.1)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -100,7 +104,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Analytics
   - FLEX (~> 2.0)
-  - GoogleSignIn (~> 4.4.0)
+  - GoogleSignIn
   - Kingfisher (~> 4.0)
   - Presentation (from `https://github.com/cuappdev/Presentation.git`, commit `d4aa2d3ad5901f6ebce0727af592824982f88d13`)
   - SnapKit
@@ -110,6 +114,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
+    - AppAuth
     - Bartinter
     - Crashlytics
     - Fabric
@@ -124,8 +129,8 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleSignIn
-    - GoogleToolboxForMac
     - GoogleUtilities
+    - GTMAppAuth
     - GTMSessionFetcher
     - Kingfisher
     - nanopb
@@ -151,7 +156,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  Apollo: 09002d68c46e4098766fe376151d9ff8bd6aad36
+  Apollo: e93622f4a94cf901c2bf81fe892ad87e3348747a
+  AppAuth: bce82c76043657c99d91e7882e8a9e1a93650cd4
   Bartinter: 3c1fc3bcb631b066fdd78f7e01f1635fbafffdea
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
@@ -165,9 +171,9 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 86a82f0e1f20b8eedf8e20326530138fd71409de
   GoogleDataTransport: 8f9897b8e073687f24ca8d3c3a8013dec7d2d1cc
   GoogleDataTransportCCTSupport: 51134d81fca795c60cc247d1cb6af63c3d67b8d8
-  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
-  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
+  GoogleSignIn: a62edd0516721d2a3db1259a5681b91f9b41c06a
   GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
@@ -175,6 +181,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
-PODFILE CHECKSUM: 899bdf3c25fee90daa370aaee0b864b7e3f38edd
+PODFILE CHECKSUM: 23fb3ec6343cc0dd02c7508d516a94a475094902
 
 COCOAPODS: 1.7.5
