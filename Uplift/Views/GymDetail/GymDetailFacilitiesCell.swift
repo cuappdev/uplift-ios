@@ -34,7 +34,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     // MARK: - Private data vars
     private let facilitiesData: [String: [String]] = [
         "7c53229a64f4794f57a715a9ec0c7f806db23514": ["Fitness Center"],
-        "7045d11329b3645c93556c5aaf44bb21d56934f5": ["Fitness Center", "Pool", "16-lane Bowling Center", "Two-Court Gymnasium", "Dance Studio"],
+        "7045d11329b3645c93556c5aaf44bb21d56934f5": ["Fitness Center", "Pool", "16 Lane Bowling Center", "Two-Court Gymnasium", "Dance Studio"],
         "1f114d3b981f832c858f5cfa52f3a1eb6191e1a4": ["Fitness Center", "Game Area", "Indoor Basketball Court", "Outdoor Basketball Court", "Bouldering Wall", "Multi-Purpose Room"],
         "939c7a2c16d2299cc8558475a8007defc414069c": ["Fitness Center", "Pool"],
         "043c57f3b63411c7a3500c0986fa4b1c8712798c": ["Fitness Center", "Pool"]
