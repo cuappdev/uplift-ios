@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension GymDetailViewControllerNew: GymDetailHoursCellDelegate {
+extension GymDetailViewController: GymDetailHoursCellDelegate {
     func didDropHours(isDropped: Bool, completion: @escaping () -> Void) {
         hoursIsDropped.toggle()
         collectionView.performBatchUpdates({}, completion: nil)
@@ -16,7 +16,7 @@ extension GymDetailViewControllerNew: GymDetailHoursCellDelegate {
     }
 }
 
-extension GymDetailViewControllerNew: GymDetailTodaysClassesCellDelegate {
+extension GymDetailViewController: GymDetailTodaysClassesCellDelegate {
 
     func didSelectClassSession(_ session: GymClassInstance) {
         let classDetailViewController = ClassDetailViewController(gymClassInstance: session)
