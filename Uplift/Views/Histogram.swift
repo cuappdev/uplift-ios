@@ -89,6 +89,7 @@ class Histogram: UIView {
         // TIME
         let currentHour = Calendar.current.component(.hour, from: Date())
         
+        print("selected index is \(selectedIndex)")
         if currentHour >= closeHour {
             selectedIndex = bars.count - 1
         } else if currentHour < openHour {
@@ -234,9 +235,11 @@ class Histogram: UIView {
         }
         
         // update selectedTime and the descriptor
-        if data[selectedIndex + openHour - 1] < mediumThreshold {
+        print("selected index is \(selectedIndex)")
+        print("DATA IS: \(data[selectedIndex + openHour])")
+        if data[selectedIndex + openHour] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if data[selectedIndex + openHour - 1] < highThreshold {
+        } else if data[selectedIndex + openHour] < highThreshold {
             selectedTimeDescriptor.text = timeDescriptors[1]
         } else {
             selectedTimeDescriptor.text = timeDescriptors[2]
