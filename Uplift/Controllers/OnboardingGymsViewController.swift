@@ -62,9 +62,9 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
         gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.reuseIdentifier)
-        gymsTableView.isScrollEnabled = false 
+        gymsTableView.isScrollEnabled = false
         gymsTableView.separatorStyle = .none
-        gymsTableView.clipsToBounds = false 
+        gymsTableView.clipsToBounds = false
         view.addSubview(gymsTableView)
         
         nextButton = UIButton()
