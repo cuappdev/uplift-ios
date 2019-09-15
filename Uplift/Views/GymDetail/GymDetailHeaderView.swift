@@ -27,10 +27,10 @@ class GymDetailHeaderView: UICollectionReusableView {
 
     // MARK: - Public configure
     func configure(for gym: Gym) {
-        self.isOpen = gym.isOpen
+        isOpen = gym.isOpen
         imageView.kf.setImage(with: gym.imageURL)
         nameLabel.text = gym.name.uppercased()
-        
+
         setupConstraints()
     }
 
