@@ -139,7 +139,7 @@
 		7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioHeaderView.swift; sourceTree = "<group>"; };
 		7E4FD0DB22924BE400AC9F90 /* ProBioBiographyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioBiographyCell.swift; sourceTree = "<group>"; };
 		7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioExpertiseCell.swift; sourceTree = "<group>"; };
-		7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProBioRoutinesCell.swift; path = Uplift/Views/ProBio/ProBioRoutinesCell.swift; sourceTree = SOURCE_ROOT; };
+		7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProBioRoutinesCell.swift; path = Legacy/Pros/Views/ProBioRoutinesCell.swift; sourceTree = SOURCE_ROOT; };
 		7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBioLinksCell.swift; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
 		8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -279,11 +279,6 @@
 		7E4FD0DE22924C1C00AC9F90 /* ProBio */ = {
 			isa = PBXGroup;
 			children = (
-				7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */,
-				7E4FD0DB22924BE400AC9F90 /* ProBioBiographyCell.swift */,
-				7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */,
-				7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */,
-				7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */,
 			);
 			path = ProBio;
 			sourceTree = "<group>";
@@ -357,9 +352,6 @@
 				C73637292082F193004751F5 /* GymClass.swift */,
 				C7434C10208D27C1006F3249 /* GymClassDescription.swift */,
 				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
-				E6AB639E22445897005C2930 /* PersonalLink.swift */,
-				E6B5806B2228B51100A864D6 /* ProBio.swift */,
-				E60A1B9C222B93DF00F89275 /* ProRoutine.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 				4F27D7F822445BDD00135DC4 /* User.swift */,
 				8DD74F352242A2DA00CE1274 /* Habit.swift */,
@@ -382,6 +374,7 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				E6034D49232E248400EE5E84 /* Legacy */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C289B16B228A844A00934A2A /* API.swift */,
@@ -439,7 +432,6 @@
 				4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */,
 				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
-				7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -479,8 +471,6 @@
 				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
-				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
-				7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -545,6 +535,64 @@
 				8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */,
 			);
 			path = "Empty States";
+			sourceTree = "<group>";
+		};
+		E6034D49232E248400EE5E84 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				E6034D4A232E24BB00EE5E84 /* Pros */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		E6034D4A232E24BB00EE5E84 /* Pros */ = {
+			isa = PBXGroup;
+			children = (
+				E6034D4E232E24F600EE5E84 /* Views */,
+				E6034D4D232E24E500EE5E84 /* Cells */,
+				E6034D4C232E24D700EE5E84 /* Controllers */,
+				E6034D4B232E24C700EE5E84 /* Models */,
+			);
+			path = Pros;
+			sourceTree = "<group>";
+		};
+		E6034D4B232E24C700EE5E84 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E6AB639E22445897005C2930 /* PersonalLink.swift */,
+				E6B5806B2228B51100A864D6 /* ProBio.swift */,
+				E60A1B9C222B93DF00F89275 /* ProRoutine.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E6034D4C232E24D700EE5E84 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7E4FD0D72292389300AC9F90 /* ProBioViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E6034D4D232E24E500EE5E84 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */,
+				7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E6034D4E232E24F600EE5E84 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7E4FD0D9229243DA00AC9F90 /* ProBioHeaderView.swift */,
+				7E4FD0DB22924BE400AC9F90 /* ProBioBiographyCell.swift */,
+				7E4FD0DF22924FBB00AC9F90 /* ProBioExpertiseCell.swift */,
+				7E4FD0E122925AE800AC9F90 /* ProBioRoutinesCell.swift */,
+				7E4FD0E322925E3700AC9F90 /* ProBioLinksCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E60DE89E232DA6D20022BC72 /* Secrets */ = {
