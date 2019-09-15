@@ -15,32 +15,20 @@ protocol ChooseGymsDelegate: class {
 class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - INITIALIZATION
-    var titleLabel: UILabel!
-    var nextButton: UIButton!
-    var nextButtonArrow: UIImageView!
-    var backButton: UIButton!
-    var backButtonArrow: UIImageView!
+    private var titleLabel: UILabel!
+    private var nextButton: UIButton!
+    private var nextButtonArrow: UIImageView!
+    private var backButton: UIButton!
+    private var backButtonArrow: UIImageView!
     
     // TableView
-    var gymsTableView: UITableView!
+    private var gymsTableView: UITableView!
     
     // Display Info
-    let tableViewToNext: CGFloat = 94
-    let buttonPadding: CGFloat = 27
-    let buttonHeight: CGFloat = 48
-    let cornerRadius: CGFloat = 5
-    
-    let nextButtonSize: CGFloat = 35
-    let nextButtonPadding = CGSize(width: 40, height: 70)
-    let buttonBorderSize: CGFloat = 2
-    
-    let checkSymbolSize: CGFloat = 24
-    let checkArrowSize = CGSize(width: 16.95, height: 11.59)
-    
-    let maxGymRows = 8
-    let gymCellHeight: CGFloat = 60
-    let gymSidePadding: CGFloat = 16
-    let gymCellVerticalPadding: CGFloat = 14
+    private var currentScreenSize: CGSize?
+    private let nextButtonSize: CGFloat = 35
+    private let gymCellHeight: CGFloat = 60
+    private let gymCellVerticalPadding: CGFloat = 14
     
     // Gyms
     private var gymNames: [String] = []
@@ -51,9 +39,19 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .fitnessWhite
+        let defaults = UserDefaults.standard
+        let buttonBorderSize: CGFloat = 2
+        
+        // Get Favorite Gyms from UserDefaults
+        if let favorites = defaults.array(forKey: Identifiers.favoriteGyms) as? [String] {
+            favoriteGyms = favorites
+        }
+        
+        // Set up screen sizes for scaling
+        currentScreenSize = computeScreenDimensions()
         
         titleLabel = UILabel()
-        titleLabel.text = "Pick a Gym! Any gym! Cuz we know their Hours!"
+        titleLabel.text = "Select the gyms you go to!"
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
@@ -103,7 +101,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
                 namesArray.append($0.name)
             }
             DispatchQueue.main.async {
-                self.gymNames = namesArray
+                self.gymNames = namesArray.sorted { $0 < $1 }
                 self.gymsTableView.reloadData()
             }
         }
@@ -116,24 +114,40 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func setUpConstraints() {
+        // title
+        let titleLeadingPadding = 27 
+        let titleTrailingPadding = 22
+        let titleTopPadding = 34
+        // table view
+        let tableViewTopPadding = 28
+        let tableViewSidePadding = 16
+        let tableViewBottomPadding = 14
+        // next button
+        let nextButtonPaddingWidth = 40
+        let nextButtonPaddingHeight = 70
+        // check arrow
+        let checkArrowWidth = 16.95
+        let checkArrowHeight = 11.59
+        let checkArrowSize = CGSize(width: checkArrowWidth, height: checkArrowHeight)
+
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(view.safeAreaLayoutGuide).inset(27)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(22)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(34)
+            make.leading.equalTo(view.safeAreaLayoutGuide).inset(titleLeadingPadding)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(titleTrailingPadding)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(titleTopPadding)
         }
         
         // Table View
         gymsTableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(28)
-            make.leading.trailing.equalToSuperview().inset(gymSidePadding)
-            make.bottom.equalTo(nextButton.snp.top).offset(14)
+            make.top.equalTo(titleLabel.snp.bottom).offset(tableViewTopPadding)
+            make.leading.trailing.equalToSuperview().inset(tableViewSidePadding)
+            make.bottom.equalTo(nextButton.snp.top).offset(tableViewBottomPadding)
         }
         
         // Arrows
         nextButton.snp.makeConstraints { make in
             make.size.equalTo(nextButtonSize)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.width)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.height)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPaddingWidth)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPaddingHeight)
         }
         
         nextButtonArrow.snp.makeConstraints { make in
@@ -143,8 +157,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         
         backButton.snp.makeConstraints { make in
             make.size.equalTo(nextButtonSize)
-            make.leading.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.width)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.height)
+            make.leading.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPaddingWidth)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPaddingHeight)
         }
         
         backButtonArrow.snp.makeConstraints { make in
@@ -153,13 +167,33 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    /// Save favorite gyms to UserDefualts
+    /// Save favorite gyms to UserDefaults
     func saveFavoriteGyms() {
         let defaults = UserDefaults.standard
         defaults.set(favoriteGyms, forKey: Identifiers.favoriteGyms)
     }
-    
+
     //MARK: UI Helper Methods
+    /// Scales measurements based off the height of an iPhone XR
+    func scale(height: Double) -> Double {
+        let xrHeight = 768
+        return Double(currentScreenSize?.height ?? 0) * (height / Double(xrHeight))
+    }
+
+    /// Computes the dimensions of the current device
+    func computeScreenDimensions() -> CGSize {
+        var safeInsetHeight: CGFloat = 0
+        var safeInsetWidth: CGFloat = 0
+        if #available(iOS 11.0, *) { // Compensate for safe area layout guide insets
+            let window = UIApplication.shared.keyWindow
+            safeInsetHeight = window?.safeAreaInsets.top ?? 0
+            safeInsetWidth = window?.safeAreaInsets.left ?? 0
+        }
+        let screenRect = UIScreen.main.bounds
+        let screenHeight: Double = Double(screenRect.height - safeInsetHeight)
+        let screenWidth: Double = Double(screenRect.width - safeInsetWidth)
+        return CGSize(width: screenWidth, height: screenHeight)
+    }
     
     /// Toggles whether the Next button can be pressed (also adds the checkmark in the email field)
     func toggleButton(button: UIButton, arrow: UIView, enabled: Bool) {
@@ -219,7 +253,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return gymCellHeight
+        return CGFloat(scale(height: Double(gymCellHeight)))
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -241,9 +275,12 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.reuseIdentifier, for: indexPath) as! FavoriteGymCell
         let gym = gymNames[indexPath.section]
         cell.configure(with: gym)
+        // Toggle if already in UserDefaults
+        if favoriteGyms.contains(gym) {
+            cell.toggleSelectedView(selected: true)
+        }
         cell.setNeedsUpdateConstraints()
         cell.selectionStyle = .none
         return cell
     }
-    
 }
