@@ -9,11 +9,13 @@
 import UIKit
 
 extension GymDetailViewController: GymDetailHoursCellDelegate {
+    
     func didDropHours(isDropped: Bool, completion: @escaping () -> Void) {
         hoursIsDropped.toggle()
         collectionView.performBatchUpdates({}, completion: nil)
         completion()
     }
+    
 }
 
 extension GymDetailViewController: GymDetailTodaysClassesCellDelegate {

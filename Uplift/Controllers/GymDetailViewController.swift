@@ -100,9 +100,9 @@ class GymDetailViewController: UIViewController {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 
@@ -158,8 +158,14 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight * CGFloat(GymDetailFacilitiesCell.gymFacilitiesCount)
             return CGSize(width: width, height: GymDetailFacilitiesCell.baseHeight + tableViewHeight)
         case.classes:
-            return (todaysClasses.isEmpty) ? CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelBottomPadding) :
-            CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight + 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding + classesCollectionViewHeight())
+            return (todaysClasses.isEmpty) ?
+                CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
+                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
+                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
+                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelBottomPadding)
+                : CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
+                    (2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding) +
+                    classesCollectionViewHeight())
         }
     }
 
@@ -200,8 +206,8 @@ extension GymDetailViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
 
-        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
-        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
+        backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)
     }
@@ -231,9 +237,9 @@ extension GymDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 }

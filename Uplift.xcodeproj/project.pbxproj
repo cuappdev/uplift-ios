@@ -288,13 +288,13 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		7E3667C5232DA37D00C5971E /* Old Files */ = {
+		7E3667C5232DA37D00C5971E /* OldFiles */ = {
 			isa = PBXGroup;
 			children = (
 				7E3667C6232DA39D00C5971E /* OldGymDetailViewController.swift */,
 				0C97AC2622766E210086D699 /* GymFacilitiesView.swift */,
 			);
-			path = "Old Files";
+			path = OldFiles;
 			sourceTree = "<group>";
 		};
 		7E4FD0DE22924C1C00AC9F90 /* ProBio */ = {
@@ -444,7 +444,7 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				7E3667C5232DA37D00C5971E /* Old Files */,
+				7E3667C5232DA37D00C5971E /* OldFiles */,
 				C2B0BE07231E028A0033B8BC /* GoogleService-Info.plist */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
 				D94BD3062159DA7D00C9214E /* graphql */,

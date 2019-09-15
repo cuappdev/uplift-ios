@@ -27,10 +27,11 @@ class GymFacilitiesCell: UITableViewCell {
     }
 
     func setUpConstraints() {
+        let facilityLabelHeight = 20
+
         facilityLabel.snp.makeConstraints { make in
-//            make.top.centerX.leading.trailing.equalToSuperview()
             make.center.leading.trailing.equalToSuperview()
-            make.height.equalTo(20)
+            make.height.equalTo(facilityLabelHeight)
         }
     }
     

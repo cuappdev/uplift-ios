@@ -73,9 +73,9 @@ class ProBioViewController: UIViewController {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 
@@ -199,8 +199,8 @@ extension ProBioViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
 
-        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
-        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
+        backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)
     }
@@ -231,9 +231,9 @@ extension ProBioViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 

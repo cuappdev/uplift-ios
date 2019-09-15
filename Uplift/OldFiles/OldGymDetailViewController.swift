@@ -105,7 +105,7 @@ class OldGymDetailViewController: UIViewController {
         facilitiesTitleLabel.sizeToFit()
         facilitiesTitleLabel.text = "FACILITIES"
         contentView.addSubview(facilitiesTitleLabel)
-        
+
         setupFacilities()
         facilitiesClassesDivider = UIView()
         facilitiesClassesDivider.backgroundColor = .fitnessLightGrey
@@ -118,7 +118,7 @@ class OldGymDetailViewController: UIViewController {
         todaysClassesLabel.text = "TODAY'S CLASSES"
         todaysClassesLabel.textAlignment = .center
         contentView.addSubview(todaysClassesLabel)
-        
+
         noMoreClassesLabel = UILabel()
         noMoreClassesLabel.font = UIFont._14MontserratLight
         noMoreClassesLabel.textColor = .fitnessDarkGrey
@@ -145,23 +145,23 @@ class OldGymDetailViewController: UIViewController {
         classesCollectionView.dataSource = self
         classesCollectionView.delegate = self
         contentView.addSubview(classesCollectionView)
-        
+
         contentView.bringSubviewToFront(backButton)
 
         todaysClasses = []
         setupConstraints()
-        
+
         NetworkManager.shared.getClassInstancesByGym(gymId: gym.id, date: Date.getNowString()) { gymClasses in
             self.todaysClasses = gymClasses
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 
@@ -208,9 +208,9 @@ class OldGymDetailViewController: UIViewController {
         }
 
         backButton = UIButton()
-        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+        backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         backButton.sizeToFit()
-        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         contentView.addSubview(backButton)
 
         titleLabel = UILabel()
@@ -221,19 +221,14 @@ class OldGymDetailViewController: UIViewController {
         titleLabel.text = gym.name
         contentView.addSubview(titleLabel)
     }
-    
+
     // MARK: - SETUP FACILITIES TABLE
     func setupFacilities() {
-        let appelGymID = "7c53229a64f4794f57a715a9ec0c7f806db23514"
-        let helenNewmanGymID = "7045d11329b3645c93556c5aaf44bb21d56934f5"
-        let teagleGymID = "939c7a2c16d2299cc8558475a8007defc414069c"
-        let teagleGymID2 = "043c57f3b63411c7a3500c0986fa4b1c8712798c"
-
-        if (gym.id == helenNewmanGymID) {
+        if gym.id == GymIds.helenNewman {
             facilityTableView = GymFacilitiesTableView(facilityName: .helenNewman)
-        } else if (gym.id == teagleGymID || gym.id == teagleGymID2) {
+        } else if gym.id == GymIds.teagleDown || gym.id == GymIds.teagleUp {
             facilityTableView = GymFacilitiesTableView(facilityName: .teagle)
-        } else if (gym.id == appelGymID){
+        } else if gym.id == GymIds.appel {
             facilityTableView = GymFacilitiesTableView(facilityName: .appel)
         } else {
             facilityTableView = GymFacilitiesTableView(facilityName: .noyes)
@@ -306,6 +301,8 @@ class OldGymDetailViewController: UIViewController {
         let classesCollectionViewTopPadding = 32
         let closedLabelHeight = 60
         let facilitiesClassesDividerHeight = 1
+        let facilitiesLabelHeight = 20
+        let facilitiesLabelTopPadding = 10
         let facilitiesTitleLabelHeight = 19
         let facilityTableViewTopPadding = 20
         let gymImageContainerHeight = 360
@@ -370,7 +367,7 @@ class OldGymDetailViewController: UIViewController {
         hoursTableView.snp.updateConstraints { make in
             make.centerX.width.equalToSuperview()
             make.top.equalTo(hoursTitleLabel.snp.bottom).offset(hoursTableViewTopPadding)
-            if (hoursData.isDropped) {
+            if hoursData.isDropped {
                 make.height.equalTo(hoursTableViewDroppedHeight)
             } else {
                 make.height.equalTo(hoursTableViewHeight)
@@ -423,15 +420,15 @@ class OldGymDetailViewController: UIViewController {
             make.top.equalTo(facilitiesTitleLabel.snp.bottom).offset(facilityTableViewTopPadding)
         }
 
-        for i in 0..<facilitiesLabelArray.count {
+        (0..<facilitiesLabelArray.count).forEach { i in
             facilitiesLabelArray[i].snp.updateConstraints { make in
-                if (i == 0) {
-                    make.top.equalTo(facilitiesTitleLabel.snp.bottom).offset(10)
+                if i == 0 {
+                    make.top.equalTo(facilitiesTitleLabel.snp.bottom).offset(facilitiesLabelTopPadding)
                 } else {
                     make.top.equalTo(facilitiesLabelArray[i-1].snp.bottom)
                 }
                 make.centerX.width.equalToSuperview()
-                make.height.equalTo(20)
+                make.height.equalTo(facilitiesLabelHeight)
             }
         }
 
@@ -470,33 +467,42 @@ class OldGymDetailViewController: UIViewController {
             }
         }
     }
-    
+
     func remakeConstraints() {
+        let classesCollectionViewCellHeight = 112
+        let classesCollectionViewTopPaddingg = 32
+        let noMoreClassesLabelBottomPadding = 24
+        let noMoreClassesLabelHeight = 66
+
         classesCollectionView.snp.remakeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(todaysClassesLabel.snp.bottom).offset(32)
-            make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * 112)
+            make.top.equalTo(todaysClassesLabel.snp.bottom).offset(classesCollectionViewTopPaddingg)
+            make.height.equalTo(classesCollectionView.numberOfItems(inSection: 0) * classesCollectionViewCellHeight)
         }
+
         if todaysClasses.isEmpty {
             noMoreClassesLabel.snp.remakeConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(24)
-                make.height.equalTo(66)
+                make.bottom.equalToSuperview().inset(noMoreClassesLabelBottomPadding)
+                make.height.equalTo(noMoreClassesLabelHeight)
             }
         } else {
             noMoreClassesLabel.snp.remakeConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.top.equalTo(classesCollectionView.snp.bottom)
-                make.bottom.equalToSuperview().inset(24)
+                make.bottom.equalToSuperview().inset(noMoreClassesLabelBottomPadding)
                 make.height.equalTo(0)
             }
         }
     }
-    
+
     func getStringFromDailyHours(dailyGymHours: DailyGymHours) -> String {
+        let openTime = dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")
+        let closeTime = dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a")
+
         if dailyGymHours.openTime != dailyGymHours.closeTime {
-            return "\(dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")) - \(dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a"))"
+            return "\(openTime) - \(closeTime)"
         } else {
             return "Closed"
         }
@@ -506,16 +512,19 @@ class OldGymDetailViewController: UIViewController {
     @objc func dropHours( sender: UITapGestureRecognizer) {
         hoursTableView.beginUpdates()
         var modifiedIndices: [IndexPath] = []
-        for i in 0..<6 {
+        // only modifying 6 rows because today's hours are always displayed
+        (0..<6).forEach { i in
             modifiedIndices.append(IndexPath(row: i, section: 0))
         }
 
-        if (hoursData.isDropped) {
+        if hoursData.isDropped {
             hoursData.isDropped = false
             hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = #imageLiteral(resourceName: "right-arrow-solid")
-            
+            if let headerView = hoursTableView.headerView(forSection: 0) as? GymHoursHeaderView {
+                headerView.downArrow.image = .none
+                headerView.rightArrow.image = UIImage(named: "right-arrow-solid")
+            }
+
             UIView.animate(withDuration: 0.3) {
                 self.setupConstraints()
                 self.view.layoutIfNeeded()
@@ -523,9 +532,11 @@ class OldGymDetailViewController: UIViewController {
         } else {
             hoursData.isDropped = true
             hoursTableView.insertRows(at: modifiedIndices, with: .fade)
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = #imageLiteral(resourceName: "down-arrow-solid")
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = .none
-            
+            if let headerView = hoursTableView.headerView(forSection: 0) as? GymHoursHeaderView {
+                headerView.downArrow.image = UIImage(named: "down-arrow-solid")
+                headerView.rightArrow.image = .none
+            }
+
             UIView.animate(withDuration: 0.5) {
                 self.setupConstraints()
                 self.view.layoutIfNeeded()
@@ -554,29 +565,30 @@ extension OldGymDetailViewController: UICollectionViewDataSource, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == classesCollectionView {
+            //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
-            
+
             cell.configure(gymClassInstance: todaysClasses[indexPath.item], style: .date)
-            
+
             return cell
         }
         return UICollectionViewCell()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
             cell.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
         }, completion: nil)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
             cell.transform = .identity
         }, completion: nil)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let classDetailViewController = ClassDetailViewController(gymClassInstance: todaysClasses[indexPath.item])
         navigationController?.hidesBottomBarWhenPushed = true
@@ -588,20 +600,12 @@ extension OldGymDetailViewController: UICollectionViewDataSource, UICollectionVi
 extension OldGymDetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == hoursTableView {
-            if (hoursData.isDropped) {
-                return 6
-            } else {
-                return 0
-            }
-        } 
-        else {
-            return 0
-        }
+        return tableView == hoursTableView && hoursData.isDropped ? 6 : 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == hoursTableView {
+            //swiftlint:disable:next force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: GymHoursCell.identifier, for: indexPath) as! GymHoursCell
             let date = Date()
             let day = (date.getIntegerDayOfWeekToday() + indexPath.row + 1) % 7
@@ -610,29 +614,30 @@ extension OldGymDetailViewController: UITableViewDataSource {
 
             switch days[day] {
             case .sunday:
-                cell.dayLabel.text = "Su"
+                cell.dayLabel.text = DayAbbreviations.sunday
             case .monday:
-                cell.dayLabel.text = "M"
+                cell.dayLabel.text = DayAbbreviations.monday
             case .tuesday:
-                cell.dayLabel.text = "T"
+                cell.dayLabel.text = DayAbbreviations.tuesday
             case .wednesday:
-                cell.dayLabel.text = "W"
+                cell.dayLabel.text = DayAbbreviations.wednesday
             case .thursday:
-                cell.dayLabel.text = "Th"
+                cell.dayLabel.text = DayAbbreviations.thursday
             case .friday:
-                cell.dayLabel.text = "F"
+                cell.dayLabel.text = DayAbbreviations.friday
             case .saturday:
-                cell.dayLabel.text = "Sa"
+                cell.dayLabel.text = DayAbbreviations.saturday
             }
 
             return cell
-        } else {
-            return UITableViewCell()
         }
+
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == hoursTableView {
+            //swiftlint:disable:next force_cast
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: GymHoursHeaderView.identifier) as! GymHoursHeaderView
 
             header.hoursLabel.text = getStringFromDailyHours(dailyGymHours: gym.gymHoursToday)
@@ -641,9 +646,9 @@ extension OldGymDetailViewController: UITableViewDataSource {
             header.addGestureRecognizer(gesture)
 
             return header
-        } else {
-            return nil
         }
+
+        return nil
     }
 }
 
@@ -652,21 +657,17 @@ extension OldGymDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == hoursTableView {
             return indexPath.row == 5 ? 19 : 27
-        } else {
-            return 112
         }
+
+        return 112
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == hoursTableView {
-            if (hoursData.isDropped) {
-                return 27
-            } else {
-                return 19
-            }
-        } else {
-            return 0
+            return hoursData.isDropped ? 27 : 19
         }
+
+        return 0
     }
 }
 
@@ -677,9 +678,9 @@ extension OldGymDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 }

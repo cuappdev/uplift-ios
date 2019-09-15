@@ -27,8 +27,14 @@ class GymDetailHoursCell: UICollectionViewCell {
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        var height = Constants.hoursTitleLabelTopPadding + Constants.hoursTitleLabelHeight + Constants.hoursTableViewTopPadding + Constants.dividerTopPadding + Constants.dividerHeight
-        height = hoursData.isDropped ? height + Constants.hoursTableViewDroppedHeight : height + Constants.hoursTableViewHeight
+        var height = Constants.hoursTitleLabelTopPadding +
+            Constants.hoursTitleLabelHeight +
+            Constants.hoursTableViewTopPadding +
+            Constants.dividerTopPadding +
+            Constants.dividerHeight
+        height = hoursData.isDropped
+            ? height + Constants.hoursTableViewDroppedHeight
+            : height + Constants.hoursTableViewHeight
         return CGFloat(height)
     }
 
@@ -147,18 +153,21 @@ class GymDetailHoursCell: UICollectionViewCell {
     }
 
     func getStringFromDailyHours(dailyGymHours: DailyGymHours) -> String {
+        let openTime = dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")
+        let closeTime = dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a")
+
         if dailyGymHours.openTime != dailyGymHours.closeTime {
-            return "\(dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")) - \(dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a"))"
-        } else {
-            return "Closed"
+            return "\(openTime) - \(closeTime)"
         }
+        
+        return "Closed"
     }
 
     // MARK: - Targets
     @objc func dropHours(sender: UITapGestureRecognizer) {
         hoursTableView.beginUpdates()
         var modifiedIndices: [IndexPath] = []
-        for i in 0..<6 {
+        (0..<6).forEach { i in
             modifiedIndices.append(IndexPath(row: i, section: 0))
         }
 
@@ -212,19 +221,19 @@ extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
 
         switch days[day] {
         case .sunday:
-            cell.dayLabel.text = "Su"
+            cell.dayLabel.text = DayAbbreviations.sunday
         case .monday:
-            cell.dayLabel.text = "M"
+            cell.dayLabel.text = DayAbbreviations.monday
         case .tuesday:
-            cell.dayLabel.text = "T"
+            cell.dayLabel.text = DayAbbreviations.tuesday
         case .wednesday:
-            cell.dayLabel.text = "W"
+            cell.dayLabel.text = DayAbbreviations.wednesday
         case .thursday:
-            cell.dayLabel.text = "Th"
+            cell.dayLabel.text = DayAbbreviations.thursday
         case .friday:
-            cell.dayLabel.text = "F"
+            cell.dayLabel.text = DayAbbreviations.friday
         case .saturday:
-            cell.dayLabel.text = "Sa"
+            cell.dayLabel.text = DayAbbreviations.saturday
         }
 
         return cell

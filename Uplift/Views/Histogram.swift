@@ -129,8 +129,7 @@ class Histogram: UIView {
         let tickSpacing = (Int(frame.width) - bottomAxisTicks.count * 2 - 4) / (bottomAxisTicks.count + 1)
         let padding = Int(frame.width) - (tickSpacing * (bottomAxisTicks.count + 1) + 4 + bottomAxisTicks.count * 2)
 
-        for i in 0..<bottomAxisTicks.count {
-
+        (0..<bottomAxisTicks.count).forEach { i in
             let tick = bottomAxisTicks[i]
             let tickWidth: CGFloat = 2
             let tickHeight: CGFloat = 3
@@ -224,7 +223,7 @@ class Histogram: UIView {
                     selectedTimeDescriptor.text = timeDescriptors[2]
                 }
                 selectedTimeDescriptor.sizeToFit()
-                
+
                 selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
 
                 setupSelectedConstraints()

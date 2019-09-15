@@ -10,14 +10,14 @@ import SnapKit
 import UIKit
 
 class FacilityHoursCell: UITableViewCell {
-    
+
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.facilityHoursCell
 
     // MARK: - Public view vars
     let dayLabel = UILabel()
     let hoursLabel = UILabel()
-    
+
     // MARK: - Private view vars
     private let hoursScrollView = UIScrollView()
 
@@ -43,7 +43,7 @@ class FacilityHoursCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Private helpers
     func setupViews() {
         dayLabel.font = UIFont._12MontserratBold
@@ -55,17 +55,23 @@ class FacilityHoursCell: UITableViewCell {
     }
 
     func setupConstraints() {
+        let dayLabelHeight = 15
+        let dayLabelLeftPadding = 22
+        let hoursScrollViewHeight = 19
+        let hoursScrollViewLeftPadding = 72
+        let hoursScrollViewRightPadding = 18
+
         dayLabel.snp.updateConstraints {make in
-            make.leading.equalToSuperview().offset(22)
-            make.height.equalTo(15)
+            make.leading.equalToSuperview().offset(dayLabelLeftPadding)
+            make.height.equalTo(dayLabelHeight)
             make.centerY.equalToSuperview()
         }
 
         hoursScrollView.snp.updateConstraints {make in
-            make.leading.equalToSuperview().inset(72)
-            make.trailing.equalToSuperview().inset(18)
+            make.leading.equalToSuperview().inset(hoursScrollViewLeftPadding)
+            make.trailing.equalToSuperview().inset(hoursScrollViewRightPadding)
             make.centerY.equalToSuperview()
-            make.height.equalTo(19)
+            make.height.equalTo(hoursScrollViewHeight)
         }
 
         hoursLabel.snp.updateConstraints {make in

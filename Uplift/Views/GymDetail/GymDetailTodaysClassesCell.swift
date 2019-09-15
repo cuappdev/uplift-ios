@@ -55,7 +55,6 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
             self.classesCollectionView.reloadData()
             self.remakeConstraints()
         }
-//        classesCollectionView.reloadData()
     }
 
     // MARK: - Private helpers
@@ -68,7 +67,7 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
         noMoreClassesLabel.font = UIFont._14MontserratLight
         noMoreClassesLabel.textColor = .fitnessLightBlack
-        noMoreClassesLabel.text = "We are done for today. \nCheck again tomorrow!\n🌟"
+        noMoreClassesLabel.text = "We are done for today.\nCheck again tomorrow!\n🌟"
         noMoreClassesLabel.numberOfLines = 0
         noMoreClassesLabel.textAlignment = .center
 
