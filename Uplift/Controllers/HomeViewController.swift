@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     var gymClassInstances: [GymClassInstance] = []
     var gyms: [Gym] = []
     var habits: [Habit] = []
-    let pros = ProBio.getAllPros()
+    var lookingForCategories: [Tag] = []
     var sections: [SectionType] = []
 
     // MARK: - Private data vars
@@ -32,21 +32,21 @@ class HomeViewController: UIViewController {
         static let checkInsListCellIdentifier = "checkInsListCellIdentifier"
         static let gymsListCellIdentifier = "gymsListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
-        static let prosListCellIdentifier = "prosListCellIdentifier"
+        static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
     }
 
     // MARK: - Enums
     enum SectionType: String {
         case checkIns = "DAILY CHECK-INS"
-        case allGyms = "ALL GYMS"
+        case allGyms = "MY GYMS"
         case todaysClasses = "TODAY'S CLASSES"
-        case pros = "LEARN FROM THE PROS"
+        case lookingFor = "I'M LOOKING FOR..."
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sections = [.checkIns, .allGyms, .todaysClasses, .pros]
+        sections = [.allGyms, .todaysClasses, .lookingFor]
 
         view.backgroundColor = UIColor.fitnessWhite
 
@@ -66,7 +66,7 @@ class HomeViewController: UIViewController {
             self.updateFavorites(favorites: gymNames)
 
             // Reload All Gyms section
-            self.collectionView.reloadSections(IndexSet(integer: 1))
+            self.collectionView.reloadSections(IndexSet(integer: 0))
         }
 
         // Get Today's Classes
@@ -77,6 +77,11 @@ class HomeViewController: UIViewController {
                 return first.startTime < second.startTime
             }
             // Reload Today's Classes section
+            self.collectionView.reloadSections(IndexSet(integer: 1))
+        }
+        
+        NetworkManager.shared.getTags { tags in
+            self.lookingForCategories = tags
             self.collectionView.reloadSections(IndexSet(integer: 2))
         }
 
@@ -121,7 +126,7 @@ extension HomeViewController {
         collectionView.register(CheckInsListCell.self, forCellWithReuseIdentifier: Constants.checkInsListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
-        collectionView.register(ProsListCell.self, forCellWithReuseIdentifier: Constants.prosListCellIdentifier)
+        collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)
         view.addSubview(collectionView)
     }
 

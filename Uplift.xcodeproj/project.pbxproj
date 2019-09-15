@@ -10,7 +10,6 @@
 		0C97AC2722766E210086D699 /* GymFacilitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2622766E210086D699 /* GymFacilitiesView.swift */; };
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
 		0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */; };
-		1C1D28372166E188003FE839 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C1D28362166E188003FE839 /* Keys.plist */; };
 		1C1D283B2166E215003FE839 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D283A2166E215003FE839 /* Keys.swift */; };
 		1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */; };
 		1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740E21617680000AEDF0 /* intructorQueries.graphql */; };
@@ -79,7 +78,6 @@
 		C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */; };
 		C289B16C228A844A00934A2A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C289B16B228A844A00934A2A /* API.swift */; };
 		C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */; };
-		C2B0BE08231E028A0033B8BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2B0BE07231E028A0033B8BC /* GoogleService-Info.plist */; };
 		C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
 		C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71E8A032091726600542FA3 /* Date+Shared.swift */; };
 		C73637282082F170004751F5 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637272082F170004751F5 /* Gym.swift */; };
@@ -109,6 +107,10 @@
 		D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */; };
 		E60A1B9D222B93DF00F89275 /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9C222B93DF00F89275 /* ProRoutine.swift */; };
 		E60A1B9F222B945500F89275 /* PersonalLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */; };
+		E61223AF232D6A8700669F7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E61223AE232D6A8700669F7C /* GoogleService-Info.plist */; };
+		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
+		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
+		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
 		E6AB639F22445897005C2930 /* PersonalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB639E22445897005C2930 /* PersonalLink.swift */; };
 		E6B5806C2228B51100A864D6 /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5806B2228B51100A864D6 /* ProBio.swift */; };
 		E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */; };
@@ -119,7 +121,6 @@
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
 		0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursHeaderView.swift; sourceTree = "<group>"; };
 		0F69CDF0CFF17BDF7C0904D2 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
-		1C1D28362166E188003FE839 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		1C1D283A2166E215003FE839 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymClassInstanceQueries.graphql; sourceTree = "<group>"; };
 		1C46740E21617680000AEDF0 /* intructorQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = intructorQueries.graphql; sourceTree = "<group>"; };
@@ -190,9 +191,8 @@
 		C288019F22933B3000EC48B7 /* TodaysClassesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesListCell.swift; sourceTree = "<group>"; };
 		C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassListItemCell.swift; sourceTree = "<group>"; };
 		C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Extensions.swift"; sourceTree = "<group>"; };
-		C289B16B228A844A00934A2A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = Uplift/API.swift; sourceTree = "<group>"; };
+		C289B16B228A844A00934A2A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTrackingController+Extensions.swift"; sourceTree = "<group>"; };
-		C2B0BE07231E028A0033B8BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C71E8A032091726600542FA3 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
 		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
@@ -223,6 +223,10 @@
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E60A1B9C222B93DF00F89275 /* ProRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLinkCollectionViewCell.swift; sourceTree = "<group>"; };
+		E61223AE232D6A8700669F7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
+		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
 		E6AB639E22445897005C2930 /* PersonalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalLink.swift; sourceTree = "<group>"; };
 		E6B5806B2228B51100A864D6 /* ProBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
 		E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProListItemCell.swift; sourceTree = "<group>"; };
@@ -284,14 +288,6 @@
 			path = ProBio;
 			sourceTree = "<group>";
 		};
-		8D95F448208704010095B8AB /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-				1C1D28362166E188003FE839 /* Keys.plist */,
-			);
-			path = Secrets;
-			sourceTree = "<group>";
-		};
 		8DD7C7782084418F004EB196 /* Footers */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,14 +308,16 @@
 		C21BE14E2292406400B5D219 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				C21BE14F2292409D00B5D219 /* CheckInsListCell.swift */,
 				8D5D586B226FE52500A996D7 /* CheckInListItemCell.swift */,
-				C21BE15722926F8700B5D219 /* GymsListCell.swift */,
+				C21BE14F2292409D00B5D219 /* CheckInsListCell.swift */,
 				8D03EE0E206C481A00EF83C7 /* GymListItemCell.swift */,
+				C21BE15722926F8700B5D219 /* GymsListCell.swift */,
+				E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */,
+				E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */,
 				E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */,
-				C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */,
-				C288019F22933B3000EC48B7 /* TodaysClassesListCell.swift */,
 				C288019D2293367E00EC48B7 /* ProsListCell.swift */,
+				C288019F22933B3000EC48B7 /* TodaysClassesListCell.swift */,
+				C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -384,10 +382,10 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C289B16B228A844A00934A2A /* API.swift */,
 				C7DFABCD204206E000545B0B /* Uplift */,
-				8D95F448208704010095B8AB /* Secrets */,
 				630ADD112051BECC00B8E255 /* Fonts */,
 				C7DFABCC204206E000545B0B /* Products */,
 				C81ACE807AA0169E1CA71704 /* Pods */,
@@ -407,7 +405,7 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				C2B0BE07231E028A0033B8BC /* GoogleService-Info.plist */,
+				E61223AE232D6A8700669F7C /* GoogleService-Info.plist */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
 				D94BD3062159DA7D00C9214E /* graphql */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
@@ -471,10 +469,10 @@
 		C7EBD5A92062E64F00D76A8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0C97AC282276840F0086D699 /* FacilityHoursCell.swift */,
 				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
 				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
 				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
+				0C97AC282276840F0086D699 /* FacilityHoursCell.swift */,
 				4FC04780222EF69300165594 /* FavoriteGymCell.swift */,
 				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
@@ -549,6 +547,14 @@
 			path = "Empty States";
 			sourceTree = "<group>";
 		};
+		E60DE89E232DA6D20022BC72 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				E644819B232DD34100BBF771 /* Keys.plist */,
+			);
+			path = Secrets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -621,14 +627,14 @@
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
+				E644819C232DD34100BBF771 /* Keys.plist in Resources */,
 				8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
-				C2B0BE08231E028A0033B8BC /* GoogleService-Info.plist in Resources */,
+				E61223AF232D6A8700669F7C /* GoogleService-Info.plist in Resources */,
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
-				1C1D28372166E188003FE839 /* Keys.plist in Resources */,
 				1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
 				1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */,
@@ -784,6 +790,7 @@
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
 				C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */,
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
+				E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
 				E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */,
 				C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */,
@@ -856,6 +863,7 @@
 				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
 				8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */,
+				E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
