@@ -28,7 +28,7 @@ struct NetworkManager {
             "token": token
         ]
 
-        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData{ (response) in
+        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { (response) in
             switch response.result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -49,7 +49,7 @@ struct NetworkManager {
             "bearer_token": token
         ]
 
-        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData{ (response) in
+        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { (response) in
             switch response.result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -82,7 +82,7 @@ struct NetworkManager {
             completion(gyms)
         }
     }
-    
+
     func getGym(id: String, completion: @escaping (Gym) -> Void) {
         apollo.fetch(query: GymByIdQuery(gymId: id)) { (result, error) in
             guard error == nil,
@@ -246,7 +246,7 @@ struct NetworkManager {
         let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
         let graphTags = gymClassData.details.tags.compactMap { $0 }
         let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
-        
+
         return GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: tags)
     }
 

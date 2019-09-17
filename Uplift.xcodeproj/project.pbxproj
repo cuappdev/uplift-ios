@@ -491,10 +491,10 @@
 			children = (
 				C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */,
 				C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */,
+				C26236FA2290D696007C415D /* ClassDetail */,
 				7E9D6DED22961B1B0054F710 /* GymDetail */,
 				C21BE14E2292406400B5D219 /* Home */,
 				C21BE14922920EB200B5D219 /* ClassList */,
-				C26236FA2290D696007C415D /* ClassDetail */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				D9936A27216D9F8B002802F4 /* Empty States */,
 				8D5EA478208EC31100E98E6C /* Histogram.swift */,

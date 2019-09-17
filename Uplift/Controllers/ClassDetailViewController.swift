@@ -57,7 +57,9 @@ class ClassDetailViewController: UIViewController {
     init(gymClassInstance: GymClassInstance) {
         super.init(nibName: nil, bundle: nil)
         self.gymClassInstance = gymClassInstance
-        self.sections = [
+        self.sections = gymClassInstance.tags.isEmpty ? [
+            Section(items: [.time, .description, .nextSessions([])])
+        ] : [
             Section(items: [.time, .function, .description, .nextSessions([])])
         ]
     }
