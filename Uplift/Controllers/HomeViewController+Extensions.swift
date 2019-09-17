@@ -42,10 +42,7 @@ extension HomeViewController: UICollectionViewDataSource {
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.lookingForListCellIdentifier, for: indexPath) as! LookingForListCell
             cell.delegate = self
-            cell.collectionViewWidth = collectionView.bounds.width
-            cell.reloadConfig()
-            cell.configure(for: lookingForCategories)
-            cell.reloadInputViews()
+            cell.configure(for: lookingForCategories, width: collectionView.bounds.width)
             return cell
         default:
             // swiftlint:disable:next force_cast
@@ -145,13 +142,10 @@ extension HomeViewController: LookingForListCellDelegate {
     func lookingForCellShouldTagSearch(at tag: Tag, indexPath: IndexPath) {
         let cal = Calendar.current
         let currDate = Date()
-        guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate) else { return }
+        guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate), let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController, let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
         let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate) ?? Date()
         
         let filterParameters = FilterParameters(endTime: endDate, startTime: startDate, tags: [lookingForCategories[indexPath.row].name])
-        
-        guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
-        guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
         
         classListViewController.updateFilter(filterParameters)
         classNavigationController.setViewControllers([classListViewController], animated: false)
@@ -194,5 +188,4 @@ extension HomeViewController: ChooseGymsDelegate {
         tabBarController?.hidesBottomBarWhenPushed = false
         tabBarController?.selectedIndex = 1
     }
-
 }

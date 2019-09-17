@@ -18,10 +18,10 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
     weak var delegate: LookingForListCellDelegate?
     var collectionViewWidth: CGFloat = 0
     var height: CGFloat {
-        return ((collectionViewWidth-48)/2)*0.78
+        return ((collectionViewWidth - 48) / 2) * 0.78
     }
     var width: CGFloat {
-        return (collectionViewWidth-48)/2
+        return (collectionViewWidth - 48) / 2
     }
     
     static let minimumInterItemSpacing: CGFloat = 16
@@ -42,6 +42,13 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
         )
     }
     
+    func configure(for model: [Tag], width: CGFloat) {
+        super.configure(for: model)
+        self.collectionViewWidth = width
+        self.reloadConfig()
+        self.reloadInputViews()
+    }
+    
     override func didSelectItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
         let tag = models[indexPath.item]
         delegate?.lookingForCellShouldTagSearch(at: tag, indexPath: indexPath)
@@ -56,9 +63,4 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         cell.zoomOut()
     }
-    
-    static func getHeight(collectionViewWidth: CGFloat, numTags: Int) -> CGFloat {
-        return CGFloat(numTags / 2) * (((collectionViewWidth-48)/2)*0.78 + minimumInterItemSpacing)
-    }
-    
 }
