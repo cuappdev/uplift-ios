@@ -24,7 +24,7 @@ class Histogram: UIView {
     var selectedLine: UIView!
     var selectedTime: UILabel!
     
-    let highThreshold = 60//85
+    let highThreshold = 57//85
     let mediumThreshold = 25//43
     let secondsPerHour: Double = 3600.0
     let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]

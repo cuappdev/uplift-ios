@@ -44,7 +44,6 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         
         // Set up screen sizes for scaling
         currentScreenSize = computeScreenDimensions()
-        xrSize = CGSize(width: 375, height: 768)
         
         // Get Favorite Gyms from UserDefaults
         if let favorites = defaults.array(forKey: Identifiers.favoriteGyms) as? [String] {
@@ -119,13 +118,13 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
 
     func setUpConstraints() {
         // title
-        let titleLeadingPadding = scale(width: 27) 
-        let titleTrailingPadding = scale(width: 22)
-        let titleTopPadding = scale(height: 34)
+        let titleLeadingPadding = 27
+        let titleTrailingPadding = 22
+        let titleTopPadding = 34
         // table view
-        let tableViewTopPadding = scale(height: 28)
-        let tableViewSidePadding = scale(width: 16)
-        let tableViewBottomPadding = scale(height: 14)
+        let tableViewTopPadding = 28
+        let tableViewSidePadding = 16
+        let tableViewBottomPadding = 14
         // next button
         let nextButtonPaddingWidth = 40
         let nextButtonPaddingHeight = 70
@@ -133,7 +132,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         let checkArrowWidth = 16.95
         let checkArrowHeight = 11.59
         let checkArrowSize = CGSize(width: checkArrowWidth, height: checkArrowHeight)
-
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(titleLeadingPadding)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(titleTrailingPadding)
