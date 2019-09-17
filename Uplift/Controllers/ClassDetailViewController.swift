@@ -110,15 +110,15 @@ class ClassDetailViewController: UIViewController {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
-            shareButton.setImage(UIImage(named: "share_light"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
         case .default:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
-            shareButton.setImage(UIImage(named: "share_dark"), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.darkShare), for: .normal)
         }
     }
 
@@ -279,18 +279,15 @@ extension ClassDetailViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
 
-        backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
+        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(backButton)
 
-        favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
-        favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
         favoriteButton.sizeToFit()
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         view.addSubview(favoriteButton)
 
-        shareButton.setImage(UIImage(named: "share_light"), for: .normal)
         shareButton.sizeToFit()
         shareButton.addTarget(self, action: #selector(self.share), for: .touchUpInside)
         view.addSubview(shareButton)
@@ -344,15 +341,15 @@ extension ClassDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: "white-star"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
-            shareButton.setImage(UIImage(named: "share_light"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
         case .default:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: "blackStar"), for: .normal)
-            favoriteButton.setImage(UIImage(named: "yellow-white-star"), for: .selected)
-            shareButton.setImage(UIImage(named: "share_dark"), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.darkShare), for: .normal)
         }
     }
 
