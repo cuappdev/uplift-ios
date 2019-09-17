@@ -48,11 +48,11 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        // swiftlint:disable:next force_cast
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: HomeSectionHeaderView.identifier,
             for: indexPath
+            // swiftlint:disable:next force_cast
             ) as! HomeSectionHeaderView
         let editButtonTitle = "edit"
 
@@ -112,11 +112,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
 extension HomeViewController: GymsListCellDelegate {
 
     func allGymsCellShouldOpenGym(_ gym: Gym) {
-        let gymDetailViewController = GymDetailViewController()
-        gymDetailViewController.gym = gym
+        let gymDetailViewController = GymDetailViewController(gym: gym)
         navigationController?.pushViewController(gymDetailViewController, animated: true)
     }
-
 }
 
 extension HomeViewController: TodaysClassesListCellDelegate {

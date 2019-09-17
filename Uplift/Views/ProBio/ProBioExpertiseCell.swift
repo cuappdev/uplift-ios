@@ -46,13 +46,13 @@ class ProBioExpertiseCell: UICollectionViewCell {
         expertiseLabel.text = "EXPERTISE"
         expertiseLabel.font = ._16MontserratMedium
         expertiseLabel.textAlignment = .center
-        expertiseLabel.textColor = .lightBlack
+        expertiseLabel.textColor = .fitnessLightBlack
         contentView.addSubview(expertiseLabel)
 
         descriptionLabel.font = ._14MontserratLight
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
-        descriptionLabel.textColor = .lightBlack
+        descriptionLabel.textColor = .fitnessLightBlack
         contentView.addSubview(descriptionLabel)
 
         dividerView.backgroundColor = .fitnessMutedGreen

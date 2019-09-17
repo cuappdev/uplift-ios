@@ -128,10 +128,11 @@ class Histogram: UIView {
 
         let tickSpacing = (Int(frame.width) - bottomAxisTicks.count * 2 - 4) / (bottomAxisTicks.count + 1)
         let padding = Int(frame.width) - (tickSpacing * (bottomAxisTicks.count + 1) + 4 + bottomAxisTicks.count * 2)
-        
-        for i in 0..<bottomAxisTicks.count {
 
+        (0..<bottomAxisTicks.count).forEach { i in
             let tick = bottomAxisTicks[i]
+            let tickWidth: CGFloat = 2
+            let tickHeight: CGFloat = 3
 
             tick.snp.makeConstraints { make in
                 if i == 0 {
@@ -140,8 +141,8 @@ class Histogram: UIView {
                     make.leading.equalTo(bottomAxisTicks[i - 1].snp.trailing).offset(tickSpacing)
                 }
                 make.top.equalTo(bottomAxis.snp.top)
-                make.width.equalTo(2)
-                make.height.equalTo(3)
+                make.width.equalTo(tickWidth)
+                make.height.equalTo(tickHeight)
             }
         }
 
@@ -202,18 +203,19 @@ class Histogram: UIView {
     }
 
     @objc func selectBar( sender: UITapGestureRecognizer) {
-        if selectedIndex < bars.count {
-            bars[selectedIndex].backgroundColor = .fitnessYellow
-        }
         let selectedBar = sender.view!
-        selectedBar.backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
 
-        let indexSelected = bars.firstIndex(of: selectedBar)
+        if let indexSelected = bars.firstIndex(of: selectedBar) {
+            // Only update if user selected a different bar
+            if selectedIndex != indexSelected {
+                if selectedIndex < bars.count {
+                    bars[selectedIndex].backgroundColor = .fitnessYellow
+                }
 
-        if let indexSelected = indexSelected {
-            selectedIndex = indexSelected
-        }
+                selectedIndex = indexSelected
+                selectedBar.backgroundColor = .fitnessSelectedYellow
 
+<<<<<<< HEAD
         // update selectedTime and the descriptor
         if data[selectedIndex + openHour] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
@@ -225,7 +227,22 @@ class Histogram: UIView {
         selectedTimeDescriptor.sizeToFit()
         
         selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
+=======
+                // update selectedTime and the descriptor
+                if data[selectedIndex + openHour - 1] < mediumThreshold {
+                    selectedTimeDescriptor.text = timeDescriptors[0]
+                } else if data[selectedIndex + openHour - 1] < highThreshold {
+                    selectedTimeDescriptor.text = timeDescriptors[1]
+                } else {
+                    selectedTimeDescriptor.text = timeDescriptors[2]
+                }
+                selectedTimeDescriptor.sizeToFit()
+>>>>>>> master
 
-        setupSelectedConstraints()
+                selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
+
+                setupSelectedConstraints()
+            }
+        }
     }
 }

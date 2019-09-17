@@ -73,9 +73,9 @@ class ProBioViewController: UIViewController {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 
@@ -85,7 +85,7 @@ class ProBioViewController: UIViewController {
     }
 
 }
-// MARK: - CollectionViewDataSource, CollectionViewDelegate
+// MARK: - CollectionViewDataSource, CollectionViewDelegate, CollectionViewDelegateFlowLayout
 extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sections[section].items.count
@@ -96,18 +96,22 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
 
         switch itemType {
         case .biography:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioBiographyCellIdentifier, for: indexPath) as! ProBioBiographyCell
             cell.configure(for: pro)
             return cell
         case .expertise:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioExpertiseCellIdentifier, for: indexPath) as! ProBioExpertiseCell
             cell.configure(for: pro)
             return cell
         case .routines:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioRoutinesCellIdentifier, for: indexPath) as! ProBioRoutinesCell
             cell.configure(for: self, for: pro)
             return cell
         case .links:
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.proBioLinksCellIdentifier, for: indexPath) as! ProBioLinksCell
             cell.configure(for: pro)
             return cell
@@ -118,6 +122,7 @@ extension ProBioViewController: UICollectionViewDataSource, UICollectionViewDele
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Constants.proBioHeaderViewIdentifier,
+            // swiftlint:disable:next force_cast
             for: indexPath) as! ProBioHeaderView
         headerView.configure(for: pro)
         return headerView
@@ -194,8 +199,8 @@ extension ProBioViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
 
-        backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
-        backButton.addTarget(self, action: #selector(self.back), for: .touchUpInside)
+        backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)
     }
@@ -226,9 +231,9 @@ extension ProBioViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: "back-arrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
         case .default:
-            backButton.setImage(UIImage(named: "darkBackArrow"), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
 
