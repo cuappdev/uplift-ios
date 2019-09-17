@@ -16,44 +16,28 @@ import SnapKit
 class Histogram: UIView {
     
     // MARK: - INITIALIZATION
-    var bars: [UIView]!
-    var data: [Int]!
+    private var bars: [UIView]!
+    private var data: [Int]!
     
     /// index of bars representing the bar that is currently selected. Must be in range 0..bars.count-1
-    var selectedIndex: Int!
-    var selectedLine: UIView!
-    var selectedTime: UILabel!
+    private var selectedIndex: Int!
+    private var selectedLine: UIView!
+    private var selectedTime: UILabel!
     
-    let highThreshold = 57//85
-    let mediumThreshold = 25//43
-    let secondsPerHour: Double = 3600.0
-    let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
-    var selectedTimeDescriptor: UILabel!
+    private let highThreshold = 57
+    private let mediumThreshold = 25
+    private let secondsPerHour: Double = 3600.0
+    private let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
+    private var selectedTimeDescriptor: UILabel!
     
-    var hours: DailyGymHours!
-    var openHour: Int!
+    private var hours: DailyGymHours!
+    private var openHour: Int!
     
-    var bottomAxis: UIView!
-    var bottomAxisTicks: [UIView]!
+    private var bottomAxis: UIView!
+    private var bottomAxisTicks: [UIView]!
     
     init(frame: CGRect, data: [Int], todaysHours: DailyGymHours) {
-        print("---------Gym---")
-        print("Data: \(data)")
-        let closeH_debug = Calendar.current.component(.hour, from: todaysHours.closeTime)
         openHour = Calendar.current.component(.hour, from: todaysHours.openTime)
-        print(
-            """
-            info about data~~~
-            length: \(data.count)
-            MAX: \(String(describing: data.max()))
-            LOW: \(data.filter({ $0 != 0 }).min()))
-            AVG: \(data.reduce(0, +) / data.count)
-            ~~~~~~ On the Gym ~~~~
-            Open Hour: \(todaysHours.openTime)  [Int: \(openHour) ]
-            Close Hour: \(todaysHours.closeTime)  [Int: \(closeH_debug) ]
-            Close Hour: \(todaysHours)
-            """)
-        print("------------")
         super.init(frame: frame)
         self.data = data
         self.hours = todaysHours
@@ -88,16 +72,12 @@ class Histogram: UIView {
         
         // TIME
         let currentHour = Calendar.current.component(.hour, from: Date())
-        
-        print("selected index is \(selectedIndex)")
         if currentHour >= closeHour {
             selectedIndex = bars.count - 1
         } else if currentHour < openHour {
             selectedIndex = 0
         } else {
             selectedIndex = currentHour - openHour
-            // !!!
-            //            selectedIndex = max(selectedIndex, openHour)
         }
         
         if selectedIndex < bars.count {
@@ -120,9 +100,9 @@ class Histogram: UIView {
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
         selectedTimeDescriptor.textAlignment = .left
-        if data[selectedIndex + openHour - 1] < mediumThreshold {
+        if data[selectedIndex + openHour] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if data[selectedIndex + openHour - 1] < highThreshold {
+        } else if data[selectedIndex + openHour] < highThreshold {
             selectedTimeDescriptor.text = timeDescriptors[1]
         } else {
             selectedTimeDescriptor.text = timeDescriptors[2]
@@ -235,8 +215,6 @@ class Histogram: UIView {
         }
         
         // update selectedTime and the descriptor
-        print("selected index is \(selectedIndex)")
-        print("DATA IS: \(data[selectedIndex + openHour])")
         if data[selectedIndex + openHour] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
         } else if data[selectedIndex + openHour] < highThreshold {
