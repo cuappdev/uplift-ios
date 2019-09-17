@@ -194,18 +194,22 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
 
         switch itemType {
         case .time:
+            //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.classDetailTimeCellIdentifier, for: indexPath) as! ClassDetailTimeCell
             cell.configure(for: self, gymClassInstance: gymClassInstance)
             return cell
         case .function:
+            //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.classDetailFunctionCellIdentifier, for: indexPath) as! ClassDetailFunctionCell
             cell.configure(for: gymClassInstance)
             return cell
         case .description:
+            //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.classDetailDescriptionCellIdentifier, for: indexPath) as! ClassDetailDescriptionCell
             cell.configure(for: gymClassInstance)
             return cell
         case .nextSessions(let nextSessions):
+            //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.classDetailNextSessionsCellIdentifier, for: indexPath) as! ClassDetailNextSessionsCell
             cell.configure(for: self, nextSessions: nextSessions)
             return cell
@@ -216,6 +220,7 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Constants.classDetailHeaderViewIdentifier,
+            //swiftlint:disable:next force_cast
             for: indexPath) as! ClassDetailHeaderView
         headerView.configure(for: self, gymClassInstance: gymClassInstance)
         return headerView

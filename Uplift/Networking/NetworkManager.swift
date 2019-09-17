@@ -244,7 +244,10 @@ struct NetworkManager {
         let className = gymClassData.details.name
         let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
         let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
-        return GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: [])
+        let graphTags = gymClassData.details.tags.compactMap { $0 }
+        let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
+        
+        return GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: tags)
     }
 
     private func getGymClassInstance(from gymClassData: TodaysClassesAtGymQuery.Data.Class?) -> GymClassInstance? {
@@ -263,8 +266,10 @@ struct NetworkManager {
         let className = gymClassData.details.name
         let start = Date.getDatetimeFromStrings(dateString: date, timeString: startTime)
         let end = Date.getDatetimeFromStrings(dateString: date, timeString: endTime)
+        let graphTags = gymClassData.details.tags.compactMap { $0 }
+        let tags = graphTags.map { Tag(name: $0.label, imageURL: "") }
 
-        return GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: [])
+        return GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: tags)
     }
 
     private func cacheImage(imageUrl: URL) {
