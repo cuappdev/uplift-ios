@@ -14,50 +14,50 @@ import UIKit
 import SnapKit
 
 class Histogram: UIView {
-    
+
     // MARK: - INITIALIZATION
     private var bars: [UIView]!
     private var data: [Int]!
-    
+
     /// index of bars representing the bar that is currently selected. Must be in range 0..bars.count-1
     private var selectedIndex: Int!
     private var selectedLine: UIView!
     private var selectedTime: UILabel!
-    
+
     private let highThreshold = 57
     private let mediumThreshold = 25
     private let secondsPerHour: Double = 3600.0
     private let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
     private var selectedTimeDescriptor: UILabel!
-    
+
     private var hours: DailyGymHours!
     private var openHour: Int!
-    
+
     private var bottomAxis: UIView!
     private var bottomAxisTicks: [UIView]!
-    
+
     init(frame: CGRect, data: [Int], todaysHours: DailyGymHours) {
         openHour = Calendar.current.component(.hour, from: todaysHours.openTime)
         super.init(frame: frame)
         self.data = data
         self.hours = todaysHours
-        
+
         // AXIS
         bottomAxis = UIView()
         bottomAxis.backgroundColor = .fitnessLightGrey
         addSubview(bottomAxis)
-        
+
         bottomAxisTicks = []
         openHour = Calendar.current.component(.hour, from: todaysHours.openTime)
         let closeHour = Calendar.current.component(.hour, from: todaysHours.closeTime)
-        
+
         for _ in openHour..<(closeHour - 1) {
             let tick = UIView()
             tick.backgroundColor = .fitnessLightGrey
             addSubview(tick)
             bottomAxisTicks.append(tick)
         }
-        
+
         // BARS
         bars = []
         for _ in openHour..<closeHour {
@@ -65,11 +65,11 @@ class Histogram: UIView {
             bar.backgroundColor = .fitnessYellow
             addSubview(bar)
             bars.append(bar)
-            
+
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.selectBar(sender:)))
             bar.addGestureRecognizer(gesture)
         }
-        
+
         // TIME
         let currentHour = Calendar.current.component(.hour, from: Date())
         if currentHour >= closeHour {
@@ -79,23 +79,23 @@ class Histogram: UIView {
         } else {
             selectedIndex = currentHour - openHour
         }
-        
+
         if selectedIndex < bars.count {
             bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
         }
-        
+
         // SELECTED INFO
         selectedLine = UIView()
         selectedLine.backgroundColor = .fitnessLightGrey
         addSubview(selectedLine)
-        
+
         selectedTime = UILabel()
         selectedTime.textColor = .fitnessDarkGrey
         selectedTime.font = ._12LatoBold
         selectedTime.textAlignment = .right
         selectedTime.text = todaysHours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
         addSubview(selectedTime)
-        
+
         selectedTimeDescriptor = UILabel()
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
@@ -109,14 +109,14 @@ class Histogram: UIView {
         }
         selectedTimeDescriptor.sizeToFit()
         addSubview(selectedTimeDescriptor)
-        
+
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         // AXIS
@@ -125,14 +125,14 @@ class Histogram: UIView {
             make.bottom.equalToSuperview().offset(-1)
             make.height.equalTo(2)
         }
-        
+
         let tickSpacing = (Int(frame.width) - bottomAxisTicks.count * 2 - 4) / (bottomAxisTicks.count + 1)
         let padding = Int(frame.width) - (tickSpacing * (bottomAxisTicks.count + 1) + 4 + bottomAxisTicks.count * 2)
         
         for i in 0..<bottomAxisTicks.count {
-            
+
             let tick = bottomAxisTicks[i]
-            
+
             tick.snp.makeConstraints { make in
                 if i == 0 {
                     make.leading.equalToSuperview().offset(padding / 2 + tickSpacing)
@@ -144,12 +144,12 @@ class Histogram: UIView {
                 make.height.equalTo(3)
             }
         }
-        
+
         // BARS
         for i in 0..<bars.count {
-            
+
             let bar = bars[i]
-            
+
             bar.snp.makeConstraints { make in
                 make.bottom.equalTo(bottomAxis.snp.top)
                 if i == 0 {
@@ -166,10 +166,10 @@ class Histogram: UIView {
                 make.height.equalTo(height)
             }
         }
-        
+
         setupSelectedConstraints()
     }
-    
+
     /// Remake constraints when a bar is selected
     func setupSelectedConstraints() {
         if selectedIndex < bars.count {
@@ -180,40 +180,40 @@ class Histogram: UIView {
                 make.top.equalToSuperview().offset(26)
             }
         }
-        
+
         selectedTimeDescriptor.snp.remakeConstraints { make in
             make.top.equalToSuperview()
             make.height.equalTo(18)
             make.width.equalTo(selectedTimeDescriptor.intrinsicContentSize.width)
-            
+
             let descriptorInset: CGFloat = 5
             let timeWidth = 3 + selectedTime.intrinsicContentSize.width
-            
+
             make.centerX.equalTo(bars[selectedIndex]).priority(.high)
             make.trailing.lessThanOrEqualToSuperview().offset(-descriptorInset).priority(.required)
             make.leading.greaterThanOrEqualToSuperview().offset(timeWidth + descriptorInset).priority(.required)
         }
-        
+
         selectedTime.snp.remakeConstraints { make in
             make.top.bottom.equalTo(selectedTimeDescriptor)
             make.width.equalTo(selectedTime.intrinsicContentSize.width)
             make.trailing.equalTo(selectedTimeDescriptor.snp.leading).offset(-3)
         }
     }
-    
+
     @objc func selectBar( sender: UITapGestureRecognizer) {
         if selectedIndex < bars.count {
             bars[selectedIndex].backgroundColor = .fitnessYellow
         }
         let selectedBar = sender.view!
         selectedBar.backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
-        
+
         let indexSelected = bars.firstIndex(of: selectedBar)
-        
+
         if let indexSelected = indexSelected {
             selectedIndex = indexSelected
         }
-        
+
         // update selectedTime and the descriptor
         if data[selectedIndex + openHour] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
@@ -225,7 +225,7 @@ class Histogram: UIView {
         selectedTimeDescriptor.sizeToFit()
         
         selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
-        
+
         setupSelectedConstraints()
     }
 }
