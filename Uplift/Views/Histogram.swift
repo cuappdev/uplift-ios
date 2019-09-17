@@ -215,7 +215,6 @@ class Histogram: UIView {
                 selectedIndex = indexSelected
                 selectedBar.backgroundColor = .fitnessSelectedYellow
 
-<<<<<<< HEAD
         // update selectedTime and the descriptor
         if data[selectedIndex + openHour] < mediumThreshold {
             selectedTimeDescriptor.text = timeDescriptors[0]
@@ -225,19 +224,8 @@ class Histogram: UIView {
             selectedTimeDescriptor.text = timeDescriptors[2]
         }
         selectedTimeDescriptor.sizeToFit()
-        
+
         selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
-=======
-                // update selectedTime and the descriptor
-                if data[selectedIndex + openHour - 1] < mediumThreshold {
-                    selectedTimeDescriptor.text = timeDescriptors[0]
-                } else if data[selectedIndex + openHour - 1] < highThreshold {
-                    selectedTimeDescriptor.text = timeDescriptors[1]
-                } else {
-                    selectedTimeDescriptor.text = timeDescriptors[2]
-                }
-                selectedTimeDescriptor.sizeToFit()
->>>>>>> master
 
                 selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
 
