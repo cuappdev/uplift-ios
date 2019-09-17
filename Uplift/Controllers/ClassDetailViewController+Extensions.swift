@@ -13,8 +13,7 @@ extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
 
     func classDetailHeaderViewLocationSelected() {
         NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
-            let gymDetailViewController = GymDetailViewController()
-            gymDetailViewController.gym = gym
+            let gymDetailViewController = GymDetailViewController(gym: gym)
             self.navigationController?.pushViewController(gymDetailViewController, animated: true)
         }
     }

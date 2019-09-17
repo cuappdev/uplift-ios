@@ -413,8 +413,10 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         var modifiedIndices: [IndexPath] = []
 
         if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
+            if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? DropdownHeaderView {
+                instructorDropdown.downArrow.image = .none
+                instructorDropdown.rightArrow.image = UIImage(named: "right_arrow")
+            }
             instructorDropdownData.dropStatus = .up
             var i = 0
             while i < instructorDropdown.numberOfRows(inSection: 0) {
@@ -423,8 +425,10 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
             instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = #imageLiteral(resourceName: "down_arrow")
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = .none
+            if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? DropdownHeaderView {
+                instructorDropdown.downArrow.image = UIImage(named: "down_arrow")
+                instructorDropdown.rightArrow.image = .none
+            }
             instructorDropdownData.dropStatus = .half
             for i in [0, 1, 2] {
                 modifiedIndices.append(IndexPath(row: i, section: 0))

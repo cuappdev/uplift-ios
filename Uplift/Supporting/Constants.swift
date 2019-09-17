@@ -8,8 +8,29 @@
 
 import Foundation
 
+// MARK: - DAY ABBREVIATIONS
+struct DayAbbreviations {
+    static let sunday = "Su"
+    static let monday = "M"
+    static let tuesday = "T"
+    static let wednesday = "W"
+    static let thursday = "Th"
+    static let friday = "F"
+    static let saturday = "Sa"
+}
+
+// MARK: - GYM IDS
+struct GymIds {
+    static let appel = "7c53229a64f4794f57a715a9ec0c7f806db23514"
+    static let helenNewman = "7045d11329b3645c93556c5aaf44bb21d56934f5"
+    static let noyes = "1f114d3b981f832c858f5cfa52f3a1eb6191e1a4"
+    static let teagleDown = "043c57f3b63411c7a3500c0986fa4b1c8712798c"
+    static let teagleUp = "939c7a2c16d2299cc8558475a8007defc414069c"
+}
+
 // MARK: - IDENTIFIERS
 struct Identifiers {
+
     // HEADERS
     static let facilityHoursHeaderView = "facilityHoursHeaderView"
     static let favoritesHeaderView = "favoritesHeaderView"
@@ -24,6 +45,7 @@ struct Identifiers {
     static let classesCell = "classesCell"
     static let dropdownViewCell = "dropdownViewCell"
     static let facilityHoursCell = "facilityHoursCell"
+    static let gymFacilityCell = "gymFacilityCell"
     static let gymFilterCell = "gymFilterCell"
     static let gymHoursCell = "gymHoursCell"
     static let gymsCell = "gymsCell"
@@ -37,7 +59,7 @@ struct Identifiers {
 
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
-    
+
     // USER DEFAULTS
     static let activeHabits = "ActiveHabits"
     static let favoriteGyms = "FavoriteGyms"
@@ -81,4 +103,10 @@ struct HabitConstants {
             return "Take care of your mind, As much as your grades."
         }
     }
+}
+
+// MARK: - IMAGE NAMES
+struct ImageNames {
+    static let backArrow = "back-arrow"
+    static let darkBackArrow = "darkBackArrow"
 }
