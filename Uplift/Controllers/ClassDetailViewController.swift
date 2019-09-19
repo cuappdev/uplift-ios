@@ -239,9 +239,10 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let descriptionTextViewHorizontalPadding = 40
         let descriptionLabelHorizontalPadding = 48
-
+        let nextSessionsCellHeight = 112
         let width = collectionView.frame.width
         let itemType = sections[indexPath.section].items[indexPath.item]
+        
         switch itemType {
         case .time:
             return CGSize(width: width, height: ClassDetailTimeCell.height)
@@ -256,7 +257,7 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
             let height = ClassDetailDescriptionCell.baseHeight + descriptionTextViewHeight
             return CGSize(width: width, height: height)
         case .nextSessions(let nextSessions):
-            let nextSesssionsCollectionViewHeight = nextSessions.count * 112
+            let nextSesssionsCollectionViewHeight = nextSessions.count * nextSessionsCellHeight
             let height = ClassDetailNextSessionsCell.baseHeight + CGFloat(nextSesssionsCollectionViewHeight)
             return CGSize(width: width, height: height)
         }
