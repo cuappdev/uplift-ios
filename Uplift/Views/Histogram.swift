@@ -28,6 +28,18 @@ class Histogram: UIView {
     private let mediumThreshold = 25
     private let secondsPerHour: Double = 3600.0
     private let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
+    /// Returns the proper time descriptor label text
+    private var timeDescriptorText: String { 
+        get {
+            if data[selectedIndex + openHour] < mediumThreshold {
+                return timeDescriptors[0]
+            } else if data[selectedIndex + openHour] < highThreshold {
+                return timeDescriptors[1]
+            } else {
+                return timeDescriptors[2]
+            }
+        }
+    }
     private var selectedTimeDescriptor: UILabel!
 
     private var hours: DailyGymHours!
@@ -100,13 +112,7 @@ class Histogram: UIView {
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
         selectedTimeDescriptor.textAlignment = .left
-        if data[selectedIndex + openHour] < mediumThreshold {
-            selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if data[selectedIndex + openHour] < highThreshold {
-            selectedTimeDescriptor.text = timeDescriptors[1]
-        } else {
-            selectedTimeDescriptor.text = timeDescriptors[2]
-        }
+        selectedTimeDescriptor.text = timeDescriptorText
         selectedTimeDescriptor.sizeToFit()
         addSubview(selectedTimeDescriptor)
 
@@ -214,15 +220,7 @@ class Histogram: UIView {
 
                 selectedIndex = indexSelected
                 selectedBar.backgroundColor = .fitnessSelectedYellow
-
-        // update selectedTime and the descriptor
-        if data[selectedIndex + openHour] < mediumThreshold {
-            selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if data[selectedIndex + openHour] < highThreshold {
-            selectedTimeDescriptor.text = timeDescriptors[1]
-        } else {
-            selectedTimeDescriptor.text = timeDescriptors[2]
-        }
+        selectedTimeDescriptor.text = timeDescriptorText
         selectedTimeDescriptor.sizeToFit()
 
         selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
