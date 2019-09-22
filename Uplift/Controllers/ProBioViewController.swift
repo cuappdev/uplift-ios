@@ -74,7 +74,7 @@ class ProBioViewController: UIViewController {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
@@ -232,7 +232,7 @@ extension ProBioViewController: UIScrollViewDelegate {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
