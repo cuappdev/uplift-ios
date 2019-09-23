@@ -16,11 +16,11 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
     
     // MARK: - Public data vars
     weak var delegate: LookingForListCellDelegate?
-    var collectionViewWidth: CGFloat = 0
-    var height: CGFloat {
+    private var collectionViewWidth: CGFloat = 0
+    private var height: CGFloat {
         return ((collectionViewWidth - 48) / 2) * 0.78
     }
-    var width: CGFloat {
+    private var width: CGFloat {
         return (collectionViewWidth - 48) / 2
     }
     
@@ -62,5 +62,9 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
     override func didUnhighlightItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         cell.zoomOut()
+    }
+    
+    static func getHeight(collectionViewWidth: CGFloat, numTags: Int) -> CGFloat {
+        return CGFloat(numTags / 2) * (((collectionViewWidth-48)/2)*0.78 + minimumInterItemSpacing)
     }
 }

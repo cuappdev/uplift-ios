@@ -101,7 +101,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         case .todaysClasses:
             return CGSize(width: width, height: 227)
         case .lookingFor:
-            return CGSize(width: width, height: LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count))
+            var height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
+            return CGSize(width: width, height: height)
         }
     }
 

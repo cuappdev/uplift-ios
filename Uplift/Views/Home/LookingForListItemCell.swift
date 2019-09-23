@@ -15,8 +15,8 @@ class LookingForListItemCell: ListItemCollectionViewCell<Tag> {
     static let identifier = Identifiers.categoryCell
     
     // MARK: - INITIALIZATION
-    var image: UIImageView!
-    var title: UILabel!
+    private var image: UIImageView!
+    private var title: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
