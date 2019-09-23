@@ -39,6 +39,8 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
     // MARK: - Private helpers
     private func setupViews() {
         descriptionTextView.font = ._14MontserratLight
+        descriptionTextView.backgroundColor = .fitnessWhite
+        descriptionTextView.textColor = .fitnessBlack
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
         descriptionTextView.isScrollEnabled = false
