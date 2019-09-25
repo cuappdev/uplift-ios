@@ -26,15 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGoogleSignIn()
         
         let defaults = UserDefaults.standard
-        
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) { // Seen onboarding and...
-            if isGoogleLoggedIn() { // Is logged in
-                window?.rootViewController = TabBarController()
-            } else { // Needs to relogin
-                window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
-            }
+            window?.rootViewController = TabBarController()
         } else { // Never seen onboarding
-            window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
+            window?.rootViewController = OnboardingViewController()
         }
         
         #if DEBUG
