@@ -38,11 +38,17 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.delegate = self
             cell.configure(for: gymClassInstances)
             return cell
+        case .lookingFor:
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.lookingForListCellIdentifier, for: indexPath) as! LookingForListCell
+            cell.delegate = self
+            cell.configure(for: lookingForCategories, width: collectionView.bounds.width)
+            return cell
         default:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.prosListCellIdentifier, for: indexPath) as! ProsListCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
             cell.delegate = self
-            cell.configure(for: pros)
+            cell.configure(for: gymClassInstances)
             return cell
         }
     }
@@ -61,10 +67,12 @@ extension HomeViewController: UICollectionViewDataSource {
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
         case .allGyms:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushGymOnboarding)
-        case .pros:
-            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: nil)
         case .todaysClasses:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "view all", completion: viewTodaysClasses)
+        case .lookingFor:
+            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: viewTodaysClasses)
+        default:
+            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
         }
 
         return headerView
@@ -90,10 +98,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             return CGSize(width: width, height: CGFloat(checkInListHeight + bottomSectionInset))
         case .allGyms:
             return CGSize(width: width, height: 123)
-        case .pros:
-            return CGSize(width: width, height: 145)
         case .todaysClasses:
             return CGSize(width: width, height: 227)
+        case .lookingFor:
+            var height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
+            return CGSize(width: width, height: height)
         }
     }
 
@@ -127,14 +136,22 @@ extension HomeViewController: TodaysClassesListCellDelegate {
 
 }
 
-extension HomeViewController: ProsListCellDelegate {
-
-    func prosListCellShouldOpenProBio(_ proBio: ProBio) {
-        let proDetailViewController = ProBioViewController(pro: proBio)
-        navigationController?.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(proDetailViewController, animated: true)
+extension HomeViewController: LookingForListCellDelegate {
+    
+    func lookingForCellShouldTagSearch(at tag: Tag, indexPath: IndexPath) {
+        let cal = Calendar.current
+        let currDate = Date()
+        guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate), let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController, let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
+        let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate) ?? Date()
+        
+        let filterParameters = FilterParameters(endTime: endDate, startTime: startDate, tags: [lookingForCategories[indexPath.row].name])
+        
+        classListViewController.updateFilter(filterParameters)
+        classNavigationController.setViewControllers([classListViewController], animated: false)
+        
+        tabBarController?.selectedIndex = 1
     }
-
+    
 }
 
 extension HomeViewController: ChooseGymsDelegate {
@@ -170,5 +187,4 @@ extension HomeViewController: ChooseGymsDelegate {
         tabBarController?.hidesBottomBarWhenPushed = false
         tabBarController?.selectedIndex = 1
     }
-
 }
