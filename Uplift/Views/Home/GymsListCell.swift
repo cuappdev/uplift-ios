@@ -1,5 +1,5 @@
 //
-//  AllGymsCell.swift
+//  GymsListCell.swift
 //  Uplift
 //
 //  Created by Kevin Chan on 5/20/19.

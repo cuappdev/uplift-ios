@@ -16,27 +16,40 @@ import SnapKit
 class Histogram: UIView {
 
     // MARK: - INITIALIZATION
-    var bars: [UIView]!
-    var data: [Int]!
+    private var bars: [UIView]!
+    private var data: [Int]!
 
     /// index of bars representing the bar that is currently selected. Must be in range 0..bars.count-1
-    var selectedIndex: Int!
-    var selectedLine: UIView!
-    var selectedTime: UILabel!
+    private var selectedIndex: Int!
+    private var selectedLine: UIView!
+    private var selectedTime: UILabel!
 
-    let highThreshold = 85
-    let mediumThreshold = 43
-    let secondsPerHour: Double = 3600.0
-    let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
-    var selectedTimeDescriptor: UILabel!
+    private let highThreshold = 57
+    private let mediumThreshold = 25
+    private let secondsPerHour: Double = 3600.0
+    private let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
+    /// Returns the proper time descriptor label text
+    private var timeDescriptorText: String { 
+        get {
+            if data[selectedIndex + openHour] < mediumThreshold {
+                return timeDescriptors[0]
+            } else if data[selectedIndex + openHour] < highThreshold {
+                return timeDescriptors[1]
+            } else {
+                return timeDescriptors[2]
+            }
+        }
+    }
+    private var selectedTimeDescriptor: UILabel!
 
-    var hours: DailyGymHours!
-    var openHour: Int!
+    private var hours: DailyGymHours!
+    private var openHour: Int!
 
-    var bottomAxis: UIView!
-    var bottomAxisTicks: [UIView]!
+    private var bottomAxis: UIView!
+    private var bottomAxisTicks: [UIView]!
 
     init(frame: CGRect, data: [Int], todaysHours: DailyGymHours) {
+        openHour = Calendar.current.component(.hour, from: todaysHours.openTime)
         super.init(frame: frame)
         self.data = data
         self.hours = todaysHours
@@ -71,7 +84,6 @@ class Histogram: UIView {
 
         // TIME
         let currentHour = Calendar.current.component(.hour, from: Date())
-
         if currentHour >= closeHour {
             selectedIndex = bars.count - 1
         } else if currentHour < openHour {
@@ -100,13 +112,7 @@ class Histogram: UIView {
         selectedTimeDescriptor.textColor = .fitnessDarkGrey
         selectedTimeDescriptor.font = ._12LatoRegular
         selectedTimeDescriptor.textAlignment = .left
-        if data[selectedIndex + openHour - 1] < mediumThreshold {
-            selectedTimeDescriptor.text = timeDescriptors[0]
-        } else if data[selectedIndex + openHour - 1] < highThreshold {
-            selectedTimeDescriptor.text = timeDescriptors[1]
-        } else {
-            selectedTimeDescriptor.text = timeDescriptors[2]
-        }
+        selectedTimeDescriptor.text = timeDescriptorText
         selectedTimeDescriptor.sizeToFit()
         addSubview(selectedTimeDescriptor)
 
@@ -171,6 +177,7 @@ class Histogram: UIView {
         setupSelectedConstraints()
     }
 
+    /// Remake constraints when a bar is selected
     func setupSelectedConstraints() {
         if selectedIndex < bars.count {
             selectedLine.snp.remakeConstraints { make in
@@ -213,16 +220,10 @@ class Histogram: UIView {
 
                 selectedIndex = indexSelected
                 selectedBar.backgroundColor = .fitnessSelectedYellow
+        selectedTimeDescriptor.text = timeDescriptorText
+        selectedTimeDescriptor.sizeToFit()
 
-                // update selectedTime and the descriptor
-                if data[selectedIndex + openHour - 1] < mediumThreshold {
-                    selectedTimeDescriptor.text = timeDescriptors[0]
-                } else if data[selectedIndex + openHour - 1] < highThreshold {
-                    selectedTimeDescriptor.text = timeDescriptors[1]
-                } else {
-                    selectedTimeDescriptor.text = timeDescriptors[2]
-                }
-                selectedTimeDescriptor.sizeToFit()
+        selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
 
                 selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
 
