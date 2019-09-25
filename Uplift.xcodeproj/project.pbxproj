@@ -117,6 +117,7 @@
 		E604DC39233B1DF7003598BC /* PersonalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC36233B1DF7003598BC /* PersonalLink.swift */; };
 		E604DC3A233B1DF7003598BC /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC37233B1DF7003598BC /* ProRoutine.swift */; };
 		E604DC3B233B1DF7003598BC /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC38233B1DF7003598BC /* ProBio.swift */; };
+		E604DC3D233B1FE7003598BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E604DC3C233B1FE7003598BC /* GoogleService-Info.plist */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
@@ -240,6 +241,7 @@
 		E604DC36233B1DF7003598BC /* PersonalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalLink.swift; sourceTree = "<group>"; };
 		E604DC37233B1DF7003598BC /* ProRoutine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E604DC38233B1DF7003598BC /* ProBio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
+		E604DC3C233B1FE7003598BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
+				E604DC3C233B1FE7003598BC /* GoogleService-Info.plist */,
 				E604DC1A233B1B18003598BC /* API.swift */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
@@ -733,6 +736,7 @@
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
+				E604DC3D233B1FE7003598BC /* GoogleService-Info.plist in Resources */,
 				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
 				1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */,
