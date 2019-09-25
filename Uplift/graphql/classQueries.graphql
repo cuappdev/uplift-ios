@@ -32,6 +32,9 @@ query ClassesByType($classNames: [String]) {
             id
             name
             description
+            tags {
+                label
+            }
         }
         imageUrl
         startTime
@@ -51,6 +54,9 @@ query TodaysClassesAtGym($gymId: String, $date: Date) {
             id
             name
             description
+            tags {
+                label
+            }
         }
         imageUrl
         startTime

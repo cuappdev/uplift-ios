@@ -92,7 +92,7 @@ struct HabitConstants {
             return ["Read favorite book for 10 mins", "Meditate for 5 mins", "Reflect on today"]
         }
     }
-    
+
     static func habitTypeDescription(type: HabitTrackingType) -> String {
         switch type {
         case .cardio:
@@ -107,6 +107,16 @@ struct HabitConstants {
 
 // MARK: - IMAGE NAMES
 struct ImageNames {
-    static let backArrow = "back-arrow"
+    // ARROWS
     static let darkBackArrow = "darkBackArrow"
+    static let lightBackArrow = "back-arrow"
+
+    // SHARE
+    static let darkShare = "share_dark"
+    static let lightShare = "share-light"
+
+    // STARS
+    static let blackStarOutline = "blackStar"
+    static let whiteStarOutline = "white-star"
+    static let yellowWhiteStar = "yellow-white-star"
 }
