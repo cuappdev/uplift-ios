@@ -38,9 +38,6 @@ class OnboardingViewController: PresentationController {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let snapshot = appDelegate.window?.snapshotView(afterScreenUpdates: true) else { return }
 
-        let tabBarController = TabBarController()
-        tabBarController.view.addSubview(snapshot)
-
         // set new rootViewController
         appDelegate.window?.rootViewController = OnboardingGymsViewController()
 
