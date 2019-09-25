@@ -233,7 +233,7 @@
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E60A1B9C222B93DF00F89275 /* ProRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E60A1B9E222B945500F89275 /* PersonalLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PersonalLinkCollectionViewCell.swift; path = ../../../Uplift/Views/Cells/PersonalLinkCollectionViewCell.swift; sourceTree = "<group>"; };
-		E63BCB492337BDC4001B056F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		E63BCB492337BDC4001B056F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = ../API.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
@@ -397,7 +397,6 @@
 			children = (
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
-				E63BCB492337BDC4001B056F /* API.swift */,
 				C7DFABCD204206E000545B0B /* Uplift */,
 				630ADD112051BECC00B8E255 /* Fonts */,
 				C7DFABCC204206E000545B0B /* Products */,
@@ -418,6 +417,7 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
+				E63BCB492337BDC4001B056F /* API.swift */,
 				E6034D49232E248400EE5E84 /* Legacy */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
 				D94BD3062159DA7D00C9214E /* graphql */,
