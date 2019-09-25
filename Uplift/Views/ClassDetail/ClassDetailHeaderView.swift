@@ -56,6 +56,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
     // MARK: - CONSTRAINTS
     private func setupViews() {
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         addSubview(imageView)
 
         imageFilterView.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.6)
