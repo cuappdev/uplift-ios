@@ -114,7 +114,7 @@ class ClassDetailViewController: UIViewController {
             favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
             favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
             shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
             favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
             favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
@@ -346,7 +346,7 @@ extension ClassDetailViewController: UIScrollViewDelegate {
             favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
             favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
             shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
             favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
             favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)

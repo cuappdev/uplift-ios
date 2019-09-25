@@ -207,6 +207,15 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         titleView.font = ._14LatoBlack
         self.navigationItem.titleView = titleView
 
+        // Color Navigation Bar White if Dark Mode
+        if #available(iOS 13, *) {
+            navigationItem.standardAppearance = .init()
+            navigationItem.compactAppearance = .init()
+            navigationItem.compactAppearance?.backgroundColor = .fitnessWhite
+            navigationItem.standardAppearance?.backgroundColor = .fitnessWhite
+            titleView.textColor = .fitnessBlack
+        }
+
         let doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
         doneBarButton.tintColor = .fitnessBlack
         self.navigationItem.rightBarButtonItem = doneBarButton
