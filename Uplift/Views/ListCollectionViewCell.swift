@@ -128,6 +128,25 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         didUnhighlightItemAt(collectionView, indexPath: indexPath)
     }
+    
+    func reloadConfig() {
+        layout.scrollDirection = config.scrollDirection
+        if config.scrollDirection == .vertical {
+            layout.minimumLineSpacing = config.minimumLineSpacing
+        } else {
+            layout.minimumInteritemSpacing = config.minimumInteritemSpacing
+        }
+        layout.itemSize = config.itemSize
+        layout.sectionInset = config.sectionInset
+        
+        collectionView.backgroundColor = config.backgroundColor
+        collectionView.isScrollEnabled = config.isScrollEnabled
+        if !config.showsScrollIndicator {
+            collectionView.showsHorizontalScrollIndicator = false
+            collectionView.showsVerticalScrollIndicator = false
+        }
+        collectionView.delaysContentTouches = config.delaysContentTouches
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

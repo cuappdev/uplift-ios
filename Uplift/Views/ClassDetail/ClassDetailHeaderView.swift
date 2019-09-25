@@ -38,7 +38,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
     func configure(for delegate: ClassDetailHeaderViewDelegate, gymClassInstance: GymClassInstance) {
         self.delegate = delegate
         imageView.kf.setImage(with: gymClassInstance.imageURL)
-        titleLabel.text = gymClassInstance.className
+        titleLabel.text = gymClassInstance.className.uppercased()
         locationButton.setTitle(gymClassInstance.location, for: .normal)
         instructorButton.setTitle(gymClassInstance.instructor.uppercased(), for: .normal)
         durationLabel.text = "\(Int(gymClassInstance.duration) / 60) MIN"
@@ -56,6 +56,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
     // MARK: - CONSTRAINTS
     private func setupViews() {
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         addSubview(imageView)
 
         imageFilterView.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.6)
@@ -65,7 +66,9 @@ class ClassDetailHeaderView: UICollectionReusableView {
         semicircleImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(semicircleImageView)
 
-        titleLabel.font = ._48Bebas
+        titleLabel.font = ._36MontserratBold
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
         addSubview(titleLabel)
@@ -95,8 +98,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         let instructorButtonTopPadding = 20
         let locationButtonHeight = 16
         let semicircleImageViewSize = CGSize(width: 100, height: 50)
-        let titleLabelHeight = 57
-        let titleLabelTopPadding = 170
+        let titleLabelHorizontalPadding = 40
 
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -113,10 +115,8 @@ class ClassDetailHeaderView: UICollectionReusableView {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(titleLabelTopPadding)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(titleLabelHeight)
+            make.leading.trailing.equalToSuperview().inset(titleLabelHorizontalPadding)
+            make.center.equalToSuperview()
         }
 
         locationButton.snp.makeConstraints { make in
@@ -145,4 +145,3 @@ class ClassDetailHeaderView: UICollectionReusableView {
     }
 
 }
-

@@ -100,7 +100,7 @@ class GymDetailViewController: UIViewController {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
         case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
@@ -206,7 +206,7 @@ extension GymDetailViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
 
-        backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
+        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)
@@ -237,7 +237,7 @@ extension GymDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrow), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
         case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
