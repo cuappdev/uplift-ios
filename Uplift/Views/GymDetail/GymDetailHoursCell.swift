@@ -25,25 +25,6 @@ class GymDetailHoursCell: UICollectionViewCell {
         static let hoursTitleLabelTopPadding = 36
     }
 
-    // MARK: - Public data vars
-    static var baseHeight: CGFloat {
-        var height = Constants.hoursTitleLabelTopPadding +
-            Constants.hoursTitleLabelHeight +
-            Constants.hoursTableViewTopPadding +
-            Constants.dividerTopPadding +
-            Constants.dividerHeight
-        height = hoursData.isDropped
-            ? height + Constants.hoursTableViewDroppedHeight
-            : height + Constants.hoursTableViewHeight
-        return CGFloat(height)
-    }
-
-    // MARK: - Private structs/classes
-    private struct HoursData {
-        var data: [String]!
-        var isDropped: Bool!
-    }
-
     // MARK: - Private data vars
     private enum Days {
         case sunday
@@ -58,7 +39,7 @@ class GymDetailHoursCell: UICollectionViewCell {
     private let days: [Days] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
     private weak var delegate: GymDetailHoursCellDelegate?
     private var hours: [DailyGymHours] = []
-    private static var hoursData = HoursData(data: [], isDropped: false)
+    private var hoursDataIsDropped = false
     private var hoursToday: DailyGymHours!
     private var isOpen: Bool = true
 
@@ -80,7 +61,9 @@ class GymDetailHoursCell: UICollectionViewCell {
     }
 
     // MARK: - Public configure
-    func configure(for delegate: GymDetailHoursCellDelegate, gym: Gym) {
+    func configure(for delegate: GymDetailHoursCellDelegate, gymDetail: GymDetail) {
+        let gym = gymDetail.gym
+        self.hoursDataIsDropped = gymDetail.hoursDataIsDropped
         self.delegate = delegate
         self.hours = gym.gymHours
         self.hoursToday = gym.gymHoursToday
@@ -137,7 +120,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             if hours.isEmpty || hoursToday == nil {
                 make.height.equalTo(0)
             } else {
-                if GymDetailHoursCell.hoursData.isDropped {
+                if hoursDataIsDropped {
                     make.height.equalTo(Constants.hoursTableViewDroppedHeight)
                 } else {
                     make.height.equalTo(Constants.hoursTableViewHeight)
@@ -171,8 +154,8 @@ class GymDetailHoursCell: UICollectionViewCell {
             modifiedIndices.append(IndexPath(row: i, section: 0))
         }
 
-        if GymDetailHoursCell.hoursData.isDropped { // collapsing details
-            GymDetailHoursCell.hoursData.isDropped = false
+        if hoursDataIsDropped { // collapsing details
+            hoursDataIsDropped = false
             hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
@@ -186,7 +169,7 @@ class GymDetailHoursCell: UICollectionViewCell {
                 }
             }
         } else { // expanding details
-            GymDetailHoursCell.hoursData.isDropped = true
+            hoursDataIsDropped = true
             hoursTableView.insertRows(at: modifiedIndices, with: .fade)
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = UIImage(named: "down-arrow-solid")
@@ -207,7 +190,7 @@ class GymDetailHoursCell: UICollectionViewCell {
 extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numRows = GymDetailHoursCell.hoursData.isDropped ? 6 : 0
+        let numRows = hoursDataIsDropped ? 6 : 0
         return numRows
     }
 
@@ -256,7 +239,7 @@ extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let height: CGFloat = GymDetailHoursCell.hoursData.isDropped ? 27 : 19
+        let height: CGFloat = hoursDataIsDropped ? 27 : 19
         return height
     }
 }
