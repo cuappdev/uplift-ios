@@ -459,7 +459,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = UIImage(named: "right_arrow")
             classTypeDropdownData.dropStatus = .up
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {
@@ -468,7 +468,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
             classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = #imageLiteral(resourceName: "down_arrow")
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = UIImage(named: "down_arrow")
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = .none
             classTypeDropdownData.dropStatus = .half
             for i in [0, 1, 2] {

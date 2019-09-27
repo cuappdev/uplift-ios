@@ -109,6 +109,7 @@ struct HabitConstants {
 struct ImageNames {
     // ARROWS
     static let darkBackArrow = "darkBackArrow"
+    static let downArrow = "down_arrow"
     static let lightBackArrow = "back-arrow"
 
     // SHARE

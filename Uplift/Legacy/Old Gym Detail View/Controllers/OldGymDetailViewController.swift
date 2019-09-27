@@ -82,7 +82,7 @@ class OldGymDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
         // MARK: - Fabric
         Answers.logCustomEvent(withName: "Checking Gym Details")
 

@@ -56,20 +56,20 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
         switch routine.routineType {
         case .cardio:
             routineTypeLabel.text = "Cardio"
-            routineTypeImage.image = #imageLiteral(resourceName: "small cardio icon")
+            routineTypeImage.image = UIImage(named: "small cardio icon")
         case .mindfulness:
             routineTypeLabel.text = "Mindfulness"
-            routineTypeImage.image = #imageLiteral(resourceName: "smaller mindfulness icon")
+            routineTypeImage.image = UIImage(named: "smaller mindfulness icon")
         case .strength:
             routineTypeLabel.text = "Strength"
-            routineTypeImage.image = #imageLiteral(resourceName: "small strength icon")
+            routineTypeImage.image = UIImage(named: "small strength icon")
         }
     }
 
     private func setupViews() {
         contentView.backgroundColor = .white
 
-        addButton.setImage(#imageLiteral(resourceName: "add habit"), for: .normal)
+        addButton.setImage(UIImage(named: "add habit"), for: .normal)
         addButton.addTarget(self, action: #selector(addHabit), for: .touchUpInside)
         contentView.addSubview(addButton)
 
