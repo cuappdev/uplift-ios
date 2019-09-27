@@ -15,7 +15,7 @@ protocol GymDetailHoursCellDelegate: class {
 class GymDetailHoursCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
-    private enum Constants {
+    enum Constants {
         static let dividerHeight = 1
         static let dividerTopPadding = 32
         static let hoursTableViewDroppedHeight = 181

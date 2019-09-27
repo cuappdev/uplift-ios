@@ -150,21 +150,14 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch itemType {
         case .hours:
-            let dividerHeight = 1
-            let dividerTopPadding = 32
-            let hoursTableViewDroppedHeight = 181
-            let hoursTableViewHeight = 19
-            let hoursTableViewTopPadding = 12
-            let hoursTitleLabelHeight = 19
-            let hoursTitleLabelTopPadding = 36
-            var height = CGFloat(hoursTitleLabelTopPadding +
-                hoursTitleLabelHeight +
-                hoursTableViewTopPadding +
-                dividerTopPadding +
-                dividerHeight)
-            height = gymDetail.hoursDataIsDropped
-                ? height + CGFloat(hoursTableViewDroppedHeight)
-                : height + CGFloat(hoursTableViewHeight)
+            let baseHeight = CGFloat(GymDetailHoursCell.Constants.hoursTitleLabelTopPadding +
+                GymDetailHoursCell.Constants.hoursTitleLabelHeight +
+                GymDetailHoursCell.Constants.hoursTableViewTopPadding +
+                GymDetailHoursCell.Constants.dividerTopPadding +
+                GymDetailHoursCell.Constants.dividerHeight)
+            let height = gymDetail.hoursDataIsDropped
+                ? baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewDroppedHeight)
+                : baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewHeight)
             return CGSize(width: width, height: height)
         case .busyTimes:
             return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
