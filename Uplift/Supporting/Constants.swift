@@ -77,7 +77,7 @@ struct Identifiers {
             return "Mindfulness"
         }
     }
-    static let hasSeenOnboarding = "hasSeenOnboarding2.0"
+    static let hasSeenOnboarding = "hasSeenOnboarding3.0"
 }
 
 // MARK: - SUGGESTED HABITS

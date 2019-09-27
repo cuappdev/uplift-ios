@@ -35,13 +35,11 @@ class OnboardingViewController: PresentationController {
         defaults.set(true, forKey: Identifiers.hasSeenOnboarding)
 
         // snapshot current view
-        let tabBarController = TabBarController()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let snapshot: UIView! = appDelegate.window?.snapshotView(afterScreenUpdates: true)!
-        tabBarController.view.addSubview(snapshot)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let snapshot = appDelegate.window?.snapshotView(afterScreenUpdates: true) else { return }
 
         // set new rootViewController
-        appDelegate.window?.rootViewController = tabBarController
+        appDelegate.window?.rootViewController = OnboardingGymsViewController()
 
         // exit transition for snapshot
         UIView.animate(withDuration: 0.5, animations: {
