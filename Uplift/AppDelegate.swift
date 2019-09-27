@@ -26,17 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGoogleSignIn()
         
         let defaults = UserDefaults.standard
-        
-        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) { // Seen onboarding and...
-            if isGoogleLoggedIn() { // Is logged in
-                window?.rootViewController = TabBarController()
-            } else { // Needs to relogin
-                window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
-            }
-        } else { // Never seen onboarding
-            window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
-        }
-        
+        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+            ? TabBarController()
+            : OnboardingViewController()
+
         #if DEBUG
             print("Running Uplift in debug configuration")
         #else
