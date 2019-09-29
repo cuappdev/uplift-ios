@@ -134,7 +134,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .facilities:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-            cell.configure(for: gymDetail.gym)
+            cell.configure(for: gymDetail)
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -150,11 +150,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch itemType {
         case .hours:
-            let baseHeight = CGFloat(GymDetailHoursCell.Constants.hoursTitleLabelTopPadding +
-                GymDetailHoursCell.Constants.hoursTitleLabelHeight +
-                GymDetailHoursCell.Constants.hoursTableViewTopPadding +
-                GymDetailHoursCell.Constants.dividerTopPadding +
-                GymDetailHoursCell.Constants.dividerHeight)
+            let baseHeight = GymDetailHoursCell.baseHeight
             let height = gymDetail.hoursDataIsDropped
                 ? baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewDroppedHeight)
                 : baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewHeight)
@@ -162,7 +158,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .busyTimes:
             return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
         case.facilities:
-            let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight * CGFloat(GymDetailFacilitiesCell.gymFacilitiesCount)
+            let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight * CGFloat(gymDetail.facilities.count)
             return CGSize(width: width, height: GymDetailFacilitiesCell.baseHeight + tableViewHeight)
         case.classes:
             return (todaysClasses.isEmpty) ?

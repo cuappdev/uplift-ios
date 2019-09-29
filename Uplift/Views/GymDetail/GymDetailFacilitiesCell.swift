@@ -29,19 +29,8 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     private let dividerView = UIView()
     private let facilitiesLabel = UILabel()
     private var gymFacilitiesTableView: UITableView!
-    static var gymFacilitiesCount: Int = 0
-
-    // MARK: - Private data vars
-    private let facilitiesData: [String: [String]] = [
-        GymIds.appel: ["Fitness Center"],
-        GymIds.helenNewman: ["Fitness Center", "Pool", "16 Lane Bowling Center", "Two-Court Gymnasium", "Dance Studio"],
-        GymIds.noyes: ["Fitness Center", "Game Area", "Indoor Basketball Court", "Outdoor Basketball Court", "Bouldering Wall", "Multi-Purpose Room"],
-        GymIds.teagleDown: ["Fitness Center", "Pool"],
-        GymIds.teagleUp: ["Fitness Center", "Pool"]
-    ]
 
     private var gymFacilities: [String] = []
-    private var gymId: String = ""
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,11 +40,9 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     }
 
     // MARK: - Public configure
-    func configure(for gym: Gym) {
-        gymId = gym.id
-        gymFacilities = facilitiesData[gym.id]!
-        GymDetailFacilitiesCell.gymFacilitiesCount = gymFacilities.count
-
+    func configure(for gymDetail: GymDetail) {
+        gymFacilities = gymDetail.facilities
+        
         DispatchQueue.main.async {
             self.gymFacilitiesTableView.reloadData()
             self.setupConstraints()

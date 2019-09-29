@@ -25,6 +25,11 @@ class GymDetailHoursCell: UICollectionViewCell {
         static let hoursTitleLabelTopPadding = 36
     }
 
+    // MARK: - Public data vars
+    static var baseHeight : CGFloat {
+        return CGFloat(Constants.hoursTitleLabelTopPadding + Constants.hoursTitleLabelHeight + Constants.hoursTableViewTopPadding + Constants.dividerTopPadding + Constants.dividerHeight)
+    }
+
     // MARK: - Private data vars
     private enum Days {
         case sunday
