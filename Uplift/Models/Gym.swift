@@ -35,7 +35,7 @@ struct Gym {
     init(gymData: AllGymsQuery.Data.Gym ) {
         id = gymData.id
         name = gymData.name
-        // TODO : fetch equipment once it's availble from backend
+        // TODO : fetch equipment once it's available from backend
         equipment = ""
         imageURL = URL(string: gymData.imageUrl ?? "")
 
@@ -64,7 +64,7 @@ struct Gym {
     init(gymData: GymByIdQuery.Data.Gym ) {
         id = gymData.id
         name = gymData.name
-        // TODO : fetch equipment once it's availble from backend
+        // TODO : fetch equipment once it's available from backend
         equipment = ""
         imageURL = URL(string: gymData.imageUrl ?? "")
 

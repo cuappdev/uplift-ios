@@ -18,12 +18,11 @@ class GymDetailViewController: UIViewController {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
     // MARK: - Private data vars
-    private var gym: Gym!
     private var sections: [Section] = []
     private var todaysClasses: [GymClassInstance] = []
 
     // MARK: - Public data vars
-    var hoursIsDropped: Bool = false
+    var gymDetail: GymDetail!
 
     private enum Constants {
         static let gymDetailClassesCellIdentifier = "gymDetailClassesCellIdentifier"
@@ -48,7 +47,7 @@ class GymDetailViewController: UIViewController {
     // MARK: - Custom Initializer
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
-        self.gym = gym
+        self.gymDetail = GymDetail(gym: gym)
 
         if gym.isOpen {
             self.sections = [
@@ -79,7 +78,7 @@ class GymDetailViewController: UIViewController {
 
         setupViews()
 
-        NetworkManager.shared.getClassInstancesByGym(gymId: gym.id, date: Date.getNowString()) { gymClasses in
+        NetworkManager.shared.getClassInstancesByGym(gymId: gymDetail.gym.id, date: Date.getNowString()) { gymClasses in
             self.todaysClasses = gymClasses
             let items = self.sections[0].items
             self.sections[0].items[items.count - 1] = .classes(gymClasses)
@@ -125,17 +124,17 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .hours:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailHoursCellIdentifier, for: indexPath) as! GymDetailHoursCell
-             cell.configure(for: self, gym: gym)
+            cell.configure(for: self, gymDetail: gymDetail)
             return cell
         case .busyTimes:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier, for: indexPath) as! GymDetailPopularTimesCell
-            cell.configure(for: gym)
+            cell.configure(for: gymDetail.gym)
             return cell
         case .facilities:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-             cell.configure(for: gym)
+            cell.configure(for: gymDetail.gym)
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -151,7 +150,15 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch itemType {
         case .hours:
-            return CGSize(width: width, height: GymDetailHoursCell.baseHeight)
+            let baseHeight = CGFloat(GymDetailHoursCell.Constants.hoursTitleLabelTopPadding +
+                GymDetailHoursCell.Constants.hoursTitleLabelHeight +
+                GymDetailHoursCell.Constants.hoursTableViewTopPadding +
+                GymDetailHoursCell.Constants.dividerTopPadding +
+                GymDetailHoursCell.Constants.dividerHeight)
+            let height = gymDetail.hoursDataIsDropped
+                ? baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewDroppedHeight)
+                : baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewHeight)
+            return CGSize(width: width, height: height)
         case .busyTimes:
             return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
         case.facilities:
@@ -175,7 +182,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier,
             // swiftlint:disable:next force_cast
             for: indexPath) as! GymDetailHeaderView
-        headerView.configure(for: gym)
+        headerView.configure(for: gymDetail.gym)
         return headerView
     }
 
