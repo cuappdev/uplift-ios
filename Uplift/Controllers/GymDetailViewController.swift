@@ -150,23 +150,40 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch itemType {
         case .hours:
-            let baseHeight = GymDetailHoursCell.baseHeight
+            let baseHeight = CGFloat(GymDetailHoursCell.Constants.hoursTitleLabelTopPadding +
+                GymDetailHoursCell.Constants.hoursTitleLabelHeight +
+                GymDetailHoursCell.Constants.hoursTableViewTopPadding +
+                GymDetailHoursCell.Constants.dividerTopPadding +
+                GymDetailHoursCell.Constants.dividerHeight)
             let height = gymDetail.hoursDataIsDropped
                 ? baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewDroppedHeight)
                 : baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewHeight)
             return CGSize(width: width, height: height)
         case .busyTimes:
-            return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
+            let height = CGFloat(GymDetailPopularTimesCell.Constants.popularTimesLabelTopPadding +
+                GymDetailPopularTimesCell.Constants.popularTimesLabelHeight +
+                GymDetailPopularTimesCell.Constants.popularTimesHistogramTopPadding +
+                GymDetailPopularTimesCell.Constants.popularTimesHistogramHeight +
+                GymDetailPopularTimesCell.Constants.dividerViewTopPadding +
+                GymDetailPopularTimesCell.Constants.dividerViewHeight)
+            return CGSize(width: width, height: height)
         case.facilities:
-            let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight * CGFloat(gymDetail.facilities.count)
-            return CGSize(width: width, height: GymDetailFacilitiesCell.baseHeight + tableViewHeight)
+            let baseHeight = CGFloat(GymDetailFacilitiesCell.Constants.facilitiesLabelTopPadding +
+                GymDetailFacilitiesCell.Constants.facilitiesLabelHeight +
+                GymDetailFacilitiesCell.Constants.gymFacilitiesTopPadding +
+                GymDetailFacilitiesCell.Constants.dividerTopPadding +
+                GymDetailFacilitiesCell.Constants.dividerHeight)
+            let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight *
+                    CGFloat(gymDetail.facilities.count)
+            return CGSize(width: width, height: baseHeight + tableViewHeight)
         case.classes:
+            let baseHeight = CGFloat(GymDetailTodaysClassesCell.Constants.todaysClassesLabelTopPadding +
+                GymDetailTodaysClassesCell.Constants.todaysClassesLabelHeight)
             return (todaysClasses.isEmpty) ?
-                CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
-                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
+                CGSize(width: width, height: baseHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
                     GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
                     GymDetailTodaysClassesCell.Constants.noMoreClassesLabelBottomPadding)
-                : CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
+                : CGSize(width: width, height: baseHeight +
                     (2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding) +
                     classesCollectionViewHeight())
         }

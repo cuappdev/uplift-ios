@@ -20,11 +20,6 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         static let facilitiesLabelTopPadding = 23
     }
 
-    // MARK: - Public data vars
-    static var baseHeight: CGFloat {
-        return CGFloat(Constants.facilitiesLabelTopPadding + Constants.facilitiesLabelHeight + Constants.gymFacilitiesTopPadding + Constants.dividerTopPadding + Constants.dividerHeight)
-    }
-
     // MARK: - Private view vars
     private let dividerView = UIView()
     private let facilitiesLabel = UILabel()

@@ -24,11 +24,6 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
         static let todaysClassesLabelTopPadding: CGFloat = 64
     }
 
-    // MARK: - Public data vars
-    static var baseHeight: CGFloat {
-        return Constants.todaysClassesLabelTopPadding + Constants.todaysClassesLabelHeight
-    }
-
     // MARK: - Private view vars
     private var classesCollectionView: UICollectionView!
     private let noMoreClassesLabel = UILabel()

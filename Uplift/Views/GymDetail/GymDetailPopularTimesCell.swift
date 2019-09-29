@@ -20,14 +20,6 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
         static let popularTimesLabelTopPadding = 24
     }
 
-    // MARK: - Public data vars
-    static var baseHeight: CGFloat {
-        let labelHeight = Constants.popularTimesLabelTopPadding + Constants.popularTimesLabelHeight
-        let histogramHeight = Constants.popularTimesHistogramTopPadding + Constants.popularTimesHistogramHeight
-        let dividerHeight = Constants.dividerViewTopPadding + Constants.dividerViewHeight
-        return CGFloat(labelHeight + histogramHeight + dividerHeight)
-    }
-
     // MARK: - Private view vars
     private var popularTimesHistogram: Histogram!
     private let popularTimesLabel = UILabel()
