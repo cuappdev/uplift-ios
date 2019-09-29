@@ -12,8 +12,6 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let dividerHeight = 1
-        static let dividerTopPadding = 24
         static let gymFacilitiesCellHeight: CGFloat = 20
         static let gymFacilitiesTopPadding = 12
         static let facilitiesLabelHeight = 22
@@ -82,9 +80,9 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
             }
 
             dividerView.snp.remakeConstraints { make in
-                make.top.equalTo(gymFacilitiesTableView.snp.bottom).offset(Constants.dividerTopPadding)
+                make.top.equalTo(gymFacilitiesTableView.snp.bottom).offset(GymDetailViewController.ConstraintConstants.dividerViewTopPadding)
                 make.leading.trailing.equalToSuperview()
-                make.height.equalTo(Constants.dividerHeight)
+                make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
             }
         }
     }

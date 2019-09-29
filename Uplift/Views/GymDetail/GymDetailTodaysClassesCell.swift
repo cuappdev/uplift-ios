@@ -17,11 +17,10 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
     // MARK: - Constraint constants
     enum Constants {
         static let classesCollectionViewVerticalPadding: CGFloat = 32
-        static let noMoreClassesLabelBottomPadding: CGFloat = 57
         static let noMoreClassesLabelHeight: CGFloat = 66
         static let noMoreClassesLabelTopPadding: CGFloat = 22
         static let todaysClassesLabelHeight: CGFloat = 18
-        static let todaysClassesLabelTopPadding: CGFloat = 64
+        static let todaysClassesLabelTopPadding: CGFloat = 62
     }
 
     // MARK: - Private view vars
