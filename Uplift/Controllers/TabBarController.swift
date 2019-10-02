@@ -21,13 +21,13 @@ class TabBarController: UITabBarController {
         tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
 
         let homeController = HomeViewController()
-        homeController.tabBarItem = UITabBarItem(title: "browse", image: UIImage(named: "home-tab"), selectedImage: UIImage(named: "home-tab-selected"))
+        homeController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.homeSection, image: UIImage(named: "home-tab"), selectedImage: UIImage(named: "home-tab-selected"))
 
         let classListController = ClassListViewController()
-        classListController.tabBarItem = UITabBarItem(title: "classes", image: UIImage(named: "classes-tab"), selectedImage: UIImage(named: "classes-tab-selected"))
+        classListController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.classesSection, image: UIImage(named: "classes-tab"), selectedImage: UIImage(named: "classes-tab-selected"))
 
         let favoritesController = FavoritesViewController()
-        favoritesController.tabBarItem = UITabBarItem(title: "favorites", image: UIImage(named: "favorites-tab"), selectedImage: UIImage(named: "favorites-tab-selected"))
+        favoritesController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.favoritesSection, image: UIImage(named: "favorites-tab"), selectedImage: UIImage(named: "favorites-tab-selected"))
 
         let viewControllerList = [homeController, classListController, favoritesController]
         viewControllers = viewControllerList
@@ -40,7 +40,7 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if let tabName = item.title, tabName == "browse" {
+        if let tabName = item.title, tabName == ClientStrings.TabBar.homeSection {
             Answers.logCustomEvent(withName: "Opened \"browse\" Tab")
         }
     }

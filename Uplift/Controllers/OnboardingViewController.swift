@@ -67,7 +67,7 @@ class OnboardingViewController: PresentationController {
         // dismiss button
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 235, height: 64)
-        button.setTitle("BEGIN", for: .normal)
+        button.setTitle(ClientStrings.Onboarding.endOnboarding, for: .normal)
         button.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
         button.titleLabel?.font = ._14MontserratBold
         button.setTitleColor(UIColor.fitnessBlack, for: .normal)

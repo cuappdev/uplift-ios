@@ -51,7 +51,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         currentScreenSize = computeScreenDimensions()
         
         titleLabel = UILabel()
-        titleLabel.text = "Select the gyms you go to!"
+        titleLabel.text = ClientStrings.Onboarding.selectGyms
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping

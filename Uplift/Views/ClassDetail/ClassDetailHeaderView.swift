@@ -41,7 +41,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         titleLabel.text = gymClassInstance.className.uppercased()
         locationButton.setTitle(gymClassInstance.location, for: .normal)
         instructorButton.setTitle(gymClassInstance.instructor.uppercased(), for: .normal)
-        durationLabel.text = "\(Int(gymClassInstance.duration) / 60) MIN"
+        durationLabel.text = String(Int(gymClassInstance.duration) / 60) + ClientStrings.ClassDetail.durationMin
     }
 
     // MARK: - Targets

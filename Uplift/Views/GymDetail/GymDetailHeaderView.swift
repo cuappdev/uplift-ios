@@ -44,7 +44,7 @@ class GymDetailHeaderView: UICollectionReusableView {
         closedLabel.textColor = .white
         closedLabel.textAlignment = .center
         closedLabel.backgroundColor = .fitnessBlack
-        closedLabel.text = "CLOSED"
+        closedLabel.text = ClientStrings.GymDetail.closedLabel
 
         nameLabel.font = ._36MontserratBold
         nameLabel.textAlignment = .center

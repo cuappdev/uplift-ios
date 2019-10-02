@@ -64,14 +64,14 @@ class CalendarCell: UICollectionViewCell {
         dateLabelCircle.layer.cornerRadius = 12
         addSubview(dateLabelCircle)
 
-        dateLabel.text = "15"
+        dateLabel.text = "15" //Placeholder
         dateLabel.font = ._12MontserratRegular
         dateLabel.textAlignment = .center
         dateLabel.textColor = .fitnessBlack
         dateLabel.sizeToFit()
         addSubview(dateLabel)
 
-        dayOfWeekLabel.text = "Th"
+        dayOfWeekLabel.text = "Th" //Placeholder
         dayOfWeekLabel.font = ._12MontserratRegular
         dayOfWeekLabel.textAlignment = .center
         dayOfWeekLabel.textColor = .fitnessDarkGrey

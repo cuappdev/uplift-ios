@@ -287,11 +287,11 @@ extension HabitTrackingController {
         titleLabel.clipsToBounds = false
         switch type {
         case .cardio:
-            titleLabel.text = "Cardio"
+            titleLabel.text = ClientStrings.HabitTracking.vcTitleCardio
         case .strength:
-            titleLabel.text = "Strength"
+            titleLabel.text = ClientStrings.HabitTracking.vcTitleStrength
         case .mindfulness:
-            titleLabel.text = "Mindfulness"
+            titleLabel.text = ClientStrings.HabitTracking.vcTitleMindfulness
         }
         contentView.addSubview(titleLabel)
     }
@@ -325,7 +325,7 @@ extension HabitTrackingController {
 
     private func setupSaveHabitButton() {
         saveHabitButton = UIButton()
-        saveHabitButton.setTitle("SAVE", for: .normal)
+        saveHabitButton.setTitle(ClientStrings.HabitTracking.saveButton, for: .normal)
         saveHabitButton.titleLabel?.font = ._12MontserratBold
         saveHabitButton.setTitleColor(UIColor.fitnessWhite, for: .normal)
         saveHabitButton.backgroundColor = .fitnessBlack
@@ -338,7 +338,7 @@ extension HabitTrackingController {
 
     private func setupCreateHabitButton() {
         createHabitButton = UIButton()
-        createHabitButton.setTitle("Create your own", for: .normal)
+        createHabitButton.setTitle(ClientStrings.HabitTracking.createHabitButton, for: .normal)
         createHabitButton.titleLabel?.font = ._16MontserratMedium
         createHabitButton.titleLabel?.textAlignment = .left
         createHabitButton.setTitleColor(.fitnessMediumGrey, for: .normal)

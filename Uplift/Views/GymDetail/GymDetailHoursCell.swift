@@ -98,13 +98,13 @@ class GymDetailHoursCell: UICollectionViewCell {
         closedLabel.textColor = .white
         closedLabel.textAlignment = .center
         closedLabel.backgroundColor = .fitnessBlack
-        closedLabel.text = "CLOSED"
+        closedLabel.text = ClientStrings.GymDetail.closedLabel
         contentView.addSubview(closedLabel)
 
         hoursTitleLabel.font = ._16MontserratMedium
         hoursTitleLabel.textColor = .fitnessBlack
         hoursTitleLabel.textAlignment = .center
-        hoursTitleLabel.text = "HOURS"
+        hoursTitleLabel.text = ClientStrings.GymDetail.hoursLabel
         contentView.addSubview(hoursTitleLabel)
 
         hoursTableView = UITableView(frame: .zero, style: .grouped)
@@ -160,7 +160,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             return "\(openTime) - \(closeTime)"
         }
         
-        return "Closed"
+        return ClientStrings.GymDetail.closedOnACertainDay
     }
 
     // MARK: - Targets

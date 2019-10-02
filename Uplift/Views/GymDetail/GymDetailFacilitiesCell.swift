@@ -66,7 +66,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         facilitiesLabel.font = ._16MontserratMedium
         facilitiesLabel.textAlignment = .center
         facilitiesLabel.textColor = .fitnessBlack
-        facilitiesLabel.text = "FACILITIES"
+        facilitiesLabel.text = ClientStrings.GymDetail.facilitiesSection
         contentView.addSubview(facilitiesLabel)
 
         gymFacilitiesTableView = UITableView(frame: .zero, style: .plain)

@@ -27,7 +27,7 @@ class Histogram: UIView {
     private let highThreshold = 57
     private let mediumThreshold = 25
     private let secondsPerHour: Double = 3600.0
-    private let timeDescriptors = ["Not too busy", "A little busy", "As busy as it gets"]
+    private let timeDescriptors = [ClientStrings.Histogram.businessLevel1, ClientStrings.Histogram.businessLevel2, ClientStrings.Histogram.businessLevel3]
     /// Returns the proper time descriptor label text
     private var timeDescriptorText: String { 
         get {

@@ -46,7 +46,7 @@ class FavoriteGymCell: UITableViewCell {
         contentView.addSubview(cellBackground)
         
         gymLabel = UILabel()
-        gymLabel.text = "A Gym"
+        gymLabel.text = "A Gym" //Placeholder
         gymLabel.font = ._16MontserratMedium
         gymLabel.textColor = .fitnessMediumGrey
         cellBackground.addSubview(gymLabel)

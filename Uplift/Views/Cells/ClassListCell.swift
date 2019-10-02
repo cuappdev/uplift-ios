@@ -197,12 +197,12 @@ class ClassListCell: UICollectionViewCell {
             
             switch style {
             case .time:
-                secondaryTimeLabel.text = "\(Int(gymClassInstance.duration / 60.0)) min"
+                secondaryTimeLabel.text = String(Int(gymClassInstance.duration / 60.0)) + ClientStrings.ClassList.dayMinAbbreviation
                 primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mm a")
             case .date:
                 secondaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "h:mma")
                 if gymClassInstance.startTime.isToday() {
-                    primaryTimeLabel.text = "Today"
+                    primaryTimeLabel.text = ClientStrings.ClassList.dayTodayLabel
                 } else {
                     primaryTimeLabel.text = gymClassInstance.startTime.getStringOfDatetime(format: "MMM d")
                 }
