@@ -12,20 +12,9 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let dividerViewHeight = 1
-        static let dividerViewTopPadding = 24
         static let popularTimesHistogramHeight = 101
-        static let popularTimesHistogramTopPadding = 24
         static let popularTimesLabelHeight = 19
         static let popularTimesLabelTopPadding = 24
-    }
-
-    // MARK: - Public data vars
-    static var baseHeight: CGFloat {
-        let labelHeight = Constants.popularTimesLabelTopPadding + Constants.popularTimesLabelHeight
-        let histogramHeight = Constants.popularTimesHistogramTopPadding + Constants.popularTimesHistogramHeight
-        let dividerHeight = Constants.dividerViewTopPadding + Constants.dividerViewHeight
-        return CGFloat(labelHeight + histogramHeight + dividerHeight)
     }
 
     // MARK: - Private view vars
@@ -93,14 +82,14 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
             }
 
             dividerView.snp.remakeConstraints { make in
-                make.top.equalTo(histogram.snp.bottom).offset(Constants.dividerViewTopPadding)
-                make.height.equalTo(Constants.dividerViewHeight)
+                make.top.equalTo(histogram.snp.bottom).offset(GymDetailViewController.ConstraintConstants.dividerViewTopPadding)
+                make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
                 make.leading.trailing.equalToSuperview()
             }
         } else {
             dividerView.snp.makeConstraints { make in
-                make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constants.dividerViewTopPadding)
-                make.height.equalTo(Constants.dividerViewHeight)
+                make.top.equalTo(popularTimesLabel.snp.bottom).offset(GymDetailViewController.ConstraintConstants.dividerViewTopPadding)
+                make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
                 make.leading.trailing.equalToSuperview()
             }
         }

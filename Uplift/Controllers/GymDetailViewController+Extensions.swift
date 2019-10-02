@@ -9,9 +9,9 @@
 import UIKit
 
 extension GymDetailViewController: GymDetailHoursCellDelegate {
-    
+
     func didDropHours(isDropped: Bool, completion: @escaping () -> Void) {
-        hoursIsDropped.toggle()
+        gymDetail.hoursDataIsDropped.toggle()
         collectionView.performBatchUpdates({}, completion: nil)
         completion()
     }
