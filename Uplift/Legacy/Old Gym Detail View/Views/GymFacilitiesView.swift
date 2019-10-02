@@ -451,18 +451,18 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             var gesture: FacilitiesGestureRecognizer!
 
             if tableView == basketballTableView {
-                header.iconImageView.image = UIImage(named: "basketball")
+                header.iconImageView.image = UIImage(named: ImageNames.basketball)
                 header.facilityNameLabel.text = facilityData[0].facility
                 gesture = FacilitiesGestureRecognizer(target: self, action: #selector(self.dropFacilityHours(sender:) ))
                 gesture.title = "basketball"
 
             } else if tableView == bowlingTableView {
-                header.iconImageView.image = UIImage(named: "bowling")
+                header.iconImageView.image = UIImage(named: ImageNames.bowling)
                 header.facilityNameLabel.text = facilityData[1].facility
                 gesture = FacilitiesGestureRecognizer(target: self, action: #selector(self.dropFacilityHours(sender:) ))
                 gesture.title = "bowling"
             } else {
-                header.iconImageView.image = UIImage(named: "pool")
+                header.iconImageView.image = UIImage(named: ImageNames.pool)
                 header.facilityNameLabel.text = facilityData[2].facility
                 gesture = FacilitiesGestureRecognizer(target: self, action: #selector(self.dropFacilityHours(sender:) ))
                 gesture.title = "pool"
@@ -474,7 +474,7 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
         case .teagle:
             //swiftlint:disable:next force_cast
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FacilityHoursHeaderView.identifier) as! FacilityHoursHeaderView
-            header.iconImageView.image = UIImage(named: "pool")
+            header.iconImageView.image = UIImage(named: ImageNames.pool)
             header.facilityNameLabel.text = facilityData[0].facility
             let gesture = FacilitiesGestureRecognizer(target: self, action: #selector(self.dropFacilityHours(sender:) ))
             header.addGestureRecognizer(gesture)

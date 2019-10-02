@@ -85,7 +85,7 @@ class ClassDetailTimeCell: UICollectionViewCell {
         timeLabel.sizeToFit()
         contentView.addSubview(timeLabel)
 
-        addToCalendarButton.setImage(UIImage(named: "calendar-icon"), for: .normal) //temp
+        addToCalendarButton.setImage(UIImage(named: ImageNames.calendar), for: .normal) //temp
         addToCalendarButton.sizeToFit()
         contentView.addSubview(addToCalendarButton)
 

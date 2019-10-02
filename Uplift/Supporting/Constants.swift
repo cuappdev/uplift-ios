@@ -108,9 +108,46 @@ struct HabitConstants {
 // MARK: - IMAGE NAMES
 struct ImageNames {
     // ARROWS
+    static let arrow = "arrow"
     static let darkBackArrow = "darkBackArrow"
     static let downArrow = "down_arrow"
+    static let downArrowSolid = "down-arrow-solid"
     static let lightBackArrow = "back-arrow"
+    static let rightArrow = "right_arrow"
+    static let rightArrowSolid = "right-arrow-solid"
+    static let yellowCheckmark = "yellowCheckmark"
+    static let yellowNextArrow = "yellowNextArrow"
+
+    // FACILITIES
+    static let basketball = "basketball"
+    static let bowling = "bowling"
+    static let pool = "pool"
+
+    // ICONS
+    static let calendar = "calendar-icon"
+    static let cancel = "cancel"
+    static let cardio = "cardio"
+    static let clock = "clock-icon"
+    static let darkAdd = "darkAdd"
+    static let lightAdd = "lightAdd"
+    static let locationPointer = "location_pointer"
+    static let mindfulness = "mindfulness"
+    static let strength = "strength"
+    static let widgets0 = "widgets-empty"
+    static let widgets1 = "widgets-1"
+    static let widgets2 = "widgets-2"
+    static let widgets3 = "widgets-3"
+
+    // ONBOARDING
+    static let divider = "divider"
+    static let onboarding1 = "onboarding_1"
+    static let onboarding2 = "onboarding_2"
+    static let onboarding3 = "onboarding_3"
+    static let onboarding4 = "onboarding_4"
+    static let runningMan = "running-man"
+
+    // MISC VIEWS
+    static let semicircle = "semicircle"
 
     // SHARE
     static let darkShare = "share_dark"
@@ -120,4 +157,12 @@ struct ImageNames {
     static let blackStarOutline = "blackStar"
     static let whiteStarOutline = "white-star"
     static let yellowWhiteStar = "yellow-white-star"
+
+    // TAB ICONS
+    static let classes = "classes-tab"
+    static let classesSelected = "classes-tab-selected"
+    static let favorites = "favorites-tab"
+    static let favoritesSelected = "favorites-selected"
+    static let home = "home-tab"
+    static let homeSelected = "home-tab-selected"
 }

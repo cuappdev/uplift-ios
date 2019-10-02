@@ -52,7 +52,7 @@ class OnboardingViewController: PresentationController {
 
     private func configureSlides() {
         // slide images
-        let images = [UIImage(named: "onboarding_1"), UIImage(named: "onboarding_2"), UIImage(named: "onboarding_3"), UIImage(named: "onboarding_4")].map { image -> Content in
+        let images = [UIImage(named: ImageNames.onboarding1), UIImage(named: ImageNames.onboarding2), UIImage(named: ImageNames.onboarding3), UIImage(named: ImageNames.onboarding4)].map { image -> Content in
             let imageView = UIImageView(image: image)
             imageView.contentMode = .scaleAspectFill
             imageView.snp.makeConstraints { make in
@@ -95,18 +95,16 @@ class OnboardingViewController: PresentationController {
 
     private func configureBackground() {
         // divider
-        let dividerImage = UIImage(named: "divider")
-        let dividerImageView = UIImageView(image: dividerImage)
+        let dividerImageView = UIImageView(image: UIImage(named: ImageNames.divider))
         dividerImageView.contentMode = .scaleAspectFill
         dividerImageView.snp.makeConstraints { make in
             make.width.equalTo(view.frame.width)
-            make.height.equalTo(2) 
+            make.height.equalTo(2)
         }
         let divider = Content(view: dividerImageView, position: Position(left: 0.5, bottom: 0.195))
 
-        // runnning man
-        let runningManImage = UIImage(named: "running-man")
-        let runningManImageView = UIImageView(image: runningManImage)
+        // running man
+        let runningManImageView = UIImageView(image: UIImage(named: ImageNames.runningMan))
         runningManImageView.contentMode = .scaleAspectFill
         runningManImageView.snp.makeConstraints { make in
             make.height.equalTo(58)

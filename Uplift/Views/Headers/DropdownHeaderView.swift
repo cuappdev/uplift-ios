@@ -51,7 +51,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         contentView.addSubview(selectedFiltersLabel)
 
-        rightArrow = UIImageView(image: UIImage(named: "right_arrow"))
+        rightArrow = UIImageView(image: UIImage(named: ImageNames.rightArrow))
         contentView.addSubview(rightArrow)
         
         downArrow = UIImageView(image: .none)

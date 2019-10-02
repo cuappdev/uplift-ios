@@ -522,7 +522,7 @@ class OldGymDetailViewController: UIViewController {
             hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
             if let headerView = hoursTableView.headerView(forSection: 0) as? GymHoursHeaderView {
                 headerView.downArrow.image = .none
-                headerView.rightArrow.image = UIImage(named: "right-arrow-solid")
+                headerView.rightArrow.image = UIImage(named: ImageNames.rightArrowSolid)
             }
 
             UIView.animate(withDuration: 0.3) {
@@ -533,7 +533,7 @@ class OldGymDetailViewController: UIViewController {
             hoursData.isDropped = true
             hoursTableView.insertRows(at: modifiedIndices, with: .fade)
             if let headerView = hoursTableView.headerView(forSection: 0) as? GymHoursHeaderView {
-                headerView.downArrow.image = UIImage(named: "down-arrow-solid")
+                headerView.downArrow.image = UIImage(named: ImageNames.downArrowSolid)
                 headerView.rightArrow.image = .none
             }
 

@@ -98,7 +98,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         contentView.addSubview(hoursLabel)
 
         locationWidget.contentMode = .scaleAspectFit
-        locationWidget.image = UIImage(named: "location_pointer")
+        locationWidget.image = UIImage(named: ImageNames.locationPointer)
         contentView.addSubview(locationWidget)
 
         locationNameLabel.font = ._12MontserratRegular
