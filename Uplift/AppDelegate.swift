@@ -22,13 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
-        setupGoogleSignIn()
-        
-        let defaults = UserDefaults.standard
-        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-            ? TabBarController()
-            : OnboardingViewController()
+
+        window?.rootViewController = BlankViewController()
+
+//        setupGoogleSignIn()
+//
+//        let defaults = UserDefaults.standard
+//        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+//            ? TabBarController()
+//            : OnboardingViewController()
 
         #if DEBUG
             print("Running Uplift in debug configuration")
