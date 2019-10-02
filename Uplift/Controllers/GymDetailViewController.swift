@@ -150,13 +150,13 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch itemType {
         case .hours:
-            return CGSize(width: width, height: hoursHeight())
+            return CGSize(width: width, height: getHoursHeight())
         case .busyTimes:
-            return CGSize(width: width, height: busyTimesHeight())
+            return CGSize(width: width, height: getBusyTimesHeight())
         case.facilities:
-            return CGSize(width: width, height: facilitiesHeight())
+            return CGSize(width: width, height: getFacilitiesHeight())
         case.classes:
-            return CGSize(width: width, height: todaysClassesHeight())
+            return CGSize(width: width, height: getTodaysClassesHeight())
         }
     }
 
@@ -230,7 +230,7 @@ extension GymDetailViewController {
         static let noMoreClassesLabelBottomPadding: CGFloat = 57
     }
 
-    func hoursHeight() -> CGFloat {
+    func getHoursHeight() -> CGFloat {
         let baseHeight = CGFloat(GymDetailHoursCell.Constants.hoursTitleLabelTopPadding +
             GymDetailHoursCell.Constants.hoursTitleLabelHeight +
             GymDetailHoursCell.Constants.hoursTableViewTopPadding +
@@ -242,7 +242,7 @@ extension GymDetailViewController {
         return height
     }
 
-    func busyTimesHeight() -> CGFloat {
+    func getBusyTimesHeight() -> CGFloat {
         let labelHeight = GymDetailPopularTimesCell.Constants.popularTimesLabelTopPadding +
         GymDetailPopularTimesCell.Constants.popularTimesLabelHeight
 
@@ -255,7 +255,7 @@ extension GymDetailViewController {
         return CGFloat(labelHeight + histogramHeight + dividerHeight)
     }
 
-    func facilitiesHeight() -> CGFloat {
+    func getFacilitiesHeight() -> CGFloat {
         let baseHeight = CGFloat(GymDetailFacilitiesCell.Constants.facilitiesLabelTopPadding +
             GymDetailFacilitiesCell.Constants.facilitiesLabelHeight +
             GymDetailFacilitiesCell.Constants.gymFacilitiesTopPadding +
@@ -266,15 +266,16 @@ extension GymDetailViewController {
         return baseHeight + tableViewHeight
     }
 
-    func todaysClassesHeight() -> CGFloat {
+    func getTodaysClassesHeight() -> CGFloat {
         let baseHeight = CGFloat(GymDetailTodaysClassesCell.Constants.todaysClassesLabelTopPadding +
             GymDetailTodaysClassesCell.Constants.todaysClassesLabelHeight)
-        return (todaysClasses.isEmpty) ? baseHeight + GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
+        let noMoreClassesHeight = GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
             GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
             ConstraintConstants.noMoreClassesLabelBottomPadding
-            : baseHeight + (2.0 *
-                GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding) +
-                classesCollectionViewHeight()
+        let collectionViewHeight = 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding +
+            classesCollectionViewHeight()
+
+        return (todaysClasses.isEmpty) ? baseHeight + noMoreClassesHeight : baseHeight + collectionViewHeight
     }
 }
 
