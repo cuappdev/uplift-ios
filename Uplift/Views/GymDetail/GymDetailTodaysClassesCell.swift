@@ -16,11 +16,9 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let classesCollectionViewVerticalPadding: CGFloat = 32
+        static let classesCollectionViewVerticalPadding: CGFloat = 34
         static let noMoreClassesLabelHeight: CGFloat = 66
         static let noMoreClassesLabelTopPadding: CGFloat = 22
-        static let todaysClassesLabelHeight: CGFloat = 18
-        static let todaysClassesLabelTopPadding: CGFloat = 24
     }
 
     // MARK: - Private view vars
@@ -53,8 +51,8 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        todaysClassesLabel.font = ._16MontserratMedium
-        todaysClassesLabel.textColor = .fitnessBlack
+        todaysClassesLabel.font = ._16MontserratBold
+        todaysClassesLabel.textColor = .fitnessLightBlack
         todaysClassesLabel.text = "TODAY'S CLASSES"
         todaysClassesLabel.textAlignment = .center
         contentView.addSubview(todaysClassesLabel)
@@ -85,9 +83,9 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     private func setupConstraints() {
         todaysClassesLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constants.todaysClassesLabelTopPadding)
+            make.top.equalToSuperview().inset(GymDetailViewController.ConstraintConstants.verticalPadding)
             make.centerX.equalToSuperview()
-            make.height.equalTo(Constants.todaysClassesLabelHeight)
+            make.height.equalTo(GymDetailViewController.ConstraintConstants.titleLabelHeight)
         }
     }
 
@@ -108,7 +106,7 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
             contentView.addSubview(classesCollectionView)
 
             classesCollectionView.snp.remakeConstraints { make in
-                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constants.classesCollectionViewVerticalPadding)
+                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(GymDetailViewController.ConstraintConstants.verticalPadding)
                 make.bottom.equalToSuperview().inset(Constants.classesCollectionViewVerticalPadding)
                 make.left.right.equalToSuperview().inset(classesCollectionViewHorizontalPadding)
                 make.centerX.equalToSuperview()

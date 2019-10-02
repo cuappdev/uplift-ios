@@ -13,9 +13,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     // MARK: - Constraint constants
     enum Constants {
         static let gymFacilitiesCellHeight: CGFloat = 20
-        static let gymFacilitiesTopPadding = 12
-        static let facilitiesLabelHeight = 22
-        static let facilitiesLabelTopPadding = 23
+        static let gymFacilitiesTopPadding: CGFloat = 12
     }
 
     // MARK: - Private view vars
@@ -35,7 +33,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     // MARK: - Public configure
     func configure(for gymDetail: GymDetail) {
         gymFacilities = gymDetail.facilities
-        
+
         DispatchQueue.main.async {
             self.gymFacilitiesTableView.reloadData()
             self.setupConstraints()
@@ -43,9 +41,9 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     }
 
     func setupViews() {
-        facilitiesLabel.font = ._16MontserratMedium
+        facilitiesLabel.font = ._16MontserratBold
         facilitiesLabel.textAlignment = .center
-        facilitiesLabel.textColor = .fitnessBlack
+        facilitiesLabel.textColor = .fitnessLightBlack
         facilitiesLabel.text = "FACILITIES"
         contentView.addSubview(facilitiesLabel)
 
@@ -67,9 +65,9 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 
     func setupConstraints() {
         facilitiesLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constants.facilitiesLabelTopPadding)
+            make.top.equalToSuperview().inset(GymDetailViewController.ConstraintConstants.verticalPadding)
             make.centerX.equalToSuperview()
-            make.height.equalTo(Constants.facilitiesLabelHeight)
+            make.height.equalTo(GymDetailViewController.ConstraintConstants.titleLabelHeight)
         }
 
         if let gymFacilitiesTableView = gymFacilitiesTableView {
@@ -80,7 +78,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
             }
 
             dividerView.snp.remakeConstraints { make in
-                make.top.equalTo(gymFacilitiesTableView.snp.bottom).offset(GymDetailViewController.ConstraintConstants.dividerViewTopPadding)
+                make.top.equalTo(gymFacilitiesTableView.snp.bottom).offset(GymDetailViewController.ConstraintConstants.verticalPadding)
                 make.leading.trailing.equalToSuperview()
                 make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
             }
