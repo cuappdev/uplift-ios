@@ -134,7 +134,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .facilities:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-            cell.configure(for: gymDetail.gym)
+            cell.configure(for: gymDetail)
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -150,29 +150,13 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch itemType {
         case .hours:
-            let baseHeight = CGFloat(GymDetailHoursCell.Constants.hoursTitleLabelTopPadding +
-                GymDetailHoursCell.Constants.hoursTitleLabelHeight +
-                GymDetailHoursCell.Constants.hoursTableViewTopPadding +
-                GymDetailHoursCell.Constants.dividerTopPadding +
-                GymDetailHoursCell.Constants.dividerHeight)
-            let height = gymDetail.hoursDataIsDropped
-                ? baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewDroppedHeight)
-                : baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewHeight)
-            return CGSize(width: width, height: height)
+            return CGSize(width: width, height: getHoursHeight())
         case .busyTimes:
-            return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
+            return CGSize(width: width, height: getBusyTimesHeight())
         case.facilities:
-            let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight * CGFloat(GymDetailFacilitiesCell.gymFacilitiesCount)
-            return CGSize(width: width, height: GymDetailFacilitiesCell.baseHeight + tableViewHeight)
+            return CGSize(width: width, height: getFacilitiesHeight())
         case.classes:
-            return (todaysClasses.isEmpty) ?
-                CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
-                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
-                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
-                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelBottomPadding)
-                : CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
-                    (2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding) +
-                    classesCollectionViewHeight())
+            return CGSize(width: width, height: getTodaysClassesHeight())
         }
     }
 
@@ -234,6 +218,64 @@ extension GymDetailViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(backButtonTopPadding)
             make.size.equalTo(backButtonSize)
         }
+    }
+}
+
+// MARK: - Item Height Calculations
+extension GymDetailViewController {
+    enum ConstraintConstants {
+        static let dividerHeight = 1
+        static let dividerViewTopPadding = 24
+        static let popularTimesHistogramTopPadding = 24
+        static let noMoreClassesLabelBottomPadding: CGFloat = 57
+    }
+
+    func getHoursHeight() -> CGFloat {
+        let baseHeight = CGFloat(GymDetailHoursCell.Constants.hoursTitleLabelTopPadding +
+            GymDetailHoursCell.Constants.hoursTitleLabelHeight +
+            GymDetailHoursCell.Constants.hoursTableViewTopPadding +
+            GymDetailHoursCell.Constants.dividerTopPadding +
+            ConstraintConstants.dividerHeight)
+        let height = gymDetail.hoursDataIsDropped
+            ? baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewDroppedHeight)
+            : baseHeight + CGFloat(GymDetailHoursCell.Constants.hoursTableViewHeight)
+        return height
+    }
+
+    func getBusyTimesHeight() -> CGFloat {
+        let labelHeight = GymDetailPopularTimesCell.Constants.popularTimesLabelTopPadding +
+        GymDetailPopularTimesCell.Constants.popularTimesLabelHeight
+
+        let histogramHeight = ConstraintConstants.popularTimesHistogramTopPadding +
+        GymDetailPopularTimesCell.Constants.popularTimesHistogramHeight
+
+        let dividerHeight = ConstraintConstants.dividerViewTopPadding +
+        ConstraintConstants.dividerHeight
+
+        return CGFloat(labelHeight + histogramHeight + dividerHeight)
+    }
+
+    func getFacilitiesHeight() -> CGFloat {
+        let baseHeight = CGFloat(GymDetailFacilitiesCell.Constants.facilitiesLabelTopPadding +
+            GymDetailFacilitiesCell.Constants.facilitiesLabelHeight +
+            GymDetailFacilitiesCell.Constants.gymFacilitiesTopPadding +
+            ConstraintConstants.dividerViewTopPadding +
+            ConstraintConstants.dividerHeight)
+        let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight *
+                CGFloat(gymDetail.facilities.count)
+        return baseHeight + tableViewHeight
+    }
+
+    func getTodaysClassesHeight() -> CGFloat {
+        let baseHeight = CGFloat(GymDetailTodaysClassesCell.Constants.todaysClassesLabelTopPadding +
+            GymDetailTodaysClassesCell.Constants.todaysClassesLabelHeight)
+        let noMoreClassesHeight = GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
+            GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
+            ConstraintConstants.noMoreClassesLabelBottomPadding
+        let collectionViewHeight = 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding +
+            classesCollectionViewHeight()
+
+        return (todaysClasses.isEmpty) ? baseHeight + noMoreClassesHeight : baseHeight + collectionViewHeight
     }
 }
 

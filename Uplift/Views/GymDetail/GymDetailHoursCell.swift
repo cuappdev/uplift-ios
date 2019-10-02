@@ -16,7 +16,6 @@ class GymDetailHoursCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let dividerHeight = 1
         static let dividerTopPadding = 32
         static let hoursTableViewDroppedHeight = 181
         static let hoursTableViewHeight = 19
@@ -131,7 +130,7 @@ class GymDetailHoursCell: UICollectionViewCell {
         dividerView.snp.updateConstraints {make in
             make.top.equalTo(hoursTableView.snp.bottom).offset(Constants.dividerTopPadding)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(Constants.dividerHeight)
+            make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
         }
     }
 

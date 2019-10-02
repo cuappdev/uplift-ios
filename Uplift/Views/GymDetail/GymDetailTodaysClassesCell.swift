@@ -17,16 +17,10 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
     // MARK: - Constraint constants
     enum Constants {
         static let classesCollectionViewVerticalPadding: CGFloat = 32
-        static let noMoreClassesLabelBottomPadding: CGFloat = 57
         static let noMoreClassesLabelHeight: CGFloat = 66
         static let noMoreClassesLabelTopPadding: CGFloat = 22
         static let todaysClassesLabelHeight: CGFloat = 18
-        static let todaysClassesLabelTopPadding: CGFloat = 64
-    }
-
-    // MARK: - Public data vars
-    static var baseHeight: CGFloat {
-        return Constants.todaysClassesLabelTopPadding + Constants.todaysClassesLabelHeight
+        static let todaysClassesLabelTopPadding: CGFloat = 24
     }
 
     // MARK: - Private view vars
@@ -59,8 +53,8 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        todaysClassesLabel.font = ._14MontserratSemiBold
-        todaysClassesLabel.textColor = .fitnessDarkGrey
+        todaysClassesLabel.font = ._16MontserratMedium
+        todaysClassesLabel.textColor = .fitnessBlack
         todaysClassesLabel.text = "TODAY'S CLASSES"
         todaysClassesLabel.textAlignment = .center
         contentView.addSubview(todaysClassesLabel)
