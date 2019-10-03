@@ -59,6 +59,7 @@ struct ClientStrings {
         static let filterButton = "Reset"
         static let noResultsDescription = "Try searching again!"
         static let noResultsLabel = "NO RESULTS"
+        static let resetButton = "Reset"
         static let selectClassTypeSection = "CLASS TYPE"
         static let selectGymSection = "FITNESS CENTER"
         static let selectInstructorSection = "INSTRUCTOR"

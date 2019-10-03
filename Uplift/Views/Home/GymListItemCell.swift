@@ -93,7 +93,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
             }
         } else if !isOpen {
             format = gymHoursToday.openTime.getHourFormat()
-            return ClientStrings.Home.gymDetailCellOpensAt + (gymHoursToday.openTime.getStringOfDatetime(format: format)
+            return ClientStrings.Home.gymDetailCellOpensAt + (gymHoursToday.openTime.getStringOfDatetime(format: format))
         } else {
             format = gymHoursToday.closeTime.getHourFormat()
             let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)

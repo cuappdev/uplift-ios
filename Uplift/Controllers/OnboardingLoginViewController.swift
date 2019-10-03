@@ -45,7 +45,7 @@ class OnboardingLoginViewController: UIViewController {
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
         titleLabel = UILabel()
-        titleLabel.text = ClientStrings.Onboarding.vcTitleLabelw
+        titleLabel.text = ClientStrings.Onboarding.vcTitleLabel
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
@@ -53,7 +53,7 @@ class OnboardingLoginViewController: UIViewController {
         view.addSubview(titleLabel)
         
         signUpLabel = UILabel()
-        signUpLabel.text = ClientStrings.Onboarding.signUpLabel
+        signUpLabel.text = ClientStrings.Onboarding.signupLabel
         signUpLabel.font = ._16MontserratBold
         signUpLabel.textColor = .fitnessBlack
         view.addSubview(signUpLabel)
