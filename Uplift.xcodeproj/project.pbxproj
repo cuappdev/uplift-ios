@@ -19,7 +19,7 @@
 		4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */; };
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4F68103223454FA800C283C0 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F68103123454FA800C283C0 /* BlankViewController.swift */; };
-		4F6810342345504D00C283C0 /* GymDetailCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6810332345504D00C283C0 /* GymDetailCalendarView.swift */; };
+		4F6810342345504D00C283C0 /* GymDetailCalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6810332345504D00C283C0 /* GymDetailCalendarWeekView.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
 		7E3667C7232DA39D00C5971E /* OldGymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3667C6232DA39D00C5971E /* OldGymDetailViewController.swift */; };
@@ -143,7 +143,7 @@
 		4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLoginViewController.swift; sourceTree = "<group>"; };
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4F68103123454FA800C283C0 /* BlankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
-		4F6810332345504D00C283C0 /* GymDetailCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailCalendarView.swift; sourceTree = "<group>"; };
+		4F6810332345504D00C283C0 /* GymDetailCalendarWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailCalendarWeekView.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
 		7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -311,7 +311,7 @@
 				7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */,
 				7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */,
 				7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */,
-				4F6810332345504D00C283C0 /* GymDetailCalendarView.swift */,
+				4F6810332345504D00C283C0 /* GymDetailCalendarWeekView.swift */,
 				7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */,
 			);
 			path = GymDetail;
@@ -894,7 +894,7 @@
 				E604DC32233B1D99003598BC /* ProBioHeaderView.swift in Sources */,
 				E604DC39233B1DF7003598BC /* PersonalLink.swift in Sources */,
 				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
-				4F6810342345504D00C283C0 /* GymDetailCalendarView.swift in Sources */,
+				4F6810342345504D00C283C0 /* GymDetailCalendarWeekView.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,

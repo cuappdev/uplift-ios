@@ -11,13 +11,19 @@
 import UIKit
 import SnapKit
 
-class GymDetailCalendarView: UIView {
+class GymDetailCalendarWeekView: UIView {
 
     private var calendarCollectionView: UICollectionView!
     private var days: [Date] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        // TODO: make WeekCollectionView cell, set up that whole thing
+        // think about delegation since this is gonna be used in a lot of things
+
+        // visible / public state. Look into proper delegation tactics for passing info between viewss
+
 
         setupView()
         setupConstraints()
@@ -40,7 +46,10 @@ class GymDetailCalendarView: UIView {
     /// Returns Dates for each day of the current week
     private func createCalendarDates() -> [Date] {
         let cal = Calendar.current
+        print("--------???")
         print(cal)
+        print(cal.weekdaySymbols)
+
         return [] //...?
     }
 }
