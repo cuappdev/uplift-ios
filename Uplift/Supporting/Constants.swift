@@ -6,7 +6,6 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 // MARK: - CONSTRAINTS
