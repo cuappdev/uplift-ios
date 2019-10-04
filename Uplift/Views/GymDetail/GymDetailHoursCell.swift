@@ -73,13 +73,6 @@ class GymDetailHoursCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        closedLabel.font = ._16MontserratSemiBold
-        closedLabel.textColor = .white
-        closedLabel.textAlignment = .center
-        closedLabel.backgroundColor = .fitnessBlack
-        closedLabel.text = "CLOSED"
-        contentView.addSubview(closedLabel)
-
         hoursTitleLabel.font = ._16MontserratBold
         hoursTitleLabel.textColor = .fitnessLightBlack
         hoursTitleLabel.textAlignment = .center
@@ -106,8 +99,8 @@ class GymDetailHoursCell: UICollectionViewCell {
     private func setupConstraints() {
         hoursTitleLabel.snp.updateConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(closedLabel.snp.bottom).offset(GymDetailViewController.ConstraintConstants.verticalPadding)
-            make.height.equalTo(GymDetailViewController.ConstraintConstants.titleLabelHeight)
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
 
         hoursTableView.snp.updateConstraints { make in
@@ -125,9 +118,9 @@ class GymDetailHoursCell: UICollectionViewCell {
         }
 
         dividerView.snp.updateConstraints {make in
-            make.top.equalTo(hoursTableView.snp.bottom).offset(GymDetailViewController.ConstraintConstants.verticalPadding)
+            make.top.equalTo(hoursTableView.snp.bottom).offset(Constraints.verticalPadding)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
+            make.height.equalTo(Constraints.dividerViewHeight)
         }
     }
 

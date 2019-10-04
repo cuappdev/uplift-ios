@@ -65,9 +65,9 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 
     func setupConstraints() {
         facilitiesLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(GymDetailViewController.ConstraintConstants.verticalPadding)
+            make.top.equalToSuperview().inset(Constraints.verticalPadding)
             make.centerX.equalToSuperview()
-            make.height.equalTo(GymDetailViewController.ConstraintConstants.titleLabelHeight)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
 
         if let gymFacilitiesTableView = gymFacilitiesTableView {
@@ -78,9 +78,9 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
             }
 
             dividerView.snp.remakeConstraints { make in
-                make.top.equalTo(gymFacilitiesTableView.snp.bottom).offset(GymDetailViewController.ConstraintConstants.verticalPadding)
+                make.top.equalTo(gymFacilitiesTableView.snp.bottom).offset(Constraints.verticalPadding)
                 make.leading.trailing.equalToSuperview()
-                make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
+                make.height.equalTo(Constraints.dividerViewHeight)
             }
         }
     }

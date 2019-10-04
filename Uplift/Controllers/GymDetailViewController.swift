@@ -227,19 +227,12 @@ extension GymDetailViewController {
 
 // MARK: - Item Height Calculations
 extension GymDetailViewController {
-    enum ConstraintConstants {
-        static let dividerHeight: CGFloat = 1
-        static let noMoreClassesLabelBottomPadding: CGFloat = 34
-        static let titleLabelHeight: CGFloat = 18
-        static let verticalPadding: CGFloat = 34
-    }
-
-    func getHoursHeight() -> CGFloat {
-        let baseHeight = ConstraintConstants.verticalPadding +
-            ConstraintConstants.titleLabelHeight +
+func getHoursHeight() -> CGFloat {
+        let baseHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight +
             GymDetailHoursCell.Constants.hoursTableViewTopPadding +
-            ConstraintConstants.verticalPadding +
-            ConstraintConstants.dividerHeight
+            Constraints.verticalPadding +
+            Constraints.dividerViewHeight
 
         let height = gymDetail.hoursDataIsDropped
             ? baseHeight + GymDetailHoursCell.Constants.hoursTableViewDroppedHeight
@@ -248,25 +241,25 @@ extension GymDetailViewController {
     }
 
     func getBusyTimesHeight() -> CGFloat {
-        let labelHeight = ConstraintConstants.verticalPadding +
-            ConstraintConstants.titleLabelHeight
+        let labelHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight
 
         let histogramHeight =
         GymDetailPopularTimesCell.Constants.popularTimesHistogramTopPadding +
         GymDetailPopularTimesCell.Constants.popularTimesHistogramHeight
 
-        let dividerHeight = ConstraintConstants.verticalPadding +
-        ConstraintConstants.dividerHeight
+        let dividerHeight = Constraints.verticalPadding +
+        Constraints.dividerViewHeight
 
         return labelHeight + histogramHeight + dividerHeight
     }
 
     func getFacilitiesHeight() -> CGFloat {
-        let baseHeight = ConstraintConstants.verticalPadding +
-            ConstraintConstants.titleLabelHeight +
+        let baseHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight +
             GymDetailFacilitiesCell.Constants.gymFacilitiesTopPadding +
-            ConstraintConstants.verticalPadding +
-            ConstraintConstants.dividerHeight
+            Constraints.verticalPadding +
+            Constraints.dividerViewHeight
 
         let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight *
                 CGFloat(gymDetail.facilities.count)
@@ -275,12 +268,12 @@ extension GymDetailViewController {
     }
 
     func getTodaysClassesHeight() -> CGFloat {
-        let baseHeight = ConstraintConstants.verticalPadding +
-            ConstraintConstants.titleLabelHeight
+        let baseHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight
 
         let noMoreClassesHeight = GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
             GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
-            ConstraintConstants.verticalPadding
+            Constraints.verticalPadding
 
         let collectionViewHeight = 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding +
             classesCollectionViewHeight()

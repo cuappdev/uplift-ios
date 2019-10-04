@@ -67,8 +67,8 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
     private func setupConstraints() {
         popularTimesLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(GymDetailViewController.ConstraintConstants.verticalPadding)
-            make.height.equalTo(GymDetailViewController.ConstraintConstants.titleLabelHeight)
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
 
         if let histogram = popularTimesHistogram {
@@ -81,14 +81,14 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
             }
 
             dividerView.snp.remakeConstraints { make in
-                make.top.equalTo(histogram.snp.bottom).offset(GymDetailViewController.ConstraintConstants.verticalPadding)
-                make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
+                make.top.equalTo(histogram.snp.bottom).offset(Constraints.verticalPadding)
+                make.height.equalTo(Constraints.dividerViewHeight)
                 make.leading.trailing.equalToSuperview()
             }
         } else {
             dividerView.snp.makeConstraints { make in
-                make.top.equalTo(popularTimesLabel.snp.bottom).offset(GymDetailViewController.ConstraintConstants.verticalPadding)
-                make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
+                make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constraints.verticalPadding)
+                make.height.equalTo(Constraints.dividerViewHeight)
                 make.leading.trailing.equalToSuperview()
             }
         }
