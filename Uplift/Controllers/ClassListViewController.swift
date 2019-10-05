@@ -390,9 +390,11 @@ extension ClassListViewController {
 
         titleView = UIView()
         titleView.backgroundColor = .white
-        titleView.layer.shadowOffset = CGSize(width: 0, height: 9)
+        titleView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        titleView.layer.shadowOpacity = 0.4
+        titleView.layer.shadowRadius = 10.0
         titleView.layer.shadowColor = UIColor.buttonShadow.cgColor
-        titleView.layer.shadowOpacity = 0.25
+        titleView.layer.masksToBounds = false
         titleView.clipsToBounds = false
         view.addSubview(titleView)
 
@@ -447,7 +449,8 @@ extension ClassListViewController {
         }
 
         calendarCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleView.snp.bottom).offset(calendarCollectionViewTopPadding)
+            make.top.equalTo(titleView.snp.bottom)
+                .offset(calendarCollectionViewTopPadding)
             make.height.equalTo(calendarCollectionViewHeight)
             make.leading.trailing.equalToSuperview()
         }
@@ -478,6 +481,7 @@ extension ClassListViewController {
         calendarCollectionView.showsHorizontalScrollIndicator = false
         calendarCollectionView.backgroundColor = .white
         calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: Constants.calendarCellIdentifier)
+        calendarCollectionView.layer.zPosition = -1
         view.addSubview(calendarCollectionView)
 
         classCollectionView.delegate = self

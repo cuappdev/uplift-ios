@@ -1,12 +1,19 @@
 //
-//  File.swift
+//  Constants.swift
 //  Uplift
 //
 //  Created by Joseph Fulgieri on 8/31/18.
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+// MARK: - CONSTRAINTS
+struct Constraints {
+    static let dividerViewHeight: CGFloat = 1
+    static let titleLabelHeight: CGFloat = 18
+    static let verticalPadding: CGFloat = 34
+}
 
 // MARK: - DAY ABBREVIATIONS
 struct DayAbbreviations {
