@@ -50,8 +50,8 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         selectedFiltersLabel.adjustsFontSizeToFitWidth = false
         selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         contentView.addSubview(selectedFiltersLabel)
-        
-        rightArrow = UIImageView(image: #imageLiteral(resourceName: "right_arrow"))
+
+        rightArrow = UIImageView(image: UIImage(named: ImageNames.rightArrow))
         contentView.addSubview(rightArrow)
         
         downArrow = UIImageView(image: .none)
@@ -62,7 +62,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         self.filtersApplied = !selectedFilters.isEmpty
         self.selectedFilters = selectedFilters
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -78,7 +78,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
             make.left.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
         }
-        
+
         filtersAppliedCircle.snp.makeConstraints { make in
             make.height.width.equalTo(8)
             make.leading.equalTo(titleLabel.snp.trailing).offset(12)

@@ -149,7 +149,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = .none
             // swiftlint:disable:next force_cast
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = UIImage(named: "right-arrow-solid")
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = UIImage(named: ImageNames.rightArrowSolid)
 
             self.delegate?.didDropHours(isDropped: false) { () in
                 UIView.animate(withDuration: 0.3) {
@@ -161,7 +161,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             hoursDataIsDropped = true
             hoursTableView.insertRows(at: modifiedIndices, with: .fade)
             // swiftlint:disable:next force_cast
-            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = UIImage(named: "down-arrow-solid")
+            (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).downArrow.image = UIImage(named: ImageNames.downArrowSolid)
             // swiftlint:disable:next force_cast
             (hoursTableView.headerView(forSection: 0) as! GymHoursHeaderView).rightArrow.image = .none
 

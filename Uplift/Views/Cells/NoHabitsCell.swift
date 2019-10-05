@@ -27,7 +27,7 @@ class NoHabitsCell: UICollectionViewCell {
         contentView.addSubview(backgroundImage)
         
         addHabitWidget = UIImageView()
-        addHabitWidget.image = UIImage(named: "add-habit")
+        addHabitWidget.image = UIImage(named: ImageNames.lightAdd)
         contentView.addSubview(addHabitWidget)
         
         titleLabel = UILabel()
