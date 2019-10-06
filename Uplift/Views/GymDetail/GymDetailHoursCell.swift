@@ -76,7 +76,7 @@ class GymDetailHoursCell: UICollectionViewCell {
         hoursTitleLabel.font = ._16MontserratBold
         hoursTitleLabel.textColor = .fitnessLightBlack
         hoursTitleLabel.textAlignment = .center
-        hoursTitleLabel.text = "HOURS"
+        hoursTitleLabel.text = ClientStrings.GymDetail.hoursLabel
         contentView.addSubview(hoursTitleLabel)
 
         hoursTableView = UITableView(frame: .zero, style: .grouped)
@@ -131,8 +131,8 @@ class GymDetailHoursCell: UICollectionViewCell {
         if dailyGymHours.openTime != dailyGymHours.closeTime {
             return "\(openTime) - \(closeTime)"
         }
-
-        return "Closed"
+      
+        return ClientStrings.GymDetail.closedOnACertainDay
     }
 
     // MARK: - Targets

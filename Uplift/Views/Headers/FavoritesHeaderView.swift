@@ -29,7 +29,7 @@ class FavoritesHeaderView: UICollectionReusableView {
         quoteLabel.textAlignment = .center
         quoteLabel.lineBreakMode = .byWordWrapping
         quoteLabel.numberOfLines = 0
-        quoteLabel.text = "NOTHING CAN STOP YOU BUT YOURSELF."
+        quoteLabel.text = ClientStrings.Favorites.hasFavoritesText
         addSubview(quoteLabel)
 
         // SESSIONS LABEL
@@ -37,7 +37,7 @@ class FavoritesHeaderView: UICollectionReusableView {
         nextSessionsLabel.font = ._12LatoBlack
         nextSessionsLabel.textColor = .fitnessDarkGrey
         nextSessionsLabel.textAlignment = .center
-        nextSessionsLabel.text = "COMING UP NEXT"
+        nextSessionsLabel.text = ClientStrings.Favorites.comingUpNextLabel
         addSubview(nextSessionsLabel)
 
         setupConstraints()

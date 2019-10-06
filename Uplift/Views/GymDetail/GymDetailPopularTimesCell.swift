@@ -47,7 +47,7 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        popularTimesLabel.text = "POPULAR TIMES"
+        popularTimesLabel.text = ClientStrings.GymDetail.popularHoursSection
         popularTimesLabel.font = ._16MontserratBold
         popularTimesLabel.textColor = .fitnessLightBlack
         popularTimesLabel.textAlignment = .center

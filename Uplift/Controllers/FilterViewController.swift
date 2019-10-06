@@ -104,7 +104,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         startTimeTitleLabel.sizeToFit()
         startTimeTitleLabel.font = ._12LatoBlack
         startTimeTitleLabel.textColor = .fitnessDarkGrey
-        startTimeTitleLabel.text = "START TIME"
+        startTimeTitleLabel.text = ClientStrings.Filter.startTime
         contentView.addSubview(startTimeTitleLabel)
 
         startTimeLabel = UILabel()
@@ -203,7 +203,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     func setupWrappingViews() {
         // NAVIGATION BAR
         let titleView = UILabel()
-        titleView.text = "Refine Search"
+        titleView.text = ClientStrings.Filter.vcTitleLabel
         titleView.font = ._14LatoBlack
         self.navigationItem.titleView = titleView
 
@@ -216,11 +216,11 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             titleView.textColor = .fitnessBlack
         }
 
-        let doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        let doneBarButton = UIBarButtonItem(title: ClientStrings.Filter.doneButton, style: .plain, target: self, action: #selector(done))
         doneBarButton.tintColor = .fitnessBlack
         self.navigationItem.rightBarButtonItem = doneBarButton
 
-        let resetBarButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
+        let resetBarButton = UIBarButtonItem(title: ClientStrings.Filter.resetButton, style: .plain, target: self, action: #selector(reset))
         resetBarButton.tintColor = .fitnessBlack
         self.navigationItem.leftBarButtonItem = resetBarButton
 
@@ -246,7 +246,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         collectionViewTitle = UILabel()
         collectionViewTitle.font = ._12LatoBlack
         collectionViewTitle.textColor = .fitnessDarkGrey
-        collectionViewTitle.text = "FITNESS CENTER"
+        collectionViewTitle.text = ClientStrings.Filter.selectGymSection
         contentView.addSubview(collectionViewTitle)
 
         let layout = UICollectionViewFlowLayout()
@@ -719,17 +719,17 @@ extension FilterViewController: UITableViewDelegate {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
             footer.addGestureRecognizer(gesture)
             if (instructorDropdownData.dropStatus == .half) {
-                footer.showHideLabel.text = "Show All Instructors"
+                footer.showHideLabel.text = ClientStrings.Filter.dropdownShowInstructors
             } else {
-                footer.showHideLabel.text = "Hide"
+                footer.showHideLabel.text = ClientStrings.Dropdown.collapse
             }
         } else if tableView == classTypeDropdown {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
             footer.addGestureRecognizer(gesture)
             if (classTypeDropdownData.dropStatus == .half) {
-                footer.showHideLabel.text = "Show All Class Types"
+                footer.showHideLabel.text = ClientStrings.Filter.dropdownShowClassTypes
             } else {
-                footer.showHideLabel.text = "Hide"
+                footer.showHideLabel.text = ClientStrings.Dropdown.collapse
             }
         }
         return footer
@@ -739,12 +739,12 @@ extension FilterViewController: UITableViewDelegate {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownHeaderView.identifier) as! DropdownHeaderView
 
         if tableView == instructorDropdown {
-            header.titleLabel.text = "INSTRUCTOR"
+            header.titleLabel.text = ClientStrings.Filter.selectInstructorSection
             header.updateDropdownHeader(selectedFilters: selectedInstructors)
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
             header.addGestureRecognizer(gesture)
         } else if tableView == classTypeDropdown {
-            header.titleLabel.text = "CLASS TYPE"
+            header.titleLabel.text = ClientStrings.Filter.selectClassTypeSection
             header.updateDropdownHeader(selectedFilters: selectedClasses)
             let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
             header.addGestureRecognizer(gesture)

@@ -31,7 +31,7 @@ class GymHoursCell: UITableViewCell {
         dayLabel.font = ._14MontserratMedium
         dayLabel.textColor = .fitnessBlack
         dayLabel.sizeToFit()
-        dayLabel.text = "Th"
+        dayLabel.text = DayAbbreviations.thursday
         contentView.addSubview(dayLabel)
 
         setupConstraints()

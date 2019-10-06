@@ -55,18 +55,18 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         if gym.isOpen {
             if changingSoon {
                 statusLabel.textColor = .fitnessOrange
-                statusLabel.text = "Closing soon"
+                statusLabel.text = ClientStrings.Home.gymDetailCellClosingSoon
             } else {
                 statusLabel.textColor = .fitnessGreen
-                statusLabel.text = "Currently open"
+                statusLabel.text = ClientStrings.Home.gymDetailCellOpen
             }
         } else {
             if changingSoon {
                 statusLabel.textColor = .fitnessOrange
-                statusLabel.text = "Opening soon"
+                statusLabel.text = ClientStrings.Home.gymDetailCellOpeningSoon
             } else {
                 statusLabel.textColor = .fitnessRed
-                statusLabel.text = "Closed"
+                statusLabel.text = ClientStrings.Home.gymDetailCellClosed
             }
         }
 
@@ -87,13 +87,13 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         if now > gymHoursToday.closeTime {
             format = gymHoursTomorrow.openTime.getHourFormat()
             if gym.closedTomorrow {
-                return "Closed Tomorrow"
+                return ClientStrings.Home.gymDetailCellClosedTomorrow
             } else {
-                return "Opens at \(gymHoursTomorrow.openTime.getStringOfDatetime(format: format))"
+                return ClientStrings.Home.gymDetailCellOpensAt + gymHoursTomorrow.openTime.getStringOfDatetime(format: format)
             }
         } else if !isOpen {
             format = gymHoursToday.openTime.getHourFormat()
-            return "Opens at \(gymHoursToday.openTime.getStringOfDatetime(format: format))"
+            return ClientStrings.Home.gymDetailCellOpensAt + (gymHoursToday.openTime.getStringOfDatetime(format: format))
         } else {
             format = gymHoursToday.closeTime.getHourFormat()
             let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)

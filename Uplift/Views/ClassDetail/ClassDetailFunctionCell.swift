@@ -41,7 +41,7 @@ class ClassDetailFunctionCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        functionLabel.text = "FUNCTION"
+        functionLabel.text = ClientStrings.ClassDetail.functionLabel
         functionLabel.font = ._16MontserratBold
         functionLabel.textAlignment = .center
         functionLabel.textColor = .fitnessLightBlack
