@@ -35,13 +35,11 @@ class OnboardingViewController: PresentationController {
         defaults.set(true, forKey: Identifiers.hasSeenOnboarding)
 
         // snapshot current view
-        let tabBarController = TabBarController()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let snapshot: UIView! = appDelegate.window?.snapshotView(afterScreenUpdates: true)!
-        tabBarController.view.addSubview(snapshot)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let snapshot = appDelegate.window?.snapshotView(afterScreenUpdates: true) else { return }
 
         // set new rootViewController
-        appDelegate.window?.rootViewController = tabBarController
+        appDelegate.window?.rootViewController = OnboardingGymsViewController()
 
         // exit transition for snapshot
         UIView.animate(withDuration: 0.5, animations: {
@@ -54,7 +52,7 @@ class OnboardingViewController: PresentationController {
 
     private func configureSlides() {
         // slide images
-        var images = [#imageLiteral(resourceName: "onboarding_1"), #imageLiteral(resourceName: "onboarding_2"), #imageLiteral(resourceName: "onboarding_3"), #imageLiteral(resourceName: "onboarding_4")].map { image -> Content in
+        let images = [UIImage(named: ImageNames.onboarding1), UIImage(named: ImageNames.onboarding2), UIImage(named: ImageNames.onboarding3), UIImage(named: ImageNames.onboarding4)].map { image -> Content in
             let imageView = UIImageView(image: image)
             imageView.contentMode = .scaleAspectFill
             imageView.snp.makeConstraints { make in
@@ -97,7 +95,7 @@ class OnboardingViewController: PresentationController {
 
     private func configureBackground() {
         // divider
-        let dividerImageView = UIImageView(image: #imageLiteral(resourceName: "divider"))
+        let dividerImageView = UIImageView(image: UIImage(named: ImageNames.divider))
         dividerImageView.contentMode = .scaleAspectFill
         dividerImageView.snp.makeConstraints { make in
             make.width.equalTo(view.frame.width)
@@ -105,8 +103,8 @@ class OnboardingViewController: PresentationController {
         }
         let divider = Content(view: dividerImageView, position: Position(left: 0.5, bottom: 0.195))
 
-        // runnning man
-        let runningManImageView = UIImageView(image: #imageLiteral(resourceName: "running-man"))
+        // running man
+        let runningManImageView = UIImageView(image: UIImage(named: ImageNames.runningMan))
         runningManImageView.contentMode = .scaleAspectFill
         runningManImageView.snp.makeConstraints { make in
             make.height.equalTo(58)

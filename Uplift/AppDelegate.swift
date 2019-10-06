@@ -22,28 +22,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
+
         setupGoogleSignIn()
-        
+
         let defaults = UserDefaults.standard
-        
-        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) { // Seen onboarding and...
-            if isGoogleLoggedIn() { // Is logged in
-                window?.rootViewController = TabBarController()
-            } else { // Needs to relogin
-                window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
-            }
-        } else { // Never seen onboarding
-            window?.rootViewController = UINavigationController(rootViewController: OnboardingLoginViewController())
-        }
-        
+        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+            ? TabBarController()
+            : OnboardingViewController()
+
         #if DEBUG
             print("Running Uplift in debug configuration")
         #else
             print("Running Uplift in release configuration")
             Crashlytics.start(withAPIKey: Keys.fabricAPIKey.value)
         #endif
-        
+
         return true
     }
     

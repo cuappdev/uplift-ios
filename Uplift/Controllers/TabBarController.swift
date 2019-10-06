@@ -21,13 +21,13 @@ class TabBarController: UITabBarController {
         tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
 
         let homeController = HomeViewController()
-        homeController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.homeSection, image: UIImage(named: "home-tab"), selectedImage: UIImage(named: "home-tab-selected"))
+        homeController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.homeSection, image: UIImage(named: "home-tab"), selectedImage: UIImage(named: ImageNames.homeSelected))
 
         let classListController = ClassListViewController()
-        classListController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.classesSection, image: UIImage(named: "classes-tab"), selectedImage: UIImage(named: "classes-tab-selected"))
+        classListController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.classesSection, image: UIImage(named: "classes-tab"), selectedImage: UIImage(named: ImageNames.classesSelected))
 
         let favoritesController = FavoritesViewController()
-        favoritesController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.favoritesSection, image: UIImage(named: "favorites-tab"), selectedImage: UIImage(named: "favorites-tab-selected"))
+        favoritesController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.favoritesSection, image: UIImage(named: "favorites-tab"), selectedImage: UIImage(named: ImageNames.favoritesSelected))
 
         let viewControllerList = [homeController, classListController, favoritesController]
         viewControllers = viewControllerList

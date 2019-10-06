@@ -207,6 +207,15 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         titleView.font = ._14LatoBlack
         self.navigationItem.titleView = titleView
 
+        // Color Navigation Bar White if Dark Mode
+        if #available(iOS 13, *) {
+            navigationItem.standardAppearance = .init()
+            navigationItem.compactAppearance = .init()
+            navigationItem.compactAppearance?.backgroundColor = .fitnessWhite
+            navigationItem.standardAppearance?.backgroundColor = .fitnessWhite
+            titleView.textColor = .fitnessBlack
+        }
+
         let doneBarButton = UIBarButtonItem(title: ClientStrings.Filter.doneButton, style: .plain, target: self, action: #selector(done))
         doneBarButton.tintColor = .fitnessBlack
         self.navigationItem.rightBarButtonItem = doneBarButton
@@ -415,7 +424,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
             if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? DropdownHeaderView {
                 instructorDropdown.downArrow.image = .none
-                instructorDropdown.rightArrow.image = UIImage(named: "right_arrow")
+                instructorDropdown.rightArrow.image = UIImage(named: ImageNames.rightArrow)
             }
             instructorDropdownData.dropStatus = .up
             var i = 0
@@ -426,7 +435,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
             if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? DropdownHeaderView {
-                instructorDropdown.downArrow.image = UIImage(named: "down_arrow")
+                instructorDropdown.downArrow.image = UIImage(named: ImageNames.downArrow)
                 instructorDropdown.rightArrow.image = .none
             }
             instructorDropdownData.dropStatus = .half
@@ -450,7 +459,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = #imageLiteral(resourceName: "right_arrow")
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = UIImage(named: ImageNames.rightArrow)
             classTypeDropdownData.dropStatus = .up
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {
@@ -459,7 +468,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
             classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = #imageLiteral(resourceName: "down_arrow")
+            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = UIImage(named: ImageNames.downArrow)
             (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = .none
             classTypeDropdownData.dropStatus = .half
             for i in [0, 1, 2] {

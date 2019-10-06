@@ -82,7 +82,7 @@ class OldGymDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
         // MARK: - Fabric
         Answers.logCustomEvent(withName: "Checking Gym Details")
 
@@ -160,7 +160,7 @@ class OldGymDetailViewController: UIViewController {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
@@ -522,7 +522,7 @@ class OldGymDetailViewController: UIViewController {
             hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
             if let headerView = hoursTableView.headerView(forSection: 0) as? GymHoursHeaderView {
                 headerView.downArrow.image = .none
-                headerView.rightArrow.image = UIImage(named: "right-arrow-solid")
+                headerView.rightArrow.image = UIImage(named: ImageNames.rightArrowSolid)
             }
 
             UIView.animate(withDuration: 0.3) {
@@ -533,7 +533,7 @@ class OldGymDetailViewController: UIViewController {
             hoursData.isDropped = true
             hoursTableView.insertRows(at: modifiedIndices, with: .fade)
             if let headerView = hoursTableView.headerView(forSection: 0) as? GymHoursHeaderView {
-                headerView.downArrow.image = UIImage(named: "down-arrow-solid")
+                headerView.downArrow.image = UIImage(named: ImageNames.downArrowSolid)
                 headerView.rightArrow.image = .none
             }
 
@@ -679,7 +679,7 @@ extension OldGymDetailViewController: UIScrollViewDelegate {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }

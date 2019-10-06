@@ -12,16 +12,14 @@ class ClassDetailFunctionCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let dividerSpacing: CGFloat = 24
-        static let dividerViewHeight: CGFloat = 1
+        static let descriptionLabelHorizontalPadding = 48
         static let functionDescriptionLabelTopPadding: CGFloat = 12
-        static let functionLabelHeight: CGFloat = 19
-        static let functionLabelTopPadding: CGFloat = 24
+        static let functionLabelHeight: CGFloat = 18
     }
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        return Constants.functionLabelTopPadding + Constants.functionLabelHeight + Constants.functionDescriptionLabelTopPadding + Constants.dividerSpacing + Constants.dividerViewHeight
+        return Constraints.verticalPadding + Constants.functionLabelHeight + Constants.functionDescriptionLabelTopPadding + Constraints.verticalPadding + Constraints.dividerViewHeight
     }
 
     // MARK: - Private view vars
@@ -44,7 +42,7 @@ class ClassDetailFunctionCell: UICollectionViewCell {
     // MARK: - Private helpers
     private func setupViews() {
         functionLabel.text = ClientStrings.ClassDetail.functionLabel
-        functionLabel.font = ._16MontserratMedium
+        functionLabel.font = ._16MontserratBold
         functionLabel.textAlignment = .center
         functionLabel.textColor = .fitnessLightBlack
         contentView.addSubview(functionLabel)
@@ -60,23 +58,21 @@ class ClassDetailFunctionCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let descriptionLabelHorizontalPadding = 48
-    
         functionLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(Constants.functionLabelTopPadding)
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
             make.height.equalTo(Constants.functionLabelHeight)
         }
 
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(descriptionLabelHorizontalPadding)
+            make.leading.trailing.equalToSuperview().inset(Constants.descriptionLabelHorizontalPadding)
             make.top.equalTo(functionLabel.snp.bottom).offset(Constants.functionDescriptionLabelTopPadding)
         }
 
         dividerView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.dividerViewHeight)
+            make.height.equalTo(Constraints.dividerViewHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(Constants.dividerSpacing)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(Constraints.verticalPadding)
         }
     }
 

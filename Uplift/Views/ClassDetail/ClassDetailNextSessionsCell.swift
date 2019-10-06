@@ -19,12 +19,11 @@ class ClassDetailNextSessionsCell: UICollectionViewCell {
     enum Constants {
         static let collectionViewBottomPadding: CGFloat = 12
         static let collectionViewTopPadding: CGFloat = 32
-        static let nextSessionsLabelHeight: CGFloat = 15
     }
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        return Constants.nextSessionsLabelHeight + Constants.collectionViewTopPadding + Constants.collectionViewBottomPadding
+        return Constraints.verticalPadding + Constraints.titleLabelHeight + Constants.collectionViewTopPadding + Constants.collectionViewBottomPadding
     }
 
     // MARK: - Private view vars
@@ -55,8 +54,8 @@ class ClassDetailNextSessionsCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        nextSessionsLabel.font = ._12LatoBlack
-        nextSessionsLabel.textColor = .fitnessDarkGrey
+        nextSessionsLabel.font = ._16MontserratBold
+        nextSessionsLabel.textColor = .fitnessLightBlack
         nextSessionsLabel.text = ClientStrings.ClassDetail.nextSessionsLabel
         nextSessionsLabel.textAlignment = .center
         nextSessionsLabel.sizeToFit()
@@ -83,8 +82,9 @@ class ClassDetailNextSessionsCell: UICollectionViewCell {
 
     private func setupConstraints() {
         nextSessionsLabel.snp.makeConstraints { make in
-            make.centerX.top.equalToSuperview()
-            make.height.equalTo(Constants.nextSessionsLabelHeight)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
 
         collectionView.snp.makeConstraints { make in
@@ -108,6 +108,7 @@ extension ClassDetailNextSessionsCell: UICollectionViewDataSource, UICollectionV
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassListCell.identifier, for: indexPath) as! ClassListCell
         cell.configure(gymClassInstance: nextSessions[indexPath.item], style: .date)
         cell.delegate = self

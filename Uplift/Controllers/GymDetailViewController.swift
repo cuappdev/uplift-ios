@@ -18,12 +18,11 @@ class GymDetailViewController: UIViewController {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
     // MARK: - Private data vars
-    private var gym: Gym!
     private var sections: [Section] = []
     private var todaysClasses: [GymClassInstance] = []
 
     // MARK: - Public data vars
-    var hoursIsDropped: Bool = false
+    var gymDetail: GymDetail!
 
     private enum Constants {
         static let gymDetailClassesCellIdentifier = "gymDetailClassesCellIdentifier"
@@ -48,7 +47,7 @@ class GymDetailViewController: UIViewController {
     // MARK: - Custom Initializer
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
-        self.gym = gym
+        self.gymDetail = GymDetail(gym: gym)
 
         if gym.isOpen {
             self.sections = [
@@ -79,7 +78,7 @@ class GymDetailViewController: UIViewController {
 
         setupViews()
 
-        NetworkManager.shared.getClassInstancesByGym(gymId: gym.id, date: Date.getNowString()) { gymClasses in
+        NetworkManager.shared.getClassInstancesByGym(gymId: gymDetail.gym.id, date: Date.getNowString()) { gymClasses in
             self.todaysClasses = gymClasses
             let items = self.sections[0].items
             self.sections[0].items[items.count - 1] = .classes(gymClasses)
@@ -101,7 +100,7 @@ class GymDetailViewController: UIViewController {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }
@@ -125,17 +124,17 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .hours:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailHoursCellIdentifier, for: indexPath) as! GymDetailHoursCell
-             cell.configure(for: self, gym: gym)
+            cell.configure(for: self, gymDetail: gymDetail)
             return cell
         case .busyTimes:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier, for: indexPath) as! GymDetailPopularTimesCell
-            cell.configure(for: gym)
+            cell.configure(for: gymDetail.gym)
             return cell
         case .facilities:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-             cell.configure(for: gym)
+            cell.configure(for: gymDetail)
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -151,21 +150,13 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch itemType {
         case .hours:
-            return CGSize(width: width, height: GymDetailHoursCell.baseHeight)
+            return CGSize(width: width, height: getHoursHeight())
         case .busyTimes:
-            return CGSize(width: width, height: GymDetailPopularTimesCell.baseHeight)
+            return CGSize(width: width, height: getBusyTimesHeight())
         case.facilities:
-            let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight * CGFloat(GymDetailFacilitiesCell.gymFacilitiesCount)
-            return CGSize(width: width, height: GymDetailFacilitiesCell.baseHeight + tableViewHeight)
+            return CGSize(width: width, height: getFacilitiesHeight())
         case.classes:
-            return (todaysClasses.isEmpty) ?
-                CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
-                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
-                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
-                    GymDetailTodaysClassesCell.Constants.noMoreClassesLabelBottomPadding)
-                : CGSize(width: width, height: GymDetailTodaysClassesCell.baseHeight +
-                    (2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding) +
-                    classesCollectionViewHeight())
+            return CGSize(width: width, height: getTodaysClassesHeight())
         }
     }
 
@@ -175,12 +166,16 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier,
             // swiftlint:disable:next force_cast
             for: indexPath) as! GymDetailHeaderView
-        headerView.configure(for: gym)
+        headerView.configure(for: gymDetail.gym)
         return headerView
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 360)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 
     private func classesCollectionViewHeight() -> CGFloat {
@@ -230,6 +225,63 @@ extension GymDetailViewController {
     }
 }
 
+// MARK: - Item Height Calculations
+extension GymDetailViewController {
+func getHoursHeight() -> CGFloat {
+        let baseHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight +
+            GymDetailHoursCell.Constants.hoursTableViewTopPadding +
+            Constraints.verticalPadding +
+            Constraints.dividerViewHeight
+
+        let height = gymDetail.hoursDataIsDropped
+            ? baseHeight + GymDetailHoursCell.Constants.hoursTableViewDroppedHeight
+            : baseHeight + GymDetailHoursCell.Constants.hoursTableViewHeight
+        return height
+    }
+
+    func getBusyTimesHeight() -> CGFloat {
+        let labelHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight
+
+        let histogramHeight =
+        GymDetailPopularTimesCell.Constants.popularTimesHistogramTopPadding +
+        GymDetailPopularTimesCell.Constants.popularTimesHistogramHeight
+
+        let dividerHeight = Constraints.verticalPadding +
+        Constraints.dividerViewHeight
+
+        return labelHeight + histogramHeight + dividerHeight
+    }
+
+    func getFacilitiesHeight() -> CGFloat {
+        let baseHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight +
+            GymDetailFacilitiesCell.Constants.gymFacilitiesTopPadding +
+            Constraints.verticalPadding +
+            Constraints.dividerViewHeight
+
+        let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight *
+                CGFloat(gymDetail.facilities.count)
+
+        return baseHeight + tableViewHeight
+    }
+
+    func getTodaysClassesHeight() -> CGFloat {
+        let baseHeight = Constraints.verticalPadding +
+            Constraints.titleLabelHeight
+
+        let noMoreClassesHeight = GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
+            GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
+            Constraints.verticalPadding
+
+        let collectionViewHeight = 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding +
+            classesCollectionViewHeight()
+
+        return (todaysClasses.isEmpty) ? baseHeight + noMoreClassesHeight : baseHeight + collectionViewHeight
+    }
+}
+
 // MARK: - ScrollViewDelegate
 extension GymDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -238,7 +290,7 @@ extension GymDetailViewController: UIScrollViewDelegate {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        case .default:
+        case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
         }
     }

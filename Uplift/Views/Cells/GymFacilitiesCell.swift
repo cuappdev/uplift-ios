@@ -17,6 +17,7 @@ class GymFacilitiesCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = .fitnessWhite
 
         facilityLabel.font = ._14MontserratLight
         facilityLabel.textAlignment = .center

@@ -29,10 +29,10 @@ class GymHoursHeaderView: UITableViewHeaderFooterView {
         hoursLabel.text = "6: 00 AM - 9: 00 PM"
         contentView.addSubview(hoursLabel)
 
-        clockImageView = UIImageView(image: #imageLiteral(resourceName: "clock-icon"))
+        clockImageView = UIImageView(image: UIImage(named: ImageNames.clock))
         contentView.addSubview(clockImageView)
 
-        rightArrow = UIImageView(image: #imageLiteral(resourceName: "right-arrow-solid"))
+        rightArrow = UIImageView(image: UIImage(named: ImageNames.rightArrowSolid))
         contentView.addSubview(rightArrow)
 
         downArrow = UIImageView(image: .none)

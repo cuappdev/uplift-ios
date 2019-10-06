@@ -12,17 +12,17 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let descriptionTextViewBottomPadding: CGFloat = 64
-        static let descriptionTextViewTopPadding: CGFloat = 24
+        static let descriptionTextViewHorizontalPadding: CGFloat = 40
     }
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        return Constants.descriptionTextViewTopPadding + Constants.descriptionTextViewBottomPadding
+        return 2.0 * Constraints.verticalPadding + Constraints.dividerViewHeight
     }
 
     // MARK: - Private view vars
     private let descriptionTextView = UITextView()
+    private let dividerView = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,23 +39,32 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
     // MARK: - Private helpers
     private func setupViews() {
         descriptionTextView.font = ._14MontserratLight
+        descriptionTextView.backgroundColor = .fitnessWhite
+        descriptionTextView.textColor = .fitnessBlack
         descriptionTextView.isEditable = false
         descriptionTextView.textAlignment = .center
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.textContainerInset = UIEdgeInsets.zero
         descriptionTextView.textContainer.lineFragmentPadding = 0
         contentView.addSubview(descriptionTextView)
+        descriptionTextView.sizeToFit()
+
+        dividerView.backgroundColor = .fitnessMutedGreen
+        contentView.addSubview(dividerView)
     }
 
     private func setupConstraints() {
-        let descriptionTextViewHorizontalPadding = 40
-        let descriptionTextViewVerticalPadding = 24
-
         descriptionTextView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(descriptionTextViewHorizontalPadding)
-            make.trailing.equalToSuperview().offset(-descriptionTextViewHorizontalPadding)
-            make.top.equalToSuperview().offset(descriptionTextViewVerticalPadding)
-            make.bottom.equalToSuperview().offset(-descriptionTextViewVerticalPadding)
+            make.leading.equalToSuperview().offset(Constants.descriptionTextViewHorizontalPadding)
+            make.trailing.equalToSuperview().inset(Constants.descriptionTextViewHorizontalPadding)
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.bottom.equalToSuperview().inset(Constraints.verticalPadding)
+        }
+
+        dividerView.snp.updateConstraints {make in
+            make.top.equalTo(descriptionTextView.snp.bottom).offset(Constraints.verticalPadding)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(Constraints.dividerViewHeight)
         }
     }
 

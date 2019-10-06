@@ -16,17 +16,9 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let classesCollectionViewVerticalPadding: CGFloat = 32
-        static let noMoreClassesLabelBottomPadding: CGFloat = 57
+        static let classesCollectionViewVerticalPadding: CGFloat = 34
         static let noMoreClassesLabelHeight: CGFloat = 66
         static let noMoreClassesLabelTopPadding: CGFloat = 22
-        static let todaysClassesLabelHeight: CGFloat = 18
-        static let todaysClassesLabelTopPadding: CGFloat = 64
-    }
-
-    // MARK: - Public data vars
-    static var baseHeight: CGFloat {
-        return Constants.todaysClassesLabelTopPadding + Constants.todaysClassesLabelHeight
     }
 
     // MARK: - Private view vars
@@ -59,8 +51,8 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        todaysClassesLabel.font = ._14MontserratSemiBold
-        todaysClassesLabel.textColor = .fitnessDarkGrey
+        todaysClassesLabel.font = ._16MontserratBold
+        todaysClassesLabel.textColor = .fitnessLightBlack
         todaysClassesLabel.text = ClientStrings.GymDetail.todaysClassesSection
         todaysClassesLabel.textAlignment = .center
         contentView.addSubview(todaysClassesLabel)
@@ -91,9 +83,9 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     private func setupConstraints() {
         todaysClassesLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constants.todaysClassesLabelTopPadding)
+            make.top.equalToSuperview().inset(Constraints.verticalPadding)
             make.centerX.equalToSuperview()
-            make.height.equalTo(Constants.todaysClassesLabelHeight)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
     }
 
@@ -114,7 +106,7 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
             contentView.addSubview(classesCollectionView)
 
             classesCollectionView.snp.remakeConstraints { make in
-                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constants.classesCollectionViewVerticalPadding)
+                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constraints.verticalPadding)
                 make.bottom.equalToSuperview().inset(Constants.classesCollectionViewVerticalPadding)
                 make.left.right.equalToSuperview().inset(classesCollectionViewHorizontalPadding)
                 make.centerX.equalToSuperview()
