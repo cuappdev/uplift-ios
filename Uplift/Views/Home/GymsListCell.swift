@@ -16,7 +16,7 @@ class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
 
     // MARK: - Public data vars
     weak var delegate: GymsListCellDelegate?
-    static let itemHeight: CGFloat = 90.0
+    static let itemHeight: CGFloat = 60.0
     static let minimumInterItemSpacing: CGFloat = 16.0
     static let minimumLineSpacing: CGFloat = 16.0
     static let sectionInsetBottom: CGFloat = 32.0
@@ -25,7 +25,7 @@ class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
 
     // MARK: - Overrides
     override var config: ListConfiguration {
-        let width: CGFloat = (self.bounds.width - GymsListCell.minimumInterItemSpacing - GymsListCell.sectionInsetLeft - GymsListCell.sectionInsetRight)/2.0
+        let width: CGFloat = (self.bounds.width - GymsListCell.minimumInterItemSpacing - GymsListCell.sectionInsetLeft - GymsListCell.sectionInsetRight) / 2.0
         return ListConfiguration(
             isScrollEnabled: false,
             itemSize: CGSize(width: width, height: GymsListCell.itemHeight),

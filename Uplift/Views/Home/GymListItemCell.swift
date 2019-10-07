@@ -58,7 +58,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
                 statusLabel.text = "Closing soon"
             } else {
                 statusLabel.textColor = .fitnessGreen
-                statusLabel.text = "Currently open"
+                statusLabel.text = "Open"
             }
         } else {
             if changingSoon {
@@ -130,7 +130,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         let hoursLabelTopPadding = 3
         let leadingPadding = 16
         let locationLabelHeight = 22
-        let locationLabelVerticalInset = 16
+        let locationLabelVerticalInset = 12
         let statusLabelTopPadding = 6
         let trailingPadding = 4
 
@@ -156,10 +156,11 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         }
 
         hoursLabel.snp.updateConstraints { make in
-            make.leading.equalTo(statusLabel)
+            make.leading.equalTo(statusLabel.snp.trailing).offset(4)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
             make.height.equalTo(descriptionLabelHeight)
-            make.top.equalTo(statusLabel.snp.bottom).offset(hoursLabelTopPadding)
+//            make.top.equalTo(statusLabel.snp.bottom).offset(hoursLabelTopPadding)
+            make.centerY.equalTo(statusLabel.snp.centerY)
         }
     }
 
