@@ -11,24 +11,21 @@ import SnapKit
 
 class GymWeekCell: UICollectionViewCell {
 
-    // MARK: -Identifier
+    // MARK: - Identifier
     static let identifier = Identifiers.gymWeekCell
 
-    // MARK: -Views
+    // MARK: - Views
     private var dayLabel: UILabel!
     private var backCircle: UIView!
 
-    // MARK: -Sizing
-    private let circleSize = CGSize(width: 24, height: 24)
-
-    // MARK: -Info
+    // MARK: - Info
     /// Weekday this cell represents
     private var day = WeekDay.sunday
     /// Weekday representing current day of week
     private var today = WeekDay.sunday
     
 
-    // MARK: -Inits
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
         // Set up today with Name of Day of week
@@ -42,14 +39,17 @@ class GymWeekCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: -Setup
+    // MARK: - Setup
     private func setupViews() {
+        let circleSize: CGFloat = 24
+
         backCircle = UIView()
-        backCircle.layer.cornerRadius = circleSize.width / 2
+        backCircle.layer.cornerRadius = circleSize / 2
         self.addSubview(backCircle)
 
         dayLabel = UILabel()
         dayLabel.font = ._16MontserratBold
+        dayLabel.textColor = .fitnessBlack
         self.addSubview(dayLabel)
 
         update()
@@ -58,7 +58,7 @@ class GymWeekCell: UICollectionViewCell {
     private func setupConstraints() {
         backCircle.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.size.equalTo(circleSize)
+            make.size.equalToSuperview()
         }
 
         dayLabel.snp.makeConstraints { make in
@@ -66,7 +66,7 @@ class GymWeekCell: UICollectionViewCell {
         }
     }
 
-    // MARK: -Functionality
+    // MARK: - Functionality
     func configure(weekday: WeekDay, today: WeekDay) {
         day = weekday
         self.today = today
@@ -78,6 +78,7 @@ class GymWeekCell: UICollectionViewCell {
      Updates the appearence of the cell when selection changes
      */
     func update() {
+        print("\(day)  isSelected: \(isSelected)")
         // Selection
         if isSelected { // If selected
             backCircle.backgroundColor = .fitnessYellow

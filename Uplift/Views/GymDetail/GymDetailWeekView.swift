@@ -47,13 +47,20 @@ class GymDetailWeekView: UIView {
 
         self.backgroundColor = .fitnessWhite
 
-        // Collection View
+        // CollectionView Flow Layout
         let weekdayFlowLayout = UICollectionViewFlowLayout()
         weekdayFlowLayout.itemSize = CGSize(width: 24, height: 24)
         weekdayFlowLayout.minimumInteritemSpacing = daySpacing
         weekdayFlowLayout.sectionInset = .init(top: 0.0, left: 38.0, bottom: 0.0, right: 38.0)
+
+        // CollectionView
         weekdayCollectionView = UICollectionView(frame: .zero, collectionViewLayout: weekdayFlowLayout)
+        weekdayCollectionView.register(GymWeekCell.self, forCellWithReuseIdentifier: Identifiers.gymWeekCell)
+        weekdayCollectionView.allowsSelection = true
+        weekdayCollectionView.delegate = self
+        weekdayCollectionView.dataSource = self
         weekdayCollectionView.isScrollEnabled = false
+        weekdayCollectionView.backgroundColor = .clear
 
         self.addSubview(weekdayCollectionView)
     }
@@ -68,12 +75,28 @@ class GymDetailWeekView: UIView {
 // MARK: - UICollectionViewDelegate
 extension GymDetailWeekView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("boutta reload")
+
         let item = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath)
-        if let cell = item as? GymWeekCell {
-            cell.update()
-        }
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        collectionView.reloadItems(at: [indexPath])
+
+//        item.isSelected = true
+
+//        if let cell = item as? GymWeekCell {
+//            cell.update()
+//            cell.isSelected = true
+//            print("is selected? \(cell.isSelected)")
+//        }
+//        collectionView.reloadData()
     }
+
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        <#code#>
+    }
+
 }
+
 
 // MARK: - UICollectionViewDataSource
 extension GymDetailWeekView: UICollectionViewDataSource {
@@ -93,7 +116,7 @@ extension GymDetailWeekView: UICollectionViewDataSource {
 
 // MARK: - Helper
 enum WeekDay: String, CaseIterable {
-    case sunday = "Su"
+    case sunday = DayAbbreviations.sunday
     case monday = "M"
     case tuesday = "T"
     case wednesday = "W"

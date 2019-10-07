@@ -21,13 +21,13 @@ class NoClassesEmptyStateView: UIView {
         addSubview(emptyStateImageView)
 
         emptyStateTitleLabel = UILabel()
-        emptyStateTitleLabel.text = "NO CLASSES TODAY"
+        emptyStateTitleLabel.text = ClientStrings.Calendar.noClassesTodayLabel
         emptyStateTitleLabel.font = ._20MontserratBold
         emptyStateTitleLabel.textColor = .fitnessBlack
         addSubview(emptyStateTitleLabel)
 
         emptyStateDescriptionLabel = UILabel()
-        emptyStateDescriptionLabel.text = "Sit back and make yourself some tea"
+        emptyStateDescriptionLabel.text = ClientStrings.Calendar.noClassesTodayDescription
         emptyStateDescriptionLabel.font = ._14MontserratRegular
         emptyStateDescriptionLabel.textColor = .fitnessBlack
         addSubview(emptyStateDescriptionLabel)

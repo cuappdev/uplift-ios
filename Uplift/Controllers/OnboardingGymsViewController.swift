@@ -51,7 +51,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         currentScreenSize = computeScreenDimensions()
         
         titleLabel = UILabel()
-        titleLabel.text = "Select the gyms you go to!"
+        titleLabel.text = ClientStrings.Onboarding.selectGyms
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
@@ -75,7 +75,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
-        nextButtonArrow = UIImageView(image: UIImage(named: "arrow"))
+        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
         nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)
@@ -88,7 +88,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         backButton.layer.borderWidth = buttonBorderSize
         backButton.addTarget(self, action: #selector(goBackAView), for: .touchDown)
         backButton.isEnabled = true
-        backButtonArrow = UIImageView(image: UIImage(named: "arrow"))
+        backButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
         backButtonArrow.alpha = 0.5
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)

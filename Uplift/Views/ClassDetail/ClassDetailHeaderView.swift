@@ -18,7 +18,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
     // MARK: - Private view vars
     private let imageView = UIImageView()
     private let imageFilterView = UIView()
-    private let semicircleImageView = UIImageView(image: #imageLiteral(resourceName: "semicircle"))
+    private let semicircleImageView = UIImageView(image: UIImage(named: ImageNames.semicircle))
     private let titleLabel = UILabel()
     private let locationButton = UIButton()
     private let instructorButton = UIButton()
@@ -41,7 +41,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         titleLabel.text = gymClassInstance.className.uppercased()
         locationButton.setTitle(gymClassInstance.location, for: .normal)
         instructorButton.setTitle(gymClassInstance.instructor.uppercased(), for: .normal)
-        durationLabel.text = "\(Int(gymClassInstance.duration) / 60) MIN"
+        durationLabel.text = String(Int(gymClassInstance.duration) / 60) + ClientStrings.ClassDetail.durationMin
     }
 
     // MARK: - Targets

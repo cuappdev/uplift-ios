@@ -82,7 +82,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         cancelledView.isHidden = true
         contentView.addSubview(cancelledView)
 
-        cancelledLabel.text = "CANCELLED"
+        cancelledLabel.text = ClientStrings.Home.todaysClassCancelled
         cancelledLabel.textColor = .white
         cancelledLabel.isHidden = true
         cancelledLabel.font = ._12MontserratBold
@@ -98,7 +98,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         contentView.addSubview(hoursLabel)
 
         locationWidget.contentMode = .scaleAspectFit
-        locationWidget.image = #imageLiteral(resourceName: "location_pointer")
+        locationWidget.image = UIImage(named: ImageNames.locationPointer)
         contentView.addSubview(locationWidget)
 
         locationNameLabel.font = ._12MontserratRegular

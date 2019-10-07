@@ -42,8 +42,8 @@ extension ClassDetailViewController: ClassDetailTimeCellDelegate {
             event.calendar = store.defaultCalendarForNewEvents
 
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "\(gymClassInstance.className) added to calendar", message: "Get ready to get sweaty", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
+                let alert = UIAlertController(title: gymClassInstance.className + ClientStrings.Alerts.addedToCalendarTitle, message: ClientStrings.Alerts.addedToCalendarMessage, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString(ClientStrings.Alerts.dismissAlert, comment: "Dismiss calendar alert"), style: .default))
                 self.present(alert, animated: true, completion: nil)
             }
             do {
@@ -56,10 +56,10 @@ extension ClassDetailViewController: ClassDetailTimeCellDelegate {
 
     private func noAccess() {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Cannot add to calendar", message: "Uplift does not have permission to acess your calendar", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Dismiss calendar alert"), style: .default))
+            let alert = UIAlertController(title: ClientStrings.Alerts.cannotAddToCalendarTitle, message: ClientStrings.Alerts.cannotAddToCalendarMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString(ClientStrings.Alerts.dismissAlert, comment: "Dismiss calendar alert"), style: .default))
 
-            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            let settingsAction = UIAlertAction(title: ClientStrings.Alerts.displaySettingsTitle, style: .default) { (_) -> Void in
                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 
                 if UIApplication.shared.canOpenURL(settingsUrl) {

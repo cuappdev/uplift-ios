@@ -284,7 +284,7 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
         if collectionView == classCollectionView {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.classListHeaderViewIdentifier, for: indexPath) as! ClassListHeaderView
 
-            var titleLabelText = "TODAY"
+            var titleLabelText = ClientStrings.Calendar.todayLabel
             if currDate != calendarDateSelected {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMM d"
@@ -311,7 +311,7 @@ extension ClassListViewController: FilterDelegate {
 
             // Modify Button
             filterButton.backgroundColor = .fitnessYellow
-            filterButton.setTitle("APPLIED FILTER", for: .normal)
+            filterButton.setTitle(ClientStrings.Filter.appliedFilterLabel, for: .normal)
 
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Applied Filters")
@@ -320,7 +320,7 @@ extension ClassListViewController: FilterDelegate {
 
             // Modify Button
             filterButton.backgroundColor = .white
-            filterButton.setTitle("APPLY FILTER", for: .normal)
+            filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
             classCollectionView.reloadData()
             return
         }
@@ -401,7 +401,7 @@ extension ClassListViewController {
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
-        titleLabel.text = "Classes"
+        titleLabel.text = ClientStrings.ClassList.vcTitleLabel
         titleView.addSubview(titleLabel)
 
         noClassesEmptyStateView = NoClassesEmptyStateView()
@@ -411,7 +411,7 @@ extension ClassListViewController {
         view.addSubview(noResultsEmptyStateView)
 
         filterButton = UIButton()
-        filterButton.setTitle("APPLY FILTER", for: .normal)
+        filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
         filterButton.titleLabel?.font = ._14MontserratSemiBold
         filterButton.layer.cornerRadius = 24.0
         filterButton.setTitleColor(.black, for: .normal)

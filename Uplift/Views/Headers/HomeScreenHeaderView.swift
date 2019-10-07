@@ -26,7 +26,7 @@ class HomeScreenHeaderView: UIView {
         welcomeMessage.textColor = .fitnessBlack
         welcomeMessage.lineBreakMode = .byWordWrapping
         welcomeMessage.numberOfLines = 0
-        welcomeMessage.text = getGreeting() + "!"
+        welcomeMessage.text = getGreeting()
         addSubview(welcomeMessage)
 
         setupLayout()
@@ -40,9 +40,9 @@ class HomeScreenHeaderView: UIView {
         let currDate = Date()
         let hour = Calendar.current.component(.hour, from: currDate)
 
-        if hour < 12 { return " Good Morning" }
-        if hour < 17 { return "Good Afternoon"}
-        return "Good Evening"
+        if hour < 12 { return ClientStrings.Home.greetingMorning }
+        if hour < 17 { return ClientStrings.Home.greetingAfternoon}
+        return ClientStrings.Home.greetingEvening
     }
 
     // MARK: - LAYOUT
