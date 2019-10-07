@@ -13,7 +13,7 @@ import SnapKit
 
 class BlankViewController: UIViewController {
 
-    var testView: GymDetailCalendarView = GymDetailCalendarView()
+    var testView = GymDetailWeekView()
 
     override func viewDidLoad() {
         view.backgroundColor = .lightGray

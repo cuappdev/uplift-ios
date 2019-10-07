@@ -49,6 +49,7 @@ struct Identifiers {
     static let gymFilterCell = "gymFilterCell"
     static let gymHoursCell = "gymHoursCell"
     static let gymsCell = "gymsCell"
+    static let gymWeekCell = "gymWeekCell"
     static let habitTrackerCheckinCell = "habitTrackerCheckinCell"
     static let habitTrackerOnboardingCell = "habitTrackerOnboardingCell"
     static let lookingForCell = "lookingForCell"
