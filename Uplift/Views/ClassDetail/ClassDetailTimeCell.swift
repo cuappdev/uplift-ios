@@ -20,17 +20,7 @@ class ClassDetailTimeCell: UICollectionViewCell {
         static let addToCalendarButtonTopPadding: CGFloat = 26
         static let addToCalendarLabelHeight: CGFloat = 10
         static let addToCalendarLabelTopPadding: CGFloat = 5
-        static let dateLabelHeight: CGFloat = 19
-        static let dateLabelTopPadding: CGFloat = 36
-        static let dividerViewTopPadding: CGFloat = 32
-        static let dividerViewHeight: CGFloat = 1
-        static let timeLabelHeight: CGFloat = 19
         static let timeLabelTopPadding: CGFloat = 8
-    }
-
-    // MARK: - Public data vars
-    static var height: CGFloat {
-        return Constants.dateLabelTopPadding + Constants.dateLabelHeight + Constants.timeLabelTopPadding + Constants.timeLabelHeight + Constants.addToCalendarButtonTopPadding + Constants.addToCalendarButtonHeight + Constants.addToCalendarLabelTopPadding + Constants.addToCalendarLabelHeight + Constants.dividerViewTopPadding + Constants.dividerViewHeight
     }
 
     // MARK: - Private view vars
@@ -106,16 +96,16 @@ class ClassDetailTimeCell: UICollectionViewCell {
 
         dateLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(Constants.dateLabelTopPadding)
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
             make.trailing.equalToSuperview()
-            make.height.equalTo(Constants.dateLabelHeight)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
 
         timeLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.equalTo(dateLabel.snp.bottom).offset(Constants.timeLabelTopPadding)
             make.trailing.equalToSuperview()
-            make.height.equalTo(Constants.timeLabelHeight)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
 
         addToCalendarButton.snp.makeConstraints { make in
@@ -132,10 +122,10 @@ class ClassDetailTimeCell: UICollectionViewCell {
         }
 
         dividerView.snp.makeConstraints { make in
-            make.height.equalTo(Constants.dividerViewHeight)
+            make.height.equalTo(Constraints.dividerViewHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(Constants.dividerViewTopPadding)
+            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(Constraints.verticalPadding)
         }
     }
 

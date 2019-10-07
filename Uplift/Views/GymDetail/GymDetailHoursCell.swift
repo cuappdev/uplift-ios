@@ -16,12 +16,9 @@ class GymDetailHoursCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let dividerTopPadding = 32
-        static let hoursTableViewDroppedHeight = 181
-        static let hoursTableViewHeight = 19
-        static let hoursTableViewTopPadding = 12
-        static let hoursTitleLabelHeight = 19
-        static let hoursTitleLabelTopPadding = 36
+        static let hoursTableViewDroppedHeight: CGFloat = 181
+        static let hoursTableViewHeight: CGFloat = 19
+        static let hoursTableViewTopPadding: CGFloat = 12
     }
 
     // MARK: - Private data vars
@@ -76,15 +73,8 @@ class GymDetailHoursCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        closedLabel.font = ._16MontserratSemiBold
-        closedLabel.textColor = .white
-        closedLabel.textAlignment = .center
-        closedLabel.backgroundColor = .fitnessBlack
-        closedLabel.text = "CLOSED"
-        contentView.addSubview(closedLabel)
-
-        hoursTitleLabel.font = ._16MontserratMedium
-        hoursTitleLabel.textColor = .fitnessBlack
+        hoursTitleLabel.font = ._16MontserratBold
+        hoursTitleLabel.textColor = .fitnessLightBlack
         hoursTitleLabel.textAlignment = .center
         hoursTitleLabel.text = "HOURS"
         contentView.addSubview(hoursTitleLabel)
@@ -109,8 +99,8 @@ class GymDetailHoursCell: UICollectionViewCell {
     private func setupConstraints() {
         hoursTitleLabel.snp.updateConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(closedLabel.snp.bottom).offset(Constants.hoursTitleLabelTopPadding)
-            make.height.equalTo(Constants.hoursTitleLabelHeight)
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.height.equalTo(Constraints.titleLabelHeight)
         }
 
         hoursTableView.snp.updateConstraints { make in
@@ -128,9 +118,9 @@ class GymDetailHoursCell: UICollectionViewCell {
         }
 
         dividerView.snp.updateConstraints {make in
-            make.top.equalTo(hoursTableView.snp.bottom).offset(Constants.dividerTopPadding)
+            make.top.equalTo(hoursTableView.snp.bottom).offset(Constraints.verticalPadding)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(GymDetailViewController.ConstraintConstants.dividerHeight)
+            make.height.equalTo(Constraints.dividerViewHeight)
         }
     }
 
@@ -141,7 +131,7 @@ class GymDetailHoursCell: UICollectionViewCell {
         if dailyGymHours.openTime != dailyGymHours.closeTime {
             return "\(openTime) - \(closeTime)"
         }
-        
+
         return "Closed"
     }
 
