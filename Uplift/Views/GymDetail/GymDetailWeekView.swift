@@ -75,26 +75,15 @@ class GymDetailWeekView: UIView {
 // MARK: - UICollectionViewDelegate
 extension GymDetailWeekView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("boutta reload")
 
-        let item = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath)
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        collectionView.reloadItems(at: [indexPath])
-
-//        item.isSelected = true
-
-//        if let cell = item as? GymWeekCell {
-//            cell.update()
-//            cell.isSelected = true
-//            print("is selected? \(cell.isSelected)")
-//        }
-//        collectionView.reloadData()
+        guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
+        cell.update()
     }
 
-    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        <#code#>
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
+        cell.update()
     }
-
 }
 
 
@@ -106,6 +95,8 @@ extension GymDetailWeekView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // TODO replace with guard let
+        print("IndexPath in cellForItemAt: \(indexPath)")
         let item = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath)
         if let cell = item as? GymWeekCell {
             cell.configure(weekday: days[indexPath.row], today: today)
@@ -116,13 +107,15 @@ extension GymDetailWeekView: UICollectionViewDataSource {
 
 // MARK: - Helper
 enum WeekDay: String, CaseIterable {
-    case sunday = DayAbbreviations.sunday
+    //TODO replace with constants
+    case sunday = "Su"
     case monday = "M"
     case tuesday = "T"
     case wednesday = "W"
     case thursday = "Th"
     case friday = "F"
     case saturday = "Sa"
+    case problem = "problem"
 
     /// Constructs enum from index
     init(index: Int) {
@@ -148,7 +141,7 @@ enum WeekDay: String, CaseIterable {
             self = .saturday
         } else {
             print("Invalid Day String was passed: \(day) doesn't correspond to anything")
-            self = .sunday
+            self = .problem
         }
     }
 
@@ -165,6 +158,7 @@ enum WeekDay: String, CaseIterable {
         case .thursday:     return 5
         case .friday:       return 6
         case .saturday:     return 7
+        default: return -1
         }
     }
 }

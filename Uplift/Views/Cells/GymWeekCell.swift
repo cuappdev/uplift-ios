@@ -20,10 +20,15 @@ class GymWeekCell: UICollectionViewCell {
 
     // MARK: - Info
     /// Weekday this cell represents
-    private var day = WeekDay.sunday
+    /*private*/ var day = WeekDay.problem
     /// Weekday representing current day of week
-    private var today = WeekDay.sunday
-    
+    private var today = WeekDay.problem
+
+//    override var isSelected: Bool {
+//        didSet {
+//            update()
+//        }
+//    }
 
     // MARK: - Inits
     override init(frame: CGRect) {
@@ -78,7 +83,10 @@ class GymWeekCell: UICollectionViewCell {
      Updates the appearence of the cell when selection changes
      */
     func update() {
-        print("\(day)  isSelected: \(isSelected)")
+        print("CELL: \(day)  isSelected: \(isSelected)")
+//        backCircle.backgroundColor = .fitnessGreen
+//        backCircle.alpha = 1
+//        return
         // Selection
         if isSelected { // If selected
             backCircle.backgroundColor = .fitnessYellow
