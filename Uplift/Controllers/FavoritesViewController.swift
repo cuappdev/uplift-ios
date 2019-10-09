@@ -20,9 +20,11 @@ class FavoritesViewController: UIViewController {
         didSet {
             if favoritesNames.isEmpty {
                 classesCollectionView.removeFromSuperview()
+                emptyStateView.layer.zPosition = -1
                 view.addSubview(emptyStateView)
             } else {
                 emptyStateView.removeFromSuperview()
+                classesCollectionView.layer.zPosition = -1
                 view.addSubview(classesCollectionView)
                 classesCollectionView.reloadData()
             }
@@ -42,21 +44,24 @@ class FavoritesViewController: UIViewController {
         // TITLE
         titleBackground = UIView()
         titleBackground.backgroundColor = .white
-        titleBackground.layer.shadowOffset = CGSize(width: 0, height: 9)
+        titleBackground.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        titleBackground.layer.shadowOpacity = 0.4
+        titleBackground.layer.shadowRadius = 10.0
         titleBackground.layer.shadowColor = UIColor.buttonShadow.cgColor
-        titleBackground.layer.shadowOpacity = 0.25
+        titleBackground.layer.masksToBounds = false
         titleBackground.clipsToBounds = false
         view.addSubview(titleBackground)
 
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
-        titleLabel.text = "Favorites"
+        titleLabel.text = ClientStrings.Favorites.vcTitleLabel
         titleBackground.addSubview(titleLabel)
 
         // EMPTY STATE
         emptyStateView = NoFavoritesEmptyStateView(frame: .zero)
         emptyStateView.delegate = self
+        emptyStateView.layer.zPosition = -1
         view.addSubview(emptyStateView)
 
         // COLLECTION VIEW
@@ -75,6 +80,7 @@ class FavoritesViewController: UIViewController {
 
         classesCollectionView.register(FavoritesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoritesHeaderView.identifier)
         classesCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
+        classesCollectionView.layer.zPosition = -1
         view.addSubview(classesCollectionView)
 
         setupConstraints()
@@ -108,7 +114,7 @@ class FavoritesViewController: UIViewController {
         let titleLeading = 24
         let titleBottom = -20
         let titleHeight = 26
-        
+
         titleBackground.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(titleBackgroundHeight)
@@ -151,7 +157,7 @@ extension FavoritesViewController: ClassListCellDelegate, NavigationDelegate {
         classListViewController.updateCalendarDateSelectedToToday()
 
         classNavigationController.setViewControllers([classListViewController], animated: false)
-        
+
         tabBarController?.selectedIndex = 1
     }
 }

@@ -15,7 +15,7 @@ extension GymDetailViewController: GymDetailHoursCellDelegate {
         collectionView.performBatchUpdates({}, completion: nil)
         completion()
     }
-    
+
 }
 
 extension GymDetailViewController: GymDetailTodaysClassesCellDelegate {

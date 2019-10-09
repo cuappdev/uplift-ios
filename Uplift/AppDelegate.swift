@@ -22,9 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
+
         setupGoogleSignIn()
-        
+
         let defaults = UserDefaults.standard
         window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
             ? TabBarController()
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Running Uplift in release configuration")
             Crashlytics.start(withAPIKey: Keys.fabricAPIKey.value)
         #endif
-        
+
         return true
     }
     

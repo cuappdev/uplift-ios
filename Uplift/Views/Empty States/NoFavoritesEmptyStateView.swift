@@ -22,7 +22,7 @@ class NoFavoritesEmptyStateView: UIView {
 
         // TITLE
         emptyStateTitleLabel = UILabel()
-        emptyStateTitleLabel.text = "FIND YOUR\nFAVORITE NOW."
+        emptyStateTitleLabel.text = ClientStrings.Favorites.noFavoritesText
         emptyStateTitleLabel.font = ._20MontserratBold
         emptyStateTitleLabel.textColor = .fitnessBlack
         emptyStateTitleLabel.textAlignment = .center
@@ -35,7 +35,7 @@ class NoFavoritesEmptyStateView: UIView {
 
         // FIND CLASSES BUTTON
         findClassesButton = UIButton()
-        findClassesButton.setTitle("BROWSE CLASSES", for: .normal)
+        findClassesButton.setTitle(ClientStrings.Favorites.browseClasses, for: .normal)
         findClassesButton.addTarget(self, action: #selector(findClasses), for: .touchUpInside)
         findClassesButton.titleLabel?.font = ._14MontserratBold
         findClassesButton.setTitleColor(UIColor.fitnessBlack, for: .normal)

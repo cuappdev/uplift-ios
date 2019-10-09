@@ -60,7 +60,7 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath
             // swiftlint:disable:next force_cast
             ) as! HomeSectionHeaderView
-        let editButtonTitle = "edit"
+        let editButtonTitle = ClientStrings.Home.editButton
 
         switch sections[indexPath.section] {
         case .checkIns:
@@ -68,7 +68,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case .myGyms:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushGymOnboarding)
         case .todaysClasses:
-            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "view all", completion: viewTodaysClasses)
+            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: ClientStrings.Home.viewAllButton, completion: viewTodaysClasses)
         case .lookingFor:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: viewTodaysClasses)
         default:

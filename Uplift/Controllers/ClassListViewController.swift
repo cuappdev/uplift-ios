@@ -284,7 +284,7 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
         if collectionView == classCollectionView {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.classListHeaderViewIdentifier, for: indexPath) as! ClassListHeaderView
 
-            var titleLabelText = "TODAY"
+            var titleLabelText = ClientStrings.Calendar.todayLabel
             if currDate != calendarDateSelected {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMM d"
@@ -311,7 +311,7 @@ extension ClassListViewController: FilterDelegate {
 
             // Modify Button
             filterButton.backgroundColor = .fitnessYellow
-            filterButton.setTitle("APPLIED FILTER", for: .normal)
+            filterButton.setTitle(ClientStrings.Filter.appliedFilterLabel, for: .normal)
 
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Applied Filters")
@@ -320,7 +320,7 @@ extension ClassListViewController: FilterDelegate {
 
             // Modify Button
             filterButton.backgroundColor = .white
-            filterButton.setTitle("APPLY FILTER", for: .normal)
+            filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
             classCollectionView.reloadData()
             return
         }
@@ -390,16 +390,18 @@ extension ClassListViewController {
 
         titleView = UIView()
         titleView.backgroundColor = .white
-        titleView.layer.shadowOffset = CGSize(width: 0, height: 9)
+        titleView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        titleView.layer.shadowOpacity = 0.4
+        titleView.layer.shadowRadius = 10.0
         titleView.layer.shadowColor = UIColor.buttonShadow.cgColor
-        titleView.layer.shadowOpacity = 0.25
+        titleView.layer.masksToBounds = false
         titleView.clipsToBounds = false
         view.addSubview(titleView)
 
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
-        titleLabel.text = "Classes"
+        titleLabel.text = ClientStrings.ClassList.vcTitleLabel
         titleView.addSubview(titleLabel)
 
         noClassesEmptyStateView = NoClassesEmptyStateView()
@@ -409,7 +411,7 @@ extension ClassListViewController {
         view.addSubview(noResultsEmptyStateView)
 
         filterButton = UIButton()
-        filterButton.setTitle("APPLY FILTER", for: .normal)
+        filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
         filterButton.titleLabel?.font = ._14MontserratSemiBold
         filterButton.layer.cornerRadius = 24.0
         filterButton.setTitleColor(.black, for: .normal)
@@ -447,7 +449,8 @@ extension ClassListViewController {
         }
 
         calendarCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleView.snp.bottom).offset(calendarCollectionViewTopPadding)
+            make.top.equalTo(titleView.snp.bottom)
+                .offset(calendarCollectionViewTopPadding)
             make.height.equalTo(calendarCollectionViewHeight)
             make.leading.trailing.equalToSuperview()
         }
@@ -478,6 +481,7 @@ extension ClassListViewController {
         calendarCollectionView.showsHorizontalScrollIndicator = false
         calendarCollectionView.backgroundColor = .white
         calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: Constants.calendarCellIdentifier)
+        calendarCollectionView.layer.zPosition = -1
         view.addSubview(calendarCollectionView)
 
         classCollectionView.delegate = self

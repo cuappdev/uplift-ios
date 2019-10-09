@@ -79,7 +79,7 @@ class HomeViewController: UIViewController {
             // Reload Today's Classes section
             self.collectionView.reloadSections(IndexSet(integer: 1))
         }
-        
+
         NetworkManager.shared.getTags { tags in
             self.lookingForCategories = tags
             self.collectionView.reloadSections(IndexSet(integer: 2))
@@ -104,8 +104,9 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
 
     private func setupViews() {
-        headerView.layer.shadowOffset = CGSize(width: 0.0, height: 9.0)
-        headerView.layer.shadowOpacity = 0.25
+        headerView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        headerView.layer.shadowOpacity = 0.4
+        headerView.layer.shadowRadius = 10.0
         headerView.layer.shadowColor = UIColor.buttonShadow.cgColor
         headerView.layer.masksToBounds = false
 
@@ -122,6 +123,7 @@ extension HomeViewController {
         collectionView.backgroundColor = .white
         collectionView.delaysContentTouches = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.layer.zPosition = -1
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         collectionView.register(CheckInsListCell.self, forCellWithReuseIdentifier: Constants.checkInsListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
@@ -131,7 +133,6 @@ extension HomeViewController {
     }
 
     private func setupConstraints() {
-        let collectionViewTopPadding = 12
         let headerViewHeight = 120
 
         headerView.snp.makeConstraints { make in
@@ -141,7 +142,7 @@ extension HomeViewController {
 
         collectionView.snp.makeConstraints { make in
             make.centerX.width.bottom.equalToSuperview()
-            make.top.equalTo(headerView.snp.bottom).offset(collectionViewTopPadding)
+            make.top.equalTo(headerView.snp.bottom)
         }
     }
 

@@ -33,9 +33,9 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         }
 
         if section == Constants.featuredHabitSection {
-            title.text = "FEATURED"
+            title.text = ClientStrings.HabitTracking.featuredHabitsSection
         } else {
-            title.text = "SUGGESTIONS"
+            title.text = ClientStrings.HabitTracking.suggestedHabitsSection
         }
 
         return header
@@ -103,7 +103,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 }
 
                 let addHabitWidget = UIImageView()
-                addHabitWidget.image = UIImage(named: "add-habit")
+                addHabitWidget.image = UIImage(named: ImageNames.lightAdd)
                 cell.contentView.addSubview(addHabitWidget)
 
                 addHabitWidget.snp.makeConstraints { make in
@@ -113,7 +113,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 }
 
                 let titleLabel = UILabel()
-                titleLabel.text = "The first step is the hardest."
+                titleLabel.text = ClientStrings.HabitTracking.newHabitPlaceholder
                 titleLabel.textAlignment = .left
                 titleLabel.clipsToBounds = false
                 titleLabel.font = ._16MontserratMedium

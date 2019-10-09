@@ -45,7 +45,7 @@ class OnboardingLoginViewController: UIViewController {
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
         titleLabel = UILabel()
-        titleLabel.text = "Welcome to Uplift!\nStart your Journey Today!"
+        titleLabel.text = ClientStrings.Onboarding.vcTitleLabel
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .fitnessBlack
         titleLabel.lineBreakMode = .byWordWrapping
@@ -53,7 +53,7 @@ class OnboardingLoginViewController: UIViewController {
         view.addSubview(titleLabel)
         
         signUpLabel = UILabel()
-        signUpLabel.text = "Sign Up"
+        signUpLabel.text = ClientStrings.Onboarding.signupLabel
         signUpLabel.font = ._16MontserratBold
         signUpLabel.textColor = .fitnessBlack
         view.addSubview(signUpLabel)
@@ -80,7 +80,7 @@ class OnboardingLoginViewController: UIViewController {
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
-        nextButtonArrow = UIImageView(image: UIImage(named: "arrow"))
+        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
         nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)

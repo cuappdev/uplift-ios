@@ -26,7 +26,7 @@ class NoResultsEmptyStateView: UIView {
         
         // TITLE
         emptyStateTitleLabel = UILabel()
-        emptyStateTitleLabel.text = "NO RESULTS"
+        emptyStateTitleLabel.text = ClientStrings.Filter.noResultsLabel
         emptyStateTitleLabel.font = ._20MontserratBold
         emptyStateTitleLabel.textColor = .fitnessBlack
         emptyStateTitleLabel.textAlignment = .center
@@ -34,7 +34,7 @@ class NoResultsEmptyStateView: UIView {
         
         // MESSAGE
         emptyStateMessageLabel = UILabel()
-        emptyStateMessageLabel.text = "Try searching again!"
+        emptyStateMessageLabel.text = ClientStrings.Filter.noResultsDescription
         emptyStateMessageLabel.font = ._14MontserratRegular
         emptyStateMessageLabel.textColor = .fitnessBlack
         emptyStateMessageLabel.textAlignment = .center

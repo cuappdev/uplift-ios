@@ -263,18 +263,18 @@ extension HabitTrackingController {
         widgetsView = UIImageView()
         switch type {
         case .cardio:
-            widgetsView.image = UIImage(named: "widgets-empty")
+            widgetsView.image = UIImage(named: ImageNames.widgets0)
         case .strength:
-            widgetsView.image = UIImage(named: "widgets-1")
+            widgetsView.image = UIImage(named: ImageNames.widgets1)
         case .mindfulness:
-            widgetsView.image = UIImage(named: "widgets-2")
+            widgetsView.image = UIImage(named: ImageNames.widgets2)
         }
         contentView.addSubview(widgetsView)
     }
 
     private func setupCancelButton() {
         cancelButton = UIButton()
-        cancelButton.setImage(UIImage(named: "x"), for: .normal)
+        cancelButton.setImage(UIImage(named: ImageNames.cancel), for: .normal)
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         contentView.addSubview(cancelButton)
     }
@@ -287,11 +287,11 @@ extension HabitTrackingController {
         titleLabel.clipsToBounds = false
         switch type {
         case .cardio:
-            titleLabel.text = "Cardio"
+            titleLabel.text = ClientStrings.HabitTracking.vcTitleCardio
         case .strength:
-            titleLabel.text = "Strength"
+            titleLabel.text = ClientStrings.HabitTracking.vcTitleStrength
         case .mindfulness:
-            titleLabel.text = "Mindfulness"
+            titleLabel.text = ClientStrings.HabitTracking.vcTitleMindfulness
         }
         contentView.addSubview(titleLabel)
     }
@@ -325,7 +325,7 @@ extension HabitTrackingController {
 
     private func setupSaveHabitButton() {
         saveHabitButton = UIButton()
-        saveHabitButton.setTitle("SAVE", for: .normal)
+        saveHabitButton.setTitle(ClientStrings.HabitTracking.saveButton, for: .normal)
         saveHabitButton.titleLabel?.font = ._12MontserratBold
         saveHabitButton.setTitleColor(UIColor.fitnessWhite, for: .normal)
         saveHabitButton.backgroundColor = .fitnessBlack
@@ -338,7 +338,7 @@ extension HabitTrackingController {
 
     private func setupCreateHabitButton() {
         createHabitButton = UIButton()
-        createHabitButton.setTitle("Create your own", for: .normal)
+        createHabitButton.setTitle(ClientStrings.HabitTracking.createHabitButton, for: .normal)
         createHabitButton.titleLabel?.font = ._16MontserratMedium
         createHabitButton.titleLabel?.textAlignment = .left
         createHabitButton.setTitleColor(.fitnessMediumGrey, for: .normal)
@@ -352,11 +352,11 @@ extension HabitTrackingController {
         nextButton.isHidden = true
         switch type {
         case .cardio:
-            nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
+            nextButton.setImage(UIImage(named: ImageNames.yellowNextArrow), for: .normal)
         case .strength:
-            nextButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
+            nextButton.setImage(UIImage(named: ImageNames.yellowNextArrow), for: .normal)
         case .mindfulness:
-            nextButton.setImage(UIImage(named: "checkmark-yellow"), for: .normal)
+            nextButton.setImage(UIImage(named: ImageNames.yellowCheckmark), for: .normal)
         }
         view.addSubview(nextButton)
         view.bringSubviewToFront(nextButton)
@@ -364,7 +364,7 @@ extension HabitTrackingController {
 
     private func setupBackButton() {
         backButton = UIButton()
-        backButton.setImage(UIImage(named: "black-yellow-next-arrow"), for: .normal)
+        backButton.setImage(UIImage(named: ImageNames.yellowNextArrow), for: .normal)
         backButton.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(backButton)

@@ -237,32 +237,67 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let descriptionTextViewHorizontalPadding = 40
-        let descriptionLabelHorizontalPadding = 48
-        let nextSessionsCellHeight = 112
         let width = collectionView.frame.width
         let itemType = sections[indexPath.section].items[indexPath.item]
-        
+
         switch itemType {
         case .time:
-            return CGSize(width: width, height: ClassDetailTimeCell.height)
+            return CGSize(width: width, height: getTimeHeight())
         case .function:
-            let descriptionLabelWidth = width - CGFloat(descriptionLabelHorizontalPadding * 2)
-            let string = gymClassInstance.tags.map { $0.name }.joined(separator: " · ")
-            let descriptionLabelHeight = string.height(withConstrainedWidth: descriptionLabelWidth, font: UIFont._14MontserratLight!)
-            return CGSize(width: width, height: ClassDetailFunctionCell.baseHeight + descriptionLabelHeight)
+            return CGSize(width: width, height: getFunctionHeight(width: width))
         case .description:
-            let descriptionTextViewWidth = width - CGFloat(descriptionTextViewHorizontalPadding * 2)
-            let descriptionTextViewHeight = gymClassInstance.classDescription.height(withConstrainedWidth: descriptionTextViewWidth, font: UIFont._14MontserratLight!)
-            let height = ClassDetailDescriptionCell.baseHeight + descriptionTextViewHeight
-            return CGSize(width: width, height: height)
+            return CGSize(width: width, height: getDescriptionHeight(width: width))
         case .nextSessions(let nextSessions):
-            let nextSesssionsCollectionViewHeight = nextSessions.count * nextSessionsCellHeight
-            let height = ClassDetailNextSessionsCell.baseHeight + CGFloat(nextSesssionsCollectionViewHeight)
-            return CGSize(width: width, height: height)
+            return CGSize(width: width, height: getNextSessionsHeight(numberOfSessions: CGFloat(nextSessions.count)))
         }
     }
 
+}
+
+// MARK: - Item Height Calculations
+extension ClassDetailViewController {
+    func getTimeHeight() -> CGFloat {
+        return Constraints.verticalPadding + Constraints.titleLabelHeight +
+            ClassDetailTimeCell.Constants.timeLabelTopPadding + Constraints.titleLabelHeight +
+            ClassDetailTimeCell.Constants.addToCalendarButtonTopPadding +
+            ClassDetailTimeCell.Constants.addToCalendarButtonHeight +
+            ClassDetailTimeCell.Constants.addToCalendarLabelTopPadding +
+            ClassDetailTimeCell.Constants.addToCalendarLabelHeight +
+            Constraints.verticalPadding + Constraints.dividerViewHeight
+    }
+
+    func getFunctionHeight(width: CGFloat) -> CGFloat {
+        let baseHeight = Constraints.verticalPadding + Constraints.titleLabelHeight +
+            ClassDetailFunctionCell.Constants.functionDescriptionLabelTopPadding +
+            Constraints.verticalPadding + Constraints.dividerViewHeight
+
+        let descriptionLabelWidth = width - CGFloat(ClassDetailFunctionCell.Constants.descriptionLabelHorizontalPadding * 2)
+        let string = gymClassInstance.tags.map { $0.name }.joined(separator: " · ")
+        let descriptionLabelHeight = string.height(withConstrainedWidth: descriptionLabelWidth, font: UIFont._14MontserratLight!)
+
+        return baseHeight + descriptionLabelHeight
+    }
+
+    func getDescriptionHeight(width: CGFloat) -> CGFloat {
+        let baseHeight = 2.0 * Constraints.verticalPadding + Constraints.dividerViewHeight
+
+        let descriptionTextViewWidth = width - CGFloat(ClassDetailDescriptionCell.Constants.descriptionTextViewHorizontalPadding * 2)
+        let descriptionTextViewHeight = gymClassInstance.classDescription.height(withConstrainedWidth: descriptionTextViewWidth, font: UIFont._14MontserratLight!)
+
+        return baseHeight + descriptionTextViewHeight
+    }
+
+    func getNextSessionsHeight(numberOfSessions: CGFloat) -> CGFloat {
+        let nextSessionsCellHeight: CGFloat = 112
+
+        let baseHeight = Constraints.verticalPadding + Constraints.titleLabelHeight +
+            ClassDetailNextSessionsCell.Constants.collectionViewTopPadding +
+            ClassDetailNextSessionsCell.Constants.collectionViewBottomPadding
+
+        let nextSessionsCollectionViewHeight = numberOfSessions * nextSessionsCellHeight
+
+        return baseHeight + nextSessionsCollectionViewHeight
+    }
 }
 
 // MARK: - Layout
