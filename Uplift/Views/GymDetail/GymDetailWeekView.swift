@@ -46,16 +46,15 @@ class GymDetailWeekView: UIView {
     }
 
     private func setupView() {
+        self.backgroundColor = .fitnessWhite
+
         // Spacing Constants
         let daySpacing: CGFloat = 19
-
-        self.backgroundColor = .fitnessWhite
 
         // CollectionView Flow Layout
         let weekdayFlowLayout = UICollectionViewFlowLayout()
         weekdayFlowLayout.itemSize = daysSize
         weekdayFlowLayout.minimumInteritemSpacing = daySpacing
-//        weekdayFlowLayout.sectionInset = .init(top: 0.0, left: 52.0/*39.0*/, bottom: 0.0, right: 39.0)
 
         // CollectionView
         weekdayCollectionView = UICollectionView(frame: .zero, collectionViewLayout: weekdayFlowLayout)
@@ -108,7 +107,6 @@ extension GymDetailWeekView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // TODO replace with guard let
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
             return UICollectionViewCell()
         }
@@ -119,7 +117,6 @@ extension GymDetailWeekView: UICollectionViewDataSource {
 
 // MARK: - Helper
 enum WeekDay: String, CaseIterable {
-    //TODO replace with constants
     case sunday = "Su"
     case monday = "M"
     case tuesday = "T"
@@ -131,6 +128,22 @@ enum WeekDay: String, CaseIterable {
     /// Constructs enum from index
     init(index: Int) {
         self = WeekDay.allCases[index - 1]
+    }
+
+    /**
+     Maps each enum case to index corresponding to ones returned by
+     Calendar.current.component(.weekDay, from: Date())
+     */
+    var index: Int { get {
+        switch self {
+        case .sunday:       return 1
+        case .monday:       return 2
+        case .tuesday:      return 3
+        case .wednesday:    return 4
+        case .thursday:     return 5
+        case .friday:       return 6
+        case .saturday:     return 7
+        }}
     }
 
     /// Constructs enum from Weekday String
@@ -151,25 +164,8 @@ enum WeekDay: String, CaseIterable {
         } else if d == "saturday" {
             self = .saturday
         } else {
-            print("Invalid Day String was passed: \(day) doesn't correspond to anything")
+            print("Invalid Day String was passed: \(day) doesn't correspond to valid day")
             self = .sunday
         }
-    }
-
-    /**
-     Maps each enum case to index corresponding to ones returned by
-     Calendar.current.component(.weekDay, from: Date())
-     */
-    var index: Int { get {
-        switch self {
-        case .sunday:       return 1
-        case .monday:       return 2
-        case .tuesday:      return 3
-        case .wednesday:    return 4
-        case .thursday:     return 5
-        case .friday:       return 6
-        case .saturday:     return 7
-        default: return -1
-        }}
     }
 }
