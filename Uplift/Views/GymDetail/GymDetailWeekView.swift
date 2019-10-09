@@ -35,6 +35,7 @@ class GymDetailWeekView: UIView {
 
         setupView()
         setupConstraints()
+        weekdayCollectionView.selectItem(at: IndexPath(row: today.index - 1, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     required init?(coder: NSCoder) {
@@ -96,12 +97,11 @@ extension GymDetailWeekView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // TODO replace with guard let
-        print("IndexPath in cellForItemAt: \(indexPath)")
-        let item = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath)
-        if let cell = item as? GymWeekCell {
-            cell.configure(weekday: days[indexPath.row], today: today)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
+            return UICollectionViewCell()
         }
-        return item
+        cell.configure(weekday: days[indexPath.row], today: today)
+        return cell
     }
 }
 
@@ -115,7 +115,6 @@ enum WeekDay: String, CaseIterable {
     case thursday = "Th"
     case friday = "F"
     case saturday = "Sa"
-    case problem = "problem"
 
     /// Constructs enum from index
     init(index: Int) {
@@ -141,7 +140,7 @@ enum WeekDay: String, CaseIterable {
             self = .saturday
         } else {
             print("Invalid Day String was passed: \(day) doesn't correspond to anything")
-            self = .problem
+            self = .sunday
         }
     }
 
@@ -149,7 +148,7 @@ enum WeekDay: String, CaseIterable {
      Maps each enum case to index corresponding to ones returned by
      Calendar.current.component(.weekDay, from: Date())
      */
-    func index() -> Int {
+    var index: Int { get {
         switch self {
         case .sunday:       return 1
         case .monday:       return 2
@@ -159,6 +158,6 @@ enum WeekDay: String, CaseIterable {
         case .friday:       return 6
         case .saturday:     return 7
         default: return -1
-        }
+        }}
     }
 }
