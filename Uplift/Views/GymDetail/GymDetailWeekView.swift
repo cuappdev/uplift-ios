@@ -27,6 +27,9 @@ class GymDetailWeekView: UIView {
         }
     }
 
+    // MARK: - Display
+    private let daysSize = CGSize(width: 24, height: 24)
+
     // MARK: - Public
     var selectedDay: WeekDay = .sunday
 
@@ -50,9 +53,9 @@ class GymDetailWeekView: UIView {
 
         // CollectionView Flow Layout
         let weekdayFlowLayout = UICollectionViewFlowLayout()
-        weekdayFlowLayout.itemSize = CGSize(width: 24, height: 24)
+        weekdayFlowLayout.itemSize = daysSize
         weekdayFlowLayout.minimumInteritemSpacing = daySpacing
-        weekdayFlowLayout.sectionInset = .init(top: 0.0, left: 38.0, bottom: 0.0, right: 38.0)
+//        weekdayFlowLayout.sectionInset = .init(top: 0.0, left: 52.0/*39.0*/, bottom: 0.0, right: 39.0)
 
         // CollectionView
         weekdayCollectionView = UICollectionView(frame: .zero, collectionViewLayout: weekdayFlowLayout)
@@ -67,8 +70,17 @@ class GymDetailWeekView: UIView {
     }
     
     private func setupConstraints() {
+        let weekdayDisplayInset = 39.0
+        let weekdayInterimPadding = 19.0
+        self.snp.makeConstraints { make in
+            make.height.equalTo(daysSize.height)
+        }
+
         weekdayCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.center.equalToSuperview()
+            make.height.equalToSuperview()
+            make.leading.equalToSuperview().inset(weekdayDisplayInset + weekdayInterimPadding)
+            make.trailing.equalToSuperview().inset(weekdayDisplayInset - weekdayInterimPadding)
         }
     }
 }

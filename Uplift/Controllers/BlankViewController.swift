@@ -26,7 +26,7 @@ class BlankViewController: UIViewController {
     private func setUpConstraints() {
         testView.snp.makeConstraints { make in
             make.width.equalToSuperview()
-            make.height.equalTo(100)
+//            make.height.equalTo(30)
             make.center.equalToSuperview()
         }
     }
