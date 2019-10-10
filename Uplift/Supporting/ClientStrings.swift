@@ -95,9 +95,6 @@ struct ClientStrings {
         
         static let gymDetailCellClosed = "Closed"
         static let gymDetailCellOpen = "Open"
-//        static let gymDetailCellClosingSoon = "Closing soon"
-//        static let gymDetailCellOpeningSoon = "Opening soon"
-//        static let gymDetailCellClosedTomorrow = "Closed Tomorrow"
         static let gymDetailCellOpensAt = "Opens at "
         static let gymDetailCellClosesAt = "Closes at "
     }
