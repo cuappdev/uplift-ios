@@ -33,6 +33,7 @@ class HomeViewController: UIViewController {
         static let gymsListCellIdentifier = "gymsListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
         static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
+        static let gymEquipmentListCellIdentifier = "gymEquipmentListCellIdentifier"
     }
 
     // MARK: - Enums
@@ -46,7 +47,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sections = [.allGyms, .todaysClasses, .lookingFor]
+//        sections = [.allGyms, .todaysClasses, .lookingFor]
+        sections = [.allGyms]
 
         view.backgroundColor = UIColor.fitnessWhite
 
@@ -56,7 +58,7 @@ class HomeViewController: UIViewController {
         // Get Habits
         habits = Habit.getActiveHabits()
         // Reload Daily Check Ins section
-        collectionView.reloadSections(IndexSet(integer: 0))
+//        collectionView.reloadSections(IndexSet(integer: 0))
 
         // Get Gyms
         NetworkManager.shared.getGyms { gyms in
@@ -66,7 +68,7 @@ class HomeViewController: UIViewController {
             self.updateFavorites(favorites: gymNames)
 
             // Reload All Gyms section
-            self.collectionView.reloadSections(IndexSet(integer: 0))
+//            self.collectionView.reloadSections(IndexSet(integer: 0))
         }
 
         // Get Today's Classes
@@ -77,12 +79,12 @@ class HomeViewController: UIViewController {
                 return first.startTime < second.startTime
             }
             // Reload Today's Classes section
-            self.collectionView.reloadSections(IndexSet(integer: 1))
+//            self.collectionView.reloadSections(IndexSet(integer: 1))
         }
 
         NetworkManager.shared.getTags { tags in
             self.lookingForCategories = tags
-            self.collectionView.reloadSections(IndexSet(integer: 2))
+//            self.collectionView.reloadSections(IndexSet(integer: 2))
         }
 
     }
@@ -94,7 +96,7 @@ class HomeViewController: UIViewController {
         let newHabits = Habit.getActiveHabits()
         if habits != newHabits {
             habits = newHabits
-            collectionView.reloadSections(IndexSet(integer: 0))
+//            collectionView.reloadSections(IndexSet(integer: 0))
         }
     }
 
@@ -129,6 +131,7 @@ extension HomeViewController {
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)
+        collectionView.register(EquipmentListCell.self, forCellWithReuseIdentifier: Constants.gymEquipmentListCellIdentifier)
         view.addSubview(collectionView)
     }
 

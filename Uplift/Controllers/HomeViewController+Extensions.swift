@@ -28,10 +28,16 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         case .allGyms:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
-            cell.delegate = self
-            cell.configure(for: self.favoriteGyms)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymEquipmentListCellIdentifier, for: indexPath) as! EquipmentListCell
+            let equipment1 = Equipment(name: "treadmill", count: 22)
+            let equipment2 = Equipment(name: "elliptical", count: 12)
+            let equipmentCategory = EquipmentCategory(categoryName: "cardio", equipment: [equipment1, equipment2])
+            cell.configure(for: [equipmentCategory, equipmentCategory])
             return cell
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
+//            cell.delegate = self
+//            cell.configure(for: self.favoriteGyms)
+//            return cell
         case .todaysClasses:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
@@ -97,7 +103,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             let bottomSectionInset = 32
             return CGSize(width: width, height: CGFloat(checkInListHeight + bottomSectionInset))
         case .allGyms:
-            return CGSize(width: width, height: 123)
+            return CGSize(width: width, height: 254)
         case .todaysClasses:
             return CGSize(width: width, height: 227)
         case .lookingFor:
