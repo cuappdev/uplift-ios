@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let defaults = UserDefaults.standard
         window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-         ? TabBarController()
-         : OnboardingViewController()
+            ? TabBarController()
+            : OnboardingViewController()
 
         #if DEBUG
             print("Running Uplift in debug configuration")

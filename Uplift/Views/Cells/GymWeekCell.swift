@@ -27,9 +27,6 @@ class GymWeekCell: UICollectionViewCell {
     // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // Set up today with Name of Day of week
-        
-
         setupViews()
         setupConstraints()
     }
@@ -44,13 +41,13 @@ class GymWeekCell: UICollectionViewCell {
 
         backCircle = UIView()
         backCircle.layer.cornerRadius = circleSize / 2
-        self.addSubview(backCircle)
+        addSubview(backCircle)
 
         dayLabel = UILabel()
         dayLabel.font = ._12MontserratBold
         dayLabel.textAlignment = .center
         dayLabel.textColor = .fitnessBlack
-        self.addSubview(dayLabel)
+        addSubview(dayLabel)
 
         update()
     }

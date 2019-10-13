@@ -64,16 +64,12 @@ class GymDetailWeekView: UIView {
         weekdayCollectionView.dataSource = self
         weekdayCollectionView.isScrollEnabled = false
         weekdayCollectionView.backgroundColor = .clear
-
-        self.addSubview(weekdayCollectionView)
+        addSubview(weekdayCollectionView)
     }
     
     private func setupConstraints() {
         let weekdayDisplayInset = 39.0
         let weekdayInterimPadding = 19.0
-        self.snp.makeConstraints { make in
-            make.height.equalTo(daysSize.height)
-        }
 
         weekdayCollectionView.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -103,7 +99,7 @@ extension GymDetailWeekView: UICollectionViewDelegate {
 extension GymDetailWeekView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return days.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,60 +108,5 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         }
         cell.configure(weekday: days[indexPath.row], today: today)
         return cell
-    }
-}
-
-// MARK: - Helper
-enum WeekDay: String, CaseIterable {
-    case sunday = "Su"
-    case monday = "M"
-    case tuesday = "T"
-    case wednesday = "W"
-    case thursday = "Th"
-    case friday = "F"
-    case saturday = "Sa"
-
-    /// Constructs enum from index
-    init(index: Int) {
-        self = WeekDay.allCases[index - 1]
-    }
-
-    /**
-     Maps each enum case to index corresponding to ones returned by
-     Calendar.current.component(.weekDay, from: Date())
-     */
-    var index: Int { get {
-        switch self {
-        case .sunday:       return 1
-        case .monday:       return 2
-        case .tuesday:      return 3
-        case .wednesday:    return 4
-        case .thursday:     return 5
-        case .friday:       return 6
-        case .saturday:     return 7
-        }}
-    }
-
-    /// Constructs enum from Weekday String
-    init(day: String) {
-        let d = day.lowercased()
-        if d == "sunday" {
-            self = .sunday
-        } else if d == "monday" {
-            self = .monday
-        } else if d == "tuesday" {
-            self = .tuesday
-        } else if d == "wednesday" {
-            self = .wednesday
-        } else if d == "thursday" {
-            self = .thursday
-        } else if d == "friday" {
-            self = .friday
-        } else if d == "saturday" {
-            self = .saturday
-        } else {
-            print("Invalid Day String was passed: \(day) doesn't correspond to valid day")
-            self = .sunday
-        }
     }
 }
