@@ -17,7 +17,7 @@ class GymDetailWeekView: UIView {
     private var weekdayCollectionView: UICollectionView!
 
     // MARK: - Info
-    private var days: [WeekDay] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
+    private var days: [WeekDay] = WeekDay.allCases 
 
     /// Current Day of today
     private var today: WeekDay {
