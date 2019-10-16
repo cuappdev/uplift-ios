@@ -99,7 +99,7 @@ extension GymDetailFacilitiesCell: UITableViewDelegate, UITableViewDataSource {
         // swiftlint:disable:next force_cast
         let cell = gymFacilitiesTableView.dequeueReusableCell(withIdentifier: GymFacilitiesCell.identifier, for: indexPath) as! GymFacilitiesCell
         cell.facilityLabel.text = gymFacilities[indexPath.row]
-
+        cell.selectionStyle = .none
         return cell
     }
 
