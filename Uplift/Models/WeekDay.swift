@@ -7,13 +7,14 @@
 //
 
 enum WeekDay: String, CaseIterable {
-    case sunday = "Su"
     case monday = "M"
     case tuesday = "T"
     case wednesday = "W"
     case thursday = "Th"
     case friday = "F"
     case saturday = "Sa"
+    case sunday = "Su"
+
 
     /// Constructs enum from index
     init(index: Int) {

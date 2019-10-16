@@ -81,10 +81,10 @@ class GymWeekCell: UICollectionViewCell {
             backCircle.alpha = 1
         } else { // Not selected
             if today == day { // Cell represents today
-                backCircle.backgroundColor = .fitnessClearGrey
+                backCircle.backgroundColor = .fitnessLightGrey
                 backCircle.alpha = 1
             } else { // Cell represents some other day of week
-                backCircle.backgroundColor = .fitnessClearGrey
+                backCircle.backgroundColor = .fitnessLightGrey
                 backCircle.alpha = 0
             }
         }

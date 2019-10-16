@@ -16,6 +16,7 @@
 		1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */; };
 		1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7847C3216E77E30066E0DA /* Assets.xcassets */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
+		4F01EAA52357C1A4004A3211 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F01EAA42357C1A4004A3211 /* BlankViewController.swift */; };
 		4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */; };
 		4F20EDEB234AE46C000B26E8 /* GymWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */; };
 		4F2285172352A1C80013F1B0 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2285162352A1C80013F1B0 /* WeekDay.swift */; };
@@ -142,6 +143,7 @@
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		35E2BE6E66F5F5D34B2961D7 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
 		48695D922CD490E026211F06 /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F01EAA42357C1A4004A3211 /* BlankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLoginViewController.swift; sourceTree = "<group>"; };
 		4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymWeekCell.swift; sourceTree = "<group>"; };
 		4F2285162352A1C80013F1B0 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 			children = (
 				C26236F62290D1C4007C415D /* ClassDetailViewController.swift */,
 				C2623703229107BA007C415D /* ClassDetailViewController+Extensions.swift */,
+				4F01EAA42357C1A4004A3211 /* BlankViewController.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
@@ -904,6 +907,7 @@
 				4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
+				4F01EAA52357C1A4004A3211 /* BlankViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
 				E604DC33233B1D99003598BC /* ProBioRoutinesCell.swift in Sources */,
 				C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */,

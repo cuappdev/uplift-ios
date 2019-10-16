@@ -45,8 +45,14 @@ class GymDetailWeekView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// Center collection view in size of view
+    override func layoutSubviews() {
+        weekdayCollectionView.contentInset.top = (frame.height - daysSize.height) / 2
+        super.updateConstraints()
+    }
+
     private func setupView() {
-        self.backgroundColor = .fitnessWhite
+        backgroundColor = .fitnessWhite
 
         // Spacing Constants
         let daySpacing: CGFloat = 19
@@ -86,6 +92,7 @@ extension GymDetailWeekView: UICollectionViewDelegate {
 
         guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
         cell.update()
+        selectedDay = days[indexPath.row]
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
