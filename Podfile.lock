@@ -184,8 +184,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 23fb3ec6343cc0dd02c7508d516a94a475094902
 
-<<<<<<< HEAD
 COCOAPODS: 1.8.4
-=======
-COCOAPODS: 1.8.3
->>>>>>> Sets cell selectionStyle to none for facility cell (#178)
