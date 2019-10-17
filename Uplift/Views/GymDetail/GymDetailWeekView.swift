@@ -22,11 +22,6 @@ class GymDetailWeekView: UIView {
     /// Current Day of today
     private var today: WeekDay {
         get {
-            let f = DateFormatter()
-            print("Date: \(Date())")
-            print("with \(Calendar.current.component(.weekday, from: Date()))")
-//            print("testing \(f.weekdaySymbols[Calendar.current.component(.weekday, from: Date())])")
-            print("index is \(Calendar.current.component(.weekday, from: Date()))")
             let weekdayIndex = Calendar.current.component(.weekday, from: Date())
             return WeekDay(index: (weekdayIndex + 5) % 7)
         }
@@ -36,7 +31,7 @@ class GymDetailWeekView: UIView {
     private let daysSize = CGSize(width: 24, height: 24)
 
     // MARK: - Public
-    var selectedDay: WeekDay = .sunday
+    var selectedDay: WeekDay?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
