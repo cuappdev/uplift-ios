@@ -6,6 +6,7 @@
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
+import SnapKit
 import UIKit
 
 class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
@@ -17,6 +18,11 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
     private let titleLabel = UILabel()
     private let equipmentList = UITextView()
     private let quantityList = UITextView()
+
+    // MARK: - Private layout vars
+    private let listsSpacing: CGFloat = 12
+    private var equipmentListTrailingConstraint: Constraint?
+    private var quantityListWidthConstraint: Constraint?
 
     // MARK: - Private data vars
     private var equipment: [Equipment] = []
@@ -45,8 +51,12 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
 
         titleLabel.text = equipmentCategory.categoryName
         equipment = equipmentCategory.equipment
-        equipmentList.attributedText = generateEquipmentString()
-        quantityList.attributedText = generateQuantityString()
+        equipmentList.attributedText = generateListString(for: equipment.map { $0.name })
+        quantityList.attributedText = generateListString(for: equipment.map { String($0.count) }, alignment: .right)
+        quantityList.sizeToFit()
+
+        quantityListWidthConstraint?.update(offset: quantityList.frame.width)
+        equipmentListTrailingConstraint?.update(offset: -listsSpacing)
     }
 
     func setupViews() {
@@ -55,20 +65,16 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         titleLabel.textAlignment = .left
         contentView.addSubview(titleLabel)
 
-//        equipmentList.font = ._12MontserratLight
         equipmentList.isEditable = false
         equipmentList.isScrollEnabled = false
         equipmentList.textContainerInset = .zero
         equipmentList.textContainer.lineFragmentPadding = 0
         contentView.addSubview(equipmentList)
 
-//        quantityList.font = ._12MontserratLight
-        quantityList.textAlignment = .right
         quantityList.isEditable = false
         quantityList.isScrollEnabled = false
         quantityList.textContainerInset = .zero
         quantityList.textContainer.lineFragmentPadding = 0
-
         contentView.addSubview(quantityList)
     }
 
@@ -76,7 +82,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         let contentPadding: CGFloat = 16
         let equipmentTopPadding: CGFloat = 2
         let labelHeight: CGFloat = 20
-        let quantityListWidth: CGFloat = 25
 
         titleLabel.snp.makeConstraints { make in
             make.height.equalTo(labelHeight)
@@ -87,47 +92,30 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         quantityList.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
             make.trailing.bottom.equalToSuperview().inset(contentPadding)
-            make.width.equalTo(quantityListWidth)
+            quantityListWidthConstraint = make.width.equalTo(0).constraint
         }
 
         equipmentList.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
+            equipmentListTrailingConstraint = make.trailing.equalTo(quantityList.snp.leading).offset(0).constraint
             make.leading.equalToSuperview().offset(contentPadding)
             make.bottom.equalToSuperview().inset(contentPadding)
-            make.trailing.equalTo(quantityList.snp.leading).offset(-contentPadding)
         }
     }
 
-    private func generateEquipmentString() -> NSAttributedString {
-        var equipmentList = ""
-        equipment.forEach { equipmentEntry in
-            equipmentList += "\(equipmentEntry.name)\n"
-        }
+    private func generateListString(for stringList: [String],
+                                    alignment: NSTextAlignment = .left) -> NSAttributedString {
+        let listString = stringList.joined(separator: "\n")
 
         let style = NSMutableParagraphStyle()
-        style.lineSpacing = 2
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont._12MontserratLight!,
-            .paragraphStyle: style
-        ]
-        return NSAttributedString(string: equipmentList, attributes: attributes)
-    }
-
-    private func generateQuantityString() -> NSAttributedString {
-        var quantityList = ""
-        equipment.forEach { equipmentEntry in
-            quantityList += "\(equipmentEntry.count)\n"
-        }
-
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 2
-        style.alignment = .right
+        style.lineSpacing = 3
+        style.alignment = alignment
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont._12MontserratLight!,
             .paragraphStyle: style
         ]
 
-        return NSAttributedString(string: quantityList, attributes: attributes)
+        return NSAttributedString(string: listString, attributes: attributes)
     }
 
     required init?(coder: NSCoder) {
