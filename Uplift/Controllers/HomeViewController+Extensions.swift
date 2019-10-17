@@ -29,10 +29,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case .allGyms:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymEquipmentListCellIdentifier, for: indexPath) as! EquipmentListCell
-            let equipment1 = Equipment(name: "treadmill", count: 22)
-            let equipment2 = Equipment(name: "elliptical", count: 12)
-            let equipmentCategory = EquipmentCategory(categoryName: "cardio", equipment: [equipment1, equipment2])
-            cell.configure(for: [equipmentCategory, equipmentCategory])
+            cell.configure(for: models)
             return cell
 //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
 //            cell.delegate = self
@@ -103,11 +100,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             let bottomSectionInset = 32
             return CGSize(width: width, height: CGFloat(checkInListHeight + bottomSectionInset))
         case .allGyms:
-            return CGSize(width: width, height: 254)
+            // this line is important
+            let height = EquipmentListCell.getHeight(models: models)
+            return CGSize(width: width, height: height + 24.0)
         case .todaysClasses:
             return CGSize(width: width, height: 227)
         case .lookingFor:
-            var height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
+            let height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
             return CGSize(width: width, height: height)
         }
     }
@@ -143,18 +142,18 @@ extension HomeViewController: TodaysClassesListCellDelegate {
 }
 
 extension HomeViewController: LookingForListCellDelegate {
-    
+
     func lookingForCellShouldTagSearch(at tag: Tag, indexPath: IndexPath) {
         let cal = Calendar.current
         let currDate = Date()
         guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate), let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController, let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
         let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate) ?? Date()
-        
+
         let filterParameters = FilterParameters(endTime: endDate, startTime: startDate, tags: [lookingForCategories[indexPath.row].name])
-        
+
         classListViewController.updateFilter(filterParameters)
         classNavigationController.setViewControllers([classListViewController], animated: false)
-        
+
         tabBarController?.selectedIndex = 1
     }
     

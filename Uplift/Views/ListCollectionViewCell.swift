@@ -128,7 +128,17 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         didUnhighlightItemAt(collectionView, indexPath: indexPath)
     }
-    
+
+    func reloadLayout() {
+        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+
+        layout.itemSize = config.itemSize
+//        layout.prepare()  // <-- call prepare before invalidateLayout
+        layout.invalidateLayout()
+    }
+
     func reloadConfig() {
         layout.scrollDirection = config.scrollDirection
         if config.scrollDirection == .vertical {
@@ -138,7 +148,7 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
         }
         layout.itemSize = config.itemSize
         layout.sectionInset = config.sectionInset
-        
+
         collectionView.backgroundColor = config.backgroundColor
         collectionView.isScrollEnabled = config.isScrollEnabled
         if !config.showsScrollIndicator {

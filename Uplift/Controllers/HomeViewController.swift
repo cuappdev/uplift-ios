@@ -24,6 +24,9 @@ class HomeViewController: UIViewController {
     var habits: [Habit] = []
     var lookingForCategories: [Tag] = []
     var sections: [SectionType] = []
+    // this is fake for now and should be removed thank you
+    var equipmentCategory: EquipmentCategory?
+    var models: [EquipmentCategory] = []
 
     // MARK: - Private data vars
     private var gymLocations: [Int: String] = [:]
@@ -49,6 +52,14 @@ class HomeViewController: UIViewController {
 
 //        sections = [.allGyms, .todaysClasses, .lookingFor]
         sections = [.allGyms]
+
+        // remove
+        let equipment1 = Equipment(name: "treadmill", count: 100)
+        let equipment2 = Equipment(name: "elliptical", count: 12)
+        equipmentCategory = EquipmentCategory(categoryName: "cardio", equipment: [equipment1, equipment2])
+        let reallyLongEquipmentCategory = EquipmentCategory(categoryName: "cardio", equipment: [equipment1, equipment2, equipment2, equipment2, equipment2, equipment2, equipment2, equipment2, equipment2, equipment2, equipment2, equipment2, equipment2, equipment1])
+        models = [equipmentCategory!, equipmentCategory!, equipmentCategory!, equipmentCategory!, reallyLongEquipmentCategory, equipmentCategory!, equipmentCategory!, equipmentCategory!, equipmentCategory!, equipmentCategory!, equipmentCategory!, equipmentCategory!]
+        // up to here
 
         view.backgroundColor = UIColor.fitnessWhite
 
