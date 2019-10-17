@@ -80,7 +80,7 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
 
     func setupConstraints() {
         let contentPadding: CGFloat = 16
-        let equipmentTopPadding: CGFloat = 2
+        let equipmentTopPadding: CGFloat = 4
         let labelHeight: CGFloat = 20
 
         titleLabel.snp.makeConstraints { make in
