@@ -18,7 +18,7 @@ enum WeekDay: String, CaseIterable {
 
     /// Constructs enum from index
     init(index: Int) {
-        self = WeekDay.allCases[index - 1]
+        self = WeekDay.allCases[index]
     }
 
     /**

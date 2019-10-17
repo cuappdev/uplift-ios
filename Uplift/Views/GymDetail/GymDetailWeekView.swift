@@ -22,8 +22,13 @@ class GymDetailWeekView: UIView {
     /// Current Day of today
     private var today: WeekDay {
         get {
+            let f = DateFormatter()
+            print("Date: \(Date())")
+            print("with \(Calendar.current.component(.weekday, from: Date()))")
+//            print("testing \(f.weekdaySymbols[Calendar.current.component(.weekday, from: Date())])")
+            print("index is \(Calendar.current.component(.weekday, from: Date()))")
             let weekdayIndex = Calendar.current.component(.weekday, from: Date())
-            return WeekDay(index: weekdayIndex)
+            return WeekDay(index: (weekdayIndex + 5) % 7)
         }
     }
 
@@ -38,7 +43,7 @@ class GymDetailWeekView: UIView {
 
         setupView()
         setupConstraints()
-        weekdayCollectionView.selectItem(at: IndexPath(row: today.index - 1, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        weekdayCollectionView.selectItem(at: IndexPath(row: (today.index + 5) % 7, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     required init?(coder: NSCoder) {
