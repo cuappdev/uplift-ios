@@ -22,6 +22,23 @@ extension String {
         return ceil(boundingBox.width)
     }
 
+    private func generateListString(for stringList: [String],
+                                    lineSpacing: CGFloat = 3,
+                                    alignment: NSTextAlignment = .left,
+                                    font: UIFont) -> NSAttributedString {
+        let listString = stringList.joined(separator: "\n")
+
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = lineSpacing
+        style.alignment = alignment
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .paragraphStyle: style
+        ]
+
+        return NSAttributedString(string: listString, attributes: attributes)
+    }
+
     // Returns the string with the leading zero removed if one exists
     func removeLeadingZero() -> String {
         if (self.hasPrefix("0")) {
