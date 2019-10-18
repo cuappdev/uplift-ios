@@ -80,7 +80,7 @@ class ClassDetailTimeCell: UICollectionViewCell {
         contentView.addSubview(addToCalendarButton)
 
         addToCalendarLabel.text = ClientStrings.ClassDetail.addToCalendarButton
-        addToCalendarLabel.font = ._8SFLight
+        addToCalendarLabel.font = ._12MontserratBold
         addToCalendarLabel.textAlignment = .center
         addToCalendarLabel.textColor = .primaryBlack
         addToCalendarLabel.sizeToFit()

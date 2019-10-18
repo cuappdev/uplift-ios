@@ -114,11 +114,11 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         locationNameLabel.textAlignment = .left
         contentView.addSubview(locationNameLabel)
 
-        statusLabel.font = ._14MontserratMedium
+        statusLabel.font = ._12MontserratMedium
         contentView.addSubview(statusLabel)
 
         hoursLabel.font = ._12MontserratMedium
-        hoursLabel.textColor = .gray04
+        hoursLabel.textColor = .gray02
         contentView.addSubview(hoursLabel)
     }
 

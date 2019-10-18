@@ -93,11 +93,7 @@ class Histogram: UIView {
         }
 
         if selectedIndex < bars.count {
-            let gradient = CAGradientLayer()
-            gradient.frame = bars[selectedIndex].bounds
-            gradient.colors = [UIColor.primaryYellow.cgColor, UIColor.fitnessSelectedYellow.cgColor]
-//            bars[selectedIndex].backgroundColor = .primaryYellow
-            bars[selectedIndex].layer.insertSublayer(gradient, at: 0)
+            bars[selectedIndex].backgroundColor = .fitnessSelectedYellow
         }
 
         // SELECTED INFO
@@ -219,16 +215,12 @@ class Histogram: UIView {
             // Only update if user selected a different bar
             if selectedIndex != indexSelected {
                 if selectedIndex < bars.count {
-                    bars[selectedIndex].layer.sublayers?.removeLast()
-//                    bars[selectedIndex].backgroundColor = .primaryYellow
+                    bars[selectedIndex].backgroundColor = .primaryYellow
                 }
 
                 selectedIndex = indexSelected
 
-                let gradient = CAGradientLayer()
-                gradient.frame = selectedBar.bounds
-                gradient.colors = [UIColor.primaryYellow.cgColor, UIColor.fitnessSelectedYellow.cgColor]
-                selectedBar.layer.insertSublayer(gradient, at: 0)
+                selectedBar.backgroundColor = .fitnessSelectedYellow
 
                 selectedTimeDescriptor.text = timeDescriptorText
                 selectedTimeDescriptor.sizeToFit()
