@@ -87,7 +87,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
 
         durationLabel.font = ._18Bebas
         durationLabel.textAlignment = .center
-        durationLabel.textColor = .fitnessBlack
+        durationLabel.textColor = .primaryBlack
         addSubview(durationLabel)
     }
 

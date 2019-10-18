@@ -44,7 +44,7 @@ class ProBioBiographyCell: UICollectionViewCell {
     // MARK: - Private helpers
     private func setupViews() {
         bioSummary.font = ._20MontserratSemiBold
-        bioSummary.textColor = .fitnessBlack
+        bioSummary.textColor = .primaryBlack
         bioSummary.textAlignment = .center
         bioSummary.isScrollEnabled = false
         bioSummary.isSelectable = false
@@ -53,7 +53,7 @@ class ProBioBiographyCell: UICollectionViewCell {
         contentView.addSubview(bioSummary)
 
         bioTextView.font = ._14MontserratLight
-        bioTextView.textColor = .fitnessLightBlack
+        bioTextView.textColor = .primaryBlack
         bioTextView.textAlignment = .center
         bioTextView.isScrollEnabled = false
         bioTextView.isSelectable = false
@@ -61,7 +61,7 @@ class ProBioBiographyCell: UICollectionViewCell {
         bioTextView.textContainer.lineFragmentPadding = 0
         contentView.addSubview(bioTextView)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 

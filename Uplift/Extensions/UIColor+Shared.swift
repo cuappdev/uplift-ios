@@ -10,22 +10,30 @@ import UIKit
 
 extension UIColor {
 
+    @nonobjc static let accentBlue = colorFromCode(0x1395FE)
+    @nonobjc static let accentOrange = colorFromCode(0xFE8F13)
+    @nonobjc static let accentPurple = colorFromCode(0x3813FE)
+    @nonobjc static let accentRed = colorFromCode(0xFE1313)
+    @nonobjc static let accentSeafoam = colorFromCode(0x13FED7)
+    @nonobjc static let accentTurquoise = colorFromCode(0x1395FE)
+
     @nonobjc static let buttonShadow = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-    @nonobjc static let fitnessBlack = UIColor(red: 43/255, green: 43/255, blue: 43/255, alpha: 1.0)
-    @nonobjc static let fitnessClearGrey = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-    @nonobjc static let fitnessDarkGrey = UIColor(red: 112/255, green: 112/255, blue: 112/255, alpha: 1.0)
-    @nonobjc static let fitnessDisabledGrey = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
-    @nonobjc static let fitnessGreen = UIColor(red: 100/255, green: 194/255, blue: 112/255, alpha: 1.0)
-    @nonobjc static let fitnessLightGrey = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1.0)
-    @nonobjc static let fitnessMediumClearGrey = UIColor(red: 39/255, green: 61/255, blue: 82/255, alpha: 0.6)
+
+    @nonobjc static let closedRed = colorFromCode(0xF07D7D)
+
+    @nonobjc static let gray01 = colorFromCode(0xE5ECED)
+    @nonobjc static let gray02 = colorFromCode(0xA1A5A6)
+    @nonobjc static let gray03 = colorFromCode(0xA5A5A5)
+    @nonobjc static let gray04 = colorFromCode(0x707070)
+    @nonobjc static let gray05 = colorFromCode(0x738390)
+
+    @nonobjc static let openGreen = colorFromCode(0x64C270)
+
+    @nonobjc static let primaryBlack = colorFromCode(0x222222)
+    @nonobjc static let primaryWhite = colorFromCode(0xFFFFFF)
+    @nonobjc static let primaryYellow = colorFromCode(0xF8E71C)
+
     @nonobjc static let fitnessMediumGrey = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
-    @nonobjc static let fitnessMutedGreen = UIColor(red: 229/255, green: 236/255, blue: 237/255, alpha: 1.0)
-    @nonobjc static let fitnessOrange = colorFromCode(0xFF990E)
-    @nonobjc static let fitnessRed = UIColor(red: 240/255, green: 125/255, blue: 125/255, alpha: 1.0)
-    @nonobjc static let fitnessWhite = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-    @nonobjc static let fitnessYellow = UIColor(red: 248/255, green: 231/255, blue: 28/255, alpha: 1.0)
-    @nonobjc static let fitnessLightBlack = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1.0)
-    @nonobjc static let fitnessSecondaryBlack = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
     @nonobjc static let fitnessSelectedYellow = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
 
     public static func colorFromCode(_ code: Int) -> UIColor {

@@ -26,18 +26,16 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
 
         // BORDER
         contentView.layer.cornerRadius = 5
-        contentView.layer.backgroundColor = UIColor.white.cgColor
-        contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
-        contentView.layer.borderWidth = 0.5
+        contentView.layer.backgroundColor = UIColor.primaryWhite.cgColor
+        contentView.layer.borderColor = UIColor.gray01.cgColor
+        contentView.layer.borderWidth = 1.0
 
         // SHADOWING
-        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 15.0)
-        contentView.layer.shadowRadius = 5.0
-        contentView.layer.shadowOpacity = 0.1
+        contentView.layer.shadowColor = UIColor(red: 0.15, green: 0.15, blue: 0.37, alpha: 0.1).cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        contentView.layer.shadowRadius = 10.0
+        contentView.layer.shadowOpacity = 1.0
         contentView.layer.masksToBounds = false
-        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 9, right: -3))
-        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
         setupViews()
         setupConstraints()
@@ -54,18 +52,18 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         let changingSoon = gym.isStatusChangingSoon()
         if gym.isOpen {
             if changingSoon {
-                statusLabel.textColor = .fitnessOrange
+                statusLabel.textColor = .accentOrange
                 statusLabel.text = ClientStrings.Home.gymDetailCellOpen
             } else {
-                statusLabel.textColor = .fitnessGreen
+                statusLabel.textColor = .openGreen
                 statusLabel.text = ClientStrings.Home.gymDetailCellOpen
             }
         } else {
             if changingSoon {
-                statusLabel.textColor = .fitnessOrange
+                statusLabel.textColor = .accentOrange
                 statusLabel.text = ClientStrings.Home.gymDetailCellClosed
             } else {
-                statusLabel.textColor = .fitnessRed
+                statusLabel.textColor = .closedRed
                 statusLabel.text = ClientStrings.Home.gymDetailCellClosed
             }
         }
@@ -105,29 +103,28 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
 
     private func setupViews() {
         // YELLOW BAR
-        colorBar.backgroundColor = .fitnessYellow
+        colorBar.backgroundColor = .primaryYellow
         colorBar.clipsToBounds = true
         colorBar.layer.cornerRadius = 5
         colorBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         contentView.addSubview(colorBar)
 
         locationNameLabel.font = ._16MontserratMedium
-        locationNameLabel.textColor = .fitnessBlack
+        locationNameLabel.textColor = .primaryBlack
         locationNameLabel.textAlignment = .left
         contentView.addSubview(locationNameLabel)
 
         statusLabel.font = ._14MontserratMedium
         contentView.addSubview(statusLabel)
 
-        hoursLabel.font = ._14MontserratMedium
-        hoursLabel.textColor = .fitnessDarkGrey
+        hoursLabel.font = ._12MontserratMedium
+        hoursLabel.textColor = .gray04
         contentView.addSubview(hoursLabel)
     }
 
     private func setupConstraints() {
         let colorBarWidth = 5
         let descriptionLabelHeight = 15
-        let hoursLabelTopPadding = 3
         let leadingPadding = 16
         let locationLabelHeight = 22
         let locationLabelVerticalInset = 12

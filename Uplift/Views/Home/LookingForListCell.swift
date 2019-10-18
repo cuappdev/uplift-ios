@@ -27,11 +27,9 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
     static let minimumInterItemSpacing: CGFloat = 16
     static let minimumLineSpacing: CGFloat = 16
     static let sectionInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
-    
-    
+
     // MARK: - Overrides
     override var config: ListConfiguration {
-        
         return ListConfiguration(
             isScrollEnabled: false,
             itemSize: CGSize(width: self.width, height: self.height),
@@ -58,7 +56,7 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         cell.zoomIn()
     }
-    
+
     override func didUnhighlightItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         cell.zoomOut()

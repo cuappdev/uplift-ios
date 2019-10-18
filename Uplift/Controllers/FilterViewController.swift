@@ -97,20 +97,20 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         // START TIME SLIDER SECTION
         fitnessCenterStartTimeDivider = UIView()
-        fitnessCenterStartTimeDivider.backgroundColor = .fitnessLightGrey
+        fitnessCenterStartTimeDivider.backgroundColor = .gray01
         contentView.addSubview(fitnessCenterStartTimeDivider)
 
         startTimeTitleLabel = UILabel()
         startTimeTitleLabel.sizeToFit()
         startTimeTitleLabel.font = ._12LatoBlack
-        startTimeTitleLabel.textColor = .fitnessDarkGrey
+        startTimeTitleLabel.textColor = .gray04
         startTimeTitleLabel.text = ClientStrings.Filter.startTime
         contentView.addSubview(startTimeTitleLabel)
 
         startTimeLabel = UILabel()
         startTimeLabel.sizeToFit()
         startTimeLabel.font = ._12LatoBlack
-        startTimeLabel.textColor = .fitnessDarkGrey
+        startTimeLabel.textColor = .gray04
         startTimeLabel.text = startTime + " - " + endTime
         contentView.addSubview(startTimeLabel)
 
@@ -127,15 +127,15 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         startTimeSlider.lineHeight = 6.0
         startTimeSlider.hideLabels = true
 
-        startTimeSlider.colorBetweenHandles = .fitnessYellow
+        startTimeSlider.colorBetweenHandles = .primaryYellow
         startTimeSlider.handleColor = .white
         startTimeSlider.handleBorderWidth = 1.0
-        startTimeSlider.handleBorderColor = .fitnessLightGrey
-        startTimeSlider.tintColor = .fitnessLightGrey
+        startTimeSlider.handleBorderColor = .gray01
+        startTimeSlider.tintColor = .gray01
         contentView.addSubview(startTimeSlider)
 
         startTimeClassTypeDivider = UIView()
-        startTimeClassTypeDivider.backgroundColor = .fitnessLightGrey
+        startTimeClassTypeDivider.backgroundColor = .gray01
         contentView.addSubview(startTimeClassTypeDivider)
 
         // CLASS TYPE SECTION
@@ -153,7 +153,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         contentView.addSubview(classTypeDropdown)
 
         classTypeInstructorDivider = UIView()
-        classTypeInstructorDivider.backgroundColor = .fitnessLightGrey
+        classTypeInstructorDivider.backgroundColor = .gray01
         contentView.addSubview(classTypeInstructorDivider)
 
         classTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
@@ -182,7 +182,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         contentView.addSubview(instructorDropdown)
 
         instructorDivider = UIView()
-        instructorDivider.backgroundColor = .fitnessLightGrey
+        instructorDivider.backgroundColor = .gray01
         contentView.addSubview(instructorDivider)
 
         instructorDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
@@ -211,17 +211,17 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         if #available(iOS 13, *) {
             navigationItem.standardAppearance = .init()
             navigationItem.compactAppearance = .init()
-            navigationItem.compactAppearance?.backgroundColor = .fitnessWhite
-            navigationItem.standardAppearance?.backgroundColor = .fitnessWhite
-            titleView.textColor = .fitnessBlack
+            navigationItem.compactAppearance?.backgroundColor = .primaryWhite
+            navigationItem.standardAppearance?.backgroundColor = .primaryWhite
+            titleView.textColor = .primaryBlack
         }
 
         let doneBarButton = UIBarButtonItem(title: ClientStrings.Filter.doneButton, style: .plain, target: self, action: #selector(done))
-        doneBarButton.tintColor = .fitnessBlack
+        doneBarButton.tintColor = .primaryBlack
         self.navigationItem.rightBarButtonItem = doneBarButton
 
         let resetBarButton = UIBarButtonItem(title: ClientStrings.Filter.resetButton, style: .plain, target: self, action: #selector(reset))
-        resetBarButton.tintColor = .fitnessBlack
+        resetBarButton.tintColor = .primaryBlack
         self.navigationItem.leftBarButtonItem = resetBarButton
 
         // SCROLL VIEW
@@ -245,7 +245,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         // COLLECTION VIEW
         collectionViewTitle = UILabel()
         collectionViewTitle.font = ._12LatoBlack
-        collectionViewTitle.textColor = .fitnessDarkGrey
+        collectionViewTitle.textColor = .gray04
         collectionViewTitle.text = ClientStrings.Filter.selectGymSection
         contentView.addSubview(collectionViewTitle)
 
@@ -257,7 +257,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         gymCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         gymCollectionView.allowsMultipleSelection = true
-        gymCollectionView.backgroundColor = .fitnessLightGrey
+        gymCollectionView.backgroundColor = .gray01
         gymCollectionView.isScrollEnabled = true
         gymCollectionView.showsHorizontalScrollIndicator = false
         gymCollectionView.bounces = false
@@ -628,7 +628,7 @@ extension FilterViewController: UITableViewDataSource {
                 cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
 
                 if selectedInstructors.contains(instructorDropdownData.titles[indexPath.row]) {
-                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
+                    cell.checkBoxColoring.backgroundColor = .primaryYellow
                 }
             }
         } else if tableView == classTypeDropdown {
@@ -636,7 +636,7 @@ extension FilterViewController: UITableViewDataSource {
                 cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
 
                 if selectedClasses.contains(classTypeDropdownData.titles[indexPath.row]) {
-                    cell.checkBoxColoring.backgroundColor = .fitnessYellow
+                    cell.checkBoxColoring.backgroundColor = .primaryYellow
                 }
             }
         }
@@ -648,9 +648,9 @@ extension FilterViewController: UITableViewDataSource {
 extension FilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
-        var shouldAppend: Bool = cell.checkBoxColoring.backgroundColor == .fitnessYellow
+        var shouldAppend: Bool = cell.checkBoxColoring.backgroundColor == .primaryYellow
 
-        cell.checkBoxColoring.backgroundColor = shouldAppend ? .white : .fitnessYellow
+        cell.checkBoxColoring.backgroundColor = shouldAppend ? .white : .primaryYellow
         shouldAppend = !shouldAppend
 
         if tableView == classTypeDropdown {

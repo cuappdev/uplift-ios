@@ -27,14 +27,14 @@ class DropdownViewCell: UITableViewCell {
         titleLabel = UILabel()
         titleLabel.sizeToFit()
         titleLabel.font = ._14MontserratLight
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.text = ""
         addSubview(titleLabel)
 
         // CHECKBOX
         checkBox = UIView()
         checkBox.layer.cornerRadius = 3
-        checkBox.layer.borderColor = UIColor.fitnessLightGrey.cgColor
+        checkBox.layer.borderColor = UIColor.gray04.cgColor
         checkBox.layer.borderWidth = 0.5
         checkBox.layer.masksToBounds = false
         addSubview(checkBox)

@@ -22,33 +22,39 @@ class NoClassesEmptyStateView: UIView {
 
         emptyStateTitleLabel = UILabel()
         emptyStateTitleLabel.text = ClientStrings.Calendar.noClassesTodayLabel
-        emptyStateTitleLabel.font = ._20MontserratBold
-        emptyStateTitleLabel.textColor = .fitnessBlack
+        emptyStateTitleLabel.font = ._24MontserratBold
+        emptyStateTitleLabel.textColor = .primaryBlack
         addSubview(emptyStateTitleLabel)
 
         emptyStateDescriptionLabel = UILabel()
         emptyStateDescriptionLabel.text = ClientStrings.Calendar.noClassesTodayDescription
         emptyStateDescriptionLabel.font = ._14MontserratRegular
-        emptyStateDescriptionLabel.textColor = .fitnessBlack
+        emptyStateDescriptionLabel.textColor = .primaryBlack
         addSubview(emptyStateDescriptionLabel)
 
+        setupConstraints()
+    }
+
+    private func setupConstraints() {
+
+        emptyStateImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(128)
+            make.width.height.equalTo(80)
+            make.centerX.equalToSuperview()
+        }
+
         emptyStateTitleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
+            make.top.equalTo(emptyStateImageView.snp.bottom).offset(24)
             make.height.equalTo(emptyStateTitleLabel.intrinsicContentSize.height)
         }
 
-        emptyStateImageView.snp.makeConstraints { make in
-            make.bottom.equalTo(emptyStateTitleLabel.snp.top).offset(-24)
-            make.width.equalTo(86.0)
-            make.height.equalTo(71.0)
-            make.centerX.equalToSuperview()
-        }
-
         emptyStateDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyStateTitleLabel.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
+            make.top.equalTo(emptyStateTitleLabel.snp.bottom).offset(8)
+            make.height.equalTo(emptyStateTitleLabel.intrinsicContentSize.height)
         }
 
     }

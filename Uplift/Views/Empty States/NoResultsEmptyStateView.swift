@@ -8,18 +8,17 @@
 
 import UIKit
 
-
 class NoResultsEmptyStateView: UIView {
-    
+
     // MARK: - INITIALIZATION
     var emptyStateImage: UIImageView!
-    
+
     var emptyStateMessageLabel: UILabel!
     var emptyStateTitleLabel: UILabel!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         // IMAGE
         emptyStateImage = UIImageView(image: UIImage(named: "handgrip"))
         addSubview(emptyStateImage)
@@ -27,16 +26,16 @@ class NoResultsEmptyStateView: UIView {
         // TITLE
         emptyStateTitleLabel = UILabel()
         emptyStateTitleLabel.text = ClientStrings.Filter.noResultsLabel
-        emptyStateTitleLabel.font = ._20MontserratBold
-        emptyStateTitleLabel.textColor = .fitnessBlack
+        emptyStateTitleLabel.font = ._24MontserratBold
+        emptyStateTitleLabel.textColor = .primaryBlack
         emptyStateTitleLabel.textAlignment = .center
         addSubview(emptyStateTitleLabel)
-        
+
         // MESSAGE
         emptyStateMessageLabel = UILabel()
         emptyStateMessageLabel.text = ClientStrings.Filter.noResultsDescription
         emptyStateMessageLabel.font = ._14MontserratRegular
-        emptyStateMessageLabel.textColor = .fitnessBlack
+        emptyStateMessageLabel.textColor = .primaryBlack
         emptyStateMessageLabel.textAlignment = .center
         addSubview(emptyStateMessageLabel)
         
@@ -46,7 +45,7 @@ class NoResultsEmptyStateView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         emptyStateImage.snp.makeConstraints { make in
@@ -54,14 +53,14 @@ class NoResultsEmptyStateView: UIView {
             make.width.height.equalTo(80)
             make.centerX.equalToSuperview()
         }
-    
+
         emptyStateTitleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
             make.top.equalTo(emptyStateImage.snp.bottom).offset(24)
             make.height.equalTo(emptyStateTitleLabel.intrinsicContentSize.height)
         }
-        
+
         emptyStateMessageLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()

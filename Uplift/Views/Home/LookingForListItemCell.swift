@@ -27,7 +27,7 @@ class LookingForListItemCell: ListItemCollectionViewCell<Tag> {
         // IMAGE
         image = UIImageView()
         contentView.addSubview(image)
-        
+
         // TITLE
         title = UILabel()
         title.font = ._16MontserratSemiBold
@@ -55,11 +55,10 @@ class LookingForListItemCell: ListItemCollectionViewCell<Tag> {
             make.size.equalToSuperview()
             make.center.equalToSuperview()
         }
-        
+
         title.snp.updateConstraints { make in
             make.center.equalToSuperview()
         }
     }
-    
-}
 
+}

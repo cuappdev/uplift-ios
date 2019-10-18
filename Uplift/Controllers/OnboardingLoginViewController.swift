@@ -33,34 +33,34 @@ class OnboardingLoginViewController: UIViewController {
     
     let checkSymbolSize: CGFloat = 24
     let checkArrowSize = CGSize(width: 16.95, height: 11.59)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
         
-        view.backgroundColor = .fitnessWhite
-        
+        view.backgroundColor = .primaryWhite
+
         // Google Sign in
         GIDSignIn.sharedInstance()?.presentingViewController = self
-        
+
         titleLabel = UILabel()
         titleLabel.text = ClientStrings.Onboarding.vcTitleLabel
         titleLabel.font = ._24MontserratBold
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         view.addSubview(titleLabel)
-        
+
         signUpLabel = UILabel()
         signUpLabel.text = ClientStrings.Onboarding.signupLabel
         signUpLabel.font = ._16MontserratBold
-        signUpLabel.textColor = .fitnessBlack
+        signUpLabel.textColor = .primaryBlack
         view.addSubview(signUpLabel)
-        
+
         googleBtn = UIButton()
         googleBtn.titleLabel?.font = ._16MontserratBold
-        googleBtn.setTitleColor(.fitnessLightGrey, for: .normal)
+        googleBtn.setTitleColor(.gray01, for: .normal)
         let googleWhite = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         let googleBorder = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1).cgColor
         googleBtn.backgroundColor = googleWhite
@@ -71,11 +71,11 @@ class OnboardingLoginViewController: UIViewController {
         googleBtn.layer.cornerRadius = cornerRadius
         googleBtn.addTarget(self, action: #selector(googleButtonTapped), for: .touchDown)
         view.addSubview(googleBtn)
-        
+
         nextButton = UIButton()
         nextButton.clipsToBounds = false
         nextButton.layer.cornerRadius = nextButtonSize / 2
-        nextButton.backgroundColor = .fitnessWhite
+        nextButton.backgroundColor = .primaryWhite
         nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
@@ -84,16 +84,16 @@ class OnboardingLoginViewController: UIViewController {
         nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)
-        
+
         // If already signed in, make Next Button Yellow
         toggleNextButton(enabled: isGoogleSignedIn())
-        
+
         // Check for google sign in
         NotificationCenter.default.addObserver(self, selector: #selector(userSignedInWithGoogle), name: NSNotification.Name("SuccessfulSignInNotification"), object: nil)
-        
+
         setUpConstraints()
     }
-    
+
     // MARK: UI Control
     func setUpConstraints() {
         titleLabel.snp.makeConstraints { make in
@@ -123,13 +123,13 @@ class OnboardingLoginViewController: UIViewController {
             make.size.equalTo(checkArrowSize)
         }
     }
-    
+
     /// Toggles whether the Next button can be pressed (also adds the checkmark in the email field)
     func toggleNextButton(enabled: Bool) {
         if enabled {
             nextButton.isEnabled = true
-            nextButton.backgroundColor = .fitnessYellow
-            nextButton.layer.borderColor = UIColor.fitnessBlack.cgColor
+            nextButton.backgroundColor = .primaryYellow
+            nextButton.layer.borderColor = UIColor.primaryBlack.cgColor
             nextButton.alpha = 1
             nextButtonArrow.alpha = 1
         } else {
@@ -138,15 +138,15 @@ class OnboardingLoginViewController: UIViewController {
             nextButtonArrow.alpha = 0
         }
     }
-    
+
     func displayEmail() {
         /// Changes the google button to display the user's email instead of the google logo
         googleBtn.setImage(nil, for: .normal)
-        googleBtn.contentHorizontalAlignment = .left;
+        googleBtn.contentHorizontalAlignment = .left
         googleBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: buttonPadding, bottom: 0, right: 0)
         googleBtn.setTitle(User.currentUser?.email, for: .normal)
     }
-    
+
     @objc func goToNextView() {
         if UserDefaults.standard.bool(forKey: Identifiers.hasSeenOnboarding) {
             // Seen Onboarding and had to relogin
@@ -163,7 +163,7 @@ class OnboardingLoginViewController: UIViewController {
         toggleNextButton(enabled: didSignIn)
         googleBtn.isUserInteractionEnabled = !didSignIn
     }
-    
+
     @objc func userSignedInWithGoogle() {
         toggleNextButton(enabled: true)
         signUpLabel.alpha = 0
@@ -171,7 +171,7 @@ class OnboardingLoginViewController: UIViewController {
         googleBtn.isUserInteractionEnabled = false
     }
 
-    // MARK:- Google Sign In
+    // MARK: - Google Sign In
     @objc func googleButtonTapped() {
         if let appDelegate = UIApplication.shared.delegate as? GIDSignInDelegate {
             GIDSignIn.sharedInstance()?.delegate = appDelegate
@@ -180,8 +180,8 @@ class OnboardingLoginViewController: UIViewController {
             GIDSignIn.sharedInstance()?.signIn()
         }
     }
-    
-    // MARK:- Helpers
+
+    // MARK: - Helpers
     private func isGoogleSignedIn() -> Bool {
         return (UIApplication.shared.delegate as! AppDelegate).isGoogleLoggedIn()
     }

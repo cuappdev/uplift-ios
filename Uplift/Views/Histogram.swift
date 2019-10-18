@@ -56,7 +56,7 @@ class Histogram: UIView {
 
         // AXIS
         bottomAxis = UIView()
-        bottomAxis.backgroundColor = .fitnessLightGrey
+        bottomAxis.backgroundColor = .fitnessMediumGrey
         addSubview(bottomAxis)
 
         bottomAxisTicks = []
@@ -65,7 +65,7 @@ class Histogram: UIView {
 
         for _ in openHour..<(closeHour - 1) {
             let tick = UIView()
-            tick.backgroundColor = .fitnessLightGrey
+            tick.backgroundColor = .fitnessMediumGrey
             addSubview(tick)
             bottomAxisTicks.append(tick)
         }
@@ -74,7 +74,7 @@ class Histogram: UIView {
         bars = []
         for _ in openHour..<closeHour {
             let bar = UIView()
-            bar.backgroundColor = .fitnessYellow
+            bar.backgroundColor = .primaryYellow
             addSubview(bar)
             bars.append(bar)
 
@@ -93,23 +93,27 @@ class Histogram: UIView {
         }
 
         if selectedIndex < bars.count {
-            bars[selectedIndex].backgroundColor = UIColor(red: 216/255, green: 200/255, blue: 0, alpha: 1.0)
+            let gradient = CAGradientLayer()
+            gradient.frame = bars[selectedIndex].bounds
+            gradient.colors = [UIColor.primaryYellow.cgColor, UIColor.fitnessSelectedYellow.cgColor]
+//            bars[selectedIndex].backgroundColor = .primaryYellow
+            bars[selectedIndex].layer.insertSublayer(gradient, at: 0)
         }
 
         // SELECTED INFO
         selectedLine = UIView()
-        selectedLine.backgroundColor = .fitnessLightGrey
+        selectedLine.backgroundColor = .fitnessMediumGrey
         addSubview(selectedLine)
 
         selectedTime = UILabel()
-        selectedTime.textColor = .fitnessDarkGrey
+        selectedTime.textColor = .gray04
         selectedTime.font = ._12LatoBold
         selectedTime.textAlignment = .right
         selectedTime.text = todaysHours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
         addSubview(selectedTime)
 
         selectedTimeDescriptor = UILabel()
-        selectedTimeDescriptor.textColor = .fitnessDarkGrey
+        selectedTimeDescriptor.textColor = .gray04
         selectedTimeDescriptor.font = ._12LatoRegular
         selectedTimeDescriptor.textAlignment = .left
         selectedTimeDescriptor.text = timeDescriptorText
@@ -208,22 +212,28 @@ class Histogram: UIView {
         }
     }
 
-    @objc func selectBar( sender: UITapGestureRecognizer) {
+    @objc func selectBar(sender: UITapGestureRecognizer) {
         let selectedBar = sender.view!
 
         if let indexSelected = bars.firstIndex(of: selectedBar) {
             // Only update if user selected a different bar
             if selectedIndex != indexSelected {
                 if selectedIndex < bars.count {
-                    bars[selectedIndex].backgroundColor = .fitnessYellow
+                    bars[selectedIndex].layer.sublayers?.removeLast()
+//                    bars[selectedIndex].backgroundColor = .primaryYellow
                 }
 
                 selectedIndex = indexSelected
-                selectedBar.backgroundColor = .fitnessSelectedYellow
-        selectedTimeDescriptor.text = timeDescriptorText
-        selectedTimeDescriptor.sizeToFit()
 
-        selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
+                let gradient = CAGradientLayer()
+                gradient.frame = selectedBar.bounds
+                gradient.colors = [UIColor.primaryYellow.cgColor, UIColor.fitnessSelectedYellow.cgColor]
+                selectedBar.layer.insertSublayer(gradient, at: 0)
+
+                selectedTimeDescriptor.text = timeDescriptorText
+                selectedTimeDescriptor.sizeToFit()
+
+                selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
 
                 selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
 
