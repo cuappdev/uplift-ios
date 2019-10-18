@@ -217,15 +217,15 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             var dayOfWeekLabelTextColor: UIColor?
 
             if dateForCell < currDate {
-                dateLabelTextColor = .fitnessMediumGrey
+                dateLabelTextColor = .gray02
                 dayOfWeekLabelTextColor = .gray02
             }
 
             if dateForCell == calendarDateSelected {
                 dateLabelCircleIsHidden = false
-                dateLabelFont = UIFont._12LatoBlack
-                dateLabelTextColor = .gray01
-                dayOfWeekLabelFont = ._12LatoBlack
+                dateLabelFont = ._12MontserratBold
+                dateLabelTextColor = .primaryBlack
+                dayOfWeekLabelFont = ._12MontserratBold
                 dayOfWeekLabelTextColor = .primaryBlack
             }
 

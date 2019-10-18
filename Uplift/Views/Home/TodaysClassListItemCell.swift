@@ -76,7 +76,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         imageView.contentMode = .scaleAspectFill
         contentView.addSubview(imageView)
 
-        cancelledView.backgroundColor = .closedRed
+        cancelledView.backgroundColor = .accentClosed
         cancelledView.isHidden = true
         contentView.addSubview(cancelledView)
 

@@ -56,7 +56,7 @@ class Histogram: UIView {
 
         // AXIS
         bottomAxis = UIView()
-        bottomAxis.backgroundColor = .fitnessMediumGrey
+        bottomAxis.backgroundColor = .gray01
         addSubview(bottomAxis)
 
         bottomAxisTicks = []
@@ -65,7 +65,7 @@ class Histogram: UIView {
 
         for _ in openHour..<(closeHour - 1) {
             let tick = UIView()
-            tick.backgroundColor = .fitnessMediumGrey
+            tick.backgroundColor = .gray01
             addSubview(tick)
             bottomAxisTicks.append(tick)
         }
@@ -74,7 +74,8 @@ class Histogram: UIView {
         bars = []
         for _ in openHour..<closeHour {
             let bar = UIView()
-            bar.backgroundColor = .primaryYellow
+            bar.backgroundColor = .primaryLightYellow
+            bar.layer.cornerRadius = 2.0
             addSubview(bar)
             bars.append(bar)
 
@@ -93,24 +94,24 @@ class Histogram: UIView {
         }
 
         if selectedIndex < bars.count {
-            bars[selectedIndex].backgroundColor = .fitnessSelectedYellow
+            bars[selectedIndex].backgroundColor = .primaryYellow
         }
 
         // SELECTED INFO
         selectedLine = UIView()
-        selectedLine.backgroundColor = .fitnessMediumGrey
+        selectedLine.backgroundColor = .gray03
         addSubview(selectedLine)
 
         selectedTime = UILabel()
         selectedTime.textColor = .gray04
-        selectedTime.font = ._12LatoBold
+        selectedTime.font = ._12MontserratBold
         selectedTime.textAlignment = .right
-        selectedTime.text = todaysHours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
+        selectedTime.text = todaysHours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha")
         addSubview(selectedTime)
 
         selectedTimeDescriptor = UILabel()
         selectedTimeDescriptor.textColor = .gray04
-        selectedTimeDescriptor.font = ._12LatoRegular
+        selectedTimeDescriptor.font = ._12MontserratMedium
         selectedTimeDescriptor.textAlignment = .left
         selectedTimeDescriptor.text = timeDescriptorText
         selectedTimeDescriptor.sizeToFit()
@@ -129,7 +130,7 @@ class Histogram: UIView {
         bottomAxis.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-1)
-            make.height.equalTo(2)
+            make.height.equalTo(1)
         }
 
         let tickSpacing = (Int(frame.width) - bottomAxisTicks.count * 2 - 4) / (bottomAxisTicks.count + 1)
@@ -137,7 +138,7 @@ class Histogram: UIView {
 
         (0..<bottomAxisTicks.count).forEach { i in
             let tick = bottomAxisTicks[i]
-            let tickWidth: CGFloat = 2
+            let tickWidth: CGFloat = 1
             let tickHeight: CGFloat = 3
 
             tick.snp.makeConstraints { make in
@@ -183,7 +184,7 @@ class Histogram: UIView {
             selectedLine.snp.remakeConstraints { make in
                 make.centerX.equalTo(bars[selectedIndex].snp.centerX)
                 make.bottom.equalTo(bars[selectedIndex].snp.top)
-                make.width.equalTo(2)
+                make.width.equalTo(1)
                 make.top.equalToSuperview().offset(26)
             }
         }
@@ -215,19 +216,17 @@ class Histogram: UIView {
             // Only update if user selected a different bar
             if selectedIndex != indexSelected {
                 if selectedIndex < bars.count {
-                    bars[selectedIndex].backgroundColor = .primaryYellow
+                    bars[selectedIndex].backgroundColor = .primaryLightYellow
                 }
 
                 selectedIndex = indexSelected
 
-                selectedBar.backgroundColor = .fitnessSelectedYellow
+                selectedBar.backgroundColor = .primaryYellow
 
                 selectedTimeDescriptor.text = timeDescriptorText
                 selectedTimeDescriptor.sizeToFit()
 
-                selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
-
-                selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha :")
+                selectedTime.text = hours.openTime.addingTimeInterval( Double(selectedIndex) * secondsPerHour ).getStringOfDatetime(format: "ha")
 
                 setupSelectedConstraints()
             }

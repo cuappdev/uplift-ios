@@ -17,7 +17,7 @@ class CalendarCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         dateLabelCircle.isHidden = true
-        dateLabel.textColor = .primaryBlack
+        dateLabel.textColor = .gray04
         dayOfWeekLabel.textColor = .gray04
     }
 
@@ -59,18 +59,18 @@ class CalendarCell: UICollectionViewCell {
 
     // MARK: - Private helpers
     private func setupViews() {
-        dateLabelCircle.backgroundColor = .primaryBlack
+        dateLabelCircle.backgroundColor = .primaryYellow
         dateLabelCircle.isHidden = true
         dateLabelCircle.layer.cornerRadius = 12
         addSubview(dateLabelCircle)
 
-        dateLabel.font = ._12LatoRegular
+        dateLabel.font = ._12MontserratMedium
         dateLabel.textAlignment = .center
-        dateLabel.textColor = .primaryBlack
+        dateLabel.textColor = .gray04
         dateLabel.sizeToFit()
         addSubview(dateLabel)
 
-        dayOfWeekLabel.font = ._12LatoRegular
+        dayOfWeekLabel.font = ._12MontserratMedium
         dayOfWeekLabel.textAlignment = .center
         dayOfWeekLabel.textColor = .gray04
         dayOfWeekLabel.sizeToFit()

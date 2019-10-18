@@ -42,7 +42,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         
         statusLabel = UILabel()
         statusLabel.font = ._12MontserratMedium
-        statusLabel.textColor = .openGreen
+        statusLabel.textColor = .accentOpen
         statusLabel.sizeToFit()
         statusLabel.textAlignment = .left
         contentView.addSubview(statusLabel)

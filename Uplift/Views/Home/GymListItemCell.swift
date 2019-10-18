@@ -55,7 +55,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
                 statusLabel.textColor = .accentOrange
                 statusLabel.text = ClientStrings.Home.gymDetailCellOpen
             } else {
-                statusLabel.textColor = .openGreen
+                statusLabel.textColor = .accentOpen
                 statusLabel.text = ClientStrings.Home.gymDetailCellOpen
             }
         } else {
@@ -63,7 +63,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
                 statusLabel.textColor = .accentOrange
                 statusLabel.text = ClientStrings.Home.gymDetailCellClosed
             } else {
-                statusLabel.textColor = .closedRed
+                statusLabel.textColor = .accentClosed
                 statusLabel.text = ClientStrings.Home.gymDetailCellClosed
             }
         }
