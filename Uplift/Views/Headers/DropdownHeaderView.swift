@@ -34,7 +34,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         layer.backgroundColor = UIColor.white.cgColor
 
         titleLabel = UILabel()
-        titleLabel.font = ._12LatoBlack
+        titleLabel.font = ._12MontserratBold
         titleLabel.textColor = .gray04
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
@@ -46,7 +46,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         selectedFiltersLabel = UILabel()
         selectedFiltersLabel.textAlignment = .right
         selectedFiltersLabel.font = UIFont._14MontserratRegular
-        selectedFiltersLabel.textColor = UIColor.gray04
+        selectedFiltersLabel.textColor = .primaryBlack
         selectedFiltersLabel.adjustsFontSizeToFitWidth = false
         selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         contentView.addSubview(selectedFiltersLabel)

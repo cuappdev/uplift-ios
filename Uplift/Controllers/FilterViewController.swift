@@ -102,14 +102,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         startTimeTitleLabel = UILabel()
         startTimeTitleLabel.sizeToFit()
-        startTimeTitleLabel.font = ._12LatoBlack
+        startTimeTitleLabel.font = ._12MontserratBold
         startTimeTitleLabel.textColor = .gray04
         startTimeTitleLabel.text = ClientStrings.Filter.startTime
         contentView.addSubview(startTimeTitleLabel)
 
         startTimeLabel = UILabel()
         startTimeLabel.sizeToFit()
-        startTimeLabel.font = ._12LatoBlack
+        startTimeLabel.font = ._12MontserratBold
         startTimeLabel.textColor = .gray04
         startTimeLabel.text = startTime + " - " + endTime
         contentView.addSubview(startTimeLabel)
@@ -131,6 +131,10 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         startTimeSlider.handleColor = .white
         startTimeSlider.handleBorderWidth = 1.0
         startTimeSlider.handleBorderColor = .gray01
+        startTimeSlider.handleShadowColor = .gray02
+        startTimeSlider.handleShadowOffset = CGSize(width: 0, height: 2)
+        startTimeSlider.handleShadowOpacity = 0.6
+        startTimeSlider.handleShadowRadius = 1.0
         startTimeSlider.tintColor = .gray01
         contentView.addSubview(startTimeSlider)
 
@@ -204,7 +208,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         // NAVIGATION BAR
         let titleView = UILabel()
         titleView.text = ClientStrings.Filter.vcTitleLabel
-        titleView.font = ._14LatoBlack
+        titleView.font = ._14MontserratBold
         self.navigationItem.titleView = titleView
 
         // Color Navigation Bar White if Dark Mode
@@ -218,10 +222,16 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         let doneBarButton = UIBarButtonItem(title: ClientStrings.Filter.doneButton, style: .plain, target: self, action: #selector(done))
         doneBarButton.tintColor = .primaryBlack
+        doneBarButton.setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont._14MontserratMedium as Any
+        ], for: .normal)
         self.navigationItem.rightBarButtonItem = doneBarButton
 
         let resetBarButton = UIBarButtonItem(title: ClientStrings.Filter.resetButton, style: .plain, target: self, action: #selector(reset))
         resetBarButton.tintColor = .primaryBlack
+        resetBarButton.setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont._14MontserratMedium as Any
+        ], for: .normal)
         self.navigationItem.leftBarButtonItem = resetBarButton
 
         // SCROLL VIEW
@@ -244,7 +254,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         // COLLECTION VIEW
         collectionViewTitle = UILabel()
-        collectionViewTitle.font = ._12LatoBlack
+        collectionViewTitle.font = ._12MontserratBold
         collectionViewTitle.textColor = .gray04
         collectionViewTitle.text = ClientStrings.Filter.selectGymSection
         contentView.addSubview(collectionViewTitle)
@@ -270,7 +280,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         gyms = []
 
         NetworkManager.shared.getGymNames { (gyms) in
-
             self.gyms = gyms
             self.gymCollectionView.reloadData()
         }
@@ -394,7 +403,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         let filterParameters = FilterParameters(classNames: [], endTime: maxDate, gymIds: [], instructorNames: [], shouldFilter: false, startTime: minDate, tags: [])
 
         delegate?.filterOptions(params: filterParameters)
-        
+
         dismiss(animated: true, completion: nil)
 
     }
