@@ -28,7 +28,7 @@ class GymDetailWeekView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setupView()
+        setupCollectionView()
         setupConstraints()
         weekdayCollectionView.selectItem(at: IndexPath(row: todayIndex(), section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
@@ -43,7 +43,7 @@ class GymDetailWeekView: UIView {
         super.updateConstraints()
     }
 
-    private func setupView() {
+    private func setupCollectionView() {
         backgroundColor = .fitnessWhite
 
         let daySpacing: CGFloat = 19
