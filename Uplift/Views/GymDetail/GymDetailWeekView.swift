@@ -17,15 +17,7 @@ class GymDetailWeekView: UIView {
     private var weekdayCollectionView: UICollectionView!
 
     // MARK: - Info
-    private var days: [WeekDay] = WeekDay.allCases 
-
-    /// Current Day of today
-    private var today: WeekDay {
-        get {
-            let weekdayIndex = Calendar.current.component(.weekday, from: Date())
-            return WeekDay(index: (weekdayIndex + 5) % 7)
-        }
-    }
+    private var days: [WeekDay] = WeekDay.allCases
 
     // MARK: - Display
     private let daysSize = CGSize(width: 24, height: 24)
@@ -38,7 +30,7 @@ class GymDetailWeekView: UIView {
 
         setupView()
         setupConstraints()
-        weekdayCollectionView.selectItem(at: IndexPath(row: (today.index + 5) % 7, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        weekdayCollectionView.selectItem(at: IndexPath(row: todayIndex(), section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     required init?(coder: NSCoder) {
@@ -84,6 +76,23 @@ class GymDetailWeekView: UIView {
             make.trailing.equalToSuperview().inset(weekdayDisplayInset - weekdayInterimPadding)
         }
     }
+
+    // MARK: - Helper Functions
+    /// Changes the value returned from Calendar.current.component to match the indexing used in the WeekDay enum
+    private func calenderToEnumIndex(_ index: Int) -> Int {
+        return (index + 5) % 7
+    }
+
+    /// Identifies if a day is today based on the index
+    private func cellIsToday(index: Int) -> Bool {
+        let weekdayIndex = Calendar.current.component(.weekday, from: Date())
+        return calenderToEnumIndex(weekdayIndex) == index
+    }
+
+    private func todayIndex() -> Int {
+        let weekdayIndex = Calendar.current.component(.weekday, from: Date())
+        return calenderToEnumIndex(weekdayIndex)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -113,7 +122,7 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
             return UICollectionViewCell()
         }
-        cell.configure(weekday: days[indexPath.row], today: today)
+        cell.configure(weekday: days[indexPath.row], today: cellIsToday(index: indexPath.row))
         return cell
     }
 }

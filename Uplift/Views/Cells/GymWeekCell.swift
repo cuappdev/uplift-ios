@@ -11,9 +11,6 @@ import SnapKit
 
 class GymWeekCell: UICollectionViewCell {
 
-    // MARK: - Identifier
-    static let identifier = Identifiers.gymWeekCell
-
     // MARK: - Views
     private var dayLabel: UILabel!
     private var backCircle: UIView!
@@ -21,8 +18,8 @@ class GymWeekCell: UICollectionViewCell {
     // MARK: - Info
     /// Weekday this cell represents
     private var day: WeekDay?
-    /// Weekday representing current day of week
-    private var today: WeekDay?
+    /// Is this day today
+    private var today: Bool = false
 
     // MARK: - Inits
     override init(frame: CGRect) {
@@ -64,9 +61,9 @@ class GymWeekCell: UICollectionViewCell {
     }
 
     // MARK: - Functionality
-    func configure(weekday: WeekDay, today: WeekDay) {
+    func configure(weekday: WeekDay, today: Bool) {
         day = weekday
-        self.today = today
+        self.today = today 
         dayLabel.text = weekday.rawValue
         update()
     }
@@ -80,7 +77,7 @@ class GymWeekCell: UICollectionViewCell {
             backCircle.backgroundColor = .fitnessYellow
             backCircle.alpha = 1
         } else { // Not selected
-            if today == day { // Cell represents today
+            if today { // Cell represents today
                 backCircle.backgroundColor = .fitnessLightGrey
                 backCircle.alpha = 1
             } else { // Cell represents some other day of week
