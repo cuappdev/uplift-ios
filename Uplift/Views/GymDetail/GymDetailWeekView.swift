@@ -46,15 +46,12 @@ class GymDetailWeekView: UIView {
     private func setupView() {
         backgroundColor = .fitnessWhite
 
-        // Spacing Constants
         let daySpacing: CGFloat = 19
 
-        // CollectionView Flow Layout
         let weekdayFlowLayout = UICollectionViewFlowLayout()
         weekdayFlowLayout.itemSize = daysSize
         weekdayFlowLayout.minimumInteritemSpacing = daySpacing
 
-        // CollectionView
         weekdayCollectionView = UICollectionView(frame: .zero, collectionViewLayout: weekdayFlowLayout)
         weekdayCollectionView.register(GymWeekCell.self, forCellWithReuseIdentifier: Identifiers.gymWeekCell)
         weekdayCollectionView.allowsSelection = true
