@@ -152,9 +152,7 @@ class ClassListViewController: UIViewController {
             NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date)) { [weak self] classes in
                 guard let strongSelf = self else { return }
 
-                strongSelf.classList[index] = classes.sorted { (first, second) in
-                    return first.startTime < second.startTime
-                }
+                strongSelf.classList[index] = classes.sorted(by: { $0.startTime < $1.startTime })
                 strongSelf.updateClassCollectionViewWithFilters()
             }
             return
