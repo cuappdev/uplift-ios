@@ -22,7 +22,7 @@ class NoResultsEmptyStateView: UIView {
         // IMAGE
         emptyStateImage = UIImageView(image: UIImage(named: "handgrip"))
         addSubview(emptyStateImage)
-        
+
         // TITLE
         emptyStateTitleLabel = UILabel()
         emptyStateTitleLabel.text = ClientStrings.Filter.noResultsLabel
@@ -48,17 +48,17 @@ class NoResultsEmptyStateView: UIView {
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        emptyStateImage.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(128)
-            make.width.height.equalTo(80)
-            make.centerX.equalToSuperview()
-        }
-
         emptyStateTitleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
-            make.top.equalTo(emptyStateImage.snp.bottom).offset(24)
+            make.top.equalToSuperview().offset(197)
             make.height.equalTo(emptyStateTitleLabel.intrinsicContentSize.height)
+        }
+
+        emptyStateImage.snp.makeConstraints { make in
+            make.bottom.equalTo(emptyStateTitleLabel.snp.top).offset(-24)
+            make.width.height.equalTo(80)
+            make.centerX.equalToSuperview()
         }
 
         emptyStateMessageLabel.snp.makeConstraints { make in
