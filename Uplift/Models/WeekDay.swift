@@ -37,23 +37,18 @@ enum WeekDay: String, CaseIterable {
     /// Constructs enum from Weekday String
     init(day: String) {
         let d = day.lowercased()
-        if d == "sunday" {
-            self = .sunday
-        } else if d == "monday" {
-            self = .monday
-        } else if d == "tuesday" {
-            self = .tuesday
-        } else if d == "wednesday" {
-            self = .wednesday
-        } else if d == "thursday" {
-            self = .thursday
-        } else if d == "friday" {
-            self = .friday
-        } else if d == "saturday" {
-            self = .saturday
-        } else {
-            print("Invalid Day String was passed: \(day) doesn't correspond to valid day")
-            self = .sunday
+        switch d {
+            case "sunday":      self = .sunday
+            case "monday":      self = .monday
+            case "tuesday":     self = .tuesday
+            case "wednesday":   self = .wednesday
+            case "thursday":    self = .thursday
+            case "friday":      self = .friday    
+            case "saturday":    self = .saturday
+            case "sunday":      self  = .sunday 
+            default:
+                print("Invalid Day String was passed: \(day) doesn't correspond to valid day")
+                self = .sunday
         }
     }
 }
