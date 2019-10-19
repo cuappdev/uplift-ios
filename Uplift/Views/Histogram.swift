@@ -28,8 +28,9 @@ class Histogram: UIView {
     private let mediumThreshold = 25
     private let secondsPerHour: Double = 3600.0
     private let timeDescriptors = [ClientStrings.Histogram.businessLevel1, ClientStrings.Histogram.businessLevel2, ClientStrings.Histogram.businessLevel3]
+
     /// Returns the proper time descriptor label text
-    private var timeDescriptorText: String { 
+    private var timeDescriptorText: String {
         get {
             if data[selectedIndex + openHour] < mediumThreshold {
                 return timeDescriptors[0]
@@ -76,6 +77,7 @@ class Histogram: UIView {
             let bar = UIView()
             bar.backgroundColor = .primaryLightYellow
             bar.layer.cornerRadius = 2.0
+            bar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             addSubview(bar)
             bars.append(bar)
 
@@ -159,16 +161,16 @@ class Histogram: UIView {
             let bar = bars[i]
 
             bar.snp.makeConstraints { make in
-                make.bottom.equalTo(bottomAxis.snp.top)
+                make.bottom.equalTo(bottomAxis.snp.top).offset(-1)
                 if i == 0 {
-                    make.width.equalTo(tickSpacing)
+                    make.width.equalTo(tickSpacing - 2)
                     make.trailing.equalTo(bottomAxisTicks[i].snp.leading)
                 } else if i == bars.count - 1 {
-                    make.width.equalTo(tickSpacing)
+                    make.width.equalTo(tickSpacing - 2)
                     make.leading.equalTo(bottomAxisTicks[i - 1].snp.trailing)
                 } else {
-                    make.leading.equalTo(bottomAxisTicks[i - 1].snp.trailing)
-                    make.trailing.equalTo(bottomAxisTicks[i].snp.leading)
+                    make.leading.equalTo(bottomAxisTicks[i - 1].snp.trailing).offset(1)
+                    make.trailing.equalTo(bottomAxisTicks[i].snp.leading).offset(-1)
                 }
                 let height = 72 * (data[i + openHour]) / 100
                 make.height.equalTo(height)
