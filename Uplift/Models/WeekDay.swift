@@ -15,11 +15,6 @@ enum WeekDay: String, CaseIterable {
     case saturday = "Sa"
     case sunday = "Su"
 
-    /// Constructs enum from index
-    init(index: Int) {
-        self = WeekDay.allCases[(index + 5) % 7]
-    }
-
     /// Maps each enum case to index corresponding to ones returned by
     /// Calendar.current.component(.weekDay, from: Date())
     var index: Int { 
@@ -33,23 +28,6 @@ enum WeekDay: String, CaseIterable {
             case .friday:       return 6
             case .saturday:     return 7
             }
-        }
-    }
-
-    /// Constructs enum from Weekday String
-    init(day: String) {
-        let d = day.lowercased()
-        switch d {
-            case "monday":      self = .monday
-            case "tuesday":     self = .tuesday
-            case "wednesday":   self = .wednesday
-            case "thursday":    self = .thursday
-            case "friday":      self = .friday    
-            case "saturday":    self = .saturday
-            case "sunday":      self  = .sunday 
-            default:
-                print("Invalid Day String was passed: \(day) doesn't correspond to valid day")
-                self = .sunday
         }
     }
 }

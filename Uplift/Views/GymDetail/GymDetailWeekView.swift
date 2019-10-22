@@ -33,7 +33,7 @@ class GymDetailWeekView: UIView {
 
         // Preselect Today
         let todayIndex = Calendar.current.component(.weekday, from: Date())
-        weekdayCollectionView.selectItem(at: IndexPath(row: todayIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        weekdayCollectionView.selectItem(at: IndexPath(row: (todayIndex + 5) % 7, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     required init?(coder: NSCoder) {
@@ -76,13 +76,6 @@ class GymDetailWeekView: UIView {
             make.trailing.equalToSuperview().inset(weekdayDisplayInset - weekdayInterimPadding)
         }
     }
-
-    // MARK: - Helper Functions
-    /// Identifies if a day is today based on the index
-    private func cellIsToday(index: Int) -> Bool {
-        let weekdayIndex = Calendar.current.component(.weekday, from: Date())
-        return weekdayIndex == index
-    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -112,7 +105,7 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
             return UICollectionViewCell()
         }
-        cell.configure(weekday: days[indexPath.row], today: cellIsToday(index: indexPath.row))
+        cell.configure(weekday: days[indexPath.row])
         return cell
     }
 }
