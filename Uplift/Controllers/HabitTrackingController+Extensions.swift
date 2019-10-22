@@ -18,7 +18,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         let title = UILabel()
         title.font = ._14MontserratBold
         title.textAlignment = .left
-        title.textColor = .fitnessDarkGrey
+        title.textColor = .gray04
         header.addSubview(title)
 
         title.snp.makeConstraints { make in

@@ -38,7 +38,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .fitnessWhite
+        view.backgroundColor = .primaryWhite
         let defaults = UserDefaults.standard
         let buttonBorderSize: CGFloat = 2
         
@@ -53,7 +53,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         titleLabel = UILabel()
         titleLabel.text = ClientStrings.Onboarding.selectGyms
         titleLabel.font = ._24MontserratBold
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         view.addSubview(titleLabel)
@@ -70,8 +70,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         nextButton = UIButton()
         nextButton.clipsToBounds = false
         nextButton.layer.cornerRadius = nextButtonSize / 2
-        nextButton.backgroundColor = .fitnessYellow
-        nextButton.layer.borderColor = UIColor.fitnessBlack.cgColor
+        nextButton.backgroundColor = .primaryYellow
+        nextButton.layer.borderColor = UIColor.primaryBlack.cgColor
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
@@ -83,7 +83,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         backButton = UIButton()
         backButton.clipsToBounds = false
         backButton.layer.cornerRadius = nextButtonSize / 2
-        backButton.backgroundColor = .fitnessWhite
+        backButton.backgroundColor = .primaryWhite
         backButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
         backButton.layer.borderWidth = buttonBorderSize
         backButton.addTarget(self, action: #selector(goBackAView), for: .touchDown)

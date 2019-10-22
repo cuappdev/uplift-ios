@@ -144,11 +144,11 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             addSubview(poolTableView!)
 
             basketballSeparator = UIView()
-            basketballSeparator!.backgroundColor = .fitnessLightGrey
+            basketballSeparator!.backgroundColor = .gray01
             addSubview(basketballSeparator!)
 
             poolSeparator = UIView()
-            poolSeparator!.backgroundColor = .fitnessLightGrey
+            poolSeparator!.backgroundColor = .gray01
             addSubview(poolSeparator!)
 
         case .teagle:

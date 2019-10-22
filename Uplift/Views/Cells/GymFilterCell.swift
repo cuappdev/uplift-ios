@@ -18,11 +18,11 @@ class GymFilterCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                gymNameLabel.font = ._14MontserratBold
-                selectedCircle.backgroundColor = .fitnessYellow
+                gymNameLabel.font = ._14MontserratSemiBold
+                selectedCircle.backgroundColor = .primaryYellow
             } else {
                 gymNameLabel.font = ._14MontserratRegular
-                selectedCircle.backgroundColor = .white
+                selectedCircle.backgroundColor = .primaryWhite
             }
         }
     }
@@ -32,8 +32,8 @@ class GymFilterCell: UICollectionViewCell {
         backgroundColor = .white
 
         gymNameLabel = UILabel()
-        gymNameLabel.font = ._14MontserratRegular
-        gymNameLabel.textColor = .fitnessBlack
+        gymNameLabel.font = ._14MontserratLight
+        gymNameLabel.textColor = .primaryBlack
         gymNameLabel.sizeToFit()
         gymNameLabel.textAlignment = .center
         contentView.addSubview(gymNameLabel)
@@ -41,7 +41,7 @@ class GymFilterCell: UICollectionViewCell {
         selectedCircle = UIView()
         selectedCircle.clipsToBounds = true
         selectedCircle.layer.cornerRadius = 3
-        selectedCircle.backgroundColor = .white
+        selectedCircle.backgroundColor = .primaryWhite
         contentView.addSubview(selectedCircle)
 
         isSelected = false

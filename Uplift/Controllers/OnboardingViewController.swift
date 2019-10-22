@@ -68,9 +68,9 @@ class OnboardingViewController: PresentationController {
         button.setTitle(ClientStrings.Onboarding.endOnboarding, for: .normal)
         button.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
         button.titleLabel?.font = ._14MontserratBold
-        button.setTitleColor(UIColor.fitnessBlack, for: .normal)
+        button.setTitleColor(UIColor.primaryBlack, for: .normal)
 
-        button.backgroundColor = .fitnessYellow
+        button.backgroundColor = .primaryYellow
         button.layer.cornerRadius = 32
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         button.layer.shadowColor = UIColor.buttonShadow.cgColor

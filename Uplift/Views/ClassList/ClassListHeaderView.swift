@@ -27,8 +27,8 @@ class ClassListHeaderView: UICollectionReusableView {
 
     // MARK: - CONSTRAINTS
     private func setupViews() {
-        titleLabel.font = ._14MontserratSemiBold
-        titleLabel.textColor = .fitnessDarkGrey
+        titleLabel.font = ._16MontserratBold
+        titleLabel.textColor = .primaryBlack
         titleLabel.textAlignment = .center
         addSubview(titleLabel)
     }

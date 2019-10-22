@@ -23,7 +23,7 @@ class HomeScreenHeaderView: UIView {
         // WELCOME MESSAGE
         welcomeMessage = UILabel()
         welcomeMessage.font = ._24MontserratBold
-        welcomeMessage.textColor = .fitnessBlack
+        welcomeMessage.textColor = .primaryBlack
         welcomeMessage.lineBreakMode = .byWordWrapping
         welcomeMessage.numberOfLines = 0
         welcomeMessage.text = getGreeting()

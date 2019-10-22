@@ -101,27 +101,27 @@ class OldGymDetailViewController: UIViewController {
         facilitiesTitleLabel = UILabel()
         facilitiesTitleLabel.font = ._16MontserratMedium
         facilitiesTitleLabel.textAlignment = .center
-        facilitiesTitleLabel.textColor = .fitnessBlack
+        facilitiesTitleLabel.textColor = .primaryBlack
         facilitiesTitleLabel.sizeToFit()
         facilitiesTitleLabel.text = "FACILITIES"
         contentView.addSubview(facilitiesTitleLabel)
 
         setupFacilities()
         facilitiesClassesDivider = UIView()
-        facilitiesClassesDivider.backgroundColor = .fitnessLightGrey
+        facilitiesClassesDivider.backgroundColor = .gray01
         contentView.addSubview(facilitiesClassesDivider)
 
         // CLASSES
         todaysClassesLabel = UILabel()
         todaysClassesLabel.font = ._12LatoBlack
-        todaysClassesLabel.textColor = .fitnessDarkGrey
+        todaysClassesLabel.textColor = .gray04
         todaysClassesLabel.text = "TODAY'S CLASSES"
         todaysClassesLabel.textAlignment = .center
         contentView.addSubview(todaysClassesLabel)
 
         noMoreClassesLabel = UILabel()
         noMoreClassesLabel.font = UIFont._14MontserratLight
-        noMoreClassesLabel.textColor = .fitnessDarkGrey
+        noMoreClassesLabel.textColor = .gray04
         noMoreClassesLabel.text = "We are done for today. \nCheck again tomorrow!\n🌟"
         noMoreClassesLabel.numberOfLines = 0
         noMoreClassesLabel.textAlignment = .center
@@ -200,7 +200,7 @@ class OldGymDetailViewController: UIViewController {
             tempClosedLabel.font = ._16MontserratSemiBold
             tempClosedLabel.textColor = .white
             tempClosedLabel.textAlignment = .center
-            tempClosedLabel.backgroundColor = .fitnessBlack
+            tempClosedLabel.backgroundColor = .primaryBlack
             tempClosedLabel.text = "CLOSED"
             contentView.addSubview(tempClosedLabel)
 
@@ -241,7 +241,7 @@ class OldGymDetailViewController: UIViewController {
         // HOURS
         hoursTitleLabel = UILabel()
         hoursTitleLabel.font = ._16MontserratMedium
-        hoursTitleLabel.textColor = .fitnessBlack
+        hoursTitleLabel.textColor = .primaryBlack
         hoursTitleLabel.textAlignment = .center
         hoursTitleLabel.sizeToFit()
         hoursTitleLabel.text = "HOURS"
@@ -263,7 +263,7 @@ class OldGymDetailViewController: UIViewController {
         contentView.addSubview(hoursTableView)
 
         hoursPopularTimesSeparator = UIView()
-        hoursPopularTimesSeparator.backgroundColor = .fitnessLightGrey
+        hoursPopularTimesSeparator.backgroundColor = .gray01
         contentView.addSubview(hoursPopularTimesSeparator)
 
         days = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
@@ -273,7 +273,7 @@ class OldGymDetailViewController: UIViewController {
             popularTimesTitleLabel = UILabel()
             popularTimesTitleLabel?.font = ._16MontserratMedium
             popularTimesTitleLabel?.textAlignment = .center
-            popularTimesTitleLabel?.textColor = .fitnessBlack
+            popularTimesTitleLabel?.textColor = .primaryBlack
             popularTimesTitleLabel?.sizeToFit()
             popularTimesTitleLabel?.text = "BUSY TIMES"
             contentView.addSubview(popularTimesTitleLabel!)
@@ -285,7 +285,7 @@ class OldGymDetailViewController: UIViewController {
             contentView.addSubview(popularTimesHistogram!)
 
             popularTimesFacilitiesSeparator = UIView()
-            popularTimesFacilitiesSeparator?.backgroundColor = .fitnessLightGrey
+            popularTimesFacilitiesSeparator?.backgroundColor = .gray01
             contentView.addSubview(popularTimesFacilitiesSeparator!)
         }
 
