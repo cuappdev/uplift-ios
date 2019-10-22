@@ -119,12 +119,12 @@
 		E604DC3A233B1DF7003598BC /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC37233B1DF7003598BC /* ProRoutine.swift */; };
 		E604DC3B233B1DF7003598BC /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC38233B1DF7003598BC /* ProBio.swift */; };
 		E604DC3F233B22C9003598BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E604DC3E233B22C9003598BC /* GoogleService-Info.plist */; };
+		E60B792E235F45F100B94402 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B792C235F45F100B94402 /* TestViewController.swift */; };
+		E60B792F235F45F100B94402 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B792D235F45F100B94402 /* DropdownView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
-		E6CEF4D3235D2E890019D1D3 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CEF4D2235D2E890019D1D3 /* DropdownView.swift */; };
-		E6CEF4D5235D61090019D1D3 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CEF4D4235D61090019D1D3 /* TestViewController.swift */; };
 		E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -247,12 +247,12 @@
 		E604DC37233B1DF7003598BC /* ProRoutine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E604DC38233B1DF7003598BC /* ProBio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
 		E604DC3E233B22C9003598BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E60B792C235F45F100B94402 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestViewController.swift; path = Uplift/Controllers/TestViewController.swift; sourceTree = SOURCE_ROOT; };
+		E60B792D235F45F100B94402 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownView.swift; path = Uplift/Views/DropdownView.swift; sourceTree = SOURCE_ROOT; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
-		E6CEF4D2235D2E890019D1D3 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropdownView.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/DropdownView.swift"; sourceTree = "<absolute>"; };
-		E6CEF4D4235D61090019D1D3 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestViewController.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/TestViewController.swift"; sourceTree = "<absolute>"; };
 		E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProListItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -404,8 +404,6 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
-				E6CEF4D4235D61090019D1D3 /* TestViewController.swift */,
-				E6CEF4D2235D2E890019D1D3 /* DropdownView.swift */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
@@ -466,6 +464,7 @@
 				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
+				E60B792C235F45F100B94402 /* TestViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -473,6 +472,7 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E60B792D235F45F100B94402 /* DropdownView.swift */,
 				C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */,
 				C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */,
 				C26236FA2290D696007C415D /* ClassDetail */,
@@ -889,12 +889,11 @@
 				E604DC32233B1D99003598BC /* ProBioHeaderView.swift in Sources */,
 				E604DC39233B1DF7003598BC /* PersonalLink.swift in Sources */,
 				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
-				E6CEF4D3235D2E890019D1D3 /* DropdownView.swift in Sources */,
+				E60B792F235F45F100B94402 /* DropdownView.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
 				E604DC33233B1D99003598BC /* ProBioRoutinesCell.swift in Sources */,
-				E6CEF4D5235D61090019D1D3 /* TestViewController.swift in Sources */,
 				C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */,
@@ -965,6 +964,7 @@
 				7E808771229B76BD007D9EDD /* GymDetailHoursCell.swift in Sources */,
 				D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */,
 				7E80876D229B6984007D9EDD /* GymDetailTodaysClassesCell.swift in Sources */,
+				E60B792E235F45F100B94402 /* TestViewController.swift in Sources */,
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
 				C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */,

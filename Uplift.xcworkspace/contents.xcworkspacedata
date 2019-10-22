@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/cameronhamidi/Documents/AppDev/uplift-ios/TestViewController.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/cameronhamidi/Documents/AppDev/uplift-ios/DropdownView.swift">
-   </FileRef>
-   <FileRef
       location = "group:Uplift.xcodeproj">
    </FileRef>
    <FileRef

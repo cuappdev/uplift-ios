@@ -17,31 +17,31 @@ enum DropdownDirection {
 }
 
 protocol DropdownViewDelegate {
-    func expandDropdownViewFull(sender dropdownView: DropdownView)
     func collapseDropdownView(sender dropdownView: DropdownView)
-    func expandDropdownViewHalf(sender dropdownView: DropdownView)
     func collapseDropdownViewHalf(sender dropdownView: DropdownView)
+    func expandDropdownViewFull(sender dropdownView: DropdownView)
+    func expandDropdownViewHalf(sender dropdownView: DropdownView)
 }
 
 class DropdownView: UIView {
-    var headerView: UIView!
+    var collapseHalfDropdownGesture: UITapGestureRecognizer!
     var contentView: UIView!
-    var halfExpandView: UIView?
-    var halfCollapseView: UIView?
+    var contentViewBottomConstraint: NSLayoutConstraint!
+    var contentViewHeight: CGFloat!
+    var contentViewHeightConstraint: NSLayoutConstraint!
+    var currentHeight: CGFloat!
+    var delegate: DropdownViewDelegate!
     var expandCollapseDropdownGesture: UITapGestureRecognizer!
     var expandFromHalfDropdownGesture: UITapGestureRecognizer!
-    var collapseHalfDropdownGesture: UITapGestureRecognizer!
-    var halfDropdownEnabled: Bool!
-    var status: DropdownStatus = .up
-    var delegate: DropdownViewDelegate!
-    var contentViewHeightConstraint: NSLayoutConstraint!
-    var contentViewHeight: CGFloat!
-    var halfHeight: CGFloat!
-    var contentViewBottomConstraint: NSLayoutConstraint!
-    var currentHeight: CGFloat!
-    var headerViewHeight: CGFloat!
-    var halfExpandViewHeight: CGFloat!
+    var halfCollapseView: UIView?
     var halfCollapseViewHeight: CGFloat!
+    var halfDropdownEnabled: Bool!
+    var halfExpandView: UIView?
+    var halfExpandViewHeight: CGFloat!
+    var halfHeight: CGFloat!
+    var headerView: UIView!
+    var headerViewHeight: CGFloat!
+    var status: DropdownStatus = .up
     
     init(headerView: UIView, headerViewHeight: CGFloat, contentView: UIView, contentViewHeight: CGFloat, halfDropdownEnabled: Bool = false, halfExpandView: UIView? = nil, halfExpandViewHeight: CGFloat = 0, halfCollapseView: UIView? = nil, halfCollapseViewHeight: CGFloat = 0, halfHeight: CGFloat = 0) {
         super.init(frame: .zero)
