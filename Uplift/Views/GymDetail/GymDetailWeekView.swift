@@ -30,7 +30,10 @@ class GymDetailWeekView: UIView {
 
         setupCollectionView()
         setupConstraints()
-        weekdayCollectionView.selectItem(at: IndexPath(row: todayIndex(), section: 0), animated: true, scrollPosition: .centeredHorizontally)
+
+        // Preselect Today
+        let todayIndex = Calendar.current.component(.weekday, from: Date())
+        weekdayCollectionView.selectItem(at: IndexPath(row: todayIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     required init?(coder: NSCoder) {
@@ -75,20 +78,10 @@ class GymDetailWeekView: UIView {
     }
 
     // MARK: - Helper Functions
-    /// Changes the value returned from Calendar.current.component to match the indexing used in the WeekDay enum
-    private func calenderToEnumIndex(_ index: Int) -> Int {
-        return (index + 5) % 7
-    }
-
     /// Identifies if a day is today based on the index
     private func cellIsToday(index: Int) -> Bool {
         let weekdayIndex = Calendar.current.component(.weekday, from: Date())
-        return calenderToEnumIndex(weekdayIndex) == index
-    }
-
-    private func todayIndex() -> Int {
-        let weekdayIndex = Calendar.current.component(.weekday, from: Date())
-        return calenderToEnumIndex(weekdayIndex)
+        return weekdayIndex == index
     }
 }
 

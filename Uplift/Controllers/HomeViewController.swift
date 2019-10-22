@@ -135,6 +135,14 @@ extension HomeViewController {
     private func setupConstraints() {
         let headerViewHeight = 120
 
+        let v = GymDetailWeekView()
+        view.addSubview(v)
+        v.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(50)
+        }
+
         headerView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(headerViewHeight)

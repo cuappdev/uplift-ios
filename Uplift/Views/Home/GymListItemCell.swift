@@ -55,7 +55,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         if gym.isOpen {
             if changingSoon {
                 statusLabel.textColor = .fitnessOrange
-                statusLabel.text = ClientStrings.Home.gymDetailCellClosingSoon
+                statusLabel.text = ClientStrings.Home.gymDetailCellOpen
             } else {
                 statusLabel.textColor = .fitnessGreen
                 statusLabel.text = ClientStrings.Home.gymDetailCellOpen
@@ -63,7 +63,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         } else {
             if changingSoon {
                 statusLabel.textColor = .fitnessOrange
-                statusLabel.text = ClientStrings.Home.gymDetailCellOpeningSoon
+                statusLabel.text = ClientStrings.Home.gymDetailCellClosed
             } else {
                 statusLabel.textColor = .fitnessRed
                 statusLabel.text = ClientStrings.Home.gymDetailCellClosed
@@ -87,7 +87,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         if now > gymHoursToday.closeTime {
             format = gymHoursTomorrow.openTime.getHourFormat()
             if gym.closedTomorrow {
-                return ClientStrings.Home.gymDetailCellClosedTomorrow
+                return ClientStrings.Home.gymDetailCellClosed
             } else {
                 return ClientStrings.Home.gymDetailCellOpensAt + gymHoursTomorrow.openTime.getStringOfDatetime(format: format)
             }
@@ -99,7 +99,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
             let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)
             let closeTime = gymHoursToday.closeTime.getStringOfDatetime(format: format)
 
-            return "\(openTime) - \(closeTime)"
+            return ClientStrings.Home.gymDetailCellClosesAt + closeTime
         }
     }
 
@@ -130,8 +130,9 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         let hoursLabelTopPadding = 3
         let leadingPadding = 16
         let locationLabelHeight = 22
-        let locationLabelVerticalInset = 16
-        let statusLabelTopPadding = 6
+        let locationLabelVerticalInset = 12
+        let statusHoursLabelPadding = 4
+        let statusLabelTopPadding = 1
         let trailingPadding = 4
 
         colorBar.snp.updateConstraints { make in
@@ -156,10 +157,10 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         }
 
         hoursLabel.snp.updateConstraints { make in
-            make.leading.equalTo(statusLabel)
+            make.leading.equalTo(statusLabel.snp.trailing).offset(statusHoursLabelPadding)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
             make.height.equalTo(descriptionLabelHeight)
-            make.top.equalTo(statusLabel.snp.bottom).offset(hoursLabelTopPadding)
+            make.centerY.equalTo(statusLabel.snp.centerY)
         }
     }
 

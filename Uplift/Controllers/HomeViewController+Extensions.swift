@@ -26,11 +26,11 @@ extension HomeViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.checkInsListCellIdentifier, for: indexPath) as! CheckInsListCell
             cell.configure(for: habits)
             return cell
-        case .allGyms:
+        case .myGyms:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
             cell.delegate = self
-            cell.configure(for: self.favoriteGyms)
+            cell.configure(for: self.myGyms)
             return cell
         case .todaysClasses:
             // swiftlint:disable:next force_cast
@@ -65,7 +65,7 @@ extension HomeViewController: UICollectionViewDataSource {
         switch sections[indexPath.section] {
         case .checkIns:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
-        case .allGyms:
+        case .myGyms:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushGymOnboarding)
         case .todaysClasses:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: ClientStrings.Home.viewAllButton, completion: viewTodaysClasses)
@@ -96,12 +96,19 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             let checkInListHeight = checkInListItemCellHeight * habits.count
             let bottomSectionInset = 32
             return CGSize(width: width, height: CGFloat(checkInListHeight + bottomSectionInset))
-        case .allGyms:
-            return CGSize(width: width, height: 123)
+        case .myGyms:
+            //Height is calculated as item height of every row of 2 cells + minimum line spacing between them + bottom section inset value
+            
+            //Height of all cells (in rows of 2), plus line spacings after each of them
+            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumLineSpacing) * ceil(CGFloat(integerLiteral: myGyms.count) / 2)
+            
+            //Subtract extra minimum line spacing below the last row of cells, and add the section inset
+            height += GymsListCell.sectionInsetBottom - GymsListCell.minimumLineSpacing
+            return CGSize(width: width, height: height)
         case .todaysClasses:
             return CGSize(width: width, height: 227)
         case .lookingFor:
-            var height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
+            let height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
             return CGSize(width: width, height: height)
         }
     }
@@ -157,7 +164,7 @@ extension HomeViewController: LookingForListCellDelegate {
 extension HomeViewController: ChooseGymsDelegate {
 
     func updateFavorites(favorites: [String]) {
-        favoriteGyms = favorites.compactMap { favorite in
+        myGyms = favorites.compactMap { favorite in
             self.gyms.first { $0.name == favorite }
         }
     }

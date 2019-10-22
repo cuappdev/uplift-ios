@@ -17,7 +17,7 @@ enum WeekDay: String, CaseIterable {
 
     /// Constructs enum from index
     init(index: Int) {
-        self = WeekDay.allCases[index]
+        self = WeekDay.allCases[(index + 5) % 7]
     }
 
     /// Maps each enum case to index corresponding to ones returned by
