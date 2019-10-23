@@ -289,24 +289,15 @@ func getHoursHeight() -> CGFloat {
 
 extension GymDetailViewController {
     func categorizeEquipment(equipmentList: [Equipment]) -> [EquipmentCategory] {
-        var equipmentDictionary: [String: [Equipment]] = [:]
-        let sorted = equipmentList.sorted(by: { $0.equipmentType < $1.equipmentType })
-        var category = sorted[0].equipmentType
-        equipmentDictionary[category] = []
+        let equipmentDictionary = equipmentList.reduce(into: [String: [Equipment]](), { dict, equipment in
+          if dict[equipment.equipmentType] != nil {
+            dict[equipment.equipmentType]?.append(equipment)
+          } else {
+            dict[equipment.equipmentType] = [equipment]
+          }
+        })
 
-        sorted.forEach { (equipment) in
-            if equipment.equipmentType == category {
-                equipmentDictionary[category]?.append(equipment)
-            } else {
-                category = equipment.equipmentType
-                equipmentDictionary[category] = [equipment]
-            }
-        }
-
-        var equipmentCategories: [EquipmentCategory] = []
-        for (categoryName, equipment) in equipmentDictionary {
-            equipmentCategories.append(EquipmentCategory(categoryName: categoryName, equipment: equipment))
-        }
+        let equipmentCategories = equipmentDictionary.map { EquipmentCategory(categoryName: $0, equipment: $1) }
 
         return equipmentCategories
     }

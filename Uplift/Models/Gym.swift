@@ -61,14 +61,12 @@ struct Gym {
 
         gymHours = gymHoursList
 
-        var facilitiesList: [Facility] = []
-        let facilitiesData = gymData.facilities
-        facilitiesData.forEach({ (facility) in
-            if let facility = facility {
-                facilitiesList.append(Facility(gymData: facility))
-            }
+        facilities = gymData.facilities.compactMap({ facility in
+          if let facility = facility {
+            return Facility(facilityData: facility)
+          }
+          return nil
         })
-        facilities = facilitiesList
     }
 
     init(gymData: GymByIdQuery.Data.Gym ) {
@@ -140,11 +138,11 @@ struct DailyGymHours {
         }
     }
 
-    init(gymHoursDataId: AllGymsQuery.Data.Gym.Facility.Time?) {
-        if let gymHoursData = gymHoursDataId {
-            dayOfWeek = gymHoursData.day
-            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
-            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+    init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Time?) {
+        if let facilityHours = facilityHoursData {
+            dayOfWeek = facilityHours.day
+            openTime = Date.getTimeFromString(datetime: facilityHours.startTime)
+            closeTime = Date.getTimeFromString(datetime: facilityHours.endTime)
         } else {
             openTime = Date()
             closeTime = openTime
@@ -154,14 +152,15 @@ struct DailyGymHours {
 }
 
 struct Facility {
+
     var equipment: [Equipment]
     var miscInformation: [String]
     var name: String
     var times: [DailyGymHours]
 
-    init(gymData: AllGymsQuery.Data.Gym.Facility) {
-        if let equipmentGymData = gymData.equipment {
-            equipment = equipmentGymData.compactMap({ (equipmentData) -> Equipment? in
+    init(facilityData: AllGymsQuery.Data.Gym.Facility) {
+        if let equipmentGymData = facilityData.equipment {
+            equipment = equipmentGymData.compactMap({ equipmentData -> Equipment? in
                 guard let equipmentData = equipmentData else { return nil }
                 return Equipment(equipmentData: equipmentData)
             })
@@ -169,26 +168,29 @@ struct Facility {
             equipment = []
         }
 
-        var miscInformationList: [String] = []
-        if let informationData = gymData.miscInformation {
-            informationData.forEach({ (info) in
-                if let info = info {
-                    miscInformationList.append(info)
-                }
+        if let informationData = facilityData.miscInformation {
+            miscInformation = informationData.compactMap({ information in
+              if let information = information {
+                return information
+              }
+              return nil
             })
+        } else {
+            miscInformation = []
         }
-        miscInformation = miscInformationList
 
-        name = gymData.name
+        name = facilityData.name
 
-        times = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
-            guard let gymHoursDataId = gymHoursDataId else { return nil }
-            return DailyGymHours(gymHoursDataId: gymHoursDataId)
+        times = facilityData.times.compactMap({ (facilityHoursData) -> DailyGymHours? in
+            guard let facilityHours = facilityHoursData else { return nil }
+            return DailyGymHours(facilityHoursData: facilityHours)
         })
     }
+
 }
 
 struct Equipment {
+
     var equipmentType: String
     var name: String
     var quantity: String
@@ -207,4 +209,5 @@ struct Equipment {
             workoutType = ""
         }
     }
+
 }
