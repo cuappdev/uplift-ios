@@ -54,7 +54,7 @@ class FavoritesViewController: UIViewController {
 
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.text = ClientStrings.Favorites.vcTitleLabel
         titleBackground.addSubview(titleLabel)
 
@@ -149,7 +149,7 @@ extension FavoritesViewController: ClassListCellDelegate, NavigationDelegate {
         favorites = favorites.filter { $0.classDetailId != classDetailId }
         classesCollectionView.reloadData()
     }
-    
+
     func viewTodaysClasses() {
         guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }

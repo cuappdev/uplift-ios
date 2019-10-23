@@ -152,7 +152,7 @@ class ClassListViewController: UIViewController {
             NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date)) { [weak self] classes in
                 guard let strongSelf = self else { return }
 
-                strongSelf.classList[index] = classes
+                strongSelf.classList[index] = classes.sorted(by: { $0.startTime < $1.startTime })
                 strongSelf.updateClassCollectionViewWithFilters()
             }
             return
@@ -217,15 +217,16 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
             var dayOfWeekLabelTextColor: UIColor?
 
             if dateForCell < currDate {
-                dateLabelTextColor = .fitnessMediumGrey
-                dayOfWeekLabelTextColor = .fitnessMediumGrey
+                dateLabelTextColor = .gray02
+                dayOfWeekLabelTextColor = .gray02
             }
 
             if dateForCell == calendarDateSelected {
                 dateLabelCircleIsHidden = false
-                dateLabelFont = ._12MontserratSemiBold
-                dateLabelTextColor = .white
-                dayOfWeekLabelFont = ._12MontserratSemiBold
+                dateLabelFont = ._12MontserratBold
+                dateLabelTextColor = .primaryBlack
+                dayOfWeekLabelFont = ._12MontserratBold
+                dayOfWeekLabelTextColor = .primaryBlack
             }
 
             cell.configure(for: "\(dayOfMonth)",
@@ -310,7 +311,7 @@ extension ClassListViewController: FilterDelegate {
             currentFilterParams = params
 
             // Modify Button
-            filterButton.backgroundColor = .fitnessYellow
+            filterButton.backgroundColor = .primaryYellow
             filterButton.setTitle(ClientStrings.Filter.appliedFilterLabel, for: .normal)
 
             // MARK: - Fabric
@@ -400,7 +401,7 @@ extension ClassListViewController {
 
         titleLabel = UILabel()
         titleLabel.font = ._24MontserratBold
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.text = ClientStrings.ClassList.vcTitleLabel
         titleView.addSubview(titleLabel)
 
@@ -412,15 +413,15 @@ extension ClassListViewController {
 
         filterButton = UIButton()
         filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
-        filterButton.titleLabel?.font = ._14MontserratSemiBold
+        filterButton.titleLabel?.font = ._14MontserratBold
         filterButton.layer.cornerRadius = 24.0
         filterButton.setTitleColor(.black, for: .normal)
-        filterButton.backgroundColor = .white
+        filterButton.backgroundColor = .primaryWhite
         filterButton.addTarget(self, action: #selector(filterPressed), for: .touchUpInside)
-        filterButton.layer.shadowColor = UIColor.fitnessBlack.cgColor
+        filterButton.layer.shadowColor = UIColor.buttonShadow.cgColor
         filterButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        filterButton.layer.shadowRadius = 2.0
-        filterButton.layer.shadowOpacity = 0.2
+        filterButton.layer.shadowRadius = 4.0
+        filterButton.layer.shadowOpacity = 1.0
         filterButton.layer.masksToBounds = false
         view.addSubview(filterButton)
     }
@@ -429,8 +430,8 @@ extension ClassListViewController {
         let calendarCollectionViewHeight = 47
         let calendarCollectionViewTopPadding = 40
         let classCollectionViewTopPadding = 18
-        let filterButtonBottomPadding = 36
-        let filterButtonSize = CGSize(width: 180, height: 48)
+        let filterButtonBottomPadding = 18
+        let filterButtonSize = CGSize(width: 164, height: 46)
         let titleBottomConstant = -20
         let titleHeightConstant = 26
         let titleLeadingConstant = 24

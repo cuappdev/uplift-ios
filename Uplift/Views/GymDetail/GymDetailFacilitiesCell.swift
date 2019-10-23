@@ -43,7 +43,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     func setupViews() {
         facilitiesLabel.font = ._16MontserratBold
         facilitiesLabel.textAlignment = .center
-        facilitiesLabel.textColor = .fitnessLightBlack
+        facilitiesLabel.textColor = .primaryBlack
         facilitiesLabel.text = ClientStrings.GymDetail.facilitiesSection
         contentView.addSubview(facilitiesLabel)
 
@@ -59,7 +59,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         gymFacilitiesTableView.dataSource = self
         contentView.addSubview(gymFacilitiesTableView)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 
@@ -99,7 +99,7 @@ extension GymDetailFacilitiesCell: UITableViewDelegate, UITableViewDataSource {
         // swiftlint:disable:next force_cast
         let cell = gymFacilitiesTableView.dequeueReusableCell(withIdentifier: GymFacilitiesCell.identifier, for: indexPath) as! GymFacilitiesCell
         cell.facilityLabel.text = gymFacilities[indexPath.row]
-
+        cell.selectionStyle = .none
         return cell
     }
 

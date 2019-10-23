@@ -66,34 +66,34 @@ class ClassDetailHeaderView: UICollectionReusableView {
         semicircleImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(semicircleImageView)
 
-        titleLabel.font = ._36MontserratBold
+        titleLabel.font = ._48Bebas
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .white
+        titleLabel.textColor = .primaryWhite
         addSubview(titleLabel)
 
-        locationButton.setTitleColor(.white, for: .normal)
-        locationButton.titleLabel?.font = ._14MontserratLight
+        locationButton.setTitleColor(.primaryWhite, for: .normal)
+        locationButton.titleLabel?.font = ._14MontserratRegular
         locationButton.titleLabel?.textAlignment = .center
         locationButton.addTarget(self, action: #selector(locationSelected), for: .touchUpInside)
         addSubview(locationButton)
 
         instructorButton.titleLabel?.font = ._16MontserratBold
         instructorButton.titleLabel?.textAlignment = .center
-        instructorButton.setTitleColor(.white, for: .normal)
+        instructorButton.setTitleColor(.primaryWhite, for: .normal)
         instructorButton.addTarget(self, action: #selector(instructorSelected), for: .touchUpInside)
         addSubview(instructorButton)
 
-        durationLabel.font = ._18Bebas
+        durationLabel.font = ._14MontserratBold
         durationLabel.textAlignment = .center
-        durationLabel.textColor = .fitnessBlack
+        durationLabel.textColor = .primaryBlack
         addSubview(durationLabel)
     }
 
     private func setupConstraints() {
         let durationLabelBottomPadding = 5
-        let durationLabelSize = CGSize(width: 50, height: 21)
+        let durationLabelSize = CGSize(width: 52, height: 18)
         let instructorButtonHeight = 21
         let instructorButtonTopPadding = 20
         let locationButtonHeight = 16

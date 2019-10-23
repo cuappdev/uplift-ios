@@ -23,7 +23,7 @@ class GymHoursHeaderView: UITableViewHeaderFooterView {
 
         hoursLabel = UILabel()
         hoursLabel.font = ._16MontserratMedium
-        hoursLabel.textColor = .fitnessBlack
+        hoursLabel.textColor = .primaryBlack
         hoursLabel.sizeToFit()
         hoursLabel.textAlignment = .center
         hoursLabel.text = "6: 00 AM - 9: 00 PM"

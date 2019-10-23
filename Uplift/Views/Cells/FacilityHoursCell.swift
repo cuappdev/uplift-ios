@@ -30,7 +30,7 @@ class FacilityHoursCell: UITableViewCell {
         contentView.addSubview(hoursScrollView)
 
         hoursLabel.font = ._16MontserratLight
-        hoursLabel.textColor = .fitnessBlack
+        hoursLabel.textColor = .primaryBlack
         hoursLabel.textAlignment = .left
         hoursLabel.sizeToFit()
         hoursLabel.text = "6: 00 AM - 9: 00 PM"
@@ -47,7 +47,7 @@ class FacilityHoursCell: UITableViewCell {
     // MARK: - Private helpers
     func setupViews() {
         dayLabel.font = UIFont._12MontserratBold
-        dayLabel.textColor = .fitnessBlack
+        dayLabel.textColor = .primaryBlack
         dayLabel.textAlignment = .left
         dayLabel.sizeToFit()
         dayLabel.text = "MON"

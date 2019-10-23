@@ -16,13 +16,23 @@ class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
 
     // MARK: - Public data vars
     weak var delegate: GymsListCellDelegate?
+    static let itemHeight: CGFloat = 60.0
+    static let minimumInterItemSpacing: CGFloat = 16.0
+    static let minimumLineSpacing: CGFloat = 16.0
+    static let sectionInsetBottom: CGFloat = 32.0
+    static let sectionInsetLeft: CGFloat = 16.0
+    static let sectionInsetRight: CGFloat = 12.0
 
     // MARK: - Overrides
     override var config: ListConfiguration {
+        let width: CGFloat = (self.bounds.width - GymsListCell.minimumInterItemSpacing - GymsListCell.sectionInsetLeft - GymsListCell.sectionInsetRight) / 2.0
         return ListConfiguration(
-            itemSize: CGSize(width: 271.0, height: 90.0),
-            minimumInteritemSpacing: 16,
-            sectionInset: UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
+            isScrollEnabled: false,
+            itemSize: CGSize(width: width, height: GymsListCell.itemHeight),
+            minimumInteritemSpacing: GymsListCell.minimumInterItemSpacing,
+            minimumLineSpacing: GymsListCell.minimumLineSpacing,
+            scrollDirection: .vertical,
+            sectionInset: UIEdgeInsets(top: 0.0, left: GymsListCell.sectionInsetLeft, bottom: GymsListCell.sectionInsetBottom, right: GymsListCell.sectionInsetRight)
         )
     }
 

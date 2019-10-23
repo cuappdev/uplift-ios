@@ -74,7 +74,7 @@ class GymDetailHoursCell: UICollectionViewCell {
     // MARK: - Private helpers
     private func setupViews() {
         hoursTitleLabel.font = ._16MontserratBold
-        hoursTitleLabel.textColor = .fitnessLightBlack
+        hoursTitleLabel.textColor = .primaryBlack
         hoursTitleLabel.textAlignment = .center
         hoursTitleLabel.text = ClientStrings.GymDetail.hoursLabel
         contentView.addSubview(hoursTitleLabel)
@@ -92,7 +92,7 @@ class GymDetailHoursCell: UICollectionViewCell {
         hoursTableView.dataSource = self
         contentView.addSubview(hoursTableView)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 

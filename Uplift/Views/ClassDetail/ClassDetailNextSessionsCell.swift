@@ -55,7 +55,7 @@ class ClassDetailNextSessionsCell: UICollectionViewCell {
     // MARK: - Private helpers
     private func setupViews() {
         nextSessionsLabel.font = ._16MontserratBold
-        nextSessionsLabel.textColor = .fitnessLightBlack
+        nextSessionsLabel.textColor = .primaryBlack
         nextSessionsLabel.text = ClientStrings.ClassDetail.nextSessionsLabel
         nextSessionsLabel.textAlignment = .center
         nextSessionsLabel.sizeToFit()

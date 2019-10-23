@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     private let headerView = HomeScreenHeaderView()
 
     // MARK: - Public data vars
-    var favoriteGyms: [Gym] = []
+    var myGyms: [Gym] = []
     var gymClassInstances: [GymClassInstance] = []
     var gyms: [Gym] = []
     var habits: [Habit] = []
@@ -39,7 +39,7 @@ class HomeViewController: UIViewController {
     // MARK: - Enums
     enum SectionType: String {
         case checkIns = "DAILY CHECK-INS"
-        case allGyms = "MY GYMS"
+        case myGyms = "MY GYMS"
         case todaysClasses = "TODAY'S CLASSES"
         case lookingFor = "I'M LOOKING FOR..."
     }
@@ -47,9 +47,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sections = [.allGyms, .todaysClasses, .lookingFor]
+        sections = [.myGyms, .todaysClasses, .lookingFor]
 
-        view.backgroundColor = UIColor.fitnessWhite
+        view.backgroundColor = UIColor.primaryWhite
 
         setupViews()
         setupConstraints()
