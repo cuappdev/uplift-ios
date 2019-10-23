@@ -14,42 +14,31 @@ class GymDetailTimeInfoView: UILabel {
     private var selectedDayIndex = 0
     private var displayedText: String = ""
     private var timesText = NSMutableAttributedString()
+    private var paragraphStyle = NSMutableParagraphStyle()
 
     init(facility: FakeFacility) {
         self.facility = facility
+        print("TIMES: \(facility.times)")
+        print("TAGS: \(facility.miscInformation)")
         super.init(frame: CGRect())
 
-
-        // Hardcoded
-        let hardtext =
-        """
-        7:00 AM - 7:45 AM
-        8:00 AM - 8:45 AM
-        11:00 AM - 1:30 PM
-        5:00 PM - 6:30 PM
-        8:30 PM - 10:00 PM
-        7:00 AM - 7:45 AM
-        8:00 AM - 8:45 AM
-        11:00 AM - 1:30 PM
-        5:00 PM - 6:30 PM
-        8:30 PM - 10:00 PM
-        """
-        displayedText = hardtext
-
-
+        displayedText = "hello"
         timesText.mutableString.setString(displayedText)
 
         // Label Formatting
-        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5.0
-        timesText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedText?.length ?? 0))
-        attributedText = timesText
+        paragraphStyle.maximumLineHeight = 26
+        paragraphStyle.alignment = .center
+        updateAttributedText()
 
+        attributedText = timesText
         backgroundColor = .primaryWhite
         numberOfLines = 0
         font = ._16MontserratRegular
+        textColor = .primaryBlack
         textAlignment = .center
 
+        updateTimes()
         updateTags()
     }
 
@@ -65,13 +54,9 @@ class GymDetailTimeInfoView: UILabel {
     }
 
     private func updateTimes() {
-        // Filter to get times for day
-        let dayTimes = facility.times.filter { $0.dayOfWeek == selectedDayIndex }
-        dayTimes.forEach { time in
-            displayedText.append(getStringFromDailyGymHours(dailyGymHours: time))
-            displayedText += "\n"
-        }
-        timesText.mutableString.setString(displayedText)
+        displayedText = getDisplayText(dayIndex: selectedDayIndex)
+        updateAttributedText()
+        print("display: \(displayedText)")
     }
 
     /// Adds the additional information tag to certain times (ex: Woman Only swimming hours)
@@ -83,16 +68,10 @@ class GymDetailTimeInfoView: UILabel {
         let timesTextHeight = timesText.string.height(withConstrainedWidth: bounds.width, font: font)
         let textBodyVerticalInset = (bounds.height - timesTextHeight) / 2.0
 
-//        print("bounds: \(bounds)")
-//        print("text line height: \(textLineHeight)")
-//        print("timesTextHeight: \(timesTextHeight)")
-//        print("textBodyVerticalInset: \(textBodyVerticalInset)")
 
         subviews.forEach({ $0.removeFromSuperview() }) // remove all subviews
 
-//        let miscInfo = facility.miscInformation
-        // HARDCODED
-        let miscInfo = ["", "", "women only", "", "women only", "", "", "women only", "", ""]
+        let miscInfo = facility.miscInformation
         print("--miscInfo is: \(miscInfo)")
         for i in (0..<miscInfo.count) {
             if miscInfo[i] == "" { // Don't use blank tags
@@ -116,7 +95,24 @@ class GymDetailTimeInfoView: UILabel {
         updateConstraints()
     }
 
+    func updateAttributedText() {
+        timesText.mutableString.setString(displayedText)
+        timesText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, timesText.length))
+        attributedText = timesText
+    }
+
     // MARK: - Helper
+    func getDisplayText(dayIndex: Int) -> String {
+        let dayTimes = facility.times.filter { $0.dayOfWeek == dayIndex }
+        var display = ""
+        dayTimes.forEach { time in
+            display.append(getStringFromDailyGymHours(dailyGymHours: time))
+           display += "\n"
+        }
+
+        return display
+    }
+
     func getStringFromDailyGymHours(dailyGymHours: FakeGymHours) -> String {
         let openTime = dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")
         let closeTime = dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a")
@@ -126,6 +122,32 @@ class GymDetailTimeInfoView: UILabel {
         }
 
         return ""
+    }
+
+    // MARK: - Sizing
+    /// Calculate maximum height based of longes view
+    func calculateMaxHeight(width: CGFloat) -> CGFloat {
+        let contentPadding = 16.0
+
+        // Look for longest possible display
+        var longest = ""
+        var newLineCount = 0
+        for i in (0..<7) {
+            // Find longest time sequence
+            let cur = getDisplayText(dayIndex: i)
+            let curLineCount = cur.filter { $0 == "\n" }.count
+            if curLineCount > newLineCount {
+                newLineCount = curLineCount
+                longest = cur
+            }
+        }
+
+        // Return Max Height + padding
+        let display = NSMutableAttributedString()
+        display.mutableString.setString(longest)
+        display.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, timesText.length))
+
+        return longest.height(withConstrainedWidth: width, font: font) + CGFloat(contentPadding * 2)
     }
 }
 
@@ -142,22 +164,27 @@ extension GymDetailTimeInfoView: WeekDelegate {
 }
 
 public struct FakeFacility {
-    var times: [FakeGymHours]!
-    var miscInfo: [String]
+    var times: [FakeGymHours]
+    var miscInformation: [String]
 
     init() {
-        times = [FakeGymHours(), FakeGymHours(), FakeGymHours(), FakeGymHours(), FakeGymHours()]
-        miscInfo = ["women only", "women only", "", "", "women only"]
+        times = [
+            FakeGymHours(0), FakeGymHours(0), FakeGymHours(0), FakeGymHours(0), FakeGymHours(0),
+         FakeGymHours(2),
+         FakeGymHours(3), FakeGymHours(3), FakeGymHours(3),
+         FakeGymHours(6), FakeGymHours(6), FakeGymHours(6), FakeGymHours(6), FakeGymHours(6)]
+        miscInformation = ["women only", "women only", "", "", "women only"]
     }
 }
 
 public struct FakeGymHours {
-    var dayOfWeek: Int = Int.random(in: 0...6)
-    var openTime: Date!
-    var closeTime: Date!
+    var dayOfWeek: Int = 0
+    var openTime: Date
+    var closeTime: Date
 
-    init() {
-        openTime = Date().addingTimeInterval(TimeInterval(Double.random(in: (0.0...50.0))))
-        closeTime = openTime.addingTimeInterval(TimeInterval(Double.random(in: (10.0...70.0))))
+    init(_ d: Int) {
+        dayOfWeek = d
+        openTime = Date().addingTimeInterval(TimeInterval(Double.random(in: (150.0...550.0))))
+        closeTime = openTime.addingTimeInterval(TimeInterval(Double.random(in: (610.0...1070.0))))
     }
 }

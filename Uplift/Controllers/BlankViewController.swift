@@ -12,6 +12,7 @@ import SnapKit
 class BlankViewController: UIViewController {
 
     var stack: UIStackView!
+    var h: CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,7 @@ class BlankViewController: UIViewController {
 //           facil = gym.facilities[0]
 //        }
 //        var f: Facility?
-//        NetworkManager.shared.getGyms { gyms in
+//        NetworkManager.shared.getGyms { gymsa in
 //            print("\n\n\ndoing it")
 //            gyms.forEach { gym in
 //                if gym.facilities.count > 0 {
@@ -46,21 +47,21 @@ class BlankViewController: UIViewController {
 
         let weekView = GymDetailWeekView()
         weekView.snp.makeConstraints { make in
-            make.height.equalTo(30)
+            make.height.equalTo(24)
         }
-
         let timeInfo = GymDetailTimeInfoView(facility: facil)
-//        timeInfo.snp.makeConstraints { make in
-//            make.height.equalTo(120)
-//        }
         weekView.delegate = timeInfo
+
+        h = timeInfo.calculateMaxHeight(width: view.window?.frame.width ?? 0)
+        timeInfo.snp.makeConstraints { make in
+            print("~~height: \(h)")
+            make.height.equalTo(h)
+        }
 
         stack.addArrangedSubview(weekView)
         stack.addArrangedSubview(timeInfo)
 
-//        let a = AdditionalInfoView()
-//        a.text = "women only"
-//        test = a
+        stack.backgroundColor = .accentBlue
         view.addSubview(stack)
         setupConstraints()
     }
@@ -69,7 +70,7 @@ class BlankViewController: UIViewController {
         stack.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.center.equalToSuperview()
-            make.height.equalTo(250)
+            make.height.equalTo(h + 24)
 
 //            make.center.equalToSuperview()
 //            make.width.equalTo(80)
