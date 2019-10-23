@@ -11,9 +11,9 @@ import UIKit
 class PriceInformationView: UIView {
 
     /// MARK: - Private view vars
-    private let backgroundView: UIView = UIView()
-    private let costsList: UITextView = UITextView()
-    private let itemsList: UITextView = UITextView()
+    private let backgroundView = UIView()
+    private let costsList = UITextView()
+    private let itemsList = UITextView()
 
     /// MARK: - Private data vars
     private let costsListString = "$3.50\n$2.50"
@@ -74,8 +74,10 @@ class PriceInformationView: UIView {
         }
     }
 
-    private func generateAttributedString(for string: String,
-                                          font: UIFont) -> NSAttributedString {
+    private func generateAttributedString(
+        for string: String,
+        font: UIFont
+    ) -> NSAttributedString {
 
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 8
