@@ -50,24 +50,3 @@ query AllGymNames {
         id
     }
 }
-
-query FacilitiesByGymId($gymId: String) {
-    gyms(id: $gymId) {
-        id
-        facilities {
-            name
-            equipment {
-                equipmentType
-                name
-                quantity
-                workoutType
-            }
-            times {
-                day
-                startTime
-                endTime
-            }
-            miscInformation
-        }
-    }
-}

@@ -97,24 +97,6 @@ struct Gym {
         facilities = []
     }
 
-//    init(gymData: FacilitiesByGymIdQuery.Data.Gym) {
-//        id = gymData.id
-//        equipment = ""
-//        gymHours = []
-//        name = ""
-//        popularTimesList = []
-//        imageURL = URL(string: "")
-//
-//        var facilitiesList: [Facility] = []
-//        let facilitiesData = gymData.facilities
-//        facilitiesData.forEach({ (facility) in
-//            if let facility = facility {
-//                facilitiesList.append(Facility(gymData: facility))
-//            }
-//        })
-//        facilities = facilitiesList
-//    }
-
     func isStatusChangingSoon() -> Bool {
         let changingSoonThreshold = 3600.0
         let now = Date()

@@ -118,16 +118,6 @@ struct NetworkManager {
         }
     }
 
-//    func getGymFacilitiesById(id: String, completion: @escaping (Gym) -> Void) {
-//        apollo.fetch(query: FacilitiesByGymIdQuery(gymId: id)) { result, error in
-//            guard error == nil,
-//                let gymData = result?.data?.gyms?[0] else { return }
-//            let gym = Gym(gymData: gymData)
-//
-//            completion(gym)
-//        }
-//    }
-
     // MARK: - GYM CLASS INSTANCES
     func getGymClassInstancesByClass(gymClassDetailIds: [String], completion: @escaping ([GymClassInstance]) -> Void) {
         apollo.fetch(query: ClassesByTypeQuery(classNames: gymClassDetailIds)) { result, error in
