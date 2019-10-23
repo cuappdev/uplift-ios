@@ -17,6 +17,28 @@ class BlankViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .gray04
 
+        // Backend Debugging
+        var facil: FakeFacility
+        facil = FakeFacility()
+//        NetworkManager.shared.getGym(id: GymIds.noyes) { gym in
+//           print("-----")
+//           print("facil: \(gym.facilities)")
+//           facil = gym.facilities[0]
+//        }
+//        var f: Facility?
+//        NetworkManager.shared.getGyms { gyms in
+//            print("\n\n\ndoing it")
+//            gyms.forEach { gym in
+//                if gym.facilities.count > 0 {
+//                    f = gym.facilities[0]
+//                }
+//            }
+//        }
+//        DispatchQueue.main.async {
+//            facil = f
+//        }
+
+
         stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fill
@@ -26,7 +48,8 @@ class BlankViewController: UIViewController {
         weekView.snp.makeConstraints { make in
             make.height.equalTo(30)
         }
-        let timeInfo = GymDetailTimeInfoView()
+
+        let timeInfo = GymDetailTimeInfoView(facility: facil)
 //        timeInfo.snp.makeConstraints { make in
 //            make.height.equalTo(120)
 //        }
