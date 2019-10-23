@@ -46,7 +46,7 @@ class BlankViewController: UIViewController {
         stack.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.center.equalToSuperview()
-            make.height.equalTo(300)
+            make.height.equalTo(250)
 
 //            make.center.equalToSuperview()
 //            make.width.equalTo(80)

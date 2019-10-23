@@ -14,7 +14,9 @@ class GymDetailTimeInfoView: UILabel {
     private var hours: [DailyGymHours] = []
 //    private var tags: [String] = ["", "woman only", "", "woman only", "woman only"]
 //    private var tags: [String] = ["woman only", "woman only", "woman only", "woman only", "woman only"]
-    private var tags: [String] = ["woman only", "", "woman only", "", "woman only", "woman only", "", "", "woman only", ""]
+//    private var tags: [String] = ["woman only", "", "woman only", "", "woman only", "woman only", "", "", "woman only", ""]
+        private var tags: [String] = ["", "woman only", ""]
+
 
 
     override init(frame: CGRect) {
@@ -30,14 +32,16 @@ class GymDetailTimeInfoView: UILabel {
         7:00 AM - 7:45 AM
         8:00 AM - 8:45 AM
         11:00 AM - 1:30 PM
-        5:00 PM - 6:30 PM
-        8:30 PM - 10:00 PM
-        7:00 AM - 7:45 AM
-        8:00 AM - 8:45 AM
-        11:00 AM - 1:30 PM
-        5:00 PM - 6:30 PM
-        8:30 PM - 10:00 PM
+
         """
+//        5:00 PM - 6:30 PM
+//        8:30 PM - 10:00 PM
+
+//        7:00 AM - 7:45 AM
+//        8:00 AM - 8:45 AM
+//        11:00 AM - 1:30 PM
+//        5:00 PM - 6:30 PM
+//        8:30 PM - 10:00 PM
         timesText.mutableString.setString(hardtext)
 
         // Label Formatting
