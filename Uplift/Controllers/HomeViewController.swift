@@ -33,6 +33,7 @@ class HomeViewController: UIViewController {
         static let gymsListCellIdentifier = "gymsListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
         static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
+        static let gymEquipmentListCellIdentifier = "gymEquipmentListCellIdentifier"
     }
 
     // MARK: - Enums
@@ -97,7 +98,6 @@ class HomeViewController: UIViewController {
             collectionView.reloadSections(IndexSet(integer: 0))
         }
     }
-
 }
 
 // MARK: - Layout
