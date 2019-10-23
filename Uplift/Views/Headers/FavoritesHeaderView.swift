@@ -25,7 +25,7 @@ class FavoritesHeaderView: UICollectionReusableView {
         // QUOTE LABEL
         quoteLabel = UILabel()
         quoteLabel.font = ._32Bebas
-        quoteLabel.textColor = .fitnessBlack
+        quoteLabel.textColor = .primaryBlack
         quoteLabel.textAlignment = .center
         quoteLabel.lineBreakMode = .byWordWrapping
         quoteLabel.numberOfLines = 0
@@ -34,8 +34,8 @@ class FavoritesHeaderView: UICollectionReusableView {
 
         // SESSIONS LABEL
         nextSessionsLabel = UILabel()
-        nextSessionsLabel.font = ._12LatoBlack
-        nextSessionsLabel.textColor = .fitnessDarkGrey
+        nextSessionsLabel.font = ._16MontserratBold
+        nextSessionsLabel.textColor = .primaryBlack
         nextSessionsLabel.textAlignment = .center
         nextSessionsLabel.text = ClientStrings.Favorites.comingUpNextLabel
         addSubview(nextSessionsLabel)
@@ -56,7 +56,7 @@ class FavoritesHeaderView: UICollectionReusableView {
         }
 
         nextSessionsLabel.snp.updateConstraints { make in
-            make.top.equalTo(quoteLabel.snp.bottom).offset(62)
+            make.top.equalTo(quoteLabel.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview().offset(40)
             make.height.equalTo(18)

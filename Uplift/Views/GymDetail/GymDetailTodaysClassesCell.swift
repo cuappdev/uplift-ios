@@ -52,13 +52,13 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
     // MARK: - Private helpers
     private func setupViews() {
         todaysClassesLabel.font = ._16MontserratBold
-        todaysClassesLabel.textColor = .fitnessLightBlack
+        todaysClassesLabel.textColor = .primaryBlack
         todaysClassesLabel.text = ClientStrings.GymDetail.todaysClassesSection
         todaysClassesLabel.textAlignment = .center
         contentView.addSubview(todaysClassesLabel)
 
         noMoreClassesLabel.font = UIFont._14MontserratLight
-        noMoreClassesLabel.textColor = .fitnessLightBlack
+        noMoreClassesLabel.textColor = .primaryBlack
         noMoreClassesLabel.text = ClientStrings.GymDetail.noMoreClasses
         noMoreClassesLabel.numberOfLines = 0
         noMoreClassesLabel.textAlignment = .center

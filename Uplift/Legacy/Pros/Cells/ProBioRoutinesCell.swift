@@ -55,7 +55,7 @@ class ProBioRoutinesCell: UICollectionViewCell {
         routinesLabel.font = ._16MontserratMedium
         routinesLabel.text = "SUGGESTED ROUTINES"
         routinesLabel.textAlignment = .center
-        routinesLabel.textColor = .fitnessLightBlack
+        routinesLabel.textColor = .primaryBlack
         contentView.addSubview(routinesLabel)
 
         let routineFlowLayout = UICollectionViewFlowLayout()

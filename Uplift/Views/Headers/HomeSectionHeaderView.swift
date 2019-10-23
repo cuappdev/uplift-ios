@@ -31,12 +31,12 @@ class HomeSectionHeaderView: UICollectionReusableView {
 
         titleLabel = UILabel()
         titleLabel.font = ._14MontserratBold
-        titleLabel.textColor = .fitnessDarkGrey
+        titleLabel.textColor = .gray04
         titleLabel.text = ""
         addSubview(titleLabel)
 
         navigationButton = UIButton()
-        navigationButton.setTitleColor(.fitnessDarkGrey, for: .normal)
+        navigationButton.setTitleColor(.gray04, for: .normal)
         navigationButton.contentHorizontalAlignment = .right
         navigationButton.titleLabel?.font = ._14LatoBlack
         navigationButton.addTarget(self, action: #selector(viewAll), for: .touchUpInside)

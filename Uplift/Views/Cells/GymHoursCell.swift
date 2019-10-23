@@ -20,16 +20,16 @@ class GymHoursCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         hoursLabel = UILabel()
-        hoursLabel.font = ._16MontserratLight
-        hoursLabel.textColor = .fitnessBlack
+        hoursLabel.font = ._16MontserratRegular
+        hoursLabel.textColor = .primaryBlack
         hoursLabel.textAlignment = .center
         hoursLabel.sizeToFit()
         hoursLabel.text = "6: 00 AM - 9: 00 PM"
         contentView.addSubview(hoursLabel)
 
         dayLabel = UILabel()
-        dayLabel.font = ._14MontserratMedium
-        dayLabel.textColor = .fitnessBlack
+        dayLabel.font = ._16MontserratMedium
+        dayLabel.textColor = .primaryBlack
         dayLabel.sizeToFit()
         dayLabel.text = DayAbbreviations.thursday
         contentView.addSubview(dayLabel)
@@ -50,7 +50,7 @@ class GymHoursCell: UITableViewCell {
         }
 
         dayLabel.snp.updateConstraints { make in
-            make.right.equalTo(hoursLabel.snp.left).offset(-4)
+            make.right.equalTo(hoursLabel.snp.left).offset(-8)
             make.top.equalToSuperview()
             make.height.equalTo(18)
         }

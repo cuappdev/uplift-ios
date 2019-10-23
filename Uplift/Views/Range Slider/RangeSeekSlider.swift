@@ -208,6 +208,38 @@ import UIKit
         }
     }
 
+    /// Handle shadow radius (default 0.0)
+    @IBInspectable open var handleShadowRadius: CGFloat = 0.0 {
+        didSet {
+            leftHandle.shadowRadius = handleShadowRadius
+            rightHandle.shadowRadius = handleShadowRadius
+        }
+    }
+
+    /// Handle shadow opacity (default 0.0)
+    @IBInspectable open var handleShadowOpacity: Float = 0.0 {
+        didSet {
+            leftHandle.shadowOpacity = handleShadowOpacity
+            rightHandle.shadowOpacity = handleShadowOpacity
+        }
+    }
+
+    /// Handle shadow offset (default CGSize.zero)
+    @IBInspectable open var handleShadowOffset: CGSize = .zero {
+        didSet {
+            leftHandle.shadowOffset = handleShadowOffset
+            rightHandle.shadowOffset = handleShadowOffset
+        }
+    }
+
+    /// Handle shadow color
+    @IBInspectable open var handleShadowColor: UIColor? {
+        didSet {
+            leftHandle.shadowColor = handleShadowColor?.cgColor
+            rightHandle.shadowColor = handleShadowColor?.cgColor
+        }
+    }
+
     /// The label displayed in accessibility mode for minimum value handler. If not set, the default is empty String.
     @IBInspectable open var minLabelAccessibilityLabel: String?
 

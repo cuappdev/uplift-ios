@@ -65,14 +65,14 @@ class ClassListCell: UICollectionViewCell {
         primaryTimeLabel = UILabel()
         primaryTimeLabel.font = ._14MontserratMedium
         primaryTimeLabel.textAlignment = .left
-        primaryTimeLabel.textColor = .fitnessBlack
+        primaryTimeLabel.textColor = .primaryBlack
         primaryTimeLabel.sizeToFit()
         contentView.addSubview(primaryTimeLabel)
 
         secondaryTimeLabel = UILabel()
-        secondaryTimeLabel.font = ._12MontserratLight
+        secondaryTimeLabel.font = ._12MontserratRegular
         secondaryTimeLabel.textAlignment = .left
-        secondaryTimeLabel.textColor = .fitnessBlack
+        secondaryTimeLabel.textColor = .primaryBlack
         secondaryTimeLabel.sizeToFit()
         contentView.addSubview(secondaryTimeLabel)
 
@@ -80,20 +80,20 @@ class ClassListCell: UICollectionViewCell {
         classLabel = UILabel()
         classLabel.font = ._16MontserratMedium
         classLabel.textAlignment = .left
-        classLabel.textColor = .fitnessBlack
+        classLabel.textColor = .primaryBlack
         contentView.addSubview(classLabel)
 
         locationLabel = UILabel()
         locationLabel.font = ._12MontserratLight
         locationLabel.textAlignment = .left
-        locationLabel.textColor = .fitnessBlack
+        locationLabel.textColor = .primaryBlack
         locationLabel.sizeToFit()
         contentView.addSubview(locationLabel)
 
         instructorLabel = UILabel()
         instructorLabel.font = ._12MontserratRegular
         instructorLabel.textAlignment = .left
-        instructorLabel.textColor = .fitnessDarkGrey
+        instructorLabel.textColor = .gray02
         instructorLabel.sizeToFit()
         contentView.addSubview(instructorLabel)
 
@@ -118,17 +118,14 @@ class ClassListCell: UICollectionViewCell {
 
         contentView.layer.cornerRadius = 5
         contentView.layer.backgroundColor = UIColor.white.cgColor
-        contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
+        contentView.layer.borderColor = UIColor.gray01.cgColor
         contentView.layer.borderWidth = 0.5
 
-        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
-        contentView.layer.shadowRadius = 5.0
-        contentView.layer.shadowOpacity = 0.2
+        contentView.layer.shadowColor = UIColor.gray01.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
+        contentView.layer.shadowRadius = 7.0
+        contentView.layer.shadowOpacity = 0.25
         contentView.layer.masksToBounds = false
-        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 5, bottom: 15, right: 5))
-        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
-
     }
 
     // MARK: - CONSTRAINTS

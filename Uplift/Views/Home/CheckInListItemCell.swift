@@ -55,7 +55,7 @@ class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
         checkInButton.addTarget(self, action: #selector(checkIn), for: .touchUpInside)
         contentView.addSubview(checkInButton)
 
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.font = ._16MontserratMedium
         contentView.addSubview(titleLabel)
 
@@ -63,7 +63,7 @@ class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
         streakLabel.font = ._16MontserratBold
         contentView.addSubview(streakLabel)
 
-        dividerView.backgroundColor = .fitnessLightGrey
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 
@@ -108,7 +108,7 @@ class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         checkInButton.isSelected = false
     }
     
@@ -119,7 +119,7 @@ class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
 
             titleLabel.attributedText = nil
             titleLabel.text = habit.title
-            titleLabel.textColor = .fitnessBlack
+            titleLabel.textColor = .primaryBlack
         } else {
             Habit.logDate(habit: habit, date: Date())
 
