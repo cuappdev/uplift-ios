@@ -66,8 +66,11 @@ class GymDetailTimeInfoView: UILabel {
         // Positioning constants relative to text
         let textLineHeight = font.lineHeight
         let timesTextHeight = timesText.string.height(withConstrainedWidth: bounds.width, font: font)
-        let textBodyVerticalInset = (bounds.height - timesTextHeight) / 2.0
-
+        var viewHeight = bounds.height
+        if viewHeight == 0 {
+            viewHeight = calculateMaxHeight(width: UIScreen.main.bounds.width)
+        }
+        let textBodyVerticalInset = (viewHeight - timesTextHeight) / 2.0
 
         subviews.forEach({ $0.removeFromSuperview() }) // remove all subviews
 
@@ -163,6 +166,11 @@ extension GymDetailTimeInfoView: WeekDelegate {
     }
 }
 
+
+
+
+
+// MARK: - Fake  Backend
 public struct FakeFacility {
     var times: [FakeGymHours]
     var miscInformation: [String]
