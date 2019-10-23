@@ -36,7 +36,7 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         // SHADOWING
         contentView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.16).cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 0)
-        contentView.layer.shadowRadius = 4.0
+        contentView.layer.shadowRadius = 3.0
         contentView.layer.shadowOpacity = 1.0
         contentView.layer.masksToBounds = false
 
@@ -59,7 +59,7 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
 
     func setupViews() {
         titleLabel.font = ._14MontserratSemiBold
-        titleLabel.textColor = .fitnessLightBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.textAlignment = .left
         contentView.addSubview(titleLabel)
 
@@ -103,7 +103,8 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
     }
 
     private func generateListString(for stringList: [String],
-                                    alignment: NSTextAlignment = .left) -> NSAttributedString {
+                                    alignment: NSTextAlignment = .left,
+                                    color: UIColor = .primaryBlack) -> NSAttributedString {
         let listString = stringList.joined(separator: "\n")
 
         let style = NSMutableParagraphStyle()
@@ -111,7 +112,8 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         style.alignment = alignment
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont._12MontserratLight!,
-            .paragraphStyle: style
+            .paragraphStyle: style,
+            .foregroundColor: color
         ]
 
         return NSAttributedString(string: listString, attributes: attributes)
