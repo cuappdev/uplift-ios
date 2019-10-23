@@ -19,10 +19,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
     private let equipmentList = UITextView()
     private let quantityList = UITextView()
 
-    // MARK: - Private layout vars
-    private let listsSpacing: CGFloat = 12
-    private var equipmentListTrailingConstraint: Constraint?
-
     // MARK: - Private data vars
     private var equipment: [Equipment] = []
 
@@ -53,8 +49,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         equipmentList.attributedText = generateListString(for: equipment.map { $0.name })
         quantityList.attributedText = generateListString(for: equipment.map { $0.quantity }, alignment: .right)
         quantityList.sizeToFit()
-
-        equipmentListTrailingConstraint?.update(offset: -listsSpacing)
     }
 
     func setupViews() {
@@ -82,6 +76,7 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         let contentPadding: CGFloat = 16
         let equipmentTopPadding: CGFloat = 4
         let labelHeight: CGFloat = 20
+        let listsSpacing: CGFloat = 12
 
         titleLabel.snp.makeConstraints { make in
             make.height.equalTo(labelHeight)
@@ -96,7 +91,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
 
         equipmentList.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
-//            equipmentListTrailingConstraint = make.trailing.equalTo(quantityList.snp.leading).offset(0).constraint
             make.trailing.equalTo(quantityList.snp.leading).offset(-listsSpacing)
             make.leading.equalToSuperview().offset(contentPadding)
             make.bottom.equalToSuperview().inset(contentPadding)
