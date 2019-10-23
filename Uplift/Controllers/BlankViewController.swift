@@ -15,8 +15,11 @@ class BlankViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .fitnessLightGrey
+        view.backgroundColor = .gray04
 
+//        let a = AdditionalInfoView()
+//        a.text = "women only"
+//        test = a
         test = GymDetailTimeInfoView()
         view.addSubview(test)
         setupConstraints()
@@ -24,9 +27,12 @@ class BlankViewController: UIViewController {
 
     func setupConstraints() {
         test.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview() 
+            make.leading.trailing.equalToSuperview()
             make.center.equalToSuperview()
             make.height.equalTo(130)
+
+//            make.center.equalToSuperview()
+//            make.width.equalTo(80)
         }
     }
 }

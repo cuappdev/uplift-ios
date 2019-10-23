@@ -43,7 +43,7 @@ class GymWeekCell: UICollectionViewCell {
         dayLabel = UILabel()
         dayLabel.font = ._12MontserratBold
         dayLabel.textAlignment = .center
-        dayLabel.textColor = .fitnessBlack
+        dayLabel.textColor = .primaryBlack
         addSubview(dayLabel)
 
         update()
@@ -72,6 +72,6 @@ class GymWeekCell: UICollectionViewCell {
     /// Updates the appearence of the cell when selection changes
     func update() {
         backCircle.alpha = isSelected || today ? 1 : 0
-        backCircle.backgroundColor = isSelected ? .fitnessYellow : .fitnessLightGrey
+        backCircle.backgroundColor = isSelected ? .primaryYellow : .gray02
     }
 }

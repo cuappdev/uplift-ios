@@ -47,7 +47,7 @@ class GymDetailWeekView: UIView {
     }
 
     private func setupCollectionView() {
-        backgroundColor = .fitnessWhite
+        backgroundColor = .primaryWhite
 
         let daySpacing: CGFloat = 19
 

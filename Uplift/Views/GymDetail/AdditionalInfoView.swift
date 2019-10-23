@@ -7,10 +7,31 @@
 //
 
 import UIKit
+/// Displays additional info from Facilities Query in GymDetailTimeInfoView
+class AdditionalInfoView: UILabel {
 
-class AdditionalInfoView: UIView {
+    private var sidebar: UIView!
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .primaryLightYellow
+        font = ._12MontserratLight
+        textAlignment = .right
+        sidebar = UIView()
+        sidebar.backgroundColor = .primaryYellow
+        addSubview(sidebar)
+        setupConstraints()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     private func setupConstraints() {
-
+        let sidebarWidth = 1.0
+        sidebar.snp.makeConstraints { make in
+            make.width.equalTo(sidebarWidth)
+            make.height.leading.equalToSuperview()
+        }
     }
 }
