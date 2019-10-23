@@ -50,10 +50,8 @@ class GymDetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.gymDetail = GymDetail(gym: gym)
 
-        for facility in gymDetail.facilities {
-            if facility.name == "Fitness Center" {
-                self.equipment = categorizeEquipment(equipmentList: facility.equipment)
-            }
+        for facility in gymDetail.facilities where facility.name == "Fitness Center" {
+            self.equipment = categorizeEquipment(equipmentList: facility.equipment)
         }
 
         if gym.isOpen {
@@ -139,13 +137,9 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             cell.configure(for: gymDetail.gym)
             return cell
         case .facilities:
-            // swiftlint:disable:next force_cast
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-//            cell.configure(for: gymDetail)
-//            return cell
-            // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymEquipmentCell, for: indexPath) as! EquipmentListCell
-            cell.configure(for: equipment)
+             // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
+            cell.configure(for: gymDetail)
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -165,9 +159,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .busyTimes:
             return CGSize(width: width, height: getBusyTimesHeight())
         case.facilities:
-            let height = EquipmentListCell.getHeight(models: equipment)
-            return CGSize(width: width, height: height + 24.0)
-//            return CGSize(width: width, height: getFacilitiesHeight())
+            return CGSize(width: width, height: getFacilitiesHeight())
         case.classes:
             return CGSize(width: width, height: getTodaysClassesHeight())
         }
@@ -209,7 +201,6 @@ extension GymDetailViewController {
         collectionView.register(GymDetailHoursCell.self, forCellWithReuseIdentifier: Constants.gymDetailHoursCellIdentifier)
         collectionView.register(GymDetailPopularTimesCell.self, forCellWithReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier)
         collectionView.register(GymDetailFacilitiesCell.self, forCellWithReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier)
-        collectionView.register(EquipmentListCell.self, forCellWithReuseIdentifier: Identifiers.gymEquipmentCell)
         collectionView.register(GymDetailTodaysClassesCell.self, forCellWithReuseIdentifier: Constants.gymDetailClassesCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
