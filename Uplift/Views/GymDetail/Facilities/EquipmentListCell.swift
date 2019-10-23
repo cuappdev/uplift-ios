@@ -24,13 +24,6 @@ class EquipmentListCell: ListCollectionViewCell<EquipmentCategory, EquipmentList
 
     // MARK: - Overrides
     override var config: ListConfiguration {
-        let baseHeight = Constraints.contentPadding + Constraints.labelHeight + Constraints.equipmentTopPadding + Constraints.contentPadding
-
-//        let equipmentCounts = models.map { $0.equipment.count }
-//        var maxCellHeight: CGFloat = 236
-//        if let maxCount = equipmentCounts.max() {
-//            maxCellHeight = baseHeight + Constraints.lineHeight * CGFloat(maxCount)
-//        }
         let maxCellHeight = EquipmentListCell.getHeight(models: models)
 
         return ListConfiguration(
