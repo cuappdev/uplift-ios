@@ -47,7 +47,7 @@ class BlankViewController: UIViewController {
 
         let weekView = GymDetailWeekView()
         weekView.snp.makeConstraints { make in
-            make.height.equalTo(24)
+            make.height.equalTo(30)
         }
         let timeInfo = GymDetailTimeInfoView(facility: facil)
         weekView.delegate = timeInfo
@@ -70,7 +70,7 @@ class BlankViewController: UIViewController {
         stack.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.center.equalToSuperview()
-            make.height.equalTo(h + 24)
+            make.height.equalTo(h + 30)
 
 //            make.center.equalToSuperview()
 //            make.width.equalTo(80)

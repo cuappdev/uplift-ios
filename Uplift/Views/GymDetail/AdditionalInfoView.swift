@@ -17,9 +17,14 @@ class AdditionalInfoView: UILabel {
         backgroundColor = .primaryLightYellow
         font = ._12MontserratLight
         textAlignment = .right
+
+        let cornerRadius: CGFloat = 2.0
+        layer.cornerRadius = cornerRadius
+
         sidebar = UIView()
         sidebar.backgroundColor = .primaryYellow
         addSubview(sidebar)
+
         setupConstraints()
     }
 
