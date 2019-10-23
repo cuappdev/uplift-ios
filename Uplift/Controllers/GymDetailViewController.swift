@@ -20,6 +20,7 @@ class GymDetailViewController: UIViewController {
     // MARK: - Private data vars
     private var sections: [Section] = []
     private var todaysClasses: [GymClassInstance] = []
+    private var equipment: [EquipmentCategory] = []
 
     // MARK: - Public data vars
     var gymDetail: GymDetail!
@@ -48,6 +49,12 @@ class GymDetailViewController: UIViewController {
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
         self.gymDetail = GymDetail(gym: gym)
+
+        for facility in gymDetail.facilities {
+            if facility.name == "Fitness Center" {
+                self.equipment = categorizeEquipment(equipmentList: facility.equipment)
+            }
+        }
 
         if gym.isOpen {
             self.sections = [
@@ -133,8 +140,12 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             return cell
         case .facilities:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-            cell.configure(for: gymDetail)
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
+//            cell.configure(for: gymDetail)
+//            return cell
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymEquipmentCell, for: indexPath) as! EquipmentListCell
+            cell.configure(for: equipment)
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -154,7 +165,9 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .busyTimes:
             return CGSize(width: width, height: getBusyTimesHeight())
         case.facilities:
-            return CGSize(width: width, height: getFacilitiesHeight())
+            let height = EquipmentListCell.getHeight(models: equipment)
+            return CGSize(width: width, height: height + 24.0)
+//            return CGSize(width: width, height: getFacilitiesHeight())
         case.classes:
             return CGSize(width: width, height: getTodaysClassesHeight())
         }
@@ -196,6 +209,7 @@ extension GymDetailViewController {
         collectionView.register(GymDetailHoursCell.self, forCellWithReuseIdentifier: Constants.gymDetailHoursCellIdentifier)
         collectionView.register(GymDetailPopularTimesCell.self, forCellWithReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier)
         collectionView.register(GymDetailFacilitiesCell.self, forCellWithReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier)
+        collectionView.register(EquipmentListCell.self, forCellWithReuseIdentifier: Identifiers.gymEquipmentCell)
         collectionView.register(GymDetailTodaysClassesCell.self, forCellWithReuseIdentifier: Constants.gymDetailClassesCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -262,7 +276,7 @@ func getHoursHeight() -> CGFloat {
             Constraints.dividerViewHeight
 
         let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight *
-                CGFloat(gymDetail.facilities.count)
+                CGFloat(gymDetail.facilitiesList.count)
 
         return baseHeight + tableViewHeight
     }
@@ -279,6 +293,31 @@ func getHoursHeight() -> CGFloat {
             classesCollectionViewHeight()
 
         return (todaysClasses.isEmpty) ? baseHeight + noMoreClassesHeight : baseHeight + collectionViewHeight
+    }
+}
+
+extension GymDetailViewController {
+    func categorizeEquipment(equipmentList: [Equipment]) -> [EquipmentCategory] {
+        var equipmentDictionary: [String: [Equipment]] = [:]
+        let sorted = equipmentList.sorted(by: { $0.equipmentType < $1.equipmentType })
+        var category = sorted[0].equipmentType
+        equipmentDictionary[category] = []
+
+        sorted.forEach { (equipment) in
+            if equipment.equipmentType == category {
+                equipmentDictionary[category]?.append(equipment)
+            } else {
+                category = equipment.equipmentType
+                equipmentDictionary[category] = [equipment]
+            }
+        }
+
+        var equipmentCategories: [EquipmentCategory] = []
+        for (categoryName, equipment) in equipmentDictionary {
+            equipmentCategories.append(EquipmentCategory(categoryName: categoryName, equipment: equipment))
+        }
+
+        return equipmentCategories
     }
 }
 

@@ -17,8 +17,3 @@ struct EquipmentCategory {
     let categoryName: String
     let equipment: [Equipment]
 }
-
-struct Equipment {
-    let name: String
-    let count: Int
-}

@@ -135,7 +135,6 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
         }
 
         layout.itemSize = config.itemSize
-//        layout.prepare()  // <-- call prepare before invalidateLayout
         layout.invalidateLayout()
     }
 

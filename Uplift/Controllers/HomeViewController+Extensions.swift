@@ -28,13 +28,10 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         case .allGyms:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymEquipmentListCellIdentifier, for: indexPath) as! EquipmentListCell
-            cell.configure(for: models)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
+            cell.delegate = self
+            cell.configure(for: self.favoriteGyms)
             return cell
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
-//            cell.delegate = self
-//            cell.configure(for: self.favoriteGyms)
-//            return cell
         case .todaysClasses:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
@@ -100,9 +97,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             let bottomSectionInset = 32
             return CGSize(width: width, height: CGFloat(checkInListHeight + bottomSectionInset))
         case .allGyms:
-            // this line is important
-            let height = EquipmentListCell.getHeight(models: models)
-            return CGSize(width: width, height: height + 24.0)
+            return CGSize(width: width, height: 123)
         case .todaysClasses:
             return CGSize(width: width, height: 227)
         case .lookingFor:
@@ -156,7 +151,7 @@ extension HomeViewController: LookingForListCellDelegate {
 
         tabBarController?.selectedIndex = 1
     }
-    
+
 }
 
 extension HomeViewController: ChooseGymsDelegate {

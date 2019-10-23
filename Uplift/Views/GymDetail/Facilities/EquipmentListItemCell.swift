@@ -42,17 +42,18 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         contentView.layer.masksToBounds = false
 
         setupViews()
-        setupConstraints()
+//        setupConstraints()
     }
 
     // MARK: - Public configure
     override func configure(for equipmentCategory: EquipmentCategory) {
         super.configure(for: equipmentCategory)
 
+        setupConstraints()
         titleLabel.text = equipmentCategory.categoryName
         equipment = equipmentCategory.equipment
         equipmentList.attributedText = generateListString(for: equipment.map { $0.name })
-        quantityList.attributedText = generateListString(for: equipment.map { String($0.count) }, alignment: .right)
+        quantityList.attributedText = generateListString(for: equipment.map { $0.quantity }, alignment: .right)
         quantityList.sizeToFit()
 
         quantityListWidthConstraint?.update(offset: quantityList.frame.width)
@@ -83,19 +84,19 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         let equipmentTopPadding: CGFloat = 4
         let labelHeight: CGFloat = 20
 
-        titleLabel.snp.makeConstraints { make in
+        titleLabel.snp.remakeConstraints { make in
             make.height.equalTo(labelHeight)
             make.leading.top.equalToSuperview().offset(contentPadding)
             make.trailing.equalToSuperview().inset(contentPadding)
         }
 
-        quantityList.snp.makeConstraints { make in
+        quantityList.snp.remakeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
             make.trailing.bottom.equalToSuperview().inset(contentPadding)
             quantityListWidthConstraint = make.width.equalTo(0).constraint
         }
 
-        equipmentList.snp.makeConstraints { make in
+        equipmentList.snp.remakeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
             equipmentListTrailingConstraint = make.trailing.equalTo(quantityList.snp.leading).offset(0).constraint
             make.leading.equalToSuperview().offset(contentPadding)

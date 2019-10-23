@@ -32,7 +32,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 
     // MARK: - Public configure
     func configure(for gymDetail: GymDetail) {
-        gymFacilities = gymDetail.facilities
+        gymFacilities = gymDetail.facilitiesList
 
         DispatchQueue.main.async {
             self.gymFacilitiesTableView.reloadData()
