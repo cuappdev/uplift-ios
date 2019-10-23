@@ -28,17 +28,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = BlankViewController()
         return true
 
-        let defaults = UserDefaults.standard
-        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-            ? TabBarController()
-            : OnboardingViewController()
-
-        #if DEBUG
-            print("Running Uplift in debug configuration")
-        #else
-            print("Running Uplift in release configuration")
-            Crashlytics.start(withAPIKey: Keys.fabricAPIKey.value)
-        #endif
+//        let defaults = UserDefaults.standard
+//        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+//            ? TabBarController()
+//            : OnboardingViewController()
+//
+//        #if DEBUG
+//            print("Running Uplift in debug configuration")
+//        #else
+//            print("Running Uplift in release configuration")
+//            Crashlytics.start(withAPIKey: Keys.fabricAPIKey.value)
+//        #endif
 
         return true
     }
