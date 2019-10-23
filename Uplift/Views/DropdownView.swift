@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum DropdownStatus {
-    case up, half, down
+    case closed, half, open
 }
 
 enum DropdownDirection {
@@ -17,31 +17,31 @@ enum DropdownDirection {
 }
 
 protocol DropdownViewDelegate {
-    func collapseDropdownView(sender dropdownView: DropdownView)
-    func collapseDropdownViewHalf(sender dropdownView: DropdownView)
-    func expandDropdownViewFull(sender dropdownView: DropdownView)
-    func expandDropdownViewHalf(sender dropdownView: DropdownView)
+    func dropdownViewClosed(sender dropdownView: DropdownView)
+    func dropdownViewOpen(sender dropdownView: DropdownView)
+    func dropdownViewHalf(sender dropdownView: DropdownView)
 }
 
 class DropdownView: UIView {
-    var collapseHalfDropdownGesture: UITapGestureRecognizer!
-    var contentView: UIView!
-    var contentViewBottomConstraint: NSLayoutConstraint!
-    var contentViewHeight: CGFloat!
-    var contentViewHeightConstraint: NSLayoutConstraint!
+    
+    private var contentView: UIView!
+    private var contentViewBottomConstraint: NSLayoutConstraint!
+    private var contentViewHeight: CGFloat!
+    private var contentViewHeightConstraint: NSLayoutConstraint!
     var currentHeight: CGFloat!
-    var delegate: DropdownViewDelegate!
-    var expandCollapseDropdownGesture: UITapGestureRecognizer!
-    var expandFromHalfDropdownGesture: UITapGestureRecognizer!
-    var halfCollapseView: UIView?
-    var halfCollapseViewHeight: CGFloat!
-    var halfDropdownEnabled: Bool!
-    var halfExpandView: UIView?
-    var halfExpandViewHeight: CGFloat!
-    var halfHeight: CGFloat!
-    var headerView: UIView!
-    var headerViewHeight: CGFloat!
-    var status: DropdownStatus = .up
+    private var delegate: DropdownViewDelegate!
+    private var expandCollapseDropdownGesture: UITapGestureRecognizer!
+    private var halfCollapseDropdownGesture: UITapGestureRecognizer!
+    private var halfCollapseView: UIView?
+    private var halfCollapseViewHeight: CGFloat!
+    private var halfDropdownEnabled: Bool!
+    private var halfExpandDropdownGesture: UITapGestureRecognizer!
+    private var halfExpandView: UIView?
+    private var halfExpandViewHeight: CGFloat!
+    private var halfHeight: CGFloat!
+    private var headerView: UIView!
+    private var headerViewHeight: CGFloat!
+    var status: DropdownStatus = .closed
     
     init(headerView: UIView, headerViewHeight: CGFloat, contentView: UIView, contentViewHeight: CGFloat, halfDropdownEnabled: Bool = false, halfExpandView: UIView? = nil, halfExpandViewHeight: CGFloat = 0, halfCollapseView: UIView? = nil, halfCollapseViewHeight: CGFloat = 0, halfHeight: CGFloat = 0) {
         super.init(frame: .zero)
@@ -54,7 +54,7 @@ class DropdownView: UIView {
         self.headerViewHeight = headerViewHeight
         currentHeight = headerViewHeight
         
-        expandCollapseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.expandCollapseDropdown(sender:) ))
+        expandCollapseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.expandCollapseDropdown(sender:)))
         self.headerView.addGestureRecognizer(expandCollapseDropdownGesture)
         
         self.contentView = contentView
@@ -69,24 +69,24 @@ class DropdownView: UIView {
         
         if let halfView = halfExpandView {
             self.halfExpandView = halfView
-            self.halfExpandView!.translatesAutoresizingMaskIntoConstraints = false
-            self.halfExpandView!.isHidden = true
-            self.halfExpandView?.isUserInteractionEnabled = true
-            addSubview(self.halfExpandView!)
-            expandFromHalfDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.expandFromHalfDropdown(sender:) ))
-            halfView.addGestureRecognizer(expandFromHalfDropdownGesture)
+            halfView.translatesAutoresizingMaskIntoConstraints = false
+            halfView.isHidden = true
+            halfView.isUserInteractionEnabled = true
+            addSubview(halfView)
+            halfExpandDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.expandFromHalfDropdown(sender:)))
+            halfView.addGestureRecognizer(halfExpandDropdownGesture)
         }
         
         self.halfExpandViewHeight = halfExpandViewHeight
         
         if let halfView = halfCollapseView {
             self.halfCollapseView = halfView
-            self.halfCollapseView!.isHidden = true
-            self.halfCollapseView!.isUserInteractionEnabled = true
-            self.halfCollapseView!.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(self.halfCollapseView!)
-            collapseHalfDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.collapseHalfDropdown(sender:) ))
-            halfView.addGestureRecognizer(collapseHalfDropdownGesture)
+            halfView.translatesAutoresizingMaskIntoConstraints = false
+            halfView.isHidden = true
+            halfView.isUserInteractionEnabled = true
+            addSubview(halfView)
+            halfCollapseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.collapseHalfDropdown(sender:)))
+            halfView.addGestureRecognizer(halfCollapseDropdownGesture)
         }
         
         self.halfCollapseViewHeight = halfCollapseViewHeight
@@ -130,8 +130,8 @@ class DropdownView: UIView {
     
     @objc func expandCollapseDropdown(sender: UITapGestureRecognizer) {
         switch status{
-        case .up:
-            if halfDropdownEnabled {
+        case .closed: // If the dropdown view is currently closed, open it to some degree
+            if halfDropdownEnabled { // If the user has enabled the half dropdown state, open to the half state
                 status = .half
                 halfExpandView?.isHidden = false
                 UIView.animate(withDuration: 0.3) {
@@ -139,18 +139,18 @@ class DropdownView: UIView {
                     self.layoutIfNeeded()
                 }
                 currentHeight = headerViewHeight + halfExpandViewHeight + halfHeight
-                delegate.expandDropdownViewHalf(sender: self)
-            } else {
-                status = .down
+                delegate.dropdownViewHalf(sender: self)
+            } else { // Since the user has not enabled the half dropdown state, fully open the dropdown
+                status = .open
                 UIView.animate(withDuration: 0.3) {
                     self.contentViewHeightConstraint.constant = CGFloat(self.contentViewHeight)
                     self.layoutIfNeeded()
                 }
                 currentHeight = headerViewHeight + contentViewHeight
-                delegate.expandDropdownViewFull(sender: self)
+                delegate.dropdownViewOpen(sender: self)
             }
-        case .down, .half:
-            status = .up
+        case .open, .half: // Fully close the dropdown view
+            status = .closed
             UIView.animate(withDuration: 0.3) {
                 self.contentViewHeightConstraint.constant = CGFloat(0.0)
                 self.layoutIfNeeded()
@@ -158,12 +158,12 @@ class DropdownView: UIView {
             halfExpandView?.isHidden = true
             halfCollapseView?.isHidden = true
             currentHeight = headerViewHeight
-            delegate.collapseDropdownView(sender: self)
+            delegate.dropdownViewClosed(sender: self)
         }
     }
     
     @objc func expandFromHalfDropdown(sender: UITapGestureRecognizer) {
-        status = .down
+        status = .open
         halfExpandView?.isHidden = true
         halfCollapseView?.isHidden = false
         UIView.animate(withDuration: 0.3) {
@@ -171,7 +171,7 @@ class DropdownView: UIView {
             self.layoutIfNeeded()
         }
         currentHeight = headerViewHeight + contentViewHeight + halfCollapseViewHeight
-        delegate.expandDropdownViewFull(sender: self)
+        delegate.dropdownViewOpen(sender: self)
     }
     
     @objc func collapseHalfDropdown(sender:UITapGestureRecognizer) {
@@ -183,8 +183,6 @@ class DropdownView: UIView {
             self.layoutIfNeeded()
         }
         currentHeight = headerViewHeight + halfExpandViewHeight + halfHeight
-        delegate.collapseDropdownViewHalf(sender: self)
+        delegate.dropdownViewHalf(sender: self)
     }
-    
-    
 }

@@ -119,7 +119,6 @@
 		E604DC3A233B1DF7003598BC /* ProRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC37233B1DF7003598BC /* ProRoutine.swift */; };
 		E604DC3B233B1DF7003598BC /* ProBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC38233B1DF7003598BC /* ProBio.swift */; };
 		E604DC3F233B22C9003598BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E604DC3E233B22C9003598BC /* GoogleService-Info.plist */; };
-		E60B792E235F45F100B94402 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B792C235F45F100B94402 /* TestViewController.swift */; };
 		E60B792F235F45F100B94402 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B792D235F45F100B94402 /* DropdownView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
@@ -247,7 +246,6 @@
 		E604DC37233B1DF7003598BC /* ProRoutine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutine.swift; sourceTree = "<group>"; };
 		E604DC38233B1DF7003598BC /* ProBio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProBio.swift; sourceTree = "<group>"; };
 		E604DC3E233B22C9003598BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E60B792C235F45F100B94402 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestViewController.swift; path = Uplift/Controllers/TestViewController.swift; sourceTree = SOURCE_ROOT; };
 		E60B792D235F45F100B94402 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownView.swift; path = Uplift/Views/DropdownView.swift; sourceTree = SOURCE_ROOT; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
@@ -464,7 +462,6 @@
 				4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */,
 				1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
-				E60B792C235F45F100B94402 /* TestViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -964,7 +961,6 @@
 				7E808771229B76BD007D9EDD /* GymDetailHoursCell.swift in Sources */,
 				D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */,
 				7E80876D229B6984007D9EDD /* GymDetailTodaysClassesCell.swift in Sources */,
-				E60B792E235F45F100B94402 /* TestViewController.swift in Sources */,
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
 				C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */,

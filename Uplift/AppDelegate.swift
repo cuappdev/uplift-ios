@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let defaults = UserDefaults.standard
         window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-            ? TestViewController()//TabBarController()
+            ? TabBarController()
             : OnboardingViewController()
 
         #if DEBUG
