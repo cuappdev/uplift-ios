@@ -10,10 +10,12 @@ import Foundation
 
 struct GymDetail {
 
+    let facilities: [Facility]
+    let facilitiesList: [String]
     let gym: Gym
     var hoursDataIsDropped: Bool
-    let facilities: [String]
     
+
     private let facilitiesData: [String: [String]] = [
         GymIds.appel: ["Fitness Center"],
         GymIds.helenNewman: ["Fitness Center", "Pool", "16 Lane Bowling Center", "Two-Court Gymnasium", "Dance Studio"],
@@ -23,9 +25,10 @@ struct GymDetail {
     ]
 
     init(gym: Gym) {
+        self.facilities = gym.facilities
+        self.facilitiesList = facilitiesData[gym.id] ?? []
         self.gym = gym
         self.hoursDataIsDropped = false
-        self.facilities = facilitiesData[gym.id] ?? []
     }
 
 }

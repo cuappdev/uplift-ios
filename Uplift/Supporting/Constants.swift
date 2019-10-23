@@ -52,6 +52,7 @@ struct Identifiers {
     static let classesCell = "classesCell"
     static let dropdownViewCell = "dropdownViewCell"
     static let facilityHoursCell = "facilityHoursCell"
+    static let gymEquipmentCell = "gymEquipmentCell"
     static let gymFacilityCell = "gymFacilityCell"
     static let gymFilterCell = "gymFilterCell"
     static let gymHoursCell = "gymHoursCell"
