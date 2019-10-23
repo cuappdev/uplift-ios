@@ -16,7 +16,8 @@ class BlankViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .fitnessLightGrey
-        test = GymDetailWeekView()
+
+        test = GymDetailTimeInfoView()
         view.addSubview(test)
         setupConstraints()
     }
@@ -25,7 +26,7 @@ class BlankViewController: UIViewController {
         test.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview() 
             make.center.equalToSuperview()
-            make.height.equalTo(70)
+            make.height.equalTo(130)
         }
     }
 }
