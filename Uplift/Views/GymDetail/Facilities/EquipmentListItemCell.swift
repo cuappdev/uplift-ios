@@ -22,7 +22,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
     // MARK: - Private layout vars
     private let listsSpacing: CGFloat = 12
     private var equipmentListTrailingConstraint: Constraint?
-    private var quantityListWidthConstraint: Constraint?
 
     // MARK: - Private data vars
     private var equipment: [Equipment] = []
@@ -42,21 +41,19 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         contentView.layer.masksToBounds = false
 
         setupViews()
-//        setupConstraints()
+        setupConstraints()
     }
 
     // MARK: - Public configure
     override func configure(for equipmentCategory: EquipmentCategory) {
         super.configure(for: equipmentCategory)
 
-        setupConstraints()
         titleLabel.text = equipmentCategory.categoryName
         equipment = equipmentCategory.equipment
         equipmentList.attributedText = generateListString(for: equipment.map { $0.name })
         quantityList.attributedText = generateListString(for: equipment.map { $0.quantity }, alignment: .right)
         quantityList.sizeToFit()
 
-        quantityListWidthConstraint?.update(offset: quantityList.frame.width)
         equipmentListTrailingConstraint?.update(offset: -listsSpacing)
     }
 
@@ -67,12 +64,14 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         contentView.addSubview(titleLabel)
 
         equipmentList.isEditable = false
+        equipmentList.isSelectable = false
         equipmentList.isScrollEnabled = false
         equipmentList.textContainerInset = .zero
         equipmentList.textContainer.lineFragmentPadding = 0
         contentView.addSubview(equipmentList)
 
         quantityList.isEditable = false
+        quantityList.isSelectable = false
         quantityList.isScrollEnabled = false
         quantityList.textContainerInset = .zero
         quantityList.textContainer.lineFragmentPadding = 0
@@ -84,19 +83,18 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         let equipmentTopPadding: CGFloat = 4
         let labelHeight: CGFloat = 20
 
-        titleLabel.snp.remakeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.height.equalTo(labelHeight)
             make.leading.top.equalToSuperview().offset(contentPadding)
             make.trailing.equalToSuperview().inset(contentPadding)
         }
 
-        quantityList.snp.remakeConstraints { make in
+        quantityList.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
             make.trailing.bottom.equalToSuperview().inset(contentPadding)
-            quantityListWidthConstraint = make.width.equalTo(0).constraint
         }
 
-        equipmentList.snp.remakeConstraints { make in
+        equipmentList.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
             equipmentListTrailingConstraint = make.trailing.equalTo(quantityList.snp.leading).offset(0).constraint
             make.leading.equalToSuperview().offset(contentPadding)
