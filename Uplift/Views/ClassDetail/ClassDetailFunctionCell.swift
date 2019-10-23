@@ -44,16 +44,16 @@ class ClassDetailFunctionCell: UICollectionViewCell {
         functionLabel.text = ClientStrings.ClassDetail.functionLabel
         functionLabel.font = ._16MontserratBold
         functionLabel.textAlignment = .center
-        functionLabel.textColor = .fitnessLightBlack
+        functionLabel.textColor = .primaryBlack
         contentView.addSubview(functionLabel)
 
         descriptionLabel.font = ._14MontserratLight
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
-        descriptionLabel.textColor = .fitnessBlack
+        descriptionLabel.textColor = .primaryBlack
         contentView.addSubview(descriptionLabel)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 

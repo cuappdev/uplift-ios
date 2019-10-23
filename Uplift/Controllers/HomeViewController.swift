@@ -48,7 +48,7 @@ class HomeViewController: UIViewController {
 
         sections = [.myGyms, .todaysClasses, .lookingFor]
 
-        view.backgroundColor = UIColor.fitnessWhite
+        view.backgroundColor = UIColor.primaryWhite
 
         setupViews()
         setupConstraints()

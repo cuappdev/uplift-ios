@@ -25,7 +25,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         
         facilityNameLabel = UILabel()
         facilityNameLabel.font = ._16MontserratMedium
-        facilityNameLabel.textColor = .fitnessBlack
+        facilityNameLabel.textColor = .primaryBlack
         facilityNameLabel.sizeToFit()
         facilityNameLabel.textAlignment = .left
         facilityNameLabel.text = ""
@@ -42,14 +42,14 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         
         statusLabel = UILabel()
         statusLabel.font = ._12MontserratMedium
-        statusLabel.textColor = .fitnessGreen
+        statusLabel.textColor = .accentOpen
         statusLabel.sizeToFit()
         statusLabel.textAlignment = .left
         contentView.addSubview(statusLabel)
         
         todayTimeLabel = UILabel()
         todayTimeLabel.font = ._12MontserratRegular
-        todayTimeLabel.textColor = .fitnessBlack
+        todayTimeLabel.textColor = .primaryBlack
         todayTimeLabel.sizeToFit()
         todayTimeLabel.textAlignment = .left
         contentView.addSubview(todayTimeLabel)

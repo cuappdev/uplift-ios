@@ -24,7 +24,7 @@ class NoFavoritesEmptyStateView: UIView {
         emptyStateTitleLabel = UILabel()
         emptyStateTitleLabel.text = ClientStrings.Favorites.noFavoritesText
         emptyStateTitleLabel.font = ._20MontserratBold
-        emptyStateTitleLabel.textColor = .fitnessBlack
+        emptyStateTitleLabel.textColor = .primaryBlack
         emptyStateTitleLabel.textAlignment = .center
         emptyStateTitleLabel.numberOfLines = 2
         addSubview(emptyStateTitleLabel)
@@ -38,13 +38,14 @@ class NoFavoritesEmptyStateView: UIView {
         findClassesButton.setTitle(ClientStrings.Favorites.browseClasses, for: .normal)
         findClassesButton.addTarget(self, action: #selector(findClasses), for: .touchUpInside)
         findClassesButton.titleLabel?.font = ._14MontserratBold
-        findClassesButton.setTitleColor(UIColor.fitnessBlack, for: .normal)
+        findClassesButton.setTitleColor(UIColor.primaryBlack, for: .normal)
 
-        findClassesButton.backgroundColor = .fitnessYellow
+        findClassesButton.backgroundColor = .primaryYellow
         findClassesButton.layer.cornerRadius = 32
-        findClassesButton.layer.shadowOffset = CGSize(width: 0, height: 4)
         findClassesButton.layer.shadowColor = UIColor.buttonShadow.cgColor
-        findClassesButton.layer.shadowOpacity = 0.5
+        findClassesButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        findClassesButton.layer.shadowRadius = 4.0
+        findClassesButton.layer.shadowOpacity = 1.0
         addSubview(findClassesButton)
 
         setupConstraints()

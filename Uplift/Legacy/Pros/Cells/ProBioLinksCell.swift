@@ -51,7 +51,7 @@ class ProBioLinksCell: UICollectionViewCell {
     private func setupViews() {
         linksTitleLabel.text = "FOLLOW ME"
         linksTitleLabel.font = ._12MontserratBold
-        linksTitleLabel.textColor = .fitnessBlack
+        linksTitleLabel.textColor = .primaryBlack
         linksTitleLabel.textAlignment = .center
         linksTitleLabel.sizeToFit()
         contentView.addSubview(linksTitleLabel)
