@@ -11,25 +11,42 @@ import SnapKit
 
 class BlankViewController: UIViewController {
 
-    var test: UIView!
+    var stack: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray04
 
+        stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+
+        let weekView = GymDetailWeekView()
+        weekView.snp.makeConstraints { make in
+            make.height.equalTo(30)
+        }
+        let timeInfo = GymDetailTimeInfoView()
+//        timeInfo.snp.makeConstraints { make in
+//            make.height.equalTo(120)
+//        }
+        weekView.delegate = timeInfo
+
+        stack.addArrangedSubview(weekView)
+        stack.addArrangedSubview(timeInfo)
+
 //        let a = AdditionalInfoView()
 //        a.text = "women only"
 //        test = a
-        test = GymDetailTimeInfoView()
-        view.addSubview(test)
+        view.addSubview(stack)
         setupConstraints()
     }
 
     func setupConstraints() {
-        test.snp.makeConstraints { make in
+        stack.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.center.equalToSuperview()
-            make.height.equalTo(130)
+            make.height.equalTo(300)
 
 //            make.center.equalToSuperview()
 //            make.width.equalTo(80)

@@ -12,7 +12,10 @@ class GymDetailTimeInfoView: UILabel {
 
     private var timesText = NSMutableAttributedString()
     private var hours: [DailyGymHours] = []
-    private var tags: [String] = ["", "woman only", "", "", "woman only", "woman only"]
+//    private var tags: [String] = ["", "woman only", "", "woman only", "woman only"]
+//    private var tags: [String] = ["woman only", "woman only", "woman only", "woman only", "woman only"]
+    private var tags: [String] = ["woman only", "", "woman only", "", "woman only", "woman only", "", "", "woman only", ""]
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +27,11 @@ class GymDetailTimeInfoView: UILabel {
         // Hardcoded
         let hardtext =
         """
+        7:00 AM - 7:45 AM
+        8:00 AM - 8:45 AM
+        11:00 AM - 1:30 PM
+        5:00 PM - 6:30 PM
+        8:30 PM - 10:00 PM
         7:00 AM - 7:45 AM
         8:00 AM - 8:45 AM
         11:00 AM - 1:30 PM
@@ -43,7 +51,6 @@ class GymDetailTimeInfoView: UILabel {
         font = ._16MontserratRegular
         textAlignment = .center
 
-        setupConstraints()
         updateTags()
     }
 
@@ -51,11 +58,17 @@ class GymDetailTimeInfoView: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupConstraints() {
-
+    // MARK: - Updates
+    /// Updates appearence of view when information changes
+    private func updateAppearence() {
+        // Backend...
+        updateTimes()
+        updateTags()
     }
 
-    // MARK: - ..???
+    private func updateTimes() {
+
+    }
 
     /// Adds the additional information tag to certain times (ex: Woman Only swimming hours)
     private func updateTags() {
@@ -64,7 +77,14 @@ class GymDetailTimeInfoView: UILabel {
         // Positioning constants relative to text
         let textLineHeight = font.lineHeight
         let timesTextHeight = timesText.string.height(withConstrainedWidth: bounds.width, font: font)
-        let textBodyVerticalInset = (bounds.height - timesTextHeight) / 4.0
+        let aaaa = timesText.size().height
+        let textBodyVerticalInset = (bounds.height - timesTextHeight) / 2.0
+
+        print("bounds: \(bounds)")
+        print("text line height: \(textLineHeight)")
+        print("size aaaa: \(aaaa)")
+        print("timesTextHeight: \(timesTextHeight)")
+        print("textBodyVerticalInset: \(textBodyVerticalInset)")
 
         subviews.forEach({ $0.removeFromSuperview() }) // remove all subviews
 
@@ -77,9 +97,10 @@ class GymDetailTimeInfoView: UILabel {
                 addSubview(infoView)
 
                 // Add to subview
-                let inset = textLineHeight * CGFloat(i + 1)
+                let inset = textLineHeight * CGFloat(i)
+                let tinyOffset: CGFloat = 3.0
                 infoView.snp.makeConstraints { make in
-                    make.bottom.equalToSuperview().inset(textBodyVerticalInset + inset)
+                    make.top.equalToSuperview().inset(textBodyVerticalInset + inset + tinyOffset)
                     make.trailing.equalToSuperview().inset(tagSideOffset)
                     make.width.equalTo(tagLabelWidth)
                 }
@@ -104,12 +125,12 @@ class GymDetailTimeInfoView: UILabel {
 }
 
 // MARK: - Delegation
-protocol WeekDelegate {
+protocol WeekDelegate: class {
     func didChangeDay(day: WeekDay)
 }
 
 extension GymDetailTimeInfoView: WeekDelegate {
     func didChangeDay(day: WeekDay) {
-        // Backend Request to update hours and
+        updateAppearence()
     }
 }

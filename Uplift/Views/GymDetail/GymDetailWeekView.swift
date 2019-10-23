@@ -24,6 +24,7 @@ class GymDetailWeekView: UIView {
 
     // MARK: - Public
     var selectedDay: WeekDay?
+    weak var delegate: WeekDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,10 +82,10 @@ class GymDetailWeekView: UIView {
 // MARK: - UICollectionViewDelegate
 extension GymDetailWeekView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
         cell.update()
         selectedDay = days[indexPath.row]
+        delegate?.didChangeDay(day: selectedDay ?? .sunday)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
