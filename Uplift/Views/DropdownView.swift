@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 enum DropdownStatus {
     case closed, half, open
@@ -25,9 +26,8 @@ protocol DropdownViewDelegate {
 class DropdownView: UIView {
     
     private var contentView: UIView!
-    private var contentViewBottomConstraint: NSLayoutConstraint!
     private var contentViewHeight: CGFloat!
-    private var contentViewHeightConstraint: NSLayoutConstraint!
+    var contentViewHeightConstraint: Constraint!
     var currentHeight: CGFloat!
     private var delegate: DropdownViewDelegate!
     private var expandCollapseDropdownGesture: UITapGestureRecognizer!
@@ -101,31 +101,30 @@ class DropdownView: UIView {
     }
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: headerViewHeight),
-            contentView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-        
-        if halfDropdownEnabled {
-            NSLayoutConstraint.activate([
-                halfExpandView!.topAnchor.constraint(equalTo: contentView.bottomAnchor),
-                halfExpandView!.leadingAnchor.constraint(equalTo: leadingAnchor),
-                halfExpandView!.trailingAnchor.constraint(equalTo: trailingAnchor),
-                halfExpandView!.heightAnchor.constraint(equalToConstant: halfExpandViewHeight),
-                halfCollapseView!.topAnchor.constraint(equalTo: contentView.bottomAnchor),
-                halfCollapseView!.leadingAnchor.constraint(equalTo: leadingAnchor),
-                halfCollapseView!.trailingAnchor.constraint(equalTo: trailingAnchor),
-                halfCollapseView!.heightAnchor.constraint(equalToConstant: halfCollapseViewHeight)
-            ])
+        headerView.snp.makeConstraints{ make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(headerViewHeight)
         }
         
-        contentViewHeightConstraint = contentView.heightAnchor.constraint(equalToConstant: 0)
-        contentViewHeightConstraint.isActive = true
+        contentView.snp.makeConstraints{ make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            self.contentViewHeightConstraint = make.height.equalTo(0).constraint
+        }
+        
+        if halfDropdownEnabled, let halfExpand = halfExpandView, let halfCollapse = halfCollapseView {
+            halfExpand.snp.makeConstraints{ make in
+                make.top.equalTo(contentView.snp.bottom)
+                make.leading.trailing.equalToSuperview()
+                make.height.equalTo(halfExpandViewHeight)
+            }
+            
+            halfCollapse.snp.makeConstraints{ make in
+                make.top.equalTo(contentView.snp.bottom)
+                make.leading.trailing.equalToSuperview()
+                make.height.equalTo(halfCollapseViewHeight)
+            }
+        }
     }
     
     @objc func expandCollapseDropdown(sender: UITapGestureRecognizer) {
@@ -135,7 +134,7 @@ class DropdownView: UIView {
                 status = .half
                 halfExpandView?.isHidden = false
                 UIView.animate(withDuration: 0.3) {
-                    self.contentViewHeightConstraint.constant = CGFloat(self.halfHeight)
+                    self.contentViewHeightConstraint.update(offset: self.halfHeight)
                     self.layoutIfNeeded()
                 }
                 currentHeight = headerViewHeight + halfExpandViewHeight + halfHeight
@@ -143,7 +142,7 @@ class DropdownView: UIView {
             } else { // Since the user has not enabled the half dropdown state, fully open the dropdown
                 status = .open
                 UIView.animate(withDuration: 0.3) {
-                    self.contentViewHeightConstraint.constant = CGFloat(self.contentViewHeight)
+                    self.contentViewHeightConstraint.update(offset: self.contentViewHeight)
                     self.layoutIfNeeded()
                 }
                 currentHeight = headerViewHeight + contentViewHeight
@@ -152,7 +151,7 @@ class DropdownView: UIView {
         case .open, .half: // Fully close the dropdown view
             status = .closed
             UIView.animate(withDuration: 0.3) {
-                self.contentViewHeightConstraint.constant = CGFloat(0.0)
+                self.contentViewHeightConstraint.update(offset: 0)
                 self.layoutIfNeeded()
             }
             halfExpandView?.isHidden = true
@@ -167,7 +166,7 @@ class DropdownView: UIView {
         halfExpandView?.isHidden = true
         halfCollapseView?.isHidden = false
         UIView.animate(withDuration: 0.3) {
-            self.contentViewHeightConstraint.constant = CGFloat(self.contentViewHeight)
+            self.contentViewHeightConstraint.update(offset: self.contentViewHeight)
             self.layoutIfNeeded()
         }
         currentHeight = headerViewHeight + contentViewHeight + halfCollapseViewHeight
@@ -179,7 +178,7 @@ class DropdownView: UIView {
         halfExpandView?.isHidden = false
         halfCollapseView?.isHidden = true
         UIView.animate(withDuration: 0.3) {
-            self.contentViewHeightConstraint.constant = CGFloat(self.halfHeight)
+            self.contentViewHeightConstraint.update(offset: self.halfHeight)
             self.layoutIfNeeded()
         }
         currentHeight = headerViewHeight + halfExpandViewHeight + halfHeight

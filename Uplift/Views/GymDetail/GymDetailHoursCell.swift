@@ -117,7 +117,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             }
         }
 
-        dividerView.snp.updateConstraints {make in
+        dividerView.snp.updateConstraints { make in
             make.top.equalTo(hoursTableView.snp.bottom).offset(Constraints.verticalPadding)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(Constraints.dividerViewHeight)
