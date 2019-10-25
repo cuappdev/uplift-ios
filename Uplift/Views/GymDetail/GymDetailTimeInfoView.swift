@@ -25,7 +25,6 @@ class GymDetailTimeInfoView: UILabel {
         paragraphStyle.lineSpacing = 5.0
         paragraphStyle.maximumLineHeight = 26
         paragraphStyle.alignment = .center
-        updateAttributedText()
 
         attributedText = timesText
         backgroundColor = .primaryWhite
@@ -35,7 +34,7 @@ class GymDetailTimeInfoView: UILabel {
         textAlignment = .center
 
         updateTimes()
-        updateTags()
+//        updateTags()
     }
 
     required init?(coder: NSCoder) {
@@ -96,20 +95,16 @@ class GymDetailTimeInfoView: UILabel {
 
     func updateAttributedText() {
         timesText.mutableString.setString(displayedText)
-        timesText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, timesText.length))
+        let range = NSMakeRange(0, timesText.length)
+        timesText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
         attributedText = timesText
     }
 
     // MARK: - Helper
     func getDisplayText(dayIndex: Int) -> String {
         let dayTimes = facility.times.filter { $0.dayOfWeek == dayIndex }
-        var display = ""
-        dayTimes.forEach { time in
-            display.append(getStringFromDailyGymHours(dailyGymHours: time))
-           display += "\n"
-        }
-
-        return display
+        let timeStrings: [String] = dayTimes.map { getStringFromDailyGymHours(dailyGymHours: $0) }
+        return timeStrings.joined(separator: "\n")
     }
 
     func getStringFromDailyGymHours(dailyGymHours: DailyGymHours) -> String {

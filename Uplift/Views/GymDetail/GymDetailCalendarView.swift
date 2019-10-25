@@ -13,11 +13,15 @@ class GymDetailCalendarView: UIView {
     private let facility: Facility
     private var weekView: GymDetailWeekView!
     private var timeInfoView: GymDetailTimeInfoView!
+    private var stackView: UIStackView!
 
     init(facility: Facility) {
         self.facility = facility
         super.init(frame: CGRect())
+        tintColor = .primaryWhite
+        backgroundColor = .primaryWhite
 
+        setupStack()
         setupViews()
         setupConstaints()
     }
@@ -26,26 +30,45 @@ class GymDetailCalendarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func setupStack() {
+        stackView = UIStackView()
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.axis = .vertical
+        addSubview(stackView)
+    }
+
     private func setupViews() {
+        let timesPadding: CGFloat = 16
+
         weekView = GymDetailWeekView()
-        addSubview(weekView)
         timeInfoView = GymDetailTimeInfoView(facility: facility)
-        addSubview(timeInfoView)
         weekView.delegate = timeInfoView
+        stackView.addArrangedSubview(weekView)
+        stackView.setCustomSpacing(timesPadding, after: weekView)
+        stackView.addArrangedSubview(timeInfoView)
+
     }
 
     private func setupConstaints() {
-        let headerHeight = 30
-        let timesPadding = 16
+        let headerHeight = 24
+
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
 
         weekView.snp.makeConstraints { make in
             make.height.equalTo(headerHeight)
-            make.leading.trailing.equalToSuperview()
         }
 
-        timeInfoView.snp.makeConstraints { make in
-            make.top.equalTo(weekView.snp.bottom).offset(timesPadding)
-            make.leading.trailing.equalToSuperview()
-        }
+//        weekView.snp.makeConstraints { make in
+//            make.height.equalTo(headerHeight)
+//            make.top.leading.trailing.equalToSuperview()
+//        }
+//
+//        timeInfoView.snp.makeConstraints { make in
+//            make.top.equalTo(weekView.snp.bottom).offset(timesPadding)
+//            make.leading.trailing.equalToSuperview()
+//        }
     }
 }
