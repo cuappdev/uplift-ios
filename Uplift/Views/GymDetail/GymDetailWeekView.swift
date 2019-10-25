@@ -80,10 +80,12 @@ class GymDetailWeekView: UIView {
 
 // MARK: - UICollectionViewDelegate
 extension GymDetailWeekView: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let _ = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
         selectedDay = days[indexPath.row]
     }
+
 }
 
 // MARK: - UICollectionViewDataSource

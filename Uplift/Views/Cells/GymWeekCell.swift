@@ -12,8 +12,8 @@ import SnapKit
 class GymWeekCell: UICollectionViewCell {
 
     // MARK: - Views
-    private var dayLabel: UILabel!
-    private var backCircle: UIView!
+    private let dayLabel = UILabel()
+    private let backCircle = UIView()
 
     // MARK: - Info
     var weekDay: WeekDay!
@@ -41,11 +41,9 @@ class GymWeekCell: UICollectionViewCell {
     private func setupViews() {
         let circleSize: CGFloat = 24
 
-        backCircle = UIView()
         backCircle.layer.cornerRadius = circleSize / 2
         addSubview(backCircle)
 
-        dayLabel = UILabel()
         dayLabel.font = ._12MontserratBold
         dayLabel.textAlignment = .center
         dayLabel.textColor = .fitnessBlack
