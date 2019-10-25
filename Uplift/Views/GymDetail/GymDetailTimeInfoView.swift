@@ -34,56 +34,42 @@ class GymDetailTimeInfoView: UILabel {
         textAlignment = .center
 
         updateTimes()
-//        updateTags()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Updates
-    /// Updates appearence of view when information changes
+    // MARK: - Update
     private func updateAppearence() {
         updateTimes()
-        updateTags()
     }
 
     private func updateTimes() {
         displayedText = getDisplayText(dayIndex: selectedDayIndex)
         updateAttributedText()
-        print("display: \(displayedText)")
     }
 
-    /// Adds the additional information tag to certain times (ex: Woman Only swimming hours)
     private func updateTags() {
         let tagLabelWidth = 81
         let tagSideOffset = 25.0
-        // Positioning constants relative to text
         let textLineHeight = font.lineHeight
-        let timesTextHeight = timesText.string.height(withConstrainedWidth: bounds.width, font: font)
-        var viewHeight = bounds.height
-        if viewHeight == 0 {
-            viewHeight = calculateMaxHeight(width: UIScreen.main.bounds.width)
-        }
-        let textBodyVerticalInset = (viewHeight - timesTextHeight) / 2.0
 
-        subviews.forEach({ $0.removeFromSuperview() }) // remove all subviews
+        let info = facility.miscInformation
+        subviews.forEach({ $0.removeFromSuperview() })
 
-        let miscInfo = facility.miscInformation
-        print("--miscInfo is: \(miscInfo)")
-        for i in (0..<miscInfo.count) {
-            if miscInfo[i] == "" { // Don't use blank tags
+        for i in 0..<info.count {
+            if info[i] == "" { // Don't use blank tags
                 continue
-            } else { // Tag has content to display
+            } else {
                 let infoView = AdditionalInfoView()
-                infoView.text = miscInfo[i]
-                addSubview(infoView)
+                let spacing = textLineHeight * CGFloat(i)
+                let inset: CGFloat = 2
 
-                // Add to subview
-                let inset = textLineHeight * CGFloat(i)
-                let tinyOffset: CGFloat = 3.0
+                infoView.text = info[i]
+                addSubview(infoView)
                 infoView.snp.makeConstraints { make in
-                    make.top.equalToSuperview().inset(textBodyVerticalInset + inset + tinyOffset)
+                    make.top.equalToSuperview().inset(spacing + inset)
                     make.trailing.equalToSuperview().inset(tagSideOffset)
                     make.width.equalTo(tagLabelWidth)
                 }
@@ -116,32 +102,6 @@ class GymDetailTimeInfoView: UILabel {
         }
 
         return ""
-    }
-
-    // MARK: - Sizing
-    /// Calculate maximum height based of longes view
-    func calculateMaxHeight(width: CGFloat) -> CGFloat {
-        let contentPadding = 16.0
-
-        // Look for longest possible display
-        var longest = ""
-        var newLineCount = 0
-        for i in (0..<7) {
-            // Find longest time sequence
-            let cur = getDisplayText(dayIndex: i)
-            let curLineCount = cur.filter { $0 == "\n" }.count
-            if curLineCount > newLineCount {
-                newLineCount = curLineCount
-                longest = cur
-            }
-        }
-
-        // Return Max Height + padding
-        let display = NSMutableAttributedString()
-        display.mutableString.setString(longest)
-        display.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, timesText.length))
-
-        return longest.height(withConstrainedWidth: width, font: font) + CGFloat(contentPadding * 2)
     }
 }
 
