@@ -10,22 +10,18 @@ import UIKit
 
 class GymDetailTimeInfoView: UILabel {
 
-    var facility: FakeFacility
+    var facility: Facility
     private var selectedDayIndex = 0
     private var displayedText: String = ""
     private var timesText = NSMutableAttributedString()
     private var paragraphStyle = NSMutableParagraphStyle()
 
-    init(facility: FakeFacility) {
+    init(facility: Facility) {
         self.facility = facility
-        print("TIMES: \(facility.times)")
-        print("TAGS: \(facility.miscInformation)")
         super.init(frame: CGRect())
 
-        displayedText = "hello"
         timesText.mutableString.setString(displayedText)
 
-        // Label Formatting
         paragraphStyle.lineSpacing = 5.0
         paragraphStyle.maximumLineHeight = 26
         paragraphStyle.alignment = .center
@@ -116,7 +112,7 @@ class GymDetailTimeInfoView: UILabel {
         return display
     }
 
-    func getStringFromDailyGymHours(dailyGymHours: FakeGymHours) -> String {
+    func getStringFromDailyGymHours(dailyGymHours: DailyGymHours) -> String {
         let openTime = dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")
         let closeTime = dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a")
 
@@ -163,36 +159,5 @@ extension GymDetailTimeInfoView: WeekDelegate {
     func didChangeDay(day: WeekDay) {
         selectedDayIndex = day.index - 1
         updateAppearence()
-    }
-}
-
-
-
-
-
-// MARK: - Fake  Backend
-public struct FakeFacility {
-    var times: [FakeGymHours]
-    var miscInformation: [String]
-
-    init() {
-        times = [
-            FakeGymHours(0), FakeGymHours(0), FakeGymHours(0), FakeGymHours(0), FakeGymHours(0),
-         FakeGymHours(2),
-         FakeGymHours(3), FakeGymHours(3), FakeGymHours(3),
-         FakeGymHours(6), FakeGymHours(6), FakeGymHours(6), FakeGymHours(6), FakeGymHours(6)]
-        miscInformation = ["women only", "women only", "", "", "women only"]
-    }
-}
-
-public struct FakeGymHours {
-    var dayOfWeek: Int = 0
-    var openTime: Date
-    var closeTime: Date
-
-    init(_ d: Int) {
-        dayOfWeek = d
-        openTime = Date().addingTimeInterval(TimeInterval(Double.random(in: (150.0...550.0))))
-        closeTime = openTime.addingTimeInterval(TimeInterval(Double.random(in: (610.0...1070.0))))
     }
 }
