@@ -41,6 +41,21 @@ query GymById($gymId: String) {
             startTime
             endTime
         }
+        facilities {
+            name
+            equipment {
+                equipmentType
+                name
+                quantity
+                workoutType
+            }
+            times {
+                day
+                startTime
+                endTime
+            }
+            miscInformation
+        }
     }
 }
 
