@@ -18,7 +18,6 @@ class GymDetailCalendarView: UIView {
     init(facility: Facility) {
         self.facility = facility
         super.init(frame: CGRect())
-        tintColor = .primaryWhite
         backgroundColor = .primaryWhite
 
         setupStack()
@@ -40,7 +39,7 @@ class GymDetailCalendarView: UIView {
 
     private func setupViews() {
         let timesPadding: CGFloat = 16
-
+        
         weekView = GymDetailWeekView()
         timeInfoView = GymDetailTimeInfoView(facility: facility)
         weekView.delegate = timeInfoView
@@ -60,15 +59,5 @@ class GymDetailCalendarView: UIView {
         weekView.snp.makeConstraints { make in
             make.height.equalTo(headerHeight)
         }
-
-//        weekView.snp.makeConstraints { make in
-//            make.height.equalTo(headerHeight)
-//            make.top.leading.trailing.equalToSuperview()
-//        }
-//
-//        timeInfoView.snp.makeConstraints { make in
-//            make.top.equalTo(weekView.snp.bottom).offset(timesPadding)
-//            make.leading.trailing.equalToSuperview()
-//        }
     }
 }

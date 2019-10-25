@@ -10,12 +10,13 @@ import UIKit
 
 class GymDetailTimeInfoView: UILabel {
 
-    var facility: Facility
+    private var facility: Facility
     private var selectedDayIndex = 0
-    private var displayedText: String = ""
+    private var displayedText = ""
     private var timesText = NSMutableAttributedString()
     private var paragraphStyle = NSMutableParagraphStyle()
 
+    // MARK: - Init
     init(facility: Facility) {
         self.facility = facility
         super.init(frame: CGRect())
@@ -46,7 +47,7 @@ class GymDetailTimeInfoView: UILabel {
     }
 
     private func updateTimes() {
-        displayedText = getDisplayText(dayIndex: selectedDayIndex)
+        displayedText = makeDisplayText(dayIndex: selectedDayIndex)
         updateAttributedText()
     }
 
@@ -87,7 +88,7 @@ class GymDetailTimeInfoView: UILabel {
     }
 
     // MARK: - Helper
-    func getDisplayText(dayIndex: Int) -> String {
+    func makeDisplayText(dayIndex: Int) -> String {
         let dayTimes = facility.times.filter { $0.dayOfWeek == dayIndex }
         let timeStrings: [String] = dayTimes.map { getStringFromDailyGymHours(dailyGymHours: $0) }
         return timeStrings.joined(separator: "\n")
