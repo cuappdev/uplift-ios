@@ -17,7 +17,7 @@ class GymDetailWeekView: UIView {
     private var weekdayCollectionView: UICollectionView!
 
     // MARK: - Info
-    private var days: [WeekDay] = WeekDay.allCases
+    private var days: [WeekDay] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
     // MARK: - Display
     private let daysSize = CGSize(width: 24, height: 24)
@@ -81,18 +81,10 @@ class GymDetailWeekView: UIView {
 // MARK: - UICollectionViewDelegate
 extension GymDetailWeekView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
-        cell.update()
+        guard let _ = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
         selectedDay = days[indexPath.row]
     }
-
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
-        cell.update()
-    }
 }
-
 
 // MARK: - UICollectionViewDataSource
 extension GymDetailWeekView: UICollectionViewDataSource {
@@ -108,4 +100,5 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         cell.configure(weekday: days[indexPath.row])
         return cell
     }
+
 }

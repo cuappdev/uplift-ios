@@ -16,10 +16,15 @@ class GymWeekCell: UICollectionViewCell {
     private var backCircle: UIView!
 
     // MARK: - Info
-    /// Weekday this cell represents
-    var day: WeekDay?
-    /// Is this day today
-    private var today: Bool = false
+    var weekDay: WeekDay!
+    private var isToday: Bool = false
+
+    override var isSelected: Bool {
+      didSet {
+        backCircle.alpha = isSelected || isToday ? 1 : 0
+        backCircle.backgroundColor = isSelected ? .fitnessYellow : .fitnessLightGrey
+      }
+    }
 
     // MARK: - Inits
     override init(frame: CGRect) {
@@ -45,8 +50,6 @@ class GymWeekCell: UICollectionViewCell {
         dayLabel.textAlignment = .center
         dayLabel.textColor = .fitnessBlack
         addSubview(dayLabel)
-
-        update()
     }
 
     private func setupConstraints() {
@@ -62,16 +65,9 @@ class GymWeekCell: UICollectionViewCell {
 
     // MARK: - Functionality
     func configure(weekday: WeekDay) {
-        day = weekday
+        weekDay = weekday
         let todayIndex = Calendar.current.component(.weekday, from: Date())
-        self.today = todayIndex == day?.index
+        self.isToday = todayIndex == weekDay.index
         dayLabel.text = weekday.rawValue
-        update()
-    }
-
-    /// Updates the appearence of the cell when selection changes
-    func update() {
-        backCircle.alpha = isSelected || today ? 1 : 0
-        backCircle.backgroundColor = isSelected ? .fitnessYellow : .fitnessLightGrey
     }
 }

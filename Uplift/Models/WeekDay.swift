@@ -6,14 +6,14 @@
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
-enum WeekDay: String, CaseIterable {
+enum WeekDay: String {
+    case sunday = "Su"
     case monday = "M"
     case tuesday = "T"
     case wednesday = "W"
     case thursday = "Th"
     case friday = "F"
     case saturday = "Sa"
-    case sunday = "Su"
 
     /// Maps each enum case to index corresponding to ones returned by
     /// Calendar.current.component(.weekDay, from: Date())
