@@ -47,12 +47,12 @@ class FavoriteGymCell: UITableViewCell {
 
         gymLabel = UILabel()
         gymLabel.font = ._16MontserratMedium
-        gymLabel.textColor = .fitnessMediumGrey
+        gymLabel.textColor = .upliftMediumGrey
         cellBackground.addSubview(gymLabel)
 
         checkBackground = UIView()
         checkBackground.tintColor = .primaryWhite
-        checkBackground.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+        checkBackground.layer.borderColor = UIColor.upliftMediumGrey.cgColor
         checkBackground.layer.borderWidth = 1
         checkBackground.layer.cornerRadius = checkSize / 2
         cellBackground.addSubview(checkBackground)
@@ -107,7 +107,7 @@ class FavoriteGymCell: UITableViewCell {
             checkImage.alpha = 1
             checkBackground.layer.borderWidth = 0
         } else {
-            gymLabel.textColor = .fitnessMediumGrey
+            gymLabel.textColor = .upliftMediumGrey
             checkImage.alpha = 0
             checkBackground.layer.borderWidth = checkBorderWidth
         }

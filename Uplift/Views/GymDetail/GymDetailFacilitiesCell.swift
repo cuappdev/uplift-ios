@@ -1,6 +1,6 @@
 //
 //  GymDetailFacilitiesCell.swift
-//  Fitness
+// Uplift
 //
 //  Created by Yana Sang on 9/5/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.

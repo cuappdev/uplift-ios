@@ -84,7 +84,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         backButton.clipsToBounds = false
         backButton.layer.cornerRadius = nextButtonSize / 2
         backButton.backgroundColor = .primaryWhite
-        backButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+        backButton.layer.borderColor = UIColor.upliftMediumGrey.cgColor
         backButton.layer.borderWidth = buttonBorderSize
         backButton.addTarget(self, action: #selector(goBackAView), for: .touchDown)
         backButton.isEnabled = true
