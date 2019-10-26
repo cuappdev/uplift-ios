@@ -98,13 +98,6 @@ struct Gym {
             }
             return nil
         }
-
-//        facilities = gymData.facilities.compactMap({ facility in
-//          if let facility = facility {
-//            return Facility(facilityData: facility)
-//          }
-//          return nil
-//        })
     }
 
     func isStatusChangingSoon() -> Bool {
@@ -181,13 +174,6 @@ struct Facility {
     var miscInformation: [String]
     var name: String
     var times: [DailyGymHours]
-
-    init(equipment: [Equipment], miscInformation: [String], name: String, times: [DailyGymHours]) {
-        self.equipment = equipment
-        self.miscInformation = miscInformation
-        self.name = name
-        self.times = times
-    }
 
     init(facilityData: AllGymsQuery.Data.Gym.Facility) {
         if let equipmentGymData = facilityData.equipment {
