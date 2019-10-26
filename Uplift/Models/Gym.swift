@@ -166,6 +166,7 @@ struct DailyGymHours {
             dayOfWeek = 0
         }
     }
+    
 }
 
 struct Facility {
@@ -232,6 +233,7 @@ struct Facility {
             return DailyGymHours(facilityHoursData: facilityHours)
        })
     }
+
 }
 
 struct Equipment {
