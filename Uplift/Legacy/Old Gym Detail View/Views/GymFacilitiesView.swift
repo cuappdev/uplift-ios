@@ -1,6 +1,6 @@
 //
 //  GymFacilitiesView.swift
-// Uplift
+//  Uplift
 //
 //  Created by Ji Hwan Seung on 4/28/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
