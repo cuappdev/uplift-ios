@@ -43,7 +43,16 @@ class DropdownView: UIView {
     private var headerViewHeight: CGFloat!
     var status: DropdownStatus = .closed
     
-    init(headerView: UIView, headerViewHeight: CGFloat, contentView: UIView, contentViewHeight: CGFloat, halfDropdownEnabled: Bool = false, halfExpandView: UIView? = nil, halfExpandViewHeight: CGFloat = 0, halfCollapseView: UIView? = nil, halfCollapseViewHeight: CGFloat = 0, halfHeight: CGFloat = 0) {
+    init(headerView: UIView,
+         headerViewHeight: CGFloat,
+         contentView: UIView,
+         contentViewHeight: CGFloat,
+         halfDropdownEnabled: Bool = false,
+         halfExpandView: UIView? = nil,
+         halfExpandViewHeight: CGFloat = 0,
+         halfCollapseView: UIView? = nil,
+         halfCollapseViewHeight: CGFloat = 0,
+         halfHeight: CGFloat = 0) {
         super.init(frame: .zero)
         
         self.headerView = headerView
@@ -101,25 +110,27 @@ class DropdownView: UIView {
     }
     
     func setupConstraints() {
-        headerView.snp.makeConstraints{ make in
+        headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(headerViewHeight)
         }
         
-        contentView.snp.makeConstraints{ make in
+        contentView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             self.contentViewHeightConstraint = make.height.equalTo(0).constraint
         }
         
-        if halfDropdownEnabled, let halfExpand = halfExpandView, let halfCollapse = halfCollapseView {
-            halfExpand.snp.makeConstraints{ make in
-                make.top.equalTo(contentView.snp.bottom)
-                make.leading.trailing.equalToSuperview()
-                make.height.equalTo(halfExpandViewHeight)
+        if halfDropdownEnabled,
+            let halfExpand = halfExpandView,
+            let halfCollapse = halfCollapseView {
+                halfExpand.snp.makeConstraints { make in
+                    make.top.equalTo(contentView.snp.bottom)
+                    make.leading.trailing.equalToSuperview()
+                    make.height.equalTo(halfExpandViewHeight)
             }
             
-            halfCollapse.snp.makeConstraints{ make in
+            halfCollapse.snp.makeConstraints { make in
                 make.top.equalTo(contentView.snp.bottom)
                 make.leading.trailing.equalToSuperview()
                 make.height.equalTo(halfCollapseViewHeight)
@@ -128,7 +139,7 @@ class DropdownView: UIView {
     }
     
     @objc func expandCollapseDropdown(sender: UITapGestureRecognizer) {
-        switch status{
+        switch status {
         case .closed: // If the dropdown view is currently closed, open it to some degree
             if halfDropdownEnabled { // If the user has enabled the half dropdown state, open to the half state
                 status = .half
@@ -184,4 +195,5 @@ class DropdownView: UIView {
         currentHeight = headerViewHeight + halfExpandViewHeight + halfHeight
         delegate.dropdownViewHalf(sender: self)
     }
+    
 }
