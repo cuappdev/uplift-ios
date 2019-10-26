@@ -52,8 +52,7 @@ class GymWeekCell: UICollectionViewCell {
 
     private func setupConstraints() {
         backCircle.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalToSuperview()
+            make.center.size.equalToSuperview()
         }
 
         dayLabel.snp.makeConstraints { make in

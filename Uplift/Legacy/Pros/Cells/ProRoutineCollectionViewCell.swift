@@ -74,7 +74,7 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(addButton)
 
         descriptionTextView.font = ._14MontserratLight
-        descriptionTextView.textColor = .fitnessLightBlack
+        descriptionTextView.textColor = .primaryBlack
         descriptionTextView.textAlignment = .left
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isSelectable = false
@@ -87,12 +87,12 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(routineTypeImage)
 
         routineTypeLabel.font = ._12MontserratRegular
-        routineTypeLabel.textColor = .fitnessSecondaryBlack
+        routineTypeLabel.textColor = .gray04
         routineTypeLabel.textAlignment = .left
         contentView.addSubview(routineTypeLabel)
 
         titleLabel.font = ._16MontserratMedium
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.textAlignment = .left
         contentView.addSubview(titleLabel)
     }
@@ -144,10 +144,10 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
 
         layer.cornerRadius = 4.0
         layer.masksToBounds = false
-        layer.borderColor = UIColor.fitnessMutedGreen.cgColor
+        layer.borderColor = UIColor.gray01.cgColor
         layer.borderWidth = 1
 
-        applySketchShadow(color: .fitnessMutedGreen, alpha: 1, x: 0, y: 11, blur: 14, spread: -10)
+        applySketchShadow(color: .gray01, alpha: 1, x: 0, y: 11, blur: 14, spread: -10)
     }
 
     // Function to apply a shadow as specified by Sketch parameters, retrieved from: https://stackoverflow.com/questions/34269399/how-to-control-shadow-spread-and-blur/48489506#48489506

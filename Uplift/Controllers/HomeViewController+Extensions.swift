@@ -144,21 +144,21 @@ extension HomeViewController: TodaysClassesListCellDelegate {
 }
 
 extension HomeViewController: LookingForListCellDelegate {
-    
+
     func lookingForCellShouldTagSearch(at tag: Tag, indexPath: IndexPath) {
         let cal = Calendar.current
         let currDate = Date()
         guard let startDate = cal.date(bySettingHour: 0, minute: 0, second: 0, of: currDate), let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController, let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
         let endDate = cal.date(bySettingHour: 23, minute: 59, second: 0, of: currDate) ?? Date()
-        
+
         let filterParameters = FilterParameters(endTime: endDate, startTime: startDate, tags: [lookingForCategories[indexPath.row].name])
-        
+
         classListViewController.updateFilter(filterParameters)
         classNavigationController.setViewControllers([classListViewController], animated: false)
-        
+
         tabBarController?.selectedIndex = 1
     }
-    
+
 }
 
 extension HomeViewController: ChooseGymsDelegate {

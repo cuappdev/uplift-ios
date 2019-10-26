@@ -49,11 +49,11 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
     private func setupViews() {
         popularTimesLabel.text = ClientStrings.GymDetail.popularHoursSection
         popularTimesLabel.font = ._16MontserratBold
-        popularTimesLabel.textColor = .fitnessLightBlack
+        popularTimesLabel.textColor = .primaryBlack
         popularTimesLabel.textAlignment = .center
         contentView.addSubview(popularTimesLabel)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 

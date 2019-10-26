@@ -22,7 +22,7 @@ class DropdownFooterView: UITableViewHeaderFooterView {
         showHideLabel = UILabel()
         showHideLabel.font = ._12MontserratMedium
         showHideLabel.sizeToFit()
-        showHideLabel.textColor = UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1.0)
+        showHideLabel.textColor = .gray02
         contentView.addSubview(showHideLabel)
     }
 

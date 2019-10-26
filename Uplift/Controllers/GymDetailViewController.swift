@@ -20,6 +20,7 @@ class GymDetailViewController: UIViewController {
     // MARK: - Private data vars
     private var sections: [Section] = []
     private var todaysClasses: [GymClassInstance] = []
+    private var equipment: [EquipmentCategory] = []
 
     // MARK: - Public data vars
     var gymDetail: GymDetail!
@@ -48,6 +49,10 @@ class GymDetailViewController: UIViewController {
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
         self.gymDetail = GymDetail(gym: gym)
+
+        for facility in gymDetail.facilities where facility.name == "Fitness Center" {
+            self.equipment = categorizeEquipment(equipmentList: facility.equipment)
+        }
 
         if gym.isOpen {
             self.sections = [
@@ -132,7 +137,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             cell.configure(for: gymDetail.gym)
             return cell
         case .facilities:
-            // swiftlint:disable:next force_cast
+             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
             cell.configure(for: gymDetail)
             return cell
@@ -262,7 +267,7 @@ func getHoursHeight() -> CGFloat {
             Constraints.dividerViewHeight
 
         let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight *
-                CGFloat(gymDetail.facilities.count)
+                CGFloat(gymDetail.facilitiesList.count)
 
         return baseHeight + tableViewHeight
     }
@@ -279,6 +284,22 @@ func getHoursHeight() -> CGFloat {
             classesCollectionViewHeight()
 
         return (todaysClasses.isEmpty) ? baseHeight + noMoreClassesHeight : baseHeight + collectionViewHeight
+    }
+}
+
+extension GymDetailViewController {
+    func categorizeEquipment(equipmentList: [Equipment]) -> [EquipmentCategory] {
+        let equipmentDictionary = equipmentList.reduce(into: [String: [Equipment]](), { dict, equipment in
+          if dict[equipment.equipmentType] != nil {
+            dict[equipment.equipmentType]?.append(equipment)
+          } else {
+            dict[equipment.equipmentType] = [equipment]
+          }
+        })
+
+        let equipmentCategories = equipmentDictionary.map { EquipmentCategory(categoryName: $0, equipment: $1) }
+
+        return equipmentCategories
     }
 }
 
