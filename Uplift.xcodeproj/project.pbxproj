@@ -17,6 +17,8 @@
 		1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7847C3216E77E30066E0DA /* Assets.xcassets */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
 		4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */; };
+		4F205D6F2366711700476FD2 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F205D6E2366711700476FD2 /* BlankViewController.swift */; };
+		4F205D712366721000476FD2 /* MiscellaneousInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F205D702366721000476FD2 /* MiscellaneousInfoView.swift */; };
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
@@ -144,6 +146,8 @@
 		35E2BE6E66F5F5D34B2961D7 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
 		48695D922CD490E026211F06 /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLoginViewController.swift; sourceTree = "<group>"; };
+		4F205D6E2366711700476FD2 /* BlankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
+		4F205D702366721000476FD2 /* MiscellaneousInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousInfoView.swift; sourceTree = "<group>"; };
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 				7E51FA692359306800C06D3D /* PriceInformationView.swift */,
 				7ECD16DA234E89A900842E8C /* EquipmentListItemCell.swift */,
 				7ECD16D8234E898400842E8C /* EquipmentListCell.swift */,
+				4F205D702366721000476FD2 /* MiscellaneousInfoView.swift */,
 			);
 			path = Facilities;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
 				7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */,
+				4F205D6E2366711700476FD2 /* BlankViewController.swift */,
 				7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */,
 				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
 				C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */,
@@ -971,6 +977,7 @@
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				4F06D6CE222777DA00D4B243 /* OnboardingLoginViewController.swift in Sources */,
+				4F205D712366721000476FD2 /* MiscellaneousInfoView.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				1C4CD99C216923CF0095EDC2 /* OnboardingViewController.swift in Sources */,
 				E604DC2D233B1D80003598BC /* PersonalLinkCollectionViewCell.swift in Sources */,
@@ -978,6 +985,7 @@
 				7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
+				4F205D6F2366711700476FD2 /* BlankViewController.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */,
