@@ -93,10 +93,8 @@ struct Gym {
         })
 
         facilities = gymData.facilities.compactMap {
-            if let facility = $0 {
-                return Facility(facilityData: facility)
-            }
-            return nil
+            guard let facility = $0 else { return nil }
+            return Facility(facilityData: facility)
         }
     }
 
@@ -216,12 +214,10 @@ struct Facility {
        }
 
        if let informationData = facilityData.miscInformation {
-           miscInformation = informationData.compactMap({ information in
-             if let information = information {
-               return information
-             }
-             return nil
-           })
+            miscInformation = informationData.compactMap({
+                guard let information = $0 else { return nil }
+                return information
+            })
        } else {
            miscInformation = []
        }
