@@ -30,10 +30,10 @@ class HomeViewController: UIViewController {
 
     enum Constants {
         static let checkInsListCellIdentifier = "checkInsListCellIdentifier"
-        static let gymsListCellIdentifier = "gymsListCellIdentifier"
-        static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
-        static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
         static let gymEquipmentListCellIdentifier = "gymEquipmentListCellIdentifier"
+        static let gymsListCellIdentifier = "gymsListCellIdentifier"
+        static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
+        static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
     }
 
     // MARK: - Enums

@@ -10,11 +10,11 @@ import Foundation
 
 struct Gym {
 
-    let id: String
     let equipment: String
-    let gymHours: [DailyGymHours]
-    let name: String
     let facilities: [Facility]
+    let gymHours: [DailyGymHours]
+    let id: String
+    let name: String
 
     /// Array of 7 arrays of count 24, representing the busyness in each hour, Sun..Sat
     let popularTimesList: [[Int]]
