@@ -18,21 +18,16 @@ class BlankViewController: UIViewController {
 
         view.backgroundColor = .gray05
  
-        let samples = ["Game Area", "Bouldering Wall", "Outdoor Basketball Court", "Short", "Something with a really long name"]
+        let samples = ["Game Area", "Bouldering Wall", "Outdoor Basketball Court", "Small Text"]
         test = MiscellaneousInfoView(miscellaneousInfo: samples)
         view.addSubview(test)
         setupConstraints()
     }
 
     func setupConstraints() {
-//        test.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().inset(56)
-//            make.center.equalToSuperview()
-//        }
         test.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(56)
             make.center.equalToSuperview()
-            make.height.equalTo(80)
         }
     }
 }

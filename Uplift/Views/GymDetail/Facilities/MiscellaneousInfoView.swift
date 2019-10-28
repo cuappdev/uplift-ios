@@ -37,6 +37,8 @@ class MiscellaneousInfoView: UIView {
         }
     }
 
+    // MARK: - Helper
+
     func formatMiscellaneous(misc: [String]) -> String {
         return misc.joined(separator: "\n")
     }
@@ -47,7 +49,7 @@ class MiscellaneousInfoView: UIView {
     ) -> NSAttributedString {
 
         let style = NSMutableParagraphStyle()
-        style.lineSpacing = 8
+        style.lineSpacing = 3
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
             .paragraphStyle: style,
