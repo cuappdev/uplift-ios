@@ -117,7 +117,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 titleLabel.textAlignment = .left
                 titleLabel.clipsToBounds = false
                 titleLabel.font = ._16MontserratMedium
-                titleLabel.textColor = .fitnessMediumGrey
+                titleLabel.textColor = .upliftMediumGrey
                 cell.contentView.addSubview(titleLabel)
 
                 titleLabel.snp.makeConstraints { make in
