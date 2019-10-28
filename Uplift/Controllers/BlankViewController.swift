@@ -16,18 +16,23 @@ class BlankViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .gray03
-
-        NetworkManager.shared.getGym(id: GymIds.noyes) {
-            self.test = MiscellaneousInfoView(miscellaneousInfo: $0.facilities[0].miscInformation)
-            self.setupConstraints()
-        }
+        view.backgroundColor = .gray05
+ 
+        let samples = ["Game Area", "Bouldering Wall", "Outdoor Basketball Court", "Short", "Something with a really long name"]
+        test = MiscellaneousInfoView(miscellaneousInfo: samples)
+        view.addSubview(test)
+        setupConstraints()
     }
 
     func setupConstraints() {
-        view.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(56)
+//        test.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().inset(56)
+//            make.center.equalToSuperview()
+//        }
+        test.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(56)
             make.center.equalToSuperview()
+            make.height.equalTo(80)
         }
     }
 }

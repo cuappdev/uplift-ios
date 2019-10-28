@@ -17,7 +17,12 @@ class MiscellaneousInfoView: UIView {
 
         let display = formatMiscellaneous(misc: miscellaneousInfo)
         textView.attributedText = generateAttributedString(for: display, font: UIFont._14MontserratRegular!)
-        
+        textView.isEditable = false
+        textView.isSelectable = false
+        textView.isScrollEnabled = false
+        textView.textContainerInset = .zero
+        textView.textContainer.lineFragmentPadding = 0
+
         addSubview(textView)
         setupConstraints()
     }
