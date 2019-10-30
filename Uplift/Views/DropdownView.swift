@@ -26,18 +26,18 @@ protocol DropdownViewDelegate: class {
 class DropdownView: UIView {
 
     // MARK: - INITIALIZATION
-    private var contentView: UIView!
+    private let contentView: UIView!
     private var contentViewHeight: CGFloat = 0
     private weak var delegate: DropdownViewDelegate?
     private var halfCloseDropdownGesture: UITapGestureRecognizer!
-    private var halfCloseView: UIView?
+    private let halfCloseView: UIView?
     private var halfCloseViewHeight: CGFloat = 0
     private var halfDropdownEnabled: Bool = false
     private var halfHeight: CGFloat = 0
     private var halfOpenDropdownGesture: UITapGestureRecognizer!
-    private var halfOpenView: UIView?
+    private let halfOpenView: UIView?
     private var halfOpenViewHeight: CGFloat = 0
-    private var headerView: UIView!
+    private let headerView: UIView!
     private var headerViewHeight: CGFloat = 0
     private var openCloseDropdownGesture: UITapGestureRecognizer!
 
@@ -55,11 +55,13 @@ class DropdownView: UIView {
          halfCloseView: UIView? = nil,
          halfCloseViewHeight: CGFloat = 0,
          halfHeight: CGFloat = 0) {
+        self.headerView = headerView
+        self.contentView = contentView
+        self.halfOpenView = halfOpenView
+        self.halfCloseView = halfCloseView
         super.init(frame: .zero)
 
-        self.headerView = headerView
         self.headerView.isUserInteractionEnabled = true
-        self.headerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(self.headerView)
 
         self.headerViewHeight = headerViewHeight
@@ -68,8 +70,6 @@ class DropdownView: UIView {
         openCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.openCloseDropdown(sender:)))
         self.headerView.addGestureRecognizer(openCloseDropdownGesture)
 
-        self.contentView = contentView
-        self.contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(self.contentView)
 
         currentHeight = headerView.bounds.height
@@ -77,8 +77,6 @@ class DropdownView: UIView {
         self.halfDropdownEnabled = halfDropdownEnabled
 
         if let halfView = halfOpenView {
-            self.halfOpenView = halfView
-            halfView.translatesAutoresizingMaskIntoConstraints = false
             halfView.isHidden = true
             halfView.isUserInteractionEnabled = true
             halfOpenDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.openFromHalfDropdown(sender:)))
@@ -89,8 +87,6 @@ class DropdownView: UIView {
         self.halfOpenViewHeight = halfOpenViewHeight
 
         if let halfView = halfCloseView {
-            self.halfCloseView = halfView
-            halfView.translatesAutoresizingMaskIntoConstraints = false
             halfView.isHidden = true
             halfView.isUserInteractionEnabled = true
             halfCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.closeHalfDropdown(sender:)))
