@@ -39,7 +39,7 @@ class MiscellaneousInfoView: UIView {
 
     // MARK: - Helper
 
-    func formatMiscellaneous(misc: [String]) -> String {
+    func formatMiscellaneous(_ misc: [String]) -> String {
         return misc.joined(separator: "\n")
     }
 

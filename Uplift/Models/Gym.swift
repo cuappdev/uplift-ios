@@ -177,8 +177,8 @@ struct Facility {
     init(facilityData: AllGymsQuery.Data.Gym.Facility) {
         if let equipmentGymData = facilityData.equipment {
             equipment = equipmentGymData.compactMap({ equipmentData -> Equipment? in
-                guard let equipmentData = equipmentData else { return nil }
-                return Equipment(equipmentData: equipmentData)
+                guard let data = equipmentData else { return nil }
+                return Equipment(equipmentData: data)
             })
         } else {
             equipment = []
@@ -254,11 +254,11 @@ struct Equipment {
     }
 
     init(equipmentData: GymByIdQuery.Data.Gym.Facility.Equipment?) {
-        if let equipmentData = equipmentData {
-            equipmentType = equipmentData.equipmentType ?? ""
-            name = equipmentData.name
-            quantity = equipmentData.quantity ?? "0"
-            workoutType = equipmentData.workoutType ?? ""
+        if let data = equipmentData {
+            equipmentType = data.equipmentType ?? ""
+            name = data.name
+            quantity = data.quantity ?? "0"
+            workoutType = data.workoutType ?? ""
         } else {
             equipmentType = ""
             name = ""
