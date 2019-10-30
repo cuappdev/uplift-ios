@@ -56,22 +56,22 @@ class DropdownView: UIView {
          halfCloseViewHeight: CGFloat = 0,
          halfHeight: CGFloat = 0) {
         super.init(frame: .zero)
-        
+
         self.headerView = headerView
         self.headerView.isUserInteractionEnabled = true
         self.headerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(self.headerView)
-        
+
         self.headerViewHeight = headerViewHeight
         currentHeight = headerViewHeight
-        
+
         openCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(self.openCloseDropdown(sender:)))
         self.headerView.addGestureRecognizer(openCloseDropdownGesture)
-        
+
         self.contentView = contentView
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(self.contentView)
-        
+
         currentHeight = headerView.bounds.height
         self.contentViewHeight = contentViewHeight
         self.halfDropdownEnabled = halfDropdownEnabled
@@ -87,7 +87,7 @@ class DropdownView: UIView {
         }
 
         self.halfOpenViewHeight = halfOpenViewHeight
-        
+
         if let halfView = halfCloseView {
             self.halfCloseView = halfView
             halfView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,11 +97,11 @@ class DropdownView: UIView {
             halfView.addGestureRecognizer(halfCloseDropdownGesture)
             addSubview(halfView)
         }
-        
+
         self.halfCloseViewHeight = halfCloseViewHeight
 
         self.halfHeight = halfHeight
-        
+
         setupConstraints()
     }
 
@@ -137,8 +137,8 @@ class DropdownView: UIView {
             }
         }
     }
-    
-    // MARK - Open or close the entire dropdown view
+
+    // MARK: - Open or close the entire dropdown view
     @objc func openCloseDropdown(sender: UITapGestureRecognizer) {
         switch status {
         case .closed: // If the dropdown view is currently closed, open it to some degree
@@ -173,7 +173,7 @@ class DropdownView: UIView {
         }
     }
 
-    // MARK - Open the entire dropdown view from
+    // MARK: - Open the entire dropdown view from
     @objc func openFromHalfDropdown(sender: UITapGestureRecognizer) {
         status = .open
         halfOpenView?.isHidden = true
