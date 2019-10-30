@@ -18,7 +18,7 @@ struct SearchBar {
         searchBar.changeSearchBarColor(color: .white)
 
         let textfield = searchBar.value(forKey: "searchField") as? UITextField
-        textfield?.textColor = UIColor.fitnessBlack
+        textfield?.textColor = UIColor.primaryBlack
         textfield?.font = ._12MontserratRegular
         return searchBar
     }

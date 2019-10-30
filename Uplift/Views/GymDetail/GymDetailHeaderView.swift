@@ -1,6 +1,6 @@
 //
 //  GymDetailHeaderView.swift
-//  Fitness
+//  Uplift
 //
 //  Created by Yana Sang on 5/22/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
@@ -40,10 +40,10 @@ class GymDetailHeaderView: UICollectionReusableView {
         imageView.clipsToBounds = true
         addSubview(imageView)
 
-        closedLabel.font = ._16MontserratSemiBold
-        closedLabel.textColor = .white
+        closedLabel.font = ._16MontserratMedium
+        closedLabel.textColor = .primaryWhite
         closedLabel.textAlignment = .center
-        closedLabel.backgroundColor = .fitnessBlack
+        closedLabel.backgroundColor = .primaryBlack
         closedLabel.text = ClientStrings.GymDetail.closedLabel
 
         nameLabel.font = ._36MontserratBold

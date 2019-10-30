@@ -1,6 +1,6 @@
 //
 //  GymDetailPopularTimesCell.swift
-//  Fitness
+//  Uplift
 //
 //  Created by Yana Sang on 5/22/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
@@ -49,11 +49,11 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
     private func setupViews() {
         popularTimesLabel.text = ClientStrings.GymDetail.popularHoursSection
         popularTimesLabel.font = ._16MontserratBold
-        popularTimesLabel.textColor = .fitnessLightBlack
+        popularTimesLabel.textColor = .primaryBlack
         popularTimesLabel.textAlignment = .center
         contentView.addSubview(popularTimesLabel)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 

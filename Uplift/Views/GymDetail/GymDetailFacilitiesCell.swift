@@ -1,6 +1,6 @@
 //
 //  GymDetailFacilitiesCell.swift
-//  Fitness
+//  Uplift
 //
 //  Created by Yana Sang on 9/5/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
@@ -32,7 +32,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 
     // MARK: - Public configure
     func configure(for gymDetail: GymDetail) {
-        gymFacilities = gymDetail.facilities
+        gymFacilities = gymDetail.facilitiesList
 
         DispatchQueue.main.async {
             self.gymFacilitiesTableView.reloadData()
@@ -43,7 +43,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     func setupViews() {
         facilitiesLabel.font = ._16MontserratBold
         facilitiesLabel.textAlignment = .center
-        facilitiesLabel.textColor = .fitnessLightBlack
+        facilitiesLabel.textColor = .primaryBlack
         facilitiesLabel.text = ClientStrings.GymDetail.facilitiesSection
         contentView.addSubview(facilitiesLabel)
 
@@ -59,7 +59,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         gymFacilitiesTableView.dataSource = self
         contentView.addSubview(gymFacilitiesTableView)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 

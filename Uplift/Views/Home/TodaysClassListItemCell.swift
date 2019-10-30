@@ -29,17 +29,15 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         // BORDER
         contentView.layer.cornerRadius = 5
         contentView.layer.backgroundColor = UIColor.white.cgColor
-        contentView.layer.borderColor = UIColor.fitnessLightGrey.cgColor
-        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.gray01.cgColor
+        contentView.layer.borderWidth = 1.0
 
         // SHADOWING
-        contentView.layer.shadowColor = UIColor.fitnessBlack.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 8.0)
-        contentView.layer.shadowRadius = 3.0
-        contentView.layer.shadowOpacity = 0.1
+        contentView.layer.shadowColor = UIColor.gray01.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
+        contentView.layer.shadowRadius = 7.0
+        contentView.layer.shadowOpacity = 1.0
         contentView.layer.masksToBounds = false
-        let shadowFrame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 4, right: -2))
-        contentView.layer.shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 5).cgPath
 
         setupViews()
         setupConstraints()
@@ -55,7 +53,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         if item.isCancelled {
             cancelledView.isHidden = false
             cancelledLabel.isHidden = false
-            classNameLabel.textColor = .fitnessDisabledGrey
+            classNameLabel.textColor = .gray03
         } else {
             hoursLabel.text = getHoursString(from: item)
         }
@@ -78,7 +76,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         imageView.contentMode = .scaleAspectFill
         contentView.addSubview(imageView)
 
-        cancelledView.backgroundColor = .fitnessRed
+        cancelledView.backgroundColor = .accentClosed
         cancelledView.isHidden = true
         contentView.addSubview(cancelledView)
 
@@ -89,12 +87,12 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         contentView.addSubview(cancelledLabel)
 
         classNameLabel.font = ._16MontserratMedium
-        classNameLabel.textColor = .fitnessBlack
+        classNameLabel.textColor = .primaryBlack
         classNameLabel.sizeToFit()
         contentView.addSubview(classNameLabel)
 
         hoursLabel.font = ._12MontserratRegular
-        hoursLabel.textColor = .fitnessMediumClearGrey
+        hoursLabel.textColor = .gray05
         contentView.addSubview(hoursLabel)
 
         locationWidget.contentMode = .scaleAspectFit
@@ -102,7 +100,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         contentView.addSubview(locationWidget)
 
         locationNameLabel.font = ._12MontserratRegular
-        locationNameLabel.textColor = .fitnessClearGrey
+        locationNameLabel.textColor = .gray02
         contentView.addSubview(locationNameLabel)
     }
 

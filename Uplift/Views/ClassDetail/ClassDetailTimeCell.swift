@@ -65,13 +65,13 @@ class ClassDetailTimeCell: UICollectionViewCell {
     private func setupViews() {
         dateLabel.font = ._16MontserratLight
         dateLabel.textAlignment = .center
-        dateLabel.textColor = .fitnessLightBlack
+        dateLabel.textColor = .primaryBlack
         dateLabel.sizeToFit()
         contentView.addSubview(dateLabel)
 
         timeLabel.font = ._16MontserratMedium
         timeLabel.textAlignment = .center
-        timeLabel.textColor = .fitnessLightBlack
+        timeLabel.textColor = .primaryBlack
         timeLabel.sizeToFit()
         contentView.addSubview(timeLabel)
 
@@ -80,14 +80,14 @@ class ClassDetailTimeCell: UICollectionViewCell {
         contentView.addSubview(addToCalendarButton)
 
         addToCalendarLabel.text = ClientStrings.ClassDetail.addToCalendarButton
-        addToCalendarLabel.font = ._8SFLight
+        addToCalendarLabel.font = ._12MontserratBold
         addToCalendarLabel.textAlignment = .center
-        addToCalendarLabel.textColor = .fitnessLightBlack
+        addToCalendarLabel.textColor = .primaryBlack
         addToCalendarLabel.sizeToFit()
         addToCalendarButton.addTarget(self, action: #selector(addToCalendar), for: .touchUpInside)
         contentView.addSubview(addToCalendarLabel)
 
-        dividerView.backgroundColor = .fitnessMutedGreen
+        dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
     }
 

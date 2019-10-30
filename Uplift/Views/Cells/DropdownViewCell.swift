@@ -27,14 +27,14 @@ class DropdownViewCell: UITableViewCell {
         titleLabel = UILabel()
         titleLabel.sizeToFit()
         titleLabel.font = ._14MontserratLight
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.text = ""
         addSubview(titleLabel)
 
         // CHECKBOX
         checkBox = UIView()
         checkBox.layer.cornerRadius = 3
-        checkBox.layer.borderColor = UIColor.fitnessLightGrey.cgColor
+        checkBox.layer.borderColor = UIColor.gray04.cgColor
         checkBox.layer.borderWidth = 0.5
         checkBox.layer.masksToBounds = false
         addSubview(checkBox)
@@ -58,21 +58,21 @@ class DropdownViewCell: UITableViewCell {
     // MARK: - CONSTRAINTS
     func setupConstraints() {
         titleLabel.snp.updateConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().offset(-16)
         }
 
         checkBox.snp.updateConstraints { make in
             make.top.equalToSuperview().offset(2)
-            make.right.equalToSuperview().offset(-34)
-            make.left.equalTo(checkBox.snp.right).offset(-20)
+            make.trailing.equalToSuperview().offset(-23)
+            make.width.equalTo(20)
             make.bottom.equalToSuperview().offset(-10)
         }
 
         checkBoxColoring.snp.updateConstraints { make in
-            make.top.left.equalToSuperview().offset(3)
-            make.bottom.right.equalToSuperview().offset(-3)
+            make.top.leading.equalToSuperview().offset(3)
+            make.bottom.trailing.equalToSuperview().offset(-3)
         }
     }
 }

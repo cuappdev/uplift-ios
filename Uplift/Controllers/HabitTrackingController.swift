@@ -77,7 +77,7 @@ class HabitTrackingController: UIViewController {
     // swiftlint:disable:next function_body_length
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .fitnessWhite
+        view.backgroundColor = .primaryWhite
         tabBarController?.tabBar.isHidden = true
         canSwipe = true
         habits = HabitConstants.suggestedHabits(type: type)
@@ -283,7 +283,7 @@ extension HabitTrackingController {
         titleLabel = UILabel()
         titleLabel.textAlignment = .left
         titleLabel.font = ._36MontserratBold
-        titleLabel.textColor = .fitnessBlack
+        titleLabel.textColor = .primaryBlack
         titleLabel.clipsToBounds = false
         switch type {
         case .cardio:
@@ -301,7 +301,7 @@ extension HabitTrackingController {
         descriptionLabel.text = HabitConstants.habitTypeDescription(type: type)
         descriptionLabel.textAlignment = .left
         descriptionLabel.font = ._16MontserratLight
-        descriptionLabel.textColor = .fitnessBlack
+        descriptionLabel.textColor = .primaryBlack
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.numberOfLines = 0
         contentView.addSubview(descriptionLabel)
@@ -327,8 +327,8 @@ extension HabitTrackingController {
         saveHabitButton = UIButton()
         saveHabitButton.setTitle(ClientStrings.HabitTracking.saveButton, for: .normal)
         saveHabitButton.titleLabel?.font = ._12MontserratBold
-        saveHabitButton.setTitleColor(UIColor.fitnessWhite, for: .normal)
-        saveHabitButton.backgroundColor = .fitnessBlack
+        saveHabitButton.setTitleColor(UIColor.primaryWhite, for: .normal)
+        saveHabitButton.backgroundColor = .primaryBlack
         saveHabitButton.layer.cornerRadius = 30
         saveHabitButton.addTarget(self, action: #selector(doneEditingHabit), for: .touchUpInside)
         view.addSubview(saveHabitButton)
@@ -341,7 +341,7 @@ extension HabitTrackingController {
         createHabitButton.setTitle(ClientStrings.HabitTracking.createHabitButton, for: .normal)
         createHabitButton.titleLabel?.font = ._16MontserratMedium
         createHabitButton.titleLabel?.textAlignment = .left
-        createHabitButton.setTitleColor(.fitnessMediumGrey, for: .normal)
+        createHabitButton.setTitleColor(.upliftMediumGrey, for: .normal)
         createHabitButton.addTarget(self, action: #selector(createHabit), for: .touchUpInside)
         contentView.addSubview(createHabitButton)
     }

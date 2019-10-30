@@ -35,7 +35,7 @@ class NoHabitsCell: UICollectionViewCell {
         titleLabel.textAlignment = .left
         titleLabel.clipsToBounds = false
         titleLabel.font = ._16MontserratMedium
-        titleLabel.textColor = .fitnessMediumGrey
+        titleLabel.textColor = .upliftMediumGrey
         contentView.addSubview(titleLabel)
         
         setupConstraints()

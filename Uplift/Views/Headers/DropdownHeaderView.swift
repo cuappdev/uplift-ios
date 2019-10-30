@@ -20,7 +20,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
     
     var filtersApplied: Bool = false {
         didSet {
-            self.filtersAppliedCircle.layer.backgroundColor = filtersApplied ? UIColor.fitnessYellow.cgColor : UIColor.fitnessWhite.cgColor
+            self.filtersAppliedCircle.layer.backgroundColor = filtersApplied ? UIColor.primaryYellow.cgColor : UIColor.primaryWhite.cgColor
         }
     }
     var selectedFilters: [String] = [] {
@@ -34,8 +34,8 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         layer.backgroundColor = UIColor.white.cgColor
 
         titleLabel = UILabel()
-        titleLabel.font = ._12LatoBlack
-        titleLabel.textColor = .fitnessDarkGrey
+        titleLabel.font = ._12MontserratBold
+        titleLabel.textColor = .gray04
         titleLabel.sizeToFit()
         contentView.addSubview(titleLabel)
         
@@ -46,7 +46,7 @@ class DropdownHeaderView: UITableViewHeaderFooterView {
         selectedFiltersLabel = UILabel()
         selectedFiltersLabel.textAlignment = .right
         selectedFiltersLabel.font = UIFont._14MontserratRegular
-        selectedFiltersLabel.textColor = UIColor.fitnessDarkGrey
+        selectedFiltersLabel.textColor = .primaryBlack
         selectedFiltersLabel.adjustsFontSizeToFitWidth = false
         selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         contentView.addSubview(selectedFiltersLabel)

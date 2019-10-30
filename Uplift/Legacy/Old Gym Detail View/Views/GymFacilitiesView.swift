@@ -1,6 +1,6 @@
 //
 //  GymFacilitiesView.swift
-//  Fitness
+//  Uplift
 //
 //  Created by Ji Hwan Seung on 4/28/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
@@ -144,11 +144,11 @@ class GymFacilitiesTableView: UIView, UITableViewDataSource, UITableViewDelegate
             addSubview(poolTableView!)
 
             basketballSeparator = UIView()
-            basketballSeparator!.backgroundColor = .fitnessLightGrey
+            basketballSeparator!.backgroundColor = .gray01
             addSubview(basketballSeparator!)
 
             poolSeparator = UIView()
-            poolSeparator!.backgroundColor = .fitnessLightGrey
+            poolSeparator!.backgroundColor = .gray01
             addSubview(poolSeparator!)
 
         case .teagle:

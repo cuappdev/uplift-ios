@@ -18,7 +18,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
         let title = UILabel()
         title.font = ._14MontserratBold
         title.textAlignment = .left
-        title.textColor = .fitnessDarkGrey
+        title.textColor = .gray04
         header.addSubview(title)
 
         title.snp.makeConstraints { make in
@@ -117,7 +117,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 titleLabel.textAlignment = .left
                 titleLabel.clipsToBounds = false
                 titleLabel.font = ._16MontserratMedium
-                titleLabel.textColor = .fitnessMediumGrey
+                titleLabel.textColor = .upliftMediumGrey
                 cell.contentView.addSubview(titleLabel)
 
                 titleLabel.snp.makeConstraints { make in
