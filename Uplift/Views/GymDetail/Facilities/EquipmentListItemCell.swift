@@ -96,7 +96,7 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
 
         equipmentList.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(equipmentTopPadding)
-            equipmentListTrailingConstraint = make.trailing.equalTo(quantityList.snp.leading).offset(0).constraint
+            make.trailing.equalTo(quantityList.snp.leading).offset(-listsSpacing)
             make.leading.equalToSuperview().offset(contentPadding)
             make.bottom.equalToSuperview().inset(contentPadding)
         }

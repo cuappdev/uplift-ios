@@ -1,6 +1,6 @@
 //
 //  GymDetailViewController.swift
-//  Fitness
+//  Uplift
 //
 //  Created by Yana Sang on 5/22/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
@@ -21,6 +21,7 @@ class GymDetailViewController: UIViewController {
     private var equipment: [EquipmentCategory] = []
     private var sections: [Section] = []
     private var todaysClasses: [GymClassInstance] = []
+    private var equipment: [EquipmentCategory] = []
 
     // MARK: - Public data vars
     var gymDetail: GymDetail!
@@ -137,7 +138,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             cell.configure(for: gymDetail.gym)
             return cell
         case .facilities:
-            // swiftlint:disable:next force_cast
+             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
             cell.configure(for: gymDetail)
             return cell
@@ -289,24 +290,15 @@ func getHoursHeight() -> CGFloat {
 
 extension GymDetailViewController {
     func categorizeEquipment(equipmentList: [Equipment]) -> [EquipmentCategory] {
-        var equipmentDictionary: [String: [Equipment]] = [:]
-        let sorted = equipmentList.sorted(by: { $0.equipmentType < $1.equipmentType })
-        var category = sorted[0].equipmentType
-        equipmentDictionary[category] = []
+        let equipmentDictionary = equipmentList.reduce(into: [String: [Equipment]](), { dict, equipment in
+          if dict[equipment.equipmentType] != nil {
+            dict[equipment.equipmentType]?.append(equipment)
+          } else {
+            dict[equipment.equipmentType] = [equipment]
+          }
+        })
 
-        sorted.forEach { (equipment) in
-            if equipment.equipmentType == category {
-                equipmentDictionary[category]?.append(equipment)
-            } else {
-                category = equipment.equipmentType
-                equipmentDictionary[category] = [equipment]
-            }
-        }
-
-        var equipmentCategories: [EquipmentCategory] = []
-        for (categoryName, equipment) in equipmentDictionary {
-            equipmentCategories.append(EquipmentCategory(categoryName: categoryName, equipment: equipment))
-        }
+        let equipmentCategories = equipmentDictionary.map { EquipmentCategory(categoryName: $0, equipment: $1) }
 
         return equipmentCategories
     }

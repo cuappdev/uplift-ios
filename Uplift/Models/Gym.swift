@@ -15,6 +15,7 @@ struct Gym {
     let gymHours: [DailyGymHours]
     let id: String
     let name: String
+    let facilities: [Facility]
 
     /// Array of 7 arrays of count 24, representing the busyness in each hour, Sun..Sat
     let popularTimesList: [[Int]]
@@ -33,7 +34,7 @@ struct Gym {
         return gymHours[Date().getIntegerDayOfWeekToday()]
     }
 
-    init(gymData: AllGymsQuery.Data.Gym ) {
+    init(gymData: AllGymsQuery.Data.Gym) {
         id = gymData.id
         name = gymData.name
         // TODO : fetch equipment once it's available from backend
@@ -61,14 +62,12 @@ struct Gym {
 
         gymHours = gymHoursList
 
-        var facilitiesList: [Facility] = []
-        let facilitiesData = gymData.facilities
-        facilitiesData.forEach({ (facility) in
-            if let facility = facility {
-                facilitiesList.append(Facility(gymData: facility))
-            }
+        facilities = gymData.facilities.compactMap({ facility in
+          if let facility = facility {
+            return Facility(facilityData: facility)
+          }
+          return nil
         })
-        facilities = facilitiesList
     }
 
     init(gymData: GymByIdQuery.Data.Gym ) {
@@ -94,7 +93,10 @@ struct Gym {
             return DailyGymHours(gymHoursDataId: gymHoursDataId)
         })
 
-        facilities = []
+        facilities = gymData.facilities.compactMap {
+            guard let facility = $0 else { return nil }
+            return Facility(facilityData: facility)
+        }
     }
 
     func isStatusChangingSoon() -> Bool {
@@ -140,28 +142,42 @@ struct DailyGymHours {
         }
     }
 
-    init(gymHoursDataId: AllGymsQuery.Data.Gym.Facility.Time?) {
-        if let gymHoursData = gymHoursDataId {
-            dayOfWeek = gymHoursData.day
-            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
-            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+    init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Time?) {
+        if let facilityHours = facilityHoursData {
+            dayOfWeek = facilityHours.day
+            openTime = Date.getTimeFromString(datetime: facilityHours.startTime)
+            closeTime = Date.getTimeFromString(datetime: facilityHours.endTime)
         } else {
             openTime = Date()
             closeTime = openTime
             dayOfWeek = 0
         }
     }
+
+    init(facilityHoursData: GymByIdQuery.Data.Gym.Facility.Time?) {
+        if let facilityHours = facilityHoursData {
+            dayOfWeek = facilityHours.day
+            openTime = Date.getTimeFromString(datetime: facilityHours.startTime)
+            closeTime = Date.getTimeFromString(datetime: facilityHours.endTime)
+        } else {
+            openTime = Date()
+            closeTime = openTime
+            dayOfWeek = 0
+        }
+    }
+    
 }
 
 struct Facility {
+
     var equipment: [Equipment]
     var miscInformation: [String]
     var name: String
     var times: [DailyGymHours]
 
-    init(gymData: AllGymsQuery.Data.Gym.Facility) {
-        if let equipmentGymData = gymData.equipment {
-            equipment = equipmentGymData.compactMap({ (equipmentData) -> Equipment? in
+    init(facilityData: AllGymsQuery.Data.Gym.Facility) {
+        if let equipmentGymData = facilityData.equipment {
+            equipment = equipmentGymData.compactMap({ equipmentData -> Equipment? in
                 guard let equipmentData = equipmentData else { return nil }
                 return Equipment(equipmentData: equipmentData)
             })
@@ -169,26 +185,56 @@ struct Facility {
             equipment = []
         }
 
-        var miscInformationList: [String] = []
-        if let informationData = gymData.miscInformation {
-            informationData.forEach({ (info) in
-                if let info = info {
-                    miscInformationList.append(info)
-                }
+        if let informationData = facilityData.miscInformation {
+            miscInformation = informationData.compactMap({ information in
+              if let information = information {
+                return information
+              }
+              return nil
             })
+        } else {
+            miscInformation = []
         }
-        miscInformation = miscInformationList
 
-        name = gymData.name
+        name = facilityData.name
 
-        times = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
-            guard let gymHoursDataId = gymHoursDataId else { return nil }
-            return DailyGymHours(gymHoursDataId: gymHoursDataId)
+        times = facilityData.times.compactMap({ (facilityHoursData) -> DailyGymHours? in
+            guard let facilityHours = facilityHoursData else { return nil }
+            return DailyGymHours(facilityHoursData: facilityHours)
         })
     }
+
+    init(facilityData: GymByIdQuery.Data.Gym.Facility) {
+        if let equipmentGymData = facilityData.equipment {
+           equipment = equipmentGymData.compactMap({ equipmentData -> Equipment? in
+               guard let equipmentData = equipmentData else { return nil }
+               return Equipment(equipmentData: equipmentData)
+           })
+       } else {
+           equipment = []
+       }
+
+       if let informationData = facilityData.miscInformation {
+            miscInformation = informationData.compactMap({
+                guard let information = $0 else { return nil }
+                return information
+            })
+       } else {
+           miscInformation = []
+       }
+
+       name = facilityData.name
+
+       times = facilityData.times.compactMap({ (facilityHoursData) -> DailyGymHours? in
+            guard let facilityHours = facilityHoursData else { return nil }
+            return DailyGymHours(facilityHoursData: facilityHours)
+       })
+    }
+
 }
 
 struct Equipment {
+
     var equipmentType: String
     var name: String
     var quantity: String
@@ -207,4 +253,19 @@ struct Equipment {
             workoutType = ""
         }
     }
+
+    init(equipmentData: GymByIdQuery.Data.Gym.Facility.Equipment?) {
+        if let equipmentData = equipmentData {
+            equipmentType = equipmentData.equipmentType ?? ""
+            name = equipmentData.name
+            quantity = equipmentData.quantity ?? "0"
+            workoutType = equipmentData.workoutType ?? ""
+        } else {
+            equipmentType = ""
+            name = ""
+            quantity = ""
+            workoutType = ""
+        }
+    }
+
 }
