@@ -13,18 +13,27 @@ query AllGyms {
         }
         facilities {
             name
-            equipment {
-                equipmentType
-                name
-                quantity
-                workoutType
+            details {
+                detailsType
+                equipment {
+                  equipmentType
+                  name
+                  quantity
+                  workoutType
+                }
+                items
+                prices
+                subFacilityNames
+                times {
+                  day
+                  timeRanges {
+                    startTime
+                    endTime
+                    specialHours
+                    restrictions
+                  }
+                }
             }
-            times {
-                day
-                startTime
-                endTime
-            }
-            miscInformation
         }
     }
 }
@@ -43,18 +52,27 @@ query GymById($gymId: String) {
         }
         facilities {
             name
-            equipment {
-                equipmentType
-                name
-                quantity
-                workoutType
+            details {
+                detailsType
+                equipment {
+                  equipmentType
+                  name
+                  quantity
+                  workoutType
+                }
+                items
+                prices
+                subFacilityNames
+                times {
+                  day
+                  timeRanges {
+                    startTime
+                    endTime
+                    specialHours
+                    restrictions
+                  }
+                }
             }
-            times {
-                day
-                startTime
-                endTime
-            }
-            miscInformation
         }
     }
 }

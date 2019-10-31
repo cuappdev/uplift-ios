@@ -51,7 +51,7 @@ class GymDetailViewController: UIViewController {
         self.gymDetail = GymDetail(gym: gym)
 
         for facility in gymDetail.facilities where facility.name == "Fitness Center" {
-            self.equipment = categorizeEquipment(equipmentList: facility.equipment)
+            self.equipment = categorizeEquipment(equipmentList: facility.details[0].equipment)
         }
 
         if gym.isOpen {
