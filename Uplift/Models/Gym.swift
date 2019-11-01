@@ -218,15 +218,15 @@ struct FacilityDetail {
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
             })
         case .prices:
-            items = detailData.items.compactMap({ item -> String in
-                return item ?? ""
+            items = detailData.items.compactMap({ item -> String? in
+                return item ?? nil
             })
-            prices = detailData.prices.compactMap({ price -> String in
-                return price ?? ""
+            prices = detailData.prices.compactMap({ price -> String? in
+                return price ?? nil
             })
         case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ subfacility -> String in
-                return subfacility ?? ""
+            subfacilities = detailData.subFacilityNames.compactMap({ subfacility -> String? in
+                return subfacility ?? nil
             })
         }
     }
@@ -249,15 +249,15 @@ struct FacilityDetail {
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
             })
         case .prices:
-            items = detailData.items.compactMap({ item -> String in
-                return item ?? ""
+            items = detailData.items.compactMap({ item -> String? in
+                return item ?? nil
             })
-            prices = detailData.prices.compactMap({ price -> String in
-                return price ?? ""
+            prices = detailData.prices.compactMap({ price -> String? in
+                return price ?? nil
             })
         case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ subfacility -> String in
-                return subfacility ?? ""
+            subfacilities = detailData.subFacilityNames.compactMap({ subfacility -> String? in
+                return subfacility ?? nil
             })
         }
     }
