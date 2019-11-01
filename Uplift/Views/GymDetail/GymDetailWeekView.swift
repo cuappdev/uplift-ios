@@ -13,18 +13,16 @@ import SnapKit
 
 class GymDetailWeekView: UIView {
 
-    // MARK: - Views
-    private var weekdayCollectionView: UICollectionView!
-
-    // MARK: - Info
-    private var days: [WeekDay] = WeekDay.allCases
-
-    // MARK: - Display
-    private let daysSize = CGSize(width: 24, height: 24)
-
     // MARK: - Public
     var selectedDay: WeekDay?
-    weak var delegate: WeekDelegate?
+
+    // MARK: - Display
+    private var weekdayCollectionView: UICollectionView!
+    private let daysSize = CGSize(width: 24, height: 24)
+    private let interitemSpace: CGFloat = 19
+
+    // MARK: - Info
+    private var days: [WeekDay] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,17 +42,15 @@ class GymDetailWeekView: UIView {
     /// Center collection view in size of view
     override func layoutSubviews() {
         weekdayCollectionView.contentInset.top = (frame.height - daysSize.height) / 2
-        super.updateConstraints()
+        super.layoutSubviews()
     }
 
     private func setupCollectionView() {
         backgroundColor = .primaryWhite
 
-        let daySpacing: CGFloat = 19
-
         let weekdayFlowLayout = UICollectionViewFlowLayout()
         weekdayFlowLayout.itemSize = daysSize
-        weekdayFlowLayout.minimumInteritemSpacing = daySpacing
+        weekdayFlowLayout.minimumInteritemSpacing = interitemSpace
 
         weekdayCollectionView = UICollectionView(frame: .zero, collectionViewLayout: weekdayFlowLayout)
         weekdayCollectionView.register(GymWeekCell.self, forCellWithReuseIdentifier: Identifiers.gymWeekCell)
@@ -67,33 +63,24 @@ class GymDetailWeekView: UIView {
     }
     
     private func setupConstraints() {
-        let weekdayDisplayInset = 39.0
-        let weekdayInterimPadding = 19.0
+        let weekdayDisplayInset: CGFloat = 39
 
         weekdayCollectionView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.height.equalToSuperview()
-            make.leading.equalToSuperview().inset(weekdayDisplayInset + weekdayInterimPadding)
-            make.trailing.equalToSuperview().inset(weekdayDisplayInset - weekdayInterimPadding)
+            make.center.height.equalToSuperview()
+            make.leading.equalToSuperview().inset(weekdayDisplayInset + interitemSpace)
+            make.trailing.equalToSuperview().inset(weekdayDisplayInset - interitemSpace)
         }
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension GymDetailWeekView: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
-        cell.update()
         selectedDay = days[indexPath.row]
-        delegate?.didChangeDay(day: selectedDay ?? .sunday)
     }
 
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GymWeekCell else { return }
-        cell.update()
-    }
 }
-
 
 // MARK: - UICollectionViewDataSource
 extension GymDetailWeekView: UICollectionViewDataSource {
@@ -106,7 +93,9 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
             return UICollectionViewCell()
         }
+        
         cell.configure(weekday: days[indexPath.row])
         return cell
     }
+
 }
