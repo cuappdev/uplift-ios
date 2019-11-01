@@ -30,7 +30,6 @@
 		7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */; };
 		7ECD16D9234E898400842E8C /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD16D8234E898400842E8C /* EquipmentListCell.swift */; };
 		7ECD16DB234E89A900842E8C /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD16DA234E89A900842E8C /* EquipmentListItemCell.swift */; };
-		7ECD16DD234E8A7F00842E8C /* GymEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD16DC234E8A7F00842E8C /* GymEquipment.swift */; };
 		7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */; };
 		7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */; };
 		8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */; };
@@ -158,7 +157,6 @@
 		7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailPopularTimesCell.swift; sourceTree = "<group>"; };
 		7ECD16D8234E898400842E8C /* EquipmentListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListCell.swift; sourceTree = "<group>"; };
 		7ECD16DA234E89A900842E8C /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
-		7ECD16DC234E8A7F00842E8C /* GymEquipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymEquipment.swift; sourceTree = "<group>"; };
 		7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFacilitiesCell.swift; sourceTree = "<group>"; };
 		7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFacilitiesCell.swift; sourceTree = "<group>"; };
 		8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenHeaderView.swift; sourceTree = "<group>"; };
@@ -407,7 +405,6 @@
 				4F27D7F822445BDD00135DC4 /* User.swift */,
 				8DD74F352242A2DA00CE1274 /* Habit.swift */,
 				C218F936233DBE080018838A /* GymDetail.swift */,
-				7ECD16DC234E8A7F00842E8C /* GymEquipment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -923,7 +920,6 @@
 				7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
-				7ECD16DD234E8A7F00842E8C /* GymEquipment.swift in Sources */,
 				C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */,
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
 				E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */,
