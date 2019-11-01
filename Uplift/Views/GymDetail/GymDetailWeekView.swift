@@ -42,11 +42,11 @@ class GymDetailWeekView: UIView {
     /// Center collection view in size of view
     override func layoutSubviews() {
         weekdayCollectionView.contentInset.top = (frame.height - daysSize.height) / 2
-        super.updateConstraints()
+        super.layoutSubviews()
     }
 
     private func setupCollectionView() {
-        backgroundColor = .fitnessWhite
+        backgroundColor = .primaryWhite
 
         let weekdayFlowLayout = UICollectionViewFlowLayout()
         weekdayFlowLayout.itemSize = daysSize

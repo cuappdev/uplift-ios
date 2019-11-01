@@ -22,7 +22,7 @@ class GymWeekCell: UICollectionViewCell {
     override var isSelected: Bool {
       didSet {
         backCircle.alpha = isSelected || isToday ? 1 : 0
-        backCircle.backgroundColor = isSelected ? .fitnessYellow : .fitnessLightGrey
+        backCircle.backgroundColor = isSelected ? .primaryYellow : .gray01
       }
     }
 
@@ -46,7 +46,7 @@ class GymWeekCell: UICollectionViewCell {
 
         dayLabel.font = ._12MontserratBold
         dayLabel.textAlignment = .center
-        dayLabel.textColor = .fitnessBlack
+        dayLabel.textColor = .primaryBlack
         addSubview(dayLabel)
     }
 
