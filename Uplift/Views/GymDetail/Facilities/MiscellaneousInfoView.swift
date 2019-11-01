@@ -15,7 +15,7 @@ class MiscellaneousInfoView: UIView {
     init(miscellaneousInfo: [String]) {
         super.init(frame: CGRect.zero)
 
-        let display = formatMiscellaneous(misc: miscellaneousInfo)
+        let display = formatMiscellaneous(miscellaneousInfo)
         textView.attributedText = generateAttributedString(for: display, font: UIFont._14MontserratRegular!)
         textView.isEditable = false
         textView.isSelectable = false
@@ -47,7 +47,6 @@ class MiscellaneousInfoView: UIView {
         for string: String,
         font: UIFont
     ) -> NSAttributedString {
-
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 3
         let attributes: [NSAttributedString.Key: Any] = [
