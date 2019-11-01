@@ -98,10 +98,10 @@ struct NetworkManager {
     }
 
     func getGymNames(completion: @escaping ([GymNameId]) -> Void) {
-        apollo.fetch(query: AllGymsQuery()) { result, error in
+        apollo.fetch(query: AllGymNamesQuery()) { result, error in
             guard error == nil,
-                let gymsData = result?.data?.gyms else { return }
-            let gyms = gymsData.map({ GymNameId(name: $0?.name, id: $0?.id) })
+                let gymNamesData = result?.data?.gyms else { return }
+            let gyms = gymNamesData.map({ GymNameId(name: $0?.name, id: $0?.id) })
 
             completion(gyms)
         }
