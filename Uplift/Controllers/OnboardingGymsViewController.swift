@@ -280,10 +280,6 @@ extension OnboardingGymsViewController: UITableViewDelegate {
         toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: checkNextCriteria())
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(scale(height: Double(gymCellHeight)))
     }
@@ -296,14 +292,6 @@ extension OnboardingGymsViewController: UITableViewDelegate {
         let blankView = UIView()
         blankView.backgroundColor = .clear
         return blankView
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return gymCellVerticalPadding
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(scale(height: Double(gymCellHeight)))
     }
 
 }
