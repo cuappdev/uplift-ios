@@ -137,7 +137,7 @@ struct DailyGymHours {
 struct DailyFacilityHoursRanges {
 
     var dayOfWeek: Int
-    var timeRanges: [FacilityHoursRange] = []
+    var timeRanges: [FacilityHoursRange]
 
     init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Detail.Time) {
         dayOfWeek = facilityHoursData.day
