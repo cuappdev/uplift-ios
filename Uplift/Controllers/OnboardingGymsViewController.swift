@@ -283,7 +283,7 @@ extension OnboardingGymsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(scale(height: Double(gymCellHeight)))
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return gymCellVerticalPadding
     }
