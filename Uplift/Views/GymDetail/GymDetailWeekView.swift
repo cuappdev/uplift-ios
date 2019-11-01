@@ -15,6 +15,7 @@ class GymDetailWeekView: UIView {
 
     // MARK: - Public
     var selectedDay: WeekDay?
+    weak var delegate: WeekDelegate?
 
     // MARK: - Display
     private var weekdayCollectionView: UICollectionView!

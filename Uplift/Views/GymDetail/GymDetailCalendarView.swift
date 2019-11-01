@@ -39,7 +39,7 @@ class GymDetailCalendarView: UIView {
 
     private func setupViews() {
         let timesPadding: CGFloat = 16
-        
+
         weekView = GymDetailWeekView()
         timeInfoView = GymDetailTimeInfoView(facility: facility)
         weekView.delegate = timeInfoView

@@ -83,7 +83,7 @@ class GymDetailTimeInfoView: UILabel {
 
     func updateAttributedText() {
         timesText.mutableString.setString(displayedText)
-        let range = NSMakeRange(0, timesText.length)
+        let range = NSRange(location: 0, length: timesText.length)
         timesText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
         attributedText = timesText
     }
@@ -115,6 +115,6 @@ protocol WeekDelegate: class {
 extension GymDetailTimeInfoView: WeekDelegate {
     func didChangeDay(day: WeekDay) {
         selectedDayIndex = day.index - 1
-        updateAppearence()
+        updateAppearance()
     }
 }

@@ -206,7 +206,7 @@ struct Facility {
     init(facilityData: GymByIdQuery.Data.Gym.Facility) {
         if let equipmentGymData = facilityData.equipment {
            equipment = equipmentGymData.compactMap({ equipmentData -> Equipment? in
-               guard let data= equipmentData else { return nil }
+               guard let data = equipmentData else { return nil }
                return Equipment(equipmentData: data)
            })
        } else {
