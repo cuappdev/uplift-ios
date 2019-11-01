@@ -76,7 +76,7 @@ class OnboardingLoginViewController: UIViewController {
         nextButton.clipsToBounds = false
         nextButton.layer.cornerRadius = nextButtonSize / 2
         nextButton.backgroundColor = .primaryWhite
-        nextButton.layer.borderColor = UIColor.fitnessMediumGrey.cgColor
+        nextButton.layer.borderColor = UIColor.upliftMediumGrey.cgColor
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
