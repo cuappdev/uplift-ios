@@ -10,6 +10,18 @@ import EventKit
 import UIKit
 
 extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
+    func classDetailHeaderViewFavoriteButtonTapped() {
+        favoriteButtonTapped()
+    }
+    
+    func classDetailHeaderViewShareButtonTapped() {
+        share()
+    }
+    
+    
+    func classDetailHeaderViewBackButtonPressed() {
+        back()
+    }
 
     func classDetailHeaderViewLocationSelected() {
         NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in

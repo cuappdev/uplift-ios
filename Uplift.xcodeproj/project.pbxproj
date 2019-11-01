@@ -20,16 +20,14 @@
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
+		63BB4E4F8B3A101188A19E57 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405D302EC5F0CC205C5DD63D /* Pods_Uplift.framework */; };
 		7E3667C7232DA39D00C5971E /* OldGymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3667C6232DA39D00C5971E /* OldGymDetailViewController.swift */; };
-		7E51FA6A2359306800C06D3D /* PriceInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E51FA692359306800C06D3D /* PriceInformationView.swift */; };
 		7E80876D229B6984007D9EDD /* GymDetailTodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */; };
 		7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */; };
 		7E808771229B76BD007D9EDD /* GymDetailHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */; };
 		7E9D6DEF22961B860054F710 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */; };
 		7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */; };
 		7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */; };
-		7ECD16D9234E898400842E8C /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD16D8234E898400842E8C /* EquipmentListCell.swift */; };
-		7ECD16DB234E89A900842E8C /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD16DA234E89A900842E8C /* EquipmentListItemCell.swift */; };
 		7ECD16DD234E8A7F00842E8C /* GymEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD16DC234E8A7F00842E8C /* GymEquipment.swift */; };
 		7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */; };
 		7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */; };
@@ -61,7 +59,6 @@
 		8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */; };
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
-		AE6DB9E165B20CBD98F42FC8 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48695D922CD490E026211F06 /* Pods_Uplift.framework */; };
 		C218F937233DBE080018838A /* GymDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C218F936233DBE080018838A /* GymDetail.swift */; };
 		C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */; };
 		C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14C2292374400B5D219 /* HomeViewController.swift */; };
@@ -135,30 +132,26 @@
 		0C97AC2622766E210086D699 /* GymFacilitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFacilitiesView.swift; sourceTree = "<group>"; };
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
 		0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursHeaderView.swift; sourceTree = "<group>"; };
-		0F69CDF0CFF17BDF7C0904D2 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		1C1D283A2166E215003FE839 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymClassInstanceQueries.graphql; sourceTree = "<group>"; };
 		1C46740E21617680000AEDF0 /* intructorQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = intructorQueries.graphql; sourceTree = "<group>"; };
 		1C4CD99B216923CF0095EDC2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		1C7847C3216E77E30066E0DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
-		35E2BE6E66F5F5D34B2961D7 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
-		48695D922CD490E026211F06 /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		405D302EC5F0CC205C5DD63D /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F06D6CD222777DA00D4B243 /* OnboardingLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLoginViewController.swift; sourceTree = "<group>"; };
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
+		66D6998128547C88E2AF1913 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
 		7E3667C6232DA39D00C5971E /* OldGymDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldGymDetailViewController.swift; sourceTree = "<group>"; };
-		7E51FA692359306800C06D3D /* PriceInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceInformationView.swift; sourceTree = "<group>"; };
 		7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTodaysClassesCell.swift; sourceTree = "<group>"; };
 		7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GymDetailViewController+Extensions.swift"; sourceTree = "<group>"; };
 		7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailHoursCell.swift; sourceTree = "<group>"; };
 		7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GymDetailViewController.swift; path = Uplift/Controllers/GymDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailHeaderView.swift; sourceTree = "<group>"; };
 		7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailPopularTimesCell.swift; sourceTree = "<group>"; };
-		7ECD16D8234E898400842E8C /* EquipmentListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListCell.swift; sourceTree = "<group>"; };
-		7ECD16DA234E89A900842E8C /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
 		7ECD16DC234E8A7F00842E8C /* GymEquipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymEquipment.swift; sourceTree = "<group>"; };
 		7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFacilitiesCell.swift; sourceTree = "<group>"; };
 		7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFacilitiesCell.swift; sourceTree = "<group>"; };
@@ -260,6 +253,7 @@
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
 		E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProListItemCell.swift; sourceTree = "<group>"; };
+		E96B4C6AADE2D5A7403CD6A8 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,21 +261,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE6DB9E165B20CBD98F42FC8 /* Pods_Uplift.framework in Frameworks */,
+				63BB4E4F8B3A101188A19E57 /* Pods_Uplift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		617FB0ECFB15315DBB057217 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				48695D922CD490E026211F06 /* Pods_Uplift.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		630ADD112051BECC00B8E255 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,10 +291,9 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-    7E9D6DED22961B1B0054F710 /* GymDetail */ = {
+		7E9D6DED22961B1B0054F710 /* GymDetail */ = {
 			isa = PBXGroup;
 			children = (
-				7E51FA682359302500C06D3D /* Facilities */,
 				7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */,
 				7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */,
 				7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */,
@@ -324,6 +309,15 @@
 				8DD7C77620844175004EB196 /* DropdownFooterView.swift */,
 			);
 			path = Footers;
+			sourceTree = "<group>";
+		};
+		BF42CBFE96BF7040262D305C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				66D6998128547C88E2AF1913 /* Pods-Uplift.debug.xcconfig */,
+				E96B4C6AADE2D5A7403CD6A8 /* Pods-Uplift.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		C21BE14922920EB200B5D219 /* ClassList */ = {
@@ -373,6 +367,14 @@
 			path = Supporting;
 			sourceTree = "<group>";
 		};
+		C3C1FEEF6E212A884216EBAB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				405D302EC5F0CC205C5DD63D /* Pods_Uplift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C71E8A022091653900542FA3 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,9 +419,9 @@
 				C7DFABCD204206E000545B0B /* Uplift */,
 				630ADD112051BECC00B8E255 /* Fonts */,
 				C7DFABCC204206E000545B0B /* Products */,
-				C81ACE807AA0169E1CA71704 /* Pods */,
-				617FB0ECFB15315DBB057217 /* Frameworks */,
 				7E038C6E2295777400418500 /* Recovered References */,
+				BF42CBFE96BF7040262D305C /* Pods */,
+				C3C1FEEF6E212A884216EBAB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -535,15 +537,6 @@
 				C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		C81ACE807AA0169E1CA71704 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0F69CDF0CFF17BDF7C0904D2 /* Pods-Uplift.debug.xcconfig */,
-				35E2BE6E66F5F5D34B2961D7 /* Pods-Uplift.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		D94BD3062159DA7D00C9214E /* graphql */ = {
@@ -677,15 +670,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7DFABDD204206E000545B0B /* Build configuration list for PBXNativeTarget "Uplift" */;
 			buildPhases = (
-				52ADF535BD2C2AA023A71A44 /* [CP] Check Pods Manifest.lock */,
+				3655CE1FDECAEB5135761EFA /* [CP] Check Pods Manifest.lock */,
 				0C3AC6132155BF5100761495 /* Generate Apollo GraphQL API */,
 				C7DFABC7204206E000545B0B /* Sources */,
 				C7DFABC8204206E000545B0B /* Frameworks */,
 				C7DFABC9204206E000545B0B /* Resources */,
 				1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */,
 				8D29EFD320431FCA005B1CC8 /* Run Fabric build */,
-				02B1A97808D058555E3DD67B /* [CP] Embed Pods Frameworks */,
-				87A0C55BE3FDBD763614CDE0 /* [CP] Copy Pods Resources */,
+				CB787BBEF6A4560AEBF65B30 /* [CP] Embed Pods Frameworks */,
+				66DD93CADBE1392050E8EA27 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -760,7 +753,89 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02B1A97808D058555E3DD67B /* [CP] Embed Pods Frameworks */ = {
+		0C3AC6132155BF5100761495 /* Generate Apollo GraphQL API */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo GraphQL API";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\necho \"${SRCROOT}/${TARGET_NAME}\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=../schema.json API.swift\n";
+		};
+		1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		3655CE1FDECAEB5135761EFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Uplift-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		66DD93CADBE1392050E8EA27 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Uplift/Pods-Uplift-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Uplift/Pods-Uplift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D29EFD320431FCA005B1CC8 /* Run Fabric build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Fabric build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FABRIC_API_KEY=$(/usr/libexec/PlistBuddy -c \"Print :fabric-api-key\" \"${PROJECT_DIR}/Secrets/Keys.plist\")\nFABRIC_BUILD_SECRET=$(/usr/libexec/PlistBuddy -c \"Print :fabric-build-secret\" \"${PROJECT_DIR}/Secrets/Keys.plist\")\n\"${PODS_ROOT}/Fabric/run\" $FABRIC_API_KEY $FABRIC_BUILD_SECRET\n";
+		};
+		CB787BBEF6A4560AEBF65B30 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -802,88 +877,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Uplift/Pods-Uplift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0C3AC6132155BF5100761495 /* Generate Apollo GraphQL API */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Apollo GraphQL API";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\necho \"${SRCROOT}/${TARGET_NAME}\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=../schema.json API.swift\n";
-		};
-		1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run SwiftLint";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		52ADF535BD2C2AA023A71A44 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Uplift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		87A0C55BE3FDBD763614CDE0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Uplift/Pods-Uplift-resources.sh",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Uplift/Pods-Uplift-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8D29EFD320431FCA005B1CC8 /* Run Fabric build */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Fabric build";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "FABRIC_API_KEY=$(/usr/libexec/PlistBuddy -c \"Print :fabric-api-key\" \"${PROJECT_DIR}/Secrets/Keys.plist\")\nFABRIC_BUILD_SECRET=$(/usr/libexec/PlistBuddy -c \"Print :fabric-build-secret\" \"${PROJECT_DIR}/Secrets/Keys.plist\")\n\"${PODS_ROOT}/Fabric/run\" $FABRIC_API_KEY $FABRIC_BUILD_SECRET\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -905,7 +898,6 @@
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
-				7ECD16DB234E89A900842E8C /* EquipmentListItemCell.swift in Sources */,
 				7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
@@ -914,7 +906,6 @@
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
 				E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
-				7ECD16D9234E898400842E8C /* EquipmentListCell.swift in Sources */,
 				E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */,
 				E604DC2E233B1D80003598BC /* ProBioBiographyCell.swift in Sources */,
 				C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */,
@@ -990,7 +981,6 @@
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
 				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
 				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
-				7E51FA6A2359306800C06D3D /* PriceInformationView.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
 				8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */,
 				E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */,
@@ -1124,7 +1114,7 @@
 		};
 		C7DFABDE204206E000545B0B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F69CDF0CFF17BDF7C0904D2 /* Pods-Uplift.debug.xcconfig */;
+			baseConfigurationReference = 66D6998128547C88E2AF1913 /* Pods-Uplift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1146,7 +1136,7 @@
 		};
 		C7DFABDF204206E000545B0B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35E2BE6E66F5F5D34B2961D7 /* Pods-Uplift.release.xcconfig */;
+			baseConfigurationReference = E96B4C6AADE2D5A7403CD6A8 /* Pods-Uplift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

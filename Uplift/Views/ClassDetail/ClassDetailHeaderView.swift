@@ -9,13 +9,17 @@
 import UIKit
 
 protocol ClassDetailHeaderViewDelegate: class {
+    func classDetailHeaderViewFavoriteButtonTapped()
+    func classDetailHeaderViewBackButtonPressed()
     func classDetailHeaderViewLocationSelected()
     func classDetailHeaderViewInstructorSelected()
+    func classDetailHeaderViewShareButtonTapped()
 }
 
 class ClassDetailHeaderView: UICollectionReusableView {
 
     // MARK: - Private view vars
+    private let backButton = UIButton()
     private let imageView = UIImageView()
     private let imageFilterView = UIView()
     private let semicircleImageView = UIImageView(image: UIImage(named: ImageNames.semicircle))
@@ -23,6 +27,8 @@ class ClassDetailHeaderView: UICollectionReusableView {
     private let locationButton = UIButton()
     private let instructorButton = UIButton()
     private let durationLabel = UILabel()
+    private let favoriteButton = UIButton()
+    private let shareButton = UIButton()
 
     // MARK: - Private data vars
     private weak var delegate: ClassDetailHeaderViewDelegate?
@@ -43,8 +49,20 @@ class ClassDetailHeaderView: UICollectionReusableView {
         instructorButton.setTitle(gymClassInstance.instructor.uppercased(), for: .normal)
         durationLabel.text = String(Int(gymClassInstance.duration) / 60) + ClientStrings.ClassDetail.durationMin
     }
+    
+    func selectFavoriteButton() {
+        favoriteButton.isSelected = true
+    }
+    
+    func deselectFavoriteButton() {
+        favoriteButton.isSelected = false
+    }
 
     // MARK: - Targets
+    @objc func back() {
+        delegate?.classDetailHeaderViewBackButtonPressed()
+    }
+    
     @objc func locationSelected() {
         delegate?.classDetailHeaderViewLocationSelected()
     }
@@ -52,9 +70,33 @@ class ClassDetailHeaderView: UICollectionReusableView {
     @objc func instructorSelected() {
         delegate?.classDetailHeaderViewInstructorSelected()
     }
+    
+    @objc func favoriteButtonTapped() {
+        delegate?.classDetailHeaderViewFavoriteButtonTapped()
+    }
+    
+    @objc func share() {
+        delegate?.classDetailHeaderViewShareButtonTapped()
+    }
 
     // MARK: - CONSTRAINTS
     private func setupViews() {
+        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+        backButton.sizeToFit()
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        addSubview(backButton)
+        
+        favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
+        favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
+        favoriteButton.sizeToFit()
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        addSubview(favoriteButton)
+
+        shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
+        shareButton.sizeToFit()
+        shareButton.addTarget(self, action: #selector(self.share), for: .touchUpInside)
+        addSubview(shareButton)
+        
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         addSubview(imageView)
@@ -89,6 +131,10 @@ class ClassDetailHeaderView: UICollectionReusableView {
         durationLabel.textAlignment = .center
         durationLabel.textColor = .primaryBlack
         addSubview(durationLabel)
+        
+        bringSubviewToFront(backButton)
+        bringSubviewToFront(favoriteButton)
+        bringSubviewToFront(shareButton)
     }
 
     private func setupConstraints() {
@@ -99,7 +145,32 @@ class ClassDetailHeaderView: UICollectionReusableView {
         let locationButtonHeight = 16
         let semicircleImageViewSize = CGSize(width: 100, height: 50)
         let titleLabelHorizontalPadding = 40
+        let backButtonLeftPadding = 20
+        let backButtonSize = CGSize(width: 23, height: 19)
+        let backButtonTopPadding = 30
+        let favoriteButtonRightPadding = 21
+        let favoriteButtonSize = CGSize(width: 23, height: 22)
+        let shareButtonRightPadding = 14
+        let shareButtonSize = CGSize(width: 22, height: 22)
 
+        backButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(backButtonLeftPadding)
+            make.top.equalTo(self.snp.top).offset(backButtonTopPadding)
+            make.size.equalTo(backButtonSize)
+        }
+        
+        favoriteButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-favoriteButtonRightPadding)
+            make.top.equalTo(backButton.snp.top)
+            make.size.equalTo(favoriteButtonSize)
+        }
+
+        shareButton.snp.makeConstraints { make in
+            make.trailing.equalTo(favoriteButton.snp.leading).offset(-shareButtonRightPadding)
+            make.top.equalTo(favoriteButton.snp.top)
+            make.size.equalTo(shareButtonSize)
+        }
+        
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -143,5 +214,4 @@ class ClassDetailHeaderView: UICollectionReusableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
