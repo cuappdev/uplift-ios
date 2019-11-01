@@ -69,7 +69,7 @@ class GymWeekCell: UICollectionViewCell {
         update()
     }
 
-    /// Updates the appearence of the cell when selection changes
+    /// Updates the appearance of the cell when selection changes
     func update() {
         backCircle.alpha = isSelected || today ? 1 : 0
         backCircle.backgroundColor = isSelected ? .primaryYellow : .gray01

@@ -22,7 +22,7 @@ class GymDetailCalendarView: UIView {
 
         setupStack()
         setupViews()
-        setupConstaints()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -49,7 +49,7 @@ class GymDetailCalendarView: UIView {
 
     }
 
-    private func setupConstaints() {
+    private func setupConstraints() {
         let headerHeight = 24
 
         stackView.snp.makeConstraints { make in

@@ -34,7 +34,7 @@ class GymDetailTimeInfoView: UILabel {
         textColor = .primaryBlack
         textAlignment = .center
 
-        updateTimes()
+        updateAppearance()
     }
 
     required init?(coder: NSCoder) {
@@ -42,7 +42,8 @@ class GymDetailTimeInfoView: UILabel {
     }
 
     // MARK: - Update
-    private func updateAppearence() {
+    private func updateAppearance() {
+        // func call to update tags
         updateTimes()
     }
 
