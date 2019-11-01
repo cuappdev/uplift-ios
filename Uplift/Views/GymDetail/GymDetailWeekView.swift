@@ -62,7 +62,7 @@ class GymDetailWeekView: UIView {
         weekdayCollectionView.backgroundColor = .clear
         addSubview(weekdayCollectionView)
     }
-    
+
     private func setupConstraints() {
         let weekdayDisplayInset: CGFloat = 39
 
@@ -94,7 +94,7 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
             return UICollectionViewCell()
         }
-        
+
         cell.configure(weekday: days[indexPath.row])
         return cell
     }
