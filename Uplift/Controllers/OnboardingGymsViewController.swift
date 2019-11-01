@@ -51,11 +51,9 @@ class OnboardingGymsViewController: UIViewController {
 
         NetworkManager.shared.getGymNames { gyms in
             var namesArray = [String]()
-            gyms.forEach {
-                namesArray.append($0.name)
-            }
+            gyms.forEach { namesArray.append($0.name) }
             DispatchQueue.main.async {
-                self.gymNames = namesArray.sorted { $0 < $1 }
+                self.gymNames = gyms.map({ $0.name }).sorted()
                 self.gymsTableView.reloadData()
             }
         }
@@ -114,7 +112,7 @@ class OnboardingGymsViewController: UIViewController {
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)
 
-        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: false)
+        toggleButton(enabled: false)
     }
 
     func setUpConstraints() {
@@ -200,15 +198,15 @@ class OnboardingGymsViewController: UIViewController {
     }
 
     /// Toggles whether the Next button can be pressed (also adds the checkmark in the email field)
-    func toggleButton(button: UIButton, arrow: UIView, enabled: Bool) {
+    func toggleButton(enabled: Bool) {
         if enabled {
-            button.isEnabled = true
-            button.alpha = 1
-            arrow.alpha = 1
+            nextButton.isEnabled = true
+            nextButton.alpha = 1
+            nextButtonArrow.alpha = 1
         } else {
-            button.isEnabled = false
-            button.alpha = 0
-            arrow.alpha = 0
+            nextButton.isEnabled = false
+            nextButton.alpha = 0
+            nextButtonArrow.alpha = 0
         }
     }
 
@@ -245,7 +243,6 @@ extension OnboardingGymsViewController: UITableViewDataSource {
         if favoriteGyms.contains(gym) {
             cell.toggleSelectedView(selected: true)
         }
-        cell.setNeedsUpdateConstraints()
         cell.selectionStyle = .none
         return cell
     }
@@ -277,7 +274,7 @@ extension OnboardingGymsViewController: UITableViewDelegate {
         }
 
         // Update next button with whether the user has selected at least one gym
-        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: checkNextCriteria())
+        toggleButton(enabled: checkNextCriteria())
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

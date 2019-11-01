@@ -135,6 +135,7 @@ struct DailyGymHours {
 // MARK: - Facilities
 
 struct DailyFacilityHoursRanges {
+
     var dayOfWeek: Int
     var timeRanges: [FacilityHoursRange] = []
 
@@ -153,13 +154,15 @@ struct DailyFacilityHoursRanges {
             return FacilityHoursRange(facilityHoursRangeData: rangeData)
         })
     }
+
 }
 
 struct FacilityHoursRange {
-    var openTime: Date = Date()
-    var closeTime: Date = Date()
-    var specialHours: Bool = false
-    var restrictions: String = ""
+
+    var openTime: Date
+    var closeTime: Date
+    var specialHours: Bool
+    var restrictions: String
 
     init(facilityHoursRangeData: AllGymsQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
         openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
@@ -174,6 +177,7 @@ struct FacilityHoursRange {
         specialHours = facilityHoursRangeData.specialHours
         restrictions = facilityHoursRangeData.restrictions
     }
+
 }
 
 enum DetailType: String {
@@ -218,16 +222,10 @@ struct FacilityDetail {
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
             })
         case .prices:
-            items = detailData.items.compactMap({ item -> String? in
-                return item ?? nil
-            })
-            prices = detailData.prices.compactMap({ price -> String? in
-                return price ?? nil
-            })
+            items = detailData.items.compactMap({ $0 ?? nil })
+            prices = detailData.prices.compactMap({ $0 ?? nil })
         case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ subfacility -> String? in
-                return subfacility ?? nil
-            })
+            subfacilities = detailData.subFacilityNames.compactMap({ $0 ?? nil })
         }
     }
 
@@ -249,16 +247,10 @@ struct FacilityDetail {
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
             })
         case .prices:
-            items = detailData.items.compactMap({ item -> String? in
-                return item ?? nil
-            })
-            prices = detailData.prices.compactMap({ price -> String? in
-                return price ?? nil
-            })
+            items = detailData.items.compactMap({ $0 ?? nil })
+            prices = detailData.prices.compactMap({ $0 ?? nil })
         case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ subfacility -> String? in
-                return subfacility ?? nil
-            })
+            subfacilities = detailData.subFacilityNames.compactMap({ $0 ?? nil })
         }
     }
 }
@@ -292,10 +284,10 @@ struct EquipmentCategory {
 
 struct Equipment {
 
-    var equipmentType: String = ""
-    var name: String = ""
-    var quantity: String = ""
-    var workoutType: String = ""
+    var equipmentType: String
+    var name: String
+    var quantity: String
+    var workoutType: String
 
     init(equipmentData: AllGymsQuery.Data.Gym.Facility.Detail.Equipment) {
         equipmentType = equipmentData.equipmentType
