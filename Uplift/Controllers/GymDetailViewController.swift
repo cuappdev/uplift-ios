@@ -18,9 +18,9 @@ class GymDetailViewController: UIViewController {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
     // MARK: - Private data vars
+    private var equipment: [EquipmentCategory] = []
     private var sections: [Section] = []
     private var todaysClasses: [GymClassInstance] = []
-    private var equipment: [EquipmentCategory] = []
 
     // MARK: - Public data vars
     var gymDetail: GymDetail!
@@ -137,7 +137,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             cell.configure(for: gymDetail.gym)
             return cell
         case .facilities:
-             // swiftlint:disable:next force_cast
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
             cell.configure(for: gymDetail)
             return cell
