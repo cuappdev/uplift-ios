@@ -146,7 +146,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         let semicircleImageViewSize = CGSize(width: 100, height: 50)
         let titleLabelHorizontalPadding = 40
         let backButtonLeftPadding = 20
-        let backButtonSize = CGSize(width: 23, height: 19)
+        let backButtonSize = CGSize(width: 22, height: 18)
         let backButtonTopPadding = 30
         let favoriteButtonRightPadding = 21
         let favoriteButtonSize = CGSize(width: 23, height: 22)
