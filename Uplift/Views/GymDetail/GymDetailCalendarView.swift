@@ -10,13 +10,16 @@ import UIKit
 
 class GymDetailCalendarView: UIView {
 
-    private let facility: Facility
-    private var weekView: GymDetailWeekView!
-    private var timeInfoView: GymDetailTimeInfoView!
-    private var stackView: UIStackView!
+    private let facilityDetail: FacilityDetail
 
-    init(facility: Facility) {
-        self.facility = facility
+    private let weekView = GymDetailWeekView()
+    private let timeInfoView: GymDetailTimeInfoView
+    private let stackView = UIStackView()
+
+    init(facilityDetail: FacilityDetail) {
+        self.facilityDetail = facilityDetail
+        timeInfoView = GymDetailTimeInfoView(facilityDetail: facilityDetail)
+
         super.init(frame: CGRect())
         backgroundColor = .primaryWhite
 
@@ -30,7 +33,6 @@ class GymDetailCalendarView: UIView {
     }
 
     private func setupStack() {
-        stackView = UIStackView()
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.axis = .vertical
@@ -39,10 +41,6 @@ class GymDetailCalendarView: UIView {
 
     private func setupViews() {
         let timesPadding: CGFloat = 16
-
-        weekView = GymDetailWeekView()
-
-        timeInfoView = GymDetailTimeInfoView(facility: facility)
 
         weekView.delegate = timeInfoView
 

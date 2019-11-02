@@ -76,6 +76,7 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         let contentPadding: CGFloat = 16
         let equipmentTopPadding: CGFloat = 4
         let labelHeight: CGFloat = 20
+        let listsSpacing: CGFloat = 12
 
         titleLabel.snp.makeConstraints { make in
             make.height.equalTo(labelHeight)

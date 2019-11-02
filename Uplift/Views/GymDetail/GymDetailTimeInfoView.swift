@@ -12,15 +12,15 @@ class GymDetailTimeInfoView: UIView {
 
     private let displayText = UITextView()
 
-    private var facility: Facility
+    private var facilityDetail: FacilityDetail
     private var selectedDayIndex = 0
     private var displayedText = ""
     private var timesText = NSMutableAttributedString()
     private var paragraphStyle = NSMutableParagraphStyle()
 
     // MARK: - Init
-    init(facility: Facility) {
-        self.facility = facility
+    init(facilityDetail: FacilityDetail) {
+        self.facilityDetail = facilityDetail
         super.init(frame: .zero)
 
         timesText.mutableString.setString(displayedText)
@@ -66,20 +66,22 @@ class GymDetailTimeInfoView: UIView {
         let tagSideOffset = 25.0
         let textLineHeight = displayText.font?.lineHeight ?? 0
 
-        let info = facility.miscInformation
+        let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
+        let restrictions = dailyFacilityHoursRange.flatMap { $0.timeRanges.map { $0.restrictions} }
+
         subviews.forEach({ $0.removeFromSuperview() })
 
-        for i in 0..<info.count {
-            if info[i].isEmpty { // Don't use blank tags
+        for i in 0..<restrictions.count {
+            if restrictions[i].isEmpty { // Ignore Blank Tags
                 continue
             } else {
-                let infoView = AdditionalInfoView()
+                let restrictionView = AdditionalInfoView()
                 let spacing = textLineHeight * CGFloat(i)
                 let inset: CGFloat = 2
 
-                infoView.text = info[i]
-                addSubview(infoView)
-                infoView.snp.makeConstraints { make in
+                restrictionView.text = restrictions[i]
+                addSubview(restrictionView)
+                restrictionView.snp.makeConstraints { make in
                     make.top.equalToSuperview().inset(spacing + inset)
                     make.trailing.equalToSuperview().inset(tagSideOffset)
                     make.width.equalTo(tagLabelWidth)
@@ -100,16 +102,17 @@ class GymDetailTimeInfoView: UIView {
 
     // MARK: - Helper
     func makeDisplayText(dayIndex: Int) -> String {
-        let dayTimes = facility.times.filter { $0.dayOfWeek == dayIndex }
-        let timeStrings: [String] = dayTimes.map { getStringFromDailyGymHours(dailyGymHours: $0) }
+        let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == dayIndex }
+        let facilityHoursRange = dailyFacilityHoursRange.flatMap { $0.timeRanges }
+        let timeStrings: [String] = facilityHoursRange.map { getStringFromDailyGymHours(facilityHours: $0) }
         return timeStrings.joined(separator: "\n")
     }
 
-    func getStringFromDailyGymHours(dailyGymHours: DailyGymHours) -> String {
-        let openTime = dailyGymHours.openTime.getStringOfDatetime(format: "h:mm a")
-        let closeTime = dailyGymHours.closeTime.getStringOfDatetime(format: "h:mm a")
+    func getStringFromDailyGymHours(facilityHours: FacilityHoursRange) -> String {
+        let openTime = facilityHours.openTime.getStringOfDatetime(format: "h:mm a")
+        let closeTime = facilityHours.closeTime.getStringOfDatetime(format: "h:mm a")
 
-        if dailyGymHours.openTime != dailyGymHours.closeTime {
+        if facilityHours.openTime != facilityHours.closeTime {
             return "\(openTime) - \(closeTime)"
         }
 
