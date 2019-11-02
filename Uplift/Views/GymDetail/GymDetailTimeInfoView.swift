@@ -51,7 +51,7 @@ class GymDetailTimeInfoView: UIView {
     }
     // MARK: - Update
     private func updateAppearance() {
-        // func call to update tags
+        // Update Tags
         updateTimes()
     }
 

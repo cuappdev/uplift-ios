@@ -19,9 +19,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
     private let equipmentList = UITextView()
     private let quantityList = UITextView()
 
-    // MARK: - Private layout vars
-    private let listsSpacing: CGFloat = 12
-
     // MARK: - Private data vars
     private var equipment: [Equipment] = []
 

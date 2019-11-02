@@ -49,7 +49,6 @@ class GymDetailCalendarView: UIView {
         stackView.addArrangedSubview(weekView)
         stackView.setCustomSpacing(timesPadding, after: weekView)
         stackView.addArrangedSubview(timeInfoView)
-
     }
 
     private func setupConstraints() {
