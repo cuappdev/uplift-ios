@@ -10,13 +10,14 @@ import UIKit
 
 class GymDetailTimeInfoView: UIView {
 
-    private let displayText = UITextView()
+    private let displayTextView = UITextView()
 
     private var facilityDetail: FacilityDetail
     private var selectedDayIndex = 0
     private var displayedText = ""
     private var timesText = NSMutableAttributedString()
     private var paragraphStyle = NSMutableParagraphStyle()
+    private var paragraphStyleAttributes: [NSAttributedString.Key: Any] = [:]
 
     // MARK: - Init
     init(facilityDetail: FacilityDetail) {
@@ -25,19 +26,28 @@ class GymDetailTimeInfoView: UIView {
 
         timesText.mutableString.setString(displayedText)
 
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5.0
-        paragraphStyle.maximumLineHeight = 26
         paragraphStyle.alignment = .center
+        paragraphStyleAttributes = [
+            .font: UIFont._16MontserratRegular!,
+            .paragraphStyle: paragraphStyle,
+            .foregroundColor: UIColor.primaryBlack
+        ]
 
-        displayText.attributedText = timesText
-        displayText.backgroundColor = .primaryWhite
-        displayText.font = ._16MontserratRegular
-        displayText.textColor = .primaryBlack
-        displayText.textAlignment = .center
-        addSubview(displayText)
+        displayTextView.attributedText = timesText
+        displayTextView.backgroundColor = .primaryWhite
+        displayTextView.font = ._16MontserratRegular
+        displayTextView.textColor = .primaryBlack
+        displayTextView.isScrollEnabled = false
+        displayTextView.isEditable = false
+        displayTextView.contentInset = .zero
+        displayTextView.textContainerInset = .zero
+//        displayTextView.lineFragmentPadding = 0
+
+        addSubview(displayTextView)
 
         setupConstraints()
-        updateAppearance()
     }
 
     required init?(coder: NSCoder) {
@@ -45,13 +55,13 @@ class GymDetailTimeInfoView: UIView {
     }
 
     func setupConstraints() {
-        displayText.snp.makeConstraints { make in
+        displayTextView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     // MARK: - Update
     private func updateAppearance() {
-        // Update Tags
+        updateTags()
         updateTimes()
     }
 
@@ -64,22 +74,27 @@ class GymDetailTimeInfoView: UIView {
         let tagLabelWidth = 81
         let tagLabelHeight = 17
         let tagSideOffset = 25.0
-        let textLineHeight = displayText.font?.lineHeight ?? 0
+        let textLineHeight = displayTextView.font?.lineHeight ?? 0
+        let textLineSpace: CGFloat = 5
 
         let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
         let restrictions = dailyFacilityHoursRange.flatMap { $0.timeRanges.map { $0.restrictions} }
+        print("- - - - - - - - - - - - - -")
+        print(restrictions)
+        print(textLineHeight)
+        print("- - - - - - - - - - - - - -")
 
-        subviews.forEach({ $0.removeFromSuperview() })
+        subviews.filter { $0 != displayTextView }.forEach { $0.removeFromSuperview() }
 
         for i in 0..<restrictions.count {
             if restrictions[i].isEmpty { // Ignore Blank Tags
                 continue
             } else {
                 let restrictionView = AdditionalInfoView()
-                let spacing = textLineHeight * CGFloat(i)
+                let spacing = (textLineHeight + textLineSpace) * CGFloat(i)
                 let inset: CGFloat = 2
 
-                restrictionView.text = restrictions[i]
+                restrictionView.text = restrictions[i].lowercased()
                 addSubview(restrictionView)
                 restrictionView.snp.makeConstraints { make in
                     make.top.equalToSuperview().inset(spacing + inset)
@@ -96,15 +111,25 @@ class GymDetailTimeInfoView: UIView {
     func updateAttributedText() {
         timesText.mutableString.setString(displayedText)
         let range = NSRange(location: 0, length: timesText.length)
-        timesText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
-        displayText.attributedText = timesText
+        timesText.addAttributes(paragraphStyleAttributes, range: range)
+        displayTextView.attributedText = timesText
     }
 
     // MARK: - Helper
     func makeDisplayText(dayIndex: Int) -> String {
+//        print("\n\n\n~~~~~~")
+        print("\nday index is \(dayIndex)")
         let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == dayIndex }
         let facilityHoursRange = dailyFacilityHoursRange.flatMap { $0.timeRanges }
-        let timeStrings: [String] = facilityHoursRange.map { getStringFromDailyGymHours(facilityHours: $0) }
+        let timeStrings: [String] = facilityHoursRange.map {
+            print($0)
+            return getStringFromDailyGymHours(facilityHours: $0)
+
+        }
+        print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\nTimes are: \(timeStrings)")
+        print("Selected day was \(dayIndex)")
+        print("facil hours first: \(facilityHoursRange.first)")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n")
         return timeStrings.joined(separator: "\n")
     }
 
