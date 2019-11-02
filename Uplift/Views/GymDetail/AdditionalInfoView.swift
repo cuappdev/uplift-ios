@@ -9,20 +9,27 @@
 import UIKit
 
 /// Displays additional info from Facilities Query in GymDetailTimeInfoView
-class SidebarView: UILabel {
+class AdditionalInfoView: UIView {
 
-    private var sidebar: UIView!
+    private let displayText = UILabel()
+    private let sidebarView = UIView()
+
+    var text = "" {
+        didSet {
+            displayText.text = text
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .primaryLightYellow
-        font = ._12MontserratLight
-        textAlignment = .right
+        displayText.font = ._12MontserratLight
+        displayText.textAlignment = .right
+        addSubview(displayText)
 
         let cornerRadius: CGFloat = 2.0
         layer.cornerRadius = cornerRadius
 
-        sidebar = UIView()
         sidebar.backgroundColor = .primaryYellow
         addSubview(sidebar)
 
@@ -35,14 +42,15 @@ class SidebarView: UILabel {
 
     private func setupConstraints() {
         let sidebarWidth = 1.0
+        displayText.snp.makeConstraints { make in
+            make.leading.top.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().inset(2)
+        }
+
         sidebar.snp.makeConstraints { make in
             make.width.equalTo(sidebarWidth)
             make.height.leading.equalToSuperview()
         }
     }
 
-    override func drawText(in rect: CGRect) {
-        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2)
-        super.drawText(in: rect.inset(by: insets))
-    }
 }

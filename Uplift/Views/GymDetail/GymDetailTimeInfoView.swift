@@ -36,6 +36,7 @@ class GymDetailTimeInfoView: UIView {
         displayText.font = ._16MontserratRegular
         displayText.textColor = .primaryBlack
         displayText.textAlignment = .center
+        addSubview(displayText)
 
         setupConstraints()
         updateAppearance()
@@ -63,6 +64,7 @@ class GymDetailTimeInfoView: UIView {
 
     private func updateTags() {
         let tagLabelWidth = 81
+        let tagLabelHeight = 17
         let tagSideOffset = 25.0
         let textLineHeight = displayText.font!.lineHeight
 
@@ -70,10 +72,10 @@ class GymDetailTimeInfoView: UIView {
         subviews.forEach({ $0.removeFromSuperview() })
 
         for i in 0..<info.count {
-            if info[i] == "" { // Don't use blank tags
+            if info[i].isEmpty { // Don't use blank tags
                 continue
             } else {
-                let infoView = SidebarView()
+                let infoView = AdditionalInfoView()
                 let spacing = textLineHeight * CGFloat(i)
                 let inset: CGFloat = 2
 
@@ -83,6 +85,7 @@ class GymDetailTimeInfoView: UIView {
                     make.top.equalToSuperview().inset(spacing + inset)
                     make.trailing.equalToSuperview().inset(tagSideOffset)
                     make.width.equalTo(tagLabelWidth)
+                    make.height.equalTo(tagLabelHeight)
                 }
             }
         }
