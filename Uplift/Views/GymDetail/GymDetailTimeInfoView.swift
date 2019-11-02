@@ -43,7 +43,6 @@ class GymDetailTimeInfoView: UIView {
         displayTextView.isEditable = false
         displayTextView.contentInset = .zero
         displayTextView.textContainerInset = .zero
-//        displayTextView.lineFragmentPadding = 0
 
         addSubview(displayTextView)
 
@@ -79,10 +78,6 @@ class GymDetailTimeInfoView: UIView {
 
         let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
         let restrictions = dailyFacilityHoursRange.flatMap { $0.timeRanges.map { $0.restrictions} }
-        print("- - - - - - - - - - - - - -")
-        print(restrictions)
-        print(textLineHeight)
-        print("- - - - - - - - - - - - - -")
 
         subviews.filter { $0 != displayTextView }.forEach { $0.removeFromSuperview() }
 
@@ -117,19 +112,9 @@ class GymDetailTimeInfoView: UIView {
 
     // MARK: - Helper
     func makeDisplayText(dayIndex: Int) -> String {
-//        print("\n\n\n~~~~~~")
-        print("\nday index is \(dayIndex)")
         let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == dayIndex }
         let facilityHoursRange = dailyFacilityHoursRange.flatMap { $0.timeRanges }
-        let timeStrings: [String] = facilityHoursRange.map {
-            print($0)
-            return getStringFromDailyGymHours(facilityHours: $0)
-
-        }
-        print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\nTimes are: \(timeStrings)")
-        print("Selected day was \(dayIndex)")
-        print("facil hours first: \(facilityHoursRange.first)")
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n")
+        let timeStrings: [String] = facilityHoursRange.map { getStringFromDailyGymHours(facilityHours: $0) }
         return timeStrings.joined(separator: "\n")
     }
 

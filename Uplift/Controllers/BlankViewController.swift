@@ -18,7 +18,6 @@ class BlankViewController: UIViewController {
         view.backgroundColor = .gray04
 
         NetworkManager.shared.getGym(id: GymIds.helenNewman) { gym in
-            print("[][][][][][][][][][][][]")
             print(gym.facilities.map { $0.name })
             let f = gym.facilities[4].details.first
 //            print(f?.times)
