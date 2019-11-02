@@ -41,8 +41,11 @@ class GymDetailCalendarView: UIView {
         let timesPadding: CGFloat = 16
 
         weekView = GymDetailWeekView()
+
         timeInfoView = GymDetailTimeInfoView(facility: facility)
+
         weekView.delegate = timeInfoView
+
         stackView.addArrangedSubview(weekView)
         stackView.setCustomSpacing(timesPadding, after: weekView)
         stackView.addArrangedSubview(timeInfoView)

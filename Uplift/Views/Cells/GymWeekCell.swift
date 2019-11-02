@@ -21,11 +21,6 @@ class GymWeekCell: UICollectionViewCell {
 
     override var isSelected: Bool {
       didSet {
-        if isSelected {
-            //color
-        } else {
-            //color
-        }
         backCircle.alpha = isSelected || isToday ? 1 : 0
         backCircle.backgroundColor = isSelected ? .primaryYellow : .gray01
       }

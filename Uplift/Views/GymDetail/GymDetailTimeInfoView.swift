@@ -10,7 +10,7 @@ import UIKit
 
 class GymDetailTimeInfoView: UIView {
 
-    private let displayText: UITextView
+    private let displayText = UITextView()
 
     private var facility: Facility
     private var selectedDayIndex = 0
@@ -21,9 +21,7 @@ class GymDetailTimeInfoView: UIView {
     // MARK: - Init
     init(facility: Facility) {
         self.facility = facility
-        displayText = UITextView()
-
-        super.init(frame: CGRect())
+        super.init(frame: .zero)
 
         timesText.mutableString.setString(displayedText)
 
@@ -66,7 +64,7 @@ class GymDetailTimeInfoView: UIView {
         let tagLabelWidth = 81
         let tagLabelHeight = 17
         let tagSideOffset = 25.0
-        let textLineHeight = displayText.font!.lineHeight
+        let textLineHeight = displayText.font?.lineHeight ?? 0
 
         let info = facility.miscInformation
         subviews.forEach({ $0.removeFromSuperview() })
