@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 /// Displays additional info from Facilities Query in GymDetailTimeInfoView
 class AdditionalInfoView: UILabel {
 
