@@ -9,7 +9,7 @@
 import UIKit
 
 /// Displays additional info from Facilities Query in GymDetailTimeInfoView
-class AdditionalInfoView: UILabel {
+class SidebarView: UILabel {
 
     private var sidebar: UIView!
 

@@ -21,7 +21,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
 
     // MARK: - Private layout vars
     private let listsSpacing: CGFloat = 12
-    private var equipmentListTrailingConstraint: Constraint?
 
     // MARK: - Private data vars
     private var equipment: [Equipment] = []
@@ -53,8 +52,6 @@ class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
         equipmentList.attributedText = generateListString(for: equipment.map { $0.name })
         quantityList.attributedText = generateListString(for: equipment.map { $0.quantity }, alignment: .right)
         quantityList.sizeToFit()
-
-        equipmentListTrailingConstraint?.update(offset: -listsSpacing)
     }
 
     func setupViews() {

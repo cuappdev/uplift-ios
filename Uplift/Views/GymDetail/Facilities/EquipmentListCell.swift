@@ -52,8 +52,4 @@ class EquipmentListCell: ListCollectionViewCell<EquipmentCategory, EquipmentList
         reloadLayout()
     }
 
-    // When integrated:
-    // sizeForItemAt: 
-    // let height = EquipmentListCell.getHeight(models: equipment)
-    // return CGSize(width: width, height: height + 24.0)
 }

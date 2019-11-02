@@ -8,7 +8,9 @@
 
 import UIKit
 
-class GymDetailTimeInfoView: UILabel {
+class GymDetailTimeInfoView: UIView {
+
+    private let displayText: UITextView
 
     private var facility: Facility
     private var selectedDayIndex = 0
@@ -19,6 +21,8 @@ class GymDetailTimeInfoView: UILabel {
     // MARK: - Init
     init(facility: Facility) {
         self.facility = facility
+        displayText = UITextView()
+
         super.init(frame: CGRect())
 
         timesText.mutableString.setString(displayedText)
@@ -27,13 +31,13 @@ class GymDetailTimeInfoView: UILabel {
         paragraphStyle.maximumLineHeight = 26
         paragraphStyle.alignment = .center
 
-        attributedText = timesText
-        backgroundColor = .primaryWhite
-        numberOfLines = 0
-        font = ._16MontserratRegular
-        textColor = .primaryBlack
-        textAlignment = .center
+        displayText.attributedText = timesText
+        displayText.backgroundColor = .primaryWhite
+        displayText.font = ._16MontserratRegular
+        displayText.textColor = .primaryBlack
+        displayText.textAlignment = .center
 
+        setupConstraints()
         updateAppearance()
     }
 
@@ -41,6 +45,11 @@ class GymDetailTimeInfoView: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setupConstraints() {
+        displayText.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
     // MARK: - Update
     private func updateAppearance() {
         // func call to update tags
@@ -55,7 +64,7 @@ class GymDetailTimeInfoView: UILabel {
     private func updateTags() {
         let tagLabelWidth = 81
         let tagSideOffset = 25.0
-        let textLineHeight = font.lineHeight
+        let textLineHeight = displayText.font!.lineHeight
 
         let info = facility.miscInformation
         subviews.forEach({ $0.removeFromSuperview() })
@@ -64,7 +73,7 @@ class GymDetailTimeInfoView: UILabel {
             if info[i] == "" { // Don't use blank tags
                 continue
             } else {
-                let infoView = AdditionalInfoView()
+                let infoView = SidebarView()
                 let spacing = textLineHeight * CGFloat(i)
                 let inset: CGFloat = 2
 
@@ -85,7 +94,7 @@ class GymDetailTimeInfoView: UILabel {
         timesText.mutableString.setString(displayedText)
         let range = NSRange(location: 0, length: timesText.length)
         timesText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
-        attributedText = timesText
+        displayText.attributedText = timesText
     }
 
     // MARK: - Helper
