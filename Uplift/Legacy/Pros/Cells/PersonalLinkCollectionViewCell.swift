@@ -25,10 +25,10 @@ class PersonalLinkCollectionViewCell: UICollectionViewCell {
     
     func configure(for site: PersonalLink) {
         switch site.site {
-        case PersonalLink.SiteType.facebook: siteImageView.image = UIImage(named: "Facebook.png")
-        case PersonalLink.SiteType.instagram: siteImageView.image = UIImage(named: "Insta.png")
-        case PersonalLink.SiteType.linkedin: siteImageView.image = UIImage(named: "Linkedin.png")
-        case PersonalLink.SiteType.other: siteImageView.image = UIImage(named: "Web.png")
+        case PersonalLink.SiteType.facebook: siteImageView.image = UIImage(named: "facebook")
+        case PersonalLink.SiteType.instagram: siteImageView.image = UIImage(named: "instagram")
+        case PersonalLink.SiteType.linkedin: siteImageView.image = UIImage(named: "linkedin")
+        case PersonalLink.SiteType.other: siteImageView.image = UIImage(named: "web")
         case PersonalLink.SiteType.twitter: siteImageView.image = UIImage(named: "Rectangle.png")
         }
     }

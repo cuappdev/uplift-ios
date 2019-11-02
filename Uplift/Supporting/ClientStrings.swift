@@ -23,25 +23,25 @@ struct ClientStrings {
         static let noClassesTodayLabel = "NO CLASSES TODAY"
         static let todayLabel = "TODAY"
     }
-    
+
     struct ClassDetail {
         static let addToCalendarButton = "ADD TO CALENDAR"
         static let durationMin = " MIN"
         static let functionLabel = "FUNCTION"
         static let nextSessionsLabel = "NEXT SESSIONS"
     }
-    
+
     struct ClassList {
         static let dayMinAbbreviation = " min"
         static let dayTodayLabel = "Today"
         static let vcTitleLabel = "Classes"
     }
-    
+
     struct Dropdown {
         static let collapse = "Hide"
         static let expand = "Show All "
     }
-    
+
     struct Favorites {
         static let browseClasses = "BROWSE CLASSES"
         static let comingUpNextLabel = "COMING UP NEXT"
@@ -66,7 +66,7 @@ struct ClientStrings {
         static let startTime = "START TIME"
         static let vcTitleLabel = "Refine Search"
     }
-    
+
     struct HabitTracking {
         static let createHabitButton = "Create your own"
         static let featuredHabitsSection = "FEATURED"
@@ -77,28 +77,28 @@ struct ClientStrings {
         static let vcTitleMindfulness = "Mindfulness"
         static let vcTitleStrength = "Strength"
     }
-    
+
     struct Histogram {
         static let businessLevel1 = "Not too busy"
         static let businessLevel2 = "A little busy"
         static let businessLevel3 = "As busy as it gets"
     }
-    
+
     struct Home {
         static let editButton = "edit"
         static let todaysClassCancelled = "CANCELLED"
         static let viewAllButton = "view all"
-        
+
         static let greetingAfternoon = "Good afternoon!"
         static let greetingEvening = "Good evening!"
         static let greetingMorning = "Good morning!"
-        
+
         static let gymDetailCellClosed = "Closed"
         static let gymDetailCellOpen = "Open"
         static let gymDetailCellOpensAt = "Opens at "
         static let gymDetailCellClosesAt = "Closes at "
     }
-    
+
     struct GymDetail {
         static let closedLabel = "CLOSED"
         static let closedOnACertainDay = "Closed"
@@ -108,17 +108,17 @@ struct ClientStrings {
         static let popularHoursSection = "POPULAR TIMES"
         static let todaysClassesSection = "TODAYS CLASSES"
     }
-    
+
     struct Onboarding {
         static let endOnboarding = "BEGIN"
         static let selectGyms = "Select the gyms you go to!"
         static let signupLabel = "Sign Up"
         static let vcTitleLabel = "Welcome to Uplift!\nStart your Journey Today!"
     }
-    
+
     struct TabBar {
-        static let classesSection = "classes"
-        static let favoritesSection = "favorites"
-        static let homeSection = "browse"
+        static let classesSection = "Classes"
+        static let favoritesSection = "Favorites"
+        static let homeSection = "Home"
     }
 }

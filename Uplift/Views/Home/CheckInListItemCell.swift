@@ -50,7 +50,7 @@ class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
 
     // MARK: - Private helpers
     private func setupViews() {
-        checkInButton.setImage(UIImage(named: "empty_circle"), for: .normal)
+        checkInButton.setImage(UIImage(named: "empty-circle"), for: .normal)
         checkInButton.setImage(UIImage(named: "checked_circle"), for: .selected)
         checkInButton.addTarget(self, action: #selector(checkIn), for: .touchUpInside)
         contentView.addSubview(checkInButton)

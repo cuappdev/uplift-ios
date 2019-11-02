@@ -69,7 +69,7 @@ class ProRoutineCollectionViewCell: UICollectionViewCell {
     private func setupViews() {
         contentView.backgroundColor = .white
 
-        addButton.setImage(UIImage(named: ImageNames.darkAdd), for: .normal)
+        addButton.setImage(UIImage(named: ImageNames.addDark), for: .normal)
         addButton.addTarget(self, action: #selector(addHabit), for: .touchUpInside)
         contentView.addSubview(addButton)
 
