@@ -50,8 +50,6 @@ class OnboardingGymsViewController: UIViewController {
         currentScreenSize = computeScreenDimensions()
 
         NetworkManager.shared.getGymNames { gyms in
-            var namesArray = [String]()
-            gyms.forEach { namesArray.append($0.name) }
             DispatchQueue.main.async {
                 self.gymNames = gyms.map({ $0.name }).sorted()
                 self.gymsTableView.reloadData()
