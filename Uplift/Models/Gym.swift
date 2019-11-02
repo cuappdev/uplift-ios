@@ -222,10 +222,10 @@ struct FacilityDetail {
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
             })
         case .prices:
-            items = detailData.items.compactMap({ $0 ?? nil })
-            prices = detailData.prices.compactMap({ $0 ?? nil })
+            items = detailData.items.compactMap({ $0 })
+            prices = detailData.prices.compactMap({ $0 })
         case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ $0 ?? nil })
+            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
         }
     }
 
@@ -247,10 +247,10 @@ struct FacilityDetail {
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
             })
         case .prices:
-            items = detailData.items.compactMap({ $0 ?? nil })
-            prices = detailData.prices.compactMap({ $0 ?? nil })
+            items = detailData.items.compactMap({ $0 })
+            prices = detailData.prices.compactMap({ $0 })
         case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ $0 ?? nil })
+            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
         }
     }
 }
