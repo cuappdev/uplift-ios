@@ -14,7 +14,6 @@ struct GymDetail {
     let facilitiesList: [String]
     let gym: Gym
     var hoursDataIsDropped: Bool
-    
 
     private let facilitiesData: [String: [String]] = [
         GymIds.appel: ["Fitness Center"],

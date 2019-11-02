@@ -12,8 +12,8 @@ protocol ChooseGymsDelegate: class {
     func updateFavorites(favorites: [String])
 }
 
-class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class OnboardingGymsViewController: UIViewController {
+
     // MARK: - INITIALIZATION
     private var titleLabel: UILabel!
     private var nextButton: UIButton!
@@ -23,7 +23,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
 
     // TableView
     private var gymsTableView: UITableView!
-    
+
     // Display Info
     private var currentScreenSize: CGSize?
     private let nextButtonSize: CGFloat = 35
@@ -33,22 +33,39 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     // Gyms
     private var gymNames: [String] = []
     private var favoriteGyms: [String] = []
-    
+
     weak var delegate: ChooseGymsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryWhite
         let defaults = UserDefaults.standard
-        let buttonBorderSize: CGFloat = 2
         
         // Get Favorite Gyms from UserDefaults
         if let favorites = defaults.array(forKey: Identifiers.favoriteGyms) as? [String] {
             favoriteGyms = favorites
         }
-        
+
         // Set up screen sizes for scaling
         currentScreenSize = computeScreenDimensions()
+
+        NetworkManager.shared.getGymNames { gyms in
+            DispatchQueue.main.async {
+                self.gymNames = gyms.map({ $0.name }).sorted()
+                self.gymsTableView.reloadData()
+            }
+        }
+
+        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(goBackAView))
+        edgeSwipe.edges = .left
+        view.addGestureRecognizer(edgeSwipe)
+
+        setupViews()
+        setUpConstraints()
+    }
+
+    func setupViews() {
+        let buttonBorderSize: CGFloat = 2
 
         titleLabel = UILabel()
         titleLabel.text = ClientStrings.Onboarding.selectGyms
@@ -57,7 +74,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         view.addSubview(titleLabel)
-        
+
         gymsTableView = UITableView(frame: .zero, style: .plain)
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
@@ -66,7 +83,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         gymsTableView.separatorStyle = .none
         gymsTableView.clipsToBounds = false
         view.addSubview(gymsTableView)
-        
+
         nextButton = UIButton()
         nextButton.clipsToBounds = false
         nextButton.layer.cornerRadius = nextButtonSize / 2
@@ -92,25 +109,8 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         backButtonArrow.alpha = 0.5
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)
-        
-        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: false)
 
-        NetworkManager.shared.getGyms { (gyms) in
-            var namesArray = [String]()
-            gyms.forEach {
-                namesArray.append($0.name)
-            }
-            DispatchQueue.main.async {
-                self.gymNames = namesArray.sorted { $0 < $1 }
-                self.gymsTableView.reloadData()
-            }
-        }
-
-        let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(goBackAView))
-        edgeSwipe.edges = .left
-        view.addGestureRecognizer(edgeSwipe)
-
-        setUpConstraints()
+        toggleButton(enabled: false)
     }
 
     func setUpConstraints() {
@@ -149,7 +149,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPaddingWidth)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPaddingHeight)
         }
-        
+
         nextButtonArrow.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.size.equalTo(checkArrowSize)
@@ -196,15 +196,15 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     /// Toggles whether the Next button can be pressed (also adds the checkmark in the email field)
-    func toggleButton(button: UIButton, arrow: UIView, enabled: Bool) {
+    func toggleButton(enabled: Bool) {
         if enabled {
-            button.isEnabled = true
-            button.alpha = 1
-            arrow.alpha = 1
+            nextButton.isEnabled = true
+            nextButton.alpha = 1
+            nextButtonArrow.alpha = 1
         } else {
-            button.isEnabled = false
-            button.alpha = 0
-            arrow.alpha = 0
+            nextButton.isEnabled = false
+            nextButton.alpha = 0
+            nextButtonArrow.alpha = 0
         }
     }
 
@@ -213,7 +213,7 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         return favoriteGyms.count >= 1
     }
 
-    // MARK: Button Actions
+    // MARK: - Button Actions
     @objc func goToNextView() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -228,8 +228,37 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         navigationController?.popViewController(animated: true)
     }
 
-    // MARK: UITableViewDelegate Methods
+}
+
+extension OnboardingGymsViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //swiftlint:disable:next force_cast
+        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.reuseIdentifier, for: indexPath) as! FavoriteGymCell
+        let gym = gymNames[indexPath.section]
+        cell.configure(with: gym)
+        // Toggle if already in UserDefaults
+        if favoriteGyms.contains(gym) {
+            cell.toggleSelectedView(selected: true)
+        }
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return gymNames.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+}
+
+extension OnboardingGymsViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //swiftlint:disable:next force_cast
         let cell = gymsTableView.cellForRow(at: indexPath) as! FavoriteGymCell
         cell.toggleSelectedView(selected: !cell.isOn)
         if cell.isOn {
@@ -244,18 +273,13 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         }
 
         // Update next button with whether the user has selected at least one gym
-        toggleButton(button: nextButton, arrow: nextButtonArrow, enabled: checkNextCriteria())
-        
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        toggleButton(enabled: checkNextCriteria())
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(scale(height: Double(gymCellHeight)))
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return gymCellVerticalPadding
     }
@@ -266,21 +290,4 @@ class OnboardingGymsViewController: UIViewController, UITableViewDelegate, UITab
         return blankView
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return gymNames.count
-    }
-
-    // MARK: UITableViewDataSource Methods
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.reuseIdentifier, for: indexPath) as! FavoriteGymCell
-        let gym = gymNames[indexPath.section]
-        cell.configure(with: gym)
-        // Toggle if already in UserDefaults
-        if favoriteGyms.contains(gym) {
-            cell.toggleSelectedView(selected: true)
-        }
-        cell.setNeedsUpdateConstraints()
-        cell.selectionStyle = .none
-        return cell
-    }
 }
