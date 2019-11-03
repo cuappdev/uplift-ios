@@ -20,7 +20,7 @@ class GymDetailCalendarView: UIView {
         self.facilityDetail = facilityDetail
         timeInfoView = GymDetailTimeInfoView(facilityDetail: facilityDetail)
 
-        super.init(frame: CGRect())
+        super.init(frame: .zero)
         backgroundColor = .primaryWhite
 
         setupStack()
