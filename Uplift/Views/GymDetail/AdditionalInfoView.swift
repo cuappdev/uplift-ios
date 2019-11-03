@@ -42,9 +42,11 @@ class AdditionalInfoView: UIView {
 
     private func setupConstraints() {
         let sidebarWidth = 1.0
+        let inset = 2.0
+
         displayTextView.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
-            make.trailing.equalToSuperview().inset(2)
+            make.trailing.equalToSuperview().inset(inset)
         }
 
         sidebarView.snp.makeConstraints { make in
