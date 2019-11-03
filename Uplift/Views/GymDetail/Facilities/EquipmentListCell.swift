@@ -51,4 +51,5 @@ class EquipmentListCell: ListCollectionViewCell<EquipmentCategory, EquipmentList
 
         reloadLayout()
     }
+
 }

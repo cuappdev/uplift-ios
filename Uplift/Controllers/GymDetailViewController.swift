@@ -1,6 +1,6 @@
 //
 //  GymDetailViewController.swift
-//  Fitness
+//  Uplift
 //
 //  Created by Yana Sang on 5/22/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
@@ -18,9 +18,9 @@ class GymDetailViewController: UIViewController {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
     // MARK: - Private data vars
+    private var equipment: [EquipmentCategory] = []
     private var sections: [Section] = []
     private var todaysClasses: [GymClassInstance] = []
-    private var equipment: [EquipmentCategory] = []
 
     // MARK: - Public data vars
     var gymDetail: GymDetail!
@@ -51,7 +51,7 @@ class GymDetailViewController: UIViewController {
         self.gymDetail = GymDetail(gym: gym)
 
         for facility in gymDetail.facilities where facility.name == "Fitness Center" {
-            self.equipment = categorizeEquipment(equipmentList: facility.equipment)
+            self.equipment = categorizeEquipment(equipmentList: facility.details[0].equipment)
         }
 
         if gym.isOpen {
@@ -137,7 +137,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             cell.configure(for: gymDetail.gym)
             return cell
         case .facilities:
-             // swiftlint:disable:next force_cast
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
             cell.configure(for: gymDetail)
             return cell

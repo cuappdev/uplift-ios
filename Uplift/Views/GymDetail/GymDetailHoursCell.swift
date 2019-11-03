@@ -1,6 +1,6 @@
 //
 //  GymDetailHoursCell.swift
-//  Fitness
+//  Uplift
 //
 //  Created by Yana Sang on 5/26/19.
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
@@ -117,7 +117,7 @@ class GymDetailHoursCell: UICollectionViewCell {
             }
         }
 
-        dividerView.snp.updateConstraints {make in
+        dividerView.snp.updateConstraints { make in
             make.top.equalTo(hoursTableView.snp.bottom).offset(Constraints.verticalPadding)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(Constraints.dividerViewHeight)

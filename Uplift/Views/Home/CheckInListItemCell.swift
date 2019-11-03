@@ -43,7 +43,7 @@ class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: habit.title)
                 attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                 titleLabel.attributedText = attributeString
-                titleLabel.textColor = .fitnessMediumGrey
+                titleLabel.textColor = .upliftMediumGrey
             }
         }
     }
@@ -126,7 +126,7 @@ class CheckInListItemCell: ListItemCollectionViewCell<Habit> {
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: habit.title)
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
             titleLabel.attributedText = attributeString
-            titleLabel.textColor = .fitnessMediumGrey
+            titleLabel.textColor = .upliftMediumGrey
         }
         
         habit = Habit.getHabit(habit: habit.title, type: habit.type)

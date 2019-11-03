@@ -341,7 +341,7 @@ extension HabitTrackingController {
         createHabitButton.setTitle(ClientStrings.HabitTracking.createHabitButton, for: .normal)
         createHabitButton.titleLabel?.font = ._16MontserratMedium
         createHabitButton.titleLabel?.textAlignment = .left
-        createHabitButton.setTitleColor(.fitnessMediumGrey, for: .normal)
+        createHabitButton.setTitleColor(.upliftMediumGrey, for: .normal)
         createHabitButton.addTarget(self, action: #selector(createHabit), for: .touchUpInside)
         contentView.addSubview(createHabitButton)
     }
