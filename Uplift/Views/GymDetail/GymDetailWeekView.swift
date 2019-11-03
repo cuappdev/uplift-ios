@@ -14,7 +14,12 @@ import SnapKit
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
-    var selectedDay: WeekDay?
+    var selectedDay: WeekDay = .sunday
+    weak var delegate: WeekDelegate? {
+        didSet {
+            self.delegate?.didChangeDay(day: selectedDay)
+        }
+    }
 
     // MARK: - Display
     private var weekdayCollectionView: UICollectionView!
@@ -33,6 +38,7 @@ class GymDetailWeekView: UIView {
         // Preselect Today
         let todayIndex = Calendar.current.component(.weekday, from: Date())
         weekdayCollectionView.selectItem(at: IndexPath(row: (todayIndex + 5) % 7, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        selectedDay = days[(todayIndex + 5) % 7]
     }
     
     required init?(coder: NSCoder) {
@@ -61,12 +67,12 @@ class GymDetailWeekView: UIView {
         weekdayCollectionView.backgroundColor = .clear
         addSubview(weekdayCollectionView)
     }
-    
+
     private func setupConstraints() {
         let weekdayDisplayInset: CGFloat = 39
 
         weekdayCollectionView.snp.makeConstraints { make in
-            make.center.height.equalToSuperview()
+            make.height.equalToSuperview()
             make.leading.equalToSuperview().inset(weekdayDisplayInset + interitemSpace)
             make.trailing.equalToSuperview().inset(weekdayDisplayInset - interitemSpace)
         }
@@ -78,6 +84,7 @@ extension GymDetailWeekView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = days[indexPath.row]
+        delegate?.didChangeDay(day: selectedDay)
     }
 
 }
@@ -93,7 +100,7 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
             return UICollectionViewCell()
         }
-        
+
         cell.configure(weekday: days[indexPath.row])
         return cell
     }
