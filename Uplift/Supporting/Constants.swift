@@ -118,13 +118,13 @@ struct HabitConstants {
 struct ImageNames {
     // ARROWS
     static let arrow = "arrow"
-    static let darkBackArrow = "darkBackArrow"
-    static let downArrow = "down_arrow"
+    static let backArrowDark = "back-arrow-dark"
+    static let backArrowLight = "back-arrow-light"
+    static let downArrow = "down-arrow"
     static let downArrowSolid = "down-arrow-solid"
-    static let lightBackArrow = "back-arrow"
-    static let rightArrow = "right_arrow"
+    static let rightArrow = "right-arrow"
     static let rightArrowSolid = "right-arrow-solid"
-    static let yellowCheckmark = "yellow-checkmark"
+    static let yellowCheckmark = "checked-circle-yellow"
     static let yellowNextArrow = "yellow-next-arrow"
 
     // FACILITIES
@@ -159,13 +159,14 @@ struct ImageNames {
     static let semicircle = "semicircle"
 
     // SHARE
-    static let darkShare = "share_dark"
-    static let lightShare = "share-light"
+    static let shareDark = "share-dark"
+    static let shareLight = "share-light"
 
     // STARS
-    static let blackStarOutline = "blackStar"
-    static let whiteStarOutline = "white-star"
-    static let yellowWhiteStar = "yellow-white-star"
+    static let starOutlineBlack = "star-outline-black"
+    static let starOutlineWhite = "star-outline-white"
+    static let starFilledInBlack = "star-filled-in-black"
+    static let starFilledInWhite = "star-filled-in-white"
 
     // TAB ICONS
     static let classes = "classes-tab"

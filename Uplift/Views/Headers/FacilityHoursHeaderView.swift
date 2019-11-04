@@ -37,7 +37,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         downArrow = UIImageView(image: .none)
         contentView.addSubview(downArrow)
         
-        upArrow = UIImageView(image: UIImage(named:"down_arrow"))
+        upArrow = UIImageView(image: UIImage(named:"down-arrow"))
         contentView.addSubview(upArrow)
         
         statusLabel = UILabel()

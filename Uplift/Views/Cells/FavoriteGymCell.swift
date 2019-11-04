@@ -57,7 +57,7 @@ class FavoriteGymCell: UITableViewCell {
         checkBackground.layer.cornerRadius = checkSize / 2
         cellBackground.addSubview(checkBackground)
 
-        checkImage = UIImageView(image: UIImage(named: "green check"))
+        checkImage = UIImageView(image: UIImage(named: "checked-circle-green"))
         checkImage.alpha = 0
         checkBackground.addSubview(checkImage)
 

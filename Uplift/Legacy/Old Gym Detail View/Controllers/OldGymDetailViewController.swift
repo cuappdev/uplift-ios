@@ -159,9 +159,9 @@ class OldGymDetailViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
         case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
         }
     }
 
@@ -208,7 +208,7 @@ class OldGymDetailViewController: UIViewController {
         }
 
         backButton = UIButton()
-        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+        backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         contentView.addSubview(backButton)
@@ -678,9 +678,9 @@ extension OldGymDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
         case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
         }
     }
 }

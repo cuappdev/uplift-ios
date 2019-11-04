@@ -110,15 +110,15 @@ class ClassDetailViewController: UIViewController {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-            shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineWhite), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.shareLight), for: .normal)
         case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-            shareButton.setImage(UIImage(named: ImageNames.darkShare), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineBlack), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.shareDark), for: .normal)
         }
     }
 
@@ -315,7 +315,7 @@ extension ClassDetailViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
 
-        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+        backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(backButton)
@@ -377,15 +377,15 @@ extension ClassDetailViewController: UIScrollViewDelegate {
 
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-            shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineWhite), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.shareLight), for: .normal)
         case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-            shareButton.setImage(UIImage(named: ImageNames.darkShare), for: .normal)
+            backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineBlack), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            shareButton.setImage(UIImage(named: ImageNames.shareDark), for: .normal)
         }
     }
 

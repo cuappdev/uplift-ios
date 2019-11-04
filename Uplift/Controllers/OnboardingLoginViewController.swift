@@ -65,7 +65,7 @@ class OnboardingLoginViewController: UIViewController {
         let googleBorder = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1).cgColor
         googleBtn.backgroundColor = googleWhite
         googleBtn.layer.borderColor = googleBorder
-        googleBtn.setImage(UIImage(named: "googleLogo"), for: .normal)
+        googleBtn.setImage(UIImage(named: "google-logo"), for: .normal)
         googleBtn.backgroundColor = googleWhite
         googleBtn.layer.borderWidth = 1
         googleBtn.layer.cornerRadius = cornerRadius
