@@ -111,13 +111,13 @@ class ClassDetailViewController: UIViewController {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineWhite), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineLight), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInLight), for: .selected)
             shareButton.setImage(UIImage(named: ImageNames.shareLight), for: .normal)
         case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineBlack), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineDark), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInLight), for: .selected)
             shareButton.setImage(UIImage(named: ImageNames.shareDark), for: .normal)
         }
     }
@@ -378,13 +378,13 @@ extension ClassDetailViewController: UIScrollViewDelegate {
         switch UIApplication.shared.statusBarStyle {
         case .lightContent:
             backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineWhite), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineLight), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInLight), for: .selected)
             shareButton.setImage(UIImage(named: ImageNames.shareLight), for: .normal)
         case .default, .darkContent:
             backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineBlack), for: .normal)
-            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInWhite), for: .selected)
+            favoriteButton.setImage(UIImage(named: ImageNames.starOutlineDark), for: .normal)
+            favoriteButton.setImage(UIImage(named: ImageNames.starFilledInLight), for: .selected)
             shareButton.setImage(UIImage(named: ImageNames.shareDark), for: .normal)
         }
     }

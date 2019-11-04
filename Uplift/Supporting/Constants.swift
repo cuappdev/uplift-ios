@@ -163,10 +163,10 @@ struct ImageNames {
     static let shareLight = "share-light"
 
     // STARS
-    static let starOutlineBlack = "star-outline-black"
-    static let starOutlineWhite = "star-outline-white"
-    static let starFilledInBlack = "star-filled-in-black"
-    static let starFilledInWhite = "star-filled-in-white"
+    static let starFilledInDark = "star-filled-in-dark"
+    static let starFilledInLight = "star-filled-in-light"
+    static let starOutlineDark = "star-outline-dark"
+    static let starOutlineLight = "star-outline-light"
 
     // TAB ICONS
     static let classes = "classes-tab"

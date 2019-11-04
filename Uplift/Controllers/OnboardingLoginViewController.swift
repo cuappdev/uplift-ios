@@ -80,7 +80,7 @@ class OnboardingLoginViewController: UIViewController {
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
-        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
+        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.backArrowDark))
         nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)

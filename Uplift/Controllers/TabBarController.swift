@@ -19,9 +19,9 @@ class TabBarController: UITabBarController {
 
             for viewController in viewControllers {
                 if viewController == selectedViewController {
-                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratBold!], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratBold as Any], for: .normal)
                 } else {
-                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratMedium!], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratMedium as Any], for: .normal)
                 }
             }
         }
@@ -35,26 +35,30 @@ class TabBarController: UITabBarController {
         UITabBar.appearance().tintColor = .primaryBlack
 
         let homeController = HomeViewController()
-        homeController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.homeSection, image: UIImage(named: ImageNames.home), selectedImage: UIImage(named: ImageNames.homeSelected))
-        homeController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratBold!], for: .normal)
-        homeController.tabBarItem.imageInsets = UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0)
+        homeController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.homeSection, imageName: ImageNames.home, selectedImageName: ImageNames.homeSelected)
 
         let classListController = ClassListViewController()
-        classListController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.classesSection, image: UIImage(named: ImageNames.classes), selectedImage: UIImage(named: ImageNames.classesSelected))
-        classListController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratMedium!], for: .normal)
-        classListController.tabBarItem.imageInsets = UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0)
+        classListController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.classesSection, imageName: ImageNames.classes, selectedImageName: ImageNames.classesSelected)
 
         let favoritesController = FavoritesViewController()
-        favoritesController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.favoritesSection, image: UIImage(named: ImageNames.favorites), selectedImage: UIImage(named: ImageNames.favoritesSelected))
-        favoritesController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratMedium!], for: .normal)
-        favoritesController.tabBarItem.imageInsets = UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0)
+        favoritesController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.favoritesSection, imageName: ImageNames.favorites, selectedImageName: ImageNames.favoritesSelected)
 
         let viewControllerList = [homeController, classListController, favoritesController]
-        viewControllers = viewControllerList
-        viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }
+        let navControllerList = viewControllerList.map { UINavigationController(rootViewController: $0) }
+        viewControllers = navControllerList
 
-        //swiftlint:disable:next force_cast
-        (viewControllers![0] as! UINavigationController).isNavigationBarHidden = true
+        if let navVC = viewControllers?.first as? UINavigationController {
+            navVC.isNavigationBarHidden = true
+        }
+
+        selectedViewController = navControllerList[0]
+    }
+    
+    // MARK: - Private helpers
+    private func getTabBarItem(title: String, imageName: String, selectedImageName: String) -> UITabBarItem {
+        let tabBarItem = UITabBarItem(title: title, image: UIImage(named: imageName), selectedImage: UIImage(named: selectedImageName))
+        tabBarItem.imageInsets = UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0)
+        return tabBarItem
     }
 
 }
