@@ -10,29 +10,42 @@ import UIKit
 
 class CourtView: UIView {
 
+    // MARK: Gym
     private let facilityDetail: FacilityDetail
     private let dailyGymHours: [DailyGymHours]
-
     private var selectedDayIndex = 0
-    private var displayedHours: [FacilityHoursRange] = []
 
-    private let courtsCollectionView = UICollectionView()
+    // MARK: CollectionView
+    private let courtsCollectionView: UICollectionView
+    private var displayedHours: [FacilityHoursRange] = []
     private let reuseIdentifier = "court"
 
     init(facility: FacilityDetail, gymHours: [DailyGymHours]) {
         facilityDetail = facility
         dailyGymHours = gymHours
-        super.init(frame: .zero)
 
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
+        print("\n---Init with: ----------------------")
+        print("facilityDeyail times: \(facilityDetail.times)")
+        print("dailyGym: \(dailyGymHours)")
+        print("------------------------------------\n")
 
+        let flowLayout = UICollectionViewFlowLayout()
+        let courtSize = CGSize(width: 124, height: 192)
+        let spacing: CGFloat = 0
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumInteritemSpacing = spacing
+        flowLayout.itemSize = courtSize
+
+        courtsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        courtsCollectionView.backgroundColor = .primaryWhite
         courtsCollectionView.isUserInteractionEnabled = false
         courtsCollectionView.allowsSelection = false
         courtsCollectionView.isScrollEnabled = false
-        courtsCollectionView.collectionViewLayout = layout
         courtsCollectionView.register(CourtCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+
+        super.init(frame: .zero)
+        backgroundColor = .primaryWhite
+        courtsCollectionView.dataSource = self
         addSubview(courtsCollectionView)
 
         setupConstraints()
@@ -48,63 +61,43 @@ class CourtView: UIView {
         }
     }
 
-    private func update() {
+    private func update(day: Int) {
+        selectedDayIndex = day
         let hours = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
-        displayedHours = hours.flatMap { $0.timeRanges }.filter { !$0.restrictions.isEmpty}
-        
+        // Restrictions describe court
+        displayedHours = hours.flatMap { $0.timeRanges }.filter { !$0.restrictions.isEmpty }
 
+        print("\n---Updating: -----------------------")
+        print("selectedDay: \(selectedDayIndex)")
+        print("dislpayedHours: \(displayedHours)")
+        print("------------------------------------\n")
 
-    }
-
-    // MARK: - Helper
-    private func getName(hourRange: FacilityHoursRange) -> String {
-        var str = "Court"
-        let numberStrings = str.components(separatedBy: CharacterSet.decimalDigits.inverted)
-        if !numberStrings.isEmpty { str.append(" #\(numberStrings.first ?? "0")") }
-        return str
-    }
-
-    private func getSport(hourRange: FacilityHoursRange) -> String {
-
-    }
-
-    private func getTime(hourRange: FacilityHoursRange) -> String {
-
+        courtsCollectionView.reloadData()
     }
 
 }
 
+// MARK: - UICOllectionViewDataSource
 extension CourtView: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return displayedHours.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? CourtCell else { return UICollectionViewCell() }
-        cell.configure(name: <#T##String#>, sport: <#T##String#>, time: <#T##String#>)
+        cell.configure(
+            facilityHours: displayedHours[indexPath.row],
+            dailyGymHours: dailyGymHours.filter { $0.dayOfWeek == selectedDayIndex }
+        )
+        return cell
     }
 
 }
 
+// Delegation
 extension CourtView: WeekDelegate {
     func didChangeDay(day: WeekDay) {
-        selectedDayIndex = day.index - 1
-        update()
+        update(day: day.index - 1)
     }
 }
-
-
-    // To Ask
-    /**
-        Display Cases
-     -----
-     1 Court : centered
-     All Day(7am-12:45am) or 11am-2pm
-     2 Court :side by side image
-        All Day(6am - 12am) or After 6pm (6pm/18:00 - 12am)
-
-     Time Cases
-     --
-     Mid time - closing time --> "After <midtime>"
-     Open Time - Close Time --> "All Day"
-     Mid-time - Mid-time --> "<midtime> - <midtime>"
-     */
