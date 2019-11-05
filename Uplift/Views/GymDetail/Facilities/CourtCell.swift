@@ -84,16 +84,17 @@ class CourtCell: UICollectionViewCell {
         infoLabel.attributedText = text
     }
 
-    // MARK: - Parsing String
+    // MARK: - String Parsing
     private func getName() -> String {
         var str = "Court"
-        let numberStrings = facilityHoursRange.restrictions.components(separatedBy: CharacterSet.decimalDigits.inverted)
-        if !numberStrings.isEmpty { str.append(" #\(numberStrings.first ?? "0")") }
+        let numberStrings = facilityHoursRange.restrictions.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        if !numberStrings.isEmpty { str.append(" #\(numberStrings)") }
         return str
     }
 
     private func getSport() -> String {
-        let restrictions = facilityHoursRange.restrictions
+        let restrictions = "Court 2: Badminton (odd dates) or Volleyball (even dates)"//facilityHoursRange.restrictions
+
         // Has parenthesis: depends on the date being even/odd
         if var firstParenIndex = restrictions.firstIndex(of: "(") {
             // First sport is for odd dates, second is even dates
@@ -115,8 +116,8 @@ class CourtCell: UICollectionViewCell {
         }
 
         // Has colon: Is after colon
-        if let colonIndex = restrictions.index(of: ":") {
-            let str = String(restrictions.suffix(from: colonIndex))
+        if let colon = restrictions.index(of: ":") {
+            let str = String(restrictions.suffix(from: restrictions.index(colon, offsetBy: 1)))
             return str.trimmingCharacters(in: .whitespaces)
         } else { // No Colon: Just the sport
             return restrictions

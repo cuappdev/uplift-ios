@@ -20,6 +20,9 @@ class CourtView: UIView {
     private var displayedHours: [FacilityHoursRange] = []
     private let reuseIdentifier = "court"
 
+    // MARK: Display
+    private let courtSize = CGSize(width: 124, height: 192)
+
     init(facility: FacilityDetail, gymHours: [DailyGymHours]) {
         facilityDetail = facility
         dailyGymHours = gymHours
@@ -30,7 +33,6 @@ class CourtView: UIView {
         print("------------------------------------\n")
 
         let flowLayout = UICollectionViewFlowLayout()
-        let courtSize = CGSize(width: 124, height: 192)
         let spacing: CGFloat = 0
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumInteritemSpacing = spacing
@@ -72,7 +74,17 @@ class CourtView: UIView {
         print("dislpayedHours: \(displayedHours)")
         print("------------------------------------\n")
 
+        let inset = centeredInset()
+        courtsCollectionView.contentInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         courtsCollectionView.reloadData()
+    }
+
+    // MARK: = Helper
+    /// Creates insets so collection view displays its contents in the center
+    private func centeredInset() -> CGFloat {
+        let width = frame.width
+        let numElements = CGFloat(displayedHours.count)
+        return (width - (courtSize.width * numElements)) / 2
     }
 
 }
