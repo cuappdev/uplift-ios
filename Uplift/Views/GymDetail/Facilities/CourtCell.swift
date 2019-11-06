@@ -10,14 +10,15 @@ import UIKit
 
 class CourtCell: UICollectionViewCell {
 
+    // MARK: Model Info
     private var facilityHoursRange: FacilityHoursRange!
     private var dailyHours: [DailyGymHours]!
     private var dayIndex = 0
 
+    // MARK: Display
     private let nameLabel = UILabel()
-    private let courtImageView = UIImageView()
+    private let courtImageView = UIImageView(image: UIImage(named: "testimage"))
     private let infoLabel = UILabel()
-
     private let sportAttributes: [NSAttributedString.Key: Any]
     private let timeAttributes: [NSAttributedString.Key: Any]
 
@@ -40,9 +41,7 @@ class CourtCell: UICollectionViewCell {
 
         // Views
         infoLabel.numberOfLines = 0
-        infoLabel.font = ._12MontserratRegular
         nameLabel.font = ._14MontserratSemiBold
-        courtImageView.image = UIImage(named: "testImage")
         addSubview(nameLabel)
         addSubview(courtImageView)
         addSubview(infoLabel)
@@ -64,7 +63,7 @@ class CourtCell: UICollectionViewCell {
 
         courtImageView.snp.makeConstraints { make in
             make.size.equalTo(imageSize)
-            make.top.equalTo(nameLabel).offset(imageOffset)
+            make.top.equalTo(nameLabel.snp.bottom).offset(imageOffset)
         }
 
         infoLabel.snp.makeConstraints { make in
@@ -93,8 +92,7 @@ class CourtCell: UICollectionViewCell {
     }
 
     private func getSport() -> String {
-        let restrictions = "Court 2: Badminton (odd dates) or Volleyball (even dates)"//facilityHoursRange.restrictions
-
+        let restrictions = facilityHoursRange.restrictions
         // Has parenthesis: depends on the date being even/odd
         if var firstParenIndex = restrictions.firstIndex(of: "(") {
             // First sport is for odd dates, second is even dates
@@ -125,12 +123,14 @@ class CourtCell: UICollectionViewCell {
     }
 
     private func getTime() -> String {
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         print("sameOpenTime Arr: \(dailyHours.map { $0.openTime == facilityHoursRange.openTime }.contains(true))")
         print("openTime arr: \(dailyHours.map { $0.openTime })")
         print("facility Open Time: \(facilityHoursRange.openTime)")
         print("sameCloseTime Arr: \(dailyHours.map { $0.closeTime == facilityHoursRange.closeTime}.contains(true))")
         print("closeTime arr: \(dailyHours.map { $0.closeTime })")
         print("facility Close Time: \(facilityHoursRange.closeTime)")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
         let sameOpenTime = dailyHours.map { $0.openTime == facilityHoursRange.openTime }.contains(true)
         let sameCloseTime = dailyHours.map { $0.closeTime == facilityHoursRange.closeTime}.contains(true)

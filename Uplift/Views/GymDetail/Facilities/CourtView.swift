@@ -36,6 +36,7 @@ class CourtView: UIView {
         let spacing: CGFloat = 0
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumInteritemSpacing = spacing
+        flowLayout.minimumLineSpacing = spacing
         flowLayout.itemSize = courtSize
 
         courtsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -49,7 +50,6 @@ class CourtView: UIView {
         backgroundColor = .primaryWhite
         courtsCollectionView.dataSource = self
         addSubview(courtsCollectionView)
-
         setupConstraints()
     }
 
@@ -63,6 +63,10 @@ class CourtView: UIView {
         }
     }
 
+    override func layoutSubviews() {
+        centerCollectionView()
+    }
+
     private func update(day: Int) {
         selectedDayIndex = day
         let hours = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
@@ -74,17 +78,16 @@ class CourtView: UIView {
         print("dislpayedHours: \(displayedHours)")
         print("------------------------------------\n")
 
-        let inset = centeredInset()
-        courtsCollectionView.contentInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        centerCollectionView()
         courtsCollectionView.reloadData()
     }
 
-    // MARK: = Helper
+    // MARK: - Helper
     /// Creates insets so collection view displays its contents in the center
-    private func centeredInset() -> CGFloat {
-        let width = frame.width
-        let numElements = CGFloat(displayedHours.count)
-        return (width - (courtSize.width * numElements)) / 2
+    private func centerCollectionView() {
+        let numElem = CGFloat(displayedHours.count)
+        let inset = (frame.width - (courtSize.width * numElem)) / 2
+        courtsCollectionView.contentInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
     }
 
 }
