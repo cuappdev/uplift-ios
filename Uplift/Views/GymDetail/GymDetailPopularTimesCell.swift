@@ -17,7 +17,7 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
     }
 
     // MARK: - Private view vars
-    private var popularTimesHistogram: Histogram!
+    private let popularTimesHistogramView = PopularTimesHistogramView()
     private let popularTimesLabel = UILabel()
     private let dividerView = UIView()
 
@@ -39,10 +39,11 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
         isOpen = gym.isOpen
         todaysHours = gym.gymHoursToday
 
-        DispatchQueue.main.async {
-            self.setupHistogram()
-            self.setupConstraints()
-        }
+        popularTimesHistogramView.configure(for: gym)
+
+//        DispatchQueue.main.async {
+//            self.setupConstraints()
+//        }
     }
 
     // MARK: - Private helpers
@@ -53,15 +54,10 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
         popularTimesLabel.textAlignment = .center
         contentView.addSubview(popularTimesLabel)
 
+        contentView.addSubview(popularTimesHistogramView)
+
         dividerView.backgroundColor = .gray01
         contentView.addSubview(dividerView)
-    }
-
-    private func setupHistogram() {
-        if isOpen && popularTimesHistogram == nil {
-            popularTimesHistogram = Histogram(frame: CGRect(x: 0, y: 0, width: contentView.frame.width - 36, height: 0), data: data, todaysHours: todaysHours)
-            contentView.addSubview(popularTimesHistogram)
-        }
     }
 
     private func setupConstraints() {
@@ -71,27 +67,41 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
             make.height.equalTo(Constraints.titleLabelHeight)
         }
 
-        if let histogram = popularTimesHistogram {
-            let popularTimesHistogramHorizontalPadding = 18
+        let popularTimesHistogramHorizontalPadding = 18
 
-            histogram.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview().inset(popularTimesHistogramHorizontalPadding)
-                make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constants.popularTimesHistogramTopPadding)
-                make.height.equalTo(Constants.popularTimesHistogramHeight)
-            }
-
-            dividerView.snp.remakeConstraints { make in
-                make.top.equalTo(histogram.snp.bottom).offset(Constraints.verticalPadding)
-                make.height.equalTo(Constraints.dividerViewHeight)
-                make.leading.trailing.equalToSuperview()
-            }
-        } else {
-            dividerView.snp.makeConstraints { make in
-                make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constraints.verticalPadding)
-                make.height.equalTo(Constraints.dividerViewHeight)
-                make.leading.trailing.equalToSuperview()
-            }
+        popularTimesHistogramView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(popularTimesHistogramHorizontalPadding)
+            make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constants.popularTimesHistogramTopPadding)
+            make.height.equalTo(Constants.popularTimesHistogramHeight)
         }
+
+        dividerView.snp.remakeConstraints { make in
+            make.top.equalTo(popularTimesHistogramView.snp.bottom).offset(Constraints.verticalPadding)
+            make.height.equalTo(Constraints.dividerViewHeight)
+            make.leading.trailing.equalToSuperview()
+        }
+
+//        if let histogram = popularTimesHistogram {
+//            let popularTimesHistogramHorizontalPadding = 18
+//
+//            popularTimesHistogramView.snp.makeConstraints { make in
+//                make.leading.trailing.equalToSuperview().inset(popularTimesHistogramHorizontalPadding)
+//                make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constants.popularTimesHistogramTopPadding)
+//                make.height.equalTo(Constants.popularTimesHistogramHeight)
+//            }
+//
+//            dividerView.snp.remakeConstraints { make in
+//                make.top.equalTo(histogram.snp.bottom).offset(Constraints.verticalPadding)
+//                make.height.equalTo(Constraints.dividerViewHeight)
+//                make.leading.trailing.equalToSuperview()
+//            }
+//        } else {
+//            dividerView.snp.makeConstraints { make in
+//                make.top.equalTo(popularTimesLabel.snp.bottom).offset(Constraints.verticalPadding)
+//                make.height.equalTo(Constraints.dividerViewHeight)
+//                make.leading.trailing.equalToSuperview()
+//            }
+//        }
     }
 
     required init?(coder aDecoder: NSCoder) {

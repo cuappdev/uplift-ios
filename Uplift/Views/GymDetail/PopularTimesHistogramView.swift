@@ -9,7 +9,7 @@
 import AppDevHistogram
 import UIKit
 
-class HistogramViewCell: UICollectionViewCell {
+class PopularTimesHistogramView: UIView {
 
     // MARK: - Private view vars
     private let histogramView = HistogramView()
@@ -18,22 +18,34 @@ class HistogramViewCell: UICollectionViewCell {
     private let startHour = 6
     private let overflowedEndHour = 27
     private var busynessRatings: [Int] = (0..<24).map({ $0 })
-    private let buynessLevelDescriptors = [
+    private let busynessLevelDescriptors = [
         ClientStrings.Histogram.busynessLevel1,
         ClientStrings.Histogram.busynessLevel2,
         ClientStrings.Histogram.busynessLevel3
     ]
+    private var todaysHours: DailyGymHours?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setupViews()
-        setupConstraints()
+        histogramView.dataSource = self
+        addSubview(histogramView)
+        histogramView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(32)
+            make.height.equalTo(166)
+        }
+
+        histogramView.reloadData()
     }
 
     // MARK: - Public configure
     func configure(for gym: Gym) {
         busynessRatings = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
+        todaysHours = gym.gymHoursToday
+
+        histogramView.reloadData()
+        print(busynessRatings)
     }
 
     required init?(coder: NSCoder) {
@@ -42,26 +54,44 @@ class HistogramViewCell: UICollectionViewCell {
 
 }
 
-extension HistogramViewCell: HistogramViewDataSource {
+extension PopularTimesHistogramView: HistogramViewDataSource {
+
+    func defaultBarColor(for histogramView: HistogramView) -> UIColor {
+        return .primaryLightYellow
+    }
+
+    func highlightedBarColor(for histogramView: HistogramView) -> UIColor {
+        return .primaryYellow
+    }
 
     func numberOfDataPoints(for histogramView: HistogramView) -> Int {
         return overflowedEndHour - startHour
     }
 
     func histogramView(_ histogramView: HistogramView, relativeValueOfDataPointAt index: Int) -> Double {
-        print(index)
         let maxBusynessRating = Double(busynessRatings.max() ?? 1)
         return Double(busynessRatings[getBusynessRatingsIndex(for: index)]) / maxBusynessRating
     }
 
     func histogramView(_ histogramView: HistogramView, descriptionForDataPointAt index: Int) -> NSAttributedString? {
-        return NSAttributedString(
-            string: "gottem",
-            attributes: [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium),
-                NSAttributedString.Key.foregroundColor: UIColor.yellow
-            ]
+        guard let todaysHours = todaysHours else { return nil }
+
+        let secondsPerHour: Double = 3600.0
+        let hourOfDay = todaysHours.openTime.addingTimeInterval(Double(index) * secondsPerHour).getStringOfDatetime(format: "ha")
+        let busynessLevelRating = getBusynessLevelDescriptor(for: index)
+        let attributedString = NSMutableAttributedString(
+            string: "\(hourOfDay) \(busynessLevelRating)",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray04]
         )
+        attributedString.addAttributes(
+            [NSAttributedString.Key.font: UIFont._12MontserratBold as Any],
+            range: NSRange(location: 0, length: hourOfDay.count)
+        )
+        attributedString.addAttributes(
+            [NSAttributedString.Key.font: UIFont._12MontserratMedium as Any],
+            range: NSRange(location: hourOfDay.count + 1, length: busynessLevelRating.count)
+        )
+        return attributedString
     }
 
     func numberOfDataPointsPerTickMark(for histogramView: HistogramView) -> Int? {
@@ -70,6 +100,7 @@ extension HistogramViewCell: HistogramViewDataSource {
 
     func histogramView(_ histogramView: HistogramView, titleForTickMarkAt index: Int) -> String? {
         let tickHour = containOverflowedMilitaryHour(hour: startHour + index)
+        print(formattedHourForTime(militaryHour: tickHour))
         return formattedHourForTime(militaryHour: tickHour)
     }
 
@@ -80,15 +111,16 @@ extension HistogramViewCell: HistogramViewDataSource {
         let busynessRating = busynessRatings[getBusynessRatingsIndex(for: index)]
 
         if busynessRating < mediumThreshold {
-            return buynessLevelDescriptors[0]
+            return busynessLevelDescriptors[0]
         } else if busynessRating < highThreshold {
-            return buynessLevelDescriptors[1]
+            return busynessLevelDescriptors[1]
         } else {
-            return buynessLevelDescriptors[2]
+            return busynessLevelDescriptors[2]
         }
     }
 
     private func getBusynessRatingsIndex(for index: Int) -> Int {
+        // We start displaying hours from 6am rather than 12am so we need to add 6
         return (index + 6) % 24
     }
 
@@ -109,26 +141,6 @@ extension HistogramViewCell: HistogramViewDataSource {
             formattedHour = "12a"
         }
         return formattedHour
-    }
-
-}
-
-extension HistogramViewCell {
-
-    func setupViews() {
-        histogramView.dataSource = self
-        contentView.addSubview(histogramView)
-        histogramView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(32)
-            make.height.equalTo(166)
-        }
-
-        histogramView.reloadData()
-    }
-
-    func setupConstraints() {
-
     }
 
 }
