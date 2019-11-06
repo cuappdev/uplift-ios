@@ -31,6 +31,7 @@ class GymDetailViewController: UIViewController {
         static let gymDetailHeaderViewIdentifier = "gymDetailHeaderViewIdentifier"
         static let gymDetailHoursCellIdentifier = "gymDetailHoursCellIdentifier"
         static let gymDetailPopularTimesCellIdentifier = "gymDetailPopularTimesCellIdentifier"
+        static let histogramViewCellIdentifier = "histogramViewCellIdentifier"
     }
 
     // MARK: - Private classes/enums
@@ -128,9 +129,12 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         switch itemType {
         case .hours:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailHoursCellIdentifier, for: indexPath) as! GymDetailHoursCell
-            cell.configure(for: self, gymDetail: gymDetail)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.histogramViewCellIdentifier, for: indexPath) as! HistogramViewCell
             return cell
+//            // swiftlint:disable:next force_cast
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailHoursCellIdentifier, for: indexPath) as! GymDetailHoursCell
+//            cell.configure(for: self, gymDetail: gymDetail)
+//            return cell
         case .busyTimes:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier, for: indexPath) as! GymDetailPopularTimesCell
@@ -202,6 +206,7 @@ extension GymDetailViewController {
         collectionView.register(GymDetailPopularTimesCell.self, forCellWithReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier)
         collectionView.register(GymDetailFacilitiesCell.self, forCellWithReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier)
         collectionView.register(GymDetailTodaysClassesCell.self, forCellWithReuseIdentifier: Constants.gymDetailClassesCellIdentifier)
+        collectionView.register(HistogramViewCell.self, forCellWithReuseIdentifier: Constants.histogramViewCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)

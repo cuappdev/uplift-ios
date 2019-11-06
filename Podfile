@@ -6,6 +6,7 @@ target 'Uplift' do
   use_frameworks!
   pod 'AlamofireImage'
   pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc'
+  pod 'AppDevHistogram', :git => 'https://github.com/cuappdev/appdev-histogram.git'
   pod 'Bartinter'
   pod 'Crashlytics'
   pod 'FLEX', '~> 2.0', :configurations => ['Debug']

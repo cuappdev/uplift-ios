@@ -76,6 +76,7 @@
 		C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */; };
 		C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE15722926F8700B5D219 /* GymsListCell.swift */; };
 		C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */; };
+		C24754F1237346700006FD88 /* HistogramViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24754F0237346700006FD88 /* HistogramViewCell.swift */; };
 		C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */; };
 		C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F62290D1C4007C415D /* ClassDetailViewController.swift */; };
 		C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F82290D397007C415D /* ClassDetailHeaderView.swift */; };
@@ -212,6 +213,7 @@
 		C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		C21BE15722926F8700B5D219 /* GymsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsListCell.swift; sourceTree = "<group>"; };
 		C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Shared.swift"; sourceTree = "<group>"; };
+		C24754F0237346700006FD88 /* HistogramViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramViewCell.swift; sourceTree = "<group>"; };
 		C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		C26236F62290D1C4007C415D /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		C26236F82290D397007C415D /* ClassDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */,
 				4F6810332345504D00C283C0 /* GymDetailWeekView.swift */,
 				7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */,
+				C24754F0237346700006FD88 /* HistogramViewCell.swift */,
 			);
 			path = GymDetail;
 			sourceTree = "<group>";
@@ -996,6 +999,7 @@
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
+				C24754F1237346700006FD88 /* HistogramViewCell.swift in Sources */,
 				E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */,
 				4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
