@@ -35,9 +35,6 @@ class PopularTimesHistogramView: UIView {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(166)
         }
-
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        histogramView.selectBar(at: currentHour - startHour, animated: true, generateFeedback: false)
     }
 
     // MARK: - Public configure
@@ -45,8 +42,12 @@ class PopularTimesHistogramView: UIView {
         busynessRatings = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
         todaysHours = gym.gymHoursToday
 
-        histogramView.reloadData()
-        print(busynessRatings)
+        DispatchQueue.main.async {
+            self.histogramView.reloadData()
+
+            let currentHour = Calendar.current.component(.hour, from: Date())
+            self.histogramView.selectBar(at: currentHour - self.qstartHour, animated: false, generateFeedback: false)
+        }
     }
 
     required init?(coder: NSCoder) {

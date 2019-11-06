@@ -88,7 +88,7 @@ class GymDetailViewController: UIViewController {
             let items = self.sections[0].items
             self.sections[0].items[items.count - 1] = .classes(gymClasses)
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.collectionView.reloadItems(at: [IndexPath(row: items.count - 1, section: 0)])
             }
         }
 
