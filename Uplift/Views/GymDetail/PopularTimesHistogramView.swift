@@ -1,5 +1,5 @@
 //
-//  HistogramViewCell.swift
+//  PopularTimesHistogramView.swift
 //  Uplift
 //
 //  Created by Kevin Chan on 11/6/19.
@@ -16,7 +16,7 @@ class PopularTimesHistogramView: UIView {
 
     // MARK: - Private data vars
     private let startHour = 6
-    private let overflowedEndHour = 27
+    private let overflowedEndHour = 24
     private var busynessRatings: [Int] = (0..<24).map({ $0 })
     private let busynessLevelDescriptors = [
         ClientStrings.Histogram.busynessLevel1,
@@ -32,11 +32,12 @@ class PopularTimesHistogramView: UIView {
         addSubview(histogramView)
         histogramView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(32)
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(166)
         }
 
-        histogramView.reloadData()
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        histogramView.selectBar(at: currentHour - startHour, animated: true, generateFeedback: false)
     }
 
     // MARK: - Public configure
@@ -65,6 +66,7 @@ extension PopularTimesHistogramView: HistogramViewDataSource {
     }
 
     func numberOfDataPoints(for histogramView: HistogramView) -> Int {
+        // print(overflowedEndHour - startHour)
         return overflowedEndHour - startHour
     }
 
@@ -80,16 +82,16 @@ extension PopularTimesHistogramView: HistogramViewDataSource {
         let hourOfDay = todaysHours.openTime.addingTimeInterval(Double(index) * secondsPerHour).getStringOfDatetime(format: "ha")
         let busynessLevelRating = getBusynessLevelDescriptor(for: index)
         let attributedString = NSMutableAttributedString(
-            string: "\(hourOfDay) \(busynessLevelRating)",
+            string: "\(hourOfDay) : \(busynessLevelRating)",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray04]
         )
         attributedString.addAttributes(
             [NSAttributedString.Key.font: UIFont._12MontserratBold as Any],
-            range: NSRange(location: 0, length: hourOfDay.count)
+            range: NSRange(location: 0, length: hourOfDay.count + 2)
         )
         attributedString.addAttributes(
             [NSAttributedString.Key.font: UIFont._12MontserratMedium as Any],
-            range: NSRange(location: hourOfDay.count + 1, length: busynessLevelRating.count)
+            range: NSRange(location: hourOfDay.count + 3, length: busynessLevelRating.count)
         )
         return attributedString
     }
@@ -100,7 +102,6 @@ extension PopularTimesHistogramView: HistogramViewDataSource {
 
     func histogramView(_ histogramView: HistogramView, titleForTickMarkAt index: Int) -> String? {
         let tickHour = containOverflowedMilitaryHour(hour: startHour + index)
-        print(formattedHourForTime(militaryHour: tickHour))
         return formattedHourForTime(militaryHour: tickHour)
     }
 

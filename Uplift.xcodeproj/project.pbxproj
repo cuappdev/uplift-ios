@@ -89,7 +89,7 @@
 		C28801A222933BBC00EC48B7 /* TodaysClassListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */; };
 		C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */; };
 		C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */; };
-		C2E2F88C237337BC002FE94C /* PopularTimesHistogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E2F88B237337BC002FE94C /* PopularTimesHistogramView.swift */; };
+		C2E2F88E237339F9002FE94C /* PopularTimesHistogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E2F88D237339F9002FE94C /* PopularTimesHistogramView.swift */; };
 		C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
 		C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71E8A032091726600542FA3 /* Date+Shared.swift */; };
 		C73637282082F170004751F5 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73637272082F170004751F5 /* Gym.swift */; };
@@ -226,7 +226,7 @@
 		C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassListItemCell.swift; sourceTree = "<group>"; };
 		C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Extensions.swift"; sourceTree = "<group>"; };
 		C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTrackingController+Extensions.swift"; sourceTree = "<group>"; };
-		C2E2F88B237337BC002FE94C /* PopularTimesHistogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTimesHistogramView.swift; sourceTree = "<group>"; };
+		C2E2F88D237339F9002FE94C /* PopularTimesHistogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTimesHistogramView.swift; sourceTree = "<group>"; };
 		C71E8A032091726600542FA3 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
 		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		C73637292082F193004751F5 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
@@ -332,7 +332,7 @@
 				4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */,
 				4F6810332345504D00C283C0 /* GymDetailWeekView.swift */,
 				7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */,
-				C2E2F88B237337BC002FE94C /* PopularTimesHistogramView.swift */,
+				C2E2F88D237339F9002FE94C /* PopularTimesHistogramView.swift */,
 			);
 			path = GymDetail;
 			sourceTree = "<group>";
@@ -922,6 +922,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E2F88E237339F9002FE94C /* PopularTimesHistogramView.swift in Sources */,
 				E604DC2B233B1D80003598BC /* ProBioExpertiseCell.swift in Sources */,
 				7EC4B79C236CADD8006B67B3 /* EquipmentListItemCell.swift in Sources */,
 				E604DC2F233B1D80003598BC /* ProRoutineCollectionViewCell.swift in Sources */,
@@ -971,7 +972,6 @@
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
-				C2E2F88C237337BC002FE94C /* PopularTimesHistogramView.swift in Sources */,
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,

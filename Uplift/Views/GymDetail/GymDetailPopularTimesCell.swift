@@ -12,7 +12,7 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
 
     // MARK: - Constraint constants
     enum Constants {
-        static let popularTimesHistogramHeight: CGFloat = 101
+        static let popularTimesHistogramHeight: CGFloat = 166
         static let popularTimesHistogramTopPadding: CGFloat = 24
     }
 
