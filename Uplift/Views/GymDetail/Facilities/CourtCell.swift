@@ -17,7 +17,7 @@ class CourtCell: UICollectionViewCell {
 
     // MARK: Display
     private let nameLabel = UILabel()
-    private let courtImageView = UIImageView(image: UIImage(named: "testimage"))
+    private let courtImageView = UIImageView(image: UIImage(named: "court-single"))
     private let infoLabel = UILabel()
     private let sportAttributes: [NSAttributedString.Key: Any]
     private let timeAttributes: [NSAttributedString.Key: Any]
@@ -55,7 +55,7 @@ class CourtCell: UICollectionViewCell {
 
     private func setupConstraints() {
         let imageOffset = 9
-        let imageSize = CGSize(width: 124, height: 164)
+        let imageSize = CGSize(width: 125, height: 166)
 
         nameLabel.snp.makeConstraints { make in
             make.top.centerX.equalToSuperview()
@@ -139,7 +139,7 @@ class CourtCell: UICollectionViewCell {
         let closeTimeString = facilityHoursRange.closeTime.getStringOfDatetime(format: "h:mm a")
 
         if sameOpenTime && sameCloseTime { return "All Day" }
-        if sameCloseTime { return "After \(closeTimeString)" }
+        if sameCloseTime { return "After \(openTimeString)" }
         return "\(openTimeString) - \(closeTimeString)"
     }
 }

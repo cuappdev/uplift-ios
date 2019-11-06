@@ -130,11 +130,6 @@ class GymDetailTimeInfoView: UIView {
     }
 }
 
-// MARK: - Delegation
-protocol WeekDelegate: class {
-    func didChangeDay(day: WeekDay)
-}
-
 extension GymDetailTimeInfoView: WeekDelegate {
     func didChangeDay(day: WeekDay) {
         selectedDayIndex = day.index - 1

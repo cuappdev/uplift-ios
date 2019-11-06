@@ -33,7 +33,7 @@ class CourtView: UIView {
         print("------------------------------------\n")
 
         let flowLayout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 0
+        let spacing: CGFloat = -1 // Overlap Center Line
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumInteritemSpacing = spacing
         flowLayout.minimumLineSpacing = spacing
@@ -112,6 +112,7 @@ extension CourtView: UICollectionViewDataSource {
 
 // Delegation
 extension CourtView: WeekDelegate {
+    
     func didChangeDay(day: WeekDay) {
         update(day: day.index - 1)
     }

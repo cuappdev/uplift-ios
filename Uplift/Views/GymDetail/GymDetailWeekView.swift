@@ -106,3 +106,8 @@ extension GymDetailWeekView: UICollectionViewDataSource {
     }
 
 }
+
+// MARK: - Delegation
+protocol WeekDelegate: AnyObject {
+    func didChangeDay(day: WeekDay)
+}

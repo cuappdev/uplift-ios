@@ -17,8 +17,8 @@ class BlankViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .gray02
 
-        NetworkManager.shared.getGym(id: GymIds.noyes) { gym in
-            self.court = CourtView(facility: gym.facilities[1].details.first!, gymHours: gym.gymHours)
+        NetworkManager.shared.getGym(id: GymIds.helenNewman) { gym in
+            self.court = CourtView(facility: gym.facilities[2].details.first!, gymHours: gym.gymHours)
             self.calendar = GymDetailWeekView()
             self.calendar.delegate = self.court
             self.view.addSubview(self.calendar)
