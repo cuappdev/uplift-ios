@@ -1,5 +1,5 @@
 //
-//  PriceInformationView.swift
+//  PriceInformationCell.swift
 //  Uplift
 //
 //  Created by Yana Sang on 10/17/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PriceInformationView: UICollectionViewCell {
+class PriceInformationCell: UICollectionViewCell {
 
     struct Constants {
         static let lineHeight: CGFloat = 20
