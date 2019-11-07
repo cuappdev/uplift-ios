@@ -138,13 +138,9 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             return cell
         case .facilities:
             // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "prices", for: indexPath) as! PriceInformationView
-            cell.configure(items: ["Price per game", "Shoe rental", "Something else"], prices: ["$3.50","$2.50", "$$$$$"])
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
+            cell.configure(for: gymDetail)
             return cell
-            
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-//            cell.configure(for: gymDetail)
-//            return cell
         case .classes:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailClassesCellIdentifier, for: indexPath) as! GymDetailTodaysClassesCell
@@ -163,8 +159,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .busyTimes:
             return CGSize(width: width, height: getBusyTimesHeight())
         case.facilities:
-//            return CGSize(width: width, height: getFacilitiesHeight())
-            return CGSize(width: width, height: PriceInformationView.getHeight(for: ["Price per game", "Shoe Rental", "Something else"]))
+            return CGSize(width: width, height: getFacilitiesHeight())
         case.classes:
             return CGSize(width: width, height: getTodaysClassesHeight())
         }
@@ -207,8 +202,6 @@ extension GymDetailViewController {
         collectionView.register(GymDetailPopularTimesCell.self, forCellWithReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier)
         collectionView.register(GymDetailFacilitiesCell.self, forCellWithReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier)
         collectionView.register(GymDetailTodaysClassesCell.self, forCellWithReuseIdentifier: Constants.gymDetailClassesCellIdentifier)
-        
-        collectionView.register(PriceInformationView.self, forCellWithReuseIdentifier: "prices")
 
         collectionView.delegate = self
         collectionView.dataSource = self
