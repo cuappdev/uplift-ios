@@ -72,7 +72,7 @@ class CourtView: UIView {
         let hours = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
         // Restrictions describe court
         displayedHours = hours.flatMap { $0.timeRanges }.filter { !$0.restrictions.isEmpty }
-
+        
         print("\n---Updating: -----------------------")
         print("selectedDay: \(selectedDayIndex)")
         print("dislpayedHours: \(displayedHours)")
@@ -112,7 +112,6 @@ extension CourtView: UICollectionViewDataSource {
 
 // Delegation
 extension CourtView: WeekDelegate {
-    
     func didChangeDay(day: WeekDay) {
         update(day: day.index - 1)
     }
