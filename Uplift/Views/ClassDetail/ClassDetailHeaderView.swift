@@ -147,9 +147,9 @@ class ClassDetailHeaderView: UICollectionReusableView {
         let titleLabelHorizontalPadding = 40
         let backButtonLeftPadding = 20
         let backButtonSize = CGSize(width: 22, height: 18)
-        let backButtonTopPadding = 30
-        let favoriteButtonRightPadding = 21
-        let favoriteButtonSize = CGSize(width: 23, height: 22)
+        let backButtonTopPadding = 36
+        let favoriteButtonRightPadding = 20
+        let favoriteButtonSize = CGSize(width: 23, height: 23)
         let shareButtonRightPadding = 14
         let shareButtonSize = CGSize(width: 22, height: 22)
 
