@@ -11,7 +11,6 @@ import UIKit
 class PriceInformationCell: UICollectionViewCell {
 
     struct Constants {
-        static let lineHeight: CGFloat = 20
         static let padding: CGFloat = 12
     }
 
@@ -30,10 +29,8 @@ class PriceInformationCell: UICollectionViewCell {
     func configure(items: [String], prices: [String]) {
         itemsList.attributedText = generateAttributedString(for: items, font: ._14MontserratRegular)
         pricesList.attributedText = generateAttributedString(for: prices, font: ._14MontserratSemiBold, alignment: .right)
-
-        pricesList.snp.remakeConstraints { make in
-            make.top.equalTo(background).offset(Constants.padding)
-            make.trailing.bottom.equalTo(background).inset(Constants.padding)
+        
+        pricesList.snp.updateConstraints { make in
             make.width.equalTo(pricesList.intrinsicContentSize.width)
         }
     }
@@ -49,7 +46,7 @@ class PriceInformationCell: UICollectionViewCell {
         itemsList.isScrollEnabled = false
         itemsList.textContainerInset = .zero
         itemsList.textContainer.lineFragmentPadding = 0
-        contentView.addSubview(itemsList)
+        background.addSubview(itemsList)
 
         pricesList.backgroundColor = .gray01
         pricesList.isEditable = false
@@ -57,7 +54,7 @@ class PriceInformationCell: UICollectionViewCell {
         pricesList.isScrollEnabled = false
         pricesList.textContainerInset = .zero
         pricesList.textContainer.lineFragmentPadding = 0
-        contentView.addSubview(pricesList)
+        background.addSubview(pricesList)
     }
 
     private func setupConstraints() {
@@ -70,14 +67,13 @@ class PriceInformationCell: UICollectionViewCell {
         }
 
         pricesList.snp.makeConstraints { make in
-            make.top.equalTo(background).offset(Constants.padding)
-            make.trailing.bottom.equalTo(background).inset(Constants.padding)
+            make.top.trailing.bottom.equalToSuperview().inset(Constants.padding)
+            make.width.equalTo(pricesList.intrinsicContentSize.width)
         }
 
         itemsList.snp.makeConstraints { make in
-            make.top.leading.equalTo(background).offset(Constants.padding)
+            make.top.leading.bottom.equalToSuperview().inset(Constants.padding)
             make.trailing.equalTo(pricesList.snp.leading).offset(-Constants.padding)
-            make.bottom.equalTo(background).inset(Constants.padding)
         }
     }
 
@@ -101,8 +97,10 @@ class PriceInformationCell: UICollectionViewCell {
     }
 
     static func getHeight(for items: [String]) -> CGFloat {
+        let lineHeight: CGFloat = 20
+
         let baseHeight = 4.0 * Constants.padding
-        let listHeight = Constants.lineHeight * CGFloat(items.count)
+        let listHeight = lineHeight * CGFloat(items.count)
 
         return baseHeight + listHeight
     }
