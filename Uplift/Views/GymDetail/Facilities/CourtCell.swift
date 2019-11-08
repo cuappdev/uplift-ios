@@ -83,63 +83,40 @@ class CourtCell: UICollectionViewCell {
         infoLabel.attributedText = text
     }
 
-    // MARK: - String Parsing
+    // MARK: - String Response Parsing
     private func getName() -> String {
-        var str = "Court"
-        let numberStrings = facilityHoursRange.restrictions.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-        if !numberStrings.isEmpty { str.append(" #\(numberStrings)") }
-        return str
+        let restrictions = facilityHoursRange.restrictions
+        if let index = restrictions.firstIndex(of: ":") {
+            return String(restrictions.prefix(upTo: index))
+        } else { // Default: Court
+            return "Court"
+        }
     }
 
     private func getSport() -> String {
         let restrictions = facilityHoursRange.restrictions
-        // Has parenthesis: depends on the date being even/odd
-        if var firstParenIndex = restrictions.firstIndex(of: "(") {
-            // First sport is for odd dates, second is even dates
-            if let dateOfMonth = Calendar.current.dateComponents([.day], from: facilityHoursRange.openTime).day {
-                if dateOfMonth % 2 == 0 { // Even
-                    let orIndex = restrictions.range(of: "or") ?? restrictions.startIndex..<restrictions.endIndex
-                    var lastParen = restrictions.lastIndex(of: "(") ?? restrictions.endIndex
-                    lastParen = restrictions.index(lastParen, offsetBy: -1)
-                    let sportStr = String(restrictions[orIndex.upperBound...lastParen])
-                    return sportStr.trimmingCharacters(in: .whitespaces)
-                } else { // Odd
-                    var colonIndex = restrictions.firstIndex(of: ":") ?? restrictions.endIndex
-                    colonIndex = restrictions.index(colonIndex, offsetBy: 1)
-                    firstParenIndex = restrictions.index(firstParenIndex, offsetBy: -1)
-                    let sportStr = String(restrictions[colonIndex...firstParenIndex])
-                    return sportStr.trimmingCharacters(in: .whitespaces)
-                }
-            }
+        var sport = ""
+        if let colon = restrictions.index(of: ":") {
+            let offset = restrictions.index(colon, offsetBy: 1)
+            sport = String(restrictions.suffix(from: offset)).trimmingCharacters(in: .whitespaces)
+        } else { // Default: Basketball
+            sport = "Basketball"
         }
 
-        // Has colon: Is after colon
-        if let colon = restrictions.index(of: ":") {
-            let str = String(restrictions.suffix(from: restrictions.index(colon, offsetBy: 1)))
-            return str.trimmingCharacters(in: .whitespaces)
-        } else { // No Colon: Just the sport
-            return restrictions
-        }
+        return sport.uppercased()
     }
 
     private func getTime() -> String {
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print("sameOpenTime Arr: \(dailyHours.map { $0.openTime == facilityHoursRange.openTime }.contains(true))")
-        print("openTime arr: \(dailyHours.map { $0.openTime })")
-        print("facility Open Time: \(facilityHoursRange.openTime)")
-        print("sameCloseTime Arr: \(dailyHours.map { $0.closeTime == facilityHoursRange.closeTime}.contains(true))")
-        print("closeTime arr: \(dailyHours.map { $0.closeTime })")
-        print("facility Close Time: \(facilityHoursRange.closeTime)")
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        let calendar = Calendar(identifier: .gregorian)
 
-        let sameOpenTime = dailyHours.map { $0.openTime == facilityHoursRange.openTime }.contains(true)
-        let sameCloseTime = dailyHours.map { $0.closeTime == facilityHoursRange.closeTime}.contains(true)
+        let openAtStart = dailyHours.map { $0.openTime == facilityHoursRange.openTime }.contains(true)
+        let closesAtMidnight = calendar.dateComponents([.hour], from: facilityHoursRange.closeTime).hour == 0
 
         let openTimeString = facilityHoursRange.openTime.getStringOfDatetime(format: "h:mm a")
         let closeTimeString = facilityHoursRange.closeTime.getStringOfDatetime(format: "h:mm a")
 
-        if sameOpenTime && sameCloseTime { return "All Day" }
-        if sameCloseTime { return "After \(openTimeString)" }
+        if openAtStart && closesAtMidnight { return "ALL DAY" }
+        if closesAtMidnight { return "AFTER \(openTimeString)" }
         return "\(openTimeString) - \(closeTimeString)"
     }
 }

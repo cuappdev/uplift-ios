@@ -27,11 +27,6 @@ class CourtView: UIView {
         facilityDetail = facility
         dailyGymHours = gymHours
 
-        print("\n---Init with: ----------------------")
-        print("facilityDeyail times: \(facilityDetail.times)")
-        print("dailyGym: \(dailyGymHours)")
-        print("------------------------------------\n")
-
         let flowLayout = UICollectionViewFlowLayout()
         let spacing: CGFloat = -1 // Overlap Center Line
         flowLayout.scrollDirection = .horizontal
@@ -72,11 +67,6 @@ class CourtView: UIView {
         let hours = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
         // Restrictions describe court
         displayedHours = hours.flatMap { $0.timeRanges }.filter { !$0.restrictions.isEmpty }
-        
-        print("\n---Updating: -----------------------")
-        print("selectedDay: \(selectedDayIndex)")
-        print("dislpayedHours: \(displayedHours)")
-        print("------------------------------------\n")
 
         centerCollectionView()
         courtsCollectionView.reloadData()
@@ -110,7 +100,7 @@ extension CourtView: UICollectionViewDataSource {
 
 }
 
-// Delegation
+// MARK: - Delegation
 extension CourtView: WeekDelegate {
     func didChangeDay(day: WeekDay) {
         update(day: day.index - 1)
