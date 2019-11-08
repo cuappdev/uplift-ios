@@ -146,12 +146,12 @@ class ClassDetailHeaderView: UICollectionReusableView {
         let semicircleImageViewSize = CGSize(width: 100, height: 50)
         let titleLabelHorizontalPadding = 40
         let backButtonLeftPadding = 20
-        let backButtonSize = CGSize(width: 22, height: 18)
+        let backButtonSize = CGSize(width: 24, height: 24)
         let backButtonTopPadding = 36
         let favoriteButtonRightPadding = 20
         let favoriteButtonSize = CGSize(width: 23, height: 23)
         let shareButtonRightPadding = 14
-        let shareButtonSize = CGSize(width: 22, height: 22)
+        let shareButtonSize = CGSize(width: 24, height: 24)
 
         backButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(backButtonLeftPadding)
