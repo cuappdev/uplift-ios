@@ -62,7 +62,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
     @objc func back() {
         delegate?.classDetailHeaderViewBackButtonPressed()
     }
-    
+
     @objc func locationSelected() {
         delegate?.classDetailHeaderViewLocationSelected()
     }
@@ -74,7 +74,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
     @objc func favoriteButtonTapped() {
         delegate?.classDetailHeaderViewFavoriteButtonTapped()
     }
-    
+
     @objc func share() {
         delegate?.classDetailHeaderViewShareButtonTapped()
     }
@@ -85,7 +85,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         addSubview(backButton)
-        
+    
         favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
         favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
         favoriteButton.sizeToFit()
@@ -96,7 +96,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         shareButton.sizeToFit()
         shareButton.addTarget(self, action: #selector(self.share), for: .touchUpInside)
         addSubview(shareButton)
-        
+
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         addSubview(imageView)
@@ -131,7 +131,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         durationLabel.textAlignment = .center
         durationLabel.textColor = .primaryBlack
         addSubview(durationLabel)
-        
+
         bringSubviewToFront(backButton)
         bringSubviewToFront(favoriteButton)
         bringSubviewToFront(shareButton)
@@ -147,7 +147,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
         let titleLabelHorizontalPadding = 40
         let backButtonLeftPadding = 20
         let backButtonSize = CGSize(width: 24, height: 24)
-        let backButtonTopPadding = 36
+        let backButtonTopPadding = 47
         let favoriteButtonRightPadding = 20
         let favoriteButtonSize = CGSize(width: 23, height: 23)
         let shareButtonRightPadding = 14
@@ -155,7 +155,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
 
         backButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(backButtonLeftPadding)
-            make.top.equalTo(self.snp.top).offset(backButtonTopPadding)
+            make.top.equalToSuperview().offset(backButtonTopPadding)
             make.size.equalTo(backButtonSize)
         }
         
@@ -170,7 +170,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
             make.top.equalTo(favoriteButton.snp.top)
             make.size.equalTo(shareButtonSize)
         }
-        
+
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
