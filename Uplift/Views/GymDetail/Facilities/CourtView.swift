@@ -24,7 +24,6 @@ class CourtView: UICollectionViewCell {
     private static let courtSize = CGSize(width: 124, height: 192)
 
     override init(frame: CGRect) {
-        print("being made....")
         let flowLayout = UICollectionViewFlowLayout()
         let spacing: CGFloat = -1 // Overlap Center Court Line
         flowLayout.scrollDirection = .horizontal
