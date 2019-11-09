@@ -28,7 +28,7 @@ class DropdownView: UIView {
     // MARK: - INITIALIZATION
     private let contentView: UIView!
     private var contentViewHeight: CGFloat = 0
-    private weak var delegate: DropdownViewDelegate?
+    private weak var delegate: DropdownViewDelegate!
     private var halfCloseDropdownGesture: UITapGestureRecognizer!
     private let halfCloseView: UIView?
     private var halfCloseViewHeight: CGFloat = 0
@@ -45,7 +45,8 @@ class DropdownView: UIView {
     var currentHeight: CGFloat!
     var status: DropdownStatus = .closed
 
-    init(headerView: UIView,
+    init(delegate: DropdownViewDelegate,
+         headerView: UIView,
          headerViewHeight: CGFloat,
          contentView: UIView,
          contentViewHeight: CGFloat,
@@ -146,7 +147,7 @@ class DropdownView: UIView {
                     self.layoutIfNeeded()
                 }
                 currentHeight = headerViewHeight + halfOpenViewHeight + halfHeight
-                delegate?.dropdownViewHalf(sender: self)
+                delegate.dropdownViewHalf(sender: self)
             } else { // Since the user has not enabled the half dropdown state, fully open the dropdown
                 status = .open
                 UIView.animate(withDuration: 0.3) {
@@ -154,7 +155,7 @@ class DropdownView: UIView {
                     self.layoutIfNeeded()
                 }
                 currentHeight = headerViewHeight + contentViewHeight
-                delegate?.dropdownViewOpen(sender: self)
+                delegate.dropdownViewOpen(sender: self)
             }
         case .open, .half: // Fully close the dropdown view
             status = .closed
@@ -165,7 +166,7 @@ class DropdownView: UIView {
             halfOpenView?.isHidden = true
             halfCloseView?.isHidden = true
             currentHeight = headerViewHeight
-            delegate?.dropdownViewClosed(sender: self)
+            delegate.dropdownViewClosed(sender: self)
         }
     }
 
@@ -179,7 +180,7 @@ class DropdownView: UIView {
             self.layoutIfNeeded()
         }
         currentHeight = headerViewHeight + contentViewHeight + halfCloseViewHeight
-        delegate?.dropdownViewOpen(sender: self)
+        delegate.dropdownViewOpen(sender: self)
     }
 
     @objc func closeHalfDropdown(sender: UITapGestureRecognizer) {
@@ -191,7 +192,7 @@ class DropdownView: UIView {
             self.layoutIfNeeded()
         }
         currentHeight = headerViewHeight + halfOpenViewHeight + halfHeight
-        delegate?.dropdownViewHalf(sender: self)
+        delegate.dropdownViewHalf(sender: self)
     }
 
 }

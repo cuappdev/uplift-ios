@@ -132,6 +132,7 @@
 		E60B792F235F45F100B94402 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B792D235F45F100B94402 /* DropdownView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
+		E6716DD423768434001FBA09 /* FacilitiesDropdownCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6716DD323768434001FBA09 /* FacilitiesDropdownCollectionViewCell.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
 		E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */; };
@@ -269,6 +270,7 @@
 		E60B792D235F45F100B94402 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownView.swift; path = Uplift/Views/DropdownView.swift; sourceTree = SOURCE_ROOT; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		E6716DD323768434001FBA09 /* FacilitiesDropdownCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownCollectionViewCell.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/Uplift/Views/Cells/FacilitiesDropdownCollectionViewCell.swift"; sourceTree = "<absolute>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
 		E6FCEE51226E791000CEE2BC /* ProListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProListItemCell.swift; sourceTree = "<group>"; };
@@ -530,16 +532,17 @@
 				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
 				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
 				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
-				4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */,
+				E6716DD323768434001FBA09 /* FacilitiesDropdownCollectionViewCell.swift */,
 				0C97AC282276840F0086D699 /* FacilityHoursCell.swift */,
 				4FC04780222EF69300165594 /* FavoriteGymCell.swift */,
+				7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */,
 				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
+				4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */,
 				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
 				7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */,
-				7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -927,6 +930,7 @@
 				4F2285172352A1C80013F1B0 /* WeekDay.swift in Sources */,
 				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
 				4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */,
+				E6716DD423768434001FBA09 /* FacilitiesDropdownCollectionViewCell.swift in Sources */,
 				E60B792F235F45F100B94402 /* DropdownView.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
