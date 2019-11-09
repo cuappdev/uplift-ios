@@ -110,7 +110,9 @@ extension CourtView: UICollectionViewDataSource {
 
 // MARK: - Delegation
 extension CourtView: WeekDelegate {
+
     func didChangeDay(day: WeekDay) {
         update(day: day.index - 1)
     }
+
 }

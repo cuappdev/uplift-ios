@@ -120,4 +120,5 @@ class CourtCell: UICollectionViewCell {
         if closesAtMidnight { return "AFTER \(openTimeString)" }
         return "\(openTimeString) - \(closeTimeString)"
     }
+    
 }
