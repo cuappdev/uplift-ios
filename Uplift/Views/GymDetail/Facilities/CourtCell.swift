@@ -95,6 +95,7 @@ class CourtCell: UICollectionViewCell {
 
     private func getSport() -> String {
         let restrictions = facilityHoursRange.restrictions
+        print("restrictions: \(restrictions)")
         var sport = ""
         if let colon = restrictions.index(of: ":") {
             let offset = restrictions.index(colon, offsetBy: 1)
