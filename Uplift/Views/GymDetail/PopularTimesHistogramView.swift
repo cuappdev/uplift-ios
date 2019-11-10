@@ -46,7 +46,7 @@ class PopularTimesHistogramView: UIView {
             self.histogramView.reloadData()
 
             let currentHour = Calendar.current.component(.hour, from: Date())
-            self.histogramView.selectBar(at: currentHour - self.qstartHour, animated: false, generateFeedback: false)
+            self.histogramView.selectBar(at: currentHour - self.startHour, animated: false, generateFeedback: false)
         }
     }
 
@@ -77,10 +77,12 @@ extension PopularTimesHistogramView: HistogramViewDataSource {
     }
 
     func histogramView(_ histogramView: HistogramView, descriptionForDataPointAt index: Int) -> NSAttributedString? {
-        guard let todaysHours = todaysHours else { return nil }
+        guard let startHourDate = Calendar.current.date(bySettingHour: startHour, minute: 0, second: 0, of: Date()) else { return nil }
 
         let secondsPerHour: Double = 3600.0
-        let hourOfDay = todaysHours.openTime.addingTimeInterval(Double(index) * secondsPerHour).getStringOfDatetime(format: "ha")
+        let numSecondsPastStartHour = Double(index) * secondsPerHour
+        let hourOfDay = startHourDate.addingTimeInterval(numSecondsPastStartHour)
+            .getStringOfDatetime(format: "ha")
         let busynessLevelRating = getBusynessLevelDescriptor(for: index)
         let attributedString = NSMutableAttributedString(
             string: "\(hourOfDay) : \(busynessLevelRating)",
