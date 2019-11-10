@@ -34,7 +34,7 @@
 		7E9D6DEF22961B860054F710 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */; };
 		7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */; };
 		7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */; };
-		7EC4B79B236CADD8006B67B3 /* PriceInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B798236CADD8006B67B3 /* PriceInformationView.swift */; };
+		7EC4B79B236CADD8006B67B3 /* PriceInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */; };
 		7EC4B79C236CADD8006B67B3 /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B799236CADD8006B67B3 /* EquipmentListItemCell.swift */; };
 		7EC4B79D236CADD8006B67B3 /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */; };
 		7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */; };
@@ -170,7 +170,7 @@
 		7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GymDetailViewController.swift; path = Uplift/Controllers/GymDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailHeaderView.swift; sourceTree = "<group>"; };
 		7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailPopularTimesCell.swift; sourceTree = "<group>"; };
-		7EC4B798236CADD8006B67B3 /* PriceInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInformationView.swift; sourceTree = "<group>"; };
+		7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInformationCell.swift; sourceTree = "<group>"; };
 		7EC4B799236CADD8006B67B3 /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
 		7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentListCell.swift; sourceTree = "<group>"; };
 		7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFacilitiesCell.swift; sourceTree = "<group>"; };
@@ -343,7 +343,7 @@
 				7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */,
 				7EC4B799236CADD8006B67B3 /* EquipmentListItemCell.swift */,
 				4F27F6D6236F25C000C255D7 /* MiscellaneousInfoView.swift */,
-				7EC4B798236CADD8006B67B3 /* PriceInformationView.swift */,
+				7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */,
 			);
 			path = Facilities;
 			sourceTree = "<group>";
@@ -948,7 +948,7 @@
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
 				E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
-				7EC4B79B236CADD8006B67B3 /* PriceInformationView.swift in Sources */,
+				7EC4B79B236CADD8006B67B3 /* PriceInformationCell.swift in Sources */,
 				E6FCEE52226E791000CEE2BC /* ProListItemCell.swift in Sources */,
 				E604DC2E233B1D80003598BC /* ProBioBiographyCell.swift in Sources */,
 				C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */,
