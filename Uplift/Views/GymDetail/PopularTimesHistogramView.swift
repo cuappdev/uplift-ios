@@ -11,6 +11,9 @@ import UIKit
 
 class PopularTimesHistogramView: UIView {
 
+    // MARK: - Public data vars
+    var onChangeIndex: ((Int) -> Void)?
+
     // MARK: - Private view vars
     private let histogramView = HistogramView()
 
@@ -29,6 +32,7 @@ class PopularTimesHistogramView: UIView {
         super.init(frame: frame)
 
         histogramView.dataSource = self
+        histogramView.delegate = self
         addSubview(histogramView)
         histogramView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -38,15 +42,15 @@ class PopularTimesHistogramView: UIView {
     }
 
     // MARK: - Public configure
-    func configure(for gym: Gym) {
+    func configure(for gym: Gym, selectedPopularTimeIndex: Int, onChangeIndex: ((Int) -> Void)?) {
         busynessRatings = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
         todaysHours = gym.gymHoursToday
+        self.onChangeIndex = onChangeIndex
 
         DispatchQueue.main.async {
             self.histogramView.reloadData()
 
-            let currentHour = Calendar.current.component(.hour, from: Date())
-            self.histogramView.selectBar(at: currentHour - self.startHour, animated: false, generateFeedback: false)
+            self.histogramView.selectBar(at: selectedPopularTimeIndex, animated: false, generateFeedback: false, force: true)
         }
     }
 
@@ -57,14 +61,6 @@ class PopularTimesHistogramView: UIView {
 }
 
 extension PopularTimesHistogramView: HistogramViewDataSource {
-
-    func defaultBarColor(for histogramView: HistogramView) -> UIColor {
-        return .primaryLightYellow
-    }
-
-    func highlightedBarColor(for histogramView: HistogramView) -> UIColor {
-        return .primaryYellow
-    }
 
     func numberOfDataPoints(for histogramView: HistogramView) -> Int {
         // print(overflowedEndHour - startHour)
@@ -108,6 +104,18 @@ extension PopularTimesHistogramView: HistogramViewDataSource {
         return formattedHourForTime(militaryHour: tickHour)
     }
 
+    func font(for histogramView: HistogramView) -> UIFont {
+        return UIFont._14MontserratSemiBold ?? UIFont._14SFSemibold
+    }
+
+    func defaultBarColor(for histogramView: HistogramView) -> UIColor {
+        return .primaryLightYellow
+    }
+
+    func highlightedBarColor(for histogramView: HistogramView) -> UIColor {
+        return .primaryYellow
+    }
+
     // MARK: - Private helpers
     private func getBusynessLevelDescriptor(for index: Int) -> String {
         let highThreshold = 57
@@ -145,6 +153,14 @@ extension PopularTimesHistogramView: HistogramViewDataSource {
             formattedHour = "12a"
         }
         return formattedHour
+    }
+
+}
+
+extension PopularTimesHistogramView: HistogramViewDelegate {
+
+    func histogramView(_ histogramView: HistogramView, didChangeIndex index: Int) {
+        onChangeIndex?(index)
     }
 
 }

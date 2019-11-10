@@ -20,6 +20,9 @@ class GymDetailViewController: UIViewController {
     // MARK: - Private data vars
     private var equipment: [EquipmentCategory] = []
     private var sections: [Section] = []
+    // Default index is current hour subtracted by 6 because popular times histogram
+    // view displays hours starting from 6am
+    private var selectedPopularTimeIndex = Calendar.current.component(.hour, from: Date()) - 6
     private var todaysClasses: [GymClassInstance] = []
 
     // MARK: - Public data vars
@@ -134,7 +137,9 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .busyTimes:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier, for: indexPath) as! GymDetailPopularTimesCell
-            cell.configure(for: gymDetail.gym)
+            cell.configure(for: gymDetail.gym, selectedPopularTimeIndex: selectedPopularTimeIndex) { index in
+                self.selectedPopularTimeIndex = index
+            }
             return cell
         case .facilities:
             // swiftlint:disable:next force_cast

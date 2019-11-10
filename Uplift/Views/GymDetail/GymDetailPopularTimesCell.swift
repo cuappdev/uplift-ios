@@ -10,12 +10,6 @@ import UIKit
 
 class GymDetailPopularTimesCell: UICollectionViewCell {
 
-    // MARK: - Constraint constants
-    enum Constants {
-        static let popularTimesHistogramHeight: CGFloat = 166
-        static let popularTimesHistogramTopPadding: CGFloat = 24
-    }
-
     // MARK: - Private view vars
     private let popularTimesHistogramView = PopularTimesHistogramView()
     private let popularTimesLabel = UILabel()
@@ -26,6 +20,12 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
     private var isOpen: Bool = true
     private var todaysHours: DailyGymHours!
 
+    // MARK: - Constraint constants
+    enum Constants {
+        static let popularTimesHistogramHeight: CGFloat = 166
+        static let popularTimesHistogramTopPadding: CGFloat = 24
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -34,12 +34,14 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
     }
 
     // MARK: - Public configure
-    func configure(for gym: Gym) {
+    func configure(for gym: Gym, selectedPopularTimeIndex: Int, onChangeIndex: ((Int) -> Void)?) {
         data = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
         isOpen = gym.isOpen
         todaysHours = gym.gymHoursToday
 
-        popularTimesHistogramView.configure(for: gym)
+        popularTimesHistogramView.configure(for: gym,
+                                            selectedPopularTimeIndex: selectedPopularTimeIndex,
+                                            onChangeIndex: onChangeIndex)
 
 //        DispatchQueue.main.async {
 //            self.setupConstraints()
