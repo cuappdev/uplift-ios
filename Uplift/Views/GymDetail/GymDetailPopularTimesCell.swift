@@ -73,7 +73,7 @@ class GymDetailPopularTimesCell: UICollectionViewCell {
             make.height.equalTo(Constants.popularTimesHistogramHeight)
         }
 
-        dividerView.snp.remakeConstraints { make in
+        dividerView.snp.makeConstraints { make in
             make.top.equalTo(popularTimesHistogramView.snp.bottom).offset(Constraints.verticalPadding)
             make.height.equalTo(Constraints.dividerViewHeight)
             make.leading.trailing.equalToSuperview()

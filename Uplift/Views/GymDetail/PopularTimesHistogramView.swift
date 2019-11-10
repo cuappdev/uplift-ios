@@ -18,9 +18,11 @@ class PopularTimesHistogramView: UIView {
     private let histogramView = HistogramView()
 
     // MARK: - Private data vars
-    private let startHour = 6 // Start displaying hours from 6am onwards
-    private let overflowedEndHour = 24
     private var busynessRatings: [Int] = (0..<24).map({ $0 })
+
+    private let overflowedEndHour = 24
+    private let startHour = 6 // Start displaying hours from 6am onwards
+    private let todaysDate = Date()
     private let busynessLevelDescriptors = [
         ClientStrings.Histogram.busynessLevel1,
         ClientStrings.Histogram.busynessLevel2,
@@ -33,16 +35,18 @@ class PopularTimesHistogramView: UIView {
         histogramView.dataSource = self
         histogramView.delegate = self
         addSubview(histogramView)
+
+        let histogramViewHeight = 166
         histogramView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(166)
+            make.height.equalTo(histogramViewHeight)
         }
     }
 
     // MARK: - Public configure
     func configure(for gym: Gym, selectedPopularTimeIndex: Int, onChangeIndex: ((Int) -> Void)?) {
-        busynessRatings = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
+        busynessRatings = gym.popularTimesList[todaysDate.getIntegerDayOfWeekToday()]
         self.onChangeIndex = onChangeIndex
 
         DispatchQueue.main.async {
@@ -70,13 +74,18 @@ extension PopularTimesHistogramView: HistogramViewDataSource {
     }
 
     func histogramView(_ histogramView: HistogramView, descriptionForDataPointAt index: Int) -> NSAttributedString? {
-        guard let startHourDate = Calendar.current.date(bySettingHour: startHour, minute: 0, second: 0, of: Date()) else { return nil }
+        guard let startHourDate = Calendar.current.date(bySettingHour: startHour, minute: 0, second: 0, of: todaysDate) else { return nil }
 
         let secondsPerHour: Double = 3600.0
         let numSecondsPastStartHour = Double(index) * secondsPerHour
+
+        // Get hour of day, i.e. "12p"
         let hourOfDay = startHourDate.addingTimeInterval(numSecondsPastStartHour)
             .getStringOfDatetime(format: "ha")
+
+        // Get busyness rating, i.e. "A little busy"
         let busynessLevelRating = getBusynessLevelDescriptor(for: index)
+
         let attributedString = NSMutableAttributedString(
             string: "\(hourOfDay) : \(busynessLevelRating)",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray04]
