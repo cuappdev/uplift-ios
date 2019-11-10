@@ -18,7 +18,7 @@ class PopularTimesHistogramView: UIView {
     private let histogramView = HistogramView()
 
     // MARK: - Private data vars
-    private let startHour = 6
+    private let startHour = 6 // Start displaying hours from 6am onwards
     private let overflowedEndHour = 24
     private var busynessRatings: [Int] = (0..<24).map({ $0 })
     private let busynessLevelDescriptors = [
@@ -26,7 +26,6 @@ class PopularTimesHistogramView: UIView {
         ClientStrings.Histogram.busynessLevel2,
         ClientStrings.Histogram.busynessLevel3
     ]
-    private var todaysHours: DailyGymHours?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +43,6 @@ class PopularTimesHistogramView: UIView {
     // MARK: - Public configure
     func configure(for gym: Gym, selectedPopularTimeIndex: Int, onChangeIndex: ((Int) -> Void)?) {
         busynessRatings = gym.popularTimesList[Date().getIntegerDayOfWeekToday()]
-        todaysHours = gym.gymHoursToday
         self.onChangeIndex = onChangeIndex
 
         DispatchQueue.main.async {
@@ -63,7 +61,6 @@ class PopularTimesHistogramView: UIView {
 extension PopularTimesHistogramView: HistogramViewDataSource {
 
     func numberOfDataPoints(for histogramView: HistogramView) -> Int {
-        // print(overflowedEndHour - startHour)
         return overflowedEndHour - startHour
     }
 
