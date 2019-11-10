@@ -49,6 +49,11 @@ struct ClientStrings {
         static let noFavoritesText = "FIND YOUR\nFAVORITE NOW."
         static let vcTitleLabel = "Favorites"
     }
+    
+    struct Facilities {
+        static let closed = "Closed"
+        static let open = "Open"
+    }
 
     struct Filter {
         static let appliedFilterLabel = "APPLIED FILTER"
