@@ -30,7 +30,6 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
         backgroundColor = .primaryWhite
 
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumInteritemSpacing = 10000
         flowLayout.minimumLineSpacing = -1 // Overlap Center Court Line
         flowLayout.itemSize = courtSize
 
