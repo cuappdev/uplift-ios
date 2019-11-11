@@ -11,6 +11,11 @@
 import UIKit
 import SnapKit
 
+// MARK: - Delegation
+protocol WeekDelegate: AnyObject {
+    func weekDidChange(with day: WeekDay)
+}
+
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
@@ -105,9 +110,4 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         return cell
     }
 
-}
-
-// MARK: - Delegation
-protocol WeekDelegate: AnyObject {
-    func weekDidChange(with day: WeekDay)
 }

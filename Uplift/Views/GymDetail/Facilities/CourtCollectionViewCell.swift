@@ -18,12 +18,13 @@ class CourtCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        // Views
         infoLabel.numberOfLines = 0
+        addSubview(infoLabel)
+
         courtTitleLabel.font = ._14MontserratSemiBold
         addSubview(courtTitleLabel)
+
         addSubview(courtImageView)
-        addSubview(infoLabel)
 
         setupConstraints()
     }
@@ -33,16 +34,16 @@ class CourtCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let imageOffset = 9
-        let imageSize = CGSize(width: 125, height: 166)
+        let courtImageViewSize = CGSize(width: 125, height: 166)
+        let courtImageViewTopPadding = 9
 
         courtTitleLabel.snp.makeConstraints { make in
             make.top.centerX.equalToSuperview()
         }
 
         courtImageView.snp.makeConstraints { make in
-            make.size.equalTo(imageSize)
-            make.top.equalTo(courtTitleLabel.snp.bottom).offset(imageOffset)
+            make.size.equalTo(courtImageViewSize)
+            make.top.equalTo(courtTitleLabel.snp.bottom).offset(courtImageViewTopPadding)
         }
 
         infoLabel.snp.makeConstraints { make in
@@ -82,8 +83,10 @@ class CourtCollectionViewCell: UICollectionViewCell {
             .foregroundColor: UIColor.primaryBlack
         ]
 
-        let text = NSMutableAttributedString(string: "\(getSportName(facilityHours: facilityHours))\n", attributes: sportAttributes)
-        text.append(NSMutableAttributedString(string: getOpenAndCloseTime(facilityHours: facilityHours, dailyHours: dailyHours), attributes: timeAttributes))
+        let sportName = "\(getSportName(facilityHours: facilityHours))\n"
+        let openCloseTime = getOpenAndCloseTime(facilityHours: facilityHours, dailyHours: dailyHours)
+        let text = NSMutableAttributedString(string: sportName, attributes: sportAttributes)
+        text.append(NSMutableAttributedString(string: openCloseTime, attributes: timeAttributes))
         infoLabel.attributedText = text
     }
 

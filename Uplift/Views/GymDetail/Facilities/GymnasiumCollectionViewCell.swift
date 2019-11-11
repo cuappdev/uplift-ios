@@ -54,7 +54,8 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
     private func updateCourtsDisplay(for day: Int) {
         let hours = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
         // Restrictions describe court
-        displayedHours = hours.flatMap { $0.timeRanges }.filter { !$0.restrictions.isEmpty }
+        displayedHours = hours.flatMap { $0.timeRanges }
+            .filter { !$0.restrictions.isEmpty }
 
         centerCollectionView()
         courtsCollectionView.reloadData()
@@ -63,8 +64,8 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
     // MARK: - Helper
     /// Creates insets so collection view displays its contents in the center
     private func centerCollectionView() {
-        let numElem = CGFloat(displayedHours.count)
-        let inset = (frame.width - (courtSize.width * numElem)) / 2
+        let numberCourtsDisplayed = CGFloat(displayedHours.count)
+        let inset = (frame.width - (courtSize.width * numberCourtsDisplayed)) / 2
         courtsCollectionView.contentInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
     }
 
