@@ -51,11 +51,6 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        centerCollectionView()
-    }
-
     private func updateCourtsDisplay(for day: Int) {
         let hours = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
         // Restrictions describe court
