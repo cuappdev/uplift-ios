@@ -131,8 +131,10 @@ class GymDetailTimeInfoView: UIView {
 }
 
 extension GymDetailTimeInfoView: WeekDelegate {
-    func didChangeDay(day: WeekDay) {
+
+    func weekDidChange(with day: WeekDay) {
         selectedDayIndex = day.index - 1
         updateAppearance()
     }
+
 }
