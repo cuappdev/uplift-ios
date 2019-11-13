@@ -69,12 +69,11 @@ class GymDetailWeekView: UIView {
     }
 
     private func setupConstraints() {
-        let weekdayDisplayInset: CGFloat = 39
+        let weekdayCollectionViewWidth: CGFloat = 282
 
         weekdayCollectionView.snp.makeConstraints { make in
-            make.height.equalToSuperview()
-            make.leading.equalToSuperview().inset(weekdayDisplayInset + interitemSpace)
-            make.trailing.equalToSuperview().inset(weekdayDisplayInset - interitemSpace)
+            make.height.centerX.centerY.equalToSuperview()
+            make.width.equalTo(weekdayCollectionViewWidth)
         }
     }
 }

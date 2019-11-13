@@ -22,7 +22,7 @@ class AdditionalInfoView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .primaryLightYellow
+        backgroundColor = UIColor(red: 0.973, green: 0.906, blue: 0.11, alpha: 0.2)
         displayTextView.font = ._12MontserratLight
         displayTextView.textAlignment = .right
         addSubview(displayTextView)
@@ -41,7 +41,7 @@ class AdditionalInfoView: UIView {
     }
 
     private func setupConstraints() {
-        let sidebarWidth = 1.0
+        let sidebarWidth = 1.75
         let inset = 2.0
 
         displayTextView.snp.makeConstraints { make in
@@ -51,7 +51,7 @@ class AdditionalInfoView: UIView {
 
         sidebarView.snp.makeConstraints { make in
             make.width.equalTo(sidebarWidth)
-            make.height.leading.equalToSuperview()
+            make.height.centerY.leading.equalToSuperview()
         }
     }
 

@@ -30,17 +30,17 @@ class GymDetailTimeInfoView: UIView {
         paragraphStyle.lineSpacing = 5.0
         paragraphStyle.alignment = .center
         paragraphStyleAttributes = [
-            .font: UIFont._16MontserratRegular!,
+            .font: UIFont._16MontserratLight!,
             .paragraphStyle: paragraphStyle,
             .foregroundColor: UIColor.primaryBlack
         ]
 
         displayTextView.attributedText = timesText
         displayTextView.backgroundColor = .primaryWhite
-        displayTextView.font = ._16MontserratRegular
-        displayTextView.textColor = .primaryBlack
+        displayTextView.font = ._16MontserratLight
         displayTextView.isScrollEnabled = false
         displayTextView.isEditable = false
+        displayTextView.isSelectable = false
         displayTextView.contentInset = .zero
         displayTextView.textContainerInset = .zero
 
@@ -92,7 +92,7 @@ class GymDetailTimeInfoView: UIView {
                 restrictionView.text = restrictions[i].lowercased()
                 addSubview(restrictionView)
                 restrictionView.snp.makeConstraints { make in
-                    make.top.equalToSuperview().inset(spacing + inset)
+                    make.top.equalToSuperview().offset(spacing + inset)
                     make.trailing.equalToSuperview().inset(tagSideOffset)
                     make.width.equalTo(tagLabelWidth)
                     make.height.equalTo(tagLabelHeight)

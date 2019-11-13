@@ -8,24 +8,28 @@
 
 import UIKit
 
-class GymDetailCalendarView: UIView {
+class GymDetailCalendarView: UICollectionViewCell {
 
-    private let facilityDetail: FacilityDetail
+    private var facilityDetail: FacilityDetail!
 
     private let weekView = GymDetailWeekView()
-    private let timeInfoView: GymDetailTimeInfoView
+    private var timeInfoView: GymDetailTimeInfoView!
     private let stackView = UIStackView()
 
-    init(facilityDetail: FacilityDetail) {
-        self.facilityDetail = facilityDetail
-        timeInfoView = GymDetailTimeInfoView(facilityDetail: facilityDetail)
-
+    override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .primaryWhite
 
         setupStack()
-        setupViews()
+//        setupViews()
         setupConstraints()
+    }
+
+    func configure(facilityDetail: FacilityDetail) {
+        self.facilityDetail = facilityDetail
+        timeInfoView = GymDetailTimeInfoView(facilityDetail: facilityDetail)
+        weekView.delegate = timeInfoView
+
+        addViewsToStackView()
     }
 
     required init?(coder: NSCoder) {
@@ -36,13 +40,11 @@ class GymDetailCalendarView: UIView {
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.axis = .vertical
-        addSubview(stackView)
+        contentView.addSubview(stackView)
     }
 
-    private func setupViews() {
+    private func addViewsToStackView() {
         let timesPadding: CGFloat = 16
-
-        weekView.delegate = timeInfoView
 
         stackView.addArrangedSubview(weekView)
         stackView.setCustomSpacing(timesPadding, after: weekView)
