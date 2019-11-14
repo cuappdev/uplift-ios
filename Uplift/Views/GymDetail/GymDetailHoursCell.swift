@@ -131,7 +131,7 @@ class GymDetailHoursCell: UICollectionViewCell {
         if dailyGymHours.openTime != dailyGymHours.closeTime {
             return "\(openTime) - \(closeTime)"
         }
-      
+
         return ClientStrings.GymDetail.closedOnACertainDay
     }
 

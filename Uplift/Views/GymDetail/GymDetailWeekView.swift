@@ -14,12 +14,9 @@ import SnapKit
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
-    var selectedDay: WeekDay = .sunday
-    weak var delegate: WeekDelegate? {
-        didSet {
-            self.delegate?.didChangeDay(day: selectedDay)
-        }
-    }
+    var selectedDay: WeekDay
+    var selectedDayIndex: Int
+    weak var delegate: WeekDelegate?
 
     // MARK: - Display
     private var weekdayCollectionView: UICollectionView!
@@ -27,18 +24,18 @@ class GymDetailWeekView: UIView {
     private let interitemSpace: CGFloat = 19
 
     // MARK: - Info
-    private var days: [WeekDay] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
+    private var days: [WeekDay] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
+    // [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
     override init(frame: CGRect) {
+        // Preselect Today
+        selectedDayIndex = Calendar.current.component(.weekday, from: Date())
+        selectedDay = days[selectedDayIndex - 1] // (selectedDayIndex + 5) % 7]
+
         super.init(frame: frame)
 
         setupCollectionView()
         setupConstraints()
-
-        // Preselect Today
-        let todayIndex = Calendar.current.component(.weekday, from: Date())
-        weekdayCollectionView.selectItem(at: IndexPath(row: (todayIndex + 5) % 7, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-        selectedDay = days[(todayIndex + 5) % 7]
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +63,8 @@ class GymDetailWeekView: UIView {
         weekdayCollectionView.isScrollEnabled = false
         weekdayCollectionView.backgroundColor = .clear
         addSubview(weekdayCollectionView)
+
+        weekdayCollectionView.selectItem(at: IndexPath(row: selectedDayIndex - 1, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
 
     private func setupConstraints() {

@@ -10,18 +10,22 @@ import UIKit
 
 class GymDetailTimeInfoView: UIView {
 
-    private let displayTextView = UITextView()
+    // MARK: - Public Vars
+    var onChangeDay: ((CGFloat, Int) -> Void)?
 
-    private var facilityDetail: FacilityDetail
+    // MARK: - Private Vars
+    private let timesTextView = UITextView()
+    private var emptyStateView: UIView!
+    private var facilityDetail: FacilityDetail!
     private var selectedDayIndex = 0
     private var displayedText = ""
     private var timesText = NSMutableAttributedString()
     private var paragraphStyle = NSMutableParagraphStyle()
     private var paragraphStyleAttributes: [NSAttributedString.Key: Any] = [:]
+    private var hours: [FacilityHoursRange] = []
 
     // MARK: - Init
-    init(facilityDetail: FacilityDetail) {
-        self.facilityDetail = facilityDetail
+    override init(frame: CGRect) {
         super.init(frame: .zero)
 
         timesText.mutableString.setString(displayedText)
@@ -35,18 +39,26 @@ class GymDetailTimeInfoView: UIView {
             .foregroundColor: UIColor.primaryBlack
         ]
 
-        displayTextView.attributedText = timesText
-        displayTextView.backgroundColor = .primaryWhite
-        displayTextView.font = ._16MontserratLight
-        displayTextView.isScrollEnabled = false
-        displayTextView.isEditable = false
-        displayTextView.isSelectable = false
-        displayTextView.contentInset = .zero
-        displayTextView.textContainerInset = .zero
+        timesTextView.attributedText = timesText
+        timesTextView.backgroundColor = .primaryWhite
+        timesTextView.font = ._16MontserratLight
+        timesTextView.isScrollEnabled = false
+        timesTextView.isEditable = false
+        timesTextView.isSelectable = false
+        timesTextView.textContainerInset = .zero
+        timesTextView.textContainer.lineFragmentPadding = 0
 
-        addSubview(displayTextView)
+        addSubview(timesTextView)
 
         setupConstraints()
+    }
+
+    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((CGFloat, Int) -> Void)?) {
+        self.facilityDetail = facilityDetail
+        self.onChangeDay = onChangeDay
+        self.selectedDayIndex = dayIndex
+
+        updateAppearance()
     }
 
     required init?(coder: NSCoder) {
@@ -54,32 +66,37 @@ class GymDetailTimeInfoView: UIView {
     }
 
     func setupConstraints() {
-        displayTextView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        timesTextView.snp.makeConstraints { make in
+            make.centerX.top.equalToSuperview()
+            make.width.equalTo(174) // TODO: REPLACE
         }
     }
     // MARK: - Update
     private func updateAppearance() {
+        if let emptyStateView = emptyStateView {
+            emptyStateView.removeFromSuperview()
+        }
+
         updateTags()
         updateTimes()
     }
 
     private func updateTimes() {
-        displayedText = makeDisplayText(dayIndex: selectedDayIndex)
+        makeDisplayText(dayIndex: selectedDayIndex)
         updateAttributedText()
     }
 
     private func updateTags() {
         let tagLabelWidth = 81
         let tagLabelHeight = 17
-        let tagSideOffset = 25.0
-        let textLineHeight = displayTextView.font?.lineHeight ?? 0
+        let tagSideOffset = 4.5
+        let textLineHeight = timesTextView.font?.lineHeight ?? 0
         let textLineSpace: CGFloat = 5
 
         let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
         let restrictions = dailyFacilityHoursRange.flatMap { $0.timeRanges.map { $0.restrictions} }
 
-        subviews.filter { $0 != displayTextView }.forEach { $0.removeFromSuperview() }
+        subviews.filter { $0 != timesTextView }.forEach { $0.removeFromSuperview() }
 
         for i in 0..<restrictions.count {
             if restrictions[i].isEmpty { // Ignore Blank Tags
@@ -89,33 +106,41 @@ class GymDetailTimeInfoView: UIView {
                 let spacing = (textLineHeight + textLineSpace) * CGFloat(i)
                 let inset: CGFloat = 2
 
-                restrictionView.text = restrictions[i].lowercased()
+                restrictionView.configure(for: restrictions[i].lowercased())
                 addSubview(restrictionView)
                 restrictionView.snp.makeConstraints { make in
                     make.top.equalToSuperview().offset(spacing + inset)
-                    make.trailing.equalToSuperview().inset(tagSideOffset)
+                    make.leading.equalTo(timesTextView.snp.trailing).offset(tagSideOffset)
                     make.width.equalTo(tagLabelWidth)
                     make.height.equalTo(tagLabelHeight)
                 }
             }
         }
 
-        updateConstraints()
     }
 
     func updateAttributedText() {
         timesText.mutableString.setString(displayedText)
         let range = NSRange(location: 0, length: timesText.length)
         timesText.addAttributes(paragraphStyleAttributes, range: range)
-        displayTextView.attributedText = timesText
+        timesTextView.attributedText = timesText
+
+        let height = GymDetailCalendarView.baseHeight + getTimesHeight(for: hours)
+
+        onChangeDay?(height, selectedDayIndex)
     }
 
     // MARK: - Helper
-    func makeDisplayText(dayIndex: Int) -> String {
+    func makeDisplayText(dayIndex: Int) {
         let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == dayIndex }
-        let facilityHoursRange = dailyFacilityHoursRange.flatMap { $0.timeRanges }
-        let timeStrings: [String] = facilityHoursRange.map { getStringFromDailyGymHours(facilityHours: $0) }
-        return timeStrings.joined(separator: "\n")
+        hours = dailyFacilityHoursRange.flatMap { $0.timeRanges }
+        let timeStrings: [String] = hours.map { getStringFromDailyGymHours(facilityHours: $0) }
+        if let isEmpty = timeStrings.first?.isEmpty, isEmpty {
+            displayedText = ""
+            setupEmptyState()
+        } else {
+            displayedText = timeStrings.joined(separator: "\n")
+        }
     }
 
     func getStringFromDailyGymHours(facilityHours: FacilityHoursRange) -> String {
@@ -127,6 +152,28 @@ class GymDetailTimeInfoView: UIView {
         }
 
         return ""
+    }
+
+    func setupEmptyState() {
+        emptyStateView = NoHoursEmptyStateView()
+        addSubview(emptyStateView)
+
+        emptyStateView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+
+    func getTimesHeight(for hours: [FacilityHoursRange]) -> CGFloat {
+
+        let emptyStateHeight = CGFloat(163)
+
+        let lineHeight: CGFloat = 19.6
+        let lineSpacing: CGFloat = 5.0
+        let hoursCount = CGFloat(hours.count)
+
+        let timesHeight = (hoursCount == 1 && hours[0].openTime == hours[0].closeTime) ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
+
+        return timesHeight
     }
 }
 

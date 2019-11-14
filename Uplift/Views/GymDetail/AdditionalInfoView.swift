@@ -11,29 +11,34 @@ import UIKit
 /// Displays additional info from Facilities Query in GymDetailTimeInfoView
 class AdditionalInfoView: UIView {
 
-    private let displayTextView = UILabel()
+    private let infoLabel = UILabel()
     private let sidebarView = UIView()
-
-    var text = "" {
-        didSet {
-            displayTextView.text = text
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 0.973, green: 0.906, blue: 0.11, alpha: 0.2)
-        displayTextView.font = ._12MontserratLight
-        displayTextView.textAlignment = .right
-        addSubview(displayTextView)
-
-        let cornerRadius: CGFloat = 2.0
-        layer.cornerRadius = cornerRadius
+        infoLabel.backgroundColor = UIColor(red: 0.973, green: 0.906, blue: 0.11, alpha: 0.2)
+        infoLabel.font = ._12MontserratLight
+        infoLabel.textAlignment = .center
+        infoLabel.layer.cornerRadius = 2.0
+        infoLabel.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        infoLabel.clipsToBounds = true
+        addSubview(infoLabel)
 
         sidebarView.backgroundColor = .primaryYellow
         addSubview(sidebarView)
 
         setupConstraints()
+    }
+
+    func configure(for text: String) {
+        infoLabel.text = text
+
+        let inset: CGFloat = 3.0
+        infoLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(sidebarView.snp.trailing)
+            make.width.equalTo(infoLabel.intrinsicContentSize.width + inset * 2)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -42,12 +47,6 @@ class AdditionalInfoView: UIView {
 
     private func setupConstraints() {
         let sidebarWidth = 1.75
-        let inset = 2.0
-
-        displayTextView.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview()
-            make.trailing.equalToSuperview().inset(inset)
-        }
 
         sidebarView.snp.makeConstraints { make in
             make.width.equalTo(sidebarWidth)
