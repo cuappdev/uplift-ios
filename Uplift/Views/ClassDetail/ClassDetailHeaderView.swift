@@ -161,13 +161,13 @@ class ClassDetailHeaderView: UICollectionReusableView {
         
         favoriteButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-favoriteButtonRightPadding)
-            make.top.equalTo(backButton.snp.top)
+            make.centerY.equalTo(backButton.snp.centerY)
             make.size.equalTo(favoriteButtonSize)
         }
 
         shareButton.snp.makeConstraints { make in
             make.trailing.equalTo(favoriteButton.snp.leading).offset(-shareButtonRightPadding)
-            make.top.equalTo(favoriteButton.snp.top)
+            make.centerY.equalTo(favoriteButton.snp.centerY)
             make.size.equalTo(shareButtonSize)
         }
 
