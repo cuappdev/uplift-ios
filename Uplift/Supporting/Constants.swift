@@ -50,6 +50,7 @@ struct Identifiers {
     static let categoryCell = "categoryCell"
     static let classListCell = "classListCell"
     static let classesCell = "classesCell"
+    static let courtCollectionViewCell = "courtCollectionViewCell"
     static let dropdownViewCell = "dropdownViewCell"
     static let facilityHoursCell = "facilityHoursCell"
     static let gymEquipmentCell = "gymEquipmentCell"
@@ -130,6 +131,7 @@ struct ImageNames {
     // FACILITIES
     static let basketball = "basketball"
     static let bowling = "bowling"
+    static let court = "court-single"
     static let pool = "pool"
 
     // ICONS

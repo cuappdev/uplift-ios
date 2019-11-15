@@ -24,6 +24,8 @@
 		4F2285172352A1C80013F1B0 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2285162352A1C80013F1B0 /* WeekDay.swift */; };
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
 		4F27F6D7236F25C000C255D7 /* MiscellaneousInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6D6236F25C000C255D7 /* MiscellaneousInfoView.swift */; };
+		4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */; };
+		4F27F6DD236FA9A500C255D7 /* CourtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */; };
 		4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6810332345504D00C283C0 /* GymDetailWeekView.swift */; };
 		4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */; };
 		4FC04781222EF69300165594 /* FavoriteGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteGymCell.swift */; };
@@ -159,6 +161,8 @@
 		4F2285162352A1C80013F1B0 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4F27F6D6236F25C000C255D7 /* MiscellaneousInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscellaneousInfoView.swift; sourceTree = "<group>"; };
+		4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymnasiumCollectionViewCell.swift; sourceTree = "<group>"; };
+		4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourtCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F6810332345504D00C283C0 /* GymDetailWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailWeekView.swift; sourceTree = "<group>"; };
 		4FC0477E222E3BC300165594 /* OnboardingGymsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGymsViewController.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGymCell.swift; sourceTree = "<group>"; };
@@ -342,6 +346,8 @@
 			children = (
 				7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */,
 				7EC4B799236CADD8006B67B3 /* EquipmentListItemCell.swift */,
+				4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */,
+				4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */,
 				4F27F6D6236F25C000C255D7 /* MiscellaneousInfoView.swift */,
 				7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */,
 			);
@@ -931,6 +937,7 @@
 				4F2285172352A1C80013F1B0 /* WeekDay.swift in Sources */,
 				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
 				4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */,
+				4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */,
 				E60B792F235F45F100B94402 /* DropdownView.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
@@ -944,6 +951,7 @@
 				7EC4B79D236CADD8006B67B3 /* EquipmentListCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
+				4F27F6DD236FA9A500C255D7 /* CourtCollectionViewCell.swift in Sources */,
 				C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */,
 				4FC0477F222E3BC300165594 /* OnboardingGymsViewController.swift in Sources */,
 				E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */,
