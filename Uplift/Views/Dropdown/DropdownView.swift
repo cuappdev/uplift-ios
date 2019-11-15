@@ -37,21 +37,20 @@ class DropdownView: UIView {
     private var halfOpenDropdownGesture: UITapGestureRecognizer!
     private let halfOpenView: UIView?
     private var halfOpenViewHeight: CGFloat = 0
-    private let headerView: UIView!
+    private let headerView: DropdownHeaderView!
     private var headerViewHeight: CGFloat = 0
     private var openCloseDropdownGesture: UITapGestureRecognizer!
     private var arrowImageView: UIImageView?
-    private var arrowImageViewNeedsConstraints = true
 
     var contentViewHeightConstraint: Constraint!
     var currentHeight: CGFloat!
     var status: DropdownStatus = .closed
 
-    init(headerView: UIView,
+    init(headerView: DropdownHeaderView,
          headerViewHeight: CGFloat,
          contentView: UIView,
          contentViewHeight: CGFloat,
-         arrowImageView: UIImageView? = nil,
+         arrowImageName: String? = nil,
          halfDropdownEnabled: Bool = false,
          halfOpenView: UIView? = nil,
          halfOpenViewHeight: CGFloat = 0,
@@ -63,24 +62,11 @@ class DropdownView: UIView {
         self.halfOpenView = halfOpenView
         self.halfCloseView = halfCloseView
         super.init(frame: .zero)
-
-        self.headerView.isUserInteractionEnabled = true
+        
         addSubview(self.headerView)
-
-        self.arrowImageView = arrowImageView
-        if let arrowView = self.arrowImageView {
-            if self.headerView.subviews.contains(arrowView) {
-                arrowImageViewNeedsConstraints = false
-            } else {
-                self.headerView.addSubview(arrowView)
-            }
-        }
 
         self.headerViewHeight = headerViewHeight
         currentHeight = headerViewHeight
-
-        openCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(openCloseDropdown(sender:)))
-        self.headerView.addGestureRecognizer(openCloseDropdownGesture)
 
         addSubview(self.contentView)
 
@@ -107,9 +93,7 @@ class DropdownView: UIView {
         }
 
         self.halfCloseViewHeight = halfCloseViewHeight
-
         self.halfHeight = halfHeight
-        
         setupConstraints()
     }
 
@@ -118,18 +102,6 @@ class DropdownView: UIView {
     }
 
     func setupConstraints() {
-        let arrowImageViewHeight: CGFloat = 9
-        let arrowImageViewWidth: CGFloat = 5
-        let arrowImageViewTrailingOffset: CGFloat = -24
-        if arrowImageViewNeedsConstraints { // If constraints have not yet been set on arrowImageView, set some default constraints
-            arrowImageView?.snp.makeConstraints { make in
-                make.height.equalTo(arrowImageViewHeight)
-                make.width.equalTo(arrowImageViewWidth)
-                make.centerY.equalToSuperview()
-                make.trailing.equalToSuperview().offset(arrowImageViewTrailingOffset)
-            }
-        }
-
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(headerViewHeight)
@@ -159,7 +131,7 @@ class DropdownView: UIView {
     }
 
     // MARK: - Open or close the entire dropdown view
-    @objc func openCloseDropdown(sender: UITapGestureRecognizer) {
+    func openCloseDropdown() {
         switch status {
         case .closed: // If the dropdown view is currently closed, open it to some degree
             if halfDropdownEnabled { // If the user has enabled the half dropdown state, open to the half state
@@ -223,4 +195,10 @@ class DropdownView: UIView {
         delegate?.dropdownViewHalf(sender: self)
     }
 
+}
+
+extension DropdownView: DropdownHeaderViewDelegate {
+    func didTapView() {
+        openCloseDropdown()
+    }
 }
