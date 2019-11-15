@@ -34,6 +34,7 @@ class GymDetailCalendarView: UICollectionViewCell {
     }
 
     func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((CGFloat, Int) -> Void)?) {
+        weekView.configure(for: dayIndex)
         timeInfoView.configure(facilityDetail: facilityDetail, dayIndex: dayIndex, onChangeDay: onChangeDay)
     }
 

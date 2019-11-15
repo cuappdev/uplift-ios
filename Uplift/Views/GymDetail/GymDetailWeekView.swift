@@ -37,6 +37,11 @@ class GymDetailWeekView: UIView {
         setupCollectionView()
         setupConstraints()
     }
+
+    func configure(for selectedDayIndex: Int) {
+        self.selectedDayIndex = selectedDayIndex
+        weekdayCollectionView.selectItem(at: IndexPath(row: selectedDayIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
