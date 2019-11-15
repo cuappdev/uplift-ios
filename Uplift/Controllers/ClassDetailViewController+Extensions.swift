@@ -11,6 +11,19 @@ import UIKit
 
 extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
 
+    func classDetailHeaderViewFavoriteButtonTapped() {
+        favoriteButtonTapped()
+    }
+    
+    func classDetailHeaderViewShareButtonTapped() {
+        share()
+    }
+    
+    
+    func classDetailHeaderViewBackButtonTapped() {
+        back()
+    }
+
     func classDetailHeaderViewLocationSelected() {
         NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
             let gymDetailViewController = GymDetailViewController(gym: gym)
