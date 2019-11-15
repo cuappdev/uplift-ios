@@ -25,7 +25,6 @@ class GymDetailWeekView: UIView {
 
     // MARK: - Info
     private var days: [WeekDay] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
-    // [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
     override init(frame: CGRect) {
         // Preselect Today
