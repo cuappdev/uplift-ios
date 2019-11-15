@@ -145,30 +145,27 @@ class ClassDetailHeaderView: UICollectionReusableView {
         let locationButtonHeight = 16
         let semicircleImageViewSize = CGSize(width: 100, height: 50)
         let titleLabelHorizontalPadding = 40
-        let backButtonLeftPadding = 20
-        let backButtonSize = CGSize(width: 24, height: 24)
+        let buttonOuterSidePadding = 20
+        let buttonSize = CGSize(width: 24, height: 24)
         let backButtonTopPadding = 47
-        let favoriteButtonRightPadding = 20
-        let favoriteButtonSize = CGSize(width: 23, height: 23)
         let shareButtonRightPadding = 14
-        let shareButtonSize = CGSize(width: 24, height: 24)
 
         backButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(backButtonLeftPadding)
+            make.leading.equalToSuperview().offset(buttonOuterSidePadding)
             make.top.equalToSuperview().offset(backButtonTopPadding)
-            make.size.equalTo(backButtonSize)
+            make.size.equalTo(buttonSize)
         }
         
         favoriteButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-favoriteButtonRightPadding)
+            make.trailing.equalToSuperview().offset(-buttonOuterSidePadding)
             make.centerY.equalTo(backButton.snp.centerY)
-            make.size.equalTo(favoriteButtonSize)
+            make.size.equalTo(buttonSize)
         }
 
         shareButton.snp.makeConstraints { make in
             make.trailing.equalTo(favoriteButton.snp.leading).offset(-shareButtonRightPadding)
             make.centerY.equalTo(favoriteButton.snp.centerY)
-            make.size.equalTo(shareButtonSize)
+            make.size.equalTo(buttonSize)
         }
 
         imageView.snp.makeConstraints { make in

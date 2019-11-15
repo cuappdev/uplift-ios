@@ -23,10 +23,7 @@ class ClassDetailViewController: UIViewController {
     }
 
     // MARK: - Private view vars
-//    private let backButton = UIButton()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
-//    private let favoriteButton = UIButton()
-//    private let shareButton = UIButton()
 
     // MARK: - Private data vars
     private var date: Date!
@@ -108,19 +105,6 @@ class ClassDetailViewController: UIViewController {
 
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
-
-//        switch UIApplication.shared.statusBarStyle {
-//        case .lightContent:
-//            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-//            shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
-//        case .default, .darkContent:
-//            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-//            shareButton.setImage(UIImage(named: ImageNames.darkShare), for: .normal)
-//        }
     }
     
     func favoriteButtonTapped() {
@@ -317,57 +301,14 @@ extension ClassDetailViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
-
-//        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-//        backButton.sizeToFit()
-//        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
-//        view.addSubview(backButton)
-
-//        favoriteButton.sizeToFit()
-//        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
-//        view.addSubview(favoriteButton)
-//
-//        shareButton.sizeToFit()
-//        shareButton.addTarget(self, action: #selector(self.share), for: .touchUpInside)
-//        view.addSubview(shareButton)
-//
-//        view.bringSubviewToFront(backButton)
-//        view.bringSubviewToFront(favoriteButton)
-//        view.bringSubviewToFront(shareButton)
     }
 
     // MARK: - CONSTRAINTS
     private func setupConstraints() {
-//        let backButtonLeftPadding = 20
-//        let backButtonSize = CGSize(width: 23, height: 19)
-//        let backButtonTopPadding = 30
-//        let favoriteButtonRightPadding = 21
-//        let favoriteButtonSize = CGSize(width: 23, height: 22)
-//        let shareButtonRightPadding = 14
-//        let shareButtonSize = CGSize(width: 22, height: 22)
-
         collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-
-//        backButton.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().offset(backButtonLeftPadding)
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(backButtonTopPadding)
-//            make.size.equalTo(backButtonSize)
-//        }
-
-//        favoriteButton.snp.makeConstraints { make in
-//            make.trailing.equalToSuperview().offset(-favoriteButtonRightPadding)
-//            make.top.equalTo(backButton.snp.top)
-//            make.size.equalTo(favoriteButtonSize)
-//        }
-//
-//        shareButton.snp.makeConstraints { make in
-//            make.trailing.equalTo(favoriteButton.snp.leading).offset(-shareButtonRightPadding)
-//            make.top.equalTo(favoriteButton.snp.top)
-//            make.size.equalTo(shareButtonSize)
-//        }
     }
 
 }
@@ -377,19 +318,6 @@ extension ClassDetailViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         statusBarUpdater?.refreshStatusBarStyle()
-
-//        switch UIApplication.shared.statusBarStyle {
-//        case .lightContent:
-//            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-//            shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
-//        case .default, .darkContent:
-//            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.blackStarOutline), for: .normal)
-//            favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-//            shareButton.setImage(UIImage(named: ImageNames.darkShare), for: .normal)
-//        }
     }
 
 }
