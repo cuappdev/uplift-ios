@@ -40,7 +40,6 @@ class DropdownView: UIView {
     private let headerView: DropdownHeaderView!
     private var headerViewHeight: CGFloat = 0
     private var openCloseDropdownGesture: UITapGestureRecognizer!
-    private var arrowImageView: UIImageView?
 
     var contentViewHeightConstraint: Constraint!
     var currentHeight: CGFloat!
@@ -50,7 +49,6 @@ class DropdownView: UIView {
          headerViewHeight: CGFloat,
          contentView: UIView,
          contentViewHeight: CGFloat,
-         arrowImageName: String? = nil,
          halfDropdownEnabled: Bool = false,
          halfOpenView: UIView? = nil,
          halfOpenViewHeight: CGFloat = 0,
@@ -152,14 +150,10 @@ class DropdownView: UIView {
                 currentHeight = headerViewHeight + contentViewHeight
                 delegate?.dropdownViewOpen(sender: self)
             }
-            UIView.animate(withDuration: 0.3) {
-                self.arrowImageView?.transform = CGAffineTransform(rotationAngle: .pi/2)
-            }
         case .open, .half: // Fully close the dropdown view
             status = .closed
             UIView.animate(withDuration: 0.3) {
                 self.contentViewHeightConstraint.update(offset: 0)
-                self.arrowImageView?.transform = CGAffineTransform(rotationAngle: 0)
                 self.layoutIfNeeded()
             }
             halfOpenView?.isHidden = true

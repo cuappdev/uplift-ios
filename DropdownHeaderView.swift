@@ -13,9 +13,11 @@ protocol DropdownHeaderViewDelegate {
 }
 
 class DropdownHeaderView: UIView {
-    var delegate: HeaderViewDelegate?
+   private var arrowImageTrailingOffset: CGFloat = -24
     private var arrowImageView = UIImageView()
-    private var arrowImageTrailingOffset: CGFloat = -24
+    private var arrowRotated = false
+    
+    var delegate: HeaderViewDelegate?
     
     init(frame: CGRect, arrowImage: UIImage? = nil, arrowImageTrailingOffset: CGFloat = -24) {
         super.init(frame: frame)
@@ -44,6 +46,9 @@ class DropdownHeaderView: UIView {
     }
 
     @objc func didTapView() {
+        UIView.animate(withDuration: 0.3) {
+            self.arrowImageView?.transform = CGAffineTransform(rotationAngle: arrowRotated ? 0 : .pi/2)
+        }
         delegate?.didTapView()
     }
 }
