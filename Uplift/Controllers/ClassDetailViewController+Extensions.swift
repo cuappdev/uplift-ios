@@ -10,6 +10,7 @@ import EventKit
 import UIKit
 
 extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
+
     func classDetailHeaderViewFavoriteButtonTapped() {
         favoriteButtonTapped()
     }
@@ -19,7 +20,7 @@ extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
     }
     
     
-    func classDetailHeaderViewBackButtonPressed() {
+    func classDetailHeaderViewBackButtonTapped() {
         back()
     }
 

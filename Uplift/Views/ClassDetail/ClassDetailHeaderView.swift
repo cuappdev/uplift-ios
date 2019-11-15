@@ -9,10 +9,10 @@
 import UIKit
 
 protocol ClassDetailHeaderViewDelegate: class {
+    func classDetailHeaderViewBackButtonTapped()
     func classDetailHeaderViewFavoriteButtonTapped()
-    func classDetailHeaderViewBackButtonPressed()
-    func classDetailHeaderViewLocationSelected()
     func classDetailHeaderViewInstructorSelected()
+    func classDetailHeaderViewLocationSelected()
     func classDetailHeaderViewShareButtonTapped()
 }
 
@@ -49,18 +49,18 @@ class ClassDetailHeaderView: UICollectionReusableView {
         instructorButton.setTitle(gymClassInstance.instructor.uppercased(), for: .normal)
         durationLabel.text = String(Int(gymClassInstance.duration) / 60) + ClientStrings.ClassDetail.durationMin
     }
-    
+
     func selectFavoriteButton() {
         favoriteButton.isSelected = true
     }
-    
+
     func deselectFavoriteButton() {
         favoriteButton.isSelected = false
     }
 
     // MARK: - Targets
-    @objc func back() {
-        delegate?.classDetailHeaderViewBackButtonPressed()
+    @objc func backButtonTapped() {
+        delegate?.classDetailHeaderViewBackButtonTapped()
     }
 
     @objc func locationSelected() {
@@ -70,31 +70,28 @@ class ClassDetailHeaderView: UICollectionReusableView {
     @objc func instructorSelected() {
         delegate?.classDetailHeaderViewInstructorSelected()
     }
-    
+
     @objc func favoriteButtonTapped() {
         delegate?.classDetailHeaderViewFavoriteButtonTapped()
     }
 
-    @objc func share() {
+    @objc func shareButtonTapped() {
         delegate?.classDetailHeaderViewShareButtonTapped()
     }
 
     // MARK: - CONSTRAINTS
     private func setupViews() {
         backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        backButton.sizeToFit()
-        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         addSubview(backButton)
-    
+
         favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
         favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
-        favoriteButton.sizeToFit()
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         addSubview(favoriteButton)
 
         shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
-        shareButton.sizeToFit()
-        shareButton.addTarget(self, action: #selector(self.share), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         addSubview(shareButton)
 
         imageView.contentMode = .scaleAspectFill
@@ -155,7 +152,7 @@ class ClassDetailHeaderView: UICollectionReusableView {
             make.top.equalToSuperview().offset(backButtonTopPadding)
             make.size.equalTo(buttonSize)
         }
-        
+
         favoriteButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-buttonOuterSidePadding)
             make.centerY.equalTo(backButton.snp.centerY)
