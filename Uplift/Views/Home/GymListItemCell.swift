@@ -53,18 +53,18 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         if gym.isOpen {
             if changingSoon {
                 statusLabel.textColor = .accentOrange
-                statusLabel.text = ClientStrings.Home.gymDetailCellOpen
+                statusLabel.text = ClientStrings.CommonStrings.open
             } else {
                 statusLabel.textColor = .accentOpen
-                statusLabel.text = ClientStrings.Home.gymDetailCellOpen
+                statusLabel.text = ClientStrings.CommonStrings.open
             }
         } else {
             if changingSoon {
                 statusLabel.textColor = .accentOrange
-                statusLabel.text = ClientStrings.Home.gymDetailCellClosed
+                statusLabel.text = ClientStrings.CommonStrings.closed
             } else {
                 statusLabel.textColor = .accentClosed
-                statusLabel.text = ClientStrings.Home.gymDetailCellClosed
+                statusLabel.text = ClientStrings.CommonStrings.closed
             }
         }
 
@@ -85,7 +85,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         if now > gymHoursToday.closeTime {
             format = gymHoursTomorrow.openTime.getHourFormat()
             if gym.closedTomorrow {
-                return ClientStrings.Home.gymDetailCellClosed
+                return ClientStrings.CommonStrings.closed
             } else {
                 return ClientStrings.Home.gymDetailCellOpensAt + gymHoursTomorrow.openTime.getStringOfDatetime(format: format)
             }

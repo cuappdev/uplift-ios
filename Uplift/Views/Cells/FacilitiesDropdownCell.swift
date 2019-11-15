@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
+class FacilitiesDropdownCell: UICollectionViewCell {
 
     private enum FacilityName: String {
         case bowlingLanes = "BOWLING LANES"
@@ -24,7 +24,7 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
     private let minimumInteritemSpacing: CGFloat = 16
 
     private var collectionView: UICollectionView!
-    private var collectionViewHeight: CGFloat!
+    private var collectionViewHeight: CGFloat = 0
     private var dropdownView: DropdownView!
     private var facility: Facility!
     private var headerView: UIView!
@@ -33,13 +33,13 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        var collectionViewLayout = UICollectionViewFlowLayout()
+        let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.minimumInteritemSpacing = minimumInteritemSpacing
-        
+
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+
         setupDropdownView()
         setupConstraints()
     }
@@ -47,7 +47,7 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func configure(for facility: Facility) {
         self.facility = facility
         collectionView.reloadData()
@@ -57,29 +57,29 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
         headerView = setupHeaderView(headerString: facility.name)
 
         // TODO: register facility cell classes once they're finished
-        
+
         collectionViewHeight = 0 // TODO: once cell classes are finished, sum up their heights to get the total collection view height
-        
+
         dropdownView = DropdownView(delegate: self,
                                     headerView: headerView,
                                     headerViewHeight: headerViewHeight,
                                     contentView: collectionView,
                                     contentViewHeight: collectionViewHeight)
     }
-    
+
     func setupHeaderView(headerString: String) -> UIView {
-        var headerImage: UIImage
+        var headerImage: UIImage?
         switch FacilityName(rawValue: headerString.uppercased()) {
         case .equipment, .fitnessCenter:
-            headerImage = UIImage(named: ImageNames.equipment)!
+            headerImage = UIImage(named: ImageNames.equipment)
         case .gymnasium:
-            headerImage = UIImage(named: ImageNames.basketball)!
+            headerImage = UIImage(named: ImageNames.basketball)
         case .swimmingPool:
-            headerImage = UIImage(named: ImageNames.pool)!
+            headerImage = UIImage(named: ImageNames.pool)
         case .bowlingLanes:
-            headerImage = UIImage(named: ImageNames.bowling)!
+            headerImage = UIImage(named: ImageNames.bowling)
         default:
-            headerImage = UIImage(named: ImageNames.misc)!
+            headerImage = UIImage(named: ImageNames.misc)
         }
 
         headerImageView.image = headerImage
@@ -90,10 +90,10 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
         headerNameLabel.textColor = .black
         headerNameLabel.textAlignment = .left
         headerView.addSubview(headerImageView)
-        
+
         let isFacilityOpen = getIsFacilityOpen()
         headerOpenLabel.font = ._16MontserratRegular
-        headerOpenLabel.text = isFacilityOpen ? ClientStrings.Facilities.open : ClientStrings.Facilities.closed
+        headerOpenLabel.text = isFacilityOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
         headerOpenLabel.textColor = isFacilityOpen ? .accentOpen : .accentClosed
         headerOpenLabel.textAlignment = .center
         headerView.addSubview(headerOpenLabel)
@@ -126,7 +126,7 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
         let headerImageViewNameLabelSpacing: CGFloat = 9
         let openLabelTrailingOffset: CGFloat = -45
 
-        headerImageView.snp.makeConstraint { make in
+        headerImageView.snp.makeConstraints { make in
             make.height.width.equalTo(headerImageViewSize)
             make.leading.equalToSuperview().offset(headerImageViewLeadingOffset)
             make.centerY.equalToSuperview()
@@ -137,7 +137,7 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
             make.trailing.equalTo(headerOpenLabel.snp.leading).inset(headerImageViewNameLabelSpacing)
             make.centerY.equalToSuperview()
         }
-        
+
         headerOpenLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(openLabelTrailingOffset)
@@ -146,7 +146,7 @@ class FacilitiesDropdownCollectionViewCell: UICollectionViewCell {
 
 }
 
-extension FacilitiesDropdownCollectionViewCell: UICollectionViewDataSource {
+extension FacilitiesDropdownCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return facility.details.count
@@ -159,7 +159,7 @@ extension FacilitiesDropdownCollectionViewCell: UICollectionViewDataSource {
 
 }
 
-extension FacilitiesDropdownCollectionViewCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension FacilitiesDropdownCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // TODO: once facility cells are finished
@@ -168,7 +168,7 @@ extension FacilitiesDropdownCollectionViewCell: UICollectionViewDelegate, UIColl
 
 }
 
-extension FacilitiesDropdownCollectionViewCell: DropdownViewDelegate {
+extension FacilitiesDropdownCell: DropdownViewDelegate {
 
     func dropdownViewClosed(sender dropdownView: DropdownView) {
         // TODO: Implement
