@@ -67,8 +67,7 @@ class GymDetailTimeInfoView: UIView {
 
     func setupConstraints() {
         timesTextView.snp.makeConstraints { make in
-            make.centerX.top.equalToSuperview()
-            make.width.equalTo(174) // TODO: REPLACE
+            make.center.equalToSuperview()
         }
     }
     // MARK: - Update
@@ -125,7 +124,7 @@ class GymDetailTimeInfoView: UIView {
         timesText.addAttributes(paragraphStyleAttributes, range: range)
         timesTextView.attributedText = timesText
 
-        let height = GymDetailCalendarView.baseHeight + getTimesHeight(for: hours)
+        let height = FacilitiesHoursCell.baseHeight + getTimesHeight(for: hours)
 
         onChangeDay?(height, selectedDayIndex)
     }

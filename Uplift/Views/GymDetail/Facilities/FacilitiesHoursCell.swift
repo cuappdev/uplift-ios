@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GymDetailCalendarView: UICollectionViewCell {
+class FacilitiesHoursCell: UICollectionViewCell {
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {

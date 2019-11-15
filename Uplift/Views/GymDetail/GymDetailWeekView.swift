@@ -30,7 +30,7 @@ class GymDetailWeekView: UIView {
     override init(frame: CGRect) {
         // Preselect Today
         selectedDayIndex = Calendar.current.component(.weekday, from: Date())
-        selectedDay = days[selectedDayIndex - 1] // (selectedDayIndex + 5) % 7]
+        selectedDay = days[selectedDayIndex - 1]
 
         super.init(frame: frame)
 

@@ -28,16 +28,16 @@ class TestViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(GymDetailCalendarView.self, forCellWithReuseIdentifier: "calendar")
+        collectionView.register(FacilitiesHoursCell.self, forCellWithReuseIdentifier: "calendar")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .accentTurquoise
+        collectionView.backgroundColor = .white
         view.addSubview(collectionView)
 
         collectionView.snp.makeConstraints { make in
@@ -49,13 +49,13 @@ class TestViewController: UIViewController {
 
 extension TestViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendar", for: indexPath) as! GymDetailCalendarView
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendar", for: indexPath) as! FacilitiesHoursCell
 //        let facilityDetail = gym.facilities[4].details[0] // Helen Newman
-        let facilityDetail = gym.facilities[1].details[0]
+        let facilityDetail = gym.facilities[1].details[0] // Teagle Down
         cell.configure(facilityDetail: facilityDetail, dayIndex: selectedDayIndex) { newHeight, newDayIndex in
             guard self.calendarCellHeight != newHeight else {
                 return
