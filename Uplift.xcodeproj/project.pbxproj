@@ -64,7 +64,7 @@
 		8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC6F7A7218381980048C305 /* HomeSectionHeaderView.swift */; };
 		8DD74F362242A2DA00CE1274 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD74F352242A2DA00CE1274 /* Habit.swift */; };
 		8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */; };
-		8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */; };
+		8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */; };
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
 		AE6DB9E165B20CBD98F42FC8 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48695D922CD490E026211F06 /* Pods_Uplift.framework */; };
@@ -202,7 +202,7 @@
 		8DC6F7A7218381980048C305 /* HomeSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionHeaderView.swift; sourceTree = "<group>"; };
 		8DD74F352242A2DA00CE1274 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHeaderView.swift; sourceTree = "<group>"; };
-		8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
+		8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldDropdownHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
 		C218F936233DBE080018838A /* GymDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetail.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		D95810A9216E95D900D4436C /* RangeSeekSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
 		D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
-		E600D0DA237EEE67003C5E8F /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropdownHeaderView.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/DropdownHeaderView.swift"; sourceTree = "<absolute>"; };
+		E600D0DA237EEE67003C5E8F /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropdownHeaderView.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/Uplift/Views/Dropdown/DropdownHeaderView.swift"; sourceTree = "<absolute>"; };
 		E604DC1A233B1B18003598BC /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E604DC26233B1D80003598BC /* ProBioExpertiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProBioExpertiseCell.swift; sourceTree = "<group>"; };
 		E604DC27233B1D80003598BC /* ProBioLinksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProBioLinksCell.swift; sourceTree = "<group>"; };
@@ -550,7 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */,
-				8DD7C7722083E09A004EB196 /* DropdownHeaderView.swift */,
+				8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */,
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
@@ -978,7 +978,7 @@
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
-				8DD7C7732083E09A004EB196 /* DropdownHeaderView.swift in Sources */,
+				8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */,
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,

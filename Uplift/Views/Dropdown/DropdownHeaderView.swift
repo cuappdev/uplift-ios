@@ -8,28 +8,30 @@
 import UIKit
 import SnapKit
 
-protocol DropdownHeaderViewDelegate {
-    func didTapView()
+protocol DropdownHeaderViewDelegate: class {
+    func didTapHeaderView()
 }
 
 class DropdownHeaderView: UIView {
-   private var arrowImageTrailingOffset: CGFloat = -24
-    private var arrowImageView = UIImageView()
-    private var arrowRotated = false
-    
-    var delegate: HeaderViewDelegate?
-    
+    private let arrowImageView = UIImageView()
+
+    private var isArrowRotated = false
+
+    weak var delegate: DropdownHeaderViewDelegate?
+
     init(frame: CGRect, arrowImage: UIImage? = nil, arrowImageTrailingOffset: CGFloat = -24) {
         super.init(frame: frame)
-        
+
         isUserInteractionEnabled = true
-        
+
         if let image = arrowImage {
             arrowImageView.image = image
-            self.arrowImageTrailingOffset = arrowImageTrailingOffset
-            setupConstraints()
+            arrowImageView.snp.makeConstraints { make in
+                make.centerY.equalToSuperview()
+                make.trailing.equalToSuperview().offset(arrowImageTrailingOffset)
+            }
         }
-        
+
         let openCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         addGestureRecognizer(openCloseDropdownGesture)
     }
@@ -38,17 +40,10 @@ class DropdownHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupConstraints() {
-        arrowImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(arrowImageTrailingOffset)
-        }
-    }
-
     @objc func didTapView() {
         UIView.animate(withDuration: 0.3) {
-            self.arrowImageView?.transform = CGAffineTransform(rotationAngle: arrowRotated ? 0 : .pi/2)
+            self.arrowImageView.transform = CGAffineTransform(rotationAngle: self.isArrowRotated ? 0 : .pi/2)
         }
-        delegate?.didTapView()
+        delegate?.didTapHeaderView()
     }
 }

@@ -192,7 +192,7 @@ class DropdownView: UIView {
 }
 
 extension DropdownView: DropdownHeaderViewDelegate {
-    func didTapView() {
+    func didTapHeaderView() {
         openCloseDropdown()
     }
 }
