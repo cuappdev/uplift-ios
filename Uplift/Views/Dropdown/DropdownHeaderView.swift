@@ -13,6 +13,7 @@ protocol DropdownHeaderViewDelegate: class {
 }
 
 class DropdownHeaderView: UIView {
+
     private let arrowImageView = UIImageView()
 
     private var isArrowRotated = false
