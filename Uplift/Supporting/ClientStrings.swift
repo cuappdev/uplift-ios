@@ -54,7 +54,7 @@ struct ClientStrings {
         static let noFavoritesText = "FIND YOUR\nFAVORITE NOW."
         static let vcTitleLabel = "Favorites"
     }
-    
+
     struct Filter {
         static let appliedFilterLabel = "APPLIED FILTER"
         static let applyFilterLabel = "APPLY FILTER"
