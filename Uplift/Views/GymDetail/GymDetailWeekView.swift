@@ -11,13 +11,18 @@
 import UIKit
 import SnapKit
 
+// MARK: - Delegation
+protocol WeekDelegate: AnyObject {
+    func weekDidChange(with day: WeekDay)
+}
+
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
     var selectedDay: WeekDay = .sunday
     weak var delegate: WeekDelegate? {
         didSet {
-            self.delegate?.didChangeDay(day: selectedDay)
+            self.delegate?.weekDidChange(with: selectedDay)
         }
     }
 
@@ -84,7 +89,7 @@ extension GymDetailWeekView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = days[indexPath.row]
-        delegate?.didChangeDay(day: selectedDay)
+        delegate?.weekDidChange(with: selectedDay)
     }
 
 }
