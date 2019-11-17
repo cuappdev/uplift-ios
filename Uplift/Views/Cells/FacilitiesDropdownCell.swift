@@ -20,17 +20,16 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     private let headerImageView = UIImageView()
     private let headerNameLabel = UILabel()
     private let headerOpenLabel = UILabel()
-    private let headerViewHeight: CGFloat = 52
-    private let minimumInteritemSpacing: CGFloat = 16
+    private let headerView = UIView()
 
     private var collectionView: UICollectionView!
     private var collectionViewHeight: CGFloat = 0
     private var dropdownView: DropdownView!
     private var facility: Facility!
-    private var headerView: UIView!
     private var height: CGFloat = 0
 
     override init(frame: CGRect) {
+        let minimumInteritemSpacing: CGFloat = 16
         super.init(frame: frame)
 
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -54,7 +53,8 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     }
 
     func setupDropdownView() {
-        headerView = setupHeaderView(headerString: facility.name)
+        let headerViewHeight: CGFloat = 52
+        setupHeaderView(headerString: facility.name)
 
         // TODO: register facility cell classes once they're finished
 
@@ -67,7 +67,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
                                     contentViewHeight: collectionViewHeight)
     }
 
-    func setupHeaderView(headerString: String) -> UIView {
+    func setupHeaderView(headerString: String) {
         var headerImage: UIImage?
         switch FacilityName(rawValue: headerString.uppercased()) {
         case .equipment, .fitnessCenter:
@@ -97,13 +97,11 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         headerOpenLabel.textColor = isFacilityOpen ? .accentOpen : .accentClosed
         headerOpenLabel.textAlignment = .center
         headerView.addSubview(headerOpenLabel)
-
-        return headerView
     }
 
     func getIsFacilityOpen() -> Bool {
-        let dayOfWeek = Date().getIntegerDayOfWeekToday()
         let todaysDate = Date()
+        let dayOfWeek = todaysDate.getIntegerDayOfWeekToday()
         for detail in facility.details {
             if !detail.times.isEmpty {
                 for time in detail.times {
