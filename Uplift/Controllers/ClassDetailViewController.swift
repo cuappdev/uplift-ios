@@ -116,15 +116,7 @@ class ClassDetailViewController: UIViewController {
                 ])
         }
     }
-
-    // MARK: - Targets
-
-    @objc func back() {
-        if let navigationController = navigationController {
-            navigationController.popViewController(animated: true)
-        }
-    }
-
+    
     func share() {
         Answers.logCustomEvent(withName: "Shared Class", customAttributes: [
             "Class": gymClassInstance.className
@@ -143,6 +135,12 @@ class ClassDetailViewController: UIViewController {
         activityVC.popoverPresentationController?.sourceView = view
 
         self.navigationController?.present(activityVC, animated: true, completion: nil)
+    }
+
+    // MARK: - Targets
+
+    @objc func back() {
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: - Private helpers
