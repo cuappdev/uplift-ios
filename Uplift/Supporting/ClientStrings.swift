@@ -84,9 +84,9 @@ struct ClientStrings {
     }
 
     struct Histogram {
-        static let businessLevel1 = "Not too busy"
-        static let businessLevel2 = "A little busy"
-        static let businessLevel3 = "As busy as it gets"
+        static let busynessLevel1 = "Not too busy"
+        static let busynessLevel2 = "A little busy"
+        static let busynessLevel3 = "As busy as it gets"
     }
 
     struct Home {

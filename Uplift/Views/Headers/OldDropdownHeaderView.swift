@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DropdownHeaderView: UITableViewHeaderFooterView {
+class OldDropdownHeaderView: UITableViewHeaderFooterView {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.dropdownViewCell
