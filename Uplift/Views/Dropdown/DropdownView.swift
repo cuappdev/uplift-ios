@@ -30,22 +30,14 @@ class DropdownView: UIView {
     private let halfCloseView: UIView?
     private let halfOpenView: UIView?
     private let headerView: UIView!
-
+    
     private var contentViewHeight: CGFloat = 0
-<<<<<<< HEAD:Uplift/Views/DropdownView.swift
-=======
-    weak var delegate: DropdownViewDelegate?
->>>>>>> 87428c2db55e53f3305a5e05d544901b7e3d7e49:Uplift/Views/Dropdown/DropdownView.swift
     private var halfCloseDropdownGesture: UITapGestureRecognizer!
     private var halfCloseViewHeight: CGFloat = 0
     private var halfDropdownEnabled: Bool = false
     private var halfHeight: CGFloat = 0
     private var halfOpenDropdownGesture: UITapGestureRecognizer!
     private var halfOpenViewHeight: CGFloat = 0
-<<<<<<< HEAD:Uplift/Views/DropdownView.swift
-=======
-    private let headerView: DropdownHeaderView!
->>>>>>> 87428c2db55e53f3305a5e05d544901b7e3d7e49:Uplift/Views/Dropdown/DropdownView.swift
     private var headerViewHeight: CGFloat = 0
     private var openCloseDropdownGesture: UITapGestureRecognizer!
     private weak var delegate: DropdownViewDelegate?
@@ -53,13 +45,9 @@ class DropdownView: UIView {
     var contentViewHeightConstraint: Constraint!
     var currentHeight: CGFloat!
     var status: DropdownStatus = .closed
-
-<<<<<<< HEAD:Uplift/Views/DropdownView.swift
+    
     init(delegate: DropdownViewDelegate,
-         headerView: UIView,
-=======
-    init(headerView: DropdownHeaderView,
->>>>>>> 87428c2db55e53f3305a5e05d544901b7e3d7e49:Uplift/Views/Dropdown/DropdownView.swift
+         headerView: DropdownHeaderView,
          headerViewHeight: CGFloat,
          contentView: UIView,
          contentViewHeight: CGFloat,

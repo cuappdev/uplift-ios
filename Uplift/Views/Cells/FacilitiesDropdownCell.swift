@@ -20,7 +20,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     private let headerImageView = UIImageView()
     private let headerNameLabel = UILabel()
     private let headerOpenLabel = UILabel()
-    private let headerView = UIView()
+    private let headerView = DropdownHeaderView(frame: .zero, arrowImage: nil, arrowImageTrailingOffset: 0)
 
     private var collectionView: UICollectionView!
     private var collectionViewHeight: CGFloat = 0

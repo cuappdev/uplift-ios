@@ -8,27 +8,30 @@
 
 import UIKit
 
-class MiscellaneousInfoView: UIView {
+class MiscellaneousInfoView: UICollectionViewCell {
 
     private let textView = UITextView()
 
-    init(miscellaneousInfo: [String]) {
+    init() {
         super.init(frame: CGRect.zero)
 
-        let display = formatMiscellaneous(miscellaneousInfo)
-        textView.attributedText = generateAttributedString(for: display, font: UIFont._14MontserratRegular!)
         textView.isEditable = false
         textView.isSelectable = false
         textView.isScrollEnabled = false
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
 
-        addSubview(textView)
+        contentView.addSubview(textView)
         setupConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(for miscellaneousInfo: [String]) {
+        let display = MiscellaneousInfoView.formatMiscellaneous(miscellaneousInfo)
+        textView.attributedText = MiscellaneousInfoView.generateAttributedString(for: display, font: UIFont._14MontserratRegular!)
     }
 
     func setupConstraints() {
@@ -39,11 +42,11 @@ class MiscellaneousInfoView: UIView {
 
     // MARK: - Helper
 
-    func formatMiscellaneous(_ misc: [String]) -> String {
+    static func formatMiscellaneous(_ misc: [String]) -> String {
         return misc.joined(separator: "\n")
     }
 
-    private func generateAttributedString(
+    private static func generateAttributedString(
         for string: String,
         font: UIFont
     ) -> NSAttributedString {
@@ -56,6 +59,12 @@ class MiscellaneousInfoView: UIView {
         ]
 
         return NSAttributedString(string: string, attributes: attributes)
+    }
+
+    static func getHeight(for miscInfo: [String], font: UIFont = UIFont._14MontserratRegular!) -> CGFloat {
+        let combinedString = MiscellaneousInfoView.formatMiscellaneous(miscInfo)
+        let nsString = generateAttributedString(for: combinedString, font: font)
+        return nsString.size().height
     }
 
 }
