@@ -13,8 +13,8 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         case bowlingLanes = "BOWLING LANES"
         case equipment = "EQUIPMENT"
         case fitnessCenter = "FITNESS CENTER"
-        case gymnasium = "GYNMASIUM"
-        case swimmingPool = "SWIMING POOL"
+        case gymnasium = "GYMNASIUM"
+        case swimmingPool = "SWIMMING POOL"
     }
 
     private let headerImageView = UIImageView()
@@ -29,11 +29,10 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     private var height: CGFloat = 0
 
     override init(frame: CGRect) {
-        let minimumInteritemSpacing: CGFloat = 16
         super.init(frame: frame)
 
         let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.minimumInteritemSpacing = minimumInteritemSpacing
+        collectionViewLayout.minimumInteritemSpacing = 16
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
