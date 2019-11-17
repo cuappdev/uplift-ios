@@ -16,7 +16,7 @@ class AdditionalInfoView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        infoLabel.backgroundColor = UIColor(red: 0.973, green: 0.906, blue: 0.11, alpha: 0.2)
+        infoLabel.backgroundColor = UIColor.primaryYellow.withAlphaComponent(0.2)
         infoLabel.font = ._12MontserratLight
         infoLabel.textAlignment = .center
         infoLabel.layer.cornerRadius = 2.0

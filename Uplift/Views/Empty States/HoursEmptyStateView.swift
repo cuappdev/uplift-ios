@@ -8,11 +8,11 @@
 
 import UIKit
 
-class NoHoursEmptyStateView: UIView {
+class HoursEmptyStateView: UIView {
 
-    var emptyStateImageView: UIImageView!
-    var emptyStateTitleLabel: UILabel!
-    var emptyStateDescriptionLabel: UILabel!
+    private let emptyStateImageView = UIImageView(image: UIImage(named: "tea"))
+    private let emptyStateTitleLabel = UILabel()
+    private let emptyStateDescriptionLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,16 +22,13 @@ class NoHoursEmptyStateView: UIView {
     }
 
     func setupViews() {
-        emptyStateImageView = UIImageView(image: UIImage(named: "tea"))
         addSubview(emptyStateImageView)
 
-        emptyStateTitleLabel = UILabel()
         emptyStateTitleLabel.text = ClientStrings.GymDetail.noTimesToday
         emptyStateTitleLabel.font = ._24MontserratBold
         emptyStateTitleLabel.textColor = .primaryBlack
         addSubview(emptyStateTitleLabel)
 
-        emptyStateDescriptionLabel = UILabel()
         emptyStateDescriptionLabel.text = ClientStrings.Calendar.noClassesTodayDescription
         emptyStateDescriptionLabel.font = ._14MontserratRegular
         addSubview(emptyStateDescriptionLabel)
@@ -48,8 +45,7 @@ class NoHoursEmptyStateView: UIView {
         emptyStateImageView.snp.makeConstraints { make in
             make.height.equalTo(imageViewHeight)
             make.width.equalTo(imageViewWidth)
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview()
+            make.centerX.top.equalToSuperview()
         }
 
         emptyStateTitleLabel.snp.makeConstraints { make in

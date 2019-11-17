@@ -10,10 +10,10 @@ import UIKit
 
 class TestViewController: UIViewController {
 
-    var collectionView: UICollectionView!
-    var gym: Gym!
-    var selectedDayIndex: Int = Calendar.current.component(.weekday, from: Date()) - 1
-    var calendarCellHeight: CGFloat = 500
+    private var collectionView: UICollectionView!
+    private let gym: Gym
+    private var selectedDayIndex: Int = Calendar.current.component(.weekday, from: Date()) - 1
+    private var calendarCellHeight: CGFloat = 500
 
     init(gym: Gym) {
         self.gym = gym

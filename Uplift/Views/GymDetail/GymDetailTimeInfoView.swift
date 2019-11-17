@@ -15,7 +15,7 @@ class GymDetailTimeInfoView: UIView {
 
     // MARK: - Private Vars
     private let timesTextView = UITextView()
-    private var emptyStateView: UIView!
+    private var emptyStateView: UIView?
     private var facilityDetail: FacilityDetail!
     private var selectedDayIndex = 0
     private var displayedText = ""
@@ -154,12 +154,14 @@ class GymDetailTimeInfoView: UIView {
     }
 
     func setupEmptyState() {
-        emptyStateView = NoHoursEmptyStateView()
+        let emptyStateView = HoursEmptyStateView()
         addSubview(emptyStateView)
 
         emptyStateView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+
+        self.emptyStateView = emptyStateView
     }
 
     func getTimesHeight(for hours: [FacilityHoursRange]) -> CGFloat {
