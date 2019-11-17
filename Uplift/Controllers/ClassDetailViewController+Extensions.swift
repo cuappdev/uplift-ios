@@ -14,12 +14,11 @@ extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
     func classDetailHeaderViewFavoriteButtonTapped() {
         favoriteButtonTapped()
     }
-    
+
     func classDetailHeaderViewShareButtonTapped() {
         share()
     }
-    
-    
+
     func classDetailHeaderViewBackButtonTapped() {
         back()
     }

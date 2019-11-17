@@ -103,21 +103,21 @@ class HabitTrackingController: UIViewController {
                 habits.remove(at: index)
             }
         }
-        
+
         // KEYBOARD
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
         // GESTURES
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doneEditingHabit))
         view.addGestureRecognizer(tap)
-        
+
         let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(back))
         edgeSwipe.edges = .left
         contentView.addGestureRecognizer(edgeSwipe)
 
         setupConstraints()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.tabBarController?.tabBar.isHidden = true

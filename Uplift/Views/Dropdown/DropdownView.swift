@@ -30,7 +30,7 @@ class DropdownView: UIView {
     private let halfCloseView: UIView?
     private let halfOpenView: UIView?
     private let headerView: UIView!
-    
+
     private var contentViewHeight: CGFloat = 0
     private var halfCloseDropdownGesture: UITapGestureRecognizer!
     private var halfCloseViewHeight: CGFloat = 0
@@ -45,7 +45,7 @@ class DropdownView: UIView {
     var contentViewHeightConstraint: Constraint!
     var currentHeight: CGFloat!
     var status: DropdownStatus = .closed
-    
+
     init(delegate: DropdownViewDelegate,
          headerView: DropdownHeaderView,
          headerViewHeight: CGFloat,
@@ -62,7 +62,7 @@ class DropdownView: UIView {
         self.halfOpenView = halfOpenView
         self.halfCloseView = halfCloseView
         super.init(frame: .zero)
-        
+
         addSubview(self.headerView)
 
         self.headerViewHeight = headerViewHeight

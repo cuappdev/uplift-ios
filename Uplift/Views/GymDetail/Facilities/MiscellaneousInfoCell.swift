@@ -1,5 +1,5 @@
 //
-//  MiscellaneousInfoView.swift
+//  MiscellaneousInfoCell.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 10/27/19.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class MiscellaneousInfoView: UICollectionViewCell {
+class MiscellaneousInfoCell: UICollectionViewCell {
 
     private let textView = UITextView()
 
-    init() {
+    override init(frame: CGRect) {
         super.init(frame: CGRect.zero)
 
         textView.isEditable = false
@@ -21,8 +21,11 @@ class MiscellaneousInfoView: UICollectionViewCell {
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
 
+        textView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         contentView.addSubview(textView)
-        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -30,24 +33,13 @@ class MiscellaneousInfoView: UICollectionViewCell {
     }
 
     func configure(for miscellaneousInfo: [String]) {
-        let display = MiscellaneousInfoView.formatMiscellaneous(miscellaneousInfo)
-        textView.attributedText = MiscellaneousInfoView.generateAttributedString(for: display, font: UIFont._14MontserratRegular!)
-    }
-
-    func setupConstraints() {
-        textView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        textView.attributedText = MiscellaneousInfoCell.generateAttributedString(for: miscellaneousInfo, font: UIFont._14MontserratRegular!)
     }
 
     // MARK: - Helper
 
-    static func formatMiscellaneous(_ misc: [String]) -> String {
-        return misc.joined(separator: "\n")
-    }
-
     private static func generateAttributedString(
-        for string: String,
+        for miscInfo: [String],
         font: UIFont
     ) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
@@ -57,13 +49,14 @@ class MiscellaneousInfoView: UICollectionViewCell {
             .paragraphStyle: style,
             .foregroundColor: UIColor.primaryBlack
         ]
+        
+        let string = miscInfo.joined(separator: "\n")
 
         return NSAttributedString(string: string, attributes: attributes)
     }
 
     static func getHeight(for miscInfo: [String], font: UIFont = UIFont._14MontserratRegular!) -> CGFloat {
-        let combinedString = MiscellaneousInfoView.formatMiscellaneous(miscInfo)
-        let nsString = generateAttributedString(for: combinedString, font: font)
+        let nsString = generateAttributedString(for: miscInfo, font: font)
         return nsString.size().height
     }
 

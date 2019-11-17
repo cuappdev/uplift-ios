@@ -22,7 +22,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
+
         facilityNameLabel = UILabel()
         facilityNameLabel.font = ._16MontserratMedium
         facilityNameLabel.textColor = .primaryBlack
@@ -33,11 +33,11 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         
         iconImageView = UIImageView()
         contentView.addSubview(iconImageView)
-        
+
         downArrow = UIImageView(image: .none)
         contentView.addSubview(downArrow)
-        
-        upArrow = UIImageView(image: UIImage(named: "down_arrow"))
+
+        upArrow = UIImageView(image: UIImage(named: ImageNames.downArrow))
         contentView.addSubview(upArrow)
         
         statusLabel = UILabel()
@@ -86,7 +86,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
             make.height.equalTo(8)
             make.width.equalTo(16)
         }
-        
+
         upArrow.snp.updateConstraints {make in
             make.right.equalToSuperview().offset(-24)
             make.centerY.equalTo(facilityNameLabel.snp.centerY).offset(2)

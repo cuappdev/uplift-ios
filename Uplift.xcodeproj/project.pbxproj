@@ -24,7 +24,7 @@
 		4F20EDEB234AE46C000B26E8 /* GymWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */; };
 		4F2285172352A1C80013F1B0 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2285162352A1C80013F1B0 /* WeekDay.swift */; };
 		4F27D7F922445BDD00135DC4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D7F822445BDD00135DC4 /* User.swift */; };
-		4F27F6D7236F25C000C255D7 /* MiscellaneousInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6D6236F25C000C255D7 /* MiscellaneousInfoView.swift */; };
+		4F27F6D7236F25C000C255D7 /* MiscellaneousInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6D6236F25C000C255D7 /* MiscellaneousInfoCell.swift */; };
 		4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */; };
 		4F27F6DD236FA9A500C255D7 /* CourtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */; };
 		4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6810332345504D00C283C0 /* GymDetailWeekView.swift */; };
@@ -150,7 +150,7 @@
 		4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymWeekCell.swift; sourceTree = "<group>"; };
 		4F2285162352A1C80013F1B0 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
 		4F27D7F822445BDD00135DC4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		4F27F6D6236F25C000C255D7 /* MiscellaneousInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscellaneousInfoView.swift; sourceTree = "<group>"; };
+		4F27F6D6236F25C000C255D7 /* MiscellaneousInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscellaneousInfoCell.swift; sourceTree = "<group>"; };
 		4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymnasiumCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourtCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F6810332345504D00C283C0 /* GymDetailWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailWeekView.swift; sourceTree = "<group>"; };
@@ -341,7 +341,7 @@
 				7EC4B799236CADD8006B67B3 /* EquipmentListItemCell.swift */,
 				4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */,
 				4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */,
-				4F27F6D6236F25C000C255D7 /* MiscellaneousInfoView.swift */,
+				4F27F6D6236F25C000C255D7 /* MiscellaneousInfoCell.swift */,
 				7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */,
 			);
 			path = Facilities;
@@ -955,7 +955,7 @@
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
 				C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */,
-				4F27F6D7236F25C000C255D7 /* MiscellaneousInfoView.swift in Sources */,
+				4F27F6D7236F25C000C255D7 /* MiscellaneousInfoCell.swift in Sources */,
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,

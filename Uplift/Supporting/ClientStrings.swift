@@ -17,7 +17,7 @@ struct ClientStrings {
         static let dismissAlert = "OK"
         static let displaySettingsTitle = "Settings"
     }
-    
+
     struct Calendar {
         static let noClassesTodayDescription = "Sit back and make yourself some tea"
         static let noClassesTodayLabel = "NO CLASSES TODAY"
@@ -36,7 +36,7 @@ struct ClientStrings {
         static let dayTodayLabel = "Today"
         static let vcTitleLabel = "Classes"
     }
-    
+
     struct CommonStrings {
         static let closed = "Closed"
         static let open = "Open"
@@ -71,7 +71,7 @@ struct ClientStrings {
         static let startTime = "START TIME"
         static let vcTitleLabel = "Refine Search"
     }
-    
+
     struct HabitTracking {
         static let createHabitButton = "Create your own"
         static let featuredHabitsSection = "FEATURED"
