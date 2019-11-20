@@ -26,10 +26,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGoogleSignIn()
 
         window?.rootViewController = BlankViewController()
-        // let defaults = UserDefaults.standard
-        // window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-        //     ? TabBarController()
-        //     : OnboardingViewController()
+
+//        let defaults = UserDefaults.standard
+//        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
+//            window?.rootViewController = TabBarController()
+//        } else {
+//            let dispatchGroup = DispatchGroup()
+//            dispatchGroup.enter()
+//            dispatchGroup.enter()
+//            var gyms: [String] = []
+//            var classes: [String] = []
+//            NetworkManager.shared.getGymNames {
+//                gyms = $0.map { $0.name }
+//                dispatchGroup.leave()
+//            }
+//            NetworkManager.shared.getClassNames {
+//                classes = $0.map { $0 }
+//                dispatchGroup.leave()
+//            }
+//            dispatchGroup.notify(queue: .main, execute: {
+//                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classNames: classes)
+//            })
+//
+//        }
 
         #if DEBUG
             print("Running Uplift in debug configuration")
