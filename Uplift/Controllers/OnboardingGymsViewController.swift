@@ -226,6 +226,7 @@ class OnboardingGymsViewController: UIViewController {
 
     @objc func goBackAView() {
         navigationController?.popViewController(animated: true)
+
     }
 
 }
@@ -241,7 +242,6 @@ extension OnboardingGymsViewController: UITableViewDataSource {
         if favoriteGyms.contains(gym) {
             cell.toggleSelectedView(selected: true)
         }
-        cell.selectionStyle = .none
         return cell
     }
 

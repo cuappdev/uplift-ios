@@ -25,10 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setupGoogleSignIn()
 
-        let defaults = UserDefaults.standard
-        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-            ? TabBarController()
-            : OnboardingViewController()
+        window?.rootViewController = BlankViewController()
+        // let defaults = UserDefaults.standard
+        // window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+        //     ? TabBarController()
+        //     : OnboardingViewController()
 
         #if DEBUG
             print("Running Uplift in debug configuration")
@@ -39,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
-    
+
     // Google Login Related
     func setupGoogleSignIn() {
         GIDSignIn.sharedInstance().clientID = Keys.googleClientID.value
@@ -51,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url as URL?)
     }
@@ -59,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // MARK: Implement Google Sign in Methods
 extension AppDelegate: GIDSignInDelegate {
-    
+
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if error == nil {
             let idToken = user.authentication.idToken ?? ""
@@ -70,11 +71,11 @@ extension AppDelegate: GIDSignInDelegate {
             let email = user.profile.email ?? "uplift@defaultvalue.com"
             let netId = String(email.split(separator: "@")[0])
             User.currentUser = User(id: userId, name: fullName, netId: netId, givenName: givenName, familyName: familyName, email: email)
-            
+
             // So other view controllers will know when it signs in
             NotificationCenter.default.post(
                 name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
-            
+
             NetworkManager.shared.sendGoogleLoginToken(token: idToken) { (tokens) in
                 // Store in User Defualts
                 let defaults = UserDefaults.standard
@@ -84,11 +85,11 @@ extension AppDelegate: GIDSignInDelegate {
             }
         }
     }
-    
+
     func logout() {
         GIDSignIn.sharedInstance().signOut()
     }
-    
+
     func isGoogleLoggedIn() -> Bool {
         return GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false
     }

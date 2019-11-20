@@ -10,56 +10,56 @@ import UIKit
 
 class FavoriteGymCell: UITableViewCell {
 
-    // MARK: Initialization
-    var cellBackground: UIView!
-    var gymLabel: UILabel!
-    var checkBackground: UIView!
-    var checkImage: UIImageView!
+    // MARK: Private View Vars
+    private var cellBackground = UIView()
+    private var gymLabel = UILabel()
+    private var favoritedBackground = UIView()
+    private var favoritedIcon = UIImageView()
 
-    // Whether it is in a selected state
+    private let checkSize: CGFloat = 24
+    private let checkBorderWidth: CGFloat = 1
+    private let leftPadding: CGFloat = 15
+    private let rightPadding: CGFloat = 16
+
+    private var usesStars = false
+    private var updateAppearence: ((Bool) -> Void)?
+
+    // MARK: Public View Vars
     var isOn = false
 
-    // Padding and Sizing
-    let checkSize: CGFloat = 24
-    let checkBorderWidth: CGFloat = 1
-    let leftPadding: CGFloat = 15
-    let rightPadding: CGFloat = 16
-
     // Reuse Identfier
-    static let reuseIdentifier = "gymsTableView"
+    static let identifier = "favoritesTableView"
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.contentView.backgroundColor = .white
 
-        cellBackground = UIView()
         cellBackground.backgroundColor =  .primaryWhite
         cellBackground.layer.cornerRadius = 6
         cellBackground.layer.borderWidth = checkBorderWidth
         cellBackground.layer.borderColor = UIColor.gray01.cgColor
-        // Shadow
         cellBackground.layer.shadowOpacity = 0.125
         cellBackground.layer.shadowRadius = 6
         cellBackground.layer.shadowOffset = CGSize(width: 1, height: 3)
 
         contentView.addSubview(cellBackground)
 
-        gymLabel = UILabel()
         gymLabel.font = ._16MontserratMedium
         gymLabel.textColor = .upliftMediumGrey
         cellBackground.addSubview(gymLabel)
 
-        checkBackground = UIView()
-        checkBackground.tintColor = .primaryWhite
-        checkBackground.layer.borderColor = UIColor.upliftMediumGrey.cgColor
-        checkBackground.layer.borderWidth = 1
-        checkBackground.layer.cornerRadius = checkSize / 2
-        cellBackground.addSubview(checkBackground)
+        favoritedBackground.tintColor = .primaryWhite
+        favoritedBackground.layer.borderColor = UIColor.upliftMediumGrey.cgColor
+        favoritedBackground.layer.borderWidth = 0
+//        favoritedBackground.layer.borderWidth = 1
+        favoritedBackground.layer.cornerRadius = checkSize / 2
+        cellBackground.addSubview(favoritedBackground)
 
-        checkImage = UIImageView(image: UIImage(named: "green check"))
-        checkImage.alpha = 0
-        checkBackground.addSubview(checkImage)
+        favoritedIcon = UIImageView()
+        favoritedIcon.contentMode = .scaleAspectFit
+        favoritedIcon.alpha = 0
+        favoritedBackground.addSubview(favoritedIcon)
 
         setUpConstraints()
     }
@@ -73,10 +73,26 @@ class FavoriteGymCell: UITableViewCell {
         // Initialization code
     }
 
-    func configure(with gymName: String) {
+    func configure(with gymName: String, displaysClasses: Bool) {
+        usesStars = displaysClasses
+
+        if usesStars {
+            favoritedIcon.image = UIImage(named: ImageNames.yellowWhiteStar)
+            updateAppearence = { isOn in
+                self.favoritedIcon.image = UIImage(named: isOn ? ImageNames.yellowWhiteStar : ImageNames.blackStarOutline)
+            }
+        } else {
+            favoritedIcon.image = UIImage(named: ImageNames.checkedCircle)
+            updateAppearence = { (isOn) -> Void in
+                self.gymLabel.textColor = isOn ? .primaryBlack : .upliftMediumGrey
+                self.favoritedIcon.alpha = isOn ? 1 : 0
+                self.favoritedBackground.layer.borderWidth = isOn ? 0 : self.checkBorderWidth
+            }
+        }
+
         gymLabel.text = gymName
     }
-    
+
     func setUpConstraints() {
 
         cellBackground.snp.makeConstraints { (make) in
@@ -88,13 +104,13 @@ class FavoriteGymCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
 
-        checkBackground.snp.makeConstraints { (make) in
+        favoritedBackground.snp.makeConstraints { (make) in
             make.size.equalTo(checkSize)
             make.trailing.equalToSuperview().inset(rightPadding)
             make.centerY.equalToSuperview()
         }
 
-        checkImage.snp.makeConstraints { (make) in
+        favoritedIcon.snp.makeConstraints { (make) in
             make.size.equalTo(checkSize + 1)
             make.center.equalToSuperview()
         }
@@ -102,21 +118,11 @@ class FavoriteGymCell: UITableViewCell {
 
     func toggleSelectedView(selected: Bool) {
         isOn = selected
-        if selected {
-            gymLabel.textColor = .primaryBlack
-            checkImage.alpha = 1
-            checkBackground.layer.borderWidth = 0
-        } else {
-            gymLabel.textColor = .upliftMediumGrey
-            checkImage.alpha = 0
-            checkBackground.layer.borderWidth = checkBorderWidth
-        }
+        updateAppearence?(selected)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

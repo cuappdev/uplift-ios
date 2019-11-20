@@ -139,6 +139,7 @@ struct ImageNames {
     static let calendar = "calendar-icon"
     static let cancel = "cancel"
     static let cardio = "cardio"
+    static let checkedCircle = "checked_circle"
     static let clock = "clock-icon"
     static let darkAdd = "darkAdd"
     static let lightAdd = "lightAdd"
