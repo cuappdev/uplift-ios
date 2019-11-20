@@ -114,10 +114,16 @@ struct ClientStrings {
     }
 
     struct Onboarding {
+        //TODO: delete this VVV
         static let endOnboarding = "BEGIN"
         static let selectGyms = "Select the gyms you go to!"
         static let signupLabel = "Sign Up"
         static let vcTitleLabel = "Welcome to Uplift!\nStart your Journey Today!"
+
+        static let onbaording1 = "Uplift is the go-to fitness and wellness app at Cornell."
+        static let onbaording2 = "Uplift helps you find times to go to the gym. Choose your favorite gym(s) below!"
+        static let onbaording3 = "Classes are included with your gym membership. Choose a few favorites!"
+        static let onbaording4 = "See you at the gym!"
     }
 
     struct TabBar {

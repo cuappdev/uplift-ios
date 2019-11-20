@@ -33,6 +33,12 @@ class OnboardingNewViewController: PresentationController {
 
     // MARK: - Setup
     private func setupSlides() {
+        let slides = [
+            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding1),
+            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding2),
+            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding3),
+            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding4)
+        ]
     }
 
     private func setupBackground() {
