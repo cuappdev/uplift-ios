@@ -14,17 +14,17 @@ import SnapKit
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
-    var selectedDay: WeekDay
-    var selectedDayIndex: Int
-    weak var delegate: WeekDelegate?
+    var updateDayClosure: ((WeekDay) -> ())?
 
     // MARK: - Display
-    private var weekdayCollectionView: UICollectionView!
     private let daysSize = CGSize(width: 24, height: 24)
     private let interitemSpace: CGFloat = 19
+    private var weekdayCollectionView: UICollectionView!
 
     // MARK: - Info
-    private var days: [WeekDay] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
+    private var days: [WeekDay] = WeekDay.allCases
+    private var selectedDay: WeekDay
+    private var selectedDayIndex: Int
 
     override init(frame: CGRect) {
         // Preselect Today
@@ -41,7 +41,7 @@ class GymDetailWeekView: UIView {
         self.selectedDayIndex = selectedDayIndex
         weekdayCollectionView.selectItem(at: IndexPath(row: selectedDayIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -86,7 +86,7 @@ extension GymDetailWeekView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = days[indexPath.row]
-        delegate?.didChangeDay(day: selectedDay)
+        updateDayClosure?(selectedDay)
     }
 
 }

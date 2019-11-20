@@ -6,7 +6,7 @@
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
-enum WeekDay: String {
+enum WeekDay: String, CaseIterable {
     case sunday = "Su"
     case monday = "M"
     case tuesday = "T"

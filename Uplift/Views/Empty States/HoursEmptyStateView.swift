@@ -1,5 +1,5 @@
 //
-//  NoHoursEmptyStateView.swift
+//  HoursEmptyStateView.swift
 //  Uplift
 //
 //  Created by Yana Sang on 11/12/19.
@@ -10,9 +10,9 @@ import UIKit
 
 class HoursEmptyStateView: UIView {
 
+    private let emptyStateDescriptionLabel = UILabel()
     private let emptyStateImageView = UIImageView(image: UIImage(named: "tea"))
     private let emptyStateTitleLabel = UILabel()
-    private let emptyStateDescriptionLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -14,15 +14,16 @@ class GymDetailTimeInfoView: UIView {
     var onChangeDay: ((CGFloat, Int) -> Void)?
 
     // MARK: - Private Vars
+    private let timesText = NSMutableAttributedString()
     private let timesTextView = UITextView()
+    private let paragraphStyle = NSMutableParagraphStyle()
+
+    private var displayedText = ""
     private var emptyStateView: UIView?
     private var facilityDetail: FacilityDetail!
-    private var selectedDayIndex = 0
-    private var displayedText = ""
-    private var timesText = NSMutableAttributedString()
-    private var paragraphStyle = NSMutableParagraphStyle()
-    private var paragraphStyleAttributes: [NSAttributedString.Key: Any] = [:]
     private var hours: [FacilityHoursRange] = []
+    private var paragraphStyleAttributes: [NSAttributedString.Key: Any] = [:]
+    private var selectedDayIndex = 0
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -30,7 +31,6 @@ class GymDetailTimeInfoView: UIView {
 
         timesText.mutableString.setString(displayedText)
 
-        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5.0
         paragraphStyle.alignment = .center
         paragraphStyleAttributes = [
@@ -165,25 +165,17 @@ class GymDetailTimeInfoView: UIView {
     }
 
     func getTimesHeight(for hours: [FacilityHoursRange]) -> CGFloat {
-
-        let emptyStateHeight = CGFloat(163)
-
+        let emptyStateHeight: CGFloat = 163
+        let hoursCount = CGFloat(hours.count)
         let lineHeight: CGFloat = 19.6
         let lineSpacing: CGFloat = 5.0
-        let hoursCount = CGFloat(hours.count)
 
-        let timesHeight = (hoursCount == 1 && hours[0].openTime == hours[0].closeTime) ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
+        let emptyState = hoursCount == 1 && hours[0].openTime == hours[0].closeTime
+        let timesHeight = emptyState ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
 
         return timesHeight
     }
-}
 
-// MARK: - Delegation
-protocol WeekDelegate: class {
-    func didChangeDay(day: WeekDay)
-}
-
-extension GymDetailTimeInfoView: WeekDelegate {
     func didChangeDay(day: WeekDay) {
         selectedDayIndex = day.index - 1
         updateAppearance()

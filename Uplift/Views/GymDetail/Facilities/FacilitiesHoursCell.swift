@@ -43,7 +43,9 @@ class FacilitiesHoursCell: UICollectionViewCell {
     }
 
     private func setupViews() {
-        weekView.delegate = timeInfoView
+        weekView.updateDayClosure = { day in
+            self.updateTimeInfoDay(day: day)
+        }
 
         stackView.distribution = .fill
         stackView.alignment = .fill
@@ -63,5 +65,9 @@ class FacilitiesHoursCell: UICollectionViewCell {
         weekView.snp.makeConstraints { make in
             make.height.equalTo(Constraints.headerHeight)
         }
+    }
+    
+    private func updateTimeInfoDay(day: WeekDay) {
+        timeInfoView.didChangeDay(day: day)
     }
 }
