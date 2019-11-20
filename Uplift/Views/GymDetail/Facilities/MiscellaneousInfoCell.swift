@@ -21,11 +21,11 @@ class MiscellaneousInfoCell: UICollectionViewCell {
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
 
-        textView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-
         contentView.addSubview(textView)
+
+        textView.snp.makeConstraints { make in
+             make.edges.equalToSuperview()
+         }
     }
 
     required init?(coder: NSCoder) {
@@ -33,29 +33,29 @@ class MiscellaneousInfoCell: UICollectionViewCell {
     }
 
     func configure(for miscellaneousInfo: [String]) {
-        textView.attributedText = MiscellaneousInfoCell.generateAttributedString(for: miscellaneousInfo, font: UIFont._14MontserratRegular!)
+        textView.attributedText = MiscellaneousInfoCell.generateAttributedString(for: miscellaneousInfo, font: UIFont._14MontserratRegular)
     }
 
     // MARK: - Helper
 
     private static func generateAttributedString(
         for miscInfo: [String],
-        font: UIFont
+        font: UIFont?
     ) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 3
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
+            .font: font ?? UIFont.systemFont(ofSize: 12),
             .paragraphStyle: style,
             .foregroundColor: UIColor.primaryBlack
         ]
-        
+
         let string = miscInfo.joined(separator: "\n")
 
         return NSAttributedString(string: string, attributes: attributes)
     }
 
-    static func getHeight(for miscInfo: [String], font: UIFont = UIFont._14MontserratRegular!) -> CGFloat {
+    static func getHeight(for miscInfo: [String], font: UIFont? = UIFont._14MontserratRegular) -> CGFloat {
         let nsString = generateAttributedString(for: miscInfo, font: font)
         return nsString.size().height
     }
