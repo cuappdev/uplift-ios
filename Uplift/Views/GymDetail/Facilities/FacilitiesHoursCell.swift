@@ -20,14 +20,14 @@ class FacilitiesHoursCell: UICollectionViewCell {
     private let stackView = UIStackView()
     private let timeInfoView = GymDetailTimeInfoView()
 
-    enum Constraints {
+    private enum Constraints {
         static let bottomPadding: CGFloat = 12
         static let headerHeight: CGFloat = 24
         static let timesPadding: CGFloat = 16
     }
 
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
         backgroundColor = .primaryWhite
         setupViews()
         setupConstraints()
@@ -44,7 +44,7 @@ class FacilitiesHoursCell: UICollectionViewCell {
 
     private func setupViews() {
         weekView.updateDayClosure = { day in
-            self.updateTimeInfoDay(day: day)
+            self.timeInfoView.didChangeDay(day: day)
         }
 
         stackView.distribution = .fill
@@ -66,8 +66,5 @@ class FacilitiesHoursCell: UICollectionViewCell {
             make.height.equalTo(Constraints.headerHeight)
         }
     }
-    
-    private func updateTimeInfoDay(day: WeekDay) {
-        timeInfoView.didChangeDay(day: day)
-    }
+
 }

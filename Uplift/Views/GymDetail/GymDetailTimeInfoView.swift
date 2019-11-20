@@ -34,7 +34,7 @@ class GymDetailTimeInfoView: UIView {
         paragraphStyle.lineSpacing = 5.0
         paragraphStyle.alignment = .center
         paragraphStyleAttributes = [
-            .font: UIFont._16MontserratLight!,
+            .font: UIFont._16MontserratLight,
             .paragraphStyle: paragraphStyle,
             .foregroundColor: UIColor.primaryBlack
         ]
@@ -72,9 +72,7 @@ class GymDetailTimeInfoView: UIView {
     }
     // MARK: - Update
     private func updateAppearance() {
-        if let emptyStateView = emptyStateView {
-            emptyStateView.removeFromSuperview()
-        }
+        emptyStateView?.removeFromSuperview()
 
         updateTags()
         updateTimes()
@@ -125,7 +123,6 @@ class GymDetailTimeInfoView: UIView {
         timesTextView.attributedText = timesText
 
         let height = FacilitiesHoursCell.baseHeight + getTimesHeight(for: hours)
-
         onChangeDay?(height, selectedDayIndex)
     }
 
