@@ -128,8 +128,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
 extension HomeViewController: GymsListCellDelegate {
 
     func allGymsCellShouldOpenGym(_ gym: Gym) {
-        let testVC = TestViewController(gym: gym)
-        navigationController?.pushViewController(testVC, animated: true)
+        let gymDetailViewController = GymDetailViewController(gym: gym)
+        navigationController?.pushViewController(gymDetailViewController, animated: true)
     }
 }
 
