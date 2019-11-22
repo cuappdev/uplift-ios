@@ -108,6 +108,7 @@ struct ClientStrings {
         static let facilitiesSection = "FACILITIES"
         static let hoursLabel = "HOURS"
         static let noMoreClasses = "We are done for today.\nCheck again tomorrow!\n🌟"
+        static let noTimesToday = "NO TIMES TODAY"
         static let popularHoursSection = "POPULAR TIMES"
         static let todaysClassesSection = "TODAYS CLASSES"
     }

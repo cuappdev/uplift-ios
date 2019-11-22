@@ -11,24 +11,18 @@ import UIKit
 /// Displays additional info from Facilities Query in GymDetailTimeInfoView
 class AdditionalInfoView: UIView {
 
-    private let displayTextView = UILabel()
+    private let infoLabel = UILabel()
     private let sidebarView = UIView()
-
-    var text = "" {
-        didSet {
-            displayTextView.text = text
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .primaryLightYellow
-        displayTextView.font = ._12MontserratLight
-        displayTextView.textAlignment = .right
-        addSubview(displayTextView)
-
-        let cornerRadius: CGFloat = 2.0
-        layer.cornerRadius = cornerRadius
+        infoLabel.backgroundColor = UIColor.primaryYellow.withAlphaComponent(0.2)
+        infoLabel.font = ._12MontserratLight
+        infoLabel.textAlignment = .center
+        infoLabel.layer.cornerRadius = 2.0
+        infoLabel.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        infoLabel.clipsToBounds = true
+        addSubview(infoLabel)
 
         sidebarView.backgroundColor = .primaryYellow
         addSubview(sidebarView)
@@ -36,22 +30,27 @@ class AdditionalInfoView: UIView {
         setupConstraints()
     }
 
+    func configure(for text: String) {
+        infoLabel.text = text
+
+        let inset: CGFloat = 3.0
+        infoLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(sidebarView.snp.trailing)
+            make.width.equalTo(infoLabel.intrinsicContentSize.width + inset * 2)
+        }
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     private func setupConstraints() {
-        let sidebarWidth = 1.0
-        let inset = 2.0
-
-        displayTextView.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview()
-            make.trailing.equalToSuperview().inset(inset)
-        }
+        let sidebarWidth = 1.75
 
         sidebarView.snp.makeConstraints { make in
             make.width.equalTo(sidebarWidth)
-            make.height.leading.equalToSuperview()
+            make.height.centerY.leading.equalToSuperview()
         }
     }
 
