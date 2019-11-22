@@ -35,7 +35,7 @@ class GymFacilitiesCell: UITableViewCell {
             make.height.equalTo(facilityLabelHeight)
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

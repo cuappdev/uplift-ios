@@ -84,7 +84,7 @@ class OldDropdownHeaderView: UITableViewHeaderFooterView {
             make.leading.equalTo(titleLabel.snp.trailing).offset(12)
             make.centerY.equalTo(titleLabel)
         }
-        
+
         selectedFiltersLabel.snp.makeConstraints { make in
             make.trailing.equalTo(rightArrow.snp.leading).offset(-12)
             make.centerY.equalTo(filtersAppliedCircle)

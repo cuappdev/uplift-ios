@@ -46,13 +46,13 @@ struct Habit {
     /// Returns the title of the active habit fir the given type
     static func getActiveHabitTitle(type: HabitTrackingType) -> String? {
         let defaults = UserDefaults.standard
-        
+
         guard let activeHabits = defaults.stringArray(forKey: Identifiers.activeHabits) else { return nil }
 
         if activeHabits.count < 3 || activeHabits[type.rawValue] == "" {
             return nil
         }
-        
+
         return activeHabits[type.rawValue]
     }
 
@@ -60,11 +60,11 @@ struct Habit {
     static func getHabit(habit: String, type: HabitTrackingType) -> Habit? {
         let defaults = UserDefaults.standard
 
-        var habits: [String:[String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: type)) as? [String: [String]] ?? [:]
-        
+        var habits: [String: [String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: type)) as? [String: [String]] ?? [:]
+
         let dateStrings = (habits[habit] ?? []).compactMap({ $0 })
         let dates = dateStrings.map { Date.getDateFromString(date: $0) }
-        
+
         return Habit(title: habit, dates: dates, type: type)
     }
 
@@ -94,7 +94,7 @@ struct Habit {
     static func setActiveHabit(title: String, type: HabitTrackingType) {
         let defaults = UserDefaults.standard
 
-        var habits: [String:[String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: type)) as? [String: [String]] ?? [:]
+        var habits: [String: [String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: type)) as? [String: [String]] ?? [:]
         var activeHabits = defaults.stringArray(forKey: Identifiers.activeHabits) ?? ["", "", ""]
 
         activeHabits[type.rawValue] = title
@@ -110,7 +110,7 @@ struct Habit {
     static func logDate(habit: Habit, date: Date) {
         let defaults = UserDefaults.standard
 
-        var habits: [String:[String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: habit.type)) as? [String: [String]] ?? [:]
+        var habits: [String: [String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: habit.type)) as? [String: [String]] ?? [:]
 
         let newDate = date.getStringOfDatetime(format: "MMddyyyy")
 
@@ -127,8 +127,8 @@ struct Habit {
     static func removeDate(habit: Habit, date: Date) {
         let defaults = UserDefaults.standard
 
-        var habits: [String:[String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: habit.type)) as? [String: [String]] ?? [:]
-        
+        var habits: [String: [String]] = defaults.dictionary(forKey: Identifiers.habitIdentifier(for: habit.type)) as? [String: [String]] ?? [:]
+
         let newDate = date.getStringOfDatetime(format: "MMddyyyy")
 
         if let index = habits[habit.title]?.index(of: newDate) {
@@ -136,7 +136,7 @@ struct Habit {
         }
 
         defaults.set(habits, forKey: Identifiers.habitIdentifier(for: habit.type))
-        
+
         // TODO - post check-in to backend once routes are available
     }
 }

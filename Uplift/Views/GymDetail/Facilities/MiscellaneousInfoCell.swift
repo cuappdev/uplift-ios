@@ -1,5 +1,5 @@
 //
-//  MiscellaneousInfoView.swift
+//  MiscellaneousInfoCell.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 10/27/19.
@@ -8,54 +8,56 @@
 
 import UIKit
 
-class MiscellaneousInfoView: UIView {
+class MiscellaneousInfoCell: UICollectionViewCell {
 
     private let textView = UITextView()
 
-    init(miscellaneousInfo: [String]) {
+    override init(frame: CGRect) {
         super.init(frame: CGRect.zero)
 
-        let display = formatMiscellaneous(miscellaneousInfo)
-        textView.attributedText = generateAttributedString(for: display, font: UIFont._14MontserratRegular!)
         textView.isEditable = false
         textView.isSelectable = false
         textView.isScrollEnabled = false
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
 
-        addSubview(textView)
-        setupConstraints()
+        contentView.addSubview(textView)
+
+        textView.snp.makeConstraints { make in
+             make.edges.equalToSuperview()
+         }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupConstraints() {
-        textView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+    func configure(for miscellaneousInfo: [String]) {
+        textView.attributedText = MiscellaneousInfoCell.generateAttributedString(for: miscellaneousInfo, font: UIFont._14MontserratRegular)
     }
 
     // MARK: - Helper
 
-    func formatMiscellaneous(_ misc: [String]) -> String {
-        return misc.joined(separator: "\n")
-    }
-
-    private func generateAttributedString(
-        for string: String,
-        font: UIFont
+    private static func generateAttributedString(
+        for miscInfo: [String],
+        font: UIFont?
     ) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 3
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
+            .font: font ?? UIFont.systemFont(ofSize: 12),
             .paragraphStyle: style,
             .foregroundColor: UIColor.primaryBlack
         ]
 
+        let string = miscInfo.joined(separator: "\n")
+
         return NSAttributedString(string: string, attributes: attributes)
+    }
+
+    static func getHeight(for miscInfo: [String], font: UIFont? = UIFont._14MontserratRegular) -> CGFloat {
+        let nsString = generateAttributedString(for: miscInfo, font: font)
+        return nsString.size().height
     }
 
 }

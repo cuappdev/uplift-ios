@@ -24,7 +24,7 @@ extension String {
 
     // Returns the string with the leading zero removed if one exists
     func removeLeadingZero() -> String {
-        if (self.hasPrefix("0")) {
+        if self.hasPrefix("0") {
             return String( self[String.Index(encodedOffset: 1)...] )
         } else {
             return self

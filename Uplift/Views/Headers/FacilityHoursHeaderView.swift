@@ -22,7 +22,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
+
         facilityNameLabel = UILabel()
         facilityNameLabel.font = ._16MontserratMedium
         facilityNameLabel.textColor = .primaryBlack
@@ -33,11 +33,11 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         
         iconImageView = UIImageView()
         contentView.addSubview(iconImageView)
-        
+
         downArrow = UIImageView(image: .none)
         contentView.addSubview(downArrow)
-        
-        upArrow = UIImageView(image: UIImage(named:"down_arrow"))
+
+        upArrow = UIImageView(image: UIImage(named: ImageNames.downArrow))
         contentView.addSubview(upArrow)
         
         statusLabel = UILabel()
@@ -56,10 +56,10 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         
         // TODO: Fix this with proper down arrow
         upArrow.transform = CGAffineTransform(rotationAngle: .pi)
-        
+
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -73,33 +73,33 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
             make.height.equalTo(14)
             make.width.equalTo(16)
         }
-        
+
         facilityNameLabel.snp.updateConstraints {make in
             make.centerY.centerX.equalToSuperview()
             make.left.equalTo(iconImageView.snp.right).offset(8)
             make.height.equalTo(20)
         }
-        
+
         downArrow.snp.updateConstraints {make in
             make.right.equalToSuperview().offset(-24)
             make.centerY.equalTo(facilityNameLabel.snp.centerY).offset(2)
             make.height.equalTo(8)
             make.width.equalTo(16)
         }
-        
+
         upArrow.snp.updateConstraints {make in
             make.right.equalToSuperview().offset(-24)
             make.centerY.equalTo(facilityNameLabel.snp.centerY).offset(2)
             make.height.equalTo(8)
             make.width.equalTo(16)
         }
-        
+
         statusLabel.snp.makeConstraints {make in
             make.left.equalTo(iconImageView.snp.left)
             make.top.equalTo(facilityNameLabel.snp.bottom).offset(8)
             make.height.equalTo(15)
         }
-        
+
         todayTimeLabel.snp.makeConstraints {make in
             make.left.equalTo(statusLabel.snp.right).offset(4)
             make.top.equalTo(statusLabel.snp.top)

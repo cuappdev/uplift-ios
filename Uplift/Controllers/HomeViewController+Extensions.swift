@@ -98,10 +98,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             return CGSize(width: width, height: CGFloat(checkInListHeight + bottomSectionInset))
         case .myGyms:
             //Height is calculated as item height of every row of 2 cells + minimum line spacing between them + bottom section inset value
-            
+
             //Height of all cells (in rows of 2), plus line spacings after each of them
             var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumLineSpacing) * ceil(CGFloat(integerLiteral: myGyms.count) / 2)
-            
+
             //Subtract extra minimum line spacing below the last row of cells, and add the section inset
             height += GymsListCell.sectionInsetBottom - GymsListCell.minimumLineSpacing
             return CGSize(width: width, height: height)

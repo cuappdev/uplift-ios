@@ -54,6 +54,7 @@ struct Identifiers {
     static let dropdownViewCell = "dropdownViewCell"
     static let facilitiesDropdownCell = "facilitiesDropdownCell"
     static let facilityHoursCell = "facilityHoursCell"
+    static let facilitiesMiscellaneousCell = "facilitiesMiscellaneousCell"
     static let gymEquipmentCell = "gymEquipmentCell"
     static let gymFacilityCell = "gymFacilityCell"
     static let gymFilterCell = "gymFilterCell"
@@ -64,9 +65,6 @@ struct Identifiers {
     static let habitTrackerOnboardingCell = "habitTrackerOnboardingCell"
     static let lookingForCell = "lookingForCell"
     static let noHabitsCell = "noHabitsCell"
-    static let personalSiteCell = "personalSiteCell"
-    static let proCell = "proCell"
-    static let proRoutineCell = "proRoutineCell"
 
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
@@ -132,12 +130,9 @@ struct ImageNames {
     // FACILITIES
     static let basketball = "basketball"
     static let bowling = "bowling"
-<<<<<<< HEAD
     static let equipment = "equipment"
     static let misc = "misc"
-=======
     static let court = "court-single"
->>>>>>> 87428c2db55e53f3305a5e05d544901b7e3d7e49
     static let pool = "pool"
 
     // ICONS

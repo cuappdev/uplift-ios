@@ -11,7 +11,7 @@ import SnapKit
 import GoogleSignIn
 
 class OnboardingLoginViewController: UIViewController {
-    
+
     // MARK: - INITIALIZATION
     var titleLabel: UILabel!
     var signUpLabel: UILabel!
@@ -23,14 +23,14 @@ class OnboardingLoginViewController: UIViewController {
     let titleToContentPadding: CGFloat = 120//187
     let buttonPadding: CGFloat = 16
     let edgePadding: CGFloat = 27
-    
+
     let buttonHeight: CGFloat = 48
     let cornerRadius: CGFloat = 5
 
     let nextButtonSize: CGFloat = 35
     let nextButtonPadding = CGSize(width: 40, height: 70)
     let buttonBorderSize: CGFloat = 2
-    
+
     let checkSymbolSize: CGFloat = 24
     let checkArrowSize = CGSize(width: 16.95, height: 11.59)
 
@@ -38,7 +38,7 @@ class OnboardingLoginViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
-        
+
         view.backgroundColor = .primaryWhite
 
         // Google Sign in
@@ -100,7 +100,7 @@ class OnboardingLoginViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).inset(edgePadding)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
         }
-        
+
         signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(titleToContentPadding)
             make.leading.trailing.equalToSuperview().inset(edgePadding)
@@ -111,7 +111,7 @@ class OnboardingLoginViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(edgePadding)
             make.height.equalTo(buttonHeight)
         }
-        
+
         nextButton.snp.makeConstraints { make in
             make.size.equalTo(nextButtonSize)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(nextButtonPadding.width)
@@ -158,7 +158,7 @@ class OnboardingLoginViewController: UIViewController {
             navigationController?.pushViewController(OnboardingGymsViewController(), animated: true)
         }
     }
-    
+
     @objc func userSignedIn(didSignIn: Bool=true) {
         toggleNextButton(enabled: didSignIn)
         googleBtn.isUserInteractionEnabled = !didSignIn
