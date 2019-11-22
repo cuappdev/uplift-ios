@@ -149,7 +149,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeDropdown.bounces = false
 
         classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
-        classTypeDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: DropdownHeaderView.identifier)
+        classTypeDropdown.register(OldDropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: OldDropdownHeaderView.identifier)
         classTypeDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: DropdownFooterView.identifier)
 
         classTypeDropdown.delegate = self
@@ -178,7 +178,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDropdown.showsVerticalScrollIndicator = false
 
         instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
-        instructorDropdown.register(DropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: DropdownHeaderView.identifier)
+        instructorDropdown.register(OldDropdownHeaderView.self, forHeaderFooterViewReuseIdentifier: OldDropdownHeaderView.identifier)
         instructorDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: DropdownFooterView.identifier)
 
         instructorDropdown.delegate = self
@@ -431,7 +431,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         var modifiedIndices: [IndexPath] = []
 
         if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
-            if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? DropdownHeaderView {
+            if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? OldDropdownHeaderView {
                 instructorDropdown.downArrow.image = .none
                 instructorDropdown.rightArrow.image = UIImage(named: ImageNames.rightArrow)
             }
@@ -443,7 +443,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
             instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? DropdownHeaderView {
+            if let instructorDropdown = instructorDropdown.headerView(forSection: 0) as? OldDropdownHeaderView {
                 instructorDropdown.downArrow.image = UIImage(named: ImageNames.downArrow)
                 instructorDropdown.rightArrow.image = .none
             }
@@ -467,8 +467,8 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         var modifiedIndices: [IndexPath] = []
 
         if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = .none
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = UIImage(named: ImageNames.rightArrow)
+            (classTypeDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).downArrow.image = .none
+            (classTypeDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).rightArrow.image = UIImage(named: ImageNames.rightArrow)
             classTypeDropdownData.dropStatus = .up
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {
@@ -477,8 +477,8 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
             classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).downArrow.image = UIImage(named: ImageNames.downArrow)
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).rightArrow.image = .none
+            (classTypeDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).downArrow.image = UIImage(named: ImageNames.downArrow)
+            (classTypeDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).rightArrow.image = .none
             classTypeDropdownData.dropStatus = .half
             for i in [0, 1, 2] {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
@@ -670,12 +670,12 @@ extension FilterViewController: UITableViewDelegate {
                     let name = selectedClasses[i]
                     if name == cell.titleLabel.text! {
                         selectedClasses.remove(at: i)
-                        (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedClasses)
+                        (classTypeDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).updateDropdownHeader(selectedFilters: selectedClasses)
                         return
                     }
                 }
             }
-            (classTypeDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedClasses)
+            (classTypeDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).updateDropdownHeader(selectedFilters: selectedClasses)
         } else {
             if shouldAppend {
                 selectedInstructors.append(cell.titleLabel.text!)
@@ -684,12 +684,12 @@ extension FilterViewController: UITableViewDelegate {
                     let name = selectedInstructors[i]
                     if name == cell.titleLabel.text! {
                         selectedInstructors.remove(at: i)
-                        (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedInstructors)
+                        (instructorDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).updateDropdownHeader(selectedFilters: selectedInstructors)
                         return
                     }
                 }
             }
-            (instructorDropdown.headerView(forSection: 0) as! DropdownHeaderView).updateDropdownHeader(selectedFilters: selectedInstructors)
+            (instructorDropdown.headerView(forSection: 0) as! OldDropdownHeaderView).updateDropdownHeader(selectedFilters: selectedInstructors)
         }
     }
 
@@ -745,7 +745,7 @@ extension FilterViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownHeaderView.identifier) as! DropdownHeaderView
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: OldDropdownHeaderView.identifier) as! OldDropdownHeaderView
 
         if tableView == instructorDropdown {
             header.titleLabel.text = ClientStrings.Filter.selectInstructorSection

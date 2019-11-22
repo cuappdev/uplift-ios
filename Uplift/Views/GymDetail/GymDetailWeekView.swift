@@ -11,10 +11,16 @@
 import UIKit
 import SnapKit
 
+// MARK: - Delegation
+protocol WeekDelegate: AnyObject {
+    func weekDidChange(with day: WeekDay)
+}
+
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
     var updateDayClosure: ((WeekDay) -> ())?
+    var selectedDay: WeekDay = .sunday
 
     // MARK: - Display
     private let daysSize = CGSize(width: 24, height: 24)
@@ -23,7 +29,6 @@ class GymDetailWeekView: UIView {
 
     // MARK: - Info
     private var days: [WeekDay] = WeekDay.allCases
-    private var selectedDay: WeekDay
     private var selectedDayIndex: Int
 
     override init(frame: CGRect) {

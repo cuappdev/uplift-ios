@@ -177,4 +177,5 @@ class GymDetailTimeInfoView: UIView {
         selectedDayIndex = day.index - 1
         updateAppearance()
     }
+
 }

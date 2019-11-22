@@ -10,7 +10,7 @@ import Foundation
 
 extension Date {
     static let secondsPerDay = 86400.0
-    
+
     static public func getNowString() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -105,7 +105,7 @@ extension Date {
 
         return calendar.date(from: dateComponents)!
     }
-    
+
     /// Returns the date associated with the string of form "MMddyyyy"
     static public func getDateFromString(date: String) -> Date {
         let dateFormatter = DateFormatter()
@@ -129,11 +129,11 @@ extension Date {
     func getIntegerDayOfWeekTomorrow() -> Int {
         return Calendar.current.component(.weekday, from: self) % 7
     }
-    
+
     func isYesterday() -> Bool {
         return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: (Date() - Date.secondsPerDay))
     }
-    
+
     func isToday() -> Bool {
         return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: Date())
     }
