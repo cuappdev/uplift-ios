@@ -15,10 +15,19 @@ class OnboardingNewViewController: PresentationController {
     private var gyms: [String] = []
     private var classes: [String] = []
 
+    // MARK: - Views
+    private var viewSlides: [OnboardingView] = []
+    private var nextButton = OnboardingArrowButton(arrowFacesRight: true)
+    private var backButton = OnboardingArrowButton(arrowFacesRight: false, changesColor: false)
+    private var skipButton = UIButton()
+    private var endButton = UIButton()
+    private var runningPersonView = UIImageView(image: UIImage(named: ImageNames.runningMan))
+    private var dividerView = UIImageView(image: UIImage(named: ImageNames.divider))
+
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.setupViews()
         self.setupSlides()
         self.setupBackground()
     }
@@ -31,17 +40,116 @@ class OnboardingNewViewController: PresentationController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func setupViews() {
+        viewSlides = [
+            OnboardingView(
+                image: UIImage(named: ImageNames.onboarding1)!,
+                text: ClientStrings.Onboarding.onboarding1
+            ),
+            OnboardingView(
+                image: UIImage(named: ImageNames.onboarding2)!,
+                text: ClientStrings.Onboarding.onboarding2
+            ),
+            OnboardingView(
+                image: UIImage(named: ImageNames.onboarding3)!,
+                text: ClientStrings.Onboarding.onboarding3
+            ),
+            OnboardingView(
+                image: UIImage(named: ImageNames.onboarding4)!,
+                text: ClientStrings.Onboarding.onboarding4
+            )
+        ]
+        viewSlides.map { view in
+            view.snp.makeConstraints { make in
+                make.width.equalTo(348)
+                make.height.equalTo(view.getHeight())
+            }
+        }
+
+        endButton.backgroundColor = .primaryYellow
+        endButton.setTitle(ClientStrings.Onboarding.endButton, for: .normal)
+        endButton.titleLabel?.font = ._16MontserratBold
+        endButton.setTitleColor(.primaryBlack, for: .normal)
+        endButton.layer.shadowOpacity = 0.125
+        endButton.layer.cornerRadius = 5
+        endButton.layer.shadowRadius = 5
+        endButton.layer.shadowOffset = CGSize(width: 2, height: 4)
+        endButton.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
+        endButton.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 269, height: 48))
+        }
+
+        skipButton.setTitle(ClientStrings.Onboarding.skipButton, for: .normal)
+        skipButton.titleLabel?.font = ._16MontserratBold
+        skipButton.setTitleColor(.gray05, for: .normal)
+        skipButton.backgroundColor = .none
+        skipButton.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 40, height: 20))
+        }
+
+        dividerView.contentMode = .scaleAspectFill
+        dividerView.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: view.frame.width, height: 2))
+        }
+    }
+
     // MARK: - Setup
     private func setupSlides() {
-//        let slides = [
-//            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding1),
-//            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding2),
-//            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding3),
-//            OnboardingView(image: UIImage(named: ImageNames.yellowWhiteStar)!, text: Onboarding.onboarding4)
-//        ]
+        let contentSlides = viewSlides.map { view -> Content in
+            let position = Position(left: 0.5, top: 0.47)
+            return Content(view: view, position: position)
+        }
+
+        let buttonPosition = Position(left: 0.5, top: 0.71)
+        let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
+
+        var slides = [SlideController]()
+
+        for index in 0..<contentSlides.count {
+            var contents = [contentSlides[index]]
+            if index == contentSlides.count - 1 {
+                contents.append(endOnboardingContent)
+            }
+            let controller = SlideController(contents: contents)
+            slides.append(controller)
+        }
+
+        add(slides)
+
     }
 
     private func setupBackground() {
+        let dividerPosition = Position(left: 0.5, bottom: 0.195)
+        let divider = Content(view: dividerView, position: dividerPosition)
+
+        let runningInitPosition = Position(left: -0.3, bottom: 0.23)
+        let runningPerson = Content(view: runningPersonView, position: runningInitPosition)
+
+        let backButtonPosition = Position(left: 0.154, bottom: 0.095)
+        let backButtonContent = Content(view: backButton, position: backButtonPosition)
+
+        let nextButtonPosition = Position(right: 0.154, bottom: 0.095)
+        let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
+
+        let backgroundContents = [divider, runningPerson, backButtonContent, nextButtonContent]
+        addToBackground(backgroundContents)
+
+        // Animations
+         addAnimations([
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.1, bottom: 0.23))
+            ], forPage: 0)
+
+        addAnimations([
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.3, bottom: 0.23))
+            ], forPage: 1)
+
+        addAnimations([
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.6, bottom: 0.23))
+            ], forPage: 2)
+
+        addAnimations([
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: 0.23))
+            ], forPage: 3)
     }
 
     @objc func dismissOnboarding() {

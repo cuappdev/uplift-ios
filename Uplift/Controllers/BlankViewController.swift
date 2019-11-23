@@ -14,6 +14,9 @@ class BlankViewController: UIViewController {
     var rightButton: OnboardingArrowButton!
     var leftButton: OnboardingArrowButton!
 
+    var skipButton: UIButton!
+    var endOnboardingButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryWhite
@@ -35,6 +38,26 @@ class BlankViewController: UIViewController {
 //
 //            self.setupConstraints()
 //        }
+
+        skipButton = UIButton()
+        skipButton.setTitle(ClientStrings.Onboarding.skipButton, for: .normal)
+        skipButton.titleLabel?.font = ._16MontserratBold
+        skipButton.setTitleColor(.gray05, for: .normal)
+        skipButton.backgroundColor = .none
+        view.addSubview(skipButton)
+
+        endOnboardingButton = UIButton()
+        endOnboardingButton.setTitle(ClientStrings.Onboarding.endButton, for: .normal)
+        endOnboardingButton.titleLabel?.font = ._16MontserratBold
+        endOnboardingButton.setTitleColor(.primaryBlack, for: .normal)
+        endOnboardingButton.backgroundColor = .primaryYellow
+        let cornerRad: CGFloat = 5
+        endOnboardingButton.layer.cornerRadius = cornerRad
+        endOnboardingButton.layer.shadowOpacity = 0.125
+        endOnboardingButton.layer.shadowRadius = cornerRad
+        endOnboardingButton.layer.shadowOffset = CGSize(width: 2, height: 4)
+
+        view.addSubview(endOnboardingButton)
 
         // Gyms Test
         NetworkManager.shared.getGymNames { gyms in
@@ -71,6 +94,20 @@ class BlankViewController: UIViewController {
             make.width.height.equalTo(35)
             make.trailing.equalToSuperview().inset(30)
             make.bottom.equalToSuperview().inset(60)
+        }
+
+        let skipButtonSize = CGSize(width: 40, height: 20)
+        skipButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(rightButton.snp.centerY)
+            make.size.equalTo(skipButtonSize)
+        }
+
+        let endOnboardingSize = CGSize(width: 269, height: 48)
+        endOnboardingButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(testView.snp.bottom).offset(40)
+            make.size.equalTo(endOnboardingSize)
         }
     }
 

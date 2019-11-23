@@ -23,6 +23,7 @@ class OnboardingView: UIView {
 
     // MARK: - Public vars
     var favorites: [String] = [] // User's selected favorite gyms/classes
+    var hasTableView = false
 
     init(image: UIImage, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
         super.init(frame: .zero)
@@ -36,6 +37,7 @@ class OnboardingView: UIView {
         addSubview(titleLabel)
 
         if let data = gymNames ?? classNames {
+            hasTableView = true
             tableData = data
             showingClasses = tableData == classNames
 
@@ -56,19 +58,26 @@ class OnboardingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func getHeight() -> CGFloat {
+        let titleHeight: CGFloat = titleLabel.attributedText?.size().height ?? 0
+        let imageHeight: CGFloat = imageView.image?.size.height ?? 0
+        return hasTableView ?
+            titleHeight + 515.8 :
+            titleHeight + imageHeight + 20
+    }
+
     private func setUpConstraints() {
-        let maxImageSize = CGSize(width: 214, height: 183)
-        let labelSideOffset: CGFloat = 37
+        let imageSize = hasTableView ? CGSize(width: 214, height: 183) : imageView.image?.size ?? CGSize()
+        let labelWidth: CGFloat = 301
 
         imageView.snp.makeConstraints { make in
-            make.size.equalTo(maxImageSize)
+            make.size.equalTo(imageSize)
             make.top.centerX.equalToSuperview()
         }
 
         if let table = tableView { // With Table View
-
-            let labelTopOffset: CGFloat = 187.2
             let labelHeight: CGFloat = 78
+            let labelTopOffset: CGFloat = 174
 
             let tableViewLeadingInset: CGFloat = 13
             let tableViewTrailingInset: CGFloat = 14
@@ -77,9 +86,9 @@ class OnboardingView: UIView {
 
             titleLabel.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
-                make.leading.trailing.equalToSuperview().inset(labelSideOffset)
-                make.top.equalToSuperview().inset(labelTopOffset)
+                make.width.equalTo(labelWidth)
                 make.height.equalTo(labelHeight)
+                make.top.equalToSuperview().inset(labelTopOffset)
             }
 
             table.snp.makeConstraints { make in
@@ -93,7 +102,7 @@ class OnboardingView: UIView {
 
             titleLabel.snp.makeConstraints { make in
                 make.top.equalTo(imageView.snp.bottom).offset(imageTextPadding)
-                make.leading.trailing.equalToSuperview().inset(labelSideOffset)
+                make.width.equalTo(labelWidth)
                 make.centerX.equalToSuperview()
             }
         }
