@@ -52,13 +52,11 @@ class FavoriteGymCell: UITableViewCell {
         favoritedBackground.tintColor = .primaryWhite
         favoritedBackground.layer.borderColor = UIColor.upliftMediumGrey.cgColor
         favoritedBackground.layer.borderWidth = 0
-//        favoritedBackground.layer.borderWidth = 1
         favoritedBackground.layer.cornerRadius = checkSize / 2
         cellBackground.addSubview(favoritedBackground)
 
         favoritedIcon = UIImageView()
         favoritedIcon.contentMode = .scaleAspectFit
-        favoritedIcon.alpha = 0
         favoritedBackground.addSubview(favoritedIcon)
 
         setUpConstraints()
@@ -77,12 +75,15 @@ class FavoriteGymCell: UITableViewCell {
         usesStars = displaysClasses
 
         if usesStars {
-            favoritedIcon.image = UIImage(named: ImageNames.yellowWhiteStar)
+            favoritedIcon.image = UIImage(named: ImageNames.blackStarOutline)
             updateAppearence = { isOn in
-                self.favoritedIcon.image = UIImage(named: isOn ? ImageNames.yellowWhiteStar : ImageNames.blackStarOutline)
+                self.gymLabel.textColor = isOn ? .primaryBlack : .upliftMediumGrey
+                self.favoritedIcon.image = UIImage(named: isOn ? ImageNames.yellowStar : ImageNames.blackStarOutline)
             }
         } else {
+            favoritedIcon.alpha = 0
             favoritedIcon.image = UIImage(named: ImageNames.checkedCircle)
+            favoritedBackground.layer.borderWidth = 1
             updateAppearence = { (isOn) -> Void in
                 self.gymLabel.textColor = isOn ? .primaryBlack : .upliftMediumGrey
                 self.favoritedIcon.alpha = isOn ? 1 : 0

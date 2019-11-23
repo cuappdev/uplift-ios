@@ -16,13 +16,14 @@ class OnboardingArrowButton: UIButton {
     init(arrowFacesRight: Bool, changesColor: Bool = true) {
         super.init(frame: .zero)
 
+        let circleRadius: CGFloat = 17.5
         let borderSize: CGFloat = 2
         let arrowSize = CGSize(width: 16.95, height: 11.59)
 
         clipsToBounds = false
-        backgroundColor = .none
+        backgroundColor = changesColor ? .primaryYellow : .none
 
-        layer.cornerRadius = borderSize / 2
+        layer.cornerRadius = circleRadius
         layer.borderColor = UIColor.primaryBlack.cgColor
         layer.borderWidth = borderSize
 

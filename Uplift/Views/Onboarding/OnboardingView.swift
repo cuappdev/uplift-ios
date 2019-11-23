@@ -26,6 +26,7 @@ class OnboardingView: UIView {
 
     init(image: UIImage, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
         super.init(frame: .zero)
+
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
@@ -43,8 +44,8 @@ class OnboardingView: UIView {
             tableView?.dataSource = self
             tableView?.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.identifier)
             tableView?.isScrollEnabled = false
-            tableView?.separatorStyle = .none
             tableView?.clipsToBounds = false
+            tableView?.separatorStyle = .none
             self.addSubview(tableView!)
         }
 
@@ -56,11 +57,11 @@ class OnboardingView: UIView {
     }
 
     private func setUpConstraints() {
-
+        let maxImageSize = CGSize(width: 214, height: 183)
         let labelSideOffset: CGFloat = 37
 
         imageView.snp.makeConstraints { make in
-            make.size.equalTo(imageView.image?.size ?? CGSize(width: 0, height: 0))
+            make.size.equalTo(maxImageSize)
             make.top.centerX.equalToSuperview()
         }
 
@@ -72,7 +73,7 @@ class OnboardingView: UIView {
             let tableViewLeadingInset: CGFloat = 13
             let tableViewTrailingInset: CGFloat = 14
             let tableViewBottomOffset: CGFloat = 19
-            let tableViewHeight: CGFloat = 282 // 4 Cells
+            let tableViewHeight: CGFloat = 308 // 4 Cells
 
             titleLabel.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
@@ -115,7 +116,7 @@ class OnboardingView: UIView {
 
 extension OnboardingView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.identifier, for: indexPath) as! FavoriteGymCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.identifier, for: indexPath) as? FavoriteGymCell else { return UITableViewCell() }
         let gym = tableData?[indexPath.section] ?? ""
         cell.configure(with: gym, displaysClasses: showingClasses)
         cell.selectionStyle = .none
@@ -123,7 +124,7 @@ extension OnboardingView: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return tableData?.count ?? 0
+        return 4 //tableData?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -138,6 +139,8 @@ extension OnboardingView: UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath) as? FavoriteGymCell,
             let data = tableData
         else { return }
+
+        print("table view was tapped; indexPath: \(indexPath.section)")
 
         cell.toggleSelectedView(selected: !cell.isOn)
 

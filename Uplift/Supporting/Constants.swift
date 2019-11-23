@@ -169,6 +169,7 @@ struct ImageNames {
     // STARS
     static let blackStarOutline = "blackStar"
     static let whiteStarOutline = "white-star"
+    static let yellowStar = "yellow-star"
     static let yellowWhiteStar = "yellow-white-star"
 
     // TAB ICONS

@@ -156,7 +156,7 @@ CHECKOUT OPTIONS:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
   AppDevHistogram:
-    :commit: 977f3682607c313822eb48baf4110a4f96e8f4c5
+    :commit: 76f5fb6708f289287567788029ec71621d153031
     :git: https://github.com/cuappdev/appdev-histogram.git
   Presentation:
     :commit: d4aa2d3ad5901f6ebce0727af592824982f88d13

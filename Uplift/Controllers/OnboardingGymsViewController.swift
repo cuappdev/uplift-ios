@@ -78,7 +78,7 @@ class OnboardingGymsViewController: UIViewController {
         gymsTableView = UITableView(frame: .zero, style: .plain)
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
-        gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.reuseIdentifier)
+        gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.identifier)
         gymsTableView.isScrollEnabled = false
         gymsTableView.separatorStyle = .none
         gymsTableView.clipsToBounds = false
@@ -235,9 +235,9 @@ extension OnboardingGymsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.reuseIdentifier, for: indexPath) as! FavoriteGymCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.identifier, for: indexPath) as! FavoriteGymCell
         let gym = gymNames[indexPath.section]
-        cell.configure(with: gym)
+        cell.configure(with: gym, displaysClasses: false)
         // Toggle if already in UserDefaults
         if favoriteGyms.contains(gym) {
             cell.toggleSelectedView(selected: true)
