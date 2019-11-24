@@ -310,12 +310,3 @@ extension ClassDetailViewController {
     }
 
 }
-
-// MARK: - ScrollViewDelegate
-extension ClassDetailViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        statusBarUpdater?.refreshStatusBarStyle()
-    }
-
-}

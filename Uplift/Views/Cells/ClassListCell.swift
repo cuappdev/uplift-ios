@@ -99,9 +99,8 @@ class ClassListCell: UICollectionViewCell {
 
         // FAVORITE
         favoriteButton = UIButton()
-        favoriteButton.setImage(UIImage(named: "grey-star"), for: .normal)
-        favoriteButton.setImage(UIImage(named: "yellow-star"), for: .selected)
-        favoriteButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        favoriteButton.setImage(UIImage(named: ImageNames.starOutlineDark), for: .normal)
+        favoriteButton.setImage(UIImage(named: ImageNames.starFilledInDark), for: .selected)
         favoriteButton.addTarget(self, action: #selector(favorite), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
 
