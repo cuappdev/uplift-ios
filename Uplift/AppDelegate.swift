@@ -25,30 +25,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setupGoogleSignIn()
 
-        window?.rootViewController = BlankViewController()
+        //window?.rootViewController = BlankViewController()
 
-//        let defaults = UserDefaults.standard
-//        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-//            window?.rootViewController = TabBarController()
-//        } else {
-//            let dispatchGroup = DispatchGroup()
-//            dispatchGroup.enter()
-//            dispatchGroup.enter()
-//            var gyms: [String] = []
-//            var classes: [String] = []
-//            NetworkManager.shared.getGymNames {
-//                gyms = $0.map { $0.name }
-//                dispatchGroup.leave()
-//            }
-//            NetworkManager.shared.getClassNames {
-//                classes = $0.map { $0 }
-//                dispatchGroup.leave()
-//            }
-//            dispatchGroup.notify(queue: .main, execute: {
-//                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classNames: classes)
-//            })
-//
-//        }
+        let defaults = UserDefaults.standard
+        if false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/ {
+            window?.rootViewController = TabBarController()
+        } else {
+            let dispatchGroup = DispatchGroup()
+            dispatchGroup.enter()
+            dispatchGroup.enter()
+            var gyms: [String] = []
+            var classes: [String] = []
+            NetworkManager.shared.getGymNames {
+                gyms = $0.map { $0.name }
+                dispatchGroup.leave()
+            }
+            NetworkManager.shared.getClassNames {
+                classes = $0.map { $0 }
+                dispatchGroup.leave()
+            }
+            dispatchGroup.notify(queue: .main, execute: {
+                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classNames: classes)
+            })
+            self.window?.rootViewController = UIViewController()
+
+        }
 
         #if DEBUG
             print("Running Uplift in debug configuration")

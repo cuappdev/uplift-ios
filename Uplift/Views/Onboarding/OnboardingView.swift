@@ -61,13 +61,17 @@ class OnboardingView: UIView {
     func getHeight() -> CGFloat {
         let titleHeight: CGFloat = titleLabel.attributedText?.size().height ?? 0
         let imageHeight: CGFloat = imageView.image?.size.height ?? 0
+       // return hasTableView ?
+       //     titleHeight + 515.8 :
+       //     titleHeight + imageHeight + 20
         return hasTableView ?
-            titleHeight + 515.8 :
-            titleHeight + imageHeight + 20
+            700 ://580/*566*/ :
+            269
     }
 
     private func setUpConstraints() {
-        let imageSize = hasTableView ? CGSize(width: 214, height: 183) : imageView.image?.size ?? CGSize()
+        // let imageSize = hasTableView ? CGSize(width: 214, height: 183) : imageView.image?.size ?? CGSize()
+        let imageSize = hasTableView ? CGSize(width: 214, height: 183) : CGSize(width: 295, height: 222.3)
         let labelWidth: CGFloat = 301
 
         imageView.snp.makeConstraints { make in
@@ -79,10 +83,8 @@ class OnboardingView: UIView {
             let labelHeight: CGFloat = 78
             let labelTopOffset: CGFloat = 174
 
-            let tableViewLeadingInset: CGFloat = 13
-            let tableViewTrailingInset: CGFloat = 14
             let tableViewBottomOffset: CGFloat = 19
-            let tableViewHeight: CGFloat = 308 // 4 Cells
+            let tableViewSize = CGSize(width: 348, height: 308)
 
             titleLabel.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
@@ -93,9 +95,8 @@ class OnboardingView: UIView {
 
             table.snp.makeConstraints { make in
                 make.top.equalTo(titleLabel.snp.bottom).offset(tableViewBottomOffset)
-                make.leading.equalToSuperview().inset(tableViewLeadingInset)
-                make.trailing.equalToSuperview().inset(tableViewTrailingInset)
-                make.height.equalTo(tableViewHeight)
+                make.size.equalTo(tableViewSize)
+                make.centerX.equalTo(titleLabel)
             }
         } else { // Without Table View
             let imageTextPadding: CGFloat = 20

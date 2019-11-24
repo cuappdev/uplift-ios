@@ -27,6 +27,8 @@ class OnboardingNewViewController: PresentationController {
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .primaryWhite
+
         self.setupViews()
         self.setupSlides()
         self.setupBackground()
@@ -34,6 +36,10 @@ class OnboardingNewViewController: PresentationController {
 
     init(gymNames: [String], classNames: [String]) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+        gyms = gymNames
+        classes = classNames
+        print("gyms: \(gyms)")
+        print("classes: \(classes)")
     }
 
     required init?(coder: NSCoder) {
@@ -48,18 +54,20 @@ class OnboardingNewViewController: PresentationController {
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding2)!,
-                text: ClientStrings.Onboarding.onboarding2
+                text: ClientStrings.Onboarding.onboarding2,
+                gymNames: gyms
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding3)!,
-                text: ClientStrings.Onboarding.onboarding3
+                text: ClientStrings.Onboarding.onboarding3,
+                classNames: classes
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding4)!,
                 text: ClientStrings.Onboarding.onboarding4
             )
         ]
-        viewSlides.map { view in
+        viewSlides.forEach { view in
             view.snp.makeConstraints { make in
                 make.width.equalTo(348)
                 make.height.equalTo(view.getHeight())
@@ -79,6 +87,14 @@ class OnboardingNewViewController: PresentationController {
             make.size.equalTo(CGSize(width: 269, height: 48))
         }
 
+        nextButton.snp.makeConstraints { make in
+            make.width.height.equalTo(35)
+        }
+
+        backButton.snp.makeConstraints { make in
+            make.width.height.equalTo(35)
+        }
+
         skipButton.setTitle(ClientStrings.Onboarding.skipButton, for: .normal)
         skipButton.titleLabel?.font = ._16MontserratBold
         skipButton.setTitleColor(.gray05, for: .normal)
@@ -87,18 +103,33 @@ class OnboardingNewViewController: PresentationController {
             make.size.equalTo(CGSize(width: 40, height: 20))
         }
 
-        dividerView.contentMode = .scaleAspectFill
+        dividerView.contentMode = .scaleAspectFit
         dividerView.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: view.frame.width, height: 2))
+        }
+
+        runningPersonView.contentMode = .scaleAspectFit
+        runningPersonView.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 64, height: 64))
         }
     }
 
     // MARK: - Setup
     private func setupSlides() {
-        let contentSlides = viewSlides.map { view -> Content in
-            let position = Position(left: 0.5, top: 0.47)
-            return Content(view: view, position: position)
-        }
+        let contentSlides = [
+            [viewSlides[0]].map { view -> Content in
+                let position = Position(left: 0.5, top: 0.3)//0.47)
+                return Content(view: view, position: position)
+            },
+            viewSlides[1...2].map { view -> Content in
+                let position = Position(left: 0.5, top: 0.1)//0.47)
+                return Content(view: view, position: position)
+            },
+            [viewSlides[3]].map { view -> Content in
+                let position = Position(left: 0.5, top: 0.3)
+                return Content(view: view, position: position)
+            }
+        ].flatMap { $0 }
 
         let buttonPosition = Position(left: 0.5, top: 0.71)
         let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
@@ -125,13 +156,16 @@ class OnboardingNewViewController: PresentationController {
         let runningInitPosition = Position(left: -0.3, bottom: 0.23)
         let runningPerson = Content(view: runningPersonView, position: runningInitPosition)
 
+        let skipButtonPosition = Position(left: 0.5, bottom: 0.095)
+        let skipButtonContent = Content(view: skipButton, position: skipButtonPosition)
+
         let backButtonPosition = Position(left: 0.154, bottom: 0.095)
         let backButtonContent = Content(view: backButton, position: backButtonPosition)
 
         let nextButtonPosition = Position(right: 0.154, bottom: 0.095)
         let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
 
-        let backgroundContents = [divider, runningPerson, backButtonContent, nextButtonContent]
+        let backgroundContents = [divider, runningPerson, skipButtonContent, backButtonContent, nextButtonContent]
         addToBackground(backgroundContents)
 
         // Animations
