@@ -21,7 +21,7 @@ class TabBarController: UITabBarController {
                 if viewController == selectedViewController {
                     viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratBold as Any], for: .normal)
                 } else {
-                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratMedium as Any], for: .normal)
+                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratMedium as Any, NSAttributedString.Key.foregroundColor: UIColor.primaryBlack], for: .normal)
                 }
             }
         }
@@ -33,6 +33,7 @@ class TabBarController: UITabBarController {
 
         UITabBar.appearance().barTintColor = .primaryYellow
         UITabBar.appearance().tintColor = .primaryBlack
+        UITabBar.appearance().isTranslucent = false
 
         let homeController = HomeViewController()
         homeController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.homeSection, imageName: ImageNames.home, selectedImageName: ImageNames.homeSelected)
@@ -53,11 +54,11 @@ class TabBarController: UITabBarController {
 
         selectedViewController = navControllerList[0]
     }
-    
+
     // MARK: - Private helpers
     private func getTabBarItem(title: String, imageName: String, selectedImageName: String) -> UITabBarItem {
-        let tabBarItem = UITabBarItem(title: title, image: UIImage(named: imageName), selectedImage: UIImage(named: selectedImageName))
-        tabBarItem.imageInsets = UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0)
+        let tabBarItem = UITabBarItem(title: title, image: UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: selectedImageName))
+        tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: -2, right: 0)
         return tabBarItem
     }
 
