@@ -67,7 +67,7 @@ class TabBarController: UITabBarController {
 extension TabBarController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if let tabName = item.title, tabName == ClientStrings.TabBar.homeSection {
-            Answers.logCustomEvent(withName: "Opened \"browse\" Tab")
+            Answers.logCustomEvent(withName: "Opened \"Home\" Tab")
         }
     }
 }
