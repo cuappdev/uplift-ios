@@ -19,7 +19,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
     var upArrow: UIImageView!
     var statusLabel: UILabel!
     var todayTimeLabel: UILabel!
-    
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
 
@@ -30,14 +30,14 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         facilityNameLabel.textAlignment = .left
         facilityNameLabel.text = ""
         contentView.addSubview(facilityNameLabel)
-        
+
         iconImageView = UIImageView()
         contentView.addSubview(iconImageView)
 
         downArrow = UIImageView(image: .none)
         contentView.addSubview(downArrow)
         
-        upArrow = UIImageView(image: UIImage(named:"down-arrow"))
+        upArrow = UIImageView(image: UIImage(named: ImageNames.downArrow))
         contentView.addSubview(upArrow)
         
         statusLabel = UILabel()
