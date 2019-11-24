@@ -17,7 +17,7 @@ struct ClientStrings {
         static let dismissAlert = "OK"
         static let displaySettingsTitle = "Settings"
     }
-    
+
     struct Calendar {
         static let noClassesTodayDescription = "Sit back and make yourself some tea"
         static let noClassesTodayLabel = "NO CLASSES TODAY"
@@ -35,6 +35,11 @@ struct ClientStrings {
         static let dayMinAbbreviation = " min"
         static let dayTodayLabel = "Today"
         static let vcTitleLabel = "Classes"
+    }
+
+    struct CommonStrings {
+        static let closed = "Closed"
+        static let open = "Open"
     }
 
     struct Dropdown {
@@ -79,9 +84,9 @@ struct ClientStrings {
     }
 
     struct Histogram {
-        static let businessLevel1 = "Not too busy"
-        static let businessLevel2 = "A little busy"
-        static let businessLevel3 = "As busy as it gets"
+        static let busynessLevel1 = "Not too busy"
+        static let busynessLevel2 = "A little busy"
+        static let busynessLevel3 = "As busy as it gets"
     }
 
     struct Home {
@@ -93,8 +98,6 @@ struct ClientStrings {
         static let greetingEvening = "Good evening!"
         static let greetingMorning = "Good morning!"
 
-        static let gymDetailCellClosed = "Closed"
-        static let gymDetailCellOpen = "Open"
         static let gymDetailCellOpensAt = "Opens at "
         static let gymDetailCellClosesAt = "Closes at "
     }
@@ -105,6 +108,7 @@ struct ClientStrings {
         static let facilitiesSection = "FACILITIES"
         static let hoursLabel = "HOURS"
         static let noMoreClasses = "We are done for today.\nCheck again tomorrow!\n🌟"
+        static let noTimesToday = "NO TIMES TODAY"
         static let popularHoursSection = "POPULAR TIMES"
         static let todaysClassesSection = "TODAYS CLASSES"
     }

@@ -11,30 +11,42 @@
 import UIKit
 import SnapKit
 
+// MARK: - Delegation
+protocol WeekDelegate: AnyObject {
+    func weekDidChange(with day: WeekDay)
+}
+
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
-    var selectedDay: WeekDay?
+    var updateDayClosure: ((WeekDay) -> ())?
+    var selectedDay: WeekDay = .sunday
 
     // MARK: - Display
-    private var weekdayCollectionView: UICollectionView!
     private let daysSize = CGSize(width: 24, height: 24)
     private let interitemSpace: CGFloat = 19
+    private var weekdayCollectionView: UICollectionView!
 
     // MARK: - Info
-    private var days: [WeekDay] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
+    private var days: [WeekDay] = WeekDay.allCases
+    private var selectedDayIndex: Int
 
     override init(frame: CGRect) {
+        // Preselect Today
+        selectedDayIndex = Calendar.current.component(.weekday, from: Date())
+        selectedDay = days[selectedDayIndex - 1]
+
         super.init(frame: frame)
 
         setupCollectionView()
         setupConstraints()
-
-        // Preselect Today
-        let todayIndex = Calendar.current.component(.weekday, from: Date())
-        weekdayCollectionView.selectItem(at: IndexPath(row: (todayIndex + 5) % 7, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
-    
+
+    func configure(for selectedDayIndex: Int) {
+        self.selectedDayIndex = selectedDayIndex
+        weekdayCollectionView.selectItem(at: IndexPath(row: selectedDayIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,15 +72,16 @@ class GymDetailWeekView: UIView {
         weekdayCollectionView.isScrollEnabled = false
         weekdayCollectionView.backgroundColor = .clear
         addSubview(weekdayCollectionView)
+
+        weekdayCollectionView.selectItem(at: IndexPath(row: selectedDayIndex - 1, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
-    
+
     private func setupConstraints() {
-        let weekdayDisplayInset: CGFloat = 39
+        let weekdayCollectionViewWidth: CGFloat = 282
 
         weekdayCollectionView.snp.makeConstraints { make in
-            make.center.height.equalToSuperview()
-            make.leading.equalToSuperview().inset(weekdayDisplayInset + interitemSpace)
-            make.trailing.equalToSuperview().inset(weekdayDisplayInset - interitemSpace)
+            make.height.centerX.centerY.equalToSuperview()
+            make.width.equalTo(weekdayCollectionViewWidth)
         }
     }
 }
@@ -78,6 +91,7 @@ extension GymDetailWeekView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = days[indexPath.row]
+        updateDayClosure?(selectedDay)
     }
 
 }
@@ -93,7 +107,7 @@ extension GymDetailWeekView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymWeekCell, for: indexPath) as? GymWeekCell else {
             return UICollectionViewCell()
         }
-        
+
         cell.configure(weekday: days[indexPath.row])
         return cell
     }

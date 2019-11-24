@@ -83,7 +83,7 @@ class HomeSectionHeaderView: UICollectionReusableView {
         } else {
             navigationButton.isHidden = true
         }
-        
+
         buttonCompletion = completion
     }
 

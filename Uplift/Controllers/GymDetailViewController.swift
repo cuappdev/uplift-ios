@@ -11,15 +11,15 @@ import UIKit
 
 class GymDetailViewController: UIViewController {
 
-    // MARK: - Private view vars
-    private let backButton = UIButton()
-
     // MARK: - Public view vars
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
     // MARK: - Private data vars
     private var equipment: [EquipmentCategory] = []
     private var sections: [Section] = []
+    // Default index is current hour subtracted by 6 because popular times histogram
+    // view displays hours starting from 6am
+    private var selectedPopularTimeIndex = Calendar.current.component(.hour, from: Date()) - 6
     private var todaysClasses: [GymClassInstance] = []
 
     // MARK: - Public data vars
@@ -88,7 +88,8 @@ class GymDetailViewController: UIViewController {
             let items = self.sections[0].items
             self.sections[0].items[items.count - 1] = .classes(gymClasses)
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                // Only reload the classes cell
+                self.collectionView.reloadItems(at: [IndexPath(row: items.count - 1, section: 0)])
             }
         }
 
@@ -97,17 +98,6 @@ class GymDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        switch UIApplication.shared.statusBarStyle {
-        case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
-        case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
-        }
     }
 
     // MARK: - Targets
@@ -134,7 +124,9 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .busyTimes:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier, for: indexPath) as! GymDetailPopularTimesCell
-            cell.configure(for: gymDetail.gym)
+            cell.configure(for: gymDetail.gym, selectedPopularTimeIndex: selectedPopularTimeIndex) { index in
+                self.selectedPopularTimeIndex = index
+            }
             return cell
         case .facilities:
             // swiftlint:disable:next force_cast
@@ -171,7 +163,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier,
             // swiftlint:disable:next force_cast
             for: indexPath) as! GymDetailHeaderView
-        headerView.configure(for: gymDetail.gym)
+        headerView.configure(for: self, for: gymDetail.gym)
         return headerView
     }
 
@@ -202,30 +194,16 @@ extension GymDetailViewController {
         collectionView.register(GymDetailPopularTimesCell.self, forCellWithReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier)
         collectionView.register(GymDetailFacilitiesCell.self, forCellWithReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier)
         collectionView.register(GymDetailTodaysClassesCell.self, forCellWithReuseIdentifier: Constants.gymDetailClassesCellIdentifier)
+
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
-
-        backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
-        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
-        view.addSubview(backButton)
-        view.bringSubviewToFront(backButton)
     }
 
     private func setupConstraints() {
-        let backButtonLeftPadding = 20
-        let backButtonSize = CGSize(width: 23, height: 19)
-        let backButtonTopPadding = 30
-
         collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-
-        backButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(backButtonLeftPadding)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(backButtonTopPadding)
-            make.size.equalTo(backButtonSize)
         }
     }
 }
@@ -300,19 +278,5 @@ extension GymDetailViewController {
         let equipmentCategories = equipmentDictionary.map { EquipmentCategory(categoryName: $0, equipment: $1) }
 
         return equipmentCategories
-    }
-}
-
-// MARK: - ScrollViewDelegate
-extension GymDetailViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        statusBarUpdater?.refreshStatusBarStyle()
-
-        switch UIApplication.shared.statusBarStyle {
-        case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
-        case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.backArrowDark), for: .normal)
-        }
     }
 }
