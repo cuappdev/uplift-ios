@@ -213,5 +213,11 @@ class OnboardingNewViewController: PresentationController {
         }
     }
 
+    private func updateUserDefaults(with gyms: [String], and classes: [String]) {
+        let defaults = UserDefaults.standard
+        // Gyms
+        default.set()
+
+    }
 
 }

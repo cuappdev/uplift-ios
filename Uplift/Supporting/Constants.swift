@@ -72,6 +72,7 @@ struct Identifiers {
     // USER DEFAULTS
     static let activeHabits = "ActiveHabits"
     static let favoriteGyms = "FavoriteGyms"
+    static let favoriteClasses = "FavoriteClasses"
     static let favorites = "Favorites"
     static let googleExpiration = "googleExpiration"
     static let googleRefresh = "googleRefresh"

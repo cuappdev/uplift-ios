@@ -59,18 +59,12 @@ class OnboardingView: UIView {
     }
 
     func getHeight() -> CGFloat {
-        let titleHeight: CGFloat = titleLabel.attributedText?.size().height ?? 0
-        let imageHeight: CGFloat = imageView.image?.size.height ?? 0
-       // return hasTableView ?
-       //     titleHeight + 515.8 :
-       //     titleHeight + imageHeight + 20
         return hasTableView ?
-            700 ://580/*566*/ :
+            700 :
             269
     }
 
     private func setUpConstraints() {
-        // let imageSize = hasTableView ? CGSize(width: 214, height: 183) : imageView.image?.size ?? CGSize()
         let imageSize = hasTableView ? CGSize(width: 214, height: 183) : CGSize(width: 295, height: 222.3)
         let labelWidth: CGFloat = 301
 
