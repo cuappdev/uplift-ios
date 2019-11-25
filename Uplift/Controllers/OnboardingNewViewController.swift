@@ -68,6 +68,7 @@ class OnboardingNewViewController: PresentationController {
             )
         ]
         viewSlides.forEach { view in
+            view.frame = CGRect(x: 0, y: 0, width: 348, height: view.getHeight())
             view.snp.makeConstraints { make in
                 make.width.equalTo(348)
                 make.height.equalTo(view.getHeight())
@@ -83,14 +84,17 @@ class OnboardingNewViewController: PresentationController {
         endButton.layer.shadowRadius = 5
         endButton.layer.shadowOffset = CGSize(width: 2, height: 4)
         endButton.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
+        endButton.frame = CGRect(x: 0, y: 0, width: 269, height: 48)
         endButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 269, height: 48))
         }
 
+        nextButton.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         nextButton.snp.makeConstraints { make in
             make.width.height.equalTo(35)
         }
 
+        backButton.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         backButton.snp.makeConstraints { make in
             make.width.height.equalTo(35)
         }
@@ -99,6 +103,8 @@ class OnboardingNewViewController: PresentationController {
         skipButton.titleLabel?.font = ._16MontserratBold
         skipButton.setTitleColor(.gray05, for: .normal)
         skipButton.backgroundColor = .none
+        skipButton.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
+        skipButton.frame = CGRect(x: 0, y: 0, width: 40, height: 20)
         skipButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 40, height: 20))
         }
@@ -118,15 +124,15 @@ class OnboardingNewViewController: PresentationController {
     private func setupSlides() {
         let contentSlides = [
             [viewSlides[0]].map { view -> Content in
-                let position = Position(left: 0.5, top: 0.3)//0.47)
+                let position = Position(left: 0.5, top: 0.45)//0.47)
                 return Content(view: view, position: position)
             },
             viewSlides[1...2].map { view -> Content in
-                let position = Position(left: 0.5, top: 0.1)//0.47)
+                let position = Position(left: 0.5, top: 0.5)//0.47)
                 return Content(view: view, position: position)
             },
             [viewSlides[3]].map { view -> Content in
-                let position = Position(left: 0.5, top: 0.3)
+                let position = Position(left: 0.5, top: 0.45)
                 return Content(view: view, position: position)
             }
         ].flatMap { $0 }
@@ -196,7 +202,7 @@ class OnboardingNewViewController: PresentationController {
             let snapshot = appDelegate.window?.snapshotView(afterScreenUpdates: true) else { return }
 
         // set new rootViewController
-        appDelegate.window?.rootViewController = OnboardingGymsViewController()
+        appDelegate.window?.rootViewController = HomeViewController()
 
         // exit transition for snapshot
         UIView.animate(withDuration: 0.5, animations: {
