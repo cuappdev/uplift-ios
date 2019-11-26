@@ -114,6 +114,7 @@ class OnboardingNewViewController: PresentationController {
         endButton.layer.shadowOffset = CGSize(width: 2, height: 4)
         endButton.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
         endButton.frame = CGRect(x: 0, y: 0, width: 269, height: 48)
+        endButton.alpha = 0
         endButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 269, height: 48))
         }
@@ -171,19 +172,21 @@ class OnboardingNewViewController: PresentationController {
             }
         ].flatMap { $0 }
 
-        let buttonPosition = Position(left: 0.5, top: 0.71)
-        let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
+
 
         var slides = [SlideController]()
-
-        for index in 0..<contentSlides.count {
-            var contents = [contentSlides[index]]
-            if index == contentSlides.count - 1 {
-                contents.append(endOnboardingContent)
-            }
-            let controller = SlideController(contents: contents)
-            slides.append(controller)
+        contentSlides.forEach {
+            slides.append(SlideController(contents: [$0]))
         }
+
+//        for index in 0..<contentSlides.count {
+//            var contents = [contentSlides[index]]
+//            if index == contentSlides.count - 1 {
+//                contents.append(endOnboardingContent)
+//            }
+//            let controller = SlideController(contents: contents)
+//            slides.append(controller)
+//        }
 
         add(slides)
 
@@ -206,7 +209,10 @@ class OnboardingNewViewController: PresentationController {
         let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
         nextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5)
 
-        let backgroundContents = [divider, runningPerson, skipButtonContent, backButtonContent, nextButtonContent]
+        let buttonPosition = Position(left: 0.5, bottom: 0.11)//0.71)
+        let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
+
+        let backgroundContents = [divider, runningPerson, skipButtonContent, backButtonContent, nextButtonContent, endOnboardingContent]
         addToBackground(backgroundContents)
 
         // Running Man Animations
@@ -254,7 +260,9 @@ class OnboardingNewViewController: PresentationController {
             FadeOutAnimation(content: nextButtonContent, duration: 0.5, willFadeIn: true)
         ], forPage: 1)
 
-
+        addAnimations([
+            FadeOutAnimation(content: endOnboardingContent, duration: 0.5, delay: 0.5, willFadeIn: true)
+        ], forPage: 3)
 
     }
 
