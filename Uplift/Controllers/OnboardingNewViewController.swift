@@ -109,7 +109,7 @@ class OnboardingNewViewController: PresentationController {
             make.size.equalTo(CGSize(width: 40, height: 20))
         }
 
-        dividerView.contentMode = .scaleAspectFit
+        dividerView.contentMode = .scaleAspectFill
         dividerView.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: view.frame.width, height: 2))
         }

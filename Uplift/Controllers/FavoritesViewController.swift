@@ -89,7 +89,6 @@ class FavoritesViewController: UIViewController {
         favorites = []
 
         NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
-            print("FAVOFRITES ARE: \(self.favoritesNames)")
             self.favorites = gymClasses
         }
     }

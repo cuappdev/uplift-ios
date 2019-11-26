@@ -74,10 +74,10 @@ class OnboardingView: UIView {
         }
 
         if let table = tableView { // With Table View
-            let labelHeight: CGFloat = 78
+            let labelHeight: CGFloat = 80//88
             let labelTopOffset: CGFloat = 174
 
-            let tableViewBottomOffset: CGFloat = 19
+            let tableViewBottomOffset: CGFloat = 17
             let tableViewSize = CGSize(width: 348, height: 308)
 
             titleLabel.snp.makeConstraints { make in

@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGoogleSignIn()
 
         //window?.rootViewController = BlankViewController()
+        //return true
 
         let defaults = UserDefaults.standard
         if false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/ {
