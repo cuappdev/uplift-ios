@@ -38,11 +38,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var classes: [GymClassInstance] = []
 
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) {
-                classes = $0.map { $0 }
-                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
-            }
+            // OFFLINE VERSION
+            classes = [
+                GymClassInstance(classDescription: "aaa", classDetailId: "ee", className: "No", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "aaa", classDetailId: "ee", className: "Wifi", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "aaa", classDetailId: "ee", className: "On", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "", classDetailId: "ee", className: "The Bus", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: [])
+
+            ]
+            self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
+//            dateFormatter.dateFormat = "yyyy-MM-dd"
+//            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) {
+//                classes = $0.map { $0 }
+//                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
+//            }
         }
 
         #if DEBUG
