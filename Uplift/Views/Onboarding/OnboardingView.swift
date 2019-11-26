@@ -21,6 +21,9 @@ class OnboardingView: UIView {
     private let tableViewCellHeight: CGFloat = 60
     private let tableViewCellSpacing: CGFloat = 14
 
+    // MARK: = Delegation
+    var delegate: (([String]) -> Void)?
+
     // MARK: - Public vars
     var favorites: [String] = [] // User's selected favorite gyms/classes
     var hasTableView = false
@@ -128,7 +131,7 @@ extension OnboardingView: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4 //tableData?.count ?? 0
+        return 4
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -144,8 +147,6 @@ extension OnboardingView: UITableViewDelegate {
             let data = tableData
         else { return }
 
-        print("table view was tapped; indexPath: \(indexPath.section)")
-
         cell.toggleSelectedView(selected: !cell.isOn)
 
         if cell.isOn {
@@ -153,6 +154,8 @@ extension OnboardingView: UITableViewDelegate {
         } else {
             favorites.removeAll { $0 == data[indexPath.section] }
         }
+
+        delegate?(favorites)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

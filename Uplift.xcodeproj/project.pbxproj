@@ -20,6 +20,7 @@
 		4F187272235FD59900A85283 /* GymDetailTimeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */; };
 		4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187273235FD63A00A85283 /* AdditionalInfoView.swift */; };
 		4F18C34823610A0B00BFB603 /* FacilitiesHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F18C34723610A0B00BFB603 /* FacilitiesHoursCell.swift */; };
+		4F1A5A7A238D8511005987E4 /* OnboardingAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A5A79238D8511005987E4 /* OnboardingAnimations.swift */; };
 		4F1E6C342384BC9100AAB3FD /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E6C332384BC9100AAB3FD /* BlankViewController.swift */; };
 		4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F20383E2385F27500A30FED /* OnboardingArrowButton.swift */; };
 		4F20EDEB234AE46C000B26E8 /* GymWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */; };
@@ -147,6 +148,7 @@
 		4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTimeInfoView.swift; sourceTree = "<group>"; };
 		4F187273235FD63A00A85283 /* AdditionalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoView.swift; sourceTree = "<group>"; };
 		4F18C34723610A0B00BFB603 /* FacilitiesHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesHoursCell.swift; sourceTree = "<group>"; };
+		4F1A5A79238D8511005987E4 /* OnboardingAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAnimations.swift; sourceTree = "<group>"; };
 		4F1E6C332384BC9100AAB3FD /* BlankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		4F20383E2385F27500A30FED /* OnboardingArrowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingArrowButton.swift; sourceTree = "<group>"; };
 		4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymWeekCell.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 			isa = PBXGroup;
 			children = (
 				C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */,
+				4F1A5A79238D8511005987E4 /* OnboardingAnimations.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -856,7 +859,6 @@
 				4F2285172352A1C80013F1B0 /* WeekDay.swift in Sources */,
 				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
 				4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */,
-				E6716DD423768434001FBA09 /* FacilitiesDropdownCell.swift in Sources */,
 				4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
@@ -883,6 +885,7 @@
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
 				C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
+				4F1A5A7A238D8511005987E4 /* OnboardingAnimations.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
 				C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,

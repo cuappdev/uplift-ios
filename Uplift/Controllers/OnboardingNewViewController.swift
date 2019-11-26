@@ -24,11 +24,20 @@ class OnboardingNewViewController: PresentationController {
     private var runningPersonView = UIImageView(image: UIImage(named: ImageNames.runningMan))
     private var dividerView = UIImageView(image: UIImage(named: ImageNames.divider))
 
+    // MARK: - Animation Progress
+    private var selectedOneGym = false
+    private var selectedOneClass = false
+
+    // MARK: - Animations
+    private var nextButtonTransition: ArrowButtonTransition?
+    private var backButtonTransition: ArrowButtonTransition?
+
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryWhite
 
+        self.setupOnboardingViews()
         self.setupViews()
         self.setupSlides()
         self.setupBackground()
@@ -44,7 +53,7 @@ class OnboardingNewViewController: PresentationController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupViews() {
+    private func setupOnboardingViews() {
         viewSlides = [
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding1)!,
@@ -73,6 +82,29 @@ class OnboardingNewViewController: PresentationController {
             }
         }
 
+        // Delegation
+        viewSlides[1].delegate = { [weak self] in
+            if let `self` = self {
+                self.selectedOneGym = !$0.isEmpty
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.nextButton.backgroundColor = self.selectedOneGym ? .primaryYellow : .none
+                })
+                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneGym
+            }
+        }
+        viewSlides[2].delegate = { [weak self] in
+            if let `self` = self {
+                self.selectedOneClass = !$0.isEmpty
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.nextButton.backgroundColor = self.selectedOneClass ? .primaryYellow : .none
+                })
+                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneClass
+            }
+        }
+
+    }
+
+    private func setupViews() {
         endButton.backgroundColor = .primaryYellow
         endButton.setTitle(ClientStrings.Onboarding.endButton, for: .normal)
         endButton.titleLabel?.font = ._16MontserratBold
@@ -128,7 +160,7 @@ class OnboardingNewViewController: PresentationController {
                 return Content(view: view, position: position)
             },
             viewSlides[1...2].map { view -> Content in
-                let position = Position(left: 0.5, top: 0.5)//0.47)
+                let position = Position(left: 0.5, top: 0.52)//0.47)
                 return Content(view: view, position: position)
             },
             [viewSlides[3]].map { view -> Content in
@@ -167,14 +199,16 @@ class OnboardingNewViewController: PresentationController {
 
         let backButtonPosition = Position(left: 0.154, bottom: 0.11)//0.095)
         let backButtonContent = Content(view: backButton, position: backButtonPosition)
+        backButtonTransition = ArrowButtonTransition(content: backButtonContent, duration: 0.5)
 
         let nextButtonPosition = Position(right: 0.154, bottom: 0.11)//0.095)
         let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
+        nextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5)
 
         let backgroundContents = [divider, runningPerson, skipButtonContent, backButtonContent, nextButtonContent]
         addToBackground(backgroundContents)
 
-        // Animations
+        // Running Man Animations
          addAnimations([
             TransitionAnimation(content: runningPerson, destination: Position(left: 0.1, bottom: 0.197))
             ], forPage: 0)
@@ -190,6 +224,19 @@ class OnboardingNewViewController: PresentationController {
         addAnimations([
             TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: 0.197))
             ], forPage: 3)
+
+        // Arrow Animations
+        if let transition = backButtonTransition {
+            addAnimations([transition], forPage: 0)
+            addAnimations([transition], forPage: 1)
+            addAnimations([transition], forPage: 2)
+        }
+
+        if let transition = nextButtonTransition {
+            addAnimations([transition], forPage: 0)
+            addAnimations([transition], forPage: 1)
+            addAnimations([transition], forPage: 2)
+        }
     }
 
     @objc func dismissOnboarding() {
