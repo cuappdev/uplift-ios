@@ -13,7 +13,7 @@ import UIKit
 class OnboardingNewViewController: PresentationController {
 
     private var gyms: [String] = []
-    private var classes: [String] = []
+    private var classInstances: [GymClassInstance] = []
 
     // MARK: - Views
     private var viewSlides: [OnboardingView] = []
@@ -34,12 +34,10 @@ class OnboardingNewViewController: PresentationController {
         self.setupBackground()
     }
 
-    init(gymNames: [String], classNames: [String]) {
+    init(gymNames: [String], classes: [GymClassInstance]) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
         gyms = gymNames
-        classes = classNames
-        print("gyms: \(gyms)")
-        print("classes: \(classes)")
+        classInstances = classes
     }
 
     required init?(coder: NSCoder) {
@@ -60,7 +58,7 @@ class OnboardingNewViewController: PresentationController {
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding3)!,
                 text: ClientStrings.Onboarding.onboarding3,
-                classNames: classes
+                classNames: classInstances.map { $0.className }
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding4)!,
@@ -196,13 +194,14 @@ class OnboardingNewViewController: PresentationController {
         // update UserDefaults
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: Identifiers.hasSeenOnboarding)
+        updateUserDefaults(with: viewSlides[1].favorites, and: viewSlides[2].favorites)
 
         // snapshot current view
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let snapshot = appDelegate.window?.snapshotView(afterScreenUpdates: true) else { return }
 
         // set new rootViewController
-        appDelegate.window?.rootViewController = HomeViewController()
+        appDelegate.window?.rootViewController = TabBarController()
 
         // exit transition for snapshot
         UIView.animate(withDuration: 0.5, animations: {
@@ -213,10 +212,31 @@ class OnboardingNewViewController: PresentationController {
         }
     }
 
-    private func updateUserDefaults(with gyms: [String], and classes: [String]) {
+    private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
         let defaults = UserDefaults.standard
         // Gyms
-        default.set()
+        var favoriteGyms: [String] = []
+        gyms.forEach {
+            if $0 == "Teagle" {
+                favoriteGyms.append(contentsOf: ["Teagle Up", "Teagle Down"])
+            } else {
+                favoriteGyms.append($0)
+            }
+        }
+        defaults.set(favoriteGyms, forKey: Identifiers.favoriteGyms)
+
+        // Classes
+        var favoriteClasses: [String] = []
+        classInstances[0...3].enumerated().forEach { (index, elem) in
+            if classNames[index] == elem.className {
+                favoriteClasses.append(elem.classDetailId)
+            }
+        }
+        defaults.set(favoriteClasses, forKey: Identifiers.favoriteClasses)
+
+        //TODO: delete this
+        print("defaults.get: favoriteGyms: \(defaults.value(forKey: Identifiers.favoriteGyms))")
+        print("defaults.get: favoriteClasses: \(defaults.value(forKey: Identifiers.favoriteClasses))")
 
     }
 

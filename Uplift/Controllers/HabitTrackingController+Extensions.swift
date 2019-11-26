@@ -103,7 +103,7 @@ extension HabitTrackingController: UITableViewDelegate, UITableViewDataSource {
                 }
 
                 let addHabitWidget = UIImageView()
-                addHabitWidget.image = UIImage(named: ImageNames.lightAdd)
+                addHabitWidget.image = UIImage(named: ImageNames.addLight)
                 cell.contentView.addSubview(addHabitWidget)
 
                 addHabitWidget.snp.makeConstraints { make in

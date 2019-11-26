@@ -40,7 +40,7 @@ class OnboardingGymsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .primaryWhite
         let defaults = UserDefaults.standard
-        
+
         // Get Favorite Gyms from UserDefaults
         if let favorites = defaults.array(forKey: Identifiers.favoriteGyms) as? [String] {
             favoriteGyms = favorites
@@ -92,7 +92,7 @@ class OnboardingGymsViewController: UIViewController {
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
-        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
+        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.backArrowDark))
         nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)
@@ -105,17 +105,17 @@ class OnboardingGymsViewController: UIViewController {
         backButton.layer.borderWidth = buttonBorderSize
         backButton.addTarget(self, action: #selector(goBackAView), for: .touchDown)
         backButton.isEnabled = true
-        backButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
+        backButtonArrow = UIImageView(image: UIImage(named: ImageNames.backArrowDark))
         backButtonArrow.alpha = 0.5
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)
 
-        toggleButton(enabled: false)
+        toggleButton(enabled: checkNextCriteria())
     }
 
     func setUpConstraints() {
         // title
-        let titleLeadingPadding = 27 
+        let titleLeadingPadding = 27
         let titleTrailingPadding = 22
         let titleTopPadding = 34
         // table view

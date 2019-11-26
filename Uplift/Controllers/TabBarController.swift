@@ -10,38 +10,64 @@ import Crashlytics
 import UIKit
 
 class TabBarController: UITabBarController {
-    
+
+    override var selectedViewController: UIViewController? {
+        didSet {
+            guard let viewControllers = viewControllers else {
+                return
+            }
+
+            for viewController in viewControllers {
+                if viewController == selectedViewController {
+                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratBold as Any], for: .normal)
+                } else {
+                    viewController.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont._14MontserratMedium as Any, NSAttributedString.Key.foregroundColor: UIColor.primaryBlack], for: .normal)
+                }
+            }
+        }
+    }
+
     // MARK: - INITIALIZATION
     override func viewDidLoad() {
         super.viewDidLoad()
 
         UITabBar.appearance().barTintColor = .primaryYellow
         UITabBar.appearance().tintColor = .primaryBlack
-        tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        UITabBar.appearance().isTranslucent = false
 
         let homeController = HomeViewController()
-        homeController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.homeSection, image: UIImage(named: "home-tab"), selectedImage: UIImage(named: ImageNames.homeSelected))
+        homeController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.homeSection, imageName: ImageNames.home, selectedImageName: ImageNames.homeSelected)
 
         let classListController = ClassListViewController()
-        classListController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.classesSection, image: UIImage(named: "classes-tab"), selectedImage: UIImage(named: ImageNames.classesSelected))
+        classListController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.classesSection, imageName: ImageNames.classes, selectedImageName: ImageNames.classesSelected)
 
         let favoritesController = FavoritesViewController()
-        favoritesController.tabBarItem = UITabBarItem(title: ClientStrings.TabBar.favoritesSection, image: UIImage(named: "favorites-tab"), selectedImage: UIImage(named: ImageNames.favoritesSelected))
+        favoritesController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.favoritesSection, imageName: ImageNames.favorites, selectedImageName: ImageNames.favoritesSelected)
 
         let viewControllerList = [homeController, classListController, favoritesController]
-        viewControllers = viewControllerList
-        viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }
+        let navControllerList = viewControllerList.map { UINavigationController(rootViewController: $0) }
+        viewControllers = navControllerList
 
-        (viewControllers![0] as! UINavigationController).isNavigationBarHidden = true
+        if let navVC = viewControllers?.first as? UINavigationController {
+            navVC.isNavigationBarHidden = true
+        }
 
+        selectedViewController = navControllerList[0]
     }
+
+    // MARK: - Private helpers
+    private func getTabBarItem(title: String, imageName: String, selectedImageName: String) -> UITabBarItem {
+        let tabBarItem = UITabBarItem(title: title, image: UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: selectedImageName))
+        tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: -2, right: 0)
+        return tabBarItem
+    }
+
 }
 
 extension TabBarController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if let tabName = item.title, tabName == ClientStrings.TabBar.homeSection {
-            Answers.logCustomEvent(withName: "Opened \"browse\" Tab")
+            Answers.logCustomEvent(withName: "Opened \"Home\" Tab")
         }
     }
 }

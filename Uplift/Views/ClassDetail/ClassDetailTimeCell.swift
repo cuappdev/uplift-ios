@@ -18,8 +18,8 @@ class ClassDetailTimeCell: UICollectionViewCell {
     enum Constants {
         static let addToCalendarButtonHeight: CGFloat = 21
         static let addToCalendarButtonTopPadding: CGFloat = 26
-        static let addToCalendarLabelHeight: CGFloat = 10
-        static let addToCalendarLabelTopPadding: CGFloat = 5
+        static let addToCalendarLabelHeight: CGFloat = 15
+        static let addToCalendarLabelTopPadding: CGFloat = 4
         static let timeLabelTopPadding: CGFloat = 8
     }
 
@@ -92,7 +92,7 @@ class ClassDetailTimeCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let addToCalendarButtonWidth = 21
+        let addToCalendarButtonWidth = 24
 
         dateLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()

@@ -72,8 +72,7 @@ struct Identifiers {
     // USER DEFAULTS
     static let activeHabits = "ActiveHabits"
     static let favoriteGyms = "FavoriteGyms"
-    static let favoriteClasses = "FavoriteClasses"
-    static let favorites = "Favorites"
+    static let favoriteClasses = "FavoritesClasses"
     static let googleExpiration = "googleExpiration"
     static let googleRefresh = "googleRefresh"
     static let googleToken = "googleToken"
@@ -119,14 +118,15 @@ struct HabitConstants {
 struct ImageNames {
     // ARROWS
     static let arrow = "arrow"
-    static let darkBackArrow = "darkBackArrow"
-    static let downArrow = "down_arrow"
+    static let backArrowDark = "back-arrow-dark"
+    static let backArrowLight = "back-arrow-light"
+    static let downArrow = "down-arrow"
     static let downArrowSolid = "down-arrow-solid"
-    static let lightBackArrow = "back-arrow"
-    static let rightArrow = "right_arrow"
+    static let rightArrow = "right-arrow"
     static let rightArrowSolid = "right-arrow-solid"
-    static let yellowCheckmark = "yellowCheckmark"
-    static let yellowNextArrow = "yellowNextArrow"
+    static let yellowCheckmark = "checked-circle-yellow"
+    static let yellowNextArrow = "yellow-next-arrow"
+    static let greenCheckmark = "checked-circle-green"
 
     // FACILITIES
     static let basketball = "basketball"
@@ -137,14 +137,13 @@ struct ImageNames {
     static let pool = "pool"
 
     // ICONS
+    static let addDark = "add-dark"
+    static let addLight = "add-light"
     static let calendar = "calendar-icon"
     static let cancel = "cancel"
     static let cardio = "cardio"
-    static let checkedCircle = "checked_circle"
     static let clock = "clock-icon"
-    static let darkAdd = "darkAdd"
-    static let lightAdd = "lightAdd"
-    static let locationPointer = "location_pointer"
+    static let locationPointer = "location-pointer"
     static let mindfulness = "mindfulness"
     static let strength = "strength"
     static let widgets0 = "widgets-empty"
@@ -154,30 +153,30 @@ struct ImageNames {
 
     // ONBOARDING
     static let divider = "divider"
-    static let onboarding1 = "onboarding_1"
-    static let onboarding2 = "onboarding_2"
-    static let onboarding3 = "onboarding_3"
-    static let onboarding4 = "onboarding_4"
+    static let onboarding1 = "onboarding-1"
+    static let onboarding2 = "onboarding-2"
+    static let onboarding3 = "onboarding-3"
+    static let onboarding4 = "onboarding-4"
     static let runningMan = "running-man"
 
     // MISC VIEWS
     static let semicircle = "semicircle"
 
     // SHARE
-    static let darkShare = "share_dark"
-    static let lightShare = "share-light"
+    static let shareDark = "share-dark"
+    static let shareLight = "share-light"
 
     // STARS
-    static let blackStarOutline = "blackStar"
-    static let whiteStarOutline = "white-star"
-    static let yellowStar = "yellow-star"
-    static let yellowWhiteStar = "yellow-white-star"
+    static let starFilledInDark = "star-filled-in-dark"
+    static let starFilledInLight = "star-filled-in-light"
+    static let starOutlineDark = "star-outline-dark"
+    static let starOutlineLight = "star-outline-light"
 
     // TAB ICONS
     static let classes = "classes-tab"
     static let classesSelected = "classes-tab-selected"
     static let favorites = "favorites-tab"
-    static let favoritesSelected = "favorites-selected"
+    static let favoritesSelected = "favorites-tab-selected"
     static let home = "home-tab"
     static let homeSelected = "home-tab-selected"
 }

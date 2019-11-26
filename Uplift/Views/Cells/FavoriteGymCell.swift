@@ -8,6 +8,7 @@
 
 import UIKit
 
+//TODO: Rename
 class FavoriteGymCell: UITableViewCell {
 
     // MARK: Private View Vars
@@ -56,6 +57,8 @@ class FavoriteGymCell: UITableViewCell {
         cellBackground.addSubview(favoritedBackground)
 
         favoritedIcon = UIImageView()
+        favoritedIcon.alpha = 0.4
+        favoritedIcon.image = UIImage(named: ImageNames.greenCheckmark)
         favoritedIcon.contentMode = .scaleAspectFit
         favoritedBackground.addSubview(favoritedIcon)
 
@@ -68,21 +71,21 @@ class FavoriteGymCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func configure(with gymName: String, displaysClasses: Bool) {
         usesStars = displaysClasses
 
         if usesStars {
-            favoritedIcon.image = UIImage(named: ImageNames.blackStarOutline)
+            favoritedIcon.image = UIImage(named: ImageNames.starOutlineDark)
             updateAppearence = { isOn in
                 self.gymLabel.textColor = isOn ? .primaryBlack : .upliftMediumGrey
-                self.favoritedIcon.image = UIImage(named: isOn ? ImageNames.yellowStar : ImageNames.blackStarOutline)
+                self.favoritedIcon.alpha = isOn ? 1 : 0.4
+                self.favoritedIcon.image = UIImage(named: isOn ? ImageNames.starFilledInDark : ImageNames.starOutlineDark)
             }
         } else {
             favoritedIcon.alpha = 0
-            favoritedIcon.image = UIImage(named: ImageNames.checkedCircle)
+            favoritedIcon.image = UIImage(named: ImageNames.greenCheckmark)
             favoritedBackground.layer.borderWidth = 1
             updateAppearence = { (isOn) -> Void in
                 self.gymLabel.textColor = isOn ? .primaryBlack : .upliftMediumGrey

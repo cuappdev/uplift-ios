@@ -129,8 +129,8 @@ struct ClientStrings {
     }
 
     struct TabBar {
-        static let classesSection = "classes"
-        static let favoritesSection = "favorites"
-        static let homeSection = "browse"
+        static let classesSection = "Classes"
+        static let favoritesSection = "Favorites"
+        static let homeSection = "Home"
     }
 }

@@ -31,24 +31,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/ {
             window?.rootViewController = TabBarController()
         } else {
-            let dispatchGroup = DispatchGroup()
-            dispatchGroup.enter()
-            dispatchGroup.enter()
-            var gyms: [String] = []
-            var classes: [String] = []
-            NetworkManager.shared.getGymNames {
-                gyms = $0.map { $0.name }
-                dispatchGroup.leave()
-            }
-            NetworkManager.shared.getClassNames {
-                classes = $0.map { $0 }
-                dispatchGroup.leave()
-            }
-            dispatchGroup.notify(queue: .main, execute: {
-                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classNames: classes)
-            })
             self.window?.rootViewController = UIViewController()
 
+            let gyms: [String] = ["Helen Newman", "Appel", "Teagle", "Noyes"]
+            var classes: [GymClassInstance] = []
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) {
+                classes = $0.map { $0 }
+                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
+            }
         }
 
         #if DEBUG
