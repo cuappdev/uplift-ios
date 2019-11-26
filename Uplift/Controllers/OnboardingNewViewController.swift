@@ -87,12 +87,14 @@ class OnboardingNewViewController: PresentationController {
             make.size.equalTo(CGSize(width: 269, height: 48))
         }
 
-        nextButton.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        nextButton.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
+        nextButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
         nextButton.snp.makeConstraints { make in
             make.width.height.equalTo(35)
         }
 
         backButton.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        backButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
         backButton.snp.makeConstraints { make in
             make.width.height.equalTo(35)
         }
@@ -154,19 +156,19 @@ class OnboardingNewViewController: PresentationController {
     }
 
     private func setupBackground() {
-        let dividerPosition = Position(left: 0.5, bottom: 0.195)
+        let dividerPosition = Position(left: 0.5, bottom: 0.162)//0.195)
         let divider = Content(view: dividerView, position: dividerPosition)
 
-        let runningInitPosition = Position(left: -0.3, bottom: 0.23)
+        let runningInitPosition = Position(left: -0.3, bottom: 0.197)//0.23)
         let runningPerson = Content(view: runningPersonView, position: runningInitPosition)
 
-        let skipButtonPosition = Position(left: 0.5, bottom: 0.095)
+        let skipButtonPosition = Position(left: 0.5, bottom: 0.11)//0.095)
         let skipButtonContent = Content(view: skipButton, position: skipButtonPosition)
 
-        let backButtonPosition = Position(left: 0.154, bottom: 0.095)
+        let backButtonPosition = Position(left: 0.154, bottom: 0.11)//0.095)
         let backButtonContent = Content(view: backButton, position: backButtonPosition)
 
-        let nextButtonPosition = Position(right: 0.154, bottom: 0.095)
+        let nextButtonPosition = Position(right: 0.154, bottom: 0.11)//0.095)
         let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
 
         let backgroundContents = [divider, runningPerson, skipButtonContent, backButtonContent, nextButtonContent]
@@ -174,19 +176,19 @@ class OnboardingNewViewController: PresentationController {
 
         // Animations
          addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.1, bottom: 0.23))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.1, bottom: 0.197))
             ], forPage: 0)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.3, bottom: 0.23))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.3, bottom: 0.197))
             ], forPage: 1)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.6, bottom: 0.23))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.6, bottom: 0.197))
             ], forPage: 2)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: 0.23))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: 0.197))
             ], forPage: 3)
     }
 
@@ -212,6 +214,12 @@ class OnboardingNewViewController: PresentationController {
         }
     }
 
+    // MARK: - Helper
+
+    @objc private func arrowsPressed(sender: UIButton) {
+        goTo(sender == nextButton ? currentIndex + 1 : currentIndex - 1)
+    }
+
     private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
         let defaults = UserDefaults.standard
         // Gyms
@@ -227,17 +235,10 @@ class OnboardingNewViewController: PresentationController {
 
         // Classes
         var favoriteClasses: [String] = []
-        classInstances[0...3].enumerated().forEach { (index, elem) in
-            if classNames[index] == elem.className {
-                favoriteClasses.append(elem.classDetailId)
-            }
+        for i in 0..<classNames.count where classNames[i] == classInstances[i].classDetailId {
+            favoriteClasses.append(classInstances[i].classDetailId)
         }
         defaults.set(favoriteClasses, forKey: Identifiers.favoriteClasses)
-
-        //TODO: delete this
-        print("defaults.get: favoriteGyms: \(defaults.value(forKey: Identifiers.favoriteGyms))")
-        print("defaults.get: favoriteClasses: \(defaults.value(forKey: Identifiers.favoriteClasses))")
-
     }
 
 }
