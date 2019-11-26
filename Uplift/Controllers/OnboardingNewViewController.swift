@@ -30,7 +30,6 @@ class OnboardingNewViewController: PresentationController {
 
     // MARK: - Animations
     private var nextButtonTransition: ArrowButtonTransition?
-    private var backButtonTransition: ArrowButtonTransition?
 
     // MARK: - Init
     override func viewDidLoad() {
@@ -89,7 +88,7 @@ class OnboardingNewViewController: PresentationController {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.nextButton.backgroundColor = self.selectedOneGym ? .primaryYellow : .none
                 })
-                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneGym
+                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneClass
             }
         }
         viewSlides[2].delegate = { [weak self] in
@@ -98,7 +97,7 @@ class OnboardingNewViewController: PresentationController {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.nextButton.backgroundColor = self.selectedOneClass ? .primaryYellow : .none
                 })
-                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneClass
+                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneGym
             }
         }
 
@@ -120,12 +119,14 @@ class OnboardingNewViewController: PresentationController {
         }
 
         nextButton.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
+        nextButton.alpha = 0
         nextButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
         nextButton.snp.makeConstraints { make in
             make.width.height.equalTo(35)
         }
 
         backButton.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        backButton.alpha = 0
         backButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
         backButton.snp.makeConstraints { make in
             make.width.height.equalTo(35)
@@ -137,6 +138,7 @@ class OnboardingNewViewController: PresentationController {
         skipButton.backgroundColor = .none
         skipButton.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
         skipButton.frame = CGRect(x: 0, y: 0, width: 40, height: 20)
+        skipButton.alpha = 0
         skipButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 40, height: 20))
         }
@@ -199,7 +201,6 @@ class OnboardingNewViewController: PresentationController {
 
         let backButtonPosition = Position(left: 0.154, bottom: 0.11)//0.095)
         let backButtonContent = Content(view: backButton, position: backButtonPosition)
-        backButtonTransition = ArrowButtonTransition(content: backButtonContent, duration: 0.5)
 
         let nextButtonPosition = Position(right: 0.154, bottom: 0.11)//0.095)
         let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
@@ -226,17 +227,35 @@ class OnboardingNewViewController: PresentationController {
             ], forPage: 3)
 
         // Arrow Animations
-        if let transition = backButtonTransition {
-            addAnimations([transition], forPage: 0)
-            addAnimations([transition], forPage: 1)
-            addAnimations([transition], forPage: 2)
-        }
-
         if let transition = nextButtonTransition {
             addAnimations([transition], forPage: 0)
             addAnimations([transition], forPage: 1)
             addAnimations([transition], forPage: 2)
         }
+
+        // Fade Animations
+        addAnimations([
+            FadeOutAnimation(content: backButtonContent, duration: 0.5)
+        ], forPage: 3)
+        addAnimations([
+            FadeOutAnimation(content: skipButtonContent, duration: 0.5)
+        ], forPage: 3)
+        addAnimations([
+            FadeOutAnimation(content: nextButtonContent, duration: 0.5)
+        ], forPage: 3)
+
+        addAnimations([
+            FadeOutAnimation(content: backButtonContent, duration: 0.5, willFadeIn: true)
+        ], forPage: 1)
+        addAnimations([
+            FadeOutAnimation(content: skipButtonContent, duration: 0.5, willFadeIn: true)
+        ], forPage: 1)
+        addAnimations([
+            FadeOutAnimation(content: nextButtonContent, duration: 0.5, willFadeIn: true)
+        ], forPage: 1)
+
+
+
     }
 
     @objc func dismissOnboarding() {
