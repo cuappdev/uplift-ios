@@ -53,6 +53,7 @@ struct ClientStrings {
         static let hasFavoritesText = "NOTHING CAN STOP YOU BUT YOURSELF."
         static let noFavoritesText = "FIND YOUR\nFAVORITE NOW."
         static let vcTitleLabel = "Favorites"
+        static let gymsSelection = "Select the Gyms you go to!"
     }
 
     struct Filter {
@@ -114,12 +115,6 @@ struct ClientStrings {
     }
 
     struct Onboarding {
-        //TODO: delete this VVV
-        static let endOnboarding = "BEGIN"
-        static let selectGyms = "Select the gyms you go to!"
-        static let signupLabel = "Sign Up"
-        static let vcTitleLabel = "Welcome to Uplift!\nStart your Journey Today!"
-
         static let onboarding1 = "Uplift is the go-to fitness and wellness app at Cornell."
         static let onboarding2 = "Uplift helps you find times to go to the gym. Choose your favorite gym(s) below!"
         static let onboarding3 = "Classes are included with your gym membership. Choose a few favorites!"

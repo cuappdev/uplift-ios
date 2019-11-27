@@ -106,8 +106,10 @@ class OnboardingView: UIView {
         }
     }
 
-    private func generateAttributedString(for string: String,
-                                    color: UIColor = .primaryBlack) -> NSAttributedString {
+    private func generateAttributedString(
+        for string: String,
+        color: UIColor = .primaryBlack
+    ) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 3
         style.alignment = .center
@@ -124,8 +126,6 @@ class OnboardingView: UIView {
 extension OnboardingView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.identifier, for: indexPath) as? FavoriteGymCell else { return UITableViewCell() }
-        print(tableData)
-        print(indexPath.section)
         let data = tableData?[indexPath.section] ?? ""
         cell.configure(with: data, displaysClasses: showingClasses)
         cell.selectionStyle = .none
@@ -175,4 +175,3 @@ extension OnboardingView: UITableViewDelegate {
     }
 
 }
-

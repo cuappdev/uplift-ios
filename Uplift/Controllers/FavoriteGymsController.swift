@@ -12,7 +12,7 @@ protocol ChooseGymsDelegate: class {
     func updateFavorites(favorites: [String])
 }
 
-class OnboardingGymsViewController: UIViewController {
+class FavoriteGymsController: UIViewController {
 
     // MARK: - INITIALIZATION
     private var titleLabel: UILabel!
@@ -68,7 +68,7 @@ class OnboardingGymsViewController: UIViewController {
         let buttonBorderSize: CGFloat = 2
 
         titleLabel = UILabel()
-        titleLabel.text = ClientStrings.Onboarding.selectGyms
+        titleLabel.text = ClientStrings.Favorites.gymsSelection
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .primaryBlack
         titleLabel.lineBreakMode = .byWordWrapping
@@ -231,7 +231,7 @@ class OnboardingGymsViewController: UIViewController {
 
 }
 
-extension OnboardingGymsViewController: UITableViewDataSource {
+extension FavoriteGymsController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //swiftlint:disable:next force_cast
@@ -255,7 +255,7 @@ extension OnboardingGymsViewController: UITableViewDataSource {
 
 }
 
-extension OnboardingGymsViewController: UITableViewDelegate {
+extension FavoriteGymsController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //swiftlint:disable:next force_cast

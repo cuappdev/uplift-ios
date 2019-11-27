@@ -25,11 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setupGoogleSignIn()
 
-        //window?.rootViewController = BlankViewController()
-        //return true
-
         let defaults = UserDefaults.standard
-        if false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/ {
+        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
             window?.rootViewController = TabBarController()
         } else {
             setupOnboardingViewController()
@@ -73,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
             ]
 
-        self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
+        self.window?.rootViewController = OnboardingViewController(gymNames: gyms, classes: classes)
     }
 }
 
