@@ -17,6 +17,8 @@ class OnboardingNewViewController: PresentationController {
 
     // MARK: - Views
     private var viewSlides: [OnboardingView] = []
+    private var horizScaling: CGFloat = 1.0
+    private var vertScaling: CGFloat = 1.0
     private var nextButton = OnboardingArrowButton(arrowFacesRight: true)
     private var backButton = OnboardingArrowButton(arrowFacesRight: false, changesColor: false)
     private var skipButton = UIButton()
@@ -35,6 +37,7 @@ class OnboardingNewViewController: PresentationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryWhite
+        self.showPageControl = false
 
         self.setupOnboardingViews()
         self.setupViews()
@@ -73,12 +76,31 @@ class OnboardingNewViewController: PresentationController {
                 text: ClientStrings.Onboarding.onboarding4
             )
         ]
+
+        // Calculaten Scaling Info, Using a slide with table view as reference
+        let viewSize = viewSlides[1].getSize()
+        // Horizontal Scaling based off maintaing side spacing
+        horizScaling = min(1, (self.view.frame.width - 26) / viewSize.width)
+         // Vertical Spacing maintains bottom spacing for running man
+        // TODO: fix this since we dont have frames anymore
+        vertScaling = min(1, (self.view.frame.height - (viewSize.height * horizScaling)) / 50)//196
+        print("full frame height: \(self.view.frame.height)")
+        print("view frame height: \(viewSize.height * horizScaling)")
+        print("view frame scaling math: \(self.view.frame.height - (viewSize.height * horizScaling))")
+        print("full frame width: \(self.view.frame.width)")
+        print("view frame width: \(viewSize.width * horizScaling)")
+        print("---")
+        print("horizScaling: \(horizScaling)")
+        print("vertScaling: \(vertScaling)")
+        print("---")
+
         viewSlides.forEach { view in
-            view.frame = CGRect(x: 0, y: 0, width: 348, height: view.getHeight())
-            view.snp.makeConstraints { make in
-                make.width.equalTo(348)
-                make.height.equalTo(view.getHeight())
-            }
+            let viewSize = view.getSize()
+            view.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height)
+            view.transform = CGAffineTransform(
+                scaleX: horizScaling,
+                y: horizScaling
+            )
         }
 
         // Delegation
@@ -151,7 +173,8 @@ class OnboardingNewViewController: PresentationController {
 
         runningPersonView.contentMode = .scaleAspectFit
         runningPersonView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 64, height: 64))
+//            make.size.equalTo(CGSize(width: 64 * pow(horizScaling, 5), height: 64 * pow(horizScaling, 5)))
+            make.size.equalTo(CGSize(width: 64 * vertScaling, height: 64 * vertScaling))
         }
     }
 
@@ -159,57 +182,47 @@ class OnboardingNewViewController: PresentationController {
     private func setupSlides() {
         let contentSlides = [
             [viewSlides[0]].map { view -> Content in
-                let position = Position(left: 0.5, top: 0.45)//0.47)
+                let position = Position(left: 0.5, top: 0.45 * horizScaling)//0.47)
                 return Content(view: view, position: position)
             },
             viewSlides[1...2].map { view -> Content in
-                let position = Position(left: 0.5, top: 0.52)//0.47)
+                let position = Position(left: 0.5, top: 0.52 * horizScaling)//0.47)
                 return Content(view: view, position: position)
             },
             [viewSlides[3]].map { view -> Content in
-                let position = Position(left: 0.5, top: 0.45)
+                let position = Position(left: 0.5, top: 0.45 * horizScaling)
                 return Content(view: view, position: position)
             }
         ].flatMap { $0 }
-
-
 
         var slides = [SlideController]()
         contentSlides.forEach {
             slides.append(SlideController(contents: [$0]))
         }
 
-//        for index in 0..<contentSlides.count {
-//            var contents = [contentSlides[index]]
-//            if index == contentSlides.count - 1 {
-//                contents.append(endOnboardingContent)
-//            }
-//            let controller = SlideController(contents: contents)
-//            slides.append(controller)
-//        }
-
         add(slides)
-
     }
 
     private func setupBackground() {
-        let dividerPosition = Position(left: 0.5, bottom: 0.162)//0.195)
+        let scalingOffset = 0.25 - (vertScaling * 0.25)
+
+        let dividerPosition = Position(left: 0.5, bottom: 0.162 - scalingOffset)//0.195)
         let divider = Content(view: dividerView, position: dividerPosition)
 
-        let runningInitPosition = Position(left: -0.3, bottom: 0.197)//0.23)
+        let runningInitPosition = Position(left: -0.3, bottom: 0.197 - scalingOffset)//0.23)
         let runningPerson = Content(view: runningPersonView, position: runningInitPosition)
 
-        let skipButtonPosition = Position(left: 0.5, bottom: 0.11)//0.095)
+        let skipButtonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)//0.095)
         let skipButtonContent = Content(view: skipButton, position: skipButtonPosition)
 
-        let backButtonPosition = Position(left: 0.154, bottom: 0.11)//0.095)
+        let backButtonPosition = Position(left: 0.154, bottom: 0.11 - scalingOffset)//0.095)
         let backButtonContent = Content(view: backButton, position: backButtonPosition)
 
-        let nextButtonPosition = Position(right: 0.154, bottom: 0.11)//0.095)
+        let nextButtonPosition = Position(right: 0.154, bottom: 0.11 - scalingOffset)//0.095)
         let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
         nextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5)
 
-        let buttonPosition = Position(left: 0.5, bottom: 0.11)//0.71)
+        let buttonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)//0.71)
         let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
 
         let backgroundContents = [divider, runningPerson, skipButtonContent, backButtonContent, nextButtonContent, endOnboardingContent]
@@ -217,19 +230,19 @@ class OnboardingNewViewController: PresentationController {
 
         // Running Man Animations
          addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.1, bottom: 0.197))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.1, bottom: 0.197 - scalingOffset))
             ], forPage: 0)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.3, bottom: 0.197))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.3, bottom: 0.197 - scalingOffset))
             ], forPage: 1)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.6, bottom: 0.197))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.6, bottom: 0.197 - scalingOffset))
             ], forPage: 2)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: 0.197))
+            TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: 0.197 - scalingOffset))
             ], forPage: 3)
 
         // Arrow Animations

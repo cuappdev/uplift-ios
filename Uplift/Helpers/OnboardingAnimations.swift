@@ -51,7 +51,6 @@ extension ArrowButtonTransition {
   public func play() {
     if content.view.superview != nil {
       if !played {
-        print("play was called")
         animate()
       }
     }
@@ -61,7 +60,6 @@ extension ArrowButtonTransition {
     if content.view.superview != nil {
       if !played {
         animate()
-        print("playBack was called")
       }
     }
   }
@@ -71,8 +69,6 @@ extension ArrowButtonTransition {
 
     if view.layer.animationKeys() == nil {
         if view.superview != nil {
-            print("~moveWith was called")
-            print("transitionIsEnabled: \(transitionIsEnabled)")
 //            if let button = self.content.view as? UIButton {
 //                button.backgroundColor = self.transitionIsEnabled ? .primaryYellow : .none
 //            }
@@ -149,7 +145,6 @@ extension FadeOutAnimation {
 
     if view.layer.animationKeys() == nil {
       if view.superview != nil {
-          print("--alpha: \(view.alpha)")
           if delay > 0 && view.alpha < 0.01 {
               animate()
           } else {

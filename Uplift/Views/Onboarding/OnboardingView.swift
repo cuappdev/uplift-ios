@@ -61,10 +61,10 @@ class OnboardingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func getHeight() -> CGFloat {
+    func getSize() -> CGSize {
         return hasTableView ?
-            700 :
-            269
+            CGSize(width: 388, height: 700) :
+            CGSize(width: 388, height: 269)
     }
 
     private func setUpConstraints() {
@@ -81,7 +81,7 @@ class OnboardingView: UIView {
             let labelTopOffset: CGFloat = 174
 
             let tableViewBottomOffset: CGFloat = 17
-            let tableViewSize = CGSize(width: 348, height: 308)
+            let tableViewSize = CGSize(width: 388, height: 308)
 
             titleLabel.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
