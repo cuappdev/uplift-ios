@@ -64,29 +64,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Onboarding
     private func setupOnboardingViewController() {
         self.window?.rootViewController = UIViewController()
-        var gyms: [String] = []
-        var classes: [GymClassInstance] = []
 
-        if false {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) {
-                classes = $0
-                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
-            }
-        } else {
-            gyms = ["Helen Newman", "Appel", "Teagle", "Noyes"]
-            classes = [
+        let gyms: [String] = ["Helen Newman", "Appel", "Teagle", "Noyes"]
+        let classes: [GymClassInstance] = [
                 GymClassInstance(classDescription: "", classDetailId: ClassIds.yogaVinyasa, className: "Yoga Vinyasa", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
                 GymClassInstance(classDescription: "", classDetailId: ClassIds.CURowShockwave, className: "CU Row (Shockwave)", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
                 GymClassInstance(classDescription: "", classDetailId: ClassIds.zumba, className: "Zumba", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
                 GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
             ]
 
-        }
-
         self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
-
     }
 }
 
