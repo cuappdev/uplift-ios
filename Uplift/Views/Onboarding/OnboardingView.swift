@@ -124,8 +124,10 @@ class OnboardingView: UIView {
 extension OnboardingView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.identifier, for: indexPath) as? FavoriteGymCell else { return UITableViewCell() }
-        let gym = tableData?[indexPath.section] ?? ""
-        cell.configure(with: gym, displaysClasses: showingClasses)
+        print(tableData)
+        print(indexPath.section)
+        let data = tableData?[indexPath.section] ?? ""
+        cell.configure(with: data, displaysClasses: showingClasses)
         cell.selectionStyle = .none
         return cell
     }

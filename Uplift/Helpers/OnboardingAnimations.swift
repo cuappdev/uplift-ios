@@ -145,17 +145,17 @@ extension FadeOutAnimation {
 
     if view.layer.animationKeys() == nil {
       if view.superview != nil {
-          if delay > 0 && view.alpha < 0.01 {
-              animate()
-          } else {
+//          if delay > 0 && view.alpha < 0.01 {
+//              animate()
+//          } else {
         let ratio = offsetRatio > 0.0 ? offsetRatio : (1.0 + offsetRatio)
         view.alpha = max(0.0, min(1.0, ratio))
         view.alpha = fadesIn ? view.alpha : 1 - view.alpha
-          }
+          //}
 
-        if let button = view as? UIButton {
-            button.isEnabled = view.alpha > 0.9
-        }
+//        if let button = view as? UIButton {
+//            // button.isEnabled = view.alpha > 0.9
+//        }
       }
     }
   }

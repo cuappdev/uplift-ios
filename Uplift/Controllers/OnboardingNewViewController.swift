@@ -19,9 +19,6 @@ class OnboardingNewViewController: PresentationController {
     private var viewSlides: [OnboardingView] = []
     private var horizScaling: CGFloat = 1.0
     private var vertScaling: CGFloat = 1.0
-    private var nextButton = OnboardingArrowButton(arrowFacesRight: true)
-    private var backButton = OnboardingArrowButton(arrowFacesRight: false, changesColor: false)
-    private var skipButton = UIButton()
     private var endButton = UIButton()
     private var runningPersonView = UIImageView(image: UIImage(named: ImageNames.runningMan))
     private var dividerView = UIImageView(image: UIImage(named: ImageNames.divider))
@@ -29,9 +26,6 @@ class OnboardingNewViewController: PresentationController {
     // MARK: - Animation Progress
     private var selectedOneGym = false
     private var selectedOneClass = false
-
-    // MARK: - Animations
-    private var nextButtonTransition: ArrowButtonTransition?
 
     // MARK: - Init
     override func viewDidLoad() {
@@ -107,19 +101,11 @@ class OnboardingNewViewController: PresentationController {
         viewSlides[1].delegate = { [weak self] in
             if let `self` = self {
                 self.selectedOneGym = !$0.isEmpty
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.nextButton.backgroundColor = self.selectedOneGym ? .primaryYellow : .none
-                })
-                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneClass
             }
         }
         viewSlides[2].delegate = { [weak self] in
             if let `self` = self {
                 self.selectedOneClass = !$0.isEmpty
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.nextButton.backgroundColor = self.selectedOneClass ? .primaryYellow : .none
-                })
-                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneGym
             }
         }
 
@@ -141,31 +127,6 @@ class OnboardingNewViewController: PresentationController {
             make.size.equalTo(CGSize(width: 269, height: 48))
         }
 
-        nextButton.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
-        nextButton.alpha = 0
-        nextButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
-        nextButton.snp.makeConstraints { make in
-            make.width.height.equalTo(35)
-        }
-
-        backButton.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        backButton.alpha = 0
-        backButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
-        backButton.snp.makeConstraints { make in
-            make.width.height.equalTo(35)
-        }
-
-        skipButton.setTitle(ClientStrings.Onboarding.skipButton, for: .normal)
-        skipButton.titleLabel?.font = ._16MontserratBold
-        skipButton.setTitleColor(.gray05, for: .normal)
-        skipButton.backgroundColor = .none
-        skipButton.addTarget(self, action: #selector(dismissOnboarding), for: .touchUpInside)
-        skipButton.frame = CGRect(x: 0, y: 0, width: 40, height: 20)
-        skipButton.alpha = 0
-        skipButton.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 40, height: 20))
-        }
-
         dividerView.contentMode = .scaleAspectFill
         dividerView.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: view.frame.width, height: 2))
@@ -173,7 +134,6 @@ class OnboardingNewViewController: PresentationController {
 
         runningPersonView.contentMode = .scaleAspectFit
         runningPersonView.snp.makeConstraints { make in
-//            make.size.equalTo(CGSize(width: 64 * pow(horizScaling, 5), height: 64 * pow(horizScaling, 5)))
             make.size.equalTo(CGSize(width: 64 * vertScaling, height: 64 * vertScaling))
         }
     }
@@ -212,21 +172,12 @@ class OnboardingNewViewController: PresentationController {
         let runningInitPosition = Position(left: -0.3, bottom: 0.197 - scalingOffset)//0.23)
         let runningPerson = Content(view: runningPersonView, position: runningInitPosition)
 
-        let skipButtonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)//0.095)
-        let skipButtonContent = Content(view: skipButton, position: skipButtonPosition)
-
-        let backButtonPosition = Position(left: 0.154, bottom: 0.11 - scalingOffset)//0.095)
-        let backButtonContent = Content(view: backButton, position: backButtonPosition)
-
-        let nextButtonPosition = Position(right: 0.154, bottom: 0.11 - scalingOffset)//0.095)
-        let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
-        nextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5)
-
         let buttonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)//0.71)
         let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
 
-        let backgroundContents = [divider, runningPerson, skipButtonContent, backButtonContent, nextButtonContent, endOnboardingContent]
+        let backgroundContents = [divider, runningPerson, endOnboardingContent]
         addToBackground(backgroundContents)
+        view.bringSubviewToFront(endOnboardingContent.view)
 
         // Running Man Animations
          addAnimations([
@@ -244,34 +195,6 @@ class OnboardingNewViewController: PresentationController {
         addAnimations([
             TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: 0.197 - scalingOffset))
             ], forPage: 3)
-
-        // Arrow Animations
-        if let transition = nextButtonTransition {
-            addAnimations([transition], forPage: 0)
-            addAnimations([transition], forPage: 1)
-            addAnimations([transition], forPage: 2)
-        }
-
-        // Fade Animations
-        addAnimations([
-            FadeOutAnimation(content: backButtonContent, duration: 0.5)
-        ], forPage: 3)
-        addAnimations([
-            FadeOutAnimation(content: skipButtonContent, duration: 0.5)
-        ], forPage: 3)
-        addAnimations([
-            FadeOutAnimation(content: nextButtonContent, duration: 0.5)
-        ], forPage: 3)
-
-        addAnimations([
-            FadeOutAnimation(content: backButtonContent, duration: 0.5, willFadeIn: true)
-        ], forPage: 1)
-        addAnimations([
-            FadeOutAnimation(content: skipButtonContent, duration: 0.5, willFadeIn: true)
-        ], forPage: 1)
-        addAnimations([
-            FadeOutAnimation(content: nextButtonContent, duration: 0.5, willFadeIn: true)
-        ], forPage: 1)
 
         addAnimations([
             FadeOutAnimation(content: endOnboardingContent, duration: 0.5, delay: 0.5, willFadeIn: true)
@@ -302,11 +225,6 @@ class OnboardingNewViewController: PresentationController {
     }
 
     // MARK: - Helper
-
-    @objc private func arrowsPressed(sender: UIButton) {
-        goTo(sender == nextButton ? currentIndex + 1 : currentIndex - 1)
-    }
-
     private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
         let defaults = UserDefaults.standard
         // Gyms

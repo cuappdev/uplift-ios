@@ -32,26 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/ {
             window?.rootViewController = TabBarController()
         } else {
-            self.window?.rootViewController = UIViewController()
-
-            let gyms: [String] = ["Helen Newman", "Appel", "Teagle", "Noyes"]
-            var classes: [GymClassInstance] = []
-
-            let dateFormatter = DateFormatter()
-            // OFFLINE VERSION
-            classes = [
-                GymClassInstance(classDescription: "aaa", classDetailId: "ee", className: "No", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "aaa", classDetailId: "ee", className: "Wifi", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "aaa", classDetailId: "ee", className: "On", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: "ee", className: "The Bus", duration: 0, endTime: Date(), gymId: "a", imageURL: URL(fileURLWithPath: ""), instructor: "a", isCancelled: false, location: "a", startTime: Date(), tags: [])
-
-            ]
-            self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
-//            dateFormatter.dateFormat = "yyyy-MM-dd"
-//            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) {
-//                classes = $0.map { $0 }
-//                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
-//            }
+            setupOnboardingViewController()
         }
 
         #if DEBUG
@@ -79,7 +60,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url as URL?)
     }
+
+    // MARK: - Onboarding
+    private func setupOnboardingViewController() {
+        self.window?.rootViewController = UIViewController()
+        var gyms: [String] = []
+        var classes: [GymClassInstance] = []
+
+        if false {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) {
+                classes = $0
+                self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
+            }
+        } else {
+            gyms = ["Helen Newman", "Appel", "Teagle", "Noyes"]
+            classes = [
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.yogaVinyasa, className: "Yoga Vinyasa", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.CURowShockwave, className: "CU Row (Shockwave)", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.zumba, className: "Zumba", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
+            ]
+
+        }
+
+        self.window?.rootViewController = OnboardingNewViewController(gymNames: gyms, classes: classes)
+
+    }
 }
+
+
 
 // MARK: Implement Google Sign in Methods
 extension AppDelegate: GIDSignInDelegate {
