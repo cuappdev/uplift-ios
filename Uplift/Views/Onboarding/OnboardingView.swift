@@ -47,7 +47,7 @@ class OnboardingView: UIView {
             tableView = UITableView(frame: .zero, style: .plain)
             tableView?.delegate = self
             tableView?.dataSource = self
-            tableView?.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.identifier)
+            tableView?.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
             tableView?.isScrollEnabled = false
             tableView?.clipsToBounds = false
             tableView?.separatorStyle = .none
@@ -125,7 +125,7 @@ class OnboardingView: UIView {
 
 extension OnboardingView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.identifier, for: indexPath) as? FavoriteGymCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell else { return UITableViewCell() }
         let data = tableData?[indexPath.section] ?? ""
         cell.configure(with: data, displaysClasses: showingClasses)
         cell.selectionStyle = .none
@@ -145,7 +145,7 @@ extension OnboardingView: UITableViewDataSource {
 extension OnboardingView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard
-            let cell = tableView.cellForRow(at: indexPath) as? FavoriteGymCell,
+            let cell = tableView.cellForRow(at: indexPath) as? FavoriteCell,
             let data = tableData
         else { return }
 

@@ -78,7 +78,7 @@ class FavoriteGymsController: UIViewController {
         gymsTableView = UITableView(frame: .zero, style: .plain)
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
-        gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.identifier)
+        gymsTableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
         gymsTableView.isScrollEnabled = false
         gymsTableView.separatorStyle = .none
         gymsTableView.clipsToBounds = false
@@ -235,7 +235,7 @@ extension FavoriteGymsController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.identifier, for: indexPath) as! FavoriteGymCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.identifier, for: indexPath) as! FavoriteCell
         let gym = gymNames[indexPath.section]
         cell.configure(with: gym, displaysClasses: false)
         // Toggle if already in UserDefaults
@@ -259,7 +259,7 @@ extension FavoriteGymsController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //swiftlint:disable:next force_cast
-        let cell = gymsTableView.cellForRow(at: indexPath) as! FavoriteGymCell
+        let cell = gymsTableView.cellForRow(at: indexPath) as! FavoriteCell
         cell.toggleSelectedView(selected: !cell.isOn)
         if cell.isOn {
             favoriteGyms.append(gymNames[indexPath.section])

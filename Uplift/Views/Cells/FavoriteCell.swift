@@ -8,8 +8,7 @@
 
 import UIKit
 
-//TODO: Rename
-class FavoriteGymCell: UITableViewCell {
+class FavoriteCell: UITableViewCell {
 
     // MARK: Private View Vars
     private var cellBackground = UIView()
