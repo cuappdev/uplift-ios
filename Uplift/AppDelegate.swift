@@ -26,11 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGoogleSignIn()
 
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-            window?.rootViewController = TabBarController()
-        } else {
-            setupOnboardingViewController()
-        }
+        window?.rootViewController = false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/
+            ? TabBarController()
+            : OnboardingViewController()
 
         #if DEBUG
             print("Running Uplift in debug configuration")
@@ -56,21 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url as URL?)
-    }
-
-    // MARK: - Onboarding
-    private func setupOnboardingViewController() {
-        self.window?.rootViewController = UIViewController()
-
-        let gyms: [String] = ["Helen Newman", "Appel", "Teagle", "Noyes"]
-        let classes: [GymClassInstance] = [
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.yogaVinyasa, className: "Yoga Vinyasa", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.CURowShockwave, className: "CU Row (Shockwave)", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.zumba, className: "Zumba", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
-            ]
-
-        self.window?.rootViewController = OnboardingViewController(gymNames: gyms, classes: classes)
     }
 }
 

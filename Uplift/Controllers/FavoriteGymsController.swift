@@ -1,5 +1,5 @@
 //
-//  OnboardingGymsViewController.swift
+//  FavoriteGymsController.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 3/5/19.
@@ -68,7 +68,7 @@ class FavoriteGymsController: UIViewController {
         let buttonBorderSize: CGFloat = 2
 
         titleLabel = UILabel()
-        titleLabel.text = ClientStrings.Favorites.gymsSelection
+        titleLabel.text = ClientStrings.Onboarding.gymsSelection
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .primaryBlack
         titleLabel.lineBreakMode = .byWordWrapping

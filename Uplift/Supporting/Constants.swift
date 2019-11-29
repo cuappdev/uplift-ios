@@ -38,7 +38,7 @@ struct GymIds {
 // MARK: - CLASS IDS
 struct ClassIds {
     static let yogaVinyasa = "057794a5c10fb355cc5c31a0989781b3271f03f7"
-    static let CURowShockwave = "13dacafc5638331cc9c4477b918c914db3c1310b"
+    static let cuRowShockwave = "13dacafc5638331cc9c4477b918c914db3c1310b"
     static let zumba = "eb318ac64f7eab2046aa38ad52ca487b11c006a8"
     static let musclePump = "73e8b1961738da4ba44efd45a925b61bf59be760"
 }

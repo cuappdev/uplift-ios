@@ -44,14 +44,15 @@ class OnboardingView: UIView {
             tableData = data
             showingClasses = tableData == classNames
 
-            tableView = UITableView(frame: .zero, style: .plain)
-            tableView?.delegate = self
-            tableView?.dataSource = self
-            tableView?.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
-            tableView?.isScrollEnabled = false
-            tableView?.clipsToBounds = false
-            tableView?.separatorStyle = .none
-            self.addSubview(tableView!)
+            let tableView = UITableView(frame: .zero, style: .plain)
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
+            tableView.isScrollEnabled = false
+            tableView.clipsToBounds = false
+            tableView.separatorStyle = .none
+            self.tableView = tableView
+            self.addSubview(tableView)
         }
 
         setUpConstraints()
@@ -62,9 +63,10 @@ class OnboardingView: UIView {
     }
 
     func getSize() -> CGSize {
+        let width = 388
         return hasTableView ?
-            CGSize(width: 388, height: 700) :
-            CGSize(width: 388, height: 269)
+            CGSize(width: width, height: 700) :
+            CGSize(width: width, height: 269)
     }
 
     private func setUpConstraints() {
@@ -77,7 +79,7 @@ class OnboardingView: UIView {
         }
 
         if let table = tableView { // With Table View
-            let labelHeight: CGFloat = 80//88
+            let labelHeight: CGFloat = 80
             let labelTopOffset: CGFloat = 174
 
             let tableViewBottomOffset: CGFloat = 17
