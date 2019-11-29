@@ -253,6 +253,29 @@ struct FacilityDetail {
             subfacilities = detailData.subFacilityNames.compactMap({ $0 })
         }
     }
+
+    func getEquipmentCategories() -> [EquipmentCategory] {
+       var equipmentDict = [String: [Equipment]]()
+        equipment.forEach { equipmentItem in
+            if let _ = equipmentDict[equipmentItem.equipmentType] {
+                equipmentDict[equipmentItem.equipmentType]?.append(equipmentItem)
+            } else {
+                equipmentDict[equipmentItem.equipmentType] = [equipmentItem]
+            }
+        }
+
+        var equipmentCategories = equipmentDict.compactMap {
+            return EquipmentCategory(categoryName: $0, equipment: $1.sorted {
+                $0.name < $1.name
+            })
+        }
+
+        equipmentCategories.sort {
+            return $0.categoryName < $1.categoryName
+        }
+
+        return equipmentCategories
+    }
 }
 
 struct Facility {
@@ -279,7 +302,7 @@ struct Facility {
 
 struct EquipmentCategory {
     let categoryName: String
-    let equipment: [Equipment]
+    var equipment: [Equipment] = []
 }
 
 struct Equipment {

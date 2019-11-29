@@ -24,6 +24,7 @@ class GymDetailViewController: UIViewController {
     // view displays hours starting from 6am
     private var selectedPopularTimeIndex = Calendar.current.component(.hour, from: Date()) - 6
     private var todaysClasses: [GymClassInstance] = []
+    private var facilitiesDropdownCellStatuses: [DropdownStatus] = []
 
     // MARK: - Public data vars
     var gymDetail: GymDetail!
@@ -52,9 +53,11 @@ class GymDetailViewController: UIViewController {
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
         self.gymDetail = GymDetail(gym: gym)
-
-        for facility in gymDetail.facilities where facility.name == "Fitness Center" {
-            self.equipment = categorizeEquipment(equipmentList: facility.details[0].equipment)
+        for facility in gymDetail.facilities {
+            facilitiesDropdownCellStatuses.append(.closed)
+            if facility.name == "Fitness Center" {
+                self.equipment = categorizeEquipment(equipmentList: facility.details[0].equipment)
+            }
         }
 
         if gym.isOpen {
@@ -66,6 +69,8 @@ class GymDetailViewController: UIViewController {
                 Section(items: [.hours, .facilities, .classes([])])
             ]
         }
+
+        collectionView.backgroundColor = .white
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -145,7 +150,19 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .facilities:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-            cell.configure(for: gymDetail)
+
+            let reloadClosure: (Int) -> () = { index in
+                // Set the current dropdown status (closed or open) at that index to its opposite
+                self.facilitiesDropdownCellStatuses[index] = self.facilitiesDropdownCellStatuses[index] == .closed ? .open : .closed
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.collectionView.reloadItems(at: [indexPath])
+                    self.collectionView.layoutIfNeeded()
+                })
+
+            }
+            cell.backgroundColor = .white
+            cell.configure(for: gymDetail.facilities, dropdownStatuses: facilitiesDropdownCellStatuses, reloadGymDetailCollectionViewClosure: reloadClosure)
+
             return cell
         case .classes:
             // swiftlint:disable:next force_cast
@@ -200,6 +217,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
 // MARK: - Layout
 extension GymDetailViewController {
+
     private func setupViews() {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
@@ -235,11 +253,13 @@ extension GymDetailViewController {
             make.size.equalTo(backButtonSize)
         }
     }
+
 }
 
 // MARK: - Item Height Calculations
 extension GymDetailViewController {
-func getHoursHeight() -> CGFloat {
+
+    func getHoursHeight() -> CGFloat {
         let baseHeight = Constraints.verticalPadding +
             Constraints.titleLabelHeight +
             GymDetailHoursCell.Constants.hoursTableViewTopPadding +
@@ -267,16 +287,7 @@ func getHoursHeight() -> CGFloat {
     }
 
     func getFacilitiesHeight() -> CGFloat {
-        let baseHeight = Constraints.verticalPadding +
-            Constraints.titleLabelHeight +
-            GymDetailFacilitiesCell.Constants.gymFacilitiesTopPadding +
-            Constraints.verticalPadding +
-            Constraints.dividerViewHeight
-
-        let tableViewHeight = GymDetailFacilitiesCell.Constants.gymFacilitiesCellHeight *
-                CGFloat(gymDetail.facilitiesList.count)
-
-        return baseHeight + tableViewHeight
+        return GymDetailFacilitiesCell.getHeights(for: gymDetail.facilities, dropdownCellStatuses: facilitiesDropdownCellStatuses)
     }
 
     func getTodaysClassesHeight() -> CGFloat {

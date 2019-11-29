@@ -10,6 +10,8 @@ import UIKit
 
 class EquipmentListCell: ListCollectionViewCell<EquipmentCategory, EquipmentListItemCell> {
 
+    static let topBottomInset: CGFloat = 12.0
+
     static var height: CGFloat {
         return Constraints.contentPadding + Constraints.labelHeight + Constraints.equipmentTopPadding + Constraints.contentPadding
     }
@@ -30,7 +32,7 @@ class EquipmentListCell: ListCollectionViewCell<EquipmentCategory, EquipmentList
             itemSize: CGSize(width: 247.0, height: maxCellHeight),
             minimumInteritemSpacing: 16,
             minimumLineSpacing: 16,
-            sectionInset: UIEdgeInsets(top: 12.0, left: 24.0, bottom: 12.0, right: 24.0)
+            sectionInset: UIEdgeInsets(top: EquipmentListCell.topBottomInset, left: 24.0, bottom: EquipmentListCell.topBottomInset, right: 24.0)
         )
     }
 
@@ -42,13 +44,11 @@ class EquipmentListCell: ListCollectionViewCell<EquipmentCategory, EquipmentList
         if let maxCount = equipmentCounts.max() {
             maxCellHeight = baseHeight + Constraints.lineHeight * CGFloat(maxCount)
         }
-        
-        return maxCellHeight
+        return maxCellHeight + 2 * EquipmentListCell.topBottomInset
     }
 
     override func configure(for models: [EquipmentCategory]) {
         super.configure(for: models)
-
         reloadLayout()
     }
 

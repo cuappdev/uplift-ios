@@ -436,6 +436,7 @@ extension ClassListViewController {
         let titleHeightConstant = 26
         let titleLeadingConstant = 24
         let titleViewHeightConstant = 120
+        let noClassesEmptyStateViewTopOffset = 92
 
         titleView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
@@ -462,7 +463,8 @@ extension ClassListViewController {
         }
 
         noClassesEmptyStateView.snp.makeConstraints { make in
-            make.edges.equalTo(classCollectionView)
+            make.leading.trailing.equalTo(classCollectionView)
+            make.top.equalTo(calendarCollectionView.snp.bottom).offset(noClassesEmptyStateViewTopOffset)
         }
 
         noResultsEmptyStateView.snp.makeConstraints { make in

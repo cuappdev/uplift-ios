@@ -10,7 +10,7 @@ import Foundation
 
 struct GymDetail {
 
-    let facilities: [Facility]
+    var facilities: [Facility]
     let facilitiesList: [String]
     let gym: Gym
     var hoursDataIsDropped: Bool
