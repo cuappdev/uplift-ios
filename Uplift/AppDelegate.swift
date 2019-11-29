@@ -23,10 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
-        setupGoogleSignIn()
 
         let defaults = UserDefaults.standard
-        window?.rootViewController = false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/
+        window?.rootViewController = false defaults.bool(forKey: Identifiers.hasSeenOnboarding)
             ? TabBarController()
             : OnboardingViewController()
 
@@ -55,43 +54,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url as URL?)
     }
-}
 
-
-
-// MARK: Implement Google Sign in Methods
-extension AppDelegate: GIDSignInDelegate {
-
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if error == nil {
-            let idToken = user.authentication.idToken ?? ""
-            let userId = user.userID ?? "ID" // For client-side use only!
-            let fullName = user.profile.name ?? "First Last"
-            let givenName = user.profile.givenName ?? "First"
-            let familyName = user.profile.familyName ?? "Last"
-            let email = user.profile.email ?? "uplift@defaultvalue.com"
-            let netId = String(email.split(separator: "@")[0])
-            User.currentUser = User(id: userId, name: fullName, netId: netId, givenName: givenName, familyName: familyName, email: email)
-
-            // So other view controllers will know when it signs in
-            NotificationCenter.default.post(
-                name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
-
-            NetworkManager.shared.sendGoogleLoginToken(token: idToken) { (tokens) in
-                // Store in User Defualts
-                let defaults = UserDefaults.standard
-                defaults.set(tokens.backendToken, forKey: Identifiers.googleToken)
-                defaults.set(tokens.expiration, forKey: Identifiers.googleExpiration)
-                defaults.set(tokens.refreshToken, forKey: Identifiers.googleRefresh)
-            }
-        }
-    }
-
-    func logout() {
-        GIDSignIn.sharedInstance().signOut()
-    }
-
-    func isGoogleLoggedIn() -> Bool {
-        return GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false
-    }
 }

@@ -260,8 +260,8 @@ extension FavoriteGymsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //swiftlint:disable:next force_cast
         let cell = gymsTableView.cellForRow(at: indexPath) as! FavoriteCell
-        cell.toggleSelectedView(selected: !cell.isOn)
-        if cell.isOn {
+        cell.toggleSelectedView(selected: !cell.currentlySelected)
+        if cell.currentlySelected {
             favoriteGyms.append(gymNames[indexPath.section])
         } else {
             for i in 0...favoriteGyms.count {

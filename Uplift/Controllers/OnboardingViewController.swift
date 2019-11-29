@@ -36,10 +36,10 @@ class OnboardingViewController: PresentationController {
         view.backgroundColor = .primaryWhite
         self.showPageControl = false
 
-        self.setupOnboardingViews()
-        self.setupViews()
-        self.setupSlides()
-        self.setupBackground()
+        setupOnboardingViews()
+        setupViews()
+        setupSlides()
+        setupBackground()
     }
 
     /// Initialize with default values
@@ -108,10 +108,10 @@ class OnboardingViewController: PresentationController {
         }
 
         // Delegation
-        viewSlides[1].delegate = { [weak self] in
+        viewSlides[1].favoritesSelectedDelegate = { [weak self] in
             self?.selectedOneGym = !$0.isEmpty
         }
-        viewSlides[2].delegate = { [weak self] in
+        viewSlides[2].favoritesSelectedDelegate = { [weak self] in
             self?.selectedOneClass = !$0.isEmpty
         }
 
@@ -156,11 +156,7 @@ class OnboardingViewController: PresentationController {
             slidesTitleEnding[0], slidesGymsClasses[0], slidesGymsClasses[1], slidesTitleEnding[1]
         ]
 
-        var slides = [SlideController]()
-        contentSlides.forEach {
-            slides.append(SlideController(contents: [$0]))
-        }
-
+        let slides = contentSlides.map { SlideController(contents: [$0]) }
         add(slides)
     }
 

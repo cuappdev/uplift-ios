@@ -1,5 +1,5 @@
 //
-//  FavoriteGymCell.swift
+//  FavoriteCell.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 3/5/19.
@@ -12,7 +12,7 @@ class FavoriteCell: UITableViewCell {
 
     // MARK: Private View Vars
     private var cellBackground = UIView()
-    private var gymLabel = UILabel()
+    private var favoriteLabel = UILabel()
     private var favoritedBackground = UIView()
     private var favoritedIcon = UIImageView()
 
@@ -24,11 +24,11 @@ class FavoriteCell: UITableViewCell {
     private var usesStars = false
     private var updateAppearence: ((Bool) -> Void)?
 
-    private var currentlySelected = false
+    private var picked = false
 
     // MARK: Public View Vars
-    var isOn: Bool {
-        get { return currentlySelected }
+    var currentlySelected: Bool {
+        get { return picked }
     }
 
     // Reuse Identfier
@@ -49,9 +49,9 @@ class FavoriteCell: UITableViewCell {
 
         contentView.addSubview(cellBackground)
 
-        gymLabel.font = ._16MontserratMedium
-        gymLabel.textColor = .upliftMediumGrey
-        cellBackground.addSubview(gymLabel)
+        favoriteLabel.font = ._16MontserratMedium
+        favoriteLabel.textColor = .upliftMediumGrey
+        cellBackground.addSubview(favoriteLabel)
 
         favoritedBackground.tintColor = .primaryWhite
         favoritedBackground.layer.borderColor = UIColor.upliftMediumGrey.cgColor
@@ -82,22 +82,22 @@ class FavoriteCell: UITableViewCell {
             favoritedIcon.alpha = 0.4
             favoritedIcon.image = UIImage(named: ImageNames.starOutlineDark)
             updateAppearence = { currentlySelected in
-                self.gymLabel.textColor = currentlySelected ? .primaryBlack : .upliftMediumGrey
+                self.favoriteLabel.textColor = currentlySelected ? .primaryBlack : .upliftMediumGrey
                 self.favoritedIcon.alpha = currentlySelected ? 1 : 0.4
                 self.favoritedIcon.image = UIImage(named: currentlySelected ? ImageNames.starFilledInDark : ImageNames.starOutlineDark)
             }
         } else {
             favoritedIcon.isHidden = true
             favoritedIcon.image = UIImage(named: ImageNames.greenCheckmark)
-            favoritedBackground.layer.borderWidth = 1
+            favoritedBackground.layer.borderWidth = checkBorderWidth
             updateAppearence = { (currentlySelected) -> Void in
-                self.gymLabel.textColor = currentlySelected ? .primaryBlack : .upliftMediumGrey
+                self.favoriteLabel.textColor = currentlySelected ? .primaryBlack : .upliftMediumGrey
                 self.favoritedIcon.isHidden = !currentlySelected
                 self.favoritedBackground.layer.borderWidth = currentlySelected ? 0 : self.checkBorderWidth
             }
         }
 
-        gymLabel.text = gymName
+        favoriteLabel.text = gymName
     }
 
     func setUpConstraints() {
@@ -105,7 +105,7 @@ class FavoriteCell: UITableViewCell {
             make.leading.trailing.top.bottom.equalToSuperview()
         }
 
-        gymLabel.snp.makeConstraints { (make) in
+        favoriteLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().inset(leftPadding)
             make.centerY.equalToSuperview()
         }
@@ -123,7 +123,7 @@ class FavoriteCell: UITableViewCell {
     }
 
     func toggleSelectedView(selected: Bool) {
-        currentlySelected = selected
+        picked = selected
         updateAppearence?(currentlySelected)
     }
 
