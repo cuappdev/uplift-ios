@@ -26,11 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGoogleSignIn()
 
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-            window?.rootViewController = TabBarController()
-        } else {
-            setupOnboardingViewController()
-        }
+        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+            ? TabBarController()
+            : setupOnboardingViewController()
 
         #if DEBUG
             print("Running Uplift in debug configuration")
@@ -59,9 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Onboarding
-    private func setupOnboardingViewController() {
-        self.window?.rootViewController = UIViewController()
-
+    private func setupOnboardingViewController() -> OnboardingViewController {
         let gyms: [String] = ["Helen Newman", "Appel", "Teagle", "Noyes"]
         let classes: [GymClassInstance] = [
                 GymClassInstance(classDescription: "", classDetailId: ClassIds.yogaVinyasa, className: "Yoga Vinyasa", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
@@ -70,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
             ]
 
-        self.window?.rootViewController = OnboardingViewController(gymNames: gyms, classes: classes)
+       return OnboardingViewController(gymNames: gyms, classes: classes)
     }
 }
 
