@@ -257,7 +257,7 @@ struct FacilityDetail {
     func getEquipmentCategories() -> [EquipmentCategory] {
        var equipmentDict = [String: [Equipment]]()
         equipment.forEach { equipmentItem in
-            if let _ = equipmentDict[equipmentItem.equipmentType] {
+            if equipmentDict[equipmentItem.equipmentType] != nil {
                 equipmentDict[equipmentItem.equipmentType]?.append(equipmentItem)
             } else {
                 equipmentDict[equipmentItem.equipmentType] = [equipmentItem]
@@ -302,7 +302,7 @@ struct Facility {
 
 struct EquipmentCategory {
     let categoryName: String
-    var equipment: [Equipment] = []
+    let equipment: [Equipment] = []
 }
 
 struct Equipment {

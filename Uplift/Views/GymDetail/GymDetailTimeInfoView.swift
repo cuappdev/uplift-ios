@@ -24,6 +24,8 @@ class GymDetailTimeInfoView: UIView {
     private var hours: [FacilityHoursRange] = []
     private var paragraphStyleAttributes: [NSAttributedString.Key: Any] = [:]
     private var selectedDayIndex = 0
+    
+    static let emptyStateHeight: CGFloat = 151
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -122,7 +124,7 @@ class GymDetailTimeInfoView: UIView {
         timesText.addAttributes(paragraphStyleAttributes, range: range)
         timesTextView.attributedText = timesText
 
-        let height = FacilitiesHoursCell.baseHeight + getTimesHeight(for: hours)
+        let height = FacilitiesHoursCell.baseHeight + GymDetailTimeInfoView.getTimesHeight(for: hours)
         onChangeDay?(height, selectedDayIndex)
     }
 
@@ -161,16 +163,20 @@ class GymDetailTimeInfoView: UIView {
         self.emptyStateView = emptyStateView
     }
 
-    func getTimesHeight(for hours: [FacilityHoursRange]) -> CGFloat {
-        let emptyStateHeight: CGFloat = 163
-        let hoursCount = CGFloat(hours.count)
+    static func getTimesHeight(for dailyHours: [DailyFacilityHoursRanges]) -> CGFloat {
+        var timesHeight = emptyStateHeight
+        dailyHours.forEach { dailyHour in
+            timesHeight = max(timesHeight, getTimesHeight(for: dailyHour.timeRanges))
+        }
+        return timesHeight
+    }
+
+    static func getTimesHeight(for hours: [FacilityHoursRange]) -> CGFloat {
         let lineHeight: CGFloat = 19.6
         let lineSpacing: CGFloat = 5.0
-
+        let hoursCount = CGFloat(hours.count)
         let emptyState = hoursCount == 1 && hours[0].openTime == hours[0].closeTime
-        let timesHeight = emptyState ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
-
-        return timesHeight
+        return emptyState ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
     }
 
     func didChangeDay(day: WeekDay) {

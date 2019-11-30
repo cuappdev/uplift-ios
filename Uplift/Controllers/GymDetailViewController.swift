@@ -55,7 +55,7 @@ class GymDetailViewController: UIViewController {
         self.gymDetail = GymDetail(gym: gym)
         for facility in gymDetail.facilities {
             facilitiesDropdownCellStatuses.append(.closed)
-            if facility.name == "Fitness Center" {
+            if facility.name == "Fitness Center" && !facility.details.isEmpty {
                 self.equipment = categorizeEquipment(equipmentList: facility.details[0].equipment)
             }
         }

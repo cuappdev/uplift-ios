@@ -23,7 +23,7 @@ class GymDetailWeekView: UIView {
     var selectedDay: WeekDay = .sunday
 
     // MARK: - Display
-    private let daysSize = CGSize(width: 24, height: 24)
+    static let daysSize = CGSize(width: 24, height: 24)
     private let interitemSpace: CGFloat = 19
     private var weekdayCollectionView: UICollectionView!
 
@@ -53,7 +53,7 @@ class GymDetailWeekView: UIView {
 
     /// Center collection view in size of view
     override func layoutSubviews() {
-        weekdayCollectionView.contentInset.top = (frame.height - daysSize.height) / 2
+        weekdayCollectionView.contentInset.top = (frame.height - GymDetailWeekView.daysSize.height) / 2
         super.layoutSubviews()
     }
 
@@ -61,7 +61,7 @@ class GymDetailWeekView: UIView {
         backgroundColor = .primaryWhite
 
         let weekdayFlowLayout = UICollectionViewFlowLayout()
-        weekdayFlowLayout.itemSize = daysSize
+        weekdayFlowLayout.itemSize = GymDetailWeekView.daysSize
         weekdayFlowLayout.minimumInteritemSpacing = interitemSpace
 
         weekdayCollectionView = UICollectionView(frame: .zero, collectionViewLayout: weekdayFlowLayout)

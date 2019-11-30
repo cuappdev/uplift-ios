@@ -18,7 +18,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     private var facilitiesIndex: Int!
     private var headerViewTapped: ((Int) -> ())?
 
-    weak var delegate: GymDetailViewController!
+//    private weak var delegate: GymDetailViewController!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,7 +84,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         case .equipment:
             height = EquipmentListCell.getHeight(models: facilityDetail.getEquipmentCategories())
         case .hours:
-            height = FacilitiesHoursCell.baseHeight
+            height = FacilitiesHoursCell.getHeight(for: facilityDetail)
         case .prices:
             height = PriceInformationCell.getHeight(for: facilityDetail.items)
         case .subfacilities:
@@ -98,7 +98,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         facility.details.forEach { facilityDetail in
             height += FacilitiesDropdownCell.getHeight(for: facilityDetail) + collectionViewSpacing
         }
-        return height + 16
+        return height
     }
 
 }
@@ -149,17 +149,11 @@ extension FacilitiesDropdownCell: UICollectionViewDelegate, UICollectionViewDele
 
 extension FacilitiesDropdownCell: DropdownViewDelegate {
 
-    func dropdownViewClosed(sender dropdownView: DropdownView) {
-        return
-    }
+    func dropdownViewClosed(sender dropdownView: DropdownView) {}
 
-    func dropdownViewOpen(sender dropdownView: DropdownView) {
-        return
-    }
+    func dropdownViewOpen(sender dropdownView: DropdownView) {}
 
-    func dropdownViewHalf(sender dropdownView: DropdownView) {
-        return
-    }
+    func dropdownViewHalf(sender dropdownView: DropdownView) {}
 
 }
 
