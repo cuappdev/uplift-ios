@@ -17,8 +17,8 @@ class OnboardingViewController: PresentationController {
 
     // MARK: - Views
     private var viewSlides: [OnboardingView] = []
-    private var nextButton = OnboardingArrowButton(arrowFacesRight: true)
-    private var backButton = OnboardingArrowButton(arrowFacesRight: false, changesColor: false)
+    private var nextButtons: [OnboardingArrowButton] = []
+    private var backButtons: [OnboardingArrowButton] = []
     private var skipButton = UIButton()
     private var endButton = UIButton()
     private var runningPersonView = UIImageView(image: UIImage(named: ImageNames.runningMan))
@@ -34,8 +34,6 @@ class OnboardingViewController: PresentationController {
     private var selectedOneClass = false
 
     // MARK: - Animations
-    private var initNextButtonTransition: ArrowButtonTransition?
-    private var nextButtonTransition: ArrowButtonTransition?
 
     // MARK: - Init
     override func viewDidLoad() {
@@ -104,25 +102,19 @@ class OnboardingViewController: PresentationController {
         viewSlides[1].delegate = { [weak self] in
             if let `self` = self {
                 self.selectedOneGym = !$0.isEmpty
-                self.nextButton.isEnabled = self.selectedOneGym
+                self.nextButtons[1].isEnabled = self.selectedOneGym
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.nextButton.backgroundColor = self.selectedOneGym ? .primaryYellow : .none
+                    self.nextButtons[1].backgroundColor = self.selectedOneGym ? .primaryYellow : .none
                 })
-
-                self.initNextButtonTransition?.transitionIsEnabled = self.selectedOneClass
-                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneClass
             }
         }
         viewSlides[2].delegate = { [weak self] in
             if let `self` = self {
                 self.selectedOneClass = !$0.isEmpty
-                self.backButton.isEnabled = self.selectedOneClass
+                self.nextButtons[2].isEnabled = self.selectedOneClass
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.nextButton.backgroundColor = self.selectedOneClass ? .primaryYellow : .none
+                    self.nextButtons[2].backgroundColor = self.selectedOneClass ? .primaryYellow : .none
                 })
-
-                self.initNextButtonTransition?.transitionIsEnabled = self.selectedOneGym
-                self.nextButtonTransition?.transitionIsEnabled = self.selectedOneGym
             }
         }
 
@@ -141,11 +133,26 @@ class OnboardingViewController: PresentationController {
         endButton.frame = CGRect(x: 0, y: 0, width: 269, height: 48)
         endButton.alpha = 0
 
-        nextButton.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
-        nextButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
+        nextButtons = [
+            OnboardingArrowButton(arrowFacesRight: true),
+            OnboardingArrowButton(arrowFacesRight: true, enabled: false),
+            OnboardingArrowButton(arrowFacesRight: true, enabled: false)
+        ]
+        nextButtons.forEach {
+            $0.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
+            $0.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
+        }
+        nextButtons[1...2].forEach { $0.alpha = 0 }
 
-        backButton.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        backButton.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
+        backButtons = [
+            OnboardingArrowButton(arrowFacesRight: false, changesColor: false),
+            OnboardingArrowButton(arrowFacesRight: false, changesColor: false)
+        ]
+        backButtons.forEach {
+            $0.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
+            $0.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
+        }
+        backButtons[1].alpha = 0
 
         skipButton.setTitle(ClientStrings.Onboarding.skipButton, for: .normal)
         skipButton.titleLabel?.font = ._16MontserratBold
@@ -201,23 +208,26 @@ class OnboardingViewController: PresentationController {
         let skipButtonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)
         let skipButtonContent = Content(view: skipButton, position: skipButtonPosition)
 
-        let backButtonPosition = Position(left: 0.154, bottom: 0.11 - scalingOffset)
-        let backButtonContent = Content(view: backButton, position: backButtonPosition)
+        let backButtonContents = backButtons.map { button -> Content in
+            let position = Position(left: 0.154, bottom: 0.11 - scalingOffset)
+            return Content(view: button, position: position)
+        }
 
-        let nextButtonPosition = Position(right: 0.154, bottom: 0.11 - scalingOffset)
-        let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
-        nextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5)
-        initNextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5, firstArrow: true)
+        let nextButtonContents = nextButtons.map { button -> Content in
+            let position = Position(right: 0.154, bottom: 0.11 - scalingOffset)
+            return Content(view: button, position: position)
+        }
 
         let buttonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)
         let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
 
-        let backgroundContents = [divider, runningPerson, endOnboardingContent, skipButtonContent, backButtonContent, nextButtonContent]
+        let backgroundContents = [divider, runningPerson, endOnboardingContent, skipButtonContent] + nextButtonContents + backButtonContents
         addToBackground(backgroundContents)
-        view.bringSubviewToFront(endOnboardingContent.view)
-        view.bringSubviewToFront(skipButtonContent.view)
-        view.bringSubviewToFront(nextButtonContent.view)
-        view.bringSubviewToFront(backButtonContent.view)
+
+        // Bring buttons to front so user can tap
+        backgroundContents.forEach {
+            if let button = $0.view as? UIButton { view.bringSubviewToFront(button) }
+        }
 
         // Running Man Animations
          addAnimations([
@@ -240,23 +250,39 @@ class OnboardingViewController: PresentationController {
             FadeOutAnimation(content: endOnboardingContent, duration: 0.5, willFadeIn: true)
         ], forPage: 3)
 
-         // Arrow Animations
-        if let initTransition = initNextButtonTransition, let transition = nextButtonTransition {
-            // addAnimations([initTransition], forPage: 0)
-            addAnimations([initTransition], forPage: 1)
-            // addAnimations([transition], forPage: 1)
-            addAnimations([transition], forPage: 2)
-        }
+        // Arrow Animations
+        addAnimations([
+            // FadeOutAnimation(content: nextButtonContents[0], duration: 0.5, willFadeIn: false),
+            DissolveAnimation(content: nextButtonContents[0], duration: 0.5, initial: true)
+        ], forPage: 0)
+        addAnimations([
+            // FadeOutAnimation(content: nextButtonContents[1], duration: 0.5, willFadeIn: false),
+            // FadeOutAnimation(content: backButtonContents[0], duration: 0.5, willFadeIn: false)
+            FadeOutAnimation(content: nextButtonContents[0], duration: 0.5, willFadeIn: false),
+
+            DissolveAnimation(content: nextButtonContents[1], duration: 0.5),
+            DissolveAnimation(content: backButtonContents[0], duration: 0.5)
+        ], forPage: 1)
+
+        addAnimations([
+            // FadeOutAnimation(content: nextButtonContents[2], duration: 0.5, willFadeIn: false),
+            // FadeOutAnimation(content: backButtonContents[1], duration: 0.5, willFadeIn: false)
+            FadeOutAnimation(content: nextButtonContents[1], duration: 0.5, willFadeIn: false),
+            FadeOutAnimation(content: backButtonContents[0], duration: 0.5, willFadeIn: false),
+
+            DissolveAnimation(content: nextButtonContents[2], duration: 0.5),
+            DissolveAnimation(content: backButtonContents[1], duration: 0.5)
+        ], forPage: 2)
 
         // Fade Animations
         addAnimations([
-            FadeOutAnimation(content: backButtonContent, duration: 0.5)
+            FadeOutAnimation(content: backButtonContents[1], duration: 0.5)
         ], forPage: 3)
         addAnimations([
             FadeOutAnimation(content: skipButtonContent, duration: 0.5)
         ], forPage: 3)
         addAnimations([
-            FadeOutAnimation(content: nextButtonContent, duration: 0.5)
+            FadeOutAnimation(content: nextButtonContents[2], duration: 0.5)
         ], forPage: 3)
 
         addAnimations([
@@ -267,7 +293,9 @@ class OnboardingViewController: PresentationController {
 
     // MARK: - Helper
     @objc private func arrowsPressed(sender: UIButton) {
-        goTo(sender == nextButton ? currentIndex + 1 : currentIndex - 1)
+        if let button = sender as? OnboardingArrowButton {
+            goTo(nextButtons.contains(button) ? currentIndex + 1 : currentIndex - 1)
+        }
     }
 
     @objc func dismissOnboarding() {
