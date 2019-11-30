@@ -149,6 +149,7 @@ class OnboardingViewController: PresentationController {
             OnboardingArrowButton(arrowFacesRight: false, changesColor: false)
         ]
         backButtons.forEach {
+            $0.backgroundColor = .none
             $0.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
             $0.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
         }
@@ -252,12 +253,9 @@ class OnboardingViewController: PresentationController {
 
         // Arrow Animations
         addAnimations([
-            // FadeOutAnimation(content: nextButtonContents[0], duration: 0.5, willFadeIn: false),
             DissolveAnimation(content: nextButtonContents[0], duration: 0.5, initial: true)
         ], forPage: 0)
         addAnimations([
-            // FadeOutAnimation(content: nextButtonContents[1], duration: 0.5, willFadeIn: false),
-            // FadeOutAnimation(content: backButtonContents[0], duration: 0.5, willFadeIn: false)
             FadeOutAnimation(content: nextButtonContents[0], duration: 0.5, willFadeIn: false),
 
             DissolveAnimation(content: nextButtonContents[1], duration: 0.5),
@@ -265,8 +263,6 @@ class OnboardingViewController: PresentationController {
         ], forPage: 1)
 
         addAnimations([
-            // FadeOutAnimation(content: nextButtonContents[2], duration: 0.5, willFadeIn: false),
-            // FadeOutAnimation(content: backButtonContents[1], duration: 0.5, willFadeIn: false)
             FadeOutAnimation(content: nextButtonContents[1], duration: 0.5, willFadeIn: false),
             FadeOutAnimation(content: backButtonContents[0], duration: 0.5, willFadeIn: false),
 
@@ -343,3 +339,4 @@ class OnboardingViewController: PresentationController {
     }
 
 }
+
