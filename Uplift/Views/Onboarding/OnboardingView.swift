@@ -28,7 +28,7 @@ class OnboardingView: UIView {
     var favorites: [String] = [] // User's selected favorite gyms/classes
     var hasTableView = false
 
-    init(image: UIImage, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
+    init(image: UIImage?, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
         super.init(frame: .zero)
 
         imageView.image = image

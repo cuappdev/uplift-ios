@@ -72,21 +72,21 @@ class OnboardingViewController: PresentationController {
         // Create Slides of Onboarding Views
         viewSlides = [
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding1)!,
+                image: UIImage(named: ImageNames.onboarding1),
                 text: ClientStrings.Onboarding.onboarding1
             ),
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding2)!,
+                image: UIImage(named: ImageNames.onboarding2),
                 text: ClientStrings.Onboarding.onboarding2,
                 gymNames: gyms
             ),
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding3)!,
+                image: UIImage(named: ImageNames.onboarding3),
                 text: ClientStrings.Onboarding.onboarding3,
                 classNames: classInstances.map { $0.className }
             ),
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding4)!,
+                image: UIImage(named: ImageNames.onboarding4),
                 text: ClientStrings.Onboarding.onboarding4
             )
         ]

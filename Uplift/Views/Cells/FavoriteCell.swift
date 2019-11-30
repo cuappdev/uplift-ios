@@ -11,10 +11,10 @@ import UIKit
 class FavoriteCell: UITableViewCell {
 
     // MARK: Private View Vars
-    private var cellBackground = UIView()
-    private var favoriteLabel = UILabel()
-    private var favoritedBackground = UIView()
-    private var favoritedIcon = UIImageView()
+    private let cellBackground = UIView()
+    private let favoriteLabel = UILabel()
+    private let favoritedBackground = UIView()
+    private let favoritedIcon = UIImageView()
 
     private let checkSize: CGFloat = 24
     private let checkBorderWidth: CGFloat = 1
@@ -59,7 +59,6 @@ class FavoriteCell: UITableViewCell {
         favoritedBackground.layer.cornerRadius = checkSize / 2
         cellBackground.addSubview(favoritedBackground)
 
-        favoritedIcon = UIImageView()
         favoritedIcon.image = UIImage(named: ImageNames.greenCheckmark)
         favoritedIcon.contentMode = .scaleAspectFit
         favoritedBackground.addSubview(favoritedIcon)
@@ -101,22 +100,22 @@ class FavoriteCell: UITableViewCell {
     }
 
     func setUpConstraints() {
-        cellBackground.snp.makeConstraints { (make) in
+        cellBackground.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalToSuperview()
         }
 
-        favoriteLabel.snp.makeConstraints { (make) in
+        favoriteLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(leftPadding)
             make.centerY.equalToSuperview()
         }
 
-        favoritedBackground.snp.makeConstraints { (make) in
+        favoritedBackground.snp.makeConstraints { make in
             make.size.equalTo(checkSize)
             make.trailing.equalToSuperview().inset(rightPadding)
             make.centerY.equalToSuperview()
         }
 
-        favoritedIcon.snp.makeConstraints { (make) in
+        favoritedIcon.snp.makeConstraints { make in
             make.size.equalTo(checkSize + 1)
             make.center.equalToSuperview()
         }

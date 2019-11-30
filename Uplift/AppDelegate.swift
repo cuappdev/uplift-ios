@@ -23,9 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
-
         let defaults = UserDefaults.standard
-        window?.rootViewController = false defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
             ? TabBarController()
             : OnboardingViewController()
 
@@ -37,18 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
 
         return true
-    }
-
-    // Google Login Related
-    func setupGoogleSignIn() {
-        GIDSignIn.sharedInstance().clientID = Keys.googleClientID.value
-        GIDSignIn.sharedInstance().serverClientID = Keys.googleClientID.value
-        GIDSignIn.sharedInstance().delegate = self
-        if GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false {
-            DispatchQueue.main.async {
-                GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-            }
-        }
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

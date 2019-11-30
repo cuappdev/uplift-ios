@@ -78,7 +78,7 @@ class FavoriteGymsController: UIViewController {
         gymsTableView = UITableView(frame: .zero, style: .plain)
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
-        gymsTableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
+        gymsTableView.register(FavoriteCell.self, forCellReuseIdentifier: Identifiers.favoritesCell)
         gymsTableView.isScrollEnabled = false
         gymsTableView.separatorStyle = .none
         gymsTableView.clipsToBounds = false
@@ -226,7 +226,6 @@ class FavoriteGymsController: UIViewController {
 
     @objc func goBackAView() {
         navigationController?.popViewController(animated: true)
-
     }
 
 }
@@ -235,7 +234,7 @@ extension FavoriteGymsController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.identifier, for: indexPath) as! FavoriteCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.favoritesCell, for: indexPath) as! FavoriteCell
         let gym = gymNames[indexPath.section]
         cell.configure(with: gym, displaysClasses: false)
         // Toggle if already in UserDefaults

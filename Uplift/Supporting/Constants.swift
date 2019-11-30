@@ -61,8 +61,9 @@ struct Identifiers {
     static let courtCollectionViewCell = "courtCollectionViewCell"
     static let dropdownViewCell = "dropdownViewCell"
     static let facilitiesDropdownCell = "facilitiesDropdownCell"
-    static let facilityHoursCell = "facilityHoursCell"
     static let facilitiesMiscellaneousCell = "facilitiesMiscellaneousCell"
+    static let facilityHoursCell = "facilityHoursCell"
+    static let favoritesCell = "favoritesCell"
     static let gymEquipmentCell = "gymEquipmentCell"
     static let gymFacilityCell = "gymFacilityCell"
     static let gymFilterCell = "gymFilterCell"
@@ -81,9 +82,6 @@ struct Identifiers {
     static let activeHabits = "ActiveHabits"
     static let favoriteGyms = "FavoriteGyms"
     static let favoriteClasses = "FavoritesClasses"
-    static let googleExpiration = "googleExpiration"
-    static let googleRefresh = "googleRefresh"
-    static let googleToken = "googleToken"
     static func habitIdentifier(for type: HabitTrackingType) -> String {
         switch type {
         case .cardio:
