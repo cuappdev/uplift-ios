@@ -264,11 +264,9 @@ extension FavoriteGymsController: UITableViewDelegate {
         if cell.isOn {
             favoriteGyms.append(gymNames[indexPath.section])
         } else {
-            for i in 0...favoriteGyms.count {
-                if favoriteGyms[i] == gymNames[indexPath.section] {
-                    favoriteGyms.remove(at: i)
-                    break
-                }
+            for i in 0...favoriteGyms.count where favoriteGyms[i] == gymNames[indexPath.section] {
+                favoriteGyms.remove(at: i)
+                break
             }
         }
 

@@ -34,6 +34,7 @@ class OnboardingViewController: PresentationController {
     private var selectedOneClass = false
 
     // MARK: - Animations
+    private var initNextButtonTransition: ArrowButtonTransition?
     private var nextButtonTransition: ArrowButtonTransition?
 
     // MARK: - Init
@@ -108,6 +109,7 @@ class OnboardingViewController: PresentationController {
                     self.nextButton.backgroundColor = self.selectedOneGym ? .primaryYellow : .none
                 })
 
+                self.initNextButtonTransition?.transitionIsEnabled = self.selectedOneGym
                 self.nextButtonTransition?.transitionIsEnabled = self.selectedOneClass
             }
         }
@@ -204,6 +206,7 @@ class OnboardingViewController: PresentationController {
         let nextButtonPosition = Position(right: 0.154, bottom: 0.11 - scalingOffset)
         let nextButtonContent = Content(view: nextButton, position: nextButtonPosition)
         nextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5)
+        initNextButtonTransition = ArrowButtonTransition(content: nextButtonContent, duration: 0.5, firstArrow: true)
 
         let buttonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)
         let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
@@ -237,7 +240,8 @@ class OnboardingViewController: PresentationController {
         ], forPage: 3)
 
          // Arrow Animations
-        if let transition = nextButtonTransition {
+        if let initTransition = initNextButtonTransition, let transition = nextButtonTransition {
+            addAnimations([initTransition], forPage: 0)
             addAnimations([transition], forPage: 1)
             addAnimations([transition], forPage: 2)
         }
