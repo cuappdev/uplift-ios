@@ -1,5 +1,5 @@
 //
-//  OnboardingGymsViewController.swift
+//  FavoriteGymsController.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 3/5/19.
