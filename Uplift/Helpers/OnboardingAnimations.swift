@@ -69,7 +69,8 @@ extension ArrowButtonTransition {
 
     public func playBack() {
         if content.view.superview != nil {
-            if !played { animate(isFirstArrow || transitionIsEnabled) }
+            // if !played { animate(isFirstArrow || transitionIsEnabled) }
+            if !played { animate(transitionIsEnabled) }
         }
     }
 

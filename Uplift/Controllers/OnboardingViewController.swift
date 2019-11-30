@@ -109,7 +109,7 @@ class OnboardingViewController: PresentationController {
                     self.nextButton.backgroundColor = self.selectedOneGym ? .primaryYellow : .none
                 })
 
-                self.initNextButtonTransition?.transitionIsEnabled = self.selectedOneGym
+                self.initNextButtonTransition?.transitionIsEnabled = self.selectedOneClass
                 self.nextButtonTransition?.transitionIsEnabled = self.selectedOneClass
             }
         }
@@ -121,6 +121,7 @@ class OnboardingViewController: PresentationController {
                     self.nextButton.backgroundColor = self.selectedOneClass ? .primaryYellow : .none
                 })
 
+                self.initNextButtonTransition?.transitionIsEnabled = self.selectedOneGym
                 self.nextButtonTransition?.transitionIsEnabled = self.selectedOneGym
             }
         }
@@ -241,8 +242,9 @@ class OnboardingViewController: PresentationController {
 
          // Arrow Animations
         if let initTransition = initNextButtonTransition, let transition = nextButtonTransition {
-            addAnimations([initTransition], forPage: 0)
-            addAnimations([transition], forPage: 1)
+            // addAnimations([initTransition], forPage: 0)
+            addAnimations([initTransition], forPage: 1)
+            // addAnimations([transition], forPage: 1)
             addAnimations([transition], forPage: 2)
         }
 
