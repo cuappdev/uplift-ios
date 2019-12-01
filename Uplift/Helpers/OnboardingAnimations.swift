@@ -81,8 +81,6 @@ extension ArrowButtonTransition {
         let view = content.view
         if view.layer.animationKeys() == nil {
             if view.superview != nil {
-                print("isFirstArrow: \(isFirstArrow)")
-                print("transEnabled: \(transitionIsEnabled)")
                 animate(isFirstArrow || transitionIsEnabled)
             }
         }
@@ -123,7 +121,6 @@ public class FadeOutAnimation: NSObject, Animatable {
                 self.content.view.alpha = targetAlpha
             }),
             completion: { [unowned self] completed in
-                print("fade in/out animation completed~")
                 self.played = false
             }
         )

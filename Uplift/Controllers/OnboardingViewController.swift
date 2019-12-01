@@ -29,19 +29,23 @@ class OnboardingViewController: PresentationController {
     private var horizScaling: CGFloat = 1.0
     private var vertScaling: CGFloat = 1.0
 
-    // MARK: - Animation Progress
+    // MARK: - State
     private var selectedOneGym = false
     private var selectedOneClass = false
 
-    // MARK: - Animations
+    // MARK: - Swiping
+    private var rightGestureRecognizer = UISwipeGestureRecognizer()
+    private var leftGestureRecognizer = UISwipeGestureRecognizer()
 
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primaryWhite
         self.showPageControl = false
+        self.enableSwipe = false
 
         setupOnboardingViews()
+        setupGestureRecognizer()
         setupViews()
         setupSlides()
         setupBackground()
@@ -71,8 +75,8 @@ class OnboardingViewController: PresentationController {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     // MARK: - Setup
+    // MARK: setupOnboardingViews
     private func setupOnboardingViews() {
         // Create Slides of Onboarding Views
         viewSlides = [
@@ -131,9 +135,21 @@ class OnboardingViewController: PresentationController {
                 })
             }
         }
-
     }
 
+    // MARK: setUpGestureRecognizer
+    private func setupGestureRecognizer() {
+        rightGestureRecognizer.direction = .right
+        leftGestureRecognizer.direction = .left
+
+        rightGestureRecognizer.addTarget(self, action: #selector(userSwiped(sender:)))
+        leftGestureRecognizer.addTarget(self, action: #selector(userSwiped(sender:)))
+
+        view.addGestureRecognizer(rightGestureRecognizer)
+        view.addGestureRecognizer(leftGestureRecognizer)
+    }
+
+    // MARK: setupViews
     private func setupViews() {
         endButton.backgroundColor = .primaryYellow
         endButton.setTitle(ClientStrings.Onboarding.endButton, for: .normal)
@@ -187,6 +203,7 @@ class OnboardingViewController: PresentationController {
         }
     }
 
+    // MARK: setupSlides
     private func setupSlides() {
         // Onboarding View without TableView
         let slidesTitleEnding = [viewSlides[0], viewSlides[3]].map { view -> Content in
@@ -206,6 +223,7 @@ class OnboardingViewController: PresentationController {
         add(slides)
     }
 
+    // MARK: setupBackground
     private func setupBackground() {
         let scalingOffset = 0.25 - (vertScaling * 0.25)
 
@@ -234,7 +252,7 @@ class OnboardingViewController: PresentationController {
 
         var backgroundContents = [divider, runningMan, endOnboardingContent, skipButtonContent]
         backgroundContents += nextButtonContents
-        backgroundContents += backButtonContents 
+        backgroundContents += backButtonContents
         addToBackground(backgroundContents)
 
         // Bring buttons to front so user can tap
@@ -242,6 +260,7 @@ class OnboardingViewController: PresentationController {
             if let button = $0.view as? UIButton { view.bringSubviewToFront(button) }
         }
 
+        // MARK: - Animations
         // Running Man Animations
          addAnimations([
             TransitionAnimation(content: runningMan, destination: Position(left: 0.1, bottom: runningManVerticalPosition))
@@ -296,10 +315,22 @@ class OnboardingViewController: PresentationController {
         addAnimations([
             FadeOutAnimation(content: endOnboardingContent, duration: 0.5, willFadeIn: true)
         ], forPage: 3)
-
+    }
+    // MARK: - Gesture Recognizer
+    @objc private func userSwiped(sender: UISwipeGestureRecognizer) {
+        if sender == rightGestureRecognizer {
+            goTo(currentIndex - 1)
+        } else if sender == leftGestureRecognizer {
+            // Disable if not selected favorite gym/class
+            let hasntSelectedGym = currentIndex == 1 && !selectedOneGym
+            let hasntSelectedClass = currentIndex == 2 && !selectedOneClass
+            if !(hasntSelectedGym || hasntSelectedClass) {
+                goTo(currentIndex + 1)
+            }
+        }
     }
 
-    // MARK: - Helper
+    // MARK: - Button Actions
     @objc private func arrowsPressed(sender: UIButton) {
         if let button = sender as? OnboardingArrowButton {
             goTo(nextButtons.contains(button) ? currentIndex + 1 : currentIndex - 1)
@@ -327,6 +358,8 @@ class OnboardingViewController: PresentationController {
             snapshot.removeFromSuperview()
         }
     }
+
+    // MARKL - Helper
 
     private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
         let defaults = UserDefaults.standard
