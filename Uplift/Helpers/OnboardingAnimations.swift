@@ -13,6 +13,7 @@ import UIKit
 
 /// Transition that changes arrow colors when swiping
 public class ArrowButtonTransition: NSObject, Animatable {
+
     private let content: Content
     private let duration: TimeInterval
     private let delay: TimeInterval
@@ -58,9 +59,11 @@ public class ArrowButtonTransition: NSObject, Animatable {
 
         played = true
     }
+
 }
 
 extension ArrowButtonTransition {
+
     public func play() {
         if content.view.superview != nil {
             if !played { animate(transitionIsEnabled) }
@@ -84,10 +87,12 @@ extension ArrowButtonTransition {
             }
         }
     }
+
 }
 
 // MARK: - Fade Out + Disable Button
 public class FadeOutAnimation: NSObject, Animatable {
+
     private let content: Content
     private let duration: TimeInterval
 
@@ -125,9 +130,11 @@ public class FadeOutAnimation: NSObject, Animatable {
 
         played = true
     }
+
 }
 
 extension FadeOutAnimation {
+
     public func play() {
         if content.view.superview != nil {
             if !played {
@@ -154,4 +161,5 @@ extension FadeOutAnimation {
             }
         }
     }
+
 }

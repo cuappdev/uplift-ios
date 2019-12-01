@@ -1,5 +1,5 @@
 //
-//  OnboardingNewViewController.swift
+//  OnboardingViewController.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 11/18/19.
@@ -21,7 +21,7 @@ class OnboardingViewController: PresentationController {
     private var backButtons: [OnboardingArrowButton] = []
     private var skipButton = UIButton()
     private var endButton = UIButton()
-    private var runningPersonView = UIImageView(image: UIImage(named: ImageNames.runningMan))
+    private var runningManView = UIImageView(image: UIImage(named: ImageNames.runningMan))
     private var dividerView = UIImageView(image: UIImage(named: ImageNames.divider))
 
     // MARK: - Scaling
@@ -41,14 +41,28 @@ class OnboardingViewController: PresentationController {
         view.backgroundColor = .primaryWhite
         self.showPageControl = false
 
-        self.setupOnboardingViews()
-        self.setupViews()
-        self.setupSlides()
-        self.setupBackground()
+        setupOnboardingViews()
+        setupViews()
+        setupSlides()
+        setupBackground()
+    }
+
+    /// Initialize with default values
+    init() {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+
+        gyms = ["Helen Newman", "Appel", "Teagle", "Noyes"]
+        classInstances = [
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.yogaVinyasa, className: "Yoga Vinyasa", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.cuRowShockwave, className: "CU Row (Shockwave)", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.zumba, className: "Zumba", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
+                GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
+            ]
     }
 
     init(gymNames: [String], classes: [GymClassInstance]) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+
         gyms = gymNames
         classInstances = classes
     }
@@ -63,21 +77,21 @@ class OnboardingViewController: PresentationController {
         // Create Slides of Onboarding Views
         viewSlides = [
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding1)!,
+                image: UIImage(named: ImageNames.onboarding1),
                 text: ClientStrings.Onboarding.onboarding1
             ),
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding2)!,
+                image: UIImage(named: ImageNames.onboarding2),
                 text: ClientStrings.Onboarding.onboarding2,
                 gymNames: gyms
             ),
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding3)!,
+                image: UIImage(named: ImageNames.onboarding3),
                 text: ClientStrings.Onboarding.onboarding3,
                 classNames: classInstances.map { $0.className }
             ),
             OnboardingView(
-                image: UIImage(named: ImageNames.onboarding4)!,
+                image: UIImage(named: ImageNames.onboarding4),
                 text: ClientStrings.Onboarding.onboarding4
             )
         ]
@@ -167,8 +181,8 @@ class OnboardingViewController: PresentationController {
             make.size.equalTo(CGSize(width: view.frame.width, height: 2))
         }
 
-        runningPersonView.contentMode = .scaleAspectFit
-        runningPersonView.snp.makeConstraints { make in
+        runningManView.contentMode = .scaleAspectFit
+        runningManView.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 64 * vertScaling, height: 64 * vertScaling))
         }
     }
@@ -188,11 +202,7 @@ class OnboardingViewController: PresentationController {
             slidesTitleEnding[0], slidesGymsClasses[0], slidesGymsClasses[1], slidesTitleEnding[1]
         ]
 
-        var slides = [SlideController]()
-        contentSlides.forEach {
-            slides.append(SlideController(contents: [$0]))
-        }
-
+        let slides = contentSlides.map { SlideController(contents: [$0]) }
         add(slides)
     }
 
@@ -204,7 +214,7 @@ class OnboardingViewController: PresentationController {
 
         let runningManVerticalPosition = 0.197 - scalingOffset
         let runningInitPosition = Position(left: -0.3, bottom: runningManVerticalPosition)
-        let runningPerson = Content(view: runningPersonView, position: runningInitPosition)
+        let runningMan = Content(view: runningManView, position: runningInitPosition)
 
         let skipButtonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)
         let skipButtonContent = Content(view: skipButton, position: skipButtonPosition)
@@ -222,7 +232,9 @@ class OnboardingViewController: PresentationController {
         let buttonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)
         let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
 
-        let backgroundContents = [divider, runningPerson, endOnboardingContent, skipButtonContent] + nextButtonContents + backButtonContents
+        var backgroundContents = divider, runningPerson, endOnboardingContent, skipButtonContent
+        backgroundContents += nextButtonContents
+        backgroundContents += backButtonContents 
         addToBackground(backgroundContents)
 
         // Bring buttons to front so user can tap
@@ -232,19 +244,19 @@ class OnboardingViewController: PresentationController {
 
         // Running Man Animations
          addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.1, bottom: runningManVerticalPosition))
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.1, bottom: runningManVerticalPosition))
             ], forPage: 0)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.3, bottom: runningManVerticalPosition))
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.3, bottom: runningManVerticalPosition))
             ], forPage: 1)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.6, bottom: runningManVerticalPosition))
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.6, bottom: runningManVerticalPosition))
             ], forPage: 2)
 
         addAnimations([
-            TransitionAnimation(content: runningPerson, destination: Position(left: 0.8, bottom: runningManVerticalPosition))
+            TransitionAnimation(content: runningMan, destination: Position(left: 0.8, bottom: runningManVerticalPosition))
             ], forPage: 3)
 
         addAnimations([

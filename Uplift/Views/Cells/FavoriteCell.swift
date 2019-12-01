@@ -1,5 +1,5 @@
 //
-//  FavoriteGymCell.swift
+//  FavoriteCell.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 3/5/19.
@@ -11,10 +11,10 @@ import UIKit
 class FavoriteCell: UITableViewCell {
 
     // MARK: Private View Vars
-    private var cellBackground = UIView()
-    private var gymLabel = UILabel()
-    private var favoritedBackground = UIView()
-    private var favoritedIcon = UIImageView()
+    private let cellBackground = UIView()
+    private let favoriteLabel = UILabel()
+    private let favoritedBackground = UIView()
+    private let favoritedIcon = UIImageView()
 
     private let checkSize: CGFloat = 24
     private let checkBorderWidth: CGFloat = 1
@@ -24,8 +24,12 @@ class FavoriteCell: UITableViewCell {
     private var usesStars = false
     private var updateAppearence: ((Bool) -> Void)?
 
+    private var picked = false
+
     // MARK: Public View Vars
-    var isOn = false
+    var currentlySelected: Bool {
+        get { return picked }
+    }
 
     // Reuse Identfier
     static let identifier = "favoritesTableView"
@@ -45,9 +49,9 @@ class FavoriteCell: UITableViewCell {
 
         contentView.addSubview(cellBackground)
 
-        gymLabel.font = ._16MontserratMedium
-        gymLabel.textColor = .upliftMediumGrey
-        cellBackground.addSubview(gymLabel)
+        favoriteLabel.font = ._16MontserratMedium
+        favoriteLabel.textColor = .upliftMediumGrey
+        cellBackground.addSubview(favoriteLabel)
 
         favoritedBackground.tintColor = .primaryWhite
         favoritedBackground.layer.borderColor = UIColor.upliftMediumGrey.cgColor
@@ -55,8 +59,6 @@ class FavoriteCell: UITableViewCell {
         favoritedBackground.layer.cornerRadius = checkSize / 2
         cellBackground.addSubview(favoritedBackground)
 
-        favoritedIcon = UIImageView()
-        favoritedIcon.alpha = 0.4
         favoritedIcon.image = UIImage(named: ImageNames.greenCheckmark)
         favoritedIcon.contentMode = .scaleAspectFit
         favoritedBackground.addSubview(favoritedIcon)
@@ -76,56 +78,52 @@ class FavoriteCell: UITableViewCell {
         usesStars = displaysClasses
 
         if usesStars {
+            favoritedIcon.alpha = 0.4
             favoritedIcon.image = UIImage(named: ImageNames.starOutlineDark)
-            updateAppearence = { isOn in
-                self.gymLabel.textColor = isOn ? .primaryBlack : .upliftMediumGrey
-                self.favoritedIcon.alpha = isOn ? 1 : 0.4
-                self.favoritedIcon.image = UIImage(named: isOn ? ImageNames.starFilledInDark : ImageNames.starOutlineDark)
+            updateAppearence = { currentlySelected in
+                self.favoriteLabel.textColor = currentlySelected ? .primaryBlack : .upliftMediumGrey
+                self.favoritedIcon.alpha = currentlySelected ? 1 : 0.4
+                self.favoritedIcon.image = UIImage(named: currentlySelected ? ImageNames.starFilledInDark : ImageNames.starOutlineDark)
             }
         } else {
-            favoritedIcon.alpha = 0
+            favoritedIcon.isHidden = true
             favoritedIcon.image = UIImage(named: ImageNames.greenCheckmark)
-            favoritedBackground.layer.borderWidth = 1
-            updateAppearence = { (isOn) -> Void in
-                self.gymLabel.textColor = isOn ? .primaryBlack : .upliftMediumGrey
-                self.favoritedIcon.alpha = isOn ? 1 : 0
-                self.favoritedBackground.layer.borderWidth = isOn ? 0 : self.checkBorderWidth
+            favoritedBackground.layer.borderWidth = checkBorderWidth
+            updateAppearence = { (currentlySelected) -> Void in
+                self.favoriteLabel.textColor = currentlySelected ? .primaryBlack : .upliftMediumGrey
+                self.favoritedIcon.isHidden = !currentlySelected
+                self.favoritedBackground.layer.borderWidth = currentlySelected ? 0 : self.checkBorderWidth
             }
         }
 
-        gymLabel.text = gymName
+        favoriteLabel.text = gymName
     }
 
     func setUpConstraints() {
-
-        cellBackground.snp.makeConstraints { (make) in
+        cellBackground.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalToSuperview()
         }
 
-        gymLabel.snp.makeConstraints { (make) in
+        favoriteLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(leftPadding)
             make.centerY.equalToSuperview()
         }
 
-        favoritedBackground.snp.makeConstraints { (make) in
+        favoritedBackground.snp.makeConstraints { make in
             make.size.equalTo(checkSize)
             make.trailing.equalToSuperview().inset(rightPadding)
             make.centerY.equalToSuperview()
         }
 
-        favoritedIcon.snp.makeConstraints { (make) in
+        favoritedIcon.snp.makeConstraints { make in
             make.size.equalTo(checkSize + 1)
             make.center.equalToSuperview()
         }
     }
 
     func toggleSelectedView(selected: Bool) {
-        isOn = selected
-        updateAppearence?(selected)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        picked = selected
+        updateAppearence?(currentlySelected)
     }
 
 }

@@ -22,13 +22,13 @@ class OnboardingView: UIView {
     private let tableViewCellSpacing: CGFloat = 14
 
     // MARK: = Delegation
-    var delegate: (([String]) -> Void)?
+    var favoritesSelectedDelegate: (([String]) -> Void)?
 
     // MARK: - Public vars
     var favorites: [String] = [] // User's selected favorite gyms/classes
     var hasTableView = false
 
-    init(image: UIImage, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
+    init(image: UIImage?, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
         super.init(frame: .zero)
 
         imageView.image = image
@@ -44,14 +44,15 @@ class OnboardingView: UIView {
             tableData = data
             showingClasses = tableData == classNames
 
-            tableView = UITableView(frame: .zero, style: .plain)
-            tableView?.delegate = self
-            tableView?.dataSource = self
-            tableView?.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
-            tableView?.isScrollEnabled = false
-            tableView?.clipsToBounds = false
-            tableView?.separatorStyle = .none
-            self.addSubview(tableView!)
+            let tableView = UITableView(frame: .zero, style: .plain)
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
+            tableView.isScrollEnabled = false
+            tableView.clipsToBounds = false
+            tableView.separatorStyle = .none
+            self.tableView = tableView
+            self.addSubview(tableView)
         }
 
         setUpConstraints()
@@ -62,9 +63,10 @@ class OnboardingView: UIView {
     }
 
     func getSize() -> CGSize {
+        let width = 388
         return hasTableView ?
-            CGSize(width: 388, height: 700) :
-            CGSize(width: 388, height: 269)
+            CGSize(width: width, height: 700) :
+            CGSize(width: width, height: 269)
     }
 
     private func setUpConstraints() {
@@ -77,7 +79,7 @@ class OnboardingView: UIView {
         }
 
         if let table = tableView { // With Table View
-            let labelHeight: CGFloat = 80//88
+            let labelHeight: CGFloat = 80
             let labelTopOffset: CGFloat = 174
 
             let tableViewBottomOffset: CGFloat = 17
@@ -149,15 +151,15 @@ extension OnboardingView: UITableViewDelegate {
             let data = tableData
         else { return }
 
-        cell.toggleSelectedView(selected: !cell.isOn)
+        cell.toggleSelectedView(selected: !cell.currentlySelected)
 
-        if cell.isOn {
+        if cell.currentlySelected {
             favorites.append(data[indexPath.section])
         } else {
             favorites.removeAll { $0 == data[indexPath.section] }
         }
 
-        delegate?(favorites)
+        favoritesSelectedDelegate?(favorites)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -169,9 +171,7 @@ extension OnboardingView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let blankView = UIView()
-        blankView.backgroundColor = .clear
-        return blankView
+        return UIView()
     }
 
 }

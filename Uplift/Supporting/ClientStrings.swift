@@ -53,7 +53,6 @@ struct ClientStrings {
         static let hasFavoritesText = "NOTHING CAN STOP YOU BUT YOURSELF."
         static let noFavoritesText = "FIND YOUR\nFAVORITE NOW."
         static let vcTitleLabel = "Favorites"
-        static let gymsSelection = "Select the Gyms you go to!"
     }
 
     struct Filter {
@@ -115,12 +114,13 @@ struct ClientStrings {
     }
 
     struct Onboarding {
+        static let endButton = "Let's Go!"
+        static let gymsSelection = "Select the Gyms you go to!"
         static let onboarding1 = "Uplift is the go-to fitness and wellness app at Cornell."
         static let onboarding2 = "Uplift helps you find times to go to the gym. Choose your favorite gym(s) below!"
         static let onboarding3 = "Classes are included with your gym membership. Choose a few favorites!"
         static let onboarding4 = "See you at the gym!"
         static let skipButton = "SKIP"
-        static let endButton = "Let's Go!"
     }
 
     struct TabBar {
