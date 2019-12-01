@@ -72,7 +72,6 @@ extension ArrowButtonTransition {
 
     public func playBack() {
         if content.view.superview != nil {
-            // if !played { animate(isFirstArrow || transitionIsEnabled) }
             if !played { animate(transitionIsEnabled) }
         }
     }
@@ -120,7 +119,7 @@ public class FadeOutAnimation: NSObject, Animatable {
             animations: ({ [unowned self] in
                 self.content.view.alpha = targetAlpha
             }),
-            completion: { [unowned self] completed in
+            completion: { _ in
                 self.played = false
             }
         )

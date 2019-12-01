@@ -43,6 +43,7 @@ class OnboardingViewController: PresentationController {
         view.backgroundColor = .primaryWhite
         self.showPageControl = false
         self.enableSwipe = false
+        self.maxAnimationDelay = 0.1
 
         setupOnboardingViews()
         setupGestureRecognizer()
