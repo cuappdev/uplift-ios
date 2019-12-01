@@ -113,7 +113,7 @@ class OnboardingViewController: PresentationController {
         }
 
         // Delegation
-        viewSlides[1].delegate = { [weak self] in
+        viewSlides[1].favoritesSelectedDelegate = { [weak self] in
             if let `self` = self {
                 self.selectedOneGym = !$0.isEmpty
                 self.nextButtons[1].isEnabled = self.selectedOneGym
@@ -122,7 +122,7 @@ class OnboardingViewController: PresentationController {
                 })
             }
         }
-        viewSlides[2].delegate = { [weak self] in
+        viewSlides[2].favoritesSelectedDelegate = { [weak self] in
             if let `self` = self {
                 self.selectedOneClass = !$0.isEmpty
                 self.nextButtons[2].isEnabled = self.selectedOneClass
@@ -232,7 +232,7 @@ class OnboardingViewController: PresentationController {
         let buttonPosition = Position(left: 0.5, bottom: 0.11 - scalingOffset)
         let endOnboardingContent = Content(view: endButton, position: buttonPosition, centered: true)
 
-        var backgroundContents = divider, runningPerson, endOnboardingContent, skipButtonContent
+        var backgroundContents = [divider, runningMan, endOnboardingContent, skipButtonContent]
         backgroundContents += nextButtonContents
         backgroundContents += backButtonContents 
         addToBackground(backgroundContents)
@@ -351,4 +351,3 @@ class OnboardingViewController: PresentationController {
     }
 
 }
-

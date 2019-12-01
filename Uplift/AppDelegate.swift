@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if !classes.contains(where: { $0.className == instance.className }) {
                         // Add class only if it has a tag not yet displayed
                         for tag in tagSubset {
-                            if let index = tagSubset.index(of: $0) {
+                            if let index = tagSubset.index(of: tag) {
                                 // Remove chosen class's tag from subset, add to tags to be displayed
                                 tagSubset.remove(at: index)
                                 classes.append(instance)
@@ -103,12 +103,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        DispatchGroup.notify(queue: .main, execute: {
+        dispatchGroup.notify(queue: .main, execute: {
             self.window?.rootViewController = classes.count < 4
                 ? OnboardingViewController()
                 : OnboardingViewController(gymNames: gyms, classes: classes)
         })
 
-       return OnboardingViewController(gymNames: gyms, classes: classes)
+       return OnboardingViewController()
     }
 }
