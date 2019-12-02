@@ -185,7 +185,7 @@ struct NetworkManager {
             let allClasses = classes.compactMap { $0 }
 
             var allTags: [Tag] = []
-            allClasses.forEach({ (currClass) in
+            allClasses.forEach({ currClass in
                 let currTags = currClass.details.tags.compactMap { $0 }
 
                 currTags.forEach { tag in
@@ -214,7 +214,7 @@ struct NetworkManager {
             let allClasses = classes.compactMap { $0 }
 
             var allTags: [Tag] = []
-            allClasses.forEach({ (currClass) in
+            allClasses.forEach({ currClass in
                 let currTags = currClass.details.tags.compactMap { $0 }
 
                 currTags.forEach { tag in
