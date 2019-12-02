@@ -1,5 +1,5 @@
 //
-//  OnboardingGymsViewController.swift
+//  FavoriteGymsController.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 3/5/19.
@@ -12,7 +12,7 @@ protocol ChooseGymsDelegate: class {
     func updateFavorites(favorites: [String])
 }
 
-class OnboardingGymsViewController: UIViewController {
+class FavoriteGymsController: UIViewController {
 
     // MARK: - INITIALIZATION
     private var titleLabel: UILabel!
@@ -40,7 +40,7 @@ class OnboardingGymsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .primaryWhite
         let defaults = UserDefaults.standard
-        
+
         // Get Favorite Gyms from UserDefaults
         if let favorites = defaults.array(forKey: Identifiers.favoriteGyms) as? [String] {
             favoriteGyms = favorites
@@ -68,7 +68,7 @@ class OnboardingGymsViewController: UIViewController {
         let buttonBorderSize: CGFloat = 2
 
         titleLabel = UILabel()
-        titleLabel.text = ClientStrings.Onboarding.selectGyms
+        titleLabel.text = ClientStrings.Onboarding.gymsSelection
         titleLabel.font = ._24MontserratBold
         titleLabel.textColor = .primaryBlack
         titleLabel.lineBreakMode = .byWordWrapping
@@ -78,7 +78,7 @@ class OnboardingGymsViewController: UIViewController {
         gymsTableView = UITableView(frame: .zero, style: .plain)
         gymsTableView.delegate = self
         gymsTableView.dataSource = self
-        gymsTableView.register(FavoriteGymCell.self, forCellReuseIdentifier: FavoriteGymCell.reuseIdentifier)
+        gymsTableView.register(FavoriteCell.self, forCellReuseIdentifier: Identifiers.favoritesCell)
         gymsTableView.isScrollEnabled = false
         gymsTableView.separatorStyle = .none
         gymsTableView.clipsToBounds = false
@@ -110,12 +110,12 @@ class OnboardingGymsViewController: UIViewController {
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)
 
-        toggleButton(enabled: false)
+        toggleButton(enabled: checkNextCriteria())
     }
 
     func setUpConstraints() {
         // title
-        let titleLeadingPadding = 27 
+        let titleLeadingPadding = 27
         let titleTrailingPadding = 22
         let titleTopPadding = 34
         // table view
@@ -230,18 +230,17 @@ class OnboardingGymsViewController: UIViewController {
 
 }
 
-extension OnboardingGymsViewController: UITableViewDataSource {
+extension FavoriteGymsController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteGymCell.reuseIdentifier, for: indexPath) as! FavoriteGymCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.favoritesCell, for: indexPath) as! FavoriteCell
         let gym = gymNames[indexPath.section]
-        cell.configure(with: gym)
+        cell.configure(with: gym, displaysClasses: false)
         // Toggle if already in UserDefaults
         if favoriteGyms.contains(gym) {
             cell.toggleSelectedView(selected: true)
         }
-        cell.selectionStyle = .none
         return cell
     }
 
@@ -255,13 +254,13 @@ extension OnboardingGymsViewController: UITableViewDataSource {
 
 }
 
-extension OnboardingGymsViewController: UITableViewDelegate {
+extension FavoriteGymsController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //swiftlint:disable:next force_cast
-        let cell = gymsTableView.cellForRow(at: indexPath) as! FavoriteGymCell
-        cell.toggleSelectedView(selected: !cell.isOn)
-        if cell.isOn {
+        let cell = gymsTableView.cellForRow(at: indexPath) as! FavoriteCell
+        cell.toggleSelectedView(selected: !cell.currentlySelected)
+        if cell.currentlySelected {
             favoriteGyms.append(gymNames[indexPath.section])
         } else {
             for i in 0...favoriteGyms.count {
