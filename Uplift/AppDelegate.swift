@@ -84,22 +84,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 NetworkManager.shared.getTags(
                     completion: { tags in
-                        // Sample 4 without replacement
+                        // Sample 4 tags without replacement
                         var randomIndeces = Set<Int>()
                         while randomIndeces.count < 4 {
                             let index = Int.random(in: 0..<tags.count)
                             randomIndeces.insert(index)
                         }
-                        // Tag categories not yet chosen to be displayed
+                        // Tag categories to chose from
+                        // Each time it picks a class, remove a tag from list
                         var tagSubset = randomIndeces.map { tags[$0] }
-
-                        // Iterate over unique classes that don't share the same name
+                        // Iterate over unique classes that don't share the same name, Adding classes if it has a tag not yet displayed
                         for instance in classInstances {
                             if !classes.contains(where: { $0.className == instance.className }) {
-                                // Add class only if it has a tag not yet displayed
-                                for tag in tagSubset {
+                                for tag in instance.tags {
                                     if let index = tagSubset.index(of: tag) {
-                                        // Remove chosen class's tag from subset, add to tags to be displayed
                                         tagSubset.remove(at: index)
                                         classes.append(instance)
                                         break
@@ -110,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             }
                         }
 
-                        classes = classes.sorted(by: {$0.className < $1.className })
+                        classes = classes.sorted(by: { $0.className < $1.className })
                         dispatchGroup.leave()
                     },
                     failure: { dispatchGroup.leave() }
@@ -125,7 +123,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 : OnboardingViewController(gymNames: gyms, classes: classes)
         })
 
-        // No Internet/Networking Failed; initialize with default
-        self.window?.rootViewController = UIViewController()
+        // No Internet/Networking Failed/Networking in progress; initialize with blank VC
+        let defaultVC = UIViewController()
+        defaultVC.view.backgroundColor = .primaryWhite
+        self.window?.rootViewController = defaultVC
     }
 }
