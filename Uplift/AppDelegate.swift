@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
+        if false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/ {
             window?.rootViewController = TabBarController()
         } else {
             displayOnboardingViewController()

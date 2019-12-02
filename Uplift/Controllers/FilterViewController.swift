@@ -279,10 +279,10 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         gyms = []
 
-        NetworkManager.shared.getGymNames { (gyms) in
+        NetworkManager.shared.getGymNames(completion: { (gyms) in
             self.gyms = gyms
             self.gymCollectionView.reloadData()
-        }
+        })
     }
 
     // MARK: - CONSTRAINTS
