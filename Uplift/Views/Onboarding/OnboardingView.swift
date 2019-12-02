@@ -22,7 +22,7 @@ class OnboardingView: UIView {
     private let tableViewCellSpacing: CGFloat = 14
 
     // MARK: = Delegation
-    var favoritesSelectedDelegate: (([String]) -> Void)?
+    var favoritesSelectedDelegate: ([String] -> Void)?
 
     // MARK: - Public vars
     var favorites: [String] = [] // User's selected favorite gyms/classes
@@ -146,10 +146,7 @@ extension OnboardingView: UITableViewDataSource {
 
 extension OnboardingView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard
-            let cell = tableView.cellForRow(at: indexPath) as? FavoriteCell,
-            let data = tableData
-        else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? FavoriteCell, let data = tableData else { return }
 
         cell.toggleSelectedView(selected: !cell.currentlySelected)
 
