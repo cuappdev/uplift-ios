@@ -24,9 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         let defaults = UserDefaults.standard
-        window?.rootViewController = false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/
-            ? TabBarController()
-            : setupOnboardingViewController()
+//        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
+        if false {
+            window?.rootViewController = TabBarController()
+        } else {
+            displayOnboardingViewController()
+        }
+//        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
+//            ? TabBarController()
+//            : setupOnboardingViewController()
 
         #if DEBUG
             print("Running Uplift in debug configuration")
@@ -43,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Onboarding
-    private func setupOnboardingViewController() -> OnboardingViewController {
+    private func displayOnboardingViewController() {
         var gyms: [String] = []
         var classes: [GymClassInstance] = []
 
@@ -53,21 +59,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NetworkManager.shared.getGymNames {
             gyms = $0.map { $0.name }
-            // Merge Teagle Up and Down
-            if let teagleUp = gyms.firstIndex(of: "Teagle Up"),
-             let teagleDown = gyms.firstIndex(of: "Teagle Down") {
-                gyms.remove(at: teagleUp)
-                gyms.remove(at: teagleDown)
+            // Merge Teagle Up and Down to "Teagle"
+            if gyms.contains("Teagle Up"), gyms.contains("Teagle Down") {
+                gyms = gyms.filter { $0 != "Teagle Up" || $0 != "Teagle Down" }
                 gyms.append("Teagle")
             }
+            gyms.sort()
             dispatchGroup.leave()
         }
 
         let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         // Display 4 classes from different (random) tag categories
-        NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) { classInstaces in
+//        NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date())) { classInstances in
+        NetworkManager.shared.getGymClassesForDate(date: "2019-12-06") { classInstances in
             // Less than 4 classes -> Use Hard coded defaults
-            if classInstaces.count < 4 {
+            if classInstances.count < 4 {
                 dispatchGroup.leave()
                 return
             }
@@ -83,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 var tagSubset = randomIndeces.map { tags[$0] }
 
                 // Iterate over unique classes that don't share the same name
-                for instance in classInstaces {
+                for instance in classInstances {
                     if !classes.contains(where: { $0.className == instance.className }) {
                         // Add class only if it has a tag not yet displayed
                         for tag in tagSubset {
@@ -99,16 +106,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
 
+                classes = classes.sorted(by: {$0.className < $1.className })
                 dispatchGroup.leave()
             }
         }
 
         dispatchGroup.notify(queue: .main, execute: {
-            self.window?.rootViewController = classes.count < 4
+            self.window?.rootViewController = gyms.count < 4 || classes.count < 4
                 ? OnboardingViewController()
                 : OnboardingViewController(gymNames: gyms, classes: classes)
         })
 
-       return OnboardingViewController()
+        // No Internet/Networking Failed; initialize with default
+        self.window?.rootViewController = OnboardingViewController()
     }
 }

@@ -22,7 +22,7 @@ class OnboardingView: UIView {
     private let tableViewCellSpacing: CGFloat = 14
 
     // MARK: = Delegation
-    var favoritesSelectedDelegate: ([String] -> Void)?
+    var favoritesSelectedDelegate: (([String]) -> Void)?
 
     // MARK: - Public vars
     var favorites: [String] = [] // User's selected favorite gyms/classes
