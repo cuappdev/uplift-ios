@@ -101,6 +101,21 @@ struct NetworkManager {
         apollo.fetch(query: AllGymNamesQuery()) { result, error in
             guard error == nil,
                 let gymNamesData = result?.data?.gyms else { return }
+
+            let gyms = gymNamesData.map({ GymNameId(name: $0?.name, id: $0?.id) })
+
+            completion(gyms)
+        }
+    }
+
+    func getGymNames(completion: @escaping ([GymNameId]) -> Void, failure: (() -> Void)? = nil) {
+        apollo.fetch(query: AllGymNamesQuery()) { result, error in
+            guard error == nil,
+                let gymNamesData = result?.data?.gyms else {
+                    failure?()
+                    return
+            }
+
             let gyms = gymNamesData.map({ GymNameId(name: $0?.name, id: $0?.id) })
 
             completion(gyms)
@@ -112,6 +127,20 @@ struct NetworkManager {
             guard error == nil,
                 let data = result?.data,
                 let classes = data.classes else { return }
+            let gymClassInstances = classes.compactMap({ self.getGymClassInstance(from: $0) })
+
+            completion(gymClassInstances)
+        }
+    }
+
+    func getGymClassesForDate(date: String, completion: @escaping ([GymClassInstance]) -> Void, failure: (() -> Void)?) {
+        apollo.fetch(query: TodaysClassesQuery(date: date)) { result, error in
+            guard error == nil,
+                let data = result?.data,
+                let classes = data.classes else {
+                    failure?()
+                    return
+            }
             let gymClassInstances = classes.compactMap({ self.getGymClassInstance(from: $0) })
 
             completion(gymClassInstances)
@@ -153,6 +182,35 @@ struct NetworkManager {
             guard error == nil,
                 let data = results?.data,
                 let classes = data.classes else { return }
+            let allClasses = classes.compactMap { $0 }
+
+            var allTags: [Tag] = []
+            allClasses.forEach({ (currClass) in
+                let currTags = currClass.details.tags.compactMap { $0 }
+
+                currTags.forEach { tag in
+                    let currTag = Tag(name: tag.label, imageURL: tag.imageUrl)
+                    if !allTags.contains(currTag) {
+                        allTags.append(currTag)
+                    }
+                    if let imageURL = URL(string: currTag.imageURL) {
+                        self.cacheImage(imageUrl: imageURL)
+                    }
+                }
+            })
+            completion(allTags)
+        }
+
+    }
+
+    func getTags(completion: @escaping ([Tag]) -> Void, failure: (() -> Void)?) {
+        apollo.fetch(query: GetTagsQuery()) { results, error in
+            guard error == nil,
+                let data = results?.data,
+                let classes = data.classes else {
+                    failure?()
+                    return
+            }
             let allClasses = classes.compactMap { $0 }
 
             var allTags: [Tag] = []
