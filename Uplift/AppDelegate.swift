@@ -24,15 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         let defaults = UserDefaults.standard
-//        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-        if false {
+        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
             window?.rootViewController = TabBarController()
         } else {
             displayOnboardingViewController()
         }
-//        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-//            ? TabBarController()
-//            : setupOnboardingViewController()
 
         #if DEBUG
             print("Running Uplift in debug configuration")

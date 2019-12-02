@@ -231,7 +231,8 @@ class OnboardingViewController: PresentationController {
         let dividerPosition = Position(left: 0.5, bottom: 0.162 - scalingOffset)
         let divider = Content(view: dividerView, position: dividerPosition)
 
-        let runningManVerticalPosition = 0.197 - scalingOffset
+        let manScreenPercent = (32 * vertScaling) / view.frame.height
+        let runningManVerticalPosition = 0.162 - scalingOffset + manScreenPercent
         let runningInitPosition = Position(left: -0.3, bottom: runningManVerticalPosition)
         let runningMan = Content(view: runningManView, position: runningInitPosition)
 
