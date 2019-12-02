@@ -65,15 +65,11 @@ public class ArrowButtonTransition: NSObject, Animatable {
 extension ArrowButtonTransition {
 
     public func play() {
-        if content.view.superview != nil {
-            if !played { animate(transitionIsEnabled) }
-        }
+        if content.view.superview != nil && !played { animate(transitionIsEnabled) }
     }
 
     public func playBack() {
-        if content.view.superview != nil {
-            if !played { animate(transitionIsEnabled) }
-        }
+        if content.view.superview != nil && !played { animate(transitionIsEnabled) }
     }
 
     public func moveWith(offsetRatio: CGFloat) {
@@ -132,25 +128,23 @@ public class FadeOutAnimation: NSObject, Animatable {
 extension FadeOutAnimation {
 
     public func play() {
-        if content.view.superview != nil, !played {
+        if content.view.superview != nil && !played {
             animate(fadeIn: fadesIn)
         }
     }
 
     public func playBack() {
-        if content.view.superview != nil, !played {
+        if content.view.superview != nil && !played {
             animate(fadeIn: !fadesIn)
         }
     }
 
     public func moveWith(offsetRatio: CGFloat) {
         let view = content.view
-        if view.layer.animationKeys() == nil {
-            if view.superview != nil {
-                let ratio = offsetRatio > 0.0 ? offsetRatio : (1.0 + offsetRatio)
-                let targetAlpha = max(0.0, min(1.0, ratio))
-                view.alpha = fadesIn ? targetAlpha : 1 - targetAlpha
-            }
+        if view.layer.animationKeys() == nil && view.superview != nil {
+            let ratio = offsetRatio > 0.0 ? offsetRatio : (1.0 + offsetRatio)
+            let targetAlpha = max(0.0, min(1.0, ratio))
+            view.alpha = fadesIn ? targetAlpha : 1 - targetAlpha
         }
     }
 

@@ -32,7 +32,7 @@ class FavoriteCell: UITableViewCell {
     }
 
     // Reuse Identfier
-    static let identifier = "favoritesTableView"
+    static let identifier = "favoriteCellIdentifier"
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

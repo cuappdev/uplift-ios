@@ -54,14 +54,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dispatchGroup.enter()
 
         NetworkManager.shared.getGymNames(
-            completion: {
-                gyms = $0.map { $0.name }
-                // Merge Teagle Up and Down to "Teagle"
-                if gyms.contains("Teagle Up"), gyms.contains("Teagle Down") {
-                    gyms = gyms.filter { $0 != "Teagle Up" || $0 != "Teagle Down" }
-                    gyms.append("Teagle")
+            completion: { gymInstances in
+                var gymNames = Set<String>()
+                gymInstances.forEach { instance in
+                    if let name = instance.name {
+                        if name == "Teagle Up" || name == "Teagle Down" {
+                            gymNames.insert("Teagle")
+                        } else {
+                            gymNames.insert(name)
+                        }
+                    }
                 }
-                gyms.sort()
+                gyms = Array(gymNames).sorted()
+
                 dispatchGroup.leave()
             },
             failure: { dispatchGroup.leave() }
@@ -81,14 +86,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NetworkManager.shared.getTags(
                     completion: { tags in
                         // Sample 4 tags without replacement
-                        var randomIndeces = Set<Int>()
-                        while randomIndeces.count < 4 {
+                        var randomIndices = Set<Int>()
+                        while randomIndices.count < 4 {
                             let index = Int.random(in: 0..<tags.count)
-                            randomIndeces.insert(index)
+                            randomIndices.insert(index)
                         }
                         // Tag categories to chose from
                         // Each time it picks a class, remove a tag from list
-                        var tagSubset = randomIndeces.map { tags[$0] }
+                        var tagSubset = randomIndices.map { tags[$0] }
                         // Iterate over unique classes that don't share the same name, Adding classes if it has a tag not yet displayed
                         for instance in classInstances {
                             if !classes.contains(where: { $0.className == instance.className }) {
