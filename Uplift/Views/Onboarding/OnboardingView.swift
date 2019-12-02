@@ -146,9 +146,7 @@ extension OnboardingView: UITableViewDataSource {
 
 extension OnboardingView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard
-            let cell = tableView.cellForRow(at: indexPath) as? FavoriteCell,
-            let data = tableData
+        guard let cell = tableView.cellForRow(at: indexPath) as? FavoriteCell, let data = tableData
         else { return }
 
         cell.toggleSelectedView(selected: !cell.currentlySelected)

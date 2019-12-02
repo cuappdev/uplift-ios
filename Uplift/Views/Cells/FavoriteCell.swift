@@ -89,7 +89,7 @@ class FavoriteCell: UITableViewCell {
             favoritedIcon.isHidden = true
             favoritedIcon.image = UIImage(named: ImageNames.greenCheckmark)
             favoritedBackground.layer.borderWidth = checkBorderWidth
-            updateAppearence = { (currentlySelected) -> Void in
+            updateAppearence = { currentlySelected in
                 self.favoriteLabel.textColor = currentlySelected ? .primaryBlack : .upliftMediumGrey
                 self.favoritedIcon.isHidden = !currentlySelected
                 self.favoritedBackground.layer.borderWidth = currentlySelected ? 0 : self.checkBorderWidth

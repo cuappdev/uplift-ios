@@ -121,16 +121,14 @@ public class FadeOutAnimation: NSObject, Animatable {
 extension FadeOutAnimation {
 
     public func play() {
-        if content.view.superview != nil {
-            if played {
+        if content.view.superview != nil, played {
                 animate()
             }
         }
     }
 
     public func playBack() {
-        if content.view.superview != nil {
-            if played {
+        if content.view.superview != nil, played {
                 animate()
             }
         }
