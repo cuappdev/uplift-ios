@@ -14,8 +14,9 @@ protocol DropdownHeaderViewDelegate: class {
 
 class DropdownHeaderView: UIView {
 
+    private let arrowHeight: CGFloat = 9
     private let arrowImageView = UIImageView()
-
+    private let arrowWidth: CGFloat = 5
     private var isArrowRotated = false
 
     weak var delegate: DropdownHeaderViewDelegate?
@@ -26,10 +27,13 @@ class DropdownHeaderView: UIView {
         isUserInteractionEnabled = true
 
         if let image = arrowImage {
+            addSubview(arrowImageView)
             arrowImageView.image = image
             arrowImageView.snp.makeConstraints { make in
                 make.centerY.equalToSuperview()
                 make.trailing.equalToSuperview().offset(arrowImageTrailingOffset)
+                make.height.equalTo(arrowHeight)
+                make.width.equalTo(arrowWidth)
             }
         }
 
@@ -41,10 +45,22 @@ class DropdownHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func didTapView() {
+    func rotateArrowDown() {
         UIView.animate(withDuration: 0.3) {
-            self.arrowImageView.transform = CGAffineTransform(rotationAngle: self.isArrowRotated ? 0 : .pi/2)
+            self.arrowImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
         }
+        isArrowRotated = true
+    }
+
+    func rotateArrowUp() {
+        UIView.animate(withDuration: 0.3) {
+            self.arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
+        }
+        isArrowRotated = false
+    }
+
+    @objc func didTapView() {
         delegate?.didTapHeaderView()
     }
+
 }

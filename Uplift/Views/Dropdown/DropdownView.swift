@@ -29,7 +29,7 @@ class DropdownView: UIView {
     private let contentView: UIView!
     private let halfCloseView: UIView?
     private let halfOpenView: UIView?
-    private let headerView: UIView!
+    private let headerView: DropdownHeaderView!
 
     private var contentViewHeight: CGFloat = 0
     private var halfCloseDropdownGesture: UITapGestureRecognizer!
@@ -139,7 +139,7 @@ class DropdownView: UIView {
             closeDropdown()
         }
     }
-    
+
     func openDropdown() {
         if halfDropdownEnabled { // If the user has enabled the half dropdown state, open to the half state
             status = .half
@@ -160,7 +160,7 @@ class DropdownView: UIView {
             delegate?.dropdownViewOpen(sender: self)
         }
     }
-    
+
     func closeDropdown() {
         status = .closed
         UIView.animate(withDuration: 0.3) {
@@ -172,7 +172,7 @@ class DropdownView: UIView {
         currentHeight = headerViewHeight
         delegate?.dropdownViewClosed(sender: self)
     }
-    
+
     func updateContentViewHeight(to height: CGFloat) {
         contentViewHeight = height
     }

@@ -21,7 +21,6 @@ class FacilitiesHoursCell: UICollectionViewCell {
     private let timeInfoView = GymDetailTimeInfoView()
 
     private enum Constraints {
-        static let bottomPadding: CGFloat = 12
         static let headerHeight: CGFloat = 24
         static let timesPadding: CGFloat = 16
     }

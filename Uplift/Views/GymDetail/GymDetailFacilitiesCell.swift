@@ -32,6 +32,10 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
         contentView.addSubview(collectionView)
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -46,18 +50,11 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         collectionView.reloadData()
     }
 
-    override func updateConstraints() {
-        super.updateConstraints()
-        collectionView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-        }
-    }
-
     static func getHeights(for facilities: [Facility], dropdownCellStatuses: [DropdownStatus]?) -> CGFloat {
         var height: CGFloat = 0
         for i in 0..<facilities.count {
             if dropdownCellStatuses?[i] == .open {
-                height += FacilitiesDropdownCell.getHeights(for: facilities[i])
+                height += FacilitiesDropdownCell.getFacilityHeight(for: facilities[i])
             } else {
                 height += FacilitiesDropdownCell.headerViewHeight
             }
@@ -69,7 +66,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 extension GymDetailFacilitiesCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = dropdownCellStatuses[indexPath.row] == .open ? FacilitiesDropdownCell.getHeights(for: facilities[indexPath.row]) : FacilitiesDropdownCell.headerViewHeight
+        let height = dropdownCellStatuses[indexPath.row] == .open ? FacilitiesDropdownCell.getFacilityHeight(for: facilities[indexPath.row]) : FacilitiesDropdownCell.headerViewHeight
         return CGSize(width: collectionView.bounds.width, height: height)
     }
 

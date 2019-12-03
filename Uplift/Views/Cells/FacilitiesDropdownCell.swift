@@ -17,6 +17,10 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     static let collectionViewSpacing: CGFloat = 16
     private var facilitiesIndex: Int!
     private var headerViewTapped: ((Int) -> ())?
+    private let separatorView = UIView()
+    private let separatorHeight: CGFloat = 1
+    private let separatorSideOffset: CGFloat = 24
+    static let dropdownViewBottomOffset: CGFloat = -12
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,6 +50,21 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         dropdownView.backgroundColor = .white
         dropdownView.layer.masksToBounds = false
         contentView.addSubview(dropdownView)
+
+        separatorView.backgroundColor = .gray01
+        contentView.addSubview(separatorView)
+
+        dropdownView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.bottom.equalToSuperview().offset(FacilitiesDropdownCell.dropdownViewBottomOffset)
+        }
+
+        separatorView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.height.equalTo(separatorHeight)
+            make.leading.equalToSuperview().offset(separatorSideOffset)
+            make.trailing.equalToSuperview().offset(-separatorSideOffset)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -57,22 +76,17 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         self.facility = facility
         self.facilitiesIndex = index
         self.headerViewTapped = headerViewTapped
-        dropdownView.updateContentViewHeight(to: FacilitiesDropdownCell.getHeights(for: facility) - FacilitiesDropdownCell.headerViewHeight)
+        dropdownView.updateContentViewHeight(to: FacilitiesDropdownCell.getFacilityHeight(for: facility) - FacilitiesDropdownCell.headerViewHeight)
         headerView.configure(for: facility)
         if dropdownStatus == .open {
-            self.dropdownView.openDropdown()
+            dropdownView.openDropdown()
+            headerView.rotateArrowDown()
         } else {
-            self.dropdownView.closeDropdown()
+            dropdownView.closeDropdown()
+            headerView.rotateArrowUp()
         }
         self.dropdownView.layoutIfNeeded()
         collectionView.reloadData()
-    }
-
-    override func updateConstraints() {
-        super.updateConstraints()
-        dropdownView.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalToSuperview()
-        }
     }
 
     static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
@@ -90,12 +104,12 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         return height
     }
 
-    static func getHeights(for facility: Facility) -> CGFloat {
+    static func getFacilityHeight(for facility: Facility) -> CGFloat {
         var height: CGFloat = headerViewHeight
         facility.details.forEach { facilityDetail in
             height += FacilitiesDropdownCell.getHeight(for: facilityDetail) + collectionViewSpacing
         }
-        return height
+        return height + -FacilitiesDropdownCell.dropdownViewBottomOffset
     }
 
 }

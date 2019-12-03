@@ -151,7 +151,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
 
-            let reloadClosure: (Int) -> () = { index in
+            let reloadFacilitiesCellAt: (Int) -> () = { index in
                 // Set the current dropdown status (closed or open) at that index to its opposite
                 self.facilitiesDropdownCellStatuses[index] = self.facilitiesDropdownCellStatuses[index] == .closed ? .open : .closed
                 UIView.animate(withDuration: 0.3, animations: {
@@ -161,7 +161,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
             }
             cell.backgroundColor = .white
-            cell.configure(for: gymDetail.facilities, dropdownStatuses: facilitiesDropdownCellStatuses, reloadGymDetailCollectionViewClosure: reloadClosure)
+            cell.configure(for: gymDetail.facilities, dropdownStatuses: facilitiesDropdownCellStatuses, reloadGymDetailCollectionViewClosure: reloadFacilitiesCellAt)
 
             return cell
         case .classes:

@@ -53,9 +53,10 @@ struct Identifiers {
     static let courtCollectionViewCell = "courtCollectionViewCell"
     static let dropdownViewCell = "dropdownViewCell"
     static let facilitiesDropdownCell = "facilitiesDropdownCell"
-    static let facilityHoursCell = "facilityHoursCell"
     static let facilitiesMiscellaneousCell = "facilitiesMiscellaneousCell"
+    static let facilitiesPriceInformationCell = "facilitiesPriceInformationCell"
     static let facilityEquipmentListCell = "facilityEquipmentListCell"
+    static let facilityHoursCell = "facilityHoursCell"
     static let gymFacilityCell = "gymFacilityCell"
     static let gymFilterCell = "gymFilterCell"
     static let gymHoursCell = "gymHoursCell"
@@ -65,7 +66,6 @@ struct Identifiers {
     static let habitTrackerOnboardingCell = "habitTrackerOnboardingCell"
     static let lookingForCell = "lookingForCell"
     static let noHabitsCell = "noHabitsCell"
-    static let facilitiesPriceInformationCell = "facilitiesPriceInformationCell"
 
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
