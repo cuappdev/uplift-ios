@@ -18,8 +18,6 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     private var facilitiesIndex: Int!
     private var headerViewTapped: ((Int) -> ())?
 
-//    private weak var delegate: GymDetailViewController!
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -27,7 +25,6 @@ class FacilitiesDropdownCell: UICollectionViewCell {
 
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.minimumInteritemSpacing = FacilitiesDropdownCell.collectionViewSpacing
-        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
@@ -67,7 +64,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         } else {
             self.dropdownView.closeDropdown()
         }
-            self.dropdownView.layoutIfNeeded()
+        self.dropdownView.layoutIfNeeded()
         collectionView.reloadData()
     }
 

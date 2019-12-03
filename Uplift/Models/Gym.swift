@@ -264,8 +264,8 @@ struct FacilityDetail {
             }
         }
 
-        var equipmentCategories = equipmentDict.compactMap {
-            return EquipmentCategory(categoryName: $0, equipment: $1.sorted {
+        var equipmentCategories = equipmentDict.compactMap { tuple in
+            return EquipmentCategory(categoryName: tuple.key, equipment: tuple.value.sorted {
                 $0.name < $1.name
             })
         }
@@ -302,7 +302,7 @@ struct Facility {
 
 struct EquipmentCategory {
     let categoryName: String
-    let equipment: [Equipment] = []
+    let equipment: [Equipment]
 }
 
 struct Equipment {

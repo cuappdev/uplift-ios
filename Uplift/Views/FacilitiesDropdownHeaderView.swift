@@ -68,16 +68,14 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
     func getIsFacilityOpen(for facility: Facility) -> Bool? {
         let todaysDate = Date()
         let dayOfWeek = todaysDate.getIntegerDayOfWeekToday()
-        for detail in facility.details {
-            if !detail.times.isEmpty {
-                for time in detail.times {
-                    if time.dayOfWeek == dayOfWeek {
-                        for timeRange in time.timeRanges {
-                            if todaysDate > timeRange.openTime && todaysDate < timeRange.closeTime {
-                                return true
-                            } else {
-                                return false
-                            }
+        for detail in facility.details where !detail.times.isEmpty {
+            for time in detail.times {
+                if time.dayOfWeek == dayOfWeek {
+                    for timeRange in time.timeRanges {
+                        if todaysDate > timeRange.openTime && todaysDate < timeRange.closeTime {
+                            return true
+                        } else {
+                            return false
                         }
                     }
                 }
