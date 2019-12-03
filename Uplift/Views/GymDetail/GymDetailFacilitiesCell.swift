@@ -12,8 +12,9 @@ import SnapKit
 class GymDetailFacilitiesCell: UICollectionViewCell {
     private let collectionView: UICollectionView!
     private var facilities: [Facility] = []
-    private var reloadGymDetailCollectionViewClosure: ((Int) -> ())?
+    private var reloadGymDetailCollectionViewClosure: ((Int, [[Int: Int]]) -> ())?
     private var dropdownCellStatuses: [DropdownStatus] = []
+    private var calendarSelectedIndices: [[Int: Int]] = []
 
     override init(frame: CGRect) {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -32,7 +33,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
         contentView.addSubview(collectionView)
-        
+
         collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
@@ -42,11 +43,20 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(for facilities: [Facility], dropdownStatuses: [DropdownStatus], reloadGymDetailCollectionViewClosure: @escaping ((Int) -> ())) {
+    func configure(for facilities: [Facility],
+                   dropdownStatuses: [DropdownStatus],
+                   calendarSelectedIndices: [[Int: Int]],
+                   reloadGymDetailCollectionViewClosure: @escaping ((Int, [[Int: Int]]) -> ())) {
         setNeedsUpdateConstraints()
         self.facilities = facilities
         self.dropdownCellStatuses = dropdownStatuses
+        self.calendarSelectedIndices = calendarSelectedIndices
         self.reloadGymDetailCollectionViewClosure = reloadGymDetailCollectionViewClosure
+        
+        while self.calendarSelectedIndices.count < self.facilities.count {
+            self.calendarSelectedIndices.append([:])
+        }
+
         collectionView.reloadData()
     }
 
@@ -80,11 +90,15 @@ extension GymDetailFacilitiesCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //swiftlint:disable:next force_cast
-        let reloadFacilitiesCellClosure: (Int) -> () = { index in
-            self.reloadGymDetailCollectionViewClosure?(index)
+        let reloadFacilitiesCellClosure: (Int, [Int: Int]) -> () = { index, calendarIndices in
+            self.reloadGymDetailCollectionViewClosure?(index, self.calendarSelectedIndices)
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesDropdownCell, for: indexPath) as! FacilitiesDropdownCell
-        cell.configure(for: facilities[indexPath.row], index: indexPath.row, dropdownStatus: dropdownCellStatuses[indexPath.row], headerViewTapped: reloadFacilitiesCellClosure)
+        cell.configure(for: facilities[indexPath.row],
+                       index: indexPath.row,
+                       dropdownStatus: dropdownCellStatuses[indexPath.row],
+                       calendarSelectedIndices: calendarSelectedIndices[indexPath.row],
+                       headerViewTapped: reloadFacilitiesCellClosure)
         cell.isUserInteractionEnabled = true
         return cell
     }

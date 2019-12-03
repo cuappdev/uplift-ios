@@ -16,11 +16,12 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     static let headerViewHeight: CGFloat = 52
     static let collectionViewSpacing: CGFloat = 16
     private var facilitiesIndex: Int!
-    private var headerViewTapped: ((Int) -> ())?
+    private var headerViewTapped: ((Int, [Int: Int]) -> ())?
     private let separatorView = UIView()
     private let separatorHeight: CGFloat = 1
     private let separatorSideOffset: CGFloat = 24
     static let dropdownViewBottomOffset: CGFloat = -12
+    private var calendarSelectedIndices: [Int: Int] = [:]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,7 +72,11 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(for facility: Facility, index: Int, dropdownStatus: DropdownStatus, headerViewTapped: @escaping (Int) -> ()) {
+    func configure(for facility: Facility,
+                   index: Int,
+                   dropdownStatus: DropdownStatus,
+                   calendarSelectedIndices: [Int: Int],
+                   headerViewTapped: @escaping (Int, [Int: Int]) -> ()) {
         setNeedsUpdateConstraints()
         self.facility = facility
         self.facilitiesIndex = index
