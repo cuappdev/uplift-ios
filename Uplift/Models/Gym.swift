@@ -59,8 +59,9 @@ struct Gym {
         gymHours = gymHoursList
 
         facilities = gymData.facilities.compactMap {
-            guard let facility = $0 else { return nil }
-            return Facility(facilityData: facility)
+            guard let facility = $0,
+                let facilityType = FacilityType(rawValue: facility.name) else { return nil }
+            return Facility(facilityData: facility, facilityType: facilityType)
         }
     }
 
@@ -86,8 +87,9 @@ struct Gym {
         })
 
         facilities = gymData.facilities.compactMap {
-            guard let facility = $0 else { return nil }
-            return Facility(facilityData: facility)
+            guard let facility = $0,
+                let facilityType = FacilityType(rawValue: facility.name) else { return nil }
+            return Facility(facilityData: facility, facilityType: facilityType)
         }
     }
 

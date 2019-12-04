@@ -8,13 +8,21 @@
 
 import Foundation
 
+enum FacilityType: String {
+    case bowling = "Bowling Alley"
+    case fitnessCenter = "Fitness Center"
+    case gymnasium = "Gymnasium"
+    case miscellaneous = "Miscellaneous"
+    case pool = "Pool"
+}
+
 struct Facility {
 
-    var name: String
+    var facilityType: FacilityType
     var details: [FacilityDetail] = []
 
-    init(facilityData: AllGymsQuery.Data.Gym.Facility) {
-        name = facilityData.name
+    init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType) {
+        self.facilityType = facilityType
         details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
             guard let detailData = detailData,
                 let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }
@@ -22,8 +30,8 @@ struct Facility {
         })
     }
 
-    init(facilityData: GymByIdQuery.Data.Gym.Facility) {
-        name = facilityData.name
+    init(facilityData: GymByIdQuery.Data.Gym.Facility, facilityType: FacilityType) {
+        self.facilityType = facilityType
         details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
             guard let detailData = detailData,
                 let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }

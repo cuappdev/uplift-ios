@@ -76,13 +76,16 @@ class FacilitiesDropdownCell: UICollectionViewCell {
                    index: Int,
                    dropdownStatus: DropdownStatus,
                    calendarSelectedIndices: [Int: Int],
-                   headerViewTapped: @escaping (Int?, [Int: Int]) -> ()) {
+                   headerViewTapped: @escaping (Int?, [Int: Int]) -> Void) {
         self.facility = facility
         self.facilitiesIndex = index
         self.calendarSelectedIndices = calendarSelectedIndices
         self.headerViewTapped = headerViewTapped
-        dropdownView.updateContentViewHeight(to: FacilitiesDropdownCell.getFacilityHeight(for: facility, calendarSelectedIndices: calendarSelectedIndices) - FacilitiesDropdownCell.headerViewHeight)
+
+        let contentViewHeight = FacilitiesDropdownCell.getFacilityHeight(for: facility, calendarSelectedIndices: calendarSelectedIndices) - FacilitiesDropdownCell.headerViewHeight
+        dropdownView.updateContentViewHeight(to: contentViewHeight)
         headerView.configure(for: facility)
+
         if dropdownStatus == .open {
             dropdownView.openDropdown()
             headerView.rotateArrowDown()
@@ -90,7 +93,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
             dropdownView.closeDropdown()
             headerView.rotateArrowUp()
         }
-        self.dropdownView.layoutIfNeeded()
+        dropdownView.layoutIfNeeded()
         collectionView.reloadData()
     }
 
@@ -127,7 +130,8 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch facility.details[indexPath.row].detailType {
+        let detailType = facility.details[indexPath.row].detailType
+        switch detailType {
         case .equipment:
             //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityEquipmentListCell, for: indexPath) as! EquipmentListCell
@@ -135,11 +139,12 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
             return cell
         case .hours:
             //swiftlint:disable:next force_cast
-            let onChangeDay: (Int) -> () = { newDayIndex in
+            let onChangeDay: (Int) -> Void = { newDayIndex in
                 self.calendarSelectedIndices[indexPath.row] = newDayIndex
                 self.headerViewTapped?(nil, self.calendarSelectedIndices)
             }
             let dayIndex = calendarSelectedIndices[indexPath.row] ?? 0
+            //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityHoursCell, for: indexPath) as! FacilitiesHoursCell
             cell.configure(facilityDetail: facility.details[indexPath.row], dayIndex: dayIndex, onChangeDay: onChangeDay)
             return cell

@@ -28,17 +28,17 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func configure(for facility: Facility) {
         var headerImage: UIImage?
-        switch FacilityName(rawValue: facility.name.uppercased()) {
-        case .equipment, .fitnessCenter:
+        switch facility.facilityType {
+        case .fitnessCenter:
             headerImage = UIImage(named: ImageNames.equipment)
         case .gymnasium:
             headerImage = UIImage(named: ImageNames.basketball)
-        case .swimmingPool:
+        case .pool:
             headerImage = UIImage(named: ImageNames.pool)
-        case .bowlingLanes:
+        case .bowling:
             headerImage = UIImage(named: ImageNames.bowling)
         default:
             headerImage = UIImage(named: ImageNames.misc)
@@ -47,7 +47,7 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
         headerImageView.image = headerImage
         addSubview(headerImageView)
 
-        headerNameLabel.text = facility.name
+        headerNameLabel.text = facility.facilityType.rawValue
         headerNameLabel.font = ._16MontserratRegular
         headerNameLabel.textColor = .black
         headerNameLabel.textAlignment = .left
