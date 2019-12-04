@@ -114,15 +114,18 @@ struct ClientStrings {
     }
 
     struct Onboarding {
-        static let endOnboarding = "BEGIN"
-        static let selectGyms = "Select the gyms you go to!"
-        static let signupLabel = "Sign Up"
-        static let vcTitleLabel = "Welcome to Uplift!\nStart your Journey Today!"
+        static let endButton = "Let's Go!"
+        static let gymsSelection = "Select the Gyms you go to!"
+        static let onboarding1 = "Uplift is the go-to fitness and wellness app at Cornell."
+        static let onboarding2 = "Uplift helps you find times to go to the gym. Choose your favorite gym(s) below!"
+        static let onboarding3 = "Classes are included with your gym membership. Choose a few favorites!"
+        static let onboarding4 = "See you at the gym!"
+        static let skipButton = "SKIP"
     }
 
     struct TabBar {
-        static let classesSection = "classes"
-        static let favoritesSection = "favorites"
-        static let homeSection = "browse"
+        static let classesSection = "Classes"
+        static let favoritesSection = "Favorites"
+        static let homeSection = "Home"
     }
 }

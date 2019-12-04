@@ -23,12 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
-        setupGoogleSignIn()
-
         let defaults = UserDefaults.standard
-        window?.rootViewController = defaults.bool(forKey: Identifiers.hasSeenOnboarding)
-            ? TabBarController()
-            : OnboardingViewController()
+        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
+            window?.rootViewController = TabBarController()
+        } else {
+            displayOnboardingViewController()
+        }
 
         #if DEBUG
             print("Running Uplift in debug configuration")
@@ -39,57 +39,94 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
-    
-    // Google Login Related
-    func setupGoogleSignIn() {
-        GIDSignIn.sharedInstance().clientID = Keys.googleClientID.value
-        GIDSignIn.sharedInstance().serverClientID = Keys.googleClientID.value
-        GIDSignIn.sharedInstance().delegate = self
-        if GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false {
-            DispatchQueue.main.async {
-                GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-            }
-        }
-    }
-    
+
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url as URL?)
     }
-}
 
-// MARK: Implement Google Sign in Methods
-extension AppDelegate: GIDSignInDelegate {
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if error == nil {
-            let idToken = user.authentication.idToken ?? ""
-            let userId = user.userID ?? "ID" // For client-side use only!
-            let fullName = user.profile.name ?? "First Last"
-            let givenName = user.profile.givenName ?? "First"
-            let familyName = user.profile.familyName ?? "Last"
-            let email = user.profile.email ?? "uplift@defaultvalue.com"
-            let netId = String(email.split(separator: "@")[0])
-            User.currentUser = User(id: userId, name: fullName, netId: netId, givenName: givenName, familyName: familyName, email: email)
-            
-            // So other view controllers will know when it signs in
-            NotificationCenter.default.post(
-                name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
-            
-            NetworkManager.shared.sendGoogleLoginToken(token: idToken) { (tokens) in
-                // Store in User Defualts
-                let defaults = UserDefaults.standard
-                defaults.set(tokens.backendToken, forKey: Identifiers.googleToken)
-                defaults.set(tokens.expiration, forKey: Identifiers.googleExpiration)
-                defaults.set(tokens.refreshToken, forKey: Identifiers.googleRefresh)
-            }
-        }
-    }
-    
-    func logout() {
-        GIDSignIn.sharedInstance().signOut()
-    }
-    
-    func isGoogleLoggedIn() -> Bool {
-        return GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false
+    // MARK: - Onboarding
+    private func displayOnboardingViewController() {
+        var gyms: [String] = []
+        var classes: [GymClassInstance] = []
+
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        dispatchGroup.enter()
+
+        NetworkManager.shared.getGymNames(
+            completion: { gymInstances in
+                var gymNames = Set<String>()
+                gymInstances.forEach { instance in
+                    if let name = instance.name {
+                        if name == "Teagle Up" || name == "Teagle Down" {
+                            gymNames.insert("Teagle")
+                        } else {
+                            gymNames.insert(name)
+                        }
+                    }
+                }
+                gyms = Array(gymNames).sorted()
+
+                dispatchGroup.leave()
+            },
+            failure: { dispatchGroup.leave() }
+        )
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        // Display 4 classes from different (random) tag categories
+        NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date()),
+            completion: { classInstances in
+                // Less than 4 classes -> Use Hard coded defaults
+                if classInstances.count < 4 {
+                    dispatchGroup.leave()
+                    return
+                }
+
+                NetworkManager.shared.getTags(
+                    completion: { tags in
+                        // Sample 4 tags without replacement
+                        var randomIndices = Set<Int>()
+                        while randomIndices.count < 4 {
+                            let index = Int.random(in: 0..<tags.count)
+                            randomIndices.insert(index)
+                        }
+                        // Tag categories to chose from
+                        // Each time it picks a class, remove a tag from list
+                        var tagSubset = randomIndices.map { tags[$0] }
+                        // Iterate over unique classes that don't share the same name, Adding classes if it has a tag not yet displayed
+                        for instance in classInstances {
+                            if !classes.contains(where: { $0.className == instance.className }) {
+                                for tag in instance.tags {
+                                    if let index = tagSubset.index(of: tag) {
+                                        tagSubset.remove(at: index)
+                                        classes.append(instance)
+                                        break
+                                    }
+                                }
+                                // Chose 4 classes, can stop
+                                if classes.count >= 4 { break }
+                            }
+                        }
+
+                        classes = classes.sorted(by: { $0.className < $1.className })
+                        dispatchGroup.leave()
+                    },
+                    failure: { dispatchGroup.leave() }
+                )
+            },
+            failure: { dispatchGroup.leave() }
+        )
+
+        dispatchGroup.notify(queue: .main, execute: {
+            self.window?.rootViewController = gyms.count < 4 || classes.count < 4
+                ? OnboardingViewController()
+                : OnboardingViewController(gymNames: gyms, classes: classes)
+        })
+
+        // No Internet/Networking Failed/Networking in progress; initialize with blank VC
+        let defaultVC = UIViewController()
+        defaultVC.view.backgroundColor = .primaryWhite
+        self.window?.rootViewController = defaultVC
     }
 }

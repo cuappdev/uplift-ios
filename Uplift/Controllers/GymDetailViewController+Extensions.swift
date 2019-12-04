@@ -27,3 +27,11 @@ extension GymDetailViewController: GymDetailTodaysClassesCellDelegate {
     }
 
 }
+
+extension GymDetailViewController: GymDetailHeaderViewDelegate {
+
+    func gymDetailHeaderViewBackButtonTapped() {
+        back()
+    }
+
+}

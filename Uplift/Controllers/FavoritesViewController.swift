@@ -85,7 +85,7 @@ class FavoritesViewController: UIViewController {
 
         setupConstraints()
 
-        favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
         favorites = []
 
         NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
@@ -94,7 +94,7 @@ class FavoritesViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        let newFavoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        let newFavoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
 
         if newFavoritesNames != favoritesNames {
             favoritesNames = newFavoritesNames

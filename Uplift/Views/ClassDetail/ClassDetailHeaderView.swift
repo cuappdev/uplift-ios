@@ -81,16 +81,16 @@ class ClassDetailHeaderView: UICollectionReusableView {
 
     // MARK: - CONSTRAINTS
     private func setupViews() {
-        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
+        backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         addSubview(backButton)
 
-        favoriteButton.setImage(UIImage(named: ImageNames.whiteStarOutline), for: .normal)
-        favoriteButton.setImage(UIImage(named: ImageNames.yellowWhiteStar), for: .selected)
+        favoriteButton.setImage(UIImage(named: ImageNames.starOutlineLight), for: .normal)
+        favoriteButton.setImage(UIImage(named: ImageNames.starFilledInLight), for: .selected)
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         addSubview(favoriteButton)
 
-        shareButton.setImage(UIImage(named: ImageNames.lightShare), for: .normal)
+        shareButton.setImage(UIImage(named: ImageNames.shareLight), for: .normal)
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         addSubview(shareButton)
 

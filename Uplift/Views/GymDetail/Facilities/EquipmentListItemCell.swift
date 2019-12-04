@@ -12,7 +12,7 @@ import UIKit
 class EquipmentListItemCell: ListItemCollectionViewCell<EquipmentCategory> {
 
     // MARK: - Public static vars
-    static let identifier = Identifiers.facilityEquipmentListCell
+    static let identifier = Identifiers.gymEquipmentCell
 
     // MARK: - Private view vars
     private let titleLabel = UILabel()

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 class FacilityHoursHeaderView: UITableViewHeaderFooterView {
-    
+
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.facilityHoursHeaderView
     var iconImageView: UIImageView!
@@ -19,7 +19,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
     var upArrow: UIImageView!
     var statusLabel: UILabel!
     var todayTimeLabel: UILabel!
-    
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
 
@@ -30,7 +30,7 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
         facilityNameLabel.textAlignment = .left
         facilityNameLabel.text = ""
         contentView.addSubview(facilityNameLabel)
-        
+
         iconImageView = UIImageView()
         contentView.addSubview(iconImageView)
 
@@ -39,21 +39,21 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
 
         upArrow = UIImageView(image: UIImage(named: ImageNames.downArrow))
         contentView.addSubview(upArrow)
-        
+
         statusLabel = UILabel()
         statusLabel.font = ._12MontserratMedium
         statusLabel.textColor = .accentOpen
         statusLabel.sizeToFit()
         statusLabel.textAlignment = .left
         contentView.addSubview(statusLabel)
-        
+
         todayTimeLabel = UILabel()
         todayTimeLabel.font = ._12MontserratRegular
         todayTimeLabel.textColor = .primaryBlack
         todayTimeLabel.sizeToFit()
         todayTimeLabel.textAlignment = .left
         contentView.addSubview(todayTimeLabel)
-        
+
         // TODO: Fix this with proper down arrow
         upArrow.transform = CGAffineTransform(rotationAngle: .pi)
 
@@ -63,10 +63,10 @@ class FacilityHoursHeaderView: UITableViewHeaderFooterView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - CONSTRAINTS
     func setupConstraints() {
-        
+
         iconImageView.snp.updateConstraints {make in
             make.left.equalToSuperview().offset(24)
             make.centerY.equalToSuperview().offset(4)

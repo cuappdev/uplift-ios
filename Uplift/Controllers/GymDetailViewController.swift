@@ -11,9 +11,6 @@ import UIKit
 
 class GymDetailViewController: UIViewController {
 
-    // MARK: - Private view vars
-    private let backButton = UIButton()
-
     // MARK: - Public view vars
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
@@ -109,17 +106,6 @@ class GymDetailViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        switch UIApplication.shared.statusBarStyle {
-        case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-        }
-    }
-
     // MARK: - Targets
     @objc func back() {
         navigationController?.popViewController(animated: true)
@@ -199,7 +185,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             withReuseIdentifier: Constants.gymDetailHeaderViewIdentifier,
             // swiftlint:disable:next force_cast
             for: indexPath) as! GymDetailHeaderView
-        headerView.configure(for: gymDetail.gym)
+        headerView.configure(for: self, for: gymDetail.gym)
         return headerView
     }
 
@@ -235,27 +221,12 @@ extension GymDetailViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
-
-        backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
-        view.addSubview(backButton)
-        view.bringSubviewToFront(backButton)
     }
 
     private func setupConstraints() {
-        let backButtonLeftPadding = 20
-        let backButtonSize = CGSize(width: 23, height: 19)
-        let backButtonTopPadding = 30
-
         collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-
-        backButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(backButtonLeftPadding)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(backButtonTopPadding)
-            make.size.equalTo(backButtonSize)
         }
     }
 
@@ -323,19 +294,5 @@ extension GymDetailViewController {
         let equipmentCategories = equipmentDictionary.map { EquipmentCategory(categoryName: $0, equipment: $1) }
 
         return equipmentCategories
-    }
-}
-
-// MARK: - ScrollViewDelegate
-extension GymDetailViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        statusBarUpdater?.refreshStatusBarStyle()
-
-        switch UIApplication.shared.statusBarStyle {
-        case .lightContent:
-            backButton.setImage(UIImage(named: ImageNames.lightBackArrow), for: .normal)
-        case .default, .darkContent:
-            backButton.setImage(UIImage(named: ImageNames.darkBackArrow), for: .normal)
-        }
     }
 }

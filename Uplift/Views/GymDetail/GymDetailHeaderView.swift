@@ -8,14 +8,20 @@
 
 import UIKit
 
+protocol GymDetailHeaderViewDelegate: class {
+    func gymDetailHeaderViewBackButtonTapped()
+}
+
 class GymDetailHeaderView: UICollectionReusableView {
 
     // MARK: - Private view vars
+    private let backButton = UIButton()
     private let closedLabel = UILabel()
     private let imageView = UIImageView()
     private let nameLabel = UILabel()
 
     // MARK: - Private data vars
+    private weak var delegate: GymDetailHeaderViewDelegate?
     private var isOpen: Bool = true
 
     override init(frame: CGRect) {
@@ -26,7 +32,8 @@ class GymDetailHeaderView: UICollectionReusableView {
     }
 
     // MARK: - Public configure
-    func configure(for gym: Gym) {
+    func configure(for delegate: GymDetailHeaderViewDelegate, for gym: Gym) {
+        self.delegate = delegate
         isOpen = gym.isOpen
         imageView.kf.setImage(with: gym.imageURL)
         nameLabel.text = gym.name.uppercased()
@@ -51,9 +58,16 @@ class GymDetailHeaderView: UICollectionReusableView {
         nameLabel.numberOfLines = 0
         nameLabel.textColor = .white
         addSubview(nameLabel)
+
+        backButton.setImage(UIImage(named: ImageNames.backArrowLight), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        addSubview(backButton)
     }
 
     private func setupConstraints() {
+        let backButtonLeftPadding = 20
+        let backButtonTopPadding = 44
+        let backButtonSize = CGSize(width: 24, height: 24)
         let closedLabelHeight = 60
         let horizontalPadding = 40
 
@@ -64,6 +78,12 @@ class GymDetailHeaderView: UICollectionReusableView {
         nameLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(horizontalPadding)
             make.center.equalToSuperview()
+        }
+
+        backButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(backButtonLeftPadding)
+            make.top.equalToSuperview().offset(backButtonTopPadding)
+            make.size.equalTo(backButtonSize)
         }
 
         if !isOpen {
@@ -79,5 +99,10 @@ class GymDetailHeaderView: UICollectionReusableView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Targets
+    @objc func backButtonTapped() {
+        delegate?.gymDetailHeaderViewBackButtonTapped()
     }
 }

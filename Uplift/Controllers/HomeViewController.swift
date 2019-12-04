@@ -73,18 +73,18 @@ class HomeViewController: UIViewController {
         // Get Today's Classes
         let stringDate = Date.getNowString()
 
-        NetworkManager.shared.getGymClassesForDate(date: stringDate) { (gymClassInstances) in
+        NetworkManager.shared.getGymClassesForDate(date: stringDate, completion: { (gymClassInstances) in
             self.gymClassInstances = gymClassInstances.sorted { (first, second) in
                 return first.startTime < second.startTime
             }
             // Reload Today's Classes section
             self.collectionView.reloadSections(IndexSet(integer: 1))
-        }
+        })
 
-        NetworkManager.shared.getTags { tags in
+        NetworkManager.shared.getTags(completion: { tags in
             self.lookingForCategories = tags
             self.collectionView.reloadSections(IndexSet(integer: 2))
-        }
+        })
 
     }
 
