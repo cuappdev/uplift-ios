@@ -128,10 +128,11 @@ struct FacilityDetail {
 
 // MARK: - Hours
 
-struct DailyFacilityHoursRanges {
+class DailyFacilityHoursRanges {
 
     var dayOfWeek: Int
     var timeRanges: [FacilityHoursRange]
+    var isSelected: Bool
 
     init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Detail.Time) {
         dayOfWeek = facilityHoursData.day
@@ -139,6 +140,8 @@ struct DailyFacilityHoursRanges {
             guard let rangeData = rangeData else { return nil }
             return FacilityHoursRange(facilityHoursRangeData: rangeData)
         })
+        let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
+        isSelected = dayOfWeek == dayIndexOfToday
     }
 
     init(facilityHoursData: GymByIdQuery.Data.Gym.Facility.Detail.Time) {
@@ -147,6 +150,8 @@ struct DailyFacilityHoursRanges {
             guard let rangeData = rangeData else { return nil }
             return FacilityHoursRange(facilityHoursRangeData: rangeData)
         })
+        let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
+        isSelected = dayOfWeek == dayIndexOfToday
     }
 
 }

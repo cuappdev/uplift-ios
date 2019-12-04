@@ -9,14 +9,6 @@ import UIKit
 
 class FacilitiesDropdownHeaderView: DropdownHeaderView {
 
-    private enum FacilityName: String {
-        case bowlingLanes = "BOWLING LANES"
-        case equipment = "EQUIPMENT"
-        case fitnessCenter = "FITNESS CENTER"
-        case gymnasium = "GYMNASIUM"
-        case swimmingPool = "SWIMMING POOL"
-    }
-
     private let headerImageView = UIImageView()
     private let headerNameLabel = UILabel()
     private let headerOpenLabel = UILabel()
@@ -24,7 +16,7 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
     init(frame: CGRect) {
         super.init(frame: frame, arrowImage: UIImage(named: ImageNames.rightArrowSolid))
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

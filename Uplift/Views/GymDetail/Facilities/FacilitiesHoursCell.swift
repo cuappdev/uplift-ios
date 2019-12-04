@@ -37,8 +37,9 @@ class FacilitiesHoursCell: UICollectionViewCell {
         timeInfoView.configure(facilityDetail: facilityDetail, dayIndex: dayIndex, onChangeDay: onChangeDay)
     }
 
-    static func getHeight(for facilityDetail: FacilityDetail, dayIndex: Int) -> CGFloat {
-        return baseHeight + GymDetailTimeInfoView.getTimesHeight(for: facilityDetail.times[dayIndex])
+    static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
+        guard let selectedHoursRanges = facilityDetail.times.first(where: { $0.isSelected }) else { return 0}
+        return baseHeight + GymDetailTimeInfoView.getTimesHeight(for: selectedHoursRanges)
     }
 
     required init?(coder: NSCoder) {

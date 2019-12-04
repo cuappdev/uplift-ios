@@ -20,7 +20,6 @@ class GymDetailViewController: UIViewController {
     // view displays hours starting from 6am
     private var selectedPopularTimeIndex = Calendar.current.component(.hour, from: Date()) - 6
     private var todaysClasses: [GymClassInstance] = []
-    private var facilitiesDropdownCalendarSelectedIndices: [[Int: Int]] = []
 
     // MARK: - Public data vars
     var gymDetail: GymDetail!
@@ -132,7 +131,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             if case .facilities(let dropdowns) = itemType {
                 facilityDropdowns = dropdowns
             }
-            let reloadFacilitiesCellAt: (Int?, [[Int: Int]]) -> Void = { index, calendarSelections in
+            let reloadFacilitiesCellAt: (Int?) -> Void = { index in
                 // Set the current dropdown status (closed or open) at that index to its opposite
                 if let index = index {
                     let dropdownStatus = facilityDropdowns[index].dropdownStatus
@@ -140,7 +139,6 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
                         ? .open
                         : .closed
                 }
-                self.facilitiesDropdownCalendarSelectedIndices = calendarSelections
                 UIView.performWithoutAnimation {
                     self.collectionView.reloadItems(at: [indexPath])
                     self.collectionView.layoutIfNeeded()
@@ -148,7 +146,6 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             }
             cell.backgroundColor = .white
             cell.configure(for: facilityDropdowns,
-                           calendarSelectedIndices: facilitiesDropdownCalendarSelectedIndices,
                            reloadGymDetailCollectionViewClosure: reloadFacilitiesCellAt)
             return cell
         case .classes:
@@ -260,7 +257,7 @@ extension GymDetailViewController {
     }
 
     func getFacilitiesHeight(_ facilityDropdowns: [FacilityDropdown]) -> CGFloat {
-        return GymDetailFacilitiesCell.getHeights(for: facilityDropdowns, calendarSelectedIndices: facilitiesDropdownCalendarSelectedIndices)
+        return GymDetailFacilitiesCell.getHeights(for: facilityDropdowns)
     }
 
     func getTodaysClassesHeight() -> CGFloat {
