@@ -255,24 +255,16 @@ struct FacilityDetail {
     }
 
     func getEquipmentCategories() -> [EquipmentCategory] {
-       var equipmentDict = [String: [Equipment]]()
+        var equipmentDict = [String: [Equipment]]()
         equipment.forEach { equipmentItem in
-            if equipmentDict[equipmentItem.equipmentType] != nil {
-                equipmentDict[equipmentItem.equipmentType]?.append(equipmentItem)
-            } else {
-                equipmentDict[equipmentItem.equipmentType] = [equipmentItem]
-            }
+            equipmentDict[equipmentItem.equipmentType, default: []].append(equipmentItem)
         }
 
-        var equipmentCategories = equipmentDict.compactMap { tuple in
-            return EquipmentCategory(categoryName: tuple.key, equipment: tuple.value.sorted {
+        let equipmentCategories = equipmentDict.compactMap { tuple in
+            EquipmentCategory(categoryName: tuple.key, equipment: tuple.value.sorted {
                 $0.name < $1.name
             })
-        }
-
-        equipmentCategories.sort {
-            return $0.categoryName < $1.categoryName
-        }
+        }.sorted { $0.categoryName < $1.categoryName }
 
         return equipmentCategories
     }

@@ -9,18 +9,19 @@ import UIKit
 
 class FacilitiesDropdownCell: UICollectionViewCell {
 
+    static let collectionViewSpacing: CGFloat = 16
+    static let dropdownViewBottomOffset: CGFloat = -12
+    static let headerViewHeight: CGFloat = 52
+
     private let headerView = FacilitiesDropdownHeaderView(frame: .zero)
     private var collectionView: UICollectionView!
     private var dropdownView: DropdownView!
     private var facility: Facility!
-    static let headerViewHeight: CGFloat = 52
-    static let collectionViewSpacing: CGFloat = 16
     private var facilitiesIndex: Int!
-    private var headerViewTapped: ((Int?, [Int: Int]) -> ())?
+    private var headerViewTapped: ((Int?, [Int: Int]) -> Void)?
     private let separatorView = UIView()
     private let separatorHeight: CGFloat = 1
     private let separatorSideOffset: CGFloat = 24
-    static let dropdownViewBottomOffset: CGFloat = -12
     private var calendarSelectedIndices: [Int: Int] = [:]
 
     override init(frame: CGRect) {
@@ -63,8 +64,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         separatorView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.height.equalTo(separatorHeight)
-            make.leading.equalToSuperview().offset(separatorSideOffset)
-            make.trailing.equalToSuperview().offset(-separatorSideOffset)
+            make.leading.trailing.equalToSuperview().inset(separatorSideOffset)
         }
     }
 
@@ -116,7 +116,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
             let facilityDetail = facility.details[i]
             height += FacilitiesDropdownCell.getHeight(for: facilityDetail, index: i, calendarSelectedIndices: calendarSelectedIndices) + collectionViewSpacing
         }
-        return height + -FacilitiesDropdownCell.dropdownViewBottomOffset
+        return height - FacilitiesDropdownCell.dropdownViewBottomOffset
     }
 
 }

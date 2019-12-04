@@ -11,7 +11,7 @@ import UIKit
 class GymDetailTimeInfoView: UIView {
 
     // MARK: - Public Vars
-    var onChangeDay: ((Int) -> ())?
+    var onChangeDay: ((Int) -> Void)?
 
     // MARK: - Private Vars
     private let timesText = NSMutableAttributedString()
@@ -55,7 +55,7 @@ class GymDetailTimeInfoView: UIView {
         setupConstraints()
     }
 
-    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> ())?) {
+    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> Void)?) {
         self.facilityDetail = facilityDetail
         self.onChangeDay = onChangeDay
         self.selectedDayIndex = dayIndex
