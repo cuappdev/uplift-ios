@@ -47,7 +47,6 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
                    dropdownStatuses: [DropdownStatus],
                    calendarSelectedIndices: [[Int: Int]],
                    reloadGymDetailCollectionViewClosure: @escaping ((Int?, [[Int: Int]]) -> ())) {
-        setNeedsUpdateConstraints()
         self.facilities = facilities
         self.dropdownCellStatuses = dropdownStatuses
         self.calendarSelectedIndices = calendarSelectedIndices
@@ -89,14 +88,11 @@ extension GymDetailFacilitiesCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //swiftlint:disable:next force_cast
-        let reloadFacilitiesCellClosure: (Int?, [Int: Int]) -> () = { index, calendarIndices in
+        let reloadFacilitiesCellClosure: (Int?, [Int: Int]) -> Void = { index, calendarIndices in
             self.calendarSelectedIndices[indexPath.row] = calendarIndices
             self.reloadGymDetailCollectionViewClosure?(index, self.calendarSelectedIndices)
         }
-        for i in 1...15{
-        print(indexPath.row)
-        }
+        //swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesDropdownCell, for: indexPath) as! FacilitiesDropdownCell
         cell.configure(for: facilities[indexPath.row],
                        index: indexPath.row,

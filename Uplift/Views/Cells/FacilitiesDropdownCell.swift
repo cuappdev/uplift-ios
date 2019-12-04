@@ -77,7 +77,6 @@ class FacilitiesDropdownCell: UICollectionViewCell {
                    dropdownStatus: DropdownStatus,
                    calendarSelectedIndices: [Int: Int],
                    headerViewTapped: @escaping (Int?, [Int: Int]) -> ()) {
-        setNeedsUpdateConstraints()
         self.facility = facility
         self.facilitiesIndex = index
         self.calendarSelectedIndices = calendarSelectedIndices
