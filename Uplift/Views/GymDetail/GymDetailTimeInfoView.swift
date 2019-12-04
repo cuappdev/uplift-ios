@@ -115,7 +115,6 @@ class GymDetailTimeInfoView: UIView {
                 }
             }
         }
-
     }
 
     func updateAttributedText() {
