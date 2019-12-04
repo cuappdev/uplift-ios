@@ -11,7 +11,7 @@ import UIKit
 class GymDetailTimeInfoView: UIView {
 
     // MARK: - Public Vars
-    var onChangeDay: ((CGFloat, Int) -> Void)?
+    var onChangeDay: ((Int) -> ())?
 
     // MARK: - Private Vars
     private let timesText = NSMutableAttributedString()
@@ -55,7 +55,7 @@ class GymDetailTimeInfoView: UIView {
         setupConstraints()
     }
 
-    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((CGFloat, Int) -> Void)?) {
+    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> ())?) {
         self.facilityDetail = facilityDetail
         self.onChangeDay = onChangeDay
         self.selectedDayIndex = dayIndex
@@ -123,9 +123,7 @@ class GymDetailTimeInfoView: UIView {
         let range = NSRange(location: 0, length: timesText.length)
         timesText.addAttributes(paragraphStyleAttributes, range: range)
         timesTextView.attributedText = timesText
-
-        let height = FacilitiesHoursCell.baseHeight + GymDetailTimeInfoView.getTimesHeight(for: hours)
-        onChangeDay?(height, selectedDayIndex)
+        onChangeDay?(selectedDayIndex)
     }
 
     // MARK: - Helper
@@ -163,17 +161,11 @@ class GymDetailTimeInfoView: UIView {
         self.emptyStateView = emptyStateView
     }
 
-    static func getTimesHeight(for dailyHours: [DailyFacilityHoursRanges]) -> CGFloat {
-        var timesHeight = emptyStateHeight
-        dailyHours.forEach { dailyHour in
-            timesHeight = max(timesHeight, getTimesHeight(for: dailyHour.timeRanges))
-        }
-        return timesHeight
-    }
-
-    static func getTimesHeight(for hours: [FacilityHoursRange]) -> CGFloat {
+    static func getTimesHeight(for dailyHours: DailyFacilityHoursRanges) -> CGFloat {
         let lineHeight: CGFloat = 19.6
         let lineSpacing: CGFloat = 5.0
+
+        let hours = dailyHours.timeRanges
         let hoursCount = CGFloat(hours.count)
         let emptyState = hoursCount == 1 && hours[0].openTime == hours[0].closeTime
         return emptyState ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)

@@ -12,7 +12,7 @@ import SnapKit
 class GymDetailFacilitiesCell: UICollectionViewCell {
     private let collectionView: UICollectionView!
     private var facilities: [Facility] = []
-    private var reloadGymDetailCollectionViewClosure: ((Int, [[Int: Int]]) -> ())?
+    private var reloadGymDetailCollectionViewClosure: ((Int?, [[Int: Int]]) -> ())?
     private var dropdownCellStatuses: [DropdownStatus] = []
     private var calendarSelectedIndices: [[Int: Int]] = []
 
@@ -46,7 +46,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     func configure(for facilities: [Facility],
                    dropdownStatuses: [DropdownStatus],
                    calendarSelectedIndices: [[Int: Int]],
-                   reloadGymDetailCollectionViewClosure: @escaping ((Int, [[Int: Int]]) -> ())) {
+                   reloadGymDetailCollectionViewClosure: @escaping ((Int?, [[Int: Int]]) -> ())) {
         setNeedsUpdateConstraints()
         self.facilities = facilities
         self.dropdownCellStatuses = dropdownStatuses
@@ -60,11 +60,11 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         collectionView.reloadData()
     }
 
-    static func getHeights(for facilities: [Facility], dropdownCellStatuses: [DropdownStatus]?) -> CGFloat {
+    static func getHeights(for facilities: [Facility], dropdownCellStatuses: [DropdownStatus]?, calendarSelectedIndices: [[Int: Int]]) -> CGFloat {
         var height: CGFloat = 0
         for i in 0..<facilities.count {
             if dropdownCellStatuses?[i] == .open {
-                height += FacilitiesDropdownCell.getFacilityHeight(for: facilities[i])
+                height += FacilitiesDropdownCell.getFacilityHeight(for: facilities[i], calendarSelectedIndices: calendarSelectedIndices[i])
             } else {
                 height += FacilitiesDropdownCell.headerViewHeight
             }
@@ -76,7 +76,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 extension GymDetailFacilitiesCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = dropdownCellStatuses[indexPath.row] == .open ? FacilitiesDropdownCell.getFacilityHeight(for: facilities[indexPath.row]) : FacilitiesDropdownCell.headerViewHeight
+        let height = dropdownCellStatuses[indexPath.row] == .open ? FacilitiesDropdownCell.getFacilityHeight(for: facilities[indexPath.row], calendarSelectedIndices: calendarSelectedIndices[indexPath.row]) : FacilitiesDropdownCell.headerViewHeight
         return CGSize(width: collectionView.bounds.width, height: height)
     }
 
@@ -90,7 +90,8 @@ extension GymDetailFacilitiesCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //swiftlint:disable:next force_cast
-        let reloadFacilitiesCellClosure: (Int, [Int: Int]) -> () = { index, calendarIndices in
+        let reloadFacilitiesCellClosure: (Int?, [Int: Int]) -> () = { index, calendarIndices in
+            self.calendarSelectedIndices[indexPath.row] = calendarIndices
             self.reloadGymDetailCollectionViewClosure?(index, self.calendarSelectedIndices)
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesDropdownCell, for: indexPath) as! FacilitiesDropdownCell

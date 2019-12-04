@@ -32,13 +32,13 @@ class FacilitiesHoursCell: UICollectionViewCell {
         setupConstraints()
     }
 
-    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((CGFloat, Int) -> Void)?) {
+    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> ())?) {
         weekView.configure(for: dayIndex)
         timeInfoView.configure(facilityDetail: facilityDetail, dayIndex: dayIndex, onChangeDay: onChangeDay)
     }
 
-    static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
-        return baseHeight + GymDetailTimeInfoView.getTimesHeight(for: facilityDetail.times)
+    static func getHeight(for facilityDetail: FacilityDetail, dayIndex: Int) -> CGFloat {
+        return baseHeight + GymDetailTimeInfoView.getTimesHeight(for: facilityDetail.times[dayIndex])
     }
 
     required init?(coder: NSCoder) {

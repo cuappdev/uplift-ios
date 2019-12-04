@@ -152,14 +152,16 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
 
-            let reloadFacilitiesCellAt: (Int, [[Int: Int]]) -> () = { index, calendarSelections in
+            let reloadFacilitiesCellAt: (Int?, [[Int: Int]]) -> () = { index, calendarSelections in
                 // Set the current dropdown status (closed or open) at that index to its opposite
-                self.facilitiesDropdownCellStatuses[index] = self.facilitiesDropdownCellStatuses[index] == .closed ? .open : .closed
+                if let index = index {
+                    self.facilitiesDropdownCellStatuses[index] = self.facilitiesDropdownCellStatuses[index] == .closed ? .open : .closed
+                }
+                self.facilitiesDropdownCalendarSelectedIndices = calendarSelections
                 UIView.animate(withDuration: 0.3, animations: {
                     self.collectionView.reloadItems(at: [indexPath])
                     self.collectionView.layoutIfNeeded()
                 })
-                self.facilitiesDropdownCalendarSelectedIndices = calendarSelections
             }
             cell.backgroundColor = .white
             cell.configure(for: gymDetail.facilities,
@@ -290,7 +292,7 @@ extension GymDetailViewController {
     }
 
     func getFacilitiesHeight() -> CGFloat {
-        return GymDetailFacilitiesCell.getHeights(for: gymDetail.facilities, dropdownCellStatuses: facilitiesDropdownCellStatuses)
+        return GymDetailFacilitiesCell.getHeights(for: gymDetail.facilities, dropdownCellStatuses: facilitiesDropdownCellStatuses, calendarSelectedIndices: facilitiesDropdownCalendarSelectedIndices)
     }
 
     func getTodaysClassesHeight() -> CGFloat {

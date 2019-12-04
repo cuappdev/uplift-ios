@@ -16,7 +16,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     static let headerViewHeight: CGFloat = 52
     static let collectionViewSpacing: CGFloat = 16
     private var facilitiesIndex: Int!
-    private var headerViewTapped: ((Int, [Int: Int]) -> ())?
+    private var headerViewTapped: ((Int?, [Int: Int]) -> ())?
     private let separatorView = UIView()
     private let separatorHeight: CGFloat = 1
     private let separatorSideOffset: CGFloat = 24
@@ -76,12 +76,13 @@ class FacilitiesDropdownCell: UICollectionViewCell {
                    index: Int,
                    dropdownStatus: DropdownStatus,
                    calendarSelectedIndices: [Int: Int],
-                   headerViewTapped: @escaping (Int, [Int: Int]) -> ()) {
+                   headerViewTapped: @escaping (Int?, [Int: Int]) -> ()) {
         setNeedsUpdateConstraints()
         self.facility = facility
         self.facilitiesIndex = index
+        self.calendarSelectedIndices = calendarSelectedIndices
         self.headerViewTapped = headerViewTapped
-        dropdownView.updateContentViewHeight(to: FacilitiesDropdownCell.getFacilityHeight(for: facility) - FacilitiesDropdownCell.headerViewHeight)
+        dropdownView.updateContentViewHeight(to: FacilitiesDropdownCell.getFacilityHeight(for: facility, calendarSelectedIndices: calendarSelectedIndices) - FacilitiesDropdownCell.headerViewHeight)
         headerView.configure(for: facility)
         if dropdownStatus == .open {
             dropdownView.openDropdown()
@@ -94,13 +95,13 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         collectionView.reloadData()
     }
 
-    static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
+    static func getHeight(for facilityDetail: FacilityDetail, index: Int, calendarSelectedIndices: [Int: Int]?) -> CGFloat {
         var height: CGFloat = 0
         switch facilityDetail.detailType {
         case .equipment:
             height = EquipmentListCell.getHeight(models: facilityDetail.getEquipmentCategories())
         case .hours:
-            height = FacilitiesHoursCell.getHeight(for: facilityDetail)
+            height = FacilitiesHoursCell.getHeight(for: facilityDetail, dayIndex: calendarSelectedIndices?[index] ?? 0)
         case .prices:
             height = PriceInformationCell.getHeight(for: facilityDetail.items)
         case .subfacilities:
@@ -109,10 +110,11 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         return height
     }
 
-    static func getFacilityHeight(for facility: Facility) -> CGFloat {
+    static func getFacilityHeight(for facility: Facility, calendarSelectedIndices: [Int: Int]) -> CGFloat {
         var height: CGFloat = headerViewHeight
-        facility.details.forEach { facilityDetail in
-            height += FacilitiesDropdownCell.getHeight(for: facilityDetail) + collectionViewSpacing
+        for i in 0..<facility.details.count {
+            let facilityDetail = facility.details[i]
+            height += FacilitiesDropdownCell.getHeight(for: facilityDetail, index: i, calendarSelectedIndices: calendarSelectedIndices) + collectionViewSpacing
         }
         return height + -FacilitiesDropdownCell.dropdownViewBottomOffset
     }
@@ -134,8 +136,13 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
             return cell
         case .hours:
             //swiftlint:disable:next force_cast
+            let onChangeDay: (Int) -> () = { newDayIndex in
+                self.calendarSelectedIndices[indexPath.row] = newDayIndex
+                self.headerViewTapped?(nil, self.calendarSelectedIndices)
+            }
+            let dayIndex = calendarSelectedIndices[indexPath.row] ?? 0
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityHoursCell, for: indexPath) as! FacilitiesHoursCell
-            cell.configure(facilityDetail: facility.details[indexPath.row], dayIndex: 0, onChangeDay: nil)
+            cell.configure(facilityDetail: facility.details[indexPath.row], dayIndex: dayIndex, onChangeDay: onChangeDay)
             return cell
         case .prices:
             //swiftlint:disable:next force_cast
@@ -157,7 +164,7 @@ extension FacilitiesDropdownCell: UICollectionViewDelegate, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        let height = FacilitiesDropdownCell.getHeight(for: facility.details[indexPath.row])
+        let height = FacilitiesDropdownCell.getHeight(for: facility.details[indexPath.row], index: indexPath.row, calendarSelectedIndices: calendarSelectedIndices)
         return CGSize(width: width, height: height + FacilitiesDropdownCell.collectionViewSpacing)
     }
 
@@ -176,7 +183,7 @@ extension FacilitiesDropdownCell: DropdownViewDelegate {
 extension FacilitiesDropdownCell: DropdownHeaderViewDelegate {
 
     func didTapHeaderView() {
-        headerViewTapped?(facilitiesIndex)
+        headerViewTapped?(facilitiesIndex, calendarSelectedIndices)
     }
 
 }
