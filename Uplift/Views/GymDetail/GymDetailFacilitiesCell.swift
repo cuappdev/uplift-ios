@@ -94,6 +94,9 @@ extension GymDetailFacilitiesCell: UICollectionViewDataSource {
             self.calendarSelectedIndices[indexPath.row] = calendarIndices
             self.reloadGymDetailCollectionViewClosure?(index, self.calendarSelectedIndices)
         }
+        for i in 1...15{
+        print(indexPath.row)
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesDropdownCell, for: indexPath) as! FacilitiesDropdownCell
         cell.configure(for: facilities[indexPath.row],
                        index: indexPath.row,
