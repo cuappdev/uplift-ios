@@ -15,13 +15,11 @@ class GymDetailViewController: UIViewController {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
     // MARK: - Private data vars
-    private var equipment: [EquipmentCategory] = []
-    private var sections: [Section] = []
+    private var section: Section!
     // Default index is current hour subtracted by 6 because popular times histogram
     // view displays hours starting from 6am
     private var selectedPopularTimeIndex = Calendar.current.component(.hour, from: Date()) - 6
     private var todaysClasses: [GymClassInstance] = []
-    private var facilitiesDropdownCellStatuses: [DropdownStatus] = []
     private var facilitiesDropdownCalendarSelectedIndices: [[Int: Int]] = []
 
     // MARK: - Public data vars
@@ -43,29 +41,19 @@ class GymDetailViewController: UIViewController {
     private enum ItemType {
         case busyTimes
         case classes([GymClassInstance])
-        case facilities
+        case facilities([FacilityDropdown])
         case hours
     }
 
     // MARK: - Custom Initializer
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
-        self.gymDetail = GymDetail(gym: gym)
-        for facility in gymDetail.facilities {
-            facilitiesDropdownCellStatuses.append(.closed)
-            if facility.name == "Fitness Center" && !facility.details.isEmpty {
-                self.equipment = categorizeEquipment(equipmentList: facility.details[0].equipment)
-            }
-        }
-
+        gymDetail = GymDetail(gym: gym)
+        let facilityDropdowns = gymDetail.facilities.map { FacilityDropdown(facility: $0, dropdownStatus: .closed) }
         if gym.isOpen {
-            self.sections = [
-                Section(items: [.hours, .busyTimes, .facilities, .classes([])])
-            ]
+            self.section = Section(items: [.hours, .busyTimes, .facilities(facilityDropdowns), .classes([])])
         } else {
-            self.sections = [
-                Section(items: [.hours, .facilities, .classes([])])
-            ]
+            self.section = Section(items: [.hours, .facilities(facilityDropdowns), .classes([])])
         }
 
         collectionView.backgroundColor = .white
@@ -91,8 +79,8 @@ class GymDetailViewController: UIViewController {
 
         NetworkManager.shared.getClassInstancesByGym(gymId: gymDetail.gym.id, date: Date.getNowString()) { gymClasses in
             self.todaysClasses = gymClasses
-            let items = self.sections[0].items
-            self.sections[0].items[items.count - 1] = .classes(gymClasses)
+            let items = self.section.items
+            self.section.items[items.count - 1] = .classes(gymClasses)
             DispatchQueue.main.async {
                 // Only reload the classes cell
                 self.collectionView.reloadItems(at: [IndexPath(row: items.count - 1, section: 0)])
@@ -114,12 +102,13 @@ class GymDetailViewController: UIViewController {
 
 // MARK: - CollectionViewDataSource, CollectionViewDelegate, CollectionViewDelegateFlowLayout
 extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sections[section].items.count
+        return self.section.items.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let itemType = sections[indexPath.section].items[indexPath.item]
+        let itemType = section.items[indexPath.item]
 
         switch itemType {
         case .hours:
@@ -138,10 +127,14 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
 
-            let reloadFacilitiesCellAt: (Int?, [[Int: Int]]) -> () = { index, calendarSelections in
+            let facilitiesItemType = section.items[indexPath.row]
+            let reloadFacilitiesCellAt: (Int?, [[Int: Int]]) -> Void = { index, calendarSelections in
                 // Set the current dropdown status (closed or open) at that index to its opposite
-                if let index = index {
-                    self.facilitiesDropdownCellStatuses[index] = self.facilitiesDropdownCellStatuses[index] == .closed ? .open : .closed
+                if let index = index, case .facilities(var facilityDropdowns) = facilitiesItemType {
+                    let dropdownStatus = facilityDropdowns[index].dropdownStatus
+                    facilityDropdowns[index].dropdownStatus = dropdownStatus == .closed
+                        ? .open
+                        : .closed
                 }
                 self.facilitiesDropdownCalendarSelectedIndices = calendarSelections
                 UIView.animate(withDuration: 0.3, animations: {
@@ -150,8 +143,11 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
                 })
             }
             cell.backgroundColor = .white
-            cell.configure(for: gymDetail.facilities,
-                           dropdownStatuses: facilitiesDropdownCellStatuses,
+            var facilityDropdowns: [FacilityDropdown] = []
+            if case .facilities(let dropdowns) = section.items[indexPath.row] {
+                facilityDropdowns = dropdowns
+            }
+            cell.configure(for: facilityDropdowns,
                            calendarSelectedIndices: facilitiesDropdownCalendarSelectedIndices,
                            reloadGymDetailCollectionViewClosure: reloadFacilitiesCellAt)
             return cell
@@ -164,7 +160,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemType = sections[indexPath.section].items[indexPath.item]
+        let itemType = section.items[indexPath.item]
         let width = collectionView.frame.width
 
         switch itemType {
@@ -172,8 +168,8 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             return CGSize(width: width, height: getHoursHeight())
         case .busyTimes:
             return CGSize(width: width, height: getBusyTimesHeight())
-        case.facilities:
-            return CGSize(width: width, height: getFacilitiesHeight())
+        case.facilities(let facilityDropdowns):
+            return CGSize(width: width, height: getFacilitiesHeight(facilityDropdowns))
         case.classes:
             return CGSize(width: width, height: getTodaysClassesHeight())
         }
@@ -204,6 +200,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
 
         return numberOfClasses * cellHeight + (numberOfClasses - 1) * cellPadding
     }
+
 }
 
 // MARK: - Layout
@@ -262,8 +259,8 @@ extension GymDetailViewController {
         return labelHeight + histogramHeight + dividerHeight
     }
 
-    func getFacilitiesHeight() -> CGFloat {
-        return GymDetailFacilitiesCell.getHeights(for: gymDetail.facilities, dropdownCellStatuses: facilitiesDropdownCellStatuses, calendarSelectedIndices: facilitiesDropdownCalendarSelectedIndices)
+    func getFacilitiesHeight(_ facilityDropdowns: [FacilityDropdown]) -> CGFloat {
+        return GymDetailFacilitiesCell.getHeights(for: facilityDropdowns, calendarSelectedIndices: facilitiesDropdownCalendarSelectedIndices)
     }
 
     func getTodaysClassesHeight() -> CGFloat {
@@ -278,21 +275,5 @@ extension GymDetailViewController {
             classesCollectionViewHeight()
 
         return (todaysClasses.isEmpty) ? baseHeight + noMoreClassesHeight : baseHeight + collectionViewHeight
-    }
-}
-
-extension GymDetailViewController {
-    func categorizeEquipment(equipmentList: [Equipment]) -> [EquipmentCategory] {
-        let equipmentDictionary = equipmentList.reduce(into: [String: [Equipment]](), { dict, equipment in
-          if dict[equipment.equipmentType] != nil {
-            dict[equipment.equipmentType]?.append(equipment)
-          } else {
-            dict[equipment.equipmentType] = [equipment]
-          }
-        })
-
-        let equipmentCategories = equipmentDictionary.map { EquipmentCategory(categoryName: $0, equipment: $1) }
-
-        return equipmentCategories
     }
 }
