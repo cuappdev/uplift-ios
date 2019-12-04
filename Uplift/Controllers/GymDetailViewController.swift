@@ -127,26 +127,26 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
 
-            let facilitiesItemType = section.items[indexPath.row]
+            let itemType = section.items[indexPath.row]
+            var facilityDropdowns: [FacilityDropdown] = []
+            if case .facilities(let dropdowns) = itemType {
+                facilityDropdowns = dropdowns
+            }
             let reloadFacilitiesCellAt: (Int?, [[Int: Int]]) -> Void = { index, calendarSelections in
                 // Set the current dropdown status (closed or open) at that index to its opposite
-                if let index = index, case .facilities(var facilityDropdowns) = facilitiesItemType {
+                if let index = index {
                     let dropdownStatus = facilityDropdowns[index].dropdownStatus
                     facilityDropdowns[index].dropdownStatus = dropdownStatus == .closed
                         ? .open
                         : .closed
                 }
                 self.facilitiesDropdownCalendarSelectedIndices = calendarSelections
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.performWithoutAnimation {
                     self.collectionView.reloadItems(at: [indexPath])
                     self.collectionView.layoutIfNeeded()
-                })
+                }
             }
             cell.backgroundColor = .white
-            var facilityDropdowns: [FacilityDropdown] = []
-            if case .facilities(let dropdowns) = section.items[indexPath.row] {
-                facilityDropdowns = dropdowns
-            }
             cell.configure(for: facilityDropdowns,
                            calendarSelectedIndices: facilitiesDropdownCalendarSelectedIndices,
                            reloadGymDetailCollectionViewClosure: reloadFacilitiesCellAt)
