@@ -49,12 +49,12 @@ class FavoriteGymsController: UIViewController {
         // Set up screen sizes for scaling
         currentScreenSize = computeScreenDimensions()
 
-        NetworkManager.shared.getGymNames { gyms in
+        NetworkManager.shared.getGymNames(completion: { gyms in
             DispatchQueue.main.async {
                 self.gymNames = gyms.map({ $0.name }).sorted()
                 self.gymsTableView.reloadData()
             }
-        }
+        })
 
         let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(goBackAView))
         edgeSwipe.edges = .left
@@ -263,11 +263,9 @@ extension FavoriteGymsController: UITableViewDelegate {
         if cell.currentlySelected {
             favoriteGyms.append(gymNames[indexPath.section])
         } else {
-            for i in 0...favoriteGyms.count {
-                if favoriteGyms[i] == gymNames[indexPath.section] {
-                    favoriteGyms.remove(at: i)
-                    break
-                }
+            for i in 0...favoriteGyms.count where favoriteGyms[i] == gymNames[indexPath.section] {
+                favoriteGyms.remove(at: i)
+                break
             }
         }
 

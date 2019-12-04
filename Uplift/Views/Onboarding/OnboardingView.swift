@@ -18,9 +18,6 @@ class OnboardingView: UIView {
     private var tableData: [String]?
     private var showingClasses = false
 
-    private let tableViewCellHeight: CGFloat = 60
-    private let tableViewCellSpacing: CGFloat = 14
-
     // MARK: = Delegation
     var favoritesSelectedDelegate: (([String]) -> Void)?
 
@@ -78,7 +75,7 @@ class OnboardingView: UIView {
             make.top.centerX.equalToSuperview()
         }
 
-        if let table = tableView { // With Table View
+        if let tableView = tableView { // With Table View
             let labelHeight: CGFloat = 80
             let labelTopOffset: CGFloat = 174
 
@@ -92,7 +89,7 @@ class OnboardingView: UIView {
                 make.top.equalToSuperview().inset(labelTopOffset)
             }
 
-            table.snp.makeConstraints { make in
+            tableView.snp.makeConstraints { make in
                 make.top.equalTo(titleLabel.snp.bottom).offset(tableViewBottomOffset)
                 make.size.equalTo(tableViewSize)
                 make.centerX.equalTo(titleLabel)
@@ -123,9 +120,11 @@ class OnboardingView: UIView {
 
         return NSAttributedString(string: string, attributes: attributes)
     }
+
 }
 
 extension OnboardingView: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell else { return UITableViewCell() }
         let data = tableData?[indexPath.section] ?? ""
@@ -145,9 +144,9 @@ extension OnboardingView: UITableViewDataSource {
 }
 
 extension OnboardingView: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? FavoriteCell, let data = tableData
-        else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? FavoriteCell, let data = tableData else { return }
 
         cell.toggleSelectedView(selected: !cell.currentlySelected)
 
@@ -161,11 +160,11 @@ extension OnboardingView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableViewCellHeight
+        return 60
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableViewCellSpacing
+        return 14
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

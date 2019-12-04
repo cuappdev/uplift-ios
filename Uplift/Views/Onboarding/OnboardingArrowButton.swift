@@ -13,7 +13,7 @@ class OnboardingArrowButton: UIButton {
 
     private var changesColor = true
 
-    init(arrowFacesRight: Bool, changesColor: Bool = true) {
+    init(arrowFacesRight: Bool, changesColor: Bool = true, enabled: Bool = true) {
         super.init(frame: .zero)
 
         let circleRadius: CGFloat = 17.5
@@ -37,6 +37,8 @@ class OnboardingArrowButton: UIButton {
             make.center.equalToSuperview()
             make.size.equalTo(arrowSize)
         }
+
+        toggleState(on: enabled)
     }
 
     required init?(coder: NSCoder) {
