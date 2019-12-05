@@ -34,6 +34,7 @@ class HomeViewController: UIViewController {
         static let gymsListCellIdentifier = "gymsListCellIdentifier"
         static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
+        static let todaysClassesEmptyCellIdentifier = "todaysClassesEmptyCellIdentifier"
     }
 
     // MARK: - Enums
@@ -77,6 +78,7 @@ class HomeViewController: UIViewController {
             self.gymClassInstances = gymClassInstances.sorted { (first, second) in
                 return first.startTime < second.startTime
             }
+
             // Reload Today's Classes section
             self.collectionView.reloadSections(IndexSet(integer: 1))
         })
@@ -128,6 +130,7 @@ extension HomeViewController {
         collectionView.register(CheckInsListCell.self, forCellWithReuseIdentifier: Constants.checkInsListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
+        collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)
         view.addSubview(collectionView)
     }
