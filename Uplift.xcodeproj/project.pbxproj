@@ -77,6 +77,7 @@
 		C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */; };
 		C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE15722926F8700B5D219 /* GymsListCell.swift */; };
 		C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */; };
+		C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */; };
 		C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */; };
 		C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F62290D1C4007C415D /* ClassDetailViewController.swift */; };
 		C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26236F82290D397007C415D /* ClassDetailHeaderView.swift */; };
@@ -120,10 +121,10 @@
 		D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */; };
 		E604DC1B233B1B18003598BC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC1A233B1B18003598BC /* API.swift */; };
 		E604DC3F233B22C9003598BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E604DC3E233B22C9003598BC /* GoogleService-Info.plist */; };
-		E6098015236CCE2400979989 /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6098012236CCE2400979989 /* EquipmentListItemCell.swift */; };
-		E6098016236CCE2400979989 /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6098013236CCE2400979989 /* EquipmentListCell.swift */; };
+		E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
+		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
 		E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */; };
@@ -157,7 +158,6 @@
 		4F6810332345504D00C283C0 /* GymDetailWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailWeekView.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		684A8BFD1265450CEE4EB3E7 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
-		7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProRoutineCollectionViewCell.swift; sourceTree = "<group>"; };
 		7E2E2A84237BAE86008F600D /* HoursEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursEmptyStateView.swift; sourceTree = "<group>"; };
 		7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTodaysClassesCell.swift; sourceTree = "<group>"; };
 		7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GymDetailViewController+Extensions.swift"; sourceTree = "<group>"; };
@@ -166,7 +166,6 @@
 		7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailHeaderView.swift; sourceTree = "<group>"; };
 		7E9D6DF222961E000054F710 /* GymDetailPopularTimesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailPopularTimesCell.swift; sourceTree = "<group>"; };
 		7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInformationCell.swift; sourceTree = "<group>"; };
-		7EC4B799236CADD8006B67B3 /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
 		7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentListCell.swift; sourceTree = "<group>"; };
 		7EE03A912321B61D00BD74C0 /* GymDetailFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFacilitiesCell.swift; sourceTree = "<group>"; };
 		7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymFacilitiesCell.swift; sourceTree = "<group>"; };
@@ -208,6 +207,7 @@
 		C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		C21BE15722926F8700B5D219 /* GymsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsListCell.swift; sourceTree = "<group>"; };
 		C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Shared.swift"; sourceTree = "<group>"; };
+		C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
 		C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		C26236F62290D1C4007C415D /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		C26236F82290D397007C415D /* ClassDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -252,10 +252,9 @@
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E604DC1A233B1B18003598BC /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E604DC3E233B22C9003598BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E6098012236CCE2400979989 /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EquipmentListItemCell.swift; path = Uplift/Views/GymDetail/Facilities/EquipmentListItemCell.swift; sourceTree = SOURCE_ROOT; };
-		E6098013236CCE2400979989 /* EquipmentListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EquipmentListCell.swift; path = Uplift/Views/GymDetail/Facilities/EquipmentListCell.swift; sourceTree = SOURCE_ROOT; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
 		E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
@@ -294,8 +293,6 @@
 		4F27F6D5236F24C800C255D7 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				E6098012236CCE2400979989 /* EquipmentListItemCell.swift */,
-				E6098013236CCE2400979989 /* EquipmentListCell.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -345,13 +342,14 @@
 		7EC4B797236CADD8006B67B3 /* Facilities */ = {
 			isa = PBXGroup;
 			children = (
-				7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */,
-				7EC4B799236CADD8006B67B3 /* EquipmentListItemCell.swift */,
-				4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */,
 				4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */,
+				7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */,
+				E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */,
+				4F18C34723610A0B00BFB603 /* FacilitiesHoursCell.swift */,
+				4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */,
 				4F27F6D6236F25C000C255D7 /* MiscellaneousInfoCell.swift */,
 				7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */,
-				4F18C34723610A0B00BFB603 /* FacilitiesHoursCell.swift */,
+				C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */,
 			);
 			path = Facilities;
 			sourceTree = "<group>";
@@ -403,8 +401,8 @@
 		C289B16A228A81E800934A2A /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
-				8DBB784E2139849B002BE0E0 /* Constants.swift */,
 				E62DB5202344907600ACAA1E /* ClientStrings.swift */,
+				8DBB784E2139849B002BE0E0 /* Constants.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -538,17 +536,16 @@
 				8D03EE0A206C47D400EF83C7 /* CategoryCell.swift */,
 				C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */,
 				8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */,
+				C27553872381CB6300A1284E /* FacilitiesDropdownCell.swift */,
 				0C97AC282276840F0086D699 /* FacilityHoursCell.swift */,
 				4FC04780222EF69300165594 /* FavoriteCell.swift */,
 				7EF09F12232814520057CB78 /* GymFacilitiesCell.swift */,
-				C27553872381CB6300A1284E /* FacilitiesDropdownCell.swift */,
 				8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */,
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
 				4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */,
 				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
-				7E038C6F2295782D00418500 /* ProRoutineCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -854,7 +851,6 @@
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
-				E6098015236CCE2400979989 /* EquipmentListItemCell.swift in Sources */,
 				C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */,
@@ -887,6 +883,7 @@
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
+				E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */,
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */,
@@ -895,11 +892,12 @@
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				4F285B6B238F03D300B7B14D /* FavoriteGymsController.swift in Sources */,
 				C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */,
-				E6098016236CCE2400979989 /* EquipmentListCell.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8DB8D76B2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift in Sources */,
 				C28801A222933BBC00EC48B7 /* TodaysClassListItemCell.swift in Sources */,
+				C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */,
+				E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */,
 				C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */,
 				C218F937233DBE080018838A /* GymDetail.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,

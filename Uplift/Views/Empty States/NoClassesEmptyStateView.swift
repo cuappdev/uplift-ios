@@ -38,9 +38,8 @@ class NoClassesEmptyStateView: UIView {
     private func setupConstraints() {
 
         emptyStateImageView.snp.makeConstraints { make in
-            make.bottom.equalTo(emptyStateTitleLabel.snp.top).offset(-24)
+            make.top.centerX.equalToSuperview()
             make.width.height.equalTo(80)
-            make.centerX.equalToSuperview()
         }
 
         emptyStateTitleLabel.snp.makeConstraints { make in

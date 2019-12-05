@@ -9,136 +9,113 @@ import UIKit
 
 class FacilitiesDropdownCell: UICollectionViewCell {
 
-    private enum FacilityName: String {
-        case bowlingLanes = "BOWLING LANES"
-        case equipment = "EQUIPMENT"
-        case fitnessCenter = "FITNESS CENTER"
-        case gymnasium = "GYMNASIUM"
-        case swimmingPool = "SWIMMING POOL"
-    }
+    static let collectionViewSpacing: CGFloat = 16
+    static let dropdownViewBottomOffset: CGFloat = -12
+    static let headerViewHeight: CGFloat = 52
 
-    private let headerImageView = UIImageView()
-    private let headerNameLabel = UILabel()
-    private let headerOpenLabel = UILabel()
-    private let headerView = DropdownHeaderView(frame: .zero, arrowImage: nil, arrowImageTrailingOffset: 0)
-
+    private let headerView = FacilitiesDropdownHeaderView(frame: .zero)
     private var collectionView: UICollectionView!
-    private var collectionViewHeight: CGFloat = 0
     private var dropdownView: DropdownView!
     private var facility: Facility!
-    private var height: CGFloat = 0
+    private var facilitiesIndex: Int!
+    private var headerViewTapped: ((Int?, [Int: Int]) -> Void)?
+    private let separatorView = UIView()
+    private let separatorHeight: CGFloat = 1
+    private let separatorSideOffset: CGFloat = 24
+    private var calendarSelectedIndices: [Int: Int] = [:]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        contentView.backgroundColor = .white
+
         let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.minimumInteritemSpacing = 16
+        collectionViewLayout.minimumInteritemSpacing = FacilitiesDropdownCell.collectionViewSpacing
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .white
+        collectionView.register(EquipmentListCell.self, forCellWithReuseIdentifier: Identifiers.facilityEquipmentListCell)
+        collectionView.register(FacilitiesHoursCell.self, forCellWithReuseIdentifier: Identifiers.facilityHoursCell)
+        collectionView.register(PriceInformationCell.self, forCellWithReuseIdentifier: Identifiers.facilitiesPriceInformationCell)
+        collectionView.register(MiscellaneousInfoCell.self, forCellWithReuseIdentifier: Identifiers.facilitiesMiscellaneousCell)
 
-        setupDropdownView()
-        setupConstraints()
+        headerView.delegate = self
+
+        dropdownView = DropdownView(delegate: self,
+                                    headerView: headerView,
+                                    headerViewHeight: FacilitiesDropdownCell.headerViewHeight,
+                                    contentView: collectionView,
+                                    contentViewHeight: 0)
+        dropdownView.backgroundColor = .white
+        dropdownView.layer.masksToBounds = false
+        contentView.addSubview(dropdownView)
+
+        separatorView.backgroundColor = .gray01
+        contentView.addSubview(separatorView)
+
+        dropdownView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.bottom.equalToSuperview().offset(FacilitiesDropdownCell.dropdownViewBottomOffset)
+        }
+
+        separatorView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.height.equalTo(separatorHeight)
+            make.leading.trailing.equalToSuperview().inset(separatorSideOffset)
+        }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(for facility: Facility) {
+    func configure(for facility: Facility,
+                   index: Int,
+                   dropdownStatus: DropdownStatus,
+                   calendarSelectedIndices: [Int: Int],
+                   headerViewTapped: @escaping (Int?, [Int: Int]) -> ()) {
         self.facility = facility
+        self.facilitiesIndex = index
+        self.calendarSelectedIndices = calendarSelectedIndices
+        self.headerViewTapped = headerViewTapped
+        dropdownView.updateContentViewHeight(to: FacilitiesDropdownCell.getFacilityHeight(for: facility, calendarSelectedIndices: calendarSelectedIndices) - FacilitiesDropdownCell.headerViewHeight)
+        headerView.configure(for: facility)
+        if dropdownStatus == .open {
+            dropdownView.openDropdown()
+            headerView.rotateArrowDown()
+        } else {
+            dropdownView.closeDropdown()
+            headerView.rotateArrowUp()
+        }
+        self.dropdownView.layoutIfNeeded()
         collectionView.reloadData()
     }
 
-    func setupDropdownView() {
-        let headerViewHeight: CGFloat = 52
-        setupHeaderView(headerString: facility.name)
-
-        // TODO: register facility cell classes once they're finished
-
-        collectionViewHeight = 0 // TODO: once cell classes are finished, sum up their heights to get the total collection view height
-
-        dropdownView = DropdownView(delegate: self,
-                                    headerView: headerView,
-                                    headerViewHeight: headerViewHeight,
-                                    contentView: collectionView,
-                                    contentViewHeight: collectionViewHeight)
+    static func getHeight(for facilityDetail: FacilityDetail, index: Int, calendarSelectedIndices: [Int: Int]?) -> CGFloat {
+        var height: CGFloat = 0
+        switch facilityDetail.detailType {
+        case .equipment:
+            height = EquipmentListCell.getHeight(models: facilityDetail.getEquipmentCategories())
+        case .hours:
+            height = FacilitiesHoursCell.getHeight(for: facilityDetail, dayIndex: calendarSelectedIndices?[index] ?? 0)
+        case .prices:
+            height = PriceInformationCell.getHeight(for: facilityDetail.items)
+        case .subfacilities:
+            height = MiscellaneousInfoCell.getHeight(for: facilityDetail.subfacilities)
+        }
+        return height
     }
 
-    func setupHeaderView(headerString: String) {
-        var headerImage: UIImage?
-        switch FacilityName(rawValue: headerString.uppercased()) {
-        case .equipment, .fitnessCenter:
-            headerImage = UIImage(named: ImageNames.equipment)
-        case .gymnasium:
-            headerImage = UIImage(named: ImageNames.basketball)
-        case .swimmingPool:
-            headerImage = UIImage(named: ImageNames.pool)
-        case .bowlingLanes:
-            headerImage = UIImage(named: ImageNames.bowling)
-        default:
-            headerImage = UIImage(named: ImageNames.misc)
+    static func getFacilityHeight(for facility: Facility, calendarSelectedIndices: [Int: Int]) -> CGFloat {
+        var height: CGFloat = headerViewHeight
+        for i in 0..<facility.details.count {
+            let facilityDetail = facility.details[i]
+            height += FacilitiesDropdownCell.getHeight(for: facilityDetail, index: i, calendarSelectedIndices: calendarSelectedIndices) + collectionViewSpacing
         }
-
-        headerImageView.image = headerImage
-        headerView.addSubview(headerImageView)
-
-        headerNameLabel.text = headerString
-        headerNameLabel.font = ._16MontserratRegular
-        headerNameLabel.textColor = .black
-        headerNameLabel.textAlignment = .left
-        headerView.addSubview(headerImageView)
-
-        let isFacilityOpen = getIsFacilityOpen()
-        headerOpenLabel.font = ._16MontserratRegular
-        headerOpenLabel.text = isFacilityOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
-        headerOpenLabel.textColor = isFacilityOpen ? .accentOpen : .accentClosed
-        headerOpenLabel.textAlignment = .center
-        headerView.addSubview(headerOpenLabel)
-    }
-
-    func getIsFacilityOpen() -> Bool {
-        let todaysDate = Date()
-        let dayOfWeek = todaysDate.getIntegerDayOfWeekToday()
-        for detail in facility.details {
-            if !detail.times.isEmpty {
-                for time in detail.times {
-                    if time.dayOfWeek == dayOfWeek {
-                        for timeRange in time.timeRanges {
-                            if todaysDate > timeRange.openTime && todaysDate < timeRange.closeTime {
-                                return true
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false
-    }
-
-    func setupConstraints() {
-        let headerImageViewSize: CGFloat = 24
-        let headerImageViewLeadingOffset: CGFloat = 25
-        let headerImageViewNameLabelSpacing: CGFloat = 9
-        let openLabelTrailingOffset: CGFloat = -45
-
-        headerImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(headerImageViewSize)
-            make.leading.equalToSuperview().offset(headerImageViewLeadingOffset)
-            make.centerY.equalToSuperview()
-        }
-
-        headerNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(headerImageView.snp.trailing).offset(headerImageViewNameLabelSpacing)
-            make.trailing.equalTo(headerOpenLabel.snp.leading).inset(headerImageViewNameLabelSpacing)
-            make.centerY.equalToSuperview()
-        }
-
-        headerOpenLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(openLabelTrailingOffset)
-        }
+        return height - FacilitiesDropdownCell.dropdownViewBottomOffset
     }
 
 }
@@ -150,8 +127,34 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // TODO: once facility cells are finished
-        return UICollectionViewCell(frame: .zero)
+        switch facility.details[indexPath.row].detailType {
+        case .equipment:
+            //swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityEquipmentListCell, for: indexPath) as! EquipmentListCell
+            cell.configure(for: facility.details[indexPath.row].getEquipmentCategories())
+            return cell
+        case .hours:
+            //swiftlint:disable:next force_cast
+            let onChangeDay: (Int) -> () = { newDayIndex in
+                self.calendarSelectedIndices[indexPath.row] = newDayIndex
+                self.headerViewTapped?(nil, self.calendarSelectedIndices)
+            }
+            let dayIndex = calendarSelectedIndices[indexPath.row] ?? 0
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityHoursCell, for: indexPath) as! FacilitiesHoursCell
+            cell.configure(facilityDetail: facility.details[indexPath.row], dayIndex: dayIndex, onChangeDay: onChangeDay)
+            return cell
+        case .prices:
+            //swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesPriceInformationCell, for: indexPath) as! PriceInformationCell
+            cell.configure(items: facility.details[indexPath.row].items, prices: facility.details[indexPath.row].prices)
+            return cell
+        case .subfacilities:
+            //swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesMiscellaneousCell, for: indexPath) as! MiscellaneousInfoCell
+            cell.configure(for: facility.details[indexPath.row].subfacilities)
+            return cell
+        }
+
     }
 
 }
@@ -159,24 +162,27 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
 extension FacilitiesDropdownCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // TODO: once facility cells are finished
-        return .zero
+        let width = collectionView.bounds.width
+        let height = FacilitiesDropdownCell.getHeight(for: facility.details[indexPath.row], index: indexPath.row, calendarSelectedIndices: calendarSelectedIndices)
+        return CGSize(width: width, height: height + FacilitiesDropdownCell.collectionViewSpacing)
     }
 
 }
 
 extension FacilitiesDropdownCell: DropdownViewDelegate {
 
-    func dropdownViewClosed(sender dropdownView: DropdownView) {
-        // TODO: Implement
-    }
+    func dropdownViewClosed(sender dropdownView: DropdownView) {}
 
-    func dropdownViewOpen(sender dropdownView: DropdownView) {
-        // TODO: Implement
-    }
+    func dropdownViewOpen(sender dropdownView: DropdownView) {}
 
-    func dropdownViewHalf(sender dropdownView: DropdownView) {
-        // TODO: Implement
+    func dropdownViewHalf(sender dropdownView: DropdownView) {}
+
+}
+
+extension FacilitiesDropdownCell: DropdownHeaderViewDelegate {
+
+    func didTapHeaderView() {
+        headerViewTapped?(facilitiesIndex, calendarSelectedIndices)
     }
 
 }

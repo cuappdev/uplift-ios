@@ -12,7 +12,7 @@ class FacilitiesHoursCell: UICollectionViewCell {
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        return Constraints.headerHeight + Constraints.timesPadding + Constraints.bottomPadding
+        return Constraints.headerHeight
     }
 
     // MARK: - Private view vars
@@ -21,7 +21,6 @@ class FacilitiesHoursCell: UICollectionViewCell {
     private let timeInfoView = GymDetailTimeInfoView()
 
     private enum Constraints {
-        static let bottomPadding: CGFloat = 12
         static let headerHeight: CGFloat = 24
         static let timesPadding: CGFloat = 16
     }
@@ -33,9 +32,13 @@ class FacilitiesHoursCell: UICollectionViewCell {
         setupConstraints()
     }
 
-    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((CGFloat, Int) -> Void)?) {
+    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> ())?) {
         weekView.configure(for: dayIndex)
         timeInfoView.configure(facilityDetail: facilityDetail, dayIndex: dayIndex, onChangeDay: onChangeDay)
+    }
+
+    static func getHeight(for facilityDetail: FacilityDetail, dayIndex: Int) -> CGFloat {
+        return baseHeight + GymDetailTimeInfoView.getTimesHeight(for: facilityDetail.times[dayIndex])
     }
 
     required init?(coder: NSCoder) {
