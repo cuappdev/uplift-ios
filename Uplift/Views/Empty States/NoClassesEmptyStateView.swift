@@ -36,24 +36,25 @@ class NoClassesEmptyStateView: UIView {
     }
 
     private func setupConstraints() {
+        let imageViewSize = 80.0
+        let titleLabelTopPadding = 24.0
+        let descriptionLabelTopPadding = 8.0
 
         emptyStateImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(imageViewSize)
             make.top.centerX.equalToSuperview()
-            make.width.height.equalTo(80)
         }
 
         emptyStateTitleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
-            make.top.equalTo(emptyStateImageView.snp.bottom).offset(24)
-            make.height.equalTo(emptyStateTitleLabel.intrinsicContentSize.height)
+            make.top.equalTo(emptyStateImageView.snp.bottom).offset(titleLabelTopPadding)
         }
 
         emptyStateDescriptionLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
-            make.top.equalTo(emptyStateTitleLabel.snp.bottom).offset(8)
-            make.height.equalTo(emptyStateTitleLabel.intrinsicContentSize.height)
+            make.top.equalTo(emptyStateTitleLabel.snp.bottom).offset(descriptionLabelTopPadding)
         }
 
     }
