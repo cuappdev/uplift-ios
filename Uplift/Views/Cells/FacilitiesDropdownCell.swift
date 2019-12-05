@@ -94,7 +94,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         collectionView.reloadData()
     }
 
-    static func getHeight(for facilityDetail: FacilityDetail, index: Int) -> CGFloat {
+    static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
         var height: CGFloat = 0
         switch facilityDetail.detailType {
         case .equipment:
@@ -113,7 +113,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         var height: CGFloat = headerViewHeight
         for i in 0..<facility.details.count {
             let facilityDetail = facility.details[i]
-            height += FacilitiesDropdownCell.getHeight(for: facilityDetail, index: i) + collectionViewSpacing
+            height += FacilitiesDropdownCell.getHeight(for: facilityDetail) + collectionViewSpacing
         }
         return height - FacilitiesDropdownCell.dropdownViewBottomOffset
     }
@@ -170,7 +170,7 @@ extension FacilitiesDropdownCell: UICollectionViewDelegate, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        let height = FacilitiesDropdownCell.getHeight(for: facility.details[indexPath.row], index: indexPath.row)
+        let height = FacilitiesDropdownCell.getHeight(for: facility.details[indexPath.row])
         return CGSize(width: width, height: height + FacilitiesDropdownCell.collectionViewSpacing)
     }
 
