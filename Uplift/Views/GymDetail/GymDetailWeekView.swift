@@ -19,7 +19,7 @@ protocol WeekDelegate: AnyObject {
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
-    var updateDayClosure: ((WeekDay) -> ())?
+    var updateDayClosure: ((WeekDay) -> Void)?
     var selectedDay: WeekDay = .sunday
 
     // MARK: - Display

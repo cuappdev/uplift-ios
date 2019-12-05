@@ -49,10 +49,11 @@ class GymDetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         gymDetail = GymDetail(gym: gym)
         let facilityDropdowns = gymDetail.facilities.map { FacilityDropdown(facility: $0, dropdownStatus: .closed) }
+
         if gym.isOpen {
-            self.section = Section(items: [.hours, .busyTimes, .facilities(facilityDropdowns), .classes([])])
+            section = Section(items: [.hours, .busyTimes, .facilities(facilityDropdowns), .classes([])])
         } else {
-            self.section = Section(items: [.hours, .facilities(facilityDropdowns), .classes([])])
+            section = Section(items: [.hours, .facilities(facilityDropdowns), .classes([])])
         }
 
         collectionView.backgroundColor = .white
