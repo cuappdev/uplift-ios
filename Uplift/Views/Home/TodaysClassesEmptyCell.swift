@@ -31,9 +31,9 @@ class TodaysClassesEmptyCell: UICollectionViewCell {
         backgroundCardView.layer.shadowRadius = 7.0
         backgroundCardView.layer.shadowOpacity = 1.0
         backgroundCardView.layer.masksToBounds = false
+        backgroundCardView.addSubview(emptyStateView)
 
         contentView.addSubview(backgroundCardView)
-        backgroundCardView.addSubview(emptyStateView)
     }
 
     func setUpConstraints() {

@@ -120,6 +120,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         }
     }
 
+    // Don't want the empty state cell to appear selectable, so disable zooming in/out for the empty state cell
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         if !(cell is TodaysClassesEmptyCell) {
