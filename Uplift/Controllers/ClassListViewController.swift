@@ -462,7 +462,8 @@ extension ClassListViewController {
         }
 
         noClassesEmptyStateView.snp.makeConstraints { make in
-            make.edges.equalTo(classCollectionView)
+            make.leading.trailing.equalTo(classCollectionView)
+            make.centerY.equalToSuperview()
         }
 
         noResultsEmptyStateView.snp.makeConstraints { make in

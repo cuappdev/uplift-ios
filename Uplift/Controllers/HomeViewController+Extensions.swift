@@ -33,6 +33,11 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.configure(for: self.myGyms)
             return cell
         case .todaysClasses:
+            if gymClassInstances.isEmpty {
+                // swiftlint:disable:next force_cast
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier, for: indexPath) as! TodaysClassesEmptyCell
+                return cell
+            }
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
             cell.delegate = self
@@ -106,7 +111,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             height += GymsListCell.sectionInsetBottom - GymsListCell.minimumLineSpacing
             return CGSize(width: width, height: height)
         case .todaysClasses:
-            return CGSize(width: width, height: 227)
+            let padding: CGFloat = 16.0
+            let cellWidth = gymClassInstances.isEmpty ? width - 2.0 * padding : width
+            return CGSize(width: cellWidth, height: 227)
         case .lookingFor:
             let height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
             return CGSize(width: width, height: height)
@@ -115,12 +122,16 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        cell.zoomIn()
+        if !(cell is TodaysClassesEmptyCell) {
+            cell.zoomIn()
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        cell.zoomOut()
+        if !(cell is TodaysClassesEmptyCell) {
+            cell.zoomOut()
+        }
     }
 
 }
