@@ -30,8 +30,8 @@
 		4F4CA4112383A1AB0002FD5F /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */; };
 		4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CA4132383A3190002FD5F /* OnboardingView.swift */; };
 		4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6810332345504D00C283C0 /* GymDetailWeekView.swift */; };
-		7E1D0A5623986A8500D5987F /* TodaysClassesEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1D0A5523986A8500D5987F /* TodaysClassesEmptyCell.swift */; };
 		4FC04781222EF69300165594 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteCell.swift */; };
+		7E1D0A5623986A8500D5987F /* TodaysClassesEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1D0A5523986A8500D5987F /* TodaysClassesEmptyCell.swift */; };
 		7E2E2A85237BAE86008F600D /* HoursEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2E2A84237BAE86008F600D /* HoursEmptyStateView.swift */; };
 		7E80876D229B6984007D9EDD /* GymDetailTodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */; };
 		7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */; };
@@ -383,8 +383,8 @@
 				E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */,
 				E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */,
 				C288019F22933B3000EC48B7 /* TodaysClassesListCell.swift */,
-				7E1D0A5523986A8500D5987F /* TodaysClassesEmptyCell.swift */,
 				C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */,
+				7E1D0A5523986A8500D5987F /* TodaysClassesEmptyCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
