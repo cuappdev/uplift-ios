@@ -7,103 +7,100 @@
 //
 
 import UIKit
+import SnapKit
 
 class GymDetailFacilitiesCell: UICollectionViewCell {
-
-    // MARK: - Constraint constants
-    enum Constants {
-        static let gymFacilitiesCellHeight: CGFloat = 20
-        static let gymFacilitiesTopPadding: CGFloat = 12
-    }
-
-    // MARK: - Private view vars
-    private let dividerView = UIView()
-    private let facilitiesLabel = UILabel()
-    private var gymFacilitiesTableView: UITableView!
-
-    private var gymFacilities: [String] = []
+    private let collectionView: UICollectionView!
+    private var facilities: [Facility] = []
+    private var reloadGymDetailCollectionViewClosure: ((Int?, [[Int: Int]]) -> ())?
+    private var dropdownCellStatuses: [DropdownStatus] = []
+    private var calendarSelectedIndices: [[Int: Int]] = []
 
     override init(frame: CGRect) {
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.minimumLineSpacing = 0
+
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+
         super.init(frame: frame)
+        
+        backgroundColor = .white
+        isUserInteractionEnabled = true
 
-        setupViews()
-        setupConstraints()
-    }
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(FacilitiesDropdownCell.self, forCellWithReuseIdentifier: Identifiers.facilitiesDropdownCell)
+        collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .white
+        contentView.addSubview(collectionView)
 
-    // MARK: - Public configure
-    func configure(for gymDetail: GymDetail) {
-        gymFacilities = gymDetail.facilitiesList
-
-        DispatchQueue.main.async {
-            self.gymFacilitiesTableView.reloadData()
-            self.setupConstraints()
+        collectionView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
 
-    func setupViews() {
-        facilitiesLabel.font = ._16MontserratBold
-        facilitiesLabel.textAlignment = .center
-        facilitiesLabel.textColor = .primaryBlack
-        facilitiesLabel.text = ClientStrings.GymDetail.facilitiesSection
-        contentView.addSubview(facilitiesLabel)
-
-        gymFacilitiesTableView = UITableView(frame: .zero, style: .plain)
-        gymFacilitiesTableView.bounces = false
-        gymFacilitiesTableView.showsVerticalScrollIndicator = false
-        gymFacilitiesTableView.separatorStyle = .none
-        gymFacilitiesTableView.backgroundColor = .clear
-        gymFacilitiesTableView.isScrollEnabled = false
-        gymFacilitiesTableView.allowsSelection = false
-        gymFacilitiesTableView.register(GymFacilitiesCell.self, forCellReuseIdentifier: GymFacilitiesCell.identifier)
-        gymFacilitiesTableView.delegate = self
-        gymFacilitiesTableView.dataSource = self
-        contentView.addSubview(gymFacilitiesTableView)
-
-        dividerView.backgroundColor = .gray01
-        contentView.addSubview(dividerView)
-    }
-
-    func setupConstraints() {
-        facilitiesLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constraints.verticalPadding)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(Constraints.titleLabelHeight)
-        }
-
-        if let gymFacilitiesTableView = gymFacilitiesTableView {
-            gymFacilitiesTableView.snp.remakeConstraints { make in
-                make.top.equalTo(facilitiesLabel.snp.bottom).offset(Constants.gymFacilitiesTopPadding)
-                make.width.centerX.equalToSuperview()
-                make.height.equalTo(Constants.gymFacilitiesCellHeight * CGFloat(gymFacilities.count))
-            }
-
-            dividerView.snp.remakeConstraints { make in
-                make.top.equalTo(gymFacilitiesTableView.snp.bottom).offset(Constraints.verticalPadding)
-                make.leading.trailing.equalToSuperview()
-                make.height.equalTo(Constraints.dividerViewHeight)
-            }
-        }
-    }
-
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(for facilities: [Facility],
+                   dropdownStatuses: [DropdownStatus],
+                   calendarSelectedIndices: [[Int: Int]],
+                   reloadGymDetailCollectionViewClosure: @escaping ((Int?, [[Int: Int]]) -> ())) {
+        self.facilities = facilities
+        self.dropdownCellStatuses = dropdownStatuses
+        self.calendarSelectedIndices = calendarSelectedIndices
+        self.reloadGymDetailCollectionViewClosure = reloadGymDetailCollectionViewClosure
+        
+        while self.calendarSelectedIndices.count < self.facilities.count {
+            self.calendarSelectedIndices.append([:])
+        }
+
+        collectionView.reloadData()
+    }
+
+    static func getHeights(for facilities: [Facility], dropdownCellStatuses: [DropdownStatus]?, calendarSelectedIndices: [[Int: Int]]) -> CGFloat {
+        var height: CGFloat = 0
+        for i in 0..<facilities.count {
+            if dropdownCellStatuses?[i] == .open {
+                height += FacilitiesDropdownCell.getFacilityHeight(for: facilities[i], calendarSelectedIndices: calendarSelectedIndices[i])
+            } else {
+                height += FacilitiesDropdownCell.headerViewHeight
+            }
+        }
+        return height
     }
 }
 
-extension GymDetailFacilitiesCell: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gymFacilities.count
+extension GymDetailFacilitiesCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = dropdownCellStatuses[indexPath.row] == .open ? FacilitiesDropdownCell.getFacilityHeight(for: facilities[indexPath.row], calendarSelectedIndices: calendarSelectedIndices[indexPath.row]) : FacilitiesDropdownCell.headerViewHeight
+        return CGSize(width: collectionView.bounds.width, height: height)
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // swiftlint:disable:next force_cast
-        let cell = gymFacilitiesTableView.dequeueReusableCell(withIdentifier: GymFacilitiesCell.identifier, for: indexPath) as! GymFacilitiesCell
-        cell.facilityLabel.text = gymFacilities[indexPath.row]
-        cell.selectionStyle = .none
+}
+
+extension GymDetailFacilitiesCell: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return facilities.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let reloadFacilitiesCellClosure: (Int?, [Int: Int]) -> Void = { index, calendarIndices in
+            self.calendarSelectedIndices[indexPath.row] = calendarIndices
+            self.reloadGymDetailCollectionViewClosure?(index, self.calendarSelectedIndices)
+        }
+        //swiftlint:disable:next force_cast
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesDropdownCell, for: indexPath) as! FacilitiesDropdownCell
+        cell.configure(for: facilities[indexPath.row],
+                       index: indexPath.row,
+                       dropdownStatus: dropdownCellStatuses[indexPath.row],
+                       calendarSelectedIndices: calendarSelectedIndices[indexPath.row],
+                       headerViewTapped: reloadFacilitiesCellClosure)
+        cell.isUserInteractionEnabled = true
         return cell
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constants.gymFacilitiesCellHeight
-    }
 }

@@ -89,7 +89,7 @@ class ClassListViewController: UIViewController {
         setupViews()
         setupConstraints()
 
-        getClassesFor(date: calendarDateSelected)
+//        getClassesFor(date: calendarDateSelected)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,12 +149,12 @@ class ClassListViewController: UIViewController {
         if classList[index].isEmpty {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date)) { [weak self] classes in
+            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date), completion: { [weak self] classes in
                 guard let strongSelf = self else { return }
 
                 strongSelf.classList[index] = classes.sorted(by: { $0.startTime < $1.startTime })
                 strongSelf.updateClassCollectionViewWithFilters()
-            }
+            })
             return
         }
 
@@ -436,6 +436,7 @@ extension ClassListViewController {
         let titleHeightConstant = 26
         let titleLeadingConstant = 24
         let titleViewHeightConstant = 120
+        let noClassesEmptyStateViewTopOffset = 92
 
         titleView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
@@ -463,7 +464,7 @@ extension ClassListViewController {
 
         noClassesEmptyStateView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(classCollectionView)
-            make.centerY.equalToSuperview()
+            make.top.equalTo(calendarCollectionView.snp.bottom).offset(noClassesEmptyStateViewTopOffset)
         }
 
         noResultsEmptyStateView.snp.makeConstraints { make in

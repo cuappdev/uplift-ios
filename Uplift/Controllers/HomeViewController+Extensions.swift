@@ -188,7 +188,7 @@ extension HomeViewController: ChooseGymsDelegate {
 
     func pushGymOnboarding() {
         navigationController?.tabBarController?.tabBar.isHidden = true
-        let onboardingGymsViewController = OnboardingGymsViewController()
+        let onboardingGymsViewController = FavoriteGymsController()
         onboardingGymsViewController.delegate = self
         navigationController?.pushViewController(onboardingGymsViewController, animated: true)
     }

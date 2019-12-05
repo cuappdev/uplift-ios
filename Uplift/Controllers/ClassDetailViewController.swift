@@ -82,7 +82,7 @@ class ClassDetailViewController: UIViewController {
 
         setupViews()
 
-        let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
 
         NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
@@ -103,7 +103,7 @@ class ClassDetailViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+        let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
     }
     
@@ -146,19 +146,19 @@ class ClassDetailViewController: UIViewController {
     // MARK: - Private helpers
     private func isFavoriteToggled() {
         let defaults = UserDefaults.standard
-        var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
+        var favorites = defaults.stringArray(forKey: Identifiers.favoriteClasses) ?? []
 
         if isFavorite {
             headerView?.selectFavoriteButton()
             if !favorites.contains(gymClassInstance.classDetailId) {
                 favorites.append(gymClassInstance.classDetailId)
-                defaults.set(favorites, forKey: Identifiers.favorites)
+                defaults.set(favorites, forKey: Identifiers.favoriteClasses)
             }
         } else {
             headerView?.deselectFavoriteButton()
             if favorites.contains(gymClassInstance.classDetailId) {
                 favorites = favorites.filter {$0 != gymClassInstance.classDetailId}
-                defaults.set(favorites, forKey: Identifiers.favorites)
+                defaults.set(favorites, forKey: Identifiers.favoriteClasses)
             }
         }
 

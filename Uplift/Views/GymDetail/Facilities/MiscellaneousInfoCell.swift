@@ -23,8 +23,10 @@ class MiscellaneousInfoCell: UICollectionViewCell {
 
         contentView.addSubview(textView)
 
+        let sideOffset = 56
         textView.snp.makeConstraints { make in
-             make.edges.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(sideOffset)
          }
     }
 

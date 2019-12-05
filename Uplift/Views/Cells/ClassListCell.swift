@@ -39,19 +39,19 @@ class ClassListCell: UICollectionViewCell {
         didSet {
             if oldValue == isFavorite { return }
             let defaults = UserDefaults.standard
-            var favorites = defaults.stringArray(forKey: Identifiers.favorites) ?? []
+            var favorites = defaults.stringArray(forKey: Identifiers.favoriteClasses) ?? []
 
             if isFavorite {
                 favoriteButton.isSelected = true
                 if !favorites.contains(classId) {
                     favorites.append(classId)
-                    defaults.set(favorites, forKey: Identifiers.favorites)
+                    defaults.set(favorites, forKey: Identifiers.favoriteClasses)
                 }
             } else {
                 favoriteButton.isSelected = false
                 if favorites.contains(classId) {
                     favorites = favorites.filter {$0 != classId}
-                    defaults.set(favorites, forKey: Identifiers.favorites)
+                    defaults.set(favorites, forKey: Identifiers.favoriteClasses)
                 }
             }
         }
@@ -188,7 +188,7 @@ class ClassListCell: UICollectionViewCell {
             instructorLabel.text = gymClassInstance.instructor
             classId = gymClassInstance.classDetailId
         
-            let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favorites) ?? []
+            let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
             isFavorite = favorites.contains(classId)
             
             switch style {
