@@ -79,7 +79,6 @@ class HomeViewController: UIViewController {
                 return first.startTime < second.startTime
             }
 
-            self.gymClassInstances = []
             // Reload Today's Classes section
             self.collectionView.reloadSections(IndexSet(integer: 1))
         })

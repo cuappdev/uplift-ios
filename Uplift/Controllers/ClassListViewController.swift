@@ -89,7 +89,7 @@ class ClassListViewController: UIViewController {
         setupViews()
         setupConstraints()
 
-//        getClassesFor(date: calendarDateSelected)
+        getClassesFor(date: calendarDateSelected)
     }
 
     override func viewWillAppear(_ animated: Bool) {
