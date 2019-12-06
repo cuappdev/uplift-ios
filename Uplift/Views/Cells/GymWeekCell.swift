@@ -15,17 +15,6 @@ class GymWeekCell: UICollectionViewCell {
     private let dayLabel = UILabel()
     private let backCircle = UIView()
 
-    // MARK: - Info
-    var weekDay: WeekDay!
-    private var isToday: Bool = false
-
-    override var isSelected: Bool {
-      didSet {
-        backCircle.alpha = isSelected || isToday ? 1 : 0
-        backCircle.backgroundColor = isSelected ? .primaryYellow : .gray01
-      }
-    }
-
     // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,10 +50,11 @@ class GymWeekCell: UICollectionViewCell {
     }
 
     // MARK: - Functionality
-    func configure(weekday: WeekDay) {
-        weekDay = weekday
+    func configure(weekDay: WeekDay, isSelected: Bool) {
         let todayIndex = Calendar.current.component(.weekday, from: Date())
-        self.isToday = todayIndex == weekDay.index
-        dayLabel.text = weekday.rawValue
+        let isToday = todayIndex == weekDay.index
+        backCircle.alpha = isSelected || isToday ? 1 : 0
+        backCircle.backgroundColor = isSelected ? .primaryYellow : .gray01
+        dayLabel.text = weekDay.rawValue
     }
 }

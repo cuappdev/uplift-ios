@@ -19,7 +19,7 @@ protocol WeekDelegate: AnyObject {
 class GymDetailWeekView: UIView {
 
     // MARK: - Public
-    var updateDayClosure: ((WeekDay) -> ())?
+    var updateDayClosure: ((WeekDay) -> Void)?
     var selectedDay: WeekDay = .sunday
 
     // MARK: - Display
@@ -44,7 +44,7 @@ class GymDetailWeekView: UIView {
 
     func configure(for selectedDayIndex: Int) {
         self.selectedDayIndex = selectedDayIndex
-        weekdayCollectionView.selectItem(at: IndexPath(row: selectedDayIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        weekdayCollectionView.reloadData()
     }
 
     required init?(coder: NSCoder) {
@@ -108,7 +108,8 @@ extension GymDetailWeekView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        cell.configure(weekday: days[indexPath.row])
+        let isSelected = indexPath.row == selectedDayIndex
+        cell.configure(weekDay: days[indexPath.row], isSelected: isSelected)
         return cell
     }
 
