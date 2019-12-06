@@ -73,10 +73,14 @@ class FacilitiesDropdownCell: UICollectionViewCell {
 
     func configure(for facilityDropdown: FacilityDropdown,
                    index: Int,
-                   headerViewTapped: @escaping (Int?) -> Void) {
+                   headerViewTapped: ((Int?) -> Void)?) {
         self.facility = facilityDropdown.facility
         self.facilitiesIndex = index
         self.headerViewTapped = headerViewTapped
+
+        // Need to reload collection view data before updating dropdownView
+        // because dropdownView may call layoutIfNeeded()
+        collectionView.reloadData()
 
         let contentViewHeight = FacilitiesDropdownCell.getFacilityHeight(for: facility) - FacilitiesDropdownCell.headerViewHeight
         dropdownView.updateContentViewHeight(to: contentViewHeight)
@@ -91,7 +95,6 @@ class FacilitiesDropdownCell: UICollectionViewCell {
             headerView.rotateArrowUp()
         }
         dropdownView.layoutIfNeeded()
-        collectionView.reloadData()
     }
 
     static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {

@@ -10,9 +10,6 @@ import UIKit
 
 class GymDetailTimeInfoView: UIView {
 
-    // MARK: - Public Vars
-    var onChangeDay: ((Int) -> Void)?
-
     // MARK: - Private Vars
     private let timesText = NSMutableAttributedString()
     private let timesTextView = UITextView()
@@ -55,9 +52,8 @@ class GymDetailTimeInfoView: UIView {
         setupConstraints()
     }
 
-    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> Void)?) {
+    func configure(facilityDetail: FacilityDetail, dayIndex: Int) {
         self.facilityDetail = facilityDetail
-        self.onChangeDay = onChangeDay
         self.selectedDayIndex = dayIndex
 
         updateAppearance()
@@ -122,7 +118,6 @@ class GymDetailTimeInfoView: UIView {
         let range = NSRange(location: 0, length: timesText.length)
         timesText.addAttributes(paragraphStyleAttributes, range: range)
         timesTextView.attributedText = timesText
-        onChangeDay?(selectedDayIndex)
     }
 
     // MARK: - Helper
@@ -170,8 +165,8 @@ class GymDetailTimeInfoView: UIView {
         return emptyState ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
     }
 
-    func didChangeDay(day: WeekDay) {
-        selectedDayIndex = day.index - 1
+    func didChangeDay(dayIndex: Int) {
+        selectedDayIndex = dayIndex
         updateAppearance()
     }
 

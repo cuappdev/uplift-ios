@@ -51,7 +51,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 
     static func getHeights(for facilityDropdowns: [FacilityDropdown]) -> CGFloat {
         var height: CGFloat = 0
-        facilityDropdowns.enumerated().forEach { index, facilityDropdown in
+        facilityDropdowns.forEach { facilityDropdown in
             let facility = facilityDropdown.facility
             let dropdownStatus = facilityDropdown.dropdownStatus
             if dropdownStatus == .open {
@@ -86,12 +86,9 @@ extension GymDetailFacilitiesCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesDropdownCell, for: indexPath) as! FacilitiesDropdownCell
-        let reloadFacilitiesCellClosure: (Int?) -> Void = { index in
-            self.reloadGymDetailCollectionViewClosure?(index)
-        }
         cell.configure(for: facilityDropdowns[indexPath.row],
                        index: indexPath.row,
-                       headerViewTapped: reloadFacilitiesCellClosure)
+                       headerViewTapped: reloadGymDetailCollectionViewClosure)
         cell.isUserInteractionEnabled = true
         return cell
     }
