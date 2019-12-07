@@ -10,20 +10,18 @@ import UIKit
 import SnapKit
 
 class GymDetailFacilitiesCell: UICollectionViewCell {
-    private let collectionView: UICollectionView!
-    private var facilities: [Facility] = []
-    private var reloadGymDetailCollectionViewClosure: ((Int?, [[Int: Int]]) -> ())?
-    private var dropdownCellStatuses: [DropdownStatus] = []
-    private var calendarSelectedIndices: [[Int: Int]] = []
+    private var collectionView: UICollectionView!
+    private var facilityDropdowns: [FacilityDropdown] = []
+    private var reloadGymDetailCollectionViewClosure: ((Int?) -> Void)?
 
     override init(frame: CGRect) {
+        super.init(frame: frame)
+
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.minimumLineSpacing = 0
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 
-        super.init(frame: frame)
-        
         backgroundColor = .white
         isUserInteractionEnabled = true
 
@@ -35,7 +33,7 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         contentView.addSubview(collectionView)
 
         collectionView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 
@@ -43,27 +41,21 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(for facilities: [Facility],
-                   dropdownStatuses: [DropdownStatus],
-                   calendarSelectedIndices: [[Int: Int]],
-                   reloadGymDetailCollectionViewClosure: @escaping ((Int?, [[Int: Int]]) -> ())) {
-        self.facilities = facilities
-        self.dropdownCellStatuses = dropdownStatuses
-        self.calendarSelectedIndices = calendarSelectedIndices
+    func configure(for facilityDropdowns: [FacilityDropdown],
+                   reloadGymDetailCollectionViewClosure: @escaping ((Int?) -> Void)) {
+        self.facilityDropdowns = facilityDropdowns
         self.reloadGymDetailCollectionViewClosure = reloadGymDetailCollectionViewClosure
-        
-        while self.calendarSelectedIndices.count < self.facilities.count {
-            self.calendarSelectedIndices.append([:])
-        }
 
         collectionView.reloadData()
     }
 
-    static func getHeights(for facilities: [Facility], dropdownCellStatuses: [DropdownStatus]?, calendarSelectedIndices: [[Int: Int]]) -> CGFloat {
+    static func getHeights(for facilityDropdowns: [FacilityDropdown]) -> CGFloat {
         var height: CGFloat = 0
-        for i in 0..<facilities.count {
-            if dropdownCellStatuses?[i] == .open {
-                height += FacilitiesDropdownCell.getFacilityHeight(for: facilities[i], calendarSelectedIndices: calendarSelectedIndices[i])
+        facilityDropdowns.enumerated().forEach { index, facilityDropdown in
+            let facility = facilityDropdown.facility
+            let dropdownStatus = facilityDropdown.dropdownStatus
+            if dropdownStatus == .open {
+                height += FacilitiesDropdownCell.getFacilityHeight(for: facility)
             } else {
                 height += FacilitiesDropdownCell.headerViewHeight
             }
@@ -75,7 +67,11 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
 extension GymDetailFacilitiesCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = dropdownCellStatuses[indexPath.row] == .open ? FacilitiesDropdownCell.getFacilityHeight(for: facilities[indexPath.row], calendarSelectedIndices: calendarSelectedIndices[indexPath.row]) : FacilitiesDropdownCell.headerViewHeight
+        let facility = facilityDropdowns[indexPath.row].facility
+        let dropdownStatus = facilityDropdowns[indexPath.row].dropdownStatus
+        let height = dropdownStatus == .open
+            ? FacilitiesDropdownCell.getFacilityHeight(for: facility)
+            : FacilitiesDropdownCell.headerViewHeight
         return CGSize(width: collectionView.bounds.width, height: height)
     }
 
@@ -84,20 +80,17 @@ extension GymDetailFacilitiesCell: UICollectionViewDelegate, UICollectionViewDel
 extension GymDetailFacilitiesCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return facilities.count
+        return facilityDropdowns.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let reloadFacilitiesCellClosure: (Int?, [Int: Int]) -> Void = { index, calendarIndices in
-            self.calendarSelectedIndices[indexPath.row] = calendarIndices
-            self.reloadGymDetailCollectionViewClosure?(index, self.calendarSelectedIndices)
-        }
         //swiftlint:disable:next force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilitiesDropdownCell, for: indexPath) as! FacilitiesDropdownCell
-        cell.configure(for: facilities[indexPath.row],
+        let reloadFacilitiesCellClosure: (Int?) -> Void = { index in
+            self.reloadGymDetailCollectionViewClosure?(index)
+        }
+        cell.configure(for: facilityDropdowns[indexPath.row],
                        index: indexPath.row,
-                       dropdownStatus: dropdownCellStatuses[indexPath.row],
-                       calendarSelectedIndices: calendarSelectedIndices[indexPath.row],
                        headerViewTapped: reloadFacilitiesCellClosure)
         cell.isUserInteractionEnabled = true
         return cell
