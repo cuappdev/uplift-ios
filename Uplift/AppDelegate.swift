@@ -125,8 +125,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
 
         // No Internet/Networking Failed/Networking in progress; initialize with blank VC
-        let defaultVC = UIViewController()
-        defaultVC.view.backgroundColor = .primaryWhite
-        self.window?.rootViewController = defaultVC
+        let loadingVC = UIViewController()
+        loadingVC.view.backgroundColor = .primaryWhite
+        let logo = UIImageView(image: UIImage(named: ImageNames.appIcon))
+        loadingVC.view.addSubview(logo)
+        logo.snp.makeConstraints { $0.center.equalToSuperview() }
+        self.window?.rootViewController = loadingVC
     }
 }

@@ -147,6 +147,7 @@ struct ImageNames {
     // ICONS
     static let addDark = "add-dark"
     static let addLight = "add-light"
+    static let appIcon = "appIcon"
     static let calendar = "calendar-icon"
     static let cancel = "cancel"
     static let cardio = "cardio"
