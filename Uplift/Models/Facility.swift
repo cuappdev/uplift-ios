@@ -75,7 +75,6 @@ struct FacilityDetail {
 
         switch detailType {
         case .court:
-            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
             times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
                 guard let facilityHours = facilityHoursData else { return nil }
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
@@ -103,7 +102,6 @@ struct FacilityDetail {
 
         switch detailType {
         case .court:
-            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
             times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
                 guard let facilityHours = facilityHoursData else { return nil }
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
@@ -114,8 +112,6 @@ struct FacilityDetail {
                 return Equipment(equipmentData: equipmentData)
             })
         case .hours:
-            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
-            print("sub: \(subfacilities)")
             times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
                 guard let facilityHours = facilityHoursData else { return nil }
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)

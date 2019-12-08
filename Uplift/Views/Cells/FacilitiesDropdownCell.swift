@@ -132,17 +132,23 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let facilityDetail = facility.details[indexPath.row]
         let detailType = facilityDetail.detailType
+
+        // Get selected day index
         var selectedDayIndex = 0
         if let selectedHoursRanges = facilityDetail.times.first(where: { $0.isSelected }) {
             selectedDayIndex = selectedHoursRanges.dayOfWeek
         }
+
         switch detailType {
         case .court:
             //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityGymnasiumCell, for: indexPath) as! GymnasiumCollectionViewCell
             if let dailyFacilityHoursRanges = facilityDetail.times.first(where: { $0.dayOfWeek == selectedDayIndex }) {
-                let dailyGymHours = facility.gymHours.filter({$0.dayOfWeek == selectedDayIndex})
-                cell.configure(facilityHoursRanges: dailyFacilityHoursRanges.timeRanges, dailyGymHours: dailyGymHours)
+                let dailyGymHours = facility.gymHours.filter({ $0.dayOfWeek == selectedDayIndex })
+                cell.configure(
+                    facilityHoursRanges: dailyFacilityHoursRanges.timeRanges,
+                    dailyGymHours: dailyGymHours
+                )
             }
             return cell
         case .equipment:
@@ -152,7 +158,7 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
             return cell
         case .hours:
             let onChangeDay: (Int) -> Void = { newDayIndex in
-                // Update all facility details with the newDayIndex
+                // Update all facility details with the new selected day index
                 self.facility.details.forEach { facilityDetail in
                     facilityDetail.times.forEach { dailyHoursRanges in
                         dailyHoursRanges.isSelected = dailyHoursRanges.dayOfWeek == newDayIndex
