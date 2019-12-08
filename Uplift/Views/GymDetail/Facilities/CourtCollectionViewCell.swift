@@ -52,22 +52,19 @@ class CourtCollectionViewCell: UICollectionViewCell {
     }
 
     /// DailyHours should only contain hour information for the day of this cell
-    func configure(facilityHours: FacilityHoursRange, dailyGymHours: [DailyGymHours]) {
-        setCourtTitleLabel(facilityHours: facilityHours)
-        setInfoLabel(facilityHours: facilityHours, dailyHours: dailyGymHours)
+    func configure(facilityHoursRange: FacilityHoursRange, dailyGymHours: [DailyGymHours], courtIndex: Int) {
+        courtTitleLabel.text = "Court #\(courtIndex + 1)"
+        infoLabel.attributedText = getInfoLabelAttributedStr(
+            facilityHoursRange: facilityHoursRange,
+            dailyHours: dailyGymHours
+        )
     }
 
     // MARK: - String Response Parsing
-    private func setCourtTitleLabel(facilityHours: FacilityHoursRange) {
-        let restrictions = facilityHours.restrictions
-        if let index = restrictions.firstIndex(of: ":") {
-            courtTitleLabel.text = String(restrictions[..<index])
-        } else { // Default: Court
-            courtTitleLabel.text = "Court"
-        }
-    }
-
-    private func setInfoLabel(facilityHours: FacilityHoursRange, dailyHours: [DailyGymHours]) {
+    private func getInfoLabelAttributedStr(
+        facilityHoursRange: FacilityHoursRange,
+        dailyHours: [DailyGymHours]
+    ) -> NSAttributedString {
         // Attributed Text
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 4
@@ -83,31 +80,24 @@ class CourtCollectionViewCell: UICollectionViewCell {
             .foregroundColor: UIColor.primaryBlack
         ]
 
-        let sportName = "\(getSportName(facilityHours: facilityHours))\n"
-        let openCloseTime = getOpenAndCloseTime(facilityHours: facilityHours, dailyHours: dailyHours)
+        let sportName = "\(facilityHoursRange.restrictions.uppercased())\n"
+        let openCloseTime = getOpenAndCloseTime(facilityHoursRange: facilityHoursRange, dailyHours: dailyHours)
         let text = NSMutableAttributedString(string: sportName, attributes: sportAttributes)
         text.append(NSMutableAttributedString(string: openCloseTime, attributes: timeAttributes))
-        infoLabel.attributedText = text
+        return text
     }
 
-    private func getSportName(facilityHours: FacilityHoursRange) -> String {
-        let restrictions = facilityHours.restrictions
-        var sport = "Basketball" // Default: Basketball
-        if let colon = restrictions.index(of: ":") {
-            let offset = restrictions.index(colon, offsetBy: 1)
-            sport = String(restrictions.suffix(from: offset)).trimmingCharacters(in: .whitespaces)
-        }
-        return sport.uppercased()
-    }
-
-    private func getOpenAndCloseTime(facilityHours: FacilityHoursRange, dailyHours: [DailyGymHours]) -> String {
+    private func getOpenAndCloseTime(
+        facilityHoursRange: FacilityHoursRange,
+        dailyHours: [DailyGymHours]
+    ) -> String {
         let calendar = Calendar(identifier: .gregorian)
 
-        let openAtStart = dailyHours.contains { $0.openTime == facilityHours.openTime }
-        let closesAtMidnight = calendar.dateComponents([.hour], from: facilityHours.closeTime).hour == 0
+        let openAtStart = dailyHours.contains { $0.openTime == facilityHoursRange.openTime }
+        let closesAtMidnight = calendar.dateComponents([.hour], from: facilityHoursRange.closeTime).hour == 0
 
-        let openTimeString = facilityHours.openTime.getStringOfDatetime(format: "h:mm a")
-        let closeTimeString = facilityHours.closeTime.getStringOfDatetime(format: "h:mm a")
+        let openTimeString = facilityHoursRange.openTime.getStringOfDatetime(format: "h:mm a")
+        let closeTimeString = facilityHoursRange.closeTime.getStringOfDatetime(format: "h:mm a")
 
         if openAtStart && closesAtMidnight { return "ALL DAY" }
         if closesAtMidnight { return "AFTER \(openTimeString)" }

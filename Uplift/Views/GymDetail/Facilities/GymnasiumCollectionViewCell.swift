@@ -91,9 +91,11 @@ extension GymnasiumCollectionViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.courtCollectionViewCell, for: indexPath) as? CourtCollectionViewCell else { return UICollectionViewCell() }
+        let facilityHoursRange = facilityHoursRanges[indexPath.row]
         cell.configure(
-            facilityHours: facilityHoursRanges[indexPath.row],
-            dailyGymHours: dailyGymHours.filter { $0.dayOfWeek == selectedDayIndex }
+            facilityHoursRange: facilityHoursRange,
+            dailyGymHours: dailyGymHours.filter { $0.dayOfWeek == selectedDayIndex },
+            courtIndex: indexPath.row
         )
         return cell
     }
