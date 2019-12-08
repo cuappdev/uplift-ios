@@ -82,7 +82,7 @@ class GymDetailTimeInfoView: UIView {
     }
 
     private func updateTags() {
-        let tagLabelWidth = 81
+        let tagLabelWidth = 100
         let tagLabelHeight = 17
         let tagSideOffset = 4.5
         let textLineHeight = timesTextView.font?.lineHeight ?? 0
@@ -97,13 +97,14 @@ class GymDetailTimeInfoView: UIView {
             if restrictions[i].isEmpty { // Ignore Blank Tags
                 continue
             } else {
-                let restrictionView = AdditionalInfoView()
+                let additionalInfoView = AdditionalInfoView()
+                additionalInfoView.clipsToBounds = true
                 let spacing = (textLineHeight + textLineSpace) * CGFloat(i)
                 let inset: CGFloat = 2
 
-                restrictionView.configure(for: restrictions[i].lowercased())
-                addSubview(restrictionView)
-                restrictionView.snp.makeConstraints { make in
+                additionalInfoView.configure(for: restrictions[i].lowercased())
+                addSubview(additionalInfoView)
+                additionalInfoView.snp.makeConstraints { make in
                     make.top.equalToSuperview().offset(spacing + inset)
                     make.leading.equalTo(timesTextView.snp.trailing).offset(tagSideOffset)
                     make.width.equalTo(tagLabelWidth)

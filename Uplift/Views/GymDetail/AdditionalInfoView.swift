@@ -22,6 +22,7 @@ class AdditionalInfoView: UIView {
         infoLabel.layer.cornerRadius = 2.0
         infoLabel.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         infoLabel.clipsToBounds = true
+        infoLabel.lineBreakMode = .byTruncatingTail
         addSubview(infoLabel)
 
         sidebarView.backgroundColor = .primaryYellow
@@ -34,10 +35,11 @@ class AdditionalInfoView: UIView {
         infoLabel.text = text
 
         let inset: CGFloat = 3.0
+        let maxWidth: CGFloat = 100
         infoLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(sidebarView.snp.trailing)
-            make.width.equalTo(infoLabel.intrinsicContentSize.width + inset * 2)
+            make.width.equalTo(min(maxWidth, infoLabel.intrinsicContentSize.width + inset * 2))
         }
     }
 
