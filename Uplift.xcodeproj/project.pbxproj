@@ -94,6 +94,8 @@
 		C28801A222933BBC00EC48B7 /* TodaysClassListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */; };
 		C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */; };
 		C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */; };
+		C2DA37C9239DA116004A4192 /* CourtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA37C8239DA116004A4192 /* CourtView.swift */; };
+		C2DA37CB239DA836004A4192 /* Collections+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA37CA239DA836004A4192 /* Collections+Shared.swift */; };
 		C2E2F88E237339F9002FE94C /* PopularTimesHistogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E2F88D237339F9002FE94C /* PopularTimesHistogramView.swift */; };
 		C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D26DB0F2072CCA000144BFC /* GymFilterCell.swift */; };
 		C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71E8A032091726600542FA3 /* Date+Shared.swift */; };
@@ -227,6 +229,8 @@
 		C28801A122933BBC00EC48B7 /* TodaysClassListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassListItemCell.swift; sourceTree = "<group>"; };
 		C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Extensions.swift"; sourceTree = "<group>"; };
 		C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTrackingController+Extensions.swift"; sourceTree = "<group>"; };
+		C2DA37C8239DA116004A4192 /* CourtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourtView.swift; sourceTree = "<group>"; };
+		C2DA37CA239DA836004A4192 /* Collections+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collections+Shared.swift"; sourceTree = "<group>"; };
 		C2E2F88D237339F9002FE94C /* PopularTimesHistogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTimesHistogramView.swift; sourceTree = "<group>"; };
 		C71E8A032091726600542FA3 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
 		C73637272082F170004751F5 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				4F27F6D6236F25C000C255D7 /* MiscellaneousInfoCell.swift */,
 				7EC4B798236CADD8006B67B3 /* PriceInformationCell.swift */,
 				C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */,
+				C2DA37C8239DA116004A4192 /* CourtView.swift */,
 			);
 			path = Facilities;
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 				C71E8A032091726600542FA3 /* Date+Shared.swift */,
 				8D24AF952140B23F002D850C /* String+Shared.swift */,
 				C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */,
+				C2DA37CA239DA836004A4192 /* Collections+Shared.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -856,8 +862,10 @@
 				4F2285172352A1C80013F1B0 /* WeekDay.swift in Sources */,
 				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
 				4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */,
+				C2DA37CB239DA836004A4192 /* Collections+Shared.swift in Sources */,
 				4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
+				C2DA37C9239DA116004A4192 /* CourtView.swift in Sources */,
 				C25CC31823981D6600221DC8 /* Facility.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,

@@ -36,6 +36,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         collectionView.dataSource = self
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
+        collectionView.register(GymnasiumCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.facilityGymnasiumCell)
         collectionView.register(EquipmentListCell.self, forCellWithReuseIdentifier: Identifiers.facilityEquipmentListCell)
         collectionView.register(FacilitiesHoursCell.self, forCellWithReuseIdentifier: Identifiers.facilityHoursCell)
         collectionView.register(PriceInformationCell.self, forCellWithReuseIdentifier: Identifiers.facilitiesPriceInformationCell)
@@ -97,6 +98,8 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
         var height: CGFloat = 0
         switch facilityDetail.detailType {
+        case .court:
+            height = 192.0
         case .equipment:
             height = EquipmentListCell.getHeight(models: facilityDetail.getEquipmentCategories())
         case .hours:
@@ -134,6 +137,16 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
             selectedDayIndex = selectedHoursRanges.dayOfWeek
         }
         switch detailType {
+        case .court:
+            //swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityGymnasiumCell, for: indexPath) as! GymnasiumCollectionViewCell
+            if let dailyFacilityHoursRanges = facilityDetail.times[safe: selectedDayIndex] {
+                let dailyGymHours = facility.gymHours.filter({$0.dayOfWeek == selectedDayIndex})
+                print(selectedDayIndex)
+                cell.configure(facilityHoursRanges: dailyFacilityHoursRanges.timeRanges, dailyGymHours: dailyGymHours)
+            }
+//            cell.configure(facility: facilityDetail, gymHours: facility.gymHours)
+            return cell
         case .equipment:
             //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityEquipmentListCell, for: indexPath) as! EquipmentListCell

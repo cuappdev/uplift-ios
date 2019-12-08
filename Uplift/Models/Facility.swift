@@ -18,8 +18,8 @@ enum FacilityType: String {
 
 struct Facility {
 
+    var details: [FacilityDetail]
     var facilityType: FacilityType
-    var details: [FacilityDetail] = []
     var gymHours: [DailyGymHours]
 
     init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType, gymHours: [DailyGymHours]) {
@@ -46,6 +46,7 @@ struct Facility {
 // MARK: - Facility Detail
 
 enum DetailType: String {
+    case court = "Court"
     case equipment = "Equipment"
     case hours = "Hours"
     case prices = "Prices"
@@ -73,6 +74,12 @@ struct FacilityDetail {
         self.detailType = detailType
 
         switch detailType {
+        case .court:
+            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
+            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+                guard let facilityHours = facilityHoursData else { return nil }
+                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+            })
         case .equipment:
             equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
                 guard let equipmentData = equipmentData else { return nil }
@@ -95,12 +102,20 @@ struct FacilityDetail {
         self.detailType = detailType
 
         switch detailType {
+        case .court:
+            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
+            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+                guard let facilityHours = facilityHoursData else { return nil }
+                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+            })
         case .equipment:
             equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
                 guard let equipmentData = equipmentData else { return nil }
                 return Equipment(equipmentData: equipmentData)
             })
         case .hours:
+            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
+            print("sub: \(subfacilities)")
             times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
                 guard let facilityHours = facilityHoursData else { return nil }
                 return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
