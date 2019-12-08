@@ -127,7 +127,12 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let detailType = facility.details[indexPath.row].detailType
+        let facilityDetail = facility.details[indexPath.row]
+        let detailType = facilityDetail.detailType
+        var selectedDayIndex = 0
+        if let selectedHoursRanges = facilityDetail.times.first(where: { $0.isSelected }) {
+            selectedDayIndex = selectedHoursRanges.dayOfWeek
+        }
         switch detailType {
         case .equipment:
             //swiftlint:disable:next force_cast
@@ -135,16 +140,11 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
             cell.configure(for: facility.details[indexPath.row].getEquipmentCategories())
             return cell
         case .hours:
-            let facilityDetail = facility.details[indexPath.row]
             let onChangeDay: (Int) -> Void = { newDayIndex in
                 facilityDetail.times.forEach { dailyHoursRanges in
                     dailyHoursRanges.isSelected = dailyHoursRanges.dayOfWeek == newDayIndex
                 }
                 self.headerViewTapped?(nil)
-            }
-            var selectedDayIndex = 0
-            if let selectedHoursRanges = facilityDetail.times.first(where: { $0.isSelected }) {
-                selectedDayIndex = selectedHoursRanges.dayOfWeek
             }
             //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityHoursCell, for: indexPath) as! FacilitiesHoursCell

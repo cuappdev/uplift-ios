@@ -61,7 +61,7 @@ struct Gym {
         facilities = gymData.facilities.compactMap {
             guard let facility = $0,
                 let facilityType = FacilityType(rawValue: facility.name) else { return nil }
-            return Facility(facilityData: facility, facilityType: facilityType)
+            return Facility(facilityData: facility, facilityType: facilityType, gymHours: gymHoursList)
         }
     }
 
@@ -81,15 +81,16 @@ struct Gym {
         popularTimesList = popularTimes
 
         // unwrap gym hours
-        gymHours = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
+        let gymHoursList = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
             guard let gymHoursDataId = gymHoursDataId else { return nil}
             return DailyGymHours(gymHoursDataId: gymHoursDataId)
         })
+        gymHours = gymHoursList
 
         facilities = gymData.facilities.compactMap {
             guard let facility = $0,
                 let facilityType = FacilityType(rawValue: facility.name) else { return nil }
-            return Facility(facilityData: facility, facilityType: facilityType)
+            return Facility(facilityData: facility, facilityType: facilityType, gymHours: gymHoursList)
         }
     }
 
