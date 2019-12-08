@@ -142,7 +142,6 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
                 }
                 UIView.performWithoutAnimation {
                     self.collectionView.reloadItems(at: [indexPath])
-                    self.collectionView.layoutIfNeeded()
                 }
             }
             cell.backgroundColor = .white

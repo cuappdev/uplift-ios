@@ -32,9 +32,9 @@ class FacilitiesHoursCell: UICollectionViewCell {
         setupConstraints()
     }
 
-    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> ())?) {
-        weekView.configure(for: dayIndex)
-        timeInfoView.configure(facilityDetail: facilityDetail, dayIndex: dayIndex, onChangeDay: onChangeDay)
+    func configure(facilityDetail: FacilityDetail, dayIndex: Int, onChangeDay: ((Int) -> Void)?) {
+        weekView.configure(for: dayIndex, onChangeDay: onChangeDay)
+        timeInfoView.configure(facilityDetail: facilityDetail, dayIndex: dayIndex)
     }
 
     static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
@@ -47,10 +47,6 @@ class FacilitiesHoursCell: UICollectionViewCell {
     }
 
     private func setupViews() {
-        weekView.updateDayClosure = { day in
-            self.timeInfoView.didChangeDay(day: day)
-        }
-
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.axis = .vertical
