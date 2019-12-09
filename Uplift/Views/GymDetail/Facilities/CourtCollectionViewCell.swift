@@ -52,22 +52,20 @@ class CourtCollectionViewCell: UICollectionViewCell {
     }
 
     /// DailyHours should only contain hour information for the day of this cell
-    func configure(facilityHours: FacilityHoursRange, dailyGymHours: [DailyGymHours]) {
-        setCourtTitleLabel(facilityHours: facilityHours)
-        setInfoLabel(facilityHours: facilityHours, dailyHours: dailyGymHours)
+    func configure(
+        courtsHoursRange: FacilityHoursRange,
+        facilityHoursRanges: [FacilityHoursRange],
+        courtIndex: Int
+    ) {
+        courtTitleLabel.text = "Court #\(courtIndex + 1)"
+        infoLabel.attributedText = getInfoLabelAttributedStr(courtsHoursRange: courtsHoursRange, facilityHoursRanges: facilityHoursRanges)
     }
 
     // MARK: - String Response Parsing
-    private func setCourtTitleLabel(facilityHours: FacilityHoursRange) {
-        let restrictions = facilityHours.restrictions
-        if let index = restrictions.firstIndex(of: ":") {
-            courtTitleLabel.text = String(restrictions[..<index])
-        } else { // Default: Court
-            courtTitleLabel.text = "Court"
-        }
-    }
-
-    private func setInfoLabel(facilityHours: FacilityHoursRange, dailyHours: [DailyGymHours]) {
+    private func getInfoLabelAttributedStr(
+        courtsHoursRange: FacilityHoursRange,
+        facilityHoursRanges: [FacilityHoursRange]
+    ) -> NSAttributedString {
         // Attributed Text
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 4
@@ -83,34 +81,31 @@ class CourtCollectionViewCell: UICollectionViewCell {
             .foregroundColor: UIColor.primaryBlack
         ]
 
-        let sportName = "\(getSportName(facilityHours: facilityHours))\n"
-        let openCloseTime = getOpenAndCloseTime(facilityHours: facilityHours, dailyHours: dailyHours)
+        let sportName = "\(courtsHoursRange.restrictions.uppercased())\n"
+        let openCloseTime = getOpenAndCloseTime(courtsHoursRange: courtsHoursRange, facilityHoursRanges: facilityHoursRanges)
         let text = NSMutableAttributedString(string: sportName, attributes: sportAttributes)
         text.append(NSMutableAttributedString(string: openCloseTime, attributes: timeAttributes))
-        infoLabel.attributedText = text
+        return text
     }
 
-    private func getSportName(facilityHours: FacilityHoursRange) -> String {
-        let restrictions = facilityHours.restrictions
-        var sport = "Basketball" // Default: Basketball
-        if let colon = restrictions.index(of: ":") {
-            let offset = restrictions.index(colon, offsetBy: 1)
-            sport = String(restrictions.suffix(from: offset)).trimmingCharacters(in: .whitespaces)
+    private func getOpenAndCloseTime(
+        courtsHoursRange: FacilityHoursRange,
+        facilityHoursRanges: [FacilityHoursRange]
+    ) -> String {
+
+        let openAtStart = facilityHoursRanges.contains { $0.openTime == courtsHoursRange.openTime }
+        let closesAtEnd = facilityHoursRanges.contains(where: { $0.closeTime == courtsHoursRange.closeTime })
+
+        if openAtStart && closesAtEnd { return "ALL DAY" }
+
+        let openTimeString = courtsHoursRange.openTime.getStringOfDatetime(format: "h:mm a")
+        let closeTimeString = courtsHoursRange.closeTime.getStringOfDatetime(format: "h:mm a")
+
+        if closesAtEnd {
+            return "AFTER \(openTimeString)"
+        } else if openAtStart {
+            return "BEFORE \(closeTimeString)"
         }
-        return sport.uppercased()
-    }
-
-    private func getOpenAndCloseTime(facilityHours: FacilityHoursRange, dailyHours: [DailyGymHours]) -> String {
-        let calendar = Calendar(identifier: .gregorian)
-
-        let openAtStart = dailyHours.contains { $0.openTime == facilityHours.openTime }
-        let closesAtMidnight = calendar.dateComponents([.hour], from: facilityHours.closeTime).hour == 0
-
-        let openTimeString = facilityHours.openTime.getStringOfDatetime(format: "h:mm a")
-        let closeTimeString = facilityHours.closeTime.getStringOfDatetime(format: "h:mm a")
-
-        if openAtStart && closesAtMidnight { return "ALL DAY" }
-        if closesAtMidnight { return "AFTER \(openTimeString)" }
         return "\(openTimeString) - \(closeTimeString)"
     }
 

@@ -48,14 +48,8 @@ struct Gym {
         }
         popularTimesList = popularTimes
 
-        // unwrap gym hours
-        var gymHoursList: [DailyGymHours] = []
-
         let allGymHours = gymData.times
-        for i in 0..<allGymHours.count {
-            gymHoursList.append(DailyGymHours(gymHoursData: allGymHours[i]))
-        }
-
+        let gymHoursList = allGymHours.map({ DailyGymHours(gymHoursData: $0) })
         gymHours = gymHoursList
 
         facilities = gymData.facilities.compactMap {
@@ -81,10 +75,11 @@ struct Gym {
         popularTimesList = popularTimes
 
         // unwrap gym hours
-        gymHours = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
+        let gymHoursList = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
             guard let gymHoursDataId = gymHoursDataId else { return nil}
             return DailyGymHours(gymHoursDataId: gymHoursDataId)
         })
+        gymHours = gymHoursList
 
         facilities = gymData.facilities.compactMap {
             guard let facility = $0,

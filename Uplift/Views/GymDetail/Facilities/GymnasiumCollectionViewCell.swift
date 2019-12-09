@@ -1,5 +1,5 @@
 //
-//  CourtView.swift
+//  GymnasiumCollectionViewCell.swift
 //  Uplift
 //
 //  Created by Phillip OReggio on 11/3/19.
@@ -17,7 +17,8 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
 
     // MARK: Private view vars
     private let courtsCollectionView: UICollectionView
-    private var displayedHours: [FacilityHoursRange] = []
+    private var facilityHoursRanges: [FacilityHoursRange] = []
+    private var courtsHoursRanges: [FacilityHoursRange] = []
 
     // MARK: Display
     private let courtSize = CGSize(width: 124, height: 192)
@@ -46,36 +47,29 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func updateCourtsDisplay(for day: Int) {
-        let hours = facilityDetail.times.filter { $0.dayOfWeek == selectedDayIndex }
-        // Restrictions describe court
-        displayedHours = hours.flatMap { $0.timeRanges }
-            .filter { !$0.restrictions.isEmpty }
-
-        centerCollectionView()
-        courtsCollectionView.reloadData()
-    }
-
     // MARK: - Helper
     /// Creates insets so collection view displays its contents in the center
-    private func centerCollectionView() {
-        let numberCourtsDisplayed = CGFloat(displayedHours.count)
-        let inset = (frame.width - (courtSize.width * numberCourtsDisplayed)) / 2
+    private func centerCollectionView(for numCourts: Int) {
+        let inset = (frame.width - (courtSize.width * CGFloat(numCourts))) / 2
         courtsCollectionView.contentInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
     }
 
-    // MARK: - Collection View Related
-    func configure(facility: FacilityDetail, gymHours: [DailyGymHours]) {
-        facilityDetail = facility
-        dailyGymHours = gymHours
+    func configure(
+        courtsHoursRanges: [FacilityHoursRange],
+        facilityHoursRanges: [FacilityHoursRange]
+    ) {
+        self.courtsHoursRanges = courtsHoursRanges
+        self.facilityHoursRanges = facilityHoursRanges
+        centerCollectionView(for: courtsHoursRanges.count)
+        courtsCollectionView.reloadData()
     }
 
     static func getHeight() -> CGFloat {
         return 192 // Same as courtSize height
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }
@@ -84,26 +78,18 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
 extension GymnasiumCollectionViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return displayedHours.count
+        return courtsHoursRanges.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.courtCollectionViewCell, for: indexPath) as? CourtCollectionViewCell else { return UICollectionViewCell() }
+        let courtHoursRange = courtsHoursRanges[indexPath.row]
         cell.configure(
-            facilityHours: displayedHours[indexPath.row],
-            dailyGymHours: dailyGymHours.filter { $0.dayOfWeek == selectedDayIndex }
+            courtsHoursRange: courtHoursRange,
+            facilityHoursRanges: facilityHoursRanges,
+            courtIndex: indexPath.row
         )
         return cell
-    }
-
-}
-
-// MARK: - Delegation
-extension GymnasiumCollectionViewCell: WeekDelegate {
-
-    func weekDidChange(with day: WeekDay) {
-        selectedDayIndex = day.index - 1
-        updateCourtsDisplay(for: selectedDayIndex)
     }
 
 }

@@ -36,6 +36,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         collectionView.dataSource = self
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
+        collectionView.register(GymnasiumCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.facilityGymnasiumCell)
         collectionView.register(EquipmentListCell.self, forCellWithReuseIdentifier: Identifiers.facilityEquipmentListCell)
         collectionView.register(FacilitiesHoursCell.self, forCellWithReuseIdentifier: Identifiers.facilityHoursCell)
         collectionView.register(PriceInformationCell.self, forCellWithReuseIdentifier: Identifiers.facilitiesPriceInformationCell)
@@ -97,6 +98,8 @@ class FacilitiesDropdownCell: UICollectionViewCell {
     static func getHeight(for facilityDetail: FacilityDetail) -> CGFloat {
         var height: CGFloat = 0
         switch facilityDetail.detailType {
+        case .court:
+            height = GymnasiumCollectionViewCell.getHeight()
         case .equipment:
             height = EquipmentListCell.getHeight(models: facilityDetail.getEquipmentCategories())
         case .hours:
@@ -127,24 +130,42 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let detailType = facility.details[indexPath.row].detailType
+        let facilityDetail = facility.details[indexPath.row]
+        let detailType = facilityDetail.detailType
+
+        // Get selected day index
+        var selectedDayIndex = 0
+        if let selectedHoursRanges = facilityDetail.times.first(where: { $0.isSelected }) {
+            selectedDayIndex = selectedHoursRanges.dayOfWeek
+        }
+
         switch detailType {
+        case .court:
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityGymnasiumCell, for: indexPath) as! GymnasiumCollectionViewCell
+            if let hoursFacilityDetail = facility.details.first(where: { $0.detailType == .hours }),
+                let facilityHoursRanges = hoursFacilityDetail.times.first(where: { $0.dayOfWeek == selectedDayIndex }),
+                let courtHoursRanges = facilityDetail.times.first(where: { $0.dayOfWeek == selectedDayIndex }) {
+                cell.configure(
+                    courtsHoursRanges: courtHoursRanges.timeRanges,
+                    facilityHoursRanges: facilityHoursRanges.timeRanges
+                )
+            }
+            return cell
         case .equipment:
-            //swiftlint:disable:next force_cast
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityEquipmentListCell, for: indexPath) as! EquipmentListCell
             cell.configure(for: facility.details[indexPath.row].getEquipmentCategories())
             return cell
         case .hours:
-            let facilityDetail = facility.details[indexPath.row]
             let onChangeDay: (Int) -> Void = { newDayIndex in
-                facilityDetail.times.forEach { dailyHoursRanges in
-                    dailyHoursRanges.isSelected = dailyHoursRanges.dayOfWeek == newDayIndex
+                // Update all facility details with the new selected day index
+                self.facility.details.forEach { facilityDetail in
+                    facilityDetail.times.forEach { dailyHoursRanges in
+                        dailyHoursRanges.isSelected = dailyHoursRanges.dayOfWeek == newDayIndex
+                    }
                 }
                 self.headerViewTapped?(nil)
-            }
-            var selectedDayIndex = 0
-            if let selectedHoursRanges = facilityDetail.times.first(where: { $0.isSelected }) {
-                selectedDayIndex = selectedHoursRanges.dayOfWeek
             }
             //swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityHoursCell, for: indexPath) as! FacilitiesHoursCell

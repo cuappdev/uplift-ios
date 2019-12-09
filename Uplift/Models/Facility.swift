@@ -18,8 +18,8 @@ enum FacilityType: String {
 
 struct Facility {
 
+    var details: [FacilityDetail]
     var facilityType: FacilityType
-    var details: [FacilityDetail] = []
 
     init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType) {
         self.facilityType = facilityType
@@ -43,6 +43,7 @@ struct Facility {
 // MARK: - Facility Detail
 
 enum DetailType: String {
+    case court = "Court"
     case equipment = "Equipment"
     case hours = "Hours"
     case prices = "Prices"
@@ -70,6 +71,11 @@ struct FacilityDetail {
         self.detailType = detailType
 
         switch detailType {
+        case .court:
+            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+                guard let facilityHours = facilityHoursData else { return nil }
+                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+            })
         case .equipment:
             equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
                 guard let equipmentData = equipmentData else { return nil }
@@ -92,6 +98,11 @@ struct FacilityDetail {
         self.detailType = detailType
 
         switch detailType {
+        case .court:
+            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+                guard let facilityHours = facilityHoursData else { return nil }
+                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+            })
         case .equipment:
             equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
                 guard let equipmentData = equipmentData else { return nil }
@@ -138,6 +149,10 @@ class DailyFacilityHoursRanges {
         dayOfWeek = facilityHoursData.day
         timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
             guard let rangeData = rangeData else { return nil }
+            let midnightTime = "00:00:00"
+            let hasNoHours = rangeData.startTime == midnightTime &&
+                rangeData.endTime == midnightTime
+            if hasNoHours { return nil }
             return FacilityHoursRange(facilityHoursRangeData: rangeData)
         })
         let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
@@ -148,6 +163,10 @@ class DailyFacilityHoursRanges {
         dayOfWeek = facilityHoursData.day
         timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
             guard let rangeData = rangeData else { return nil }
+            let midnightTime = "00:00:00"
+            let hasNoHours = rangeData.startTime == midnightTime &&
+                rangeData.endTime == midnightTime
+            if hasNoHours { return nil }
             return FacilityHoursRange(facilityHoursRangeData: rangeData)
         })
         let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
@@ -165,14 +184,14 @@ struct FacilityHoursRange {
 
     init(facilityHoursRangeData: AllGymsQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
         openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
-        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime)
+        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
         specialHours = facilityHoursRangeData.specialHours
         restrictions = facilityHoursRangeData.restrictions
     }
 
     init(facilityHoursRangeData: GymByIdQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
         openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
-        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime)
+        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
         specialHours = facilityHoursRangeData.specialHours
         restrictions = facilityHoursRangeData.restrictions
     }

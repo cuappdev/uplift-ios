@@ -65,6 +65,7 @@ struct Identifiers {
     static let facilitiesPriceInformationCell = "facilitiesPriceInformationCell"
     static let facilityEquipmentListCell = "facilityEquipmentListCell"
     static let facilityHoursCell = "facilityHoursCell"
+    static let facilityGymnasiumCell = "facilityGymnasiumCell"
     static let favoritesCell = "favoritesCell"
     static let gymEquipmentCell = "gymEquipmentCell"
     static let gymFacilityCell = "gymFacilityCell"

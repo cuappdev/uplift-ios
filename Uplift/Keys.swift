@@ -6,6 +6,7 @@ import Foundation
  */
 enum Keys: String {
     case apiURL = "api-url"
+    case apiDevURL = "api-dev-url"
     case fabricAPIKey = "fabric-api-key"
     case googleClientID = "google-client-id"
 

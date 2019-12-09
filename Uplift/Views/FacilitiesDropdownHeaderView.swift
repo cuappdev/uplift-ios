@@ -23,9 +23,11 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
 
     func configure(for facility: Facility) {
         var headerImage: UIImage?
+        var headerNameLabelText = facility.facilityType.rawValue.uppercased()
         switch facility.facilityType {
         case .fitnessCenter:
             headerImage = UIImage(named: ImageNames.equipment)
+            headerNameLabelText = "EQUIPMENT"
         case .gymnasium:
             headerImage = UIImage(named: ImageNames.basketball)
         case .pool:
@@ -39,7 +41,7 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
         headerImageView.image = headerImage
         addSubview(headerImageView)
 
-        headerNameLabel.text = facility.facilityType.rawValue
+        headerNameLabel.text = headerNameLabelText
         headerNameLabel.font = ._16MontserratRegular
         headerNameLabel.textColor = .black
         headerNameLabel.textAlignment = .left
@@ -61,21 +63,19 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
         let todaysDate = Date()
         let dayOfWeek = todaysDate.getIntegerDayOfWeekToday()
         for detail in facility.details where !detail.times.isEmpty {
-            for time in detail.times {
-                if time.dayOfWeek == dayOfWeek {
-                    for timeRange in time.timeRanges {
-                        if todaysDate > timeRange.openTime && todaysDate < timeRange.closeTime {
-                            return true
-                        } else {
-                            return false
-                        }
+            for time in detail.times where time.dayOfWeek == dayOfWeek {
+                for timeRange in time.timeRanges {
+                    if todaysDate > timeRange.openTime && todaysDate < timeRange.closeTime {
+                        return true
+                    } else {
+                        return false
                     }
                 }
             }
         }
         return nil
     }
-    
+
     func setupConstraints() {
         let headerImageViewSize: CGFloat = 24
         let headerImageViewLeadingOffset: CGFloat = 25
