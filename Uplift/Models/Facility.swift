@@ -20,11 +20,9 @@ struct Facility {
 
     var details: [FacilityDetail]
     var facilityType: FacilityType
-    var gymHours: [DailyGymHours]
 
-    init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType, gymHours: [DailyGymHours]) {
+    init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType) {
         self.facilityType = facilityType
-        self.gymHours = gymHours
         details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
             guard let detailData = detailData,
                 let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }
@@ -32,9 +30,8 @@ struct Facility {
         })
     }
 
-    init(facilityData: GymByIdQuery.Data.Gym.Facility, facilityType: FacilityType, gymHours: [DailyGymHours]) {
+    init(facilityData: GymByIdQuery.Data.Gym.Facility, facilityType: FacilityType) {
         self.facilityType = facilityType
-        self.gymHours = gymHours
         details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
             guard let detailData = detailData,
                 let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }
