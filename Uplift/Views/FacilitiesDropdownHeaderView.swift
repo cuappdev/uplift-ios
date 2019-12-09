@@ -65,11 +65,8 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
         for detail in facility.details where !detail.times.isEmpty {
             for time in detail.times where time.dayOfWeek == dayOfWeek {
                 for timeRange in time.timeRanges {
-                    if todaysDate > timeRange.openTime && todaysDate < timeRange.closeTime {
-                        return true
-                    } else {
-                        return false
-                    }
+                    return todaysDate > timeRange.openTime &&
+                        todaysDate < timeRange.closeTime
                 }
             }
         }
