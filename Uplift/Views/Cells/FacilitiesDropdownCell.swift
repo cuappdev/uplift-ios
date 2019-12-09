@@ -141,7 +141,7 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
 
         switch detailType {
         case .court:
-            //swiftlint:disable:next force_cast
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityGymnasiumCell, for: indexPath) as! GymnasiumCollectionViewCell
             if let dailyFacilityHoursRanges = facilityDetail.times.first(where: { $0.dayOfWeek == selectedDayIndex }) {
                 let dailyGymHours = facility.gymHours.filter({ $0.dayOfWeek == selectedDayIndex })
@@ -152,7 +152,7 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
             }
             return cell
         case .equipment:
-            //swiftlint:disable:next force_cast
+            // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityEquipmentListCell, for: indexPath) as! EquipmentListCell
             cell.configure(for: facility.details[indexPath.row].getEquipmentCategories())
             return cell

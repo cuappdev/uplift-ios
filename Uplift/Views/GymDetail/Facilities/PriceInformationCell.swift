@@ -27,9 +27,9 @@ class PriceInformationCell: UICollectionViewCell {
     }
 
     func configure(items: [String], prices: [String]) {
-        itemsList.attributedText = generateAttributedString(for: items, font: ._14MontserratRegular)
-        pricesList.attributedText = generateAttributedString(for: prices, font: ._14MontserratSemiBold, alignment: .right)
-        
+        itemsList.attributedText = PriceInformationCell.generateAttributedString(for: items, font: ._14MontserratRegular)
+        pricesList.attributedText = PriceInformationCell.generateAttributedString(for: prices, font: ._14MontserratSemiBold, alignment: .right)
+
         pricesList.snp.updateConstraints { make in
             make.width.equalTo(pricesList.intrinsicContentSize.width)
         }
@@ -77,7 +77,7 @@ class PriceInformationCell: UICollectionViewCell {
         }
     }
 
-    private func generateAttributedString(
+    private static func generateAttributedString(
         for list: [String],
         font: UIFont?,
         alignment: NSTextAlignment = .left
@@ -97,12 +97,9 @@ class PriceInformationCell: UICollectionViewCell {
     }
 
     static func getHeight(for items: [String]) -> CGFloat {
-        let lineHeight: CGFloat = 20
-
-        let baseHeight = 4.0 * Constants.padding
-        let listHeight = lineHeight * CGFloat(items.count)
-
-        return baseHeight + listHeight
+        let attributedStr = PriceInformationCell.generateAttributedString(for: items, font: ._14MontserratRegular)
+        let textViewHeight = attributedStr.size().height + 12
+        return textViewHeight + Constants.padding * 2
     }
 
     required init?(coder: NSCoder) {
