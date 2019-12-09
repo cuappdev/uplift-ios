@@ -125,20 +125,20 @@ class GymDetailTimeInfoView: UIView {
     func makeDisplayText(dayIndex: Int) {
         let dailyFacilityHoursRange = facilityDetail.times.filter { $0.dayOfWeek == dayIndex }
         hours = dailyFacilityHoursRange.flatMap { $0.timeRanges }
-        let timeStrings: [String] = hours.map { getStringFromDailyGymHours(facilityHours: $0) }
-        if let isEmpty = timeStrings.first?.isEmpty, isEmpty {
+        if hours.isEmpty {
             displayedText = ""
             setupEmptyState()
         } else {
+            let timeStrings: [String] = hours.map { getStringFromFacilityHoursRange(facilityHours: $0) }
             displayedText = timeStrings.joined(separator: "\n")
         }
     }
 
-    func getStringFromDailyGymHours(facilityHours: FacilityHoursRange) -> String {
+    func getStringFromFacilityHoursRange(facilityHours: FacilityHoursRange) -> String {
         let openTime = facilityHours.openTime.getStringOfDatetime(format: "h:mm a")
         let closeTime = facilityHours.closeTime.getStringOfDatetime(format: "h:mm a")
 
-        if facilityHours.openTime != facilityHours.closeTime {
+        if openTime != closeTime {
             return "\(openTime) - \(closeTime)"
         }
 
@@ -162,8 +162,9 @@ class GymDetailTimeInfoView: UIView {
 
         let hours = dailyHours.timeRanges
         let hoursCount = CGFloat(hours.count)
-        let emptyState = hoursCount == 1 && hours[0].openTime == hours[0].closeTime
-        return emptyState ? emptyStateHeight : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
+        return hoursCount == 0
+            ? emptyStateHeight
+            : lineHeight * hoursCount + lineSpacing * (hoursCount - 1)
     }
 
     func didChangeDay(dayIndex: Int) {

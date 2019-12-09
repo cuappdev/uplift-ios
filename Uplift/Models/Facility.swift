@@ -149,6 +149,10 @@ class DailyFacilityHoursRanges {
         dayOfWeek = facilityHoursData.day
         timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
             guard let rangeData = rangeData else { return nil }
+            let midnightTime = "00:00:00"
+            let hasNoHours = rangeData.startTime == midnightTime &&
+                rangeData.endTime == midnightTime
+            if hasNoHours { return nil }
             return FacilityHoursRange(facilityHoursRangeData: rangeData)
         })
         let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
@@ -159,6 +163,10 @@ class DailyFacilityHoursRanges {
         dayOfWeek = facilityHoursData.day
         timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
             guard let rangeData = rangeData else { return nil }
+            let midnightTime = "00:00:00"
+            let hasNoHours = rangeData.startTime == midnightTime &&
+                rangeData.endTime == midnightTime
+            if hasNoHours { return nil }
             return FacilityHoursRange(facilityHoursRangeData: rangeData)
         })
         let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
@@ -176,14 +184,14 @@ struct FacilityHoursRange {
 
     init(facilityHoursRangeData: AllGymsQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
         openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
-        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime)
+        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
         specialHours = facilityHoursRangeData.specialHours
         restrictions = facilityHoursRangeData.restrictions
     }
 
     init(facilityHoursRangeData: GymByIdQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
         openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
-        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime)
+        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
         specialHours = facilityHoursRangeData.specialHours
         restrictions = facilityHoursRangeData.restrictions
     }

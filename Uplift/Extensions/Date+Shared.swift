@@ -62,7 +62,7 @@ extension Date {
         return dateFormatter.date(from: datetime) ?? Date()
     }
 
-    static public func getTimeFromString(datetime: String?) -> Date {
+    static public func getTimeFromString(datetime: String?, isCloseTime: Bool = false) -> Date {
         guard let datetime = datetime else {
             return Date()
         }
@@ -71,6 +71,7 @@ extension Date {
         dateFormatter.dateFormat = "HH:mm:ss"
 
         let date = dateFormatter.date(from: datetime) ?? today
+
         let calendar = Calendar.current
         var dateComponents = DateComponents()
 
@@ -81,7 +82,20 @@ extension Date {
         dateComponents.hour = calendar.component(.hour, from: date)
         dateComponents.minute = calendar.component(.minute, from: date)
 
-        return calendar.date(from: dateComponents)!
+        guard let newDate = calendar.date(from: dateComponents) else {
+            return date
+        }
+
+        // If we are parsing the close time and the time is past midnight
+        // we should consider it to be the next day
+        if isCloseTime,
+            let hour = dateComponents.hour,
+            hour < 12,
+            let tomorrowsDate = Calendar.current.date(byAdding: .day, value: 1, to: newDate) {
+            return tomorrowsDate
+        } else {
+            return newDate
+        }
     }
 
     static public func getDatetimeFromStrings(dateString: String, timeString: String) -> Date {
