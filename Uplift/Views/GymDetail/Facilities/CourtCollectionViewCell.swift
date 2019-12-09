@@ -52,18 +52,19 @@ class CourtCollectionViewCell: UICollectionViewCell {
     }
 
     /// DailyHours should only contain hour information for the day of this cell
-    func configure(facilityHoursRange: FacilityHoursRange, dailyGymHours: [DailyGymHours], courtIndex: Int) {
+    func configure(
+        courtsHoursRange: FacilityHoursRange,
+        facilityHoursRanges: [FacilityHoursRange],
+        courtIndex: Int
+    ) {
         courtTitleLabel.text = "Court #\(courtIndex + 1)"
-        infoLabel.attributedText = getInfoLabelAttributedStr(
-            facilityHoursRange: facilityHoursRange,
-            dailyHours: dailyGymHours
-        )
+        infoLabel.attributedText = getInfoLabelAttributedStr(courtsHoursRange: courtsHoursRange, facilityHoursRanges: facilityHoursRanges)
     }
 
     // MARK: - String Response Parsing
     private func getInfoLabelAttributedStr(
-        facilityHoursRange: FacilityHoursRange,
-        dailyHours: [DailyGymHours]
+        courtsHoursRange: FacilityHoursRange,
+        facilityHoursRanges: [FacilityHoursRange]
     ) -> NSAttributedString {
         // Attributed Text
         let style = NSMutableParagraphStyle()
@@ -80,27 +81,31 @@ class CourtCollectionViewCell: UICollectionViewCell {
             .foregroundColor: UIColor.primaryBlack
         ]
 
-        let sportName = "\(facilityHoursRange.restrictions.uppercased())\n"
-        let openCloseTime = getOpenAndCloseTime(facilityHoursRange: facilityHoursRange, dailyHours: dailyHours)
+        let sportName = "\(courtsHoursRange.restrictions.uppercased())\n"
+        let openCloseTime = getOpenAndCloseTime(courtsHoursRange: courtsHoursRange, facilityHoursRanges: facilityHoursRanges)
         let text = NSMutableAttributedString(string: sportName, attributes: sportAttributes)
         text.append(NSMutableAttributedString(string: openCloseTime, attributes: timeAttributes))
         return text
     }
 
     private func getOpenAndCloseTime(
-        facilityHoursRange: FacilityHoursRange,
-        dailyHours: [DailyGymHours]
+        courtsHoursRange: FacilityHoursRange,
+        facilityHoursRanges: [FacilityHoursRange]
     ) -> String {
-        let calendar = Calendar(identifier: .gregorian)
 
-        let openAtStart = dailyHours.contains { $0.openTime == facilityHoursRange.openTime }
-        let closesAtMidnight = calendar.dateComponents([.hour], from: facilityHoursRange.closeTime).hour == 0
+        let openAtStart = facilityHoursRanges.contains { $0.openTime == courtsHoursRange.openTime }
+        let closesAtEnd = facilityHoursRanges.contains(where: { $0.closeTime == courtsHoursRange.closeTime })
 
-        let openTimeString = facilityHoursRange.openTime.getStringOfDatetime(format: "h:mm a")
-        let closeTimeString = facilityHoursRange.closeTime.getStringOfDatetime(format: "h:mm a")
+        if openAtStart && closesAtEnd { return "ALL DAY" }
 
-        if openAtStart && closesAtMidnight { return "ALL DAY" }
-        if closesAtMidnight { return "AFTER \(openTimeString)" }
+        let openTimeString = courtsHoursRange.openTime.getStringOfDatetime(format: "h:mm a")
+        let closeTimeString = courtsHoursRange.closeTime.getStringOfDatetime(format: "h:mm a")
+
+        if closesAtEnd {
+            return "AFTER \(openTimeString)"
+        } else if openAtStart {
+            return "BEFORE \(closeTimeString)"
+        }
         return "\(openTimeString) - \(closeTimeString)"
     }
 

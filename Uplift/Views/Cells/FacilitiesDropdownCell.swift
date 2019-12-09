@@ -143,11 +143,12 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
         case .court:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.facilityGymnasiumCell, for: indexPath) as! GymnasiumCollectionViewCell
-            if let dailyFacilityHoursRanges = facilityDetail.times.first(where: { $0.dayOfWeek == selectedDayIndex }) {
-                let dailyGymHours = facility.gymHours.filter({ $0.dayOfWeek == selectedDayIndex })
+            if let hoursFacilityDetail = facility.details.first(where: { $0.detailType == .hours }),
+                let facilityHoursRanges = hoursFacilityDetail.times.first(where: { $0.dayOfWeek == selectedDayIndex }),
+                let courtHoursRanges = facilityDetail.times.first(where: { $0.dayOfWeek == selectedDayIndex }) {
                 cell.configure(
-                    facilityHoursRanges: dailyFacilityHoursRanges.timeRanges,
-                    dailyGymHours: dailyGymHours
+                    courtsHoursRanges: courtHoursRanges.timeRanges,
+                    facilityHoursRanges: facilityHoursRanges.timeRanges
                 )
             }
             return cell
