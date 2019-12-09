@@ -48,7 +48,6 @@ struct Gym {
         }
         popularTimesList = popularTimes
 
-        // Unwrap gym hours
         let allGymHours = gymData.times
         let gymHoursList = allGymHours.map({ DailyGymHours(gymHoursData: $0) })
         gymHours = gymHoursList

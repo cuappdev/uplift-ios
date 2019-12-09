@@ -99,7 +99,7 @@ class FacilitiesDropdownCell: UICollectionViewCell {
         var height: CGFloat = 0
         switch facilityDetail.detailType {
         case .court:
-            height = 192.0
+            height = GymnasiumCollectionViewCell.getHeight()
         case .equipment:
             height = EquipmentListCell.getHeight(models: facilityDetail.getEquipmentCategories())
         case .hours:
