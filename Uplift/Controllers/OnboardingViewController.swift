@@ -12,8 +12,9 @@ import UIKit
 
 class OnboardingViewController: PresentationController {
 
-    private var gyms: [String] = []
-    private var classInstances: [GymClassInstance] = []
+    // MARK: Data
+    private var gyms: [String]?
+    private var classInstances: [GymClassInstance]?
 
     // MARK: - Views
     private var viewSlides: [OnboardingView] = []
@@ -30,12 +31,27 @@ class OnboardingViewController: PresentationController {
     private var vertScaling: CGFloat = 1.0
 
     // MARK: - State
+    private var userSelectsFavorites = false
     private var selectedOneGym = false
     private var selectedOneClass = false
 
     // MARK: - Swiping
     private var rightGestureRecognizer = UISwipeGestureRecognizer()
     private var leftGestureRecognizer = UISwipeGestureRecognizer()
+
+    /// Initialize without prompting the user to select favorites
+    init() {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+        userSelectsFavorites = false
+   }
+
+    init(gymNames: [String], classes: [GymClassInstance]) {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+
+        userSelectsFavorites = true
+        gyms = gymNames
+        classInstances = classes
+    }
 
     // MARK: - Init
     override func viewDidLoad() {
@@ -50,26 +66,6 @@ class OnboardingViewController: PresentationController {
         setupViews()
         setupSlides()
         setupBackground()
-    }
-
-    /// Initialize with default values
-    init() {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
-
-        gyms = ["Helen Newman", "Appel", "Teagle", "Noyes"]
-        classInstances = [
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.yogaVinyasa, className: "Yoga Vinyasa", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.cuRowShockwave, className: "CU Row (Shockwave)", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.zumba, className: "Zumba", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
-            ]
-    }
-
-    init(gymNames: [String], classes: [GymClassInstance]) {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
-
-        gyms = gymNames
-        classInstances = classes
     }
 
     required init?(coder: NSCoder) {
@@ -87,13 +83,17 @@ class OnboardingViewController: PresentationController {
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding2),
-                text: ClientStrings.Onboarding.onboarding2,
-                gymNames: gyms
+                text: userSelectsFavorites ?
+                    ClientStrings.Onboarding.onboarding2 :
+                    ClientStrings.Onboarding.onboarding2NoSelection,
+                gymNames: userSelectsFavorites ? gyms : nil
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding3),
-                text: ClientStrings.Onboarding.onboarding3,
-                classNames: classInstances.map { $0.className }
+                text: userSelectsFavorites ?
+                    ClientStrings.Onboarding.onboarding3 :
+                    ClientStrings.Onboarding.onboarding3NoSelection,
+                classNames: userSelectsFavorites ? classInstances?.map { $0.className } : nil
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding4),
@@ -118,22 +118,24 @@ class OnboardingViewController: PresentationController {
         }
 
         // Delegation
-        viewSlides[1].favoritesSelectedDelegate = { [weak self] in
-            if let `self` = self {
-                self.selectedOneGym = !$0.isEmpty
-                self.nextButtons[1].isEnabled = self.selectedOneGym
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.nextButtons[1].backgroundColor = self.selectedOneGym ? .primaryYellow : .none
-                })
+        if userSelectsFavorites {
+            viewSlides[1].favoritesSelectedDelegate = { [weak self] in
+                if let `self` = self {
+                    self.selectedOneGym = !$0.isEmpty
+                    self.nextButtons[1].isEnabled = self.selectedOneGym
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.nextButtons[1].backgroundColor = self.selectedOneGym ? .primaryYellow : .none
+                    })
+                }
             }
-        }
-        viewSlides[2].favoritesSelectedDelegate = { [weak self] in
-            if let `self` = self {
-                self.selectedOneClass = !$0.isEmpty
-                self.nextButtons[2].isEnabled = self.selectedOneClass
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.nextButtons[2].backgroundColor = self.selectedOneClass ? .primaryYellow : .none
-                })
+            viewSlides[2].favoritesSelectedDelegate = { [weak self] in
+                if let `self` = self {
+                    self.selectedOneClass = !$0.isEmpty
+                    self.nextButtons[2].isEnabled = self.selectedOneClass
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.nextButtons[2].backgroundColor = self.selectedOneClass ? .primaryYellow : .none
+                    })
+                }
             }
         }
     }
@@ -166,14 +168,14 @@ class OnboardingViewController: PresentationController {
 
         nextButtons = [
             OnboardingArrowButton(arrowFacesRight: true),
-            OnboardingArrowButton(arrowFacesRight: true, enabled: false),
-            OnboardingArrowButton(arrowFacesRight: true, enabled: false)
+            OnboardingArrowButton(arrowFacesRight: true, enabled: !userSelectsFavorites),
+            OnboardingArrowButton(arrowFacesRight: true, enabled: !userSelectsFavorites)
         ]
         nextButtons.forEach {
             $0.frame = CGRect(x: 0, y: 90, width: 35, height: 35)
             $0.addTarget(self, action: #selector(arrowsPressed(sender:)), for: .touchUpInside)
         }
-        nextButtons[1...2].forEach { $0.alpha = 0 }
+        nextButtons[1...2].forEach { $0.alpha = userSelectsFavorites ? 0 : 1 }
 
         backButtons = [
             OnboardingArrowButton(arrowFacesRight: false, changesColor: false),
@@ -213,7 +215,9 @@ class OnboardingViewController: PresentationController {
         }
         // Onboarding View with TableView
         let slidesGymsClasses = viewSlides[1...2].map { view -> Content in
-            let position = Position(left: 0.5, top: 0.52 * horizScaling)
+            let position = userSelectsFavorites ?
+                Position(left: 0.5, top: 0.52 * horizScaling) :
+                Position(left: 0.5, top: 0.45 * horizScaling)
             return Content(view: view, position: position)
         }
         let contentSlides = [
@@ -323,10 +327,14 @@ class OnboardingViewController: PresentationController {
         if sender == rightGestureRecognizer {
             goTo(currentIndex - 1)
         } else if sender == leftGestureRecognizer {
-            // Disable if not selected favorite gym/class
-            let hasntSelectedGym = currentIndex == 1 && !selectedOneGym
-            let hasntSelectedClass = currentIndex == 2 && !selectedOneClass
-            if !(hasntSelectedGym || hasntSelectedClass) {
+            if userSelectsFavorites {
+                // Disable if not selected favorite gym/class
+                let hasntSelectedGym = currentIndex == 1 && !selectedOneGym
+                let hasntSelectedClass = currentIndex == 2 && !selectedOneClass
+                if !(hasntSelectedGym || hasntSelectedClass) {
+                    goTo(currentIndex + 1)
+                }
+            } else {
                 goTo(currentIndex + 1)
             }
         }
@@ -361,7 +369,7 @@ class OnboardingViewController: PresentationController {
         }
     }
 
-    // MARKL - Helper
+    // MARK: - Helper
 
     private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
         let defaults = UserDefaults.standard
@@ -379,9 +387,12 @@ class OnboardingViewController: PresentationController {
 
         // Classes
         var favoriteClasses: [String] = []
-        for i in 0..<classNames.count where classNames[i] == classInstances[i].classDetailId {
-            favoriteClasses.append(classInstances[i].classDetailId)
+        if let classInstances = classInstances {
+            for i in 0..<classNames.count where classNames[i] == classInstances[i].classDetailId {
+                favoriteClasses.append(classInstances[i].classDetailId)
+            }
         }
+
         defaults.set(favoriteClasses, forKey: Identifiers.favoriteClasses)
     }
 
