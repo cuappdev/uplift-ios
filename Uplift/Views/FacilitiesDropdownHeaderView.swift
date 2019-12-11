@@ -47,7 +47,6 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
         headerNameLabel.textAlignment = .left
         addSubview(headerNameLabel)
 
-        headerOpenLabel.text = ""
         headerOpenLabel.font = ._16MontserratRegular
         headerOpenLabel.textAlignment = .center
         addSubview(headerOpenLabel)
@@ -55,6 +54,8 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
         if let isFacilityOpen = getIsFacilityOpen(for: facility) {
             headerOpenLabel.text = isFacilityOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
             headerOpenLabel.textColor = isFacilityOpen ? .accentOpen : .accentClosed
+        } else {
+            headerOpenLabel.text = ""
         }
 
         setupConstraints()
