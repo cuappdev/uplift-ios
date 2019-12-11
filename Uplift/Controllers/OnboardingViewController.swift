@@ -92,6 +92,21 @@ class OnboardingViewController: PresentationController {
             )
         ]
 
+        // Set Reconnect Action if didn't load
+        let retryNetworkRequest: (() -> Void) = {
+            NetworkManager.shared.getOnboardingInfo { [weak self] gyms, classInstances in
+                if let `self` = self {
+                    self.viewSlides[1].updateTableView(with: gyms)
+                    self.viewSlides[2].updateTableView(with: classInstances.map { $0.className })
+                    self.gyms = gyms
+                    self.classInstances = classInstances
+                }
+            }
+        }
+        viewSlides[1...2].forEach { onboardingView in
+            onboardingView.setEmptyStateReconnectAction(completion: retryNetworkRequest)
+        }
+
         // Calculate Scaling Info
         let viewSize = viewSlides[1].getSize()
         /// Calculations are based off a iPhone 11 Pro Max

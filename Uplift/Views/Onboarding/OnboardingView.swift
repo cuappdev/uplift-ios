@@ -74,28 +74,6 @@ class OnboardingView: UIView {
         if showingClasses && classNames?.isEmpty ?? false || !showingClasses && gymNames?.isEmpty ?? false {
             let emptyState = OnboardingEmptyStateView()
             self.emptyState = emptyState
-
-            if showingClasses {
-                emptyState.retryClassRequestDelegate = {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    // Display 4 classes from different (random) tag categories TODO
-                    NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date()),
-                    completion: { classArr in
-                        self.tableData = classArr.map { $0.className }
-                        self.tableView?.reloadData()
-                        self.emptyState?.removeFromSuperview()
-                    })
-                }
-            } else {
-                emptyState.retryGymRequestDelegate = {
-                    NetworkManager.shared.getGymNames(completion: { gymNameArr in
-                        self.tableData = gymNameArr.map { $0.name }
-                        self.tableView?.reloadData()
-                        self.emptyState?.removeFromSuperview()
-                    })
-                }
-            }
             addSubview(emptyState)
         }
 
@@ -104,6 +82,19 @@ class OnboardingView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func updateTableView(with data: [String]) {
+        tableData = Array(data.prefix(4))
+        tableView?.reloadData()
+        if tableData?.count ?? 0 >= 4 {
+            emptyState?.removeFromSuperview()
+            emptyState = nil
+        }
+    }
+
+    func setEmptyStateReconnectAction(completion: @escaping () -> Void) {
+        emptyState?.retryConnectionDelegate = completion
     }
 
     func getSize() -> CGSize {
@@ -129,6 +120,8 @@ class OnboardingView: UIView {
             let tableViewBottomOffset: CGFloat = 17
             let tableViewSize = CGSize(width: 388, height: 308)
 
+            let emptyStateTopOffset: CGFloat = 40
+
             titleLabel.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
                 make.width.equalTo(labelWidth)
@@ -143,7 +136,8 @@ class OnboardingView: UIView {
             }
 
             emptyState?.snp.makeConstraints { make in
-                make.edges.equalTo(tableView)
+                make.top.equalTo(titleLabel.snp.bottom).offset(emptyStateTopOffset)
+                make.leading.trailing.bottom.equalTo(tableView)
             }
         } else { // Without Table View
             let imageTextPadding: CGFloat = 20

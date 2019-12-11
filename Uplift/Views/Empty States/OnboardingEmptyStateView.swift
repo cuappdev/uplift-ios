@@ -54,15 +54,13 @@ class OnboardingEmptyStateView: UIView {
         let descriptionLabelHeight: CGFloat = 18.0
         let descriptionLabelTopPadding: CGFloat = 8.0
         let imageTopPadding: CGFloat = 10.0
-        let imageViewHeight: CGFloat = 71.0
-        let imageViewWidth: CGFloat = 86.0
+        let imageViewSize = CGSize(width: 86.0, height: 86.0)
         let titleLabelHeight: CGFloat = 30.0
         let titleLabelTopPadding: CGFloat = 20.0
         let retryButtonSize = CGSize(width: 149.0, height: 48.0)
 
         emptyStateImageView.snp.makeConstraints { make in
-            make.height.equalTo(imageViewHeight)
-            make.width.equalTo(imageViewWidth)
+            make.size.equalTo(imageViewSize)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(imageTopPadding)
         }
