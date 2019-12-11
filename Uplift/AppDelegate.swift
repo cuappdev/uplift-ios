@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         let defaults = UserDefaults.standard
-        if false /*defaults.bool(forKey: Identifiers.hasSeenOnboarding)*/ {
+        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
             window?.rootViewController = TabBarController()
         } else {
             displayOnboardingViewController()
@@ -49,8 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        NetworkManager.shared.getOnboardingInfo { gyms, classes in
             self.window?.rootViewController = gyms.count < 4 || classes.count < 4
                 ? OnboardingViewController()
-                // : OnboardingViewController(gymNames: gyms, classes: classes)
-                : OnboardingViewController()
+                : OnboardingViewController(gymNames: gyms, classes: classes)
        }
 
         // No Internet/Networking Failed/Networking in progress; initialize with blank VC

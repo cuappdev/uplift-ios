@@ -45,7 +45,7 @@ class OnboardingEmptyStateView: UIView {
         retryButton.layer.shadowOpacity = 0.125
         retryButton.layer.cornerRadius = 24
         retryButton.layer.shadowRadius = 8
-        retryButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        retryButton.layer.shadowOffset = CGSize(width: 0, height: 4)
         retryButton.addTarget(self, action: #selector(retryConnection), for: .touchUpInside)
         addSubview(retryButton)
     }

@@ -92,7 +92,7 @@ class OnboardingViewController: PresentationController {
             )
         ]
 
-        // Set Reconnect Action if didn't load
+        // Set Reconnect Action if couldn't fetch gyms/classes
         let retryNetworkRequest: (() -> Void) = {
             NetworkManager.shared.getOnboardingInfo { [weak self] gyms, classInstances in
                 if let `self` = self {
@@ -319,11 +319,11 @@ class OnboardingViewController: PresentationController {
         addAnimations([
             FadeOutAnimation(content: nextButtonContents[2], duration: 0.5)
         ], forPage: 3)
-
         addAnimations([
             FadeOutAnimation(content: endOnboardingContent, duration: 0.5, willFadeIn: true)
         ], forPage: 3)
     }
+    
     // MARK: - Gesture Recognizer
     @objc private func userSwiped(sender: UISwipeGestureRecognizer) {
         if sender == rightGestureRecognizer {
@@ -367,9 +367,11 @@ class OnboardingViewController: PresentationController {
         }
     }
 
-    // MARKL - Helper
+    // MARK: - Helper
 
     private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
+        print("gyms: \(gyms)")
+        print("classNames: \(classNames)")
         let defaults = UserDefaults.standard
         // Gyms
         var favoriteGyms: [String] = []
@@ -385,8 +387,8 @@ class OnboardingViewController: PresentationController {
 
         // Classes
         var favoriteClasses: [String] = []
-        for i in 0..<classNames.count where classNames[i] == classInstances[i].classDetailId {
-            favoriteClasses.append(classInstances[i].classDetailId)
+        classInstances.filter { classNames.contains($0.className) }.forEach { instance in
+            favoriteClasses.append(instance.classDetailId)
         }
         defaults.set(favoriteClasses, forKey: Identifiers.favoriteClasses)
     }
