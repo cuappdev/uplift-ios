@@ -116,6 +116,9 @@ struct ClientStrings {
     struct Onboarding {
         static let endButton = "Let's Go!"
         static let gymsSelection = "Select the Gyms you go to!"
+        static let noConnectionButton = "RETRY"
+        static let noConnectionSubtext = "Try again"
+        static let noConnectionTitle = "NO CONNECTION"
         static let onboarding1 = "Uplift is the go-to fitness and wellness app at Cornell."
         static let onboarding2 = "Uplift helps you find times to go to the gym. Choose your favorite gym(s) below!"
         static let onboarding2NoSelection = "Uplift helps you find times to go to the gym."

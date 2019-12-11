@@ -146,6 +146,7 @@ struct ImageNames {
     static let clock = "clock-icon"
     static let locationPointer = "location-pointer"
     static let mindfulness = "mindfulness"
+    static let noWifi = "no-wifi"
     static let strength = "strength"
     static let widgets0 = "widgets-empty"
     static let widgets1 = "widgets-1"

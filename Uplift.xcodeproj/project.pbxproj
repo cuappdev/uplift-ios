@@ -31,6 +31,7 @@
 		4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CA4132383A3190002FD5F /* OnboardingView.swift */; };
 		4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6810332345504D00C283C0 /* GymDetailWeekView.swift */; };
 		4FC04781222EF69300165594 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC04780222EF69300165594 /* FavoriteCell.swift */; };
+		4FC5646E23A06A3300B4D484 /* OnboardingEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5646D23A06A3300B4D484 /* OnboardingEmptyStateView.swift */; };
 		7E1D0A5623986A8500D5987F /* TodaysClassesEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1D0A5523986A8500D5987F /* TodaysClassesEmptyCell.swift */; };
 		7E2E2A85237BAE86008F600D /* HoursEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2E2A84237BAE86008F600D /* HoursEmptyStateView.swift */; };
 		7E80876D229B6984007D9EDD /* GymDetailTodaysClassesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80876C229B6984007D9EDD /* GymDetailTodaysClassesCell.swift */; };
@@ -160,6 +161,7 @@
 		4F4CA4132383A3190002FD5F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		4F6810332345504D00C283C0 /* GymDetailWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailWeekView.swift; sourceTree = "<group>"; };
 		4FC04780222EF69300165594 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
+		4FC5646D23A06A3300B4D484 /* OnboardingEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingEmptyStateView.swift; sourceTree = "<group>"; };
 		684A8BFD1265450CEE4EB3E7 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		7E1D0A5523986A8500D5987F /* TodaysClassesEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysClassesEmptyCell.swift; sourceTree = "<group>"; };
 		7E2E2A84237BAE86008F600D /* HoursEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursEmptyStateView.swift; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 			isa = PBXGroup;
 			children = (
 				D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */,
+				4FC5646D23A06A3300B4D484 /* OnboardingEmptyStateView.swift */,
 				8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */,
 				8D5334942172ACC600B3A20F /* NoFavoritesEmptyStateView.swift */,
 				7E2E2A84237BAE86008F600D /* HoursEmptyStateView.swift */,
@@ -887,6 +890,7 @@
 				C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
+				4FC5646E23A06A3300B4D484 /* OnboardingEmptyStateView.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
 				4F4CA4112383A1AB0002FD5F /* OnboardingViewController.swift in Sources */,

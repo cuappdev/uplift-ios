@@ -14,6 +14,7 @@ class OnboardingView: UIView {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private var tableView: UITableView?
+    private var emptyState: OnboardingEmptyStateView?
 
     private var tableData: [String]?
     private var showingClasses = false
@@ -25,7 +26,24 @@ class OnboardingView: UIView {
     var favorites: [String] = [] // User's selected favorite gyms/classes
     var hasTableView = false
 
-    init(image: UIImage?, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
+    /// Create view only with an image and text
+    convenience init (image: UIImage?, title: String) {
+        self.init(image: image, text: title)
+    }
+
+    /// Create view that prompts the user to select favorite gyms
+    /// Passing in an empty array specifies that section did not load
+    convenience init (image: UIImage?, title: String, gyms: [String]) {
+        self.init(image: image, text: title, gymNames: gyms)
+    }
+
+    /// Create view that prompts the user to select favorite classes
+    /// Passing in an empty array specifies that section did not load
+    convenience init (image: UIImage?, title: String, classes: [String]) {
+        self.init(image: image, text: title, classNames: classes)
+    }
+
+    private init(image: UIImage?, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
         super.init(frame: .zero)
 
         imageView.image = image
@@ -49,7 +67,36 @@ class OnboardingView: UIView {
             tableView.clipsToBounds = false
             tableView.separatorStyle = .none
             self.tableView = tableView
-            self.addSubview(tableView)
+            addSubview(tableView)
+        }
+
+        // Classes/Gyms did not load (Gyms/Classes array == [])
+        if showingClasses && classNames?.isEmpty ?? false || !showingClasses && gymNames?.isEmpty ?? false {
+            let emptyState = OnboardingEmptyStateView()
+            self.emptyState = emptyState
+
+            if showingClasses {
+                emptyState.retryClassRequestDelegate = {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    // Display 4 classes from different (random) tag categories TODO
+                    NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date()),
+                    completion: { classArr in
+                        self.tableData = classArr.map { $0.className }
+                        self.tableView?.reloadData()
+                        self.emptyState?.removeFromSuperview()
+                    })
+                }
+            } else {
+                emptyState.retryGymRequestDelegate = {
+                    NetworkManager.shared.getGymNames(completion: { gymNameArr in
+                        self.tableData = gymNameArr.map { $0.name }
+                        self.tableView?.reloadData()
+                        self.emptyState?.removeFromSuperview()
+                    })
+                }
+            }
+            addSubview(emptyState)
         }
 
         setUpConstraints()
@@ -94,6 +141,10 @@ class OnboardingView: UIView {
                 make.size.equalTo(tableViewSize)
                 make.centerX.equalTo(titleLabel)
             }
+
+            emptyState?.snp.makeConstraints { make in
+                make.edges.equalTo(tableView)
+            }
         } else { // Without Table View
             let imageTextPadding: CGFloat = 20
 
@@ -134,7 +185,7 @@ extension OnboardingView: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return min(4, tableData?.count ?? 0) // Show a max of 4 items
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
