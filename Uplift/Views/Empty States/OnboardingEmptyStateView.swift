@@ -43,7 +43,7 @@ class OnboardingEmptyStateView: UIView {
         retryButton.titleLabel?.font = ._14MontserratBold
         retryButton.setTitleColor(.primaryBlack, for: .normal)
         retryButton.layer.shadowOpacity = 0.125
-        retryButton.layer.cornerRadius = 18 // 38
+        retryButton.layer.cornerRadius = 24
         retryButton.layer.shadowRadius = 8
         retryButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         retryButton.addTarget(self, action: #selector(retryConnection), for: .touchUpInside)
