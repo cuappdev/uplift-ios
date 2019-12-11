@@ -121,9 +121,7 @@ struct ClientStrings {
         static let noConnectionTitle = "NO CONNECTION"
         static let onboarding1 = "Uplift is the go-to fitness and wellness app at Cornell."
         static let onboarding2 = "Uplift helps you find times to go to the gym. Choose your favorite gym(s) below!"
-        static let onboarding2NoSelection = "Uplift helps you find times to go to the gym."
         static let onboarding3 = "Classes are included with your gym membership. Choose a few favorites!"
-        static let onboarding3NoSelection = "Uplift helps you find times to go to the gym."
         static let onboarding4 = "See you at the gym!"
         static let skipButton = "SKIP"
     }

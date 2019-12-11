@@ -31,14 +31,16 @@ class OnboardingView: UIView {
         self.init(image: image, text: title)
     }
 
-    /// Create view that prompts the user to select favorite gyms
-    /// Passing in an empty array specifies that section did not load
+    /// Create view that prompts the user to select favorite gyms.
+    /// Passing in an empty array will show an empty state prompting the
+    /// user to retry the Network Requests
     convenience init (image: UIImage?, title: String, gyms: [String]) {
         self.init(image: image, text: title, gymNames: gyms)
     }
 
-    /// Create view that prompts the user to select favorite classes
-    /// Passing in an empty array specifies that section did not load
+    /// Create view that prompts the user to select favorite classes.
+    /// Passing in an empty array will show an empty state prompting the
+    /// user to retry the Network Requests
     convenience init (image: UIImage?, title: String, classes: [String]) {
         self.init(image: image, text: title, classNames: classes)
     }
@@ -70,7 +72,7 @@ class OnboardingView: UIView {
             addSubview(tableView)
         }
 
-        // Classes/Gyms did not load (Gyms/Classes array == [])
+        // No Classes/Gyms
         if showingClasses && classNames?.isEmpty ?? false || !showingClasses && gymNames?.isEmpty ?? false {
             let emptyState = OnboardingEmptyStateView()
             self.emptyState = emptyState
@@ -179,7 +181,7 @@ extension OnboardingView: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return min(4, tableData?.count ?? 0) // Show a max of 4 items
+        return min(4, tableData?.count ?? 0)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
