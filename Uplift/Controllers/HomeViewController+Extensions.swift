@@ -202,8 +202,8 @@ extension HomeViewController: ChooseGymsDelegate {
 
         classListViewController.updateCalendarDateSelectedToToday()
 
-        classNavigationController.setViewControllers([classListViewController], animated: false)
         tabBarController?.hidesBottomBarWhenPushed = false
         tabBarController?.selectedIndex = 1
+        tabBarController?.selectedViewController = classNavigationController
     }
 }
