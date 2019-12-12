@@ -18,9 +18,9 @@ class OnboardingLoadingViewController: UIViewController {
         logo.contentMode = .scaleAspectFit
         view.addSubview(logo)
 
-        logo.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.size.equalTo(CGSize(width: 122, height: 122))
+        logo.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize(width: 122, height: 122))
         }
     }
 

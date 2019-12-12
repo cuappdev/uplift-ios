@@ -113,6 +113,8 @@ class OnboardingViewController: PresentationController {
         /// Horizontal Scaling resizes the OnboardingViews and  aims to keep the side padding of the table view and phone frame constant
         horizScaling = min(1, (self.view.frame.width - 26) / viewSize.width)
         /// Vertical Scaling resizes the running man and moves divider + button to not intersect OnboardingView
+        print("view size: \(viewSize)")
+        print("frame height: \(self.view.frame.height)")
         vertScaling = min(1, (self.view.frame.height - (viewSize.height * horizScaling)) / 50)
         viewSlides.forEach { view in
             let viewSize = view.getSize()
@@ -232,7 +234,7 @@ class OnboardingViewController: PresentationController {
 
     // MARK: setupBackground
     private func setupBackground() {
-        let scalingOffset = 0.25 - (vertScaling * 0.25)
+        let scalingOffset = 0.1 - (vertScaling * 0.1)
 
         let dividerPosition = Position(left: 0.5, bottom: 0.162 - scalingOffset)
         let divider = Content(view: dividerView, position: dividerPosition)
@@ -323,7 +325,7 @@ class OnboardingViewController: PresentationController {
             FadeOutAnimation(content: endOnboardingContent, duration: 0.5, willFadeIn: true)
         ], forPage: 3)
     }
-    
+
     // MARK: - Gesture Recognizer
     @objc private func userSwiped(sender: UISwipeGestureRecognizer) {
         if sender == rightGestureRecognizer {

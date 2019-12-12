@@ -27,21 +27,21 @@ class OnboardingView: UIView {
     var hasTableView = false
 
     /// Create view only with an image and text
-    convenience init (image: UIImage?, title: String) {
+    convenience init(image: UIImage?, title: String) {
         self.init(image: image, text: title)
     }
 
     /// Create view that prompts the user to select favorite gyms.
     /// Passing in an empty array will show an empty state prompting the
     /// user to retry the Network Requests
-    convenience init (image: UIImage?, title: String, gyms: [String]) {
+    convenience init(image: UIImage?, title: String, gyms: [String]) {
         self.init(image: image, text: title, gymNames: gyms)
     }
 
     /// Create view that prompts the user to select favorite classes.
     /// Passing in an empty array will show an empty state prompting the
     /// user to retry the Network Requests
-    convenience init (image: UIImage?, title: String, classes: [String]) {
+    convenience init(image: UIImage?, title: String, classes: [String]) {
         self.init(image: image, text: title, classNames: classes)
     }
 
@@ -92,8 +92,8 @@ class OnboardingView: UIView {
         tableData = Array(data.prefix(4))
         tableView?.reloadData()
         if let tableData = tableData, tableData.count >= 4, let emptyState = emptyState {
-            emptyState?.removeFromSuperview()
-            emptyState = nil
+            emptyState.removeFromSuperview()
+            self.emptyState = nil
         }
     }
 
@@ -104,7 +104,7 @@ class OnboardingView: UIView {
     func getSize() -> CGSize {
         let width = 388
         return hasTableView ?
-            CGSize(width: width, height: 700) :
+            CGSize(width: width, height: 714) :
             CGSize(width: width, height: 269)
     }
 
@@ -119,7 +119,7 @@ class OnboardingView: UIView {
 
         if let tableView = tableView { // With Table View
             let labelHeight: CGFloat = 80
-            let labelTopOffset: CGFloat = 174
+            let labelTopOffset: CGFloat = 188
 
             let tableViewBottomOffset: CGFloat = 17
             let tableViewSize = CGSize(width: 388, height: 308)
