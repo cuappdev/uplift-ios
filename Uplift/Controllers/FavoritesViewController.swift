@@ -151,8 +151,8 @@ extension FavoritesViewController: ClassListCellDelegate, NavigationDelegate {
     }
 
     func viewTodaysClasses() {
-        guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
-        guard let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
+        guard let classNavigationController = tabBarController?.viewControllers?[1] as? UINavigationController,
+            let classListViewController = classNavigationController.viewControllers[0] as? ClassListViewController else { return }
 
         classListViewController.updateCalendarDateSelectedToToday()
 
