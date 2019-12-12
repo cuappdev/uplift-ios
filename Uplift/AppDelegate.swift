@@ -52,12 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 : OnboardingViewController(gymNames: gyms, classes: classes)
        }
 
-        // No Internet/Networking Failed/Networking in progress; initialize with blank VC
-        let loadingVC = UIViewController()
-        loadingVC.view.backgroundColor = .primaryWhite
-        let logo = UIImageView(image: UIImage(named: ImageNames.appIcon))
-        loadingVC.view.addSubview(logo)
-        logo.snp.makeConstraints { $0.center.equalToSuperview() }
-        self.window?.rootViewController = loadingVC
+        // No Internet/Networking Failed/Networking in progress
+        self.window?.rootViewController = OnboardingLoadingViewController()
     }
 }

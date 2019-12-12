@@ -370,8 +370,6 @@ class OnboardingViewController: PresentationController {
     // MARK: - Helper
 
     private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
-        print("gyms: \(gyms)")
-        print("classNames: \(classNames)")
         let defaults = UserDefaults.standard
         // Gyms
         var favoriteGyms: [String] = []
@@ -387,8 +385,8 @@ class OnboardingViewController: PresentationController {
 
         // Classes
         var favoriteClasses: [String] = []
-        classInstances.filter { classNames.contains($0.className) }.forEach { instance in
-            favoriteClasses.append(instance.classDetailId)
+        classInstances.filter { classNames.contains($0.className) }.forEach {
+            favoriteClasses.append($0.classDetailId)
         }
         defaults.set(favoriteClasses, forKey: Identifiers.favoriteClasses)
     }

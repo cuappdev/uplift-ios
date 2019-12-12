@@ -139,7 +139,6 @@ struct ImageNames {
     // ICONS
     static let addDark = "add-dark"
     static let addLight = "add-light"
-    static let appIcon = "appIcon"
     static let calendar = "calendar-icon"
     static let cancel = "cancel"
     static let cardio = "cardio"
@@ -147,6 +146,7 @@ struct ImageNames {
     static let locationPointer = "location-pointer"
     static let mindfulness = "mindfulness"
     static let noWifi = "no-wifi"
+    static let splashImage = "splash-image"
     static let strength = "strength"
     static let widgets0 = "widgets-empty"
     static let widgets1 = "widgets-1"

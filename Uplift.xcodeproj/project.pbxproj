@@ -27,6 +27,7 @@
 		4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */; };
 		4F27F6DD236FA9A500C255D7 /* CourtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */; };
 		4F285B6B238F03D300B7B14D /* FavoriteGymsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */; };
+		4F47C7E423A1E62200D5F93F /* OnboardingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */; };
 		4F4CA4112383A1AB0002FD5F /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */; };
 		4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CA4132383A3190002FD5F /* OnboardingView.swift */; };
 		4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6810332345504D00C283C0 /* GymDetailWeekView.swift */; };
@@ -157,6 +158,7 @@
 		4F27F6DA236F95C200C255D7 /* GymnasiumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymnasiumCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F27F6DC236FA9A500C255D7 /* CourtCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourtCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteGymsController.swift; sourceTree = "<group>"; };
+		4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLoadingViewController.swift; sourceTree = "<group>"; };
 		4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		4F4CA4132383A3190002FD5F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		4F6810332345504D00C283C0 /* GymDetailWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailWeekView.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */,
 				7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */,
 				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
+				4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */,
 				C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */,
 				C21BE14C2292374400B5D219 /* HomeViewController.swift */,
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
@@ -907,6 +910,7 @@
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				4F285B6B238F03D300B7B14D /* FavoriteGymsController.swift in Sources */,
 				C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */,
+				4F47C7E423A1E62200D5F93F /* OnboardingLoadingViewController.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8DB8D76B2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift in Sources */,

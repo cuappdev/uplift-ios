@@ -73,7 +73,9 @@ class OnboardingView: UIView {
         }
 
         // No Classes/Gyms
-        if showingClasses && classNames?.isEmpty ?? false || !showingClasses && gymNames?.isEmpty ?? false {
+        let hasNoClassData = showingClasses && classNames?.isEmpty ?? false
+        let hasNoGymData = !showingClasses && gymNames?.isEmpty ?? false
+        if hasNoGymData || hasNoClassData  {
             let emptyState = OnboardingEmptyStateView()
             self.emptyState = emptyState
             addSubview(emptyState)
@@ -89,7 +91,7 @@ class OnboardingView: UIView {
     func updateTableView(with data: [String]) {
         tableData = Array(data.prefix(4))
         tableView?.reloadData()
-        if tableData?.count ?? 0 >= 4 {
+        if let tableData = tableData, tableData.count >= 4, let emptyState = emptyState {
             emptyState?.removeFromSuperview()
             emptyState = nil
         }
