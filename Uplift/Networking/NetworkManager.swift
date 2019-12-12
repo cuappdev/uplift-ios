@@ -64,6 +64,87 @@ struct NetworkManager {
         }
     }
 
+    // MARK: - Onboarding
+    /// Retreives 4 Gym Names (combining both Teagles) and 4 Gym Classes from 4 different Tag categories
+    /// to present during the Onboarding.
+    func getOnboardingInfo(completion: @escaping ([String], [GymClassInstance]) -> Void) {
+        var gyms: [String] = []
+        var classes: [GymClassInstance] = []
+
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        dispatchGroup.enter()
+
+        NetworkManager.shared.getGymNames(
+            completion: { gymInstances in
+                var gymNames = Set<String>()
+                gymInstances.forEach { instance in
+                    if let name = instance.name {
+                        if name == "Teagle Up" || name == "Teagle Down" {
+                            gymNames.insert("Teagle")
+                        } else {
+                            gymNames.insert(name)
+                        }
+                    }
+                }
+                gyms = Array(gymNames).sorted()
+
+                dispatchGroup.leave()
+            },
+            failure: { dispatchGroup.leave() }
+        )
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        // Display 4 classes from different (random) tag categories
+        NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: Date()),
+            completion: { classInstances in
+                // Less than 4 classes -> Use Hard coded defaults
+                if classInstances.count < 4 {
+                    dispatchGroup.leave()
+                    return
+                }
+
+                NetworkManager.shared.getTags(
+                    completion: { tags in
+                        // Sample 4 tags without replacement
+                        var randomIndices = Set<Int>()
+                        while randomIndices.count < 4 {
+                            let index = Int.random(in: 0..<tags.count)
+                            randomIndices.insert(index)
+                        }
+                        // Tag categories to chose from
+                        // Each time it picks a class, remove a tag from list
+                        var tagSubset = randomIndices.map { tags[$0] }
+                        // Iterate over unique classes that don't share the same name, Adding classes if it has a tag not yet displayed
+                        for instance in classInstances {
+                            if !classes.contains(where: { $0.className == instance.className }) {
+                                for tag in instance.tags {
+                                    if let index = tagSubset.index(of: tag) {
+                                        tagSubset.remove(at: index)
+                                        classes.append(instance)
+                                        break
+                                    }
+                                }
+                                // Chose 4 classes, can stop
+                                if classes.count >= 4 { break }
+                            }
+                        }
+
+                        classes = classes.sorted(by: { $0.className < $1.className })
+                        dispatchGroup.leave()
+                    },
+                    failure: { dispatchGroup.leave() }
+                )
+            },
+            failure: { dispatchGroup.leave() }
+        )
+
+        dispatchGroup.notify(queue: .main, execute: {
+            completion(gyms, classes)
+        })
+    }
+
     // MARK: - GYMS
     func getGyms(completion: @escaping ([Gym]) -> Void) {
         apollo.fetch(query: AllGymsQuery()) { result, error in

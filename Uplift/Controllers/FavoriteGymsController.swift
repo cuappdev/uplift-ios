@@ -92,7 +92,7 @@ class FavoriteGymsController: UIViewController {
         nextButton.layer.borderWidth = buttonBorderSize
         nextButton.addTarget(self, action: #selector(goToNextView), for: .touchDown)
         nextButton.isEnabled = false
-        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.backArrowDark))
+        nextButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
         nextButtonArrow.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         nextButton.addSubview(nextButtonArrow)
         view.addSubview(nextButton)
@@ -105,7 +105,7 @@ class FavoriteGymsController: UIViewController {
         backButton.layer.borderWidth = buttonBorderSize
         backButton.addTarget(self, action: #selector(goBackAView), for: .touchDown)
         backButton.isEnabled = true
-        backButtonArrow = UIImageView(image: UIImage(named: ImageNames.backArrowDark))
+        backButtonArrow = UIImageView(image: UIImage(named: ImageNames.arrow))
         backButtonArrow.alpha = 0.5
         backButton.addSubview(backButtonArrow)
         view.addSubview(backButton)

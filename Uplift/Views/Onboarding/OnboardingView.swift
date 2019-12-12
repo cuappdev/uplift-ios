@@ -14,6 +14,7 @@ class OnboardingView: UIView {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private var tableView: UITableView?
+    private var emptyState: OnboardingEmptyStateView?
 
     private var tableData: [String]?
     private var showingClasses = false
@@ -25,7 +26,26 @@ class OnboardingView: UIView {
     var favorites: [String] = [] // User's selected favorite gyms/classes
     var hasTableView = false
 
-    init(image: UIImage?, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
+    /// Create view only with an image and text
+    convenience init(image: UIImage?, title: String) {
+        self.init(image: image, text: title)
+    }
+
+    /// Create view that prompts the user to select favorite gyms.
+    /// Passing in an empty array will show an empty state prompting the
+    /// user to retry the Network Requests
+    convenience init(image: UIImage?, title: String, gyms: [String]) {
+        self.init(image: image, text: title, gymNames: gyms)
+    }
+
+    /// Create view that prompts the user to select favorite classes.
+    /// Passing in an empty array will show an empty state prompting the
+    /// user to retry the Network Requests
+    convenience init(image: UIImage?, title: String, classes: [String]) {
+        self.init(image: image, text: title, classNames: classes)
+    }
+
+    private init(image: UIImage?, text: String, gymNames: [String]? = nil, classNames: [String]? = nil) {
         super.init(frame: .zero)
 
         imageView.image = image
@@ -49,7 +69,16 @@ class OnboardingView: UIView {
             tableView.clipsToBounds = false
             tableView.separatorStyle = .none
             self.tableView = tableView
-            self.addSubview(tableView)
+            addSubview(tableView)
+        }
+
+        // No Classes/Gyms
+        let hasNoClassData = showingClasses && classNames?.isEmpty ?? false
+        let hasNoGymData = !showingClasses && gymNames?.isEmpty ?? false
+        if hasNoGymData || hasNoClassData  {
+            let emptyState = OnboardingEmptyStateView()
+            self.emptyState = emptyState
+            addSubview(emptyState)
         }
 
         setUpConstraints()
@@ -59,10 +88,23 @@ class OnboardingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func updateTableView(with data: [String]) {
+        tableData = Array(data.prefix(4))
+        tableView?.reloadData()
+        if let tableData = tableData, tableData.count >= 4, let emptyState = emptyState {
+            emptyState.removeFromSuperview()
+            self.emptyState = nil
+        }
+    }
+
+    func setEmptyStateReconnectAction(completion: @escaping () -> Void) {
+        emptyState?.retryConnectionDelegate = completion
+    }
+
     func getSize() -> CGSize {
         let width = 388
         return hasTableView ?
-            CGSize(width: width, height: 700) :
+            CGSize(width: width, height: 714) :
             CGSize(width: width, height: 269)
     }
 
@@ -77,10 +119,12 @@ class OnboardingView: UIView {
 
         if let tableView = tableView { // With Table View
             let labelHeight: CGFloat = 80
-            let labelTopOffset: CGFloat = 174
+            let labelTopOffset: CGFloat = 188
 
             let tableViewBottomOffset: CGFloat = 17
             let tableViewSize = CGSize(width: 388, height: 308)
+
+            let emptyStateTopOffset: CGFloat = 40
 
             titleLabel.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
@@ -93,6 +137,11 @@ class OnboardingView: UIView {
                 make.top.equalTo(titleLabel.snp.bottom).offset(tableViewBottomOffset)
                 make.size.equalTo(tableViewSize)
                 make.centerX.equalTo(titleLabel)
+            }
+
+            emptyState?.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(emptyStateTopOffset)
+                make.leading.trailing.bottom.equalTo(tableView)
             }
         } else { // Without Table View
             let imageTextPadding: CGFloat = 20
@@ -134,7 +183,7 @@ extension OnboardingView: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return min(4, tableData?.count ?? 0)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -52,17 +52,8 @@ class OnboardingViewController: PresentationController {
         setupBackground()
     }
 
-    /// Initialize with default values
-    init() {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
-
-        gyms = ["Helen Newman", "Appel", "Teagle", "Noyes"]
-        classInstances = [
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.yogaVinyasa, className: "Yoga Vinyasa", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.cuRowShockwave, className: "CU Row (Shockwave)", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.zumba, className: "Zumba", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: []),
-                GymClassInstance(classDescription: "", classDetailId: ClassIds.musclePump, className: "Muscle Pump", duration: 0, endTime: Date(), gymId: "", imageURL: URL(fileURLWithPath: ""), instructor: "", isCancelled: false, location: "", startTime: Date(), tags: [])
-            ]
+    convenience init() {
+        self.init(gymNames: [], classes: [])
     }
 
     init(gymNames: [String], classes: [GymClassInstance]) {
@@ -83,23 +74,38 @@ class OnboardingViewController: PresentationController {
         viewSlides = [
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding1),
-                text: ClientStrings.Onboarding.onboarding1
+                title: ClientStrings.Onboarding.onboarding1
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding2),
-                text: ClientStrings.Onboarding.onboarding2,
-                gymNames: gyms
+                title: ClientStrings.Onboarding.onboarding2,
+                gyms: gyms
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding3),
-                text: ClientStrings.Onboarding.onboarding3,
-                classNames: classInstances.map { $0.className }
+                title: ClientStrings.Onboarding.onboarding3,
+                classes: classInstances.map { $0.className }
             ),
             OnboardingView(
                 image: UIImage(named: ImageNames.onboarding4),
-                text: ClientStrings.Onboarding.onboarding4
+                title: ClientStrings.Onboarding.onboarding4
             )
         ]
+
+        // Set Reconnect Action if couldn't fetch gyms/classes
+        let retryNetworkRequest: (() -> Void) = {
+            NetworkManager.shared.getOnboardingInfo { [weak self] gyms, classInstances in
+                if let `self` = self {
+                    self.viewSlides[1].updateTableView(with: gyms)
+                    self.viewSlides[2].updateTableView(with: classInstances.map { $0.className })
+                    self.gyms = gyms
+                    self.classInstances = classInstances
+                }
+            }
+        }
+        viewSlides[1...2].forEach { onboardingView in
+            onboardingView.setEmptyStateReconnectAction(completion: retryNetworkRequest)
+        }
 
         // Calculate Scaling Info
         let viewSize = viewSlides[1].getSize()
@@ -107,6 +113,8 @@ class OnboardingViewController: PresentationController {
         /// Horizontal Scaling resizes the OnboardingViews and  aims to keep the side padding of the table view and phone frame constant
         horizScaling = min(1, (self.view.frame.width - 26) / viewSize.width)
         /// Vertical Scaling resizes the running man and moves divider + button to not intersect OnboardingView
+        print("view size: \(viewSize)")
+        print("frame height: \(self.view.frame.height)")
         vertScaling = min(1, (self.view.frame.height - (viewSize.height * horizScaling)) / 50)
         viewSlides.forEach { view in
             let viewSize = view.getSize()
@@ -226,7 +234,7 @@ class OnboardingViewController: PresentationController {
 
     // MARK: setupBackground
     private func setupBackground() {
-        let scalingOffset = 0.25 - (vertScaling * 0.25)
+        let scalingOffset = 0.1 - (vertScaling * 0.1)
 
         let dividerPosition = Position(left: 0.5, bottom: 0.162 - scalingOffset)
         let divider = Content(view: dividerView, position: dividerPosition)
@@ -313,11 +321,11 @@ class OnboardingViewController: PresentationController {
         addAnimations([
             FadeOutAnimation(content: nextButtonContents[2], duration: 0.5)
         ], forPage: 3)
-
         addAnimations([
             FadeOutAnimation(content: endOnboardingContent, duration: 0.5, willFadeIn: true)
         ], forPage: 3)
     }
+
     // MARK: - Gesture Recognizer
     @objc private func userSwiped(sender: UISwipeGestureRecognizer) {
         if sender == rightGestureRecognizer {
@@ -361,7 +369,7 @@ class OnboardingViewController: PresentationController {
         }
     }
 
-    // MARKL - Helper
+    // MARK: - Helper
 
     private func updateUserDefaults(with gyms: [String], and classNames: [String]) {
         let defaults = UserDefaults.standard
@@ -379,8 +387,8 @@ class OnboardingViewController: PresentationController {
 
         // Classes
         var favoriteClasses: [String] = []
-        for i in 0..<classNames.count where classNames[i] == classInstances[i].classDetailId {
-            favoriteClasses.append(classInstances[i].classDetailId)
+        classInstances.filter { classNames.contains($0.className) }.forEach {
+            favoriteClasses.append($0.classDetailId)
         }
         defaults.set(favoriteClasses, forKey: Identifiers.favoriteClasses)
     }
