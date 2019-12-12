@@ -156,9 +156,8 @@ extension FavoritesViewController: ClassListCellDelegate, NavigationDelegate {
 
         classListViewController.updateCalendarDateSelectedToToday()
 
-        classNavigationController.setViewControllers([classListViewController], animated: false)
-
         tabBarController?.selectedIndex = 1
+        tabBarController?.selectedViewController = classNavigationController
     }
 }
 
