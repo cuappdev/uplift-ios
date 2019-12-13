@@ -82,6 +82,7 @@ class FavoriteGymsController: UIViewController {
         gymsTableView.isScrollEnabled = false
         gymsTableView.separatorStyle = .none
         gymsTableView.clipsToBounds = false
+        gymsTableView.backgroundColor = .white
         view.addSubview(gymsTableView)
 
         nextButton = UIButton()

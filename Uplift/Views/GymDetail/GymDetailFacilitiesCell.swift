@@ -10,12 +10,34 @@ import UIKit
 import SnapKit
 
 class GymDetailFacilitiesCell: UICollectionViewCell {
+
+    // MARK: - Private view vars
     private var collectionView: UICollectionView!
+    private var facilitiesLabel = UILabel()
     private var facilityDropdowns: [FacilityDropdown] = []
     private var reloadGymDetailCollectionViewClosure: ((Int?) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        setupViews()
+        setupConstraints()
+    }
+
+    func configure(for facilityDropdowns: [FacilityDropdown],
+                   reloadGymDetailCollectionViewClosure: @escaping ((Int?) -> Void)) {
+        self.facilityDropdowns = facilityDropdowns
+        self.reloadGymDetailCollectionViewClosure = reloadGymDetailCollectionViewClosure
+
+        collectionView.reloadData()
+    }
+
+    private func setupViews() {
+        facilitiesLabel.text = ClientStrings.GymDetail.facilitiesSection
+        facilitiesLabel.font = ._16MontserratBold
+        facilitiesLabel.textColor = .primaryBlack
+        facilitiesLabel.textAlignment = .center
+        contentView.addSubview(facilitiesLabel)
 
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.minimumLineSpacing = 0
@@ -31,22 +53,19 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
         contentView.addSubview(collectionView)
+    }
+
+    private func setupConstraints() {
+        facilitiesLabel.snp.makeConstraints { make in
+           make.centerX.equalToSuperview()
+           make.top.equalToSuperview().offset(Constraints.verticalPadding)
+           make.height.equalTo(Constraints.titleLabelHeight)
+       }
 
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(facilitiesLabel.snp.bottom).offset(Constraints.verticalPadding)
+            make.leading.trailing.bottom.equalToSuperview()
         }
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func configure(for facilityDropdowns: [FacilityDropdown],
-                   reloadGymDetailCollectionViewClosure: @escaping ((Int?) -> Void)) {
-        self.facilityDropdowns = facilityDropdowns
-        self.reloadGymDetailCollectionViewClosure = reloadGymDetailCollectionViewClosure
-
-        collectionView.reloadData()
     }
 
     static func getHeights(for facilityDropdowns: [FacilityDropdown]) -> CGFloat {
@@ -61,6 +80,10 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
             }
         }
         return height
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
