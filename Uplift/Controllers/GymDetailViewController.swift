@@ -257,7 +257,7 @@ extension GymDetailViewController {
     }
 
     func getFacilitiesHeight(_ facilityDropdowns: [FacilityDropdown]) -> CGFloat {
-        return GymDetailFacilitiesCell.getHeights(for: facilityDropdowns) + Constraints.verticalPadding + Constraints.titleLabelHeight + Constraints.verticalPadding
+        return GymDetailFacilitiesCell.getHeights(for: facilityDropdowns) + 2 * Constraints.verticalPadding + Constraints.titleLabelHeightg
     }
 
     func getTodaysClassesHeight() -> CGFloat {
