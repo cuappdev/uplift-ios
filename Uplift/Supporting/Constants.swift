@@ -12,7 +12,7 @@ import UIKit
 struct Constraints {
     static let dividerViewHeight: CGFloat = 1
     static let titleLabelHeight: CGFloat = 18
-    static let verticalPadding: CGFloat = 34
+    static let verticalPadding: CGFloat = 24
 }
 
 // MARK: - DAY ABBREVIATIONS
