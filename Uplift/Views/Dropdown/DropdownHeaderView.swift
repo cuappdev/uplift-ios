@@ -14,6 +14,10 @@ protocol DropdownHeaderViewDelegate: class {
 
 class DropdownHeaderView: UIView {
 
+    static let identifier = Identifiers.dropdownViewCell
+    
+    var titleLabel: UILabel!
+    
     private let arrowHeight: CGFloat = 9
     private let arrowImageView = UIImageView()
     private let arrowWidth: CGFloat = 5
@@ -25,6 +29,17 @@ class DropdownHeaderView: UIView {
         super.init(frame: frame)
 
         isUserInteractionEnabled = true
+        
+        titleLabel = UILabel()
+        titleLabel.font = ._12MontserratBold
+        titleLabel.textColor = .gray04
+        titleLabel.sizeToFit()
+        addSubview(titleLabel)
+        
+        titleLabel.snp.updateConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+        }
 
         if let image = arrowImage {
             addSubview(arrowImageView)
