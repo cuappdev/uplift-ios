@@ -129,8 +129,6 @@
 		E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
-		E680BD5123F4A64B000C0D33 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E680BD5023F4A64B000C0D33 /* Post.swift */; };
-		E680BD5323F4A675000C0D33 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E680BD5223F4A675000C0D33 /* Comment.swift */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
@@ -266,8 +264,6 @@
 		E604DC3E233B22C9003598BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		E680BD5023F4A64B000C0D33 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Post.swift; path = ../Post.swift; sourceTree = "<group>"; };
-		E680BD5223F4A675000C0D33 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = ../../Comment.swift; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
@@ -433,7 +429,6 @@
 		C736372D2082F1F2004751F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E680BD5223F4A675000C0D33 /* Comment.swift */,
 				C25CC31723981D6600221DC8 /* Facility.swift */,
 				C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */,
 				C73637272082F170004751F5 /* Gym.swift */,
@@ -442,7 +437,6 @@
 				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
 				C218F936233DBE080018838A /* GymDetail.swift */,
 				8DD74F352242A2DA00CE1274 /* Habit.swift */,
-				E680BD5023F4A64B000C0D33 /* Post.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 				4F27D7F822445BDD00135DC4 /* User.swift */,
 				4F2285162352A1C80013F1B0 /* WeekDay.swift */,
@@ -939,7 +933,6 @@
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
-				E680BD5323F4A675000C0D33 /* Comment.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */,
 				4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */,
@@ -966,7 +959,6 @@
 				8DD74F362242A2DA00CE1274 /* Habit.swift in Sources */,
 				E604DC1B233B1B18003598BC /* API.swift in Sources */,
 				4F20EDEB234AE46C000B26E8 /* GymWeekCell.swift in Sources */,
-				E680BD5123F4A64B000C0D33 /* Post.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
 				7E2E2A85237BAE86008F600D /* HoursEmptyStateView.swift in Sources */,
 				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
