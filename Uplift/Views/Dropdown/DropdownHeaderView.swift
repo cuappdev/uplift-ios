@@ -13,8 +13,6 @@ protocol DropdownHeaderViewDelegate: class {
 }
 
 class DropdownHeaderView: UIView {
-
-    static let identifier = Identifiers.dropdownViewCell
     
     var titleLabel: UILabel!
     

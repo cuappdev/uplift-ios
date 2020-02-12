@@ -52,14 +52,16 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     var startTime = "6:00AM"
     var startTimeClassTypeDivider: UIView!
 
-    var classTypeDropdownHeader: UIView!
+    var classTypeDropdownHeader: DropdownHeaderView!
+    var classTypeDropdownFooter: DropdownFooterView!
     var classTypeDropdown: UITableView!
     var classTypeDropdownData: DropdownData!
     var classTypeInstructorDivider: UIView!
     var selectedClasses: [String] = []
 
     var instructorDivider: UIView!
-    var instructorDropdownHeader: UIView!
+    var instructorDropdownHeader: DropdownHeaderView!
+    var instructorDropdownFooter: DropdownFooterView!
     var instructorDropdown: UITableView!
     var instructorDropdownData: DropdownData!
     var selectedInstructors: [String] = []
@@ -148,13 +150,15 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeDropdownHeader = DropdownHeaderView(frame: .zero)
         contentView.addSubview(classTypeDropdownHeader)
         
+        classTypeDropdownFooter = DropdownFooterView(frame: .zero)
+        contentView.addSubview(classTypeDropdownFooter)
+        
         classTypeDropdown = UITableView(frame: .zero)
         classTypeDropdown.separatorStyle = .none
         classTypeDropdown.showsVerticalScrollIndicator = false
         classTypeDropdown.bounces = false
         
         classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
-        classTypeDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: DropdownFooterView.identifier)
 
         classTypeDropdown.delegate = self
         classTypeDropdown.dataSource = self
@@ -179,13 +183,15 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDropdownHeader = DropdownHeaderView(frame: .zero)
         contentView.addSubview(instructorDropdownHeader)
         
+        instructorDropdownFooter = DropdownFooterView(frame: .zero)
+        contentView.addSubview(instructorDropdownFooter)
+        
         instructorDropdown = UITableView(frame: .zero)
         instructorDropdown.separatorStyle = .none
         instructorDropdown.bounces = false
         instructorDropdown.showsVerticalScrollIndicator = false
 
         instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
-        instructorDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: DropdownFooterView.identifier)
 
         instructorDropdown.delegate = self
         instructorDropdown.dataSource = self
@@ -208,6 +214,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         setupConstraints()
         setupDropdownHeaderViews()
+        setupTableFooterViews()
     }
 
     // MARK: - SETUP WRAPPING VIEWS
@@ -354,15 +361,27 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             case .up:
                 make.height.equalTo(0)
             case .half:
-                make.height.equalTo(32 + 3*32)
+                make.height.equalTo(3*32)
             case .down:
-                make.height.equalTo(32 + classTypeDropdown.numberOfRows(inSection: 0)*32)
+                make.height.equalTo(classTypeDropdown.numberOfRows(inSection: 0)*32)
             }
         }
 
+        classTypeDropdownFooter.snp.remakeConstraints { make in
+            make.top.equalTo(classTypeDropdown.snp.bottom)
+            make.left.right.equalToSuperview()
+
+            switch classTypeDropdownData.dropStatus! {
+            case .up:
+                make.height.equalTo(0)
+            case .half, .down:
+                make.height.equalTo(32)
+            }
+        }
+        
         classTypeInstructorDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
-            make.top.equalTo(classTypeDropdown.snp.bottom)
+            make.top.equalTo(classTypeDropdownFooter.snp.bottom)
             make.bottom.equalTo(classTypeDropdown.snp.bottom).offset(1)
         }
 
@@ -381,9 +400,21 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             case .up:
                 make.height.equalTo(0)
             case .half:
-                make.height.equalTo(32 + 3*32)
+                make.height.equalTo(3*32)
             case .down:
-                make.height.equalTo(32 + instructorDropdown.numberOfRows(inSection: 0)*32)
+                make.height.equalTo(instructorDropdown.numberOfRows(inSection: 0)*32)
+            }
+        }
+        
+        instructorDropdownFooter.snp.remakeConstraints { make in
+            make.top.equalTo(instructorDropdown.snp.bottom)
+            make.left.right.equalToSuperview()
+
+            switch instructorDropdownData.dropStatus! {
+            case .up:
+                make.height.equalTo(0)
+            case .half, .down:
+                make.height.equalTo(32)
             }
         }
 
@@ -396,16 +427,31 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     }
     
     func setupDropdownHeaderViews() {
-           guard let classHeader = classTypeDropdownHeader as? DropdownHeaderView, let instructorHeader = instructorDropdownHeader as? DropdownHeaderView else { return }
-           
-           classHeader.titleLabel.text = ClientStrings.Filter.selectClassTypeSection
-           instructorHeader.titleLabel.text = ClientStrings.Filter.selectInstructorSection
+           classTypeDropdownHeader.titleLabel.text = ClientStrings.Filter.selectClassTypeSection
+           instructorDropdownHeader.titleLabel.text = ClientStrings.Filter.selectInstructorSection
           
            let classGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
-           classHeader.addGestureRecognizer(classGesture)
+           classTypeDropdownHeader.addGestureRecognizer(classGesture)
            
            let instructorGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
-           instructorHeader.addGestureRecognizer(instructorGesture)
+           instructorDropdownHeader.addGestureRecognizer(instructorGesture)
+    }
+    
+    func setupTableFooterViews() {
+        let instructorGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
+        instructorDropdownFooter.addGestureRecognizer(instructorGesture)
+        if (instructorDropdownData.dropStatus == .half) {
+            instructorDropdownFooter.showHideLabel.text = ClientStrings.Filter.dropdownShowInstructors
+        } else {
+            instructorDropdownFooter.showHideLabel.text = ClientStrings.Dropdown.collapse
+        }
+        let classTypeGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
+        classTypeDropdownFooter.addGestureRecognizer(classTypeGesture)
+        if (classTypeDropdownData.dropStatus == .half) {
+            classTypeDropdownFooter.showHideLabel.text = ClientStrings.Filter.dropdownShowClassTypes
+        } else {
+            classTypeDropdownFooter.showHideLabel.text = ClientStrings.Dropdown.collapse
+        }
     }
 
     // MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
@@ -463,9 +509,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         var modifiedIndices: [IndexPath] = []
 
         if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
-            if let instructorDropdown = instructorDropdownHeader as? DropdownHeaderView {
-                instructorDropdown.rotateArrowUp()
-            }
+            instructorDropdownHeader.rotateArrowUp()
             instructorDropdownData.dropStatus = .up
             var i = 0
             while i < instructorDropdown.numberOfRows(inSection: 0) {
@@ -474,9 +518,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
             instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            if let instructorDropdown = instructorDropdownHeader as? DropdownHeaderView {
-                instructorDropdown.rotateArrowDown()
-            }
+            instructorDropdownHeader.rotateArrowDown()
             instructorDropdownData.dropStatus = .half
             for i in [0, 1, 2] {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
@@ -497,7 +539,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         var modifiedIndices: [IndexPath] = []
 
         if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
-            (classTypeDropdownHeader as! DropdownHeaderView).rotateArrowUp()
+            classTypeDropdownHeader.rotateArrowUp()
             classTypeDropdownData.dropStatus = .up
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {
@@ -506,7 +548,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
             classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            (classTypeDropdownHeader as! DropdownHeaderView).rotateArrowDown()
+            classTypeDropdownHeader.rotateArrowDown()
             classTypeDropdownData.dropStatus = .half
             for i in [0, 1, 2] {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
@@ -723,48 +765,5 @@ extension FilterViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 32
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0
-        if tableView == classTypeDropdown {
-            switch classTypeDropdownData.dropStatus! {
-            case .up:
-                height = 0
-            case .half, .down:
-                height = 32
-            }
-        } else if tableView == instructorDropdown {
-            switch instructorDropdownData.dropStatus! {
-            case .up:
-                height = 0
-            case .half, .down:
-                height = 32
-            }
-        }
-        return height
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownFooterView.identifier) as! DropdownFooterView
-
-        if tableView == instructorDropdown {
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
-            footer.addGestureRecognizer(gesture)
-            if (instructorDropdownData.dropStatus == .half) {
-                footer.showHideLabel.text = ClientStrings.Filter.dropdownShowInstructors
-            } else {
-                footer.showHideLabel.text = ClientStrings.Dropdown.collapse
-            }
-        } else if tableView == classTypeDropdown {
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
-            footer.addGestureRecognizer(gesture)
-            if (classTypeDropdownData.dropStatus == .half) {
-                footer.showHideLabel.text = ClientStrings.Filter.dropdownShowClassTypes
-            } else {
-                footer.showHideLabel.text = ClientStrings.Dropdown.collapse
-            }
-        }
-        return footer
     }
 }
