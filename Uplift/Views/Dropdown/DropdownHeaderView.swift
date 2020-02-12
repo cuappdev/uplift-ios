@@ -40,16 +40,19 @@ class DropdownHeaderView: UIView {
             make.left.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
         }
-
+        
         if let image = arrowImage {
-            addSubview(arrowImageView)
             arrowImageView.image = image
-            arrowImageView.snp.makeConstraints { make in
-                make.centerY.equalToSuperview()
-                make.trailing.equalToSuperview().offset(arrowImageTrailingOffset)
-                make.height.equalTo(arrowHeight)
-                make.width.equalTo(arrowWidth)
-            }
+        } else {
+            // Default dropdown arrow.
+            arrowImageView.image = UIImage(named: ImageNames.rightArrow)
+        }
+        addSubview(arrowImageView)
+        arrowImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(arrowImageTrailingOffset)
+            make.height.equalTo(arrowHeight)
+            make.width.equalTo(arrowWidth)
         }
 
         let openCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))

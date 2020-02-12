@@ -152,7 +152,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeDropdown.separatorStyle = .none
         classTypeDropdown.showsVerticalScrollIndicator = false
         classTypeDropdown.bounces = false
-
+        
         classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
         classTypeDropdown.register(DropdownFooterView.self, forHeaderFooterViewReuseIdentifier: DropdownFooterView.identifier)
 
@@ -394,6 +394,19 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.bottom.equalToSuperview()
         }
     }
+    
+    func setupDropdownHeaderViews() {
+           guard let classHeader = classTypeDropdownHeader as? DropdownHeaderView, let instructorHeader = instructorDropdownHeader as? DropdownHeaderView else { return }
+           
+           classHeader.titleLabel.text = ClientStrings.Filter.selectClassTypeSection
+           instructorHeader.titleLabel.text = ClientStrings.Filter.selectInstructorSection
+          
+           let classGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
+           classHeader.addGestureRecognizer(classGesture)
+           
+           let instructorGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
+           instructorHeader.addGestureRecognizer(instructorGesture)
+    }
 
     // MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done() {
@@ -616,7 +629,7 @@ extension FilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = 0
         if tableView == instructorDropdown {
-            if instructorDropdownData.completed == false {
+            if !instructorDropdownData.completed {
                 return 0
             }
             switch instructorDropdownData.dropStatus! {
@@ -628,7 +641,7 @@ extension FilterViewController: UITableViewDataSource {
                 numberOfRows = instructorDropdownData.titles.count
             }
         } else if tableView == classTypeDropdown {
-            if classTypeDropdownData.completed == false {
+            if !classTypeDropdownData.completed {
                 return 0
             }
 
@@ -712,10 +725,6 @@ extension FilterViewController: UITableViewDelegate {
         return 32
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 55
-    }
-
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0
         if tableView == classTypeDropdown {
@@ -758,34 +767,4 @@ extension FilterViewController: UITableViewDelegate {
         }
         return footer
     }
-    
-    func setupDropdownHeaderViews() {
-        guard let classHeader = classTypeDropdownHeader as? DropdownHeaderView, let instructorHeader = instructorDropdownHeader as? DropdownHeaderView else { return }
-        
-        classHeader.titleLabel.text = ClientStrings.Filter.selectClassTypeSection
-        instructorHeader.titleLabel.text = ClientStrings.Filter.selectInstructorSection
-       
-        let classGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
-        classHeader.addGestureRecognizer(classGesture)
-        
-        let instructorGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
-        instructorHeader.addGestureRecognizer(instructorGesture)
-    }
-
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DropdownHeaderView.identifier) as! DropdownHeaderView
-
-//        if tableView == instructorDropdown {
-//            header.titleLabel.text = ClientStrings.Filter.selectInstructorSection
-//            header.updateDropdownHeader(selectedFilters: selectedInstructors)
-//            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
-//            header.addGestureRecognizer(gesture)
-//        } else if tableView == classTypeDropdown {
-//            header.titleLabel.text = ClientStrings.Filter.selectClassTypeSection
-//            header.updateDropdownHeader(selectedFilters: selectedClasses)
-//            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
-//            header.addGestureRecognizer(gesture)
-//        }
-//        return header
-//    }
 }
