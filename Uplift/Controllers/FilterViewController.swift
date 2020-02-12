@@ -148,7 +148,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeDropdownHeader = DropdownHeaderView(frame: .zero)
         contentView.addSubview(classTypeDropdownHeader)
         
-        classTypeDropdown = UITableView(frame: .zero, style: .grouped)
+        classTypeDropdown = UITableView(frame: .zero)
         classTypeDropdown.separatorStyle = .none
         classTypeDropdown.showsVerticalScrollIndicator = false
         classTypeDropdown.bounces = false
@@ -179,7 +179,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDropdownHeader = DropdownHeaderView(frame: .zero)
         contentView.addSubview(instructorDropdownHeader)
         
-        instructorDropdown = UITableView(frame: .zero, style: .grouped)
+        instructorDropdown = UITableView(frame: .zero)
         instructorDropdown.separatorStyle = .none
         instructorDropdown.bounces = false
         instructorDropdown.showsVerticalScrollIndicator = false
@@ -691,7 +691,7 @@ extension FilterViewController: UITableViewDelegate {
         shouldAppend = !shouldAppend
 
         if tableView == classTypeDropdown {
-            if(shouldAppend) {
+            if (shouldAppend) {
                 selectedClasses.append(cell.titleLabel.text!)
             } else {
                 for i in 0..<selectedClasses.count {
