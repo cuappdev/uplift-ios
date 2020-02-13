@@ -382,7 +382,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeInstructorDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(classTypeDropdownFooter.snp.bottom)
-            make.bottom.equalTo(classTypeDropdown.snp.bottom).offset(1)
+            make.bottom.equalTo(classTypeDropdownFooter.snp.bottom).offset(1)
         }
 
         // INSTRUCTOR SECTION
@@ -420,7 +420,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         instructorDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
-            make.top.equalTo(instructorDropdown.snp.bottom)
+            make.top.equalTo(instructorDropdownFooter.snp.bottom)
             make.height.equalTo(1)
             make.bottom.equalToSuperview()
         }
