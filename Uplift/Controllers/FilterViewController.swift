@@ -151,7 +151,11 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         contentView.addSubview(classTypeDropdownHeader)
         
         classTypeDropdownFooter = DropdownFooterView(frame: .zero)
+        classTypeDropdownFooter.clipsToBounds = true
         contentView.addSubview(classTypeDropdownFooter)
+        
+        let classTypeGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
+        classTypeDropdownFooter.addGestureRecognizer(classTypeGesture)
         
         classTypeDropdown = UITableView(frame: .zero)
         classTypeDropdown.separatorStyle = .none
@@ -184,8 +188,12 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         contentView.addSubview(instructorDropdownHeader)
         
         instructorDropdownFooter = DropdownFooterView(frame: .zero)
+        instructorDropdownFooter.clipsToBounds = true
         contentView.addSubview(instructorDropdownFooter)
         
+        let instructorGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
+        instructorDropdownFooter.addGestureRecognizer(instructorGesture)
+               
         instructorDropdown = UITableView(frame: .zero)
         instructorDropdown.separatorStyle = .none
         instructorDropdown.bounces = false
@@ -214,7 +222,6 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         setupConstraints()
         setupDropdownHeaderViews()
-        setupTableFooterViews()
     }
 
     // MARK: - SETUP WRAPPING VIEWS
@@ -424,6 +431,8 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.height.equalTo(1)
             make.bottom.equalToSuperview()
         }
+        
+        updateTableFooterViews()
     }
     
     func setupDropdownHeaderViews() {
@@ -437,16 +446,12 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
            instructorDropdownHeader.addGestureRecognizer(instructorGesture)
     }
     
-    func setupTableFooterViews() {
-        let instructorGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
-        instructorDropdownFooter.addGestureRecognizer(instructorGesture)
+    func updateTableFooterViews() {
         if (instructorDropdownData.dropStatus == .half) {
             instructorDropdownFooter.showHideLabel.text = ClientStrings.Filter.dropdownShowInstructors
         } else {
             instructorDropdownFooter.showHideLabel.text = ClientStrings.Dropdown.collapse
         }
-        let classTypeGesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
-        classTypeDropdownFooter.addGestureRecognizer(classTypeGesture)
         if (classTypeDropdownData.dropStatus == .half) {
             classTypeDropdownFooter.showHideLabel.text = ClientStrings.Filter.dropdownShowClassTypes
         } else {
