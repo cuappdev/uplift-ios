@@ -182,4 +182,6 @@ struct ImageNames {
     static let favoritesSelected = "favorites-tab-selected"
     static let home = "home-tab"
     static let homeSelected = "home-tab-selected"
+    static let sportsFeed = "sports-tab"
+    static let sportsFeedSelected = "sports-tab-selected"
 }

@@ -41,10 +41,13 @@ class TabBarController: UITabBarController {
         let classListController = ClassListViewController()
         classListController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.classesSection, imageName: ImageNames.classes, selectedImageName: ImageNames.classesSelected)
 
+        let sportsFeedController = SportsFeedViewController()
+        sportsFeedController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.sportsFeedSection, imageName: ImageNames.sportsFeed, selectedImageName: ImageNames.sportsFeedSelected)
+
         let favoritesController = FavoritesViewController()
         favoritesController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.favoritesSection, imageName: ImageNames.favorites, selectedImageName: ImageNames.favoritesSelected)
 
-        let viewControllerList = [homeController, classListController, favoritesController]
+        let viewControllerList = [homeController, classListController, sportsFeedController, favoritesController]
         let navControllerList = viewControllerList.map { UINavigationController(rootViewController: $0) }
         viewControllers = navControllerList
 
