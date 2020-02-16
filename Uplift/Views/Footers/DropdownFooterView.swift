@@ -27,15 +27,15 @@ class DropdownFooterView: UIView {
         addSubview(showHideLabel)
         setupConstraints()
     }
-    
+
     func setupConstraints() {
         showHideLabel.snp.updateConstraints { make in
             make.bottom.equalToSuperview().offset(-16)
             make.left.equalToSuperview().offset(16)
         }
     }
-    
+
     required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder:) has not been implemented")
     }
 }
