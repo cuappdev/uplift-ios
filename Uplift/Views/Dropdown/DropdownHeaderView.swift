@@ -38,8 +38,8 @@ class DropdownHeaderView: UIView {
         }
     }
 
-    init(frame: CGRect, title: String, arrowImage: UIImage? = nil, arrowImageTrailingOffset: CGFloat = -24) {
-        super.init(frame: frame)
+    init(title: String, arrowImage: UIImage? = nil, arrowImageTrailingOffset: CGFloat = -24) {
+        super.init(frame: .zero)
 
         isUserInteractionEnabled = true
         

@@ -16,7 +16,7 @@ class DropdownFooterView: UIView {
     var showHideLabel: UILabel!
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         
         isUserInteractionEnabled = true
         

@@ -14,7 +14,7 @@ class FacilitiesDropdownHeaderView: DropdownHeaderView {
     private let headerOpenLabel = UILabel()
 
     init(frame: CGRect) {
-        super.init(frame: frame, title: "", arrowImage: UIImage(named: ImageNames.rightArrowSolid))
+        super.init(title: "", arrowImage: UIImage(named: ImageNames.rightArrowSolid))
     }
 
     required init?(coder: NSCoder) {

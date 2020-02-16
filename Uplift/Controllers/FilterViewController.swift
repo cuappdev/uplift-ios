@@ -147,16 +147,16 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         contentView.addSubview(startTimeClassTypeDivider)
 
         // CLASS TYPE SECTION
-        classTypeDropdownHeader = DropdownHeaderView(frame: .zero, title: ClientStrings.Filter.selectClassTypeSection)
+        classTypeDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectClassTypeSection)
         contentView.addSubview(classTypeDropdownHeader)
-        
-        classTypeDropdownFooter = DropdownFooterView(frame: .zero)
+
+        classTypeDropdownFooter = DropdownFooterView()
         classTypeDropdownFooter.clipsToBounds = true
         contentView.addSubview(classTypeDropdownFooter)
-        
+
         let toggleMoreClasses = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
         classTypeDropdownFooter.addGestureRecognizer(toggleMoreClasses)
-        
+
         classTypeDropdown = UITableView()
         classTypeDropdown.separatorStyle = .none
         classTypeDropdown.showsVerticalScrollIndicator = false
@@ -183,10 +183,10 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         }
 
         // INSTRUCTOR SECTION
-        instructorDropdownHeader = DropdownHeaderView(frame: .zero, title: ClientStrings.Filter.selectInstructorSection)
+        instructorDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectInstructorSection)
         contentView.addSubview(instructorDropdownHeader)
         
-        instructorDropdownFooter = DropdownFooterView(frame: .zero)
+        instructorDropdownFooter = DropdownFooterView()
         instructorDropdownFooter.clipsToBounds = true
         contentView.addSubview(instructorDropdownFooter)
         
