@@ -9,30 +9,22 @@
 import SnapKit
 import UIKit
 
-class DropdownFooterView: UITableViewHeaderFooterView {
+class DropdownFooterView: UIView {
 
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.dropdownFooterView
     var showHideLabel: UILabel!
-
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        layer.backgroundColor = UIColor.white.cgColor
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        
+        isUserInteractionEnabled = true
+        
         showHideLabel = UILabel()
         showHideLabel.font = ._12MontserratMedium
         showHideLabel.sizeToFit()
         showHideLabel.textColor = .gray02
-        contentView.addSubview(showHideLabel)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: - CONSTRAINTS
-    override open func layoutSubviews() {
-        super.layoutSubviews()
+        addSubview(showHideLabel)
         setupConstraints()
     }
 
@@ -41,5 +33,9 @@ class DropdownFooterView: UITableViewHeaderFooterView {
             make.bottom.equalToSuperview().offset(-16)
             make.left.equalToSuperview().offset(16)
         }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
