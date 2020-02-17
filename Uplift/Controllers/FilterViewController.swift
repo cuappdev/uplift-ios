@@ -309,13 +309,13 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     func setupConstraints() {
         // COLLECTION VIEW SECTION
         collectionViewTitle.snp.remakeConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(20)
             make.bottom.equalTo(collectionViewTitle.snp.top).offset(15)
         }
 
         gymCollectionView.snp.remakeConstraints { make in
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(51)
             make.bottom.equalTo(collectionViewTitle.snp.bottom).offset(47)
         }
@@ -328,13 +328,13 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         }
 
         startTimeTitleLabel.snp.remakeConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(35)
         }
 
         startTimeLabel.snp.remakeConstraints { make in
-            make.right.equalToSuperview().offset(-22)
+            make.trailing.equalToSuperview().offset(-22)
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(36)
         }
@@ -355,13 +355,13 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         // CLASS TYPE SECTION
         classTypeDropdownHeader.snp.remakeConstraints { make in
             make.top.equalTo(startTimeClassTypeDivider.snp.bottom)
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
         
         classTypeDropdown.snp.remakeConstraints { make in
             make.top.equalTo(classTypeDropdownHeader.snp.bottom)
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             
             if let dropStatus = classTypeDropdownData.dropStatus {
                 switch dropStatus {
@@ -379,7 +379,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         classTypeDropdownFooter.snp.remakeConstraints { make in
             make.top.equalTo(classTypeDropdown.snp.bottom)
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             
             if let dropStatus = classTypeDropdownData.dropStatus {
                 switch dropStatus {
@@ -402,13 +402,13 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         // INSTRUCTOR SECTION
         instructorDropdownHeader.snp.remakeConstraints { make in
             make.top.equalTo(classTypeInstructorDivider.snp.bottom)
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
         
         instructorDropdown.snp.remakeConstraints { make in
             make.top.equalTo(instructorDropdownHeader.snp.bottom)
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             
             if let dropStatus = instructorDropdownData.dropStatus {
                 switch dropStatus {
@@ -426,7 +426,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         
         instructorDropdownFooter.snp.remakeConstraints { make in
             make.top.equalTo(instructorDropdown.snp.bottom)
-            make.left.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
 
             if let dropStatus = instructorDropdownData.dropStatus {
                 switch dropStatus {
