@@ -130,6 +130,8 @@
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
+		E69CE6B923F4B3E800CA83BF /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69CE6B823F4B3E800CA83BF /* Post.swift */; };
+		E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69CE6BA23F4B41000CA83BF /* Comment.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
 		E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */; };
@@ -265,6 +267,8 @@
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
+		E69CE6B823F4B3E800CA83BF /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = SOURCE_ROOT; };
+		E69CE6BA23F4B41000CA83BF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
 		E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
@@ -429,17 +433,19 @@
 		C736372D2082F1F2004751F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E69CE6BA23F4B41000CA83BF /* Comment.swift */,
+				C25CC31723981D6600221DC8 /* Facility.swift */,
+				C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */,
 				C73637272082F170004751F5 /* Gym.swift */,
 				C73637292082F193004751F5 /* GymClass.swift */,
 				C7434C10208D27C1006F3249 /* GymClassDescription.swift */,
 				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
+				C218F936233DBE080018838A /* GymDetail.swift */,
+				8DD74F352242A2DA00CE1274 /* Habit.swift */,
+				E69CE6B823F4B3E800CA83BF /* Post.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 				4F27D7F822445BDD00135DC4 /* User.swift */,
-				8DD74F352242A2DA00CE1274 /* Habit.swift */,
-				C218F936233DBE080018838A /* GymDetail.swift */,
 				4F2285162352A1C80013F1B0 /* WeekDay.swift */,
-				C25CC31723981D6600221DC8 /* Facility.swift */,
-				C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -933,6 +939,7 @@
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
+				E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */,
 				4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */,
@@ -959,6 +966,7 @@
 				8DD74F362242A2DA00CE1274 /* Habit.swift in Sources */,
 				E604DC1B233B1B18003598BC /* API.swift in Sources */,
 				4F20EDEB234AE46C000B26E8 /* GymWeekCell.swift in Sources */,
+				E69CE6B923F4B3E800CA83BF /* Post.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
 				7E2E2A85237BAE86008F600D /* HoursEmptyStateView.swift in Sources */,
 				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
