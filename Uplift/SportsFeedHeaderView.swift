@@ -21,7 +21,7 @@ class SportsFeedHeaderView: UIView {
 
         backgroundColor = .white
 
-        profilePic.image = UIImage(named: "demo-profile-pic")
+        profilePic.image = UIImage(named: ImageNames.profilePicDemo)
         profilePic.layer.cornerRadius = profilePicSize / 2.0
         addSubview(profilePic)
 
@@ -31,7 +31,7 @@ class SportsFeedHeaderView: UIView {
         titleLabel.textAlignment = .left
         addSubview(titleLabel)
 
-        addButton.setImage(UIImage(named: "add-sports"), for: .normal)
+        addButton.setImage(UIImage(named: ImageNames.addSports), for: .normal)
         addSubview(addButton)
 
         setupConstraints()
@@ -48,7 +48,7 @@ class SportsFeedHeaderView: UIView {
         let profilePicBottomOffset = -16
         let profilePicLeadingOffset = 16
         let titleLabelLeadingOffset = 12
-        
+
         profilePic.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(profilePicLeadingOffset)
             make.bottom.equalToSuperview().offset(profilePicBottomOffset)
