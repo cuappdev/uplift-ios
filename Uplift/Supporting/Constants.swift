@@ -168,6 +168,10 @@ struct ImageNames {
     // SHARE
     static let shareDark = "share-dark"
     static let shareLight = "share-light"
+    
+    // SPORTS
+    static let addSports = "add-sports"
+    static let profilePicDemo = "demo-profile-pic"
 
     // STARS
     static let starFilledInDark = "star-filled-in-dark"
@@ -182,4 +186,6 @@ struct ImageNames {
     static let favoritesSelected = "favorites-tab-selected"
     static let home = "home-tab"
     static let homeSelected = "home-tab-selected"
+    static let sportsFeed = "sports-tab"
+    static let sportsFeedSelected = "sports-tab-selected"
 }
