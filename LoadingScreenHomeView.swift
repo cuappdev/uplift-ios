@@ -1,21 +1,16 @@
 //
-//  LoadingScreenHomeView.swift
-//  Uplift
+// LoadingScreenHomeView.swift
+// Alamofire
 //
-//  Created by Cameron Hamidi on 2/12/20.
-//  Copyright © 2020 Cornell AppDev. All rights reserved.
+// Created by Cameron Hamidi on 2/7/20.
 //
 
 import UIKit
+import SnapKit
 
 class LoadingScreenHomeView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    let navBarGreyedOut = UIView()
+    let tabBarGreyedOut = UIView()
 
 }

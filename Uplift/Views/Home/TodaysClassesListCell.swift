@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol TodaysClassesListCellDelegate: class {
     func todaysClassesCellShouldOpenGymClassInstance(_ gymClassInstance: GymClassInstance)
@@ -41,4 +42,12 @@ class TodaysClassesListCell: ListCollectionViewCell<GymClassInstance, TodaysClas
         cell.zoomOut()
     }
 
+}
+
+extension TodaysClassesListCell: SkeletonCollectionViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return Identifiers.classesCell
+    }
+    
+    
 }

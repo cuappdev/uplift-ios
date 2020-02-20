@@ -6,6 +6,7 @@
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
+import SkeletonView
 import UIKit
 
 extension HomeViewController: UICollectionViewDataSource {
@@ -31,6 +32,8 @@ extension HomeViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
             cell.delegate = self
             cell.configure(for: self.myGyms)
+//            cell.isSkeletonable = true
+//            cell.showSkeleton()
             return cell
         case .todaysClasses:
             if gymClassInstances.isEmpty {
@@ -42,21 +45,54 @@ extension HomeViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
             cell.delegate = self
             cell.configure(for: gymClassInstances)
+//            cell.isSkeletonable = true
+//            cell.showSkeleton()
             return cell
         case .lookingFor:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.lookingForListCellIdentifier, for: indexPath) as! LookingForListCell
             cell.delegate = self
             cell.configure(for: lookingForCategories, width: collectionView.bounds.width)
+//            cell.isSkeletonable = true
+//            cell.showSkeleton()
             return cell
         default:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
             cell.delegate = self
             cell.configure(for: gymClassInstances)
+            cell.isSkeletonable = true
+            cell.updateSkeleton()
             return cell
         }
     }
+
+//    func numSections(in collectionSkeletonView: UICollectionView) -> Int {
+//        return sections.count
+//    }
+//
+//    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 1
+//    }
+//
+//    func collectionSkeletonView(_ skeletonView: UICollectionView, supplementaryViewIdentifierOfKind: String, at indexPath: IndexPath) -> ReusableCellIdentifier? {
+//        return HomeSectionHeaderView.identifier
+//    }
+//
+//    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+//        switch sections[indexPath.section] {
+//        case .checkIns:
+//            return Constants.checkInsListCellIdentifier
+//        case .myGyms:
+//            return Constants.gymsListCellIdentifier
+//        case .todaysClasses:
+//            return Constants.todaysClassesEmptyCellIdentifier
+//        case .lookingFor:
+//            return Constants.lookingForListCellIdentifier
+//        default:
+//            return Constants.todaysClassesListCellIdentifier
+//        }
+//    }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(
@@ -79,7 +115,8 @@ extension HomeViewController: UICollectionViewDataSource {
         default:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
         }
-
+//        headerView.isSkeletonable = true
+//        headerView.showSkeleton()
         return headerView
     }
 

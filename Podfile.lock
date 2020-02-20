@@ -96,6 +96,7 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Presentation (4.2.3)
+  - SkeletonView (1.8.2)
   - SnapKit (4.2.0)
   - SwiftLint (0.35.0)
 
@@ -111,6 +112,7 @@ DEPENDENCIES:
   - GoogleSignIn
   - Kingfisher (~> 4.0)
   - Presentation (from `https://github.com/cuappdev/Presentation.git`, commit `d4aa2d3ad5901f6ebce0727af592824982f88d13`)
+  - SkeletonView
   - SnapKit
   - SwiftLint
 
@@ -138,6 +140,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - Kingfisher
     - nanopb
+    - SkeletonView
     - SnapKit
     - SwiftLint
 
@@ -188,9 +191,10 @@ SPEC CHECKSUMS:
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Presentation: 3c02ab6268b15e44b6146c511686eb9c3f81b7d0
+  SkeletonView: bb27c39857e5492136f02ee8a3aa78de55d12ecd
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
-PODFILE CHECKSUM: 22b1ef1ccb8bd54a8faaefee72586b1ad6e18d3b
+PODFILE CHECKSUM: 58dd79af70b3b000b59930039f3de5b429f3533a
 
 COCOAPODS: 1.8.4

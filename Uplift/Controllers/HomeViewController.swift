@@ -8,6 +8,7 @@
 
 import Alamofire
 import Crashlytics
+import SkeletonView
 import SnapKit
 import UIKit
 
@@ -133,6 +134,9 @@ extension HomeViewController {
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)
         view.addSubview(collectionView)
+
+//        collectionView.isSkeletonable = true
+//        collectionView.showSkeleton()
     }
 
     private func setupConstraints() {
