@@ -11,10 +11,10 @@ import UIKit
 
 class SportsFeedHeaderView: UIView {
 
-    let addButton = UIButton()
-    let profilePic = UIImageView()
-    let profilePicSize: CGFloat = 36
-    let titleLabel = UILabel()
+    private let addButton = UIButton()
+    private let profilePic = UIImageView()
+    private let profilePicSize: CGFloat = 36
+    private let titleLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
