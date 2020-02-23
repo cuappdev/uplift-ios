@@ -5,8 +5,12 @@ import Foundation
  developer information like API keys and secrets.
  */
 enum Keys: String {
-    case apiURL = "api-url"
+    case announcementsCommonPath = "announcements-common-path"
+    case announcementsHost = "announcements-host"
+    case announcementsPath = "announcements-path"
+    case announcementsScheme = "announcements-scheme"
     case apiDevURL = "api-dev-url"
+    case apiURL = "api-url"
     case fabricAPIKey = "fabric-api-key"
     case googleClientID = "google-client-id"
 

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Uplift. All rights reserved.
 //
 
+import AppDevAnnouncements
 import Crashlytics
 import Fabric
 import Firebase
@@ -29,6 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             displayOnboardingViewController()
         }
+
+        AnnouncementNetworking.setupConfig(
+            scheme: Keys.announcementsScheme.value,
+            host: Keys.announcementsHost.value,
+            commonPath: Keys.announcementsCommonPath.value,
+            announcementPath: Keys.announcementsPath.value
+        )
 
         #if DEBUG
             print("Running Uplift in debug configuration")
