@@ -10,15 +10,16 @@ import SnapKit
 import UIKit
 
 class PickupGameCell: UICollectionViewCell {
+    
     // MARK: - Labels
+    private let detailLabel = UILabel()
     private let locationLabel = UILabel()
     private let playersLabel = UILabel()
     private let titleLabel = UILabel()
-    private let detailLabel = UILabel()
     
     // MARK: - Other Views
-    private let statusButton = UIButton()
     private let playerIcon = UIImageView()
+    private let statusButton = UIButton()
     
     // MARK: - Data
     private var status: GameStatus = .open
@@ -70,38 +71,36 @@ class PickupGameCell: UICollectionViewCell {
     }
 
     private func setupConstraints() {
-        let smallPadding = 6
-        let mediumPadding = 12
         let largePadding = 16
+        let mediumPadding = 12
+        let smallPadding = 6
+        
+        let playerIconHeight = 12
+        let playerIconWidth = 8
+        let statusButtonHeight = 24
+        let statusButtonWidth = status == .created ? 75 : status == .joined ? 65 : 48
         
         titleLabel.snp.updateConstraints { make in
             make.top.equalToSuperview().offset(largePadding)
-            make.leading.trailing.equalToSuperview().offset(mediumPadding)
+            make.leading.trailing.equalToSuperview().offset(-mediumPadding)
         }
         
         statusButton.snp.updateConstraints { make in
-            make.trailing.equalToSuperview().offset(mediumPadding)
+            make.trailing.equalToSuperview().offset(-mediumPadding)
             make.centerY.equalToSuperview()
-            make.height.equalTo(24)
-            switch status {
-            case .created:
-                make.width.equalTo(75)
-            case .joined:
-                make.width.equalTo(65)
-            case .open:
-                make.width.equalTo(48)
-            }
+            make.height.equalTo(statusButtonHeight)
+            make.width.equalTo(statusButtonWidth)
         }
         
         playersLabel.snp.updateConstraints { make in
-            make.bottom.trailing.equalToSuperview().offset(mediumPadding)
+            make.bottom.trailing.equalToSuperview().offset(-mediumPadding)
         }
         
         playerIcon.snp.updateConstraints { make in
             make.centerY.equalTo(playersLabel)
             make.trailing.equalTo(playersLabel.snp.leading).offset(smallPadding)
-            make.height.equalTo(12)
-            make.width.equalTo(8)
+            make.height.equalTo(playerIconHeight)
+            make.width.equalTo(playerIconWidth)
         }
         
         detailLabel.snp.updateConstraints { make in
