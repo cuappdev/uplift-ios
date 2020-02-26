@@ -26,10 +26,10 @@ class PickupGameCell: UICollectionViewCell {
     
     // TODO: add delegate for toggling game status
     
-    enum GameStatus {
-        case created
-        case joined
-        case open
+    enum GameStatus: String {
+        case created = "CREATED"
+        case joined = "JOINED"
+        case open = "OPEN"
     }
    
     // MARK: - Inits
@@ -81,38 +81,38 @@ class PickupGameCell: UICollectionViewCell {
         let statusButtonWidth = status == .created ? 75 : status == .joined ? 65 : 48
         
         titleLabel.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(largePadding)
-            make.leading.trailing.equalToSuperview().offset(-mediumPadding)
+            make.top.equalToSuperview().inset(largePadding)
+            make.leading.trailing.equalToSuperview().inset(mediumPadding)
         }
         
         statusButton.snp.updateConstraints { make in
-            make.trailing.equalToSuperview().offset(-mediumPadding)
+            make.trailing.equalToSuperview().inset(mediumPadding)
             make.centerY.equalToSuperview()
             make.height.equalTo(statusButtonHeight)
             make.width.equalTo(statusButtonWidth)
         }
         
         playersLabel.snp.updateConstraints { make in
-            make.bottom.trailing.equalToSuperview().offset(-mediumPadding)
+            make.bottom.trailing.equalToSuperview().inset(mediumPadding)
         }
         
         playerIcon.snp.updateConstraints { make in
             make.centerY.equalTo(playersLabel)
-            make.trailing.equalTo(playersLabel.snp.leading).offset(smallPadding)
+            make.trailing.equalTo(playersLabel.snp.leading).inset(smallPadding)
             make.height.equalTo(playerIconHeight)
             make.width.equalTo(playerIconWidth)
         }
         
         detailLabel.snp.updateConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.leading.equalToSuperview().offset(mediumPadding)
-            make.trailing.equalTo(statusButton.snp.leading).offset(mediumPadding)
+            make.leading.equalToSuperview().inset(mediumPadding)
+            make.trailing.equalTo(statusButton.snp.leading).inset(mediumPadding)
         }
         
         locationLabel.snp.updateConstraints { make in
-            make.bottom.equalToSuperview().offset(largePadding)
-            make.leading.equalToSuperview().offset(mediumPadding)
-            make.trailing.equalTo(playerIcon.snp.leading).offset(mediumPadding)
+            make.bottom.equalToSuperview().inset(largePadding)
+            make.leading.equalToSuperview().inset(mediumPadding)
+            make.trailing.equalTo(playerIcon.snp.leading).inset(mediumPadding)
         }
     }
 
@@ -123,6 +123,7 @@ class PickupGameCell: UICollectionViewCell {
         detailLabel.text = "\(type) · \(time)"
         locationLabel.text = location
         playersLabel.text = "\(players)/10"
+        
         switch gameStatus {
         case .created:
             statusButton.setTitle("MY GAME", for: .normal)
@@ -134,9 +135,12 @@ class PickupGameCell: UICollectionViewCell {
             statusButton.setTitle("JOIN", for: .normal)
             statusButton.backgroundColor = .clear
         }
+        
         if let statusLabel = statusButton.titleLabel {
             statusLabel.font = ._12MontserratBold
         }
+        
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {

@@ -13,7 +13,12 @@ struct Post: Codable {
     let comment: [Comment]
     let createdAt: Date
     let id: Int
-    let text: String
     let userId: Int
-
+    
+    let title: String
+    let time: String
+    let type: String
+    let location: String
+    let players: Int
+    let gameStatus: String
 }
