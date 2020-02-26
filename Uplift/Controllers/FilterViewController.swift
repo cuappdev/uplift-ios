@@ -28,6 +28,7 @@ protocol FilterDelegate {
     func filterOptions(params: FilterParameters)
 }
 
+// swiftlint:disable:next type_body_length
 class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - INITIALIZATION
@@ -79,6 +80,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         selectedInstructors = existingFilterParams.instructorNames
     }
 
+    // swiftlint:disable:next function_body_length
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

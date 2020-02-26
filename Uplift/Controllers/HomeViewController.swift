@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import AppDevAnnouncements
 import Crashlytics
 import SnapKit
 import UIKit
@@ -88,6 +89,7 @@ class HomeViewController: UIViewController {
             self.collectionView.reloadSections(IndexSet(integer: 2))
         })
 
+        presentAnnouncement(completion: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -83,6 +83,9 @@
 		C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */; };
 		C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE15722926F8700B5D219 /* GymsListCell.swift */; };
 		C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */; };
+		C22A326924032ECA003218A6 /* SportsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326824032ECA003218A6 /* SportsFeedViewController.swift */; };
+		C22A326B24032F53003218A6 /* SportsFeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326A24032F52003218A6 /* SportsFeedHeaderView.swift */; };
+		C22A326D24033300003218A6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326C24033300003218A6 /* Post.swift */; };
 		C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */; };
 		C25CC31823981D6600221DC8 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC31723981D6600221DC8 /* Facility.swift */; };
 		C25CC31A23981F0A00221DC8 /* FacilityDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */; };
@@ -221,6 +224,9 @@
 		C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		C21BE15722926F8700B5D219 /* GymsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsListCell.swift; sourceTree = "<group>"; };
 		C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Shared.swift"; sourceTree = "<group>"; };
+		C22A326824032ECA003218A6 /* SportsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsFeedViewController.swift; sourceTree = "<group>"; };
+		C22A326A24032F52003218A6 /* SportsFeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsFeedHeaderView.swift; sourceTree = "<group>"; };
+		C22A326C24033300003218A6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
 		C25CC31723981D6600221DC8 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
 		C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityDropdown.swift; sourceTree = "<group>"; };
@@ -435,6 +441,7 @@
 		C736372D2082F1F2004751F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C22A326C24033300003218A6 /* Post.swift */,
 				E69CE6BA23F4B41000CA83BF /* Comment.swift */,
 				C25CC31723981D6600221DC8 /* Facility.swift */,
 				C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */,
@@ -514,17 +521,18 @@
 				C26236F62290D1C4007C415D /* ClassDetailViewController.swift */,
 				C2623703229107BA007C415D /* ClassDetailViewController+Extensions.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
+				4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */,
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
 				7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */,
-				4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */,
 				7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */,
 				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
-				4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */,
 				C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */,
 				C21BE14C2292374400B5D219 /* HomeViewController.swift */,
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
+				4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */,
 				4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */,
+				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -533,6 +541,7 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C22A326A24032F52003218A6 /* SportsFeedHeaderView.swift */,
 				4F4CA4122383A3040002FD5F /* Onboarding */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
 				C26236FA2290D696007C415D /* ClassDetail */,
@@ -829,6 +838,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/AppDevAnnouncements/AppDevAnnouncements.framework",
 				"${BUILT_PRODUCTS_DIR}/Bartinter/Bartinter.framework",
 				"${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
@@ -845,6 +855,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppDevAnnouncements.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bartinter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLEX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
@@ -872,10 +883,12 @@
 				7E9D6DF122961C150054F710 /* GymDetailHeaderView.swift in Sources */,
 				4F6810342345504D00C283C0 /* GymDetailWeekView.swift in Sources */,
 				4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */,
+				C22A326924032ECA003218A6 /* SportsFeedViewController.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
 				C25CC31823981D6600221DC8 /* Facility.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
+				C22A326B24032F53003218A6 /* SportsFeedHeaderView.swift in Sources */,
 				C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */,
@@ -941,6 +954,7 @@
 				7E9D6DEF22961B860054F710 /* GymDetailViewController.swift in Sources */,
 				7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
+				C22A326D24033300003218A6 /* Post.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
 				E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */,

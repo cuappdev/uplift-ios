@@ -10,6 +10,7 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.2.0)
   - AppAuth/Core (1.2.0)
   - AppAuth/ExternalUserAgent (1.2.0)
+  - AppDevAnnouncements (0.0.1)
   - AppDevHistogram (1.0.0):
     - SnapKit (~> 4.2.0)
   - Bartinter (0.0.5)
@@ -102,6 +103,7 @@ PODS:
 DEPENDENCIES:
   - AlamofireImage
   - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
+  - AppDevAnnouncements (from `https://github.com/cuappdev/appdev-announcements.git`)
   - AppDevHistogram (from `https://github.com/cuappdev/appdev-histogram.git`)
   - Bartinter
   - Crashlytics
@@ -145,6 +147,8 @@ EXTERNAL SOURCES:
   Apollo:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
+  AppDevAnnouncements:
+    :git: https://github.com/cuappdev/appdev-announcements.git
   AppDevHistogram:
     :git: https://github.com/cuappdev/appdev-histogram.git
   Presentation:
@@ -155,6 +159,9 @@ CHECKOUT OPTIONS:
   Apollo:
     :commit: b28c3dc
     :git: https://github.com/apollographql/apollo-ios.git
+  AppDevAnnouncements:
+    :commit: 31c4502ac6e9e77e3c478bc46b4e4960cfc90fe9
+    :git: https://github.com/cuappdev/appdev-announcements.git
   AppDevHistogram:
     :commit: 76f5fb6708f289287567788029ec71621d153031
     :git: https://github.com/cuappdev/appdev-histogram.git
@@ -167,6 +174,7 @@ SPEC CHECKSUMS:
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   Apollo: 09002d68c46e4098766fe376151d9ff8bd6aad36
   AppAuth: bce82c76043657c99d91e7882e8a9e1a93650cd4
+  AppDevAnnouncements: da6074ec0011c8964caa11cabc959ca007cb958f
   AppDevHistogram: 63293981a9c7a1144f17a0098725267abc415541
   Bartinter: 3c1fc3bcb631b066fdd78f7e01f1635fbafffdea
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
@@ -191,6 +199,6 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
-PODFILE CHECKSUM: 22b1ef1ccb8bd54a8faaefee72586b1ad6e18d3b
+PODFILE CHECKSUM: 0e393e57205bb4bb2d610ef4690f7bc5e1f5ded1
 
 COCOAPODS: 1.8.4
