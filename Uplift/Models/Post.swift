@@ -9,7 +9,6 @@
 import Foundation
 
 struct Post: Codable {
-
     let comment: [Comment]
     let createdAt: Date
     let id: Int

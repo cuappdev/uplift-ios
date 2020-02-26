@@ -11,6 +11,8 @@ import UIKit
 
 class PickupGameCell: UICollectionViewCell {
     
+    weak var gameStatusDelegate: GameStatusDelegate?
+    
     // MARK: - Labels
     private let detailLabel = UILabel()
     private let locationLabel = UILabel()
@@ -23,14 +25,9 @@ class PickupGameCell: UICollectionViewCell {
     
     // MARK: - Data
     private var status: GameStatus = .open
+    private var id: Int = 0
     
     // TODO: add delegate for toggling game status
-    
-    enum GameStatus: String {
-        case created = "CREATED"
-        case joined = "JOINED"
-        case open = "OPEN"
-    }
    
     // MARK: - Inits
     override init(frame: CGRect) {
@@ -68,6 +65,14 @@ class PickupGameCell: UICollectionViewCell {
     
     @objc func toggleStatus() {
         // TODO: toggle game status
+        switch status {
+        case .joined:
+            gameStatusDelegate?.didChangeStatus(id: id, status: .open)
+        case .open:
+            gameStatusDelegate?.didChangeStatus(id: id, status: .joined)
+        case .created:
+            return
+        }
     }
 
     private func setupConstraints() {
@@ -117,24 +122,16 @@ class PickupGameCell: UICollectionViewCell {
     }
 
     // MARK: - Functionality
-    func configure(title: String, type: String, time: String, location: String, players: Int, gameStatus: GameStatus) {
+    func configure(postId: Int, title: String, type: String, time: String, location: String, players: Int, gameStatus: GameStatus) {
+        id = postId
         status = gameStatus
         titleLabel.text = title
         detailLabel.text = "\(type) · \(time)"
         locationLabel.text = location
         playersLabel.text = "\(players)/10"
         
-        switch gameStatus {
-        case .created:
-            statusButton.setTitle("MY GAME", for: .normal)
-            statusButton.backgroundColor = .primaryYellow
-        case .joined:
-            statusButton.setTitle("JOINED", for: .normal)
-            statusButton.backgroundColor = .primaryYellow
-        case .open:
-            statusButton.setTitle("JOIN", for: .normal)
-            statusButton.backgroundColor = .clear
-        }
+        statusButton.setTitle(gameStatus.rawValue, for: .normal)
+        statusButton.backgroundColor = gameStatus == .open ? .clear : .primaryYellow
         
         if let statusLabel = statusButton.titleLabel {
             statusLabel.font = ._12MontserratBold

@@ -9,6 +9,10 @@
 import SnapKit
 import UIKit
 
+protocol GameStatusDelegate: class {
+    func didChangeStatus(id: Int, status: GameStatus)
+}
+
 class SportsFeedViewController: UIViewController {
 
     let headerView = SportsFeedHeaderView()
@@ -73,14 +77,21 @@ extension SportsFeedViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportIdentifier, for: indexPath) as! PickupGameCell
         let post = posts[indexPath.item]
-        let status = post.gameStatus == "JOINED" ? PickupGameCell.GameStatus.joined
-            : post.gameStatus == "CREATED" ? PickupGameCell.GameStatus.created
-            : PickupGameCell.GameStatus.open
-        cell.configure(title: post.title, type: post.type, time: post.time, location: post.location, players: post.players, gameStatus: status)
+        let status = post.gameStatus == "JOINED" ? GameStatus.joined
+            : post.gameStatus == "CREATED" ? GameStatus.created
+            : GameStatus.open
+        cell.configure(postId: post.id, title: post.title, type: post.type, time: post.time, location: post.location, players: post.players, gameStatus: status)
+        cell.gameStatusDelegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: push detail view.
+    }
+}
+
+extension SportsFeedViewController: GameStatusDelegate {
+    func didChangeStatus(id: Int, status: GameStatus) {
+        // TODO: perform network request and update collection view.
     }
 }
