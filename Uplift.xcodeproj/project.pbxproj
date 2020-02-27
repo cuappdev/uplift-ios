@@ -10,6 +10,7 @@
 		03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */; };
 		035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
+		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
 		0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */; };
 		1C1D283B2166E215003FE839 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D283A2166E215003FE839 /* Keys.swift */; };
@@ -146,6 +147,7 @@
 		03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGameCell.swift; sourceTree = "<group>"; };
 		035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
 		0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursHeaderView.swift; sourceTree = "<group>"; };
 		1C1D283A2166E215003FE839 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 				4F27D7F822445BDD00135DC4 /* User.swift */,
 				4F2285162352A1C80013F1B0 /* WeekDay.swift */,
+				039A3230240749A30090ED50 /* GameStatus.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -950,6 +953,7 @@
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */,
+				039A3231240749A30090ED50 /* GameStatus.swift in Sources */,
 				7E1D0A5623986A8500D5987F /* TodaysClassesEmptyCell.swift in Sources */,
 				7E9D6DEF22961B860054F710 /* GymDetailViewController.swift in Sources */,
 				7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */,
