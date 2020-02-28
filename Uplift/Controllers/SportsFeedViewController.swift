@@ -63,7 +63,8 @@ class SportsFeedViewController: UIViewController {
             make.height.equalTo(headerViewHeight)
         }
         collectionView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(headerView.snp.bottom)
         }
     }
@@ -77,10 +78,7 @@ extension SportsFeedViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportIdentifier, for: indexPath) as! PickupGameCell
         let post = posts[indexPath.item]
-        let status = post.gameStatus == "JOINED" ? GameStatus.joined
-            : post.gameStatus == "CREATED" ? GameStatus.created
-            : GameStatus.open
-        cell.configure(postId: post.id, title: post.title, type: post.type, time: post.time, location: post.location, players: post.players, gameStatus: status)
+        cell.configure(post: post)
         cell.gameStatusDelegate = self
         return cell
     }

@@ -122,16 +122,26 @@ class PickupGameCell: UICollectionViewCell {
     }
 
     // MARK: - Functionality
-    func configure(postId: Int, title: String, type: String, time: String, location: String, players: Int, gameStatus: GameStatus) {
-        id = postId
-        status = gameStatus
-        titleLabel.text = title
-        detailLabel.text = "\(type) · \(time)"
-        locationLabel.text = location
-        playersLabel.text = "\(players)/10"
+    func configure(post: Post) {
+        // Configure data.
+        id = post.id
+        switch post.gameStatus {
+        case "CREATED":
+            status = .created
+        case "JOINED":
+            status = .joined
+        default:
+            status = .open
+        }
         
-        statusButton.setTitle(gameStatus.rawValue, for: .normal)
-        statusButton.backgroundColor = gameStatus == .open ? .clear : .primaryYellow
+        // Configure views.
+        titleLabel.text = post.title
+        detailLabel.text = "\(post.type) · \(post.time)"
+        locationLabel.text = post.location
+        playersLabel.text = "\(post.players)/10"
+
+        statusButton.setTitle(status.rawValue, for: .normal)
+        statusButton.backgroundColor = status == .open ? .clear : .primaryYellow
         
         if let statusLabel = statusButton.titleLabel {
             statusLabel.font = ._12MontserratBold
