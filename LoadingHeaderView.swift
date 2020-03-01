@@ -12,7 +12,13 @@ import UIKit
 class LoadingHeaderView: UIView {
 
     let titleView = UIView()
+    
+    // MARK: - Constraint constants
     let titleViewHeight: CGFloat = 20.0
+    let leadingOffset = 24
+    let width = 186
+    let height = 20
+    let bottomOffset = -24
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,10 +32,10 @@ class LoadingHeaderView: UIView {
         addSubview(titleView)
         
         titleView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(24)
-            make.width.equalTo(186)
-            make.height.equalTo(20)
-            make.bottom.equalToSuperview().offset(-24)
+            make.leading.equalToSuperview().offset(leadingOffset)
+            make.width.equalTo(width)
+            make.height.equalTo(height)
+            make.bottom.equalToSuperview().offset(bottomOffset)
         }
     }
     

@@ -10,10 +10,17 @@ import SnapKit
 import UIKit
 
 class LoadingScrollView: UIView {
-    
+
     static let defaultLoadingArrangement: [LoadingCollectionViewType] = [.smallGrid, .horizontallyScrolling, .largeGrid]
 
     let scrollView = UIScrollView()
+
+    // MARK: - Constraint constants
+    let collectionViewTopOffset = 19
+    let headerCollectionViewTopOffset = 22
+    let headerHeight: CGFloat = 12
+    let headerLeadingOffset = 16
+    let headerTopOffset = 36
 
     var collectionViews: [LoadingCollectionView] = []
 
@@ -30,7 +37,7 @@ class LoadingScrollView: UIView {
             let newCV = LoadingCollectionView(frame: frame, collectionViewType: type, collectionViewWidth: collectionViewWidth)
 
             let header = LoadingCollectionHeaderView(frame: .zero)
-            header.layer.cornerRadius = 12 / 2.0
+            header.layer.cornerRadius = headerHeight / 2.0
             header.isSkeletonable = true
             header.showAnimatedSkeleton()
             header.layer.masksToBounds = true
@@ -38,22 +45,22 @@ class LoadingScrollView: UIView {
             scrollView.addSubview(header)
             scrollView.addSubview(newCV)
             header.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(16)
+                make.leading.equalToSuperview().offset(headerLeadingOffset)
                 make.width.equalTo(newCV.headerWidth)
-                make.height.equalTo(12)
+                make.height.equalTo(headerHeight)
             }
             newCV.snp.makeConstraints { make in
-                make.top.equalTo(header.snp.bottom).offset(19)
+                make.top.equalTo(header.snp.bottom).offset(collectionViewTopOffset)
                 make.leading.trailing.width.equalToSuperview()
                 make.height.equalTo(newCV.height)
             }
             if let prevView = prevCollectionView {
                 header.snp.makeConstraints { make in
-                    make.top.equalTo(prevView.snp.bottom).offset(36)
+                    make.top.equalTo(prevView.snp.bottom).offset(headerTopOffset)
                 }
             } else {
                 header.snp.makeConstraints { make in
-                    make.top.equalToSuperview().offset(22)
+                    make.top.equalToSuperview().offset(headerCollectionViewTopOffset)
                 }
             }
             prevCollectionView = newCV

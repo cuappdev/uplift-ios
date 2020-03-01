@@ -62,7 +62,7 @@ class ClassListViewController: UIViewController {
 
     private let cal = Calendar.current
     private var currDate: Date!
-    
+
     private let loadingHeader = LoadingHeaderView(frame: .zero)
     private var loadingScrollView: LoadingScrollView!
 
@@ -495,7 +495,7 @@ extension ClassListViewController {
 
         loadingHeader.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(120)
+            make.height.equalTo(titleViewHeightConstant)
         }
 
         loadingScrollView.snp.makeConstraints { make in

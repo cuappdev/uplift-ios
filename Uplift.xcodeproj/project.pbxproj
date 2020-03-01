@@ -130,9 +130,7 @@
 		E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
-		E651A46F23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A46E23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift */; };
 		E651A47123F4BF0500C0A477 /* LoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */; };
-		E651A47323F4BF5A00C0A477 /* LoadingScreenHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A47223F4BF5A00C0A477 /* LoadingScreenHomeView.swift */; };
 		E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */; };
 		E67E2C6723FDF573007E47A9 /* LoadingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
@@ -272,9 +270,7 @@
 		E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionHeaderView.swift; sourceTree = "<group>"; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		E651A46E23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSmallGridCollectionViewCell.swift; sourceTree = "<group>"; };
 		E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionViewCell.swift; sourceTree = "<group>"; };
-		E651A47223F4BF5A00C0A477 /* LoadingScreenHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenHomeView.swift; sourceTree = "<group>"; };
 		E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScrollView.swift; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
@@ -474,9 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				E6FC5670240624C3007A9875 /* LoadingCollectionView.swift */,
-				E651A46E23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift */,
 				E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */,
-				E651A47223F4BF5A00C0A477 /* LoadingScreenHomeView.swift */,
 				E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */,
 				E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
@@ -904,7 +898,6 @@
 				E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */,
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
 				7EC4B79B236CADD8006B67B3 /* PriceInformationCell.swift in Sources */,
-				E651A47323F4BF5A00C0A477 /* LoadingScreenHomeView.swift in Sources */,
 				C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */,
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C26237022290E2C5007C415D /* ClassDetailNextSessionsCell.swift in Sources */,
@@ -913,7 +906,6 @@
 				C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				4F1A5A7A238D8511005987E4 /* OnboardingAnimations.swift in Sources */,
-				E651A46F23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
 				C25CC31A23981F0A00221DC8 /* FacilityDropdown.swift in Sources */,
 				C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */,
