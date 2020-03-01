@@ -127,17 +127,20 @@
 		E604DC1B233B1B18003598BC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC1A233B1B18003598BC /* API.swift */; };
 		E604DC3F233B22C9003598BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E604DC3E233B22C9003598BC /* GoogleService-Info.plist */; };
 		E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */; };
+		E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
 		E651A46F23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A46E23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift */; };
 		E651A47123F4BF0500C0A477 /* LoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */; };
 		E651A47323F4BF5A00C0A477 /* LoadingScreenHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A47223F4BF5A00C0A477 /* LoadingScreenHomeView.swift */; };
+		E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */; };
 		E67E2C6723FDF573007E47A9 /* LoadingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
 		E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */; };
 		E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600E238127D900CB7FB3 /* DropdownView.swift */; };
+		E6FC5671240624C4007A9875 /* LoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FC5670240624C3007A9875 /* LoadingCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -266,17 +269,20 @@
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E604DC1A233B1B18003598BC /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E604DC3E233B22C9003598BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionHeaderView.swift; sourceTree = "<group>"; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E651A46E23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSmallGridCollectionViewCell.swift; sourceTree = "<group>"; };
 		E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionViewCell.swift; sourceTree = "<group>"; };
 		E651A47223F4BF5A00C0A477 /* LoadingScreenHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenHomeView.swift; sourceTree = "<group>"; };
+		E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScrollView.swift; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
 		E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6F3600E238127D900CB7FB3 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
+		E6FC5670240624C3007A9875 /* LoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingCollectionView.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/LoadingCollectionView.swift"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,9 +473,11 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				E6FC5670240624C3007A9875 /* LoadingCollectionView.swift */,
 				E651A46E23F4BEC800C0A477 /* LoadingSmallGridCollectionViewCell.swift */,
 				E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */,
 				E651A47223F4BF5A00C0A477 /* LoadingScreenHomeView.swift */,
+				E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */,
 				E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
@@ -579,6 +587,7 @@
 		C7EBD5AC2062E72300D76A8B /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */,
 				0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */,
 				8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */,
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
@@ -924,6 +933,7 @@
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
+				E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */,
 				4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				4F285B6B238F03D300B7B14D /* FavoriteGymsController.swift in Sources */,
@@ -936,6 +946,7 @@
 				C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */,
 				E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */,
 				C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */,
+				E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */,
 				C218F937233DBE080018838A /* GymDetail.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */,
@@ -970,6 +981,7 @@
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,
+				E6FC5671240624C4007A9875 /* LoadingCollectionView.swift in Sources */,
 				4F18C34823610A0B00BFB603 /* FacilitiesHoursCell.swift in Sources */,
 				C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */,
 				C76F715F20900AD400FDC958 /* Tag.swift in Sources */,

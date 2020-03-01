@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     // MARK: - Private view vars
     private var collectionView: UICollectionView!
     private let headerView = HomeScreenHeaderView()
+    private let loadingHeader = LoadingHeaderView(frame: .zero)
+    private var loadingScrollView: LoadingScrollView!
 
     // MARK: - Public data vars
     var myGyms: [Gym] = []
@@ -28,6 +30,7 @@ class HomeViewController: UIViewController {
 
     // MARK: - Private data vars
     private var gymLocations: [Int: String] = [:]
+    private var pendingNetworkRequests = 0
 
     enum Constants {
         static let checkInsListCellIdentifier = "checkInsListCellIdentifier"
@@ -62,6 +65,7 @@ class HomeViewController: UIViewController {
         collectionView.reloadSections(IndexSet(integer: 0))
 
         // Get Gyms
+        pendingNetworkRequests += 1
         NetworkManager.shared.getGyms { gyms in
             self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
 
@@ -70,11 +74,17 @@ class HomeViewController: UIViewController {
 
             // Reload All Gyms section
             self.collectionView.reloadSections(IndexSet(integer: 0))
+            
+            self.pendingNetworkRequests -= 1
+            if self.pendingNetworkRequests == 0 {
+                self.loadingHeader.isHidden = true
+                self.loadingScrollView.isHidden = true
+            }
         }
 
         // Get Today's Classes
         let stringDate = Date.getNowString()
-
+        pendingNetworkRequests += 1
         NetworkManager.shared.getGymClassesForDate(date: stringDate, completion: { (gymClassInstances) in
             self.gymClassInstances = gymClassInstances.sorted { (first, second) in
                 return first.startTime < second.startTime
@@ -82,11 +92,24 @@ class HomeViewController: UIViewController {
 
             // Reload Today's Classes section
             self.collectionView.reloadSections(IndexSet(integer: 1))
+            
+            self.pendingNetworkRequests -= 1
+            if self.pendingNetworkRequests == 0 {
+                self.loadingHeader.isHidden = true
+                self.loadingScrollView.isHidden = true
+            }
         })
 
+        pendingNetworkRequests += 1
         NetworkManager.shared.getTags(completion: { tags in
             self.lookingForCategories = tags
             self.collectionView.reloadSections(IndexSet(integer: 2))
+            
+            self.pendingNetworkRequests -= 1
+            if self.pendingNetworkRequests == 0 {
+                self.loadingHeader.isHidden = true
+                self.loadingScrollView.isHidden = true
+            }
         })
 
     }
@@ -134,9 +157,10 @@ extension HomeViewController {
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)
         view.addSubview(collectionView)
-
-//        collectionView.isSkeletonable = true
-//        collectionView.showSkeleton()
+        
+        view.addSubview(loadingHeader)
+        loadingScrollView = LoadingScrollView(frame: .zero, collectionViewWidth: view.bounds.width)
+        view.addSubview(loadingScrollView)
     }
 
     private func setupConstraints() {
@@ -149,6 +173,15 @@ extension HomeViewController {
 
         collectionView.snp.makeConstraints { make in
             make.centerX.width.bottom.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom)
+        }
+
+        loadingHeader.snp.makeConstraints { make in
+            make.edges.equalTo(headerView)
+        }
+
+        loadingScrollView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
             make.top.equalTo(headerView.snp.bottom)
         }
     }
