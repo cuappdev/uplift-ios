@@ -12,18 +12,21 @@ import UIKit
 class SportsFeedHeaderView: UIView {
 
     private let addButton = UIButton()
-    private let profilePic = UIImageView()
+    private let profilePicButton = UIButton()
     private let profilePicSize: CGFloat = 36
     private let titleLabel = UILabel()
+    
+    var profilePicPressed: (() -> ())!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         backgroundColor = .white
 
-        profilePic.image = UIImage(named: ImageNames.profilePicDemo)
-        profilePic.layer.cornerRadius = profilePicSize / 2.0
-        addSubview(profilePic)
+        profilePicButton.setImage(UIImage(named: ImageNames.profilePicDemo), for: .normal)
+        profilePicButton.layer.cornerRadius = profilePicSize / 2.0
+        profilePicButton.addTarget(self, action: #selector(profileButtonPressed), for: .touchUpInside)
+        addSubview(profilePicButton)
 
         titleLabel.text = "Sports"
         titleLabel.font = ._24MontserratBold
@@ -40,6 +43,12 @@ class SportsFeedHeaderView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc func profileButtonPressed() {
+        if let profileClosure = profilePicPressed {
+            profileClosure()
+        }
+    }
 
     // MARK: - LAYOUT
     func setupConstraints() {
@@ -49,21 +58,21 @@ class SportsFeedHeaderView: UIView {
         let profilePicLeadingOffset = 16
         let titleLabelLeadingOffset = 12
 
-        profilePic.snp.makeConstraints { make in
+        profilePicButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(profilePicLeadingOffset)
             make.bottom.equalToSuperview().offset(profilePicBottomOffset)
             make.height.width.equalTo(profilePicSize)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(profilePic.snp.trailing).offset(titleLabelLeadingOffset)
-            make.centerY.equalTo(profilePic.snp.centerY)
+            make.leading.equalTo(profilePicButton.snp.trailing).offset(titleLabelLeadingOffset)
+            make.centerY.equalTo(profilePicButton.snp.centerY)
         }
 
         addButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(addButtonTrailingOffset)
             make.height.width.equalTo(addButtonSize)
-            make.centerY.equalTo(profilePic.snp.centerY)
+            make.centerY.equalTo(profilePicButton.snp.centerY)
         }
     }
 }

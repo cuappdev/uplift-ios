@@ -133,6 +133,7 @@
 		D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */; };
 		E604DC1B233B1B18003598BC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC1A233B1B18003598BC /* API.swift */; };
 		E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */; };
+		E60C00AE240B8E8A00974974 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60C00AD240B8E8900974974 /* ProfileView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
@@ -275,6 +276,7 @@
 		D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E604DC1A233B1B18003598BC /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		E60C00AD240B8E8900974974 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
+				E60C00AD240B8E8900974974 /* ProfileView.swift */,
 				E604DC1A233B1B18003598BC /* API.swift */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
@@ -921,6 +924,7 @@
 				4FC5646E23A06A3300B4D484 /* OnboardingEmptyStateView.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
+				E60C00AE240B8E8A00974974 /* ProfileView.swift in Sources */,
 				4F4CA4112383A1AB0002FD5F /* OnboardingViewController.swift in Sources */,
 				D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */,
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
