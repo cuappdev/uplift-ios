@@ -41,8 +41,9 @@ class SportsFeedViewController: UIViewController {
         ]
         
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 1
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 100.0)
+        layout.minimumLineSpacing = 12.0
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32.0, height: 100.0)
+        layout.sectionInset = .init(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
