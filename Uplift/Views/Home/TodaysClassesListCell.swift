@@ -45,9 +45,9 @@ class TodaysClassesListCell: ListCollectionViewCell<GymClassInstance, TodaysClas
 }
 
 extension TodaysClassesListCell: SkeletonCollectionViewDataSource {
+
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
         return Identifiers.classesCell
     }
-    
-    
+
 }

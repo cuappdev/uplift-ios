@@ -11,14 +11,14 @@ import UIKit
 
 class LoadingHeaderView: UIView {
 
-    let titleView = UIView()
+    private let titleView = UIView()
     
     // MARK: - Constraint constants
-    let titleViewHeight: CGFloat = 20.0
-    let leadingOffset = 24
-    let width = 186
-    let height = 20
-    let bottomOffset = -24
+    private let titleViewHeight: CGFloat = 20.0
+    private let leadingOffset = 24
+    private let width = 186
+    private let height = 20
+    private let bottomOffset = -24
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -55,7 +55,7 @@ class ClassListViewController: UIViewController {
     private var currentFilterParams: FilterParameters?
     private var filteredClasses: [GymClassInstance] = []
     private var filteringIsActive = false
-    private var pendingNetworkRequests = 0
+    private var numPendingNetworkRequests = 0
     lazy private var calendarDateSelected: Date = {
         return currDate
     }()
@@ -153,19 +153,15 @@ class ClassListViewController: UIViewController {
         if classList[index].isEmpty {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            
-            pendingNetworkRequests += 1
+
+            numPendingNetworkRequests += 1
             NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date), completion: { [weak self] classes in
                 guard let strongSelf = self else { return }
 
                 strongSelf.classList[index] = classes.sorted(by: { $0.startTime < $1.startTime })
                 strongSelf.updateClassCollectionViewWithFilters()
-                
-                self?.pendingNetworkRequests -= 1
-                if self?.pendingNetworkRequests == 0 {
-                    self?.loadingHeader.isHidden = true
-                    self?.loadingScrollView.isHidden = true
-                }
+
+                strongSelf.decrementNumPendingNetworkRequests()
             })
             return
         }
@@ -185,6 +181,14 @@ class ClassListViewController: UIViewController {
     /// Set a new filter for the view controller
     func updateFilter(_ filter: FilterParameters) {
         self.currentFilterParams = filter
+    }
+    
+    func decrementNumPendingNetworkRequests() {
+        numPendingNetworkRequests -= 1
+        if numPendingNetworkRequests == 0 {
+            loadingHeader.isHidden = true
+            loadingScrollView.isHidden = true
+        }
     }
 }
 
@@ -436,8 +440,9 @@ extension ClassListViewController {
         filterButton.layer.shadowOpacity = 1.0
         filterButton.layer.masksToBounds = false
         view.addSubview(filterButton)
-        
+
         view.addSubview(loadingHeader)
+
         loadingScrollView = LoadingScrollView(frame: .zero, collectionViewTypes: [.calendar, .classes], collectionViewWidth: view.bounds.width)
         view.addSubview(loadingScrollView)
     }

@@ -13,16 +13,16 @@ class LoadingScrollView: UIView {
 
     static let defaultLoadingArrangement: [LoadingCollectionViewType] = [.smallGrid, .horizontallyScrolling, .largeGrid]
 
-    let scrollView = UIScrollView()
+    private let scrollView = UIScrollView()
 
     // MARK: - Constraint constants
-    let collectionViewTopOffset = 19
-    let headerCollectionViewTopOffset = 22
-    let headerHeight: CGFloat = 12
-    let headerLeadingOffset = 16
-    let headerTopOffset = 36
+    private let collectionViewTopOffset = 19
+    private let headerCollectionViewTopOffset = 22
+    private let headerHeight: CGFloat = 12
+    private let headerLeadingOffset = 16
+    private let headerTopOffset = 36
 
-    var collectionViews: [LoadingCollectionView] = []
+    private var collectionViews: [LoadingCollectionView] = []
 
     init(frame: CGRect, collectionViewTypes: [LoadingCollectionViewType] = LoadingScrollView.defaultLoadingArrangement, collectionViewWidth: CGFloat) {
         super.init(frame: frame)
@@ -34,7 +34,7 @@ class LoadingScrollView: UIView {
         var prevCollectionView: LoadingCollectionView?
         
         collectionViewTypes.forEach { type in
-            let newCV = LoadingCollectionView(frame: frame, collectionViewType: type, collectionViewWidth: collectionViewWidth)
+            let currentCV = LoadingCollectionView(frame: frame, collectionViewType: type, collectionViewWidth: collectionViewWidth)
 
             let header = LoadingCollectionHeaderView(frame: .zero)
             header.layer.cornerRadius = headerHeight / 2.0
@@ -43,16 +43,16 @@ class LoadingScrollView: UIView {
             header.layer.masksToBounds = true
 
             scrollView.addSubview(header)
-            scrollView.addSubview(newCV)
+            scrollView.addSubview(currentCV)
             header.snp.makeConstraints { make in
                 make.leading.equalToSuperview().offset(headerLeadingOffset)
-                make.width.equalTo(newCV.headerWidth)
+                make.width.equalTo(currentCV.headerWidth)
                 make.height.equalTo(headerHeight)
             }
-            newCV.snp.makeConstraints { make in
+            currentCV.snp.makeConstraints { make in
                 make.top.equalTo(header.snp.bottom).offset(collectionViewTopOffset)
                 make.leading.trailing.width.equalToSuperview()
-                make.height.equalTo(newCV.height)
+                make.height.equalTo(currentCV.height)
             }
             if let prevView = prevCollectionView {
                 header.snp.makeConstraints { make in
@@ -63,8 +63,8 @@ class LoadingScrollView: UIView {
                     make.top.equalToSuperview().offset(headerCollectionViewTopOffset)
                 }
             }
-            prevCollectionView = newCV
-            collectionViews.append(newCV)
+            prevCollectionView = currentCV
+            collectionViews.append(currentCV)
         }
         
         if let prevView = prevCollectionView {
@@ -83,7 +83,6 @@ class LoadingScrollView: UIView {
     func setupConstraints() {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.width.equalToSuperview()
         }
     }
     

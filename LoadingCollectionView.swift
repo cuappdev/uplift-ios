@@ -10,54 +10,55 @@ import SkeletonView
 import UIKit
 
 enum LoadingCollectionViewType {
-    case smallGrid
-    case horizontallyScrolling
-    case largeGrid
     case calendar
     case classes
+    case horizontallyScrolling
+    case largeGrid
+    case smallGrid
 }
 
 class LoadingCollectionView: UICollectionView {
 
-    let calendarClassSideInsets: CGFloat = 16
-    let collectionViewType: LoadingCollectionViewType!
-    let collectionViewWidth: CGFloat!
-    let leftInset: CGFloat = 12
-    let minimumLineSpacing: CGFloat = 16
-    let rightInset: CGFloat = 16
+    private let calendarClassSideInsets: CGFloat = 16
+    private let collectionViewType: LoadingCollectionViewType!
+    private let collectionViewWidth: CGFloat!
+    private let layout = UICollectionViewFlowLayout()
+    private let leftInset: CGFloat = 12
+    private let minimumLineSpacing: CGFloat = 16
+    private let rightInset: CGFloat = 16
 
     // MARK: - Small grid collection view properties
-    let smallGridCellCount = 5
-    let smallGridCellHeight: CGFloat = 60
-    let smallGridHeaderWidth: CGFloat = 75
-    let smallGridMinimumInteritemSpacing: CGFloat = 16
-    let smallGridRowCount = 3
+    private let smallGridCellCount = 5
+    private let smallGridCellHeight: CGFloat = 60
+    private let smallGridHeaderWidth: CGFloat = 75
+    private let smallGridMinimumInteritemSpacing: CGFloat = 16
+    private let smallGridRowCount = 3
 
     // MARK: - Horizontally scrolling collection view properties
-    let horizontallyScrollingCellCount = 3
-    let horizontallyScrollingCellHeight: CGFloat = 195
-    let horizontallyScrollingCellWidth: CGFloat = 228
-    let horizontallyScrollingHeaderWidth: CGFloat = 135
-    let horizontallyScrollingMinimumInteritemSpacing: CGFloat = 18
+    private let horizontallyScrollingCellCount = 3
+    private let horizontallyScrollingCellHeight: CGFloat = 195
+    private let horizontallyScrollingCellWidth: CGFloat = 228
+    private let horizontallyScrollingHeaderWidth: CGFloat = 135
+    private let horizontallyScrollingMinimumInteritemSpacing: CGFloat = 18
 
     // MARK: - Large grid collection view properties
-    let largeGridCellCount = 2
-    let largeGridCellHeight: CGFloat = 107
-    let largeGridCellWidth: CGFloat = 164
-    let largeGridHeaderWidth: CGFloat = 135
-    let largeGridMinimumInteritemSpacing: CGFloat = 15
+    private let largeGridCellCount = 2
+    private let largeGridCellHeight: CGFloat = 107
+    private let largeGridCellWidth: CGFloat = 164
+    private let largeGridHeaderWidth: CGFloat = 135
+    private let largeGridMinimumInteritemSpacing: CGFloat = 15
 
     // MARK: - Calendar collection view properties
-    let calendarCellCount = 14
-    let calendarCellSize: CGFloat = 24
-    let calendarHeaderWidth: CGFloat = 59
-    let calendarMinimumLineSpacing: CGFloat = 43.0
+    private let calendarCellCount = 14
+    private let calendarCellSize: CGFloat = 24
+    private let calendarHeaderWidth: CGFloat = 59
+    private let calendarMinimumLineSpacing: CGFloat = 43.0
 
     // MARK: - Class collection view properties
-    let classesCellCount = 5
-    let classesCellHeight: CGFloat = 100
-    let classesHeaderWidth: CGFloat = 59
-    let classesMinimumLineSpacing: CGFloat = 12
+    private let classesCellCount = 5
+    private let classesCellHeight: CGFloat = 100
+    private let classesHeaderWidth: CGFloat = 59
+    private let classesMinimumLineSpacing: CGFloat = 12
 
     var headerWidth: CGFloat = 0
     var height: CGFloat = 0
@@ -66,7 +67,8 @@ class LoadingCollectionView: UICollectionView {
         self.collectionViewType = collectionViewType
         self.collectionViewWidth = collectionViewWidth
 
-        let layout = UICollectionViewFlowLayout()
+        super.init(frame: frame, collectionViewLayout: layout)
+
         layout.minimumLineSpacing = minimumLineSpacing
         layout.sectionInset = UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
 
@@ -100,8 +102,6 @@ class LoadingCollectionView: UICollectionView {
             headerWidth = classesHeaderWidth
         }
 
-        super.init(frame: frame, collectionViewLayout: layout)
-
         delegate = self
         dataSource = self
 
@@ -132,7 +132,7 @@ extension LoadingCollectionView: UICollectionViewDelegate, UICollectionViewDeleg
             return CGSize(width: calendarCellSize, height: calendarCellSize)
         case .classes:
             return CGSize(width: collectionViewWidth - (2 * calendarClassSideInsets), height: classesCellHeight)
-        case .none:
+        default:
             return CGSize(width: 0, height: 0)
         }
     }
@@ -140,11 +140,7 @@ extension LoadingCollectionView: UICollectionViewDelegate, UICollectionViewDeleg
 }
 
 extension LoadingCollectionView: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionViewType {
         case .smallGrid:
@@ -171,5 +167,3 @@ extension LoadingCollectionView: UICollectionViewDataSource {
     }
 
 }
-
-

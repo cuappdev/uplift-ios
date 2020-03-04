@@ -11,8 +11,8 @@ import UIKit
 
 class LoadingCollectionHeaderView: UICollectionReusableView {
 
-    let titleView = UIView()
-    let titleViewHeight: CGFloat = 12.0
+    private let titleView = UIView()
+    private let titleViewHeight: CGFloat = 12.0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
