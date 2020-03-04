@@ -85,6 +85,8 @@ extension SportsFeedViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: push detail view.
+        let sportsDetailView = SportsDetailViewController(post: posts[indexPath.item])
+        self.navigationController?.pushViewController(sportsDetailView, animated: true)
     }
 }
 
