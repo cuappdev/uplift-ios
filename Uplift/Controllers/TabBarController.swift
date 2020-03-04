@@ -47,7 +47,8 @@ class TabBarController: UITabBarController {
         let favoritesController = FavoritesViewController()
         favoritesController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.favoritesSection, imageName: ImageNames.favorites, selectedImageName: ImageNames.favoritesSelected)
 
-        let viewControllerList = [homeController, classListController, sportsFeedController, favoritesController]
+        // TODO: Re-add the sportsFeed controller after we ship the new update
+        let viewControllerList = [homeController, classListController, favoritesController]
         let navControllerList = viewControllerList.map { UINavigationController(rootViewController: $0) }
         viewControllers = navControllerList
 
