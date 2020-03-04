@@ -108,7 +108,6 @@ class LoadingCollectionView: UICollectionView {
         backgroundColor = .clear
 
         register(LoadingCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.loadingCollectionViewCell)
-        register(LoadingCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Identifiers.loadingHeaderView)
     }
 
     required init?(coder: NSCoder) {
@@ -157,11 +156,13 @@ extension LoadingCollectionView: UICollectionViewDataSource {
             return 0
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: Identifiers.loadingCollectionViewCell, for: indexPath) as! LoadingCollectionViewCell
         if collectionViewType == .calendar {
             cell.contentView.layer.cornerRadius = calendarCellSize / 2.0
+        } else {
+            cell.contentView.layer.cornerRadius = 0
         }
         return cell
     }

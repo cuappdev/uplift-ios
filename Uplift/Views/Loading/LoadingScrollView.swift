@@ -38,9 +38,6 @@ class LoadingScrollView: UIView {
 
             let header = LoadingCollectionHeaderView(frame: .zero)
             header.layer.cornerRadius = headerHeight / 2.0
-            header.isSkeletonable = true
-            header.showAnimatedSkeleton()
-            header.layer.masksToBounds = true
 
             scrollView.addSubview(header)
             scrollView.addSubview(currentCV)
@@ -54,15 +51,15 @@ class LoadingScrollView: UIView {
                 make.leading.trailing.width.equalToSuperview()
                 make.height.equalTo(currentCV.height)
             }
-            if let prevView = prevCollectionView {
-                header.snp.makeConstraints { make in
+            
+            header.snp.makeConstraints { make in
+                if let prevView = prevCollectionView {
                     make.top.equalTo(prevView.snp.bottom).offset(headerTopOffset)
-                }
-            } else {
-                header.snp.makeConstraints { make in
+                } else {
                     make.top.equalToSuperview().offset(headerCollectionViewTopOffset)
                 }
             }
+
             prevCollectionView = currentCV
             collectionViews.append(currentCV)
         }
@@ -72,7 +69,7 @@ class LoadingScrollView: UIView {
                 make.bottom.equalToSuperview()
             }
         }
-        
+
         setupConstraints()
     }
 

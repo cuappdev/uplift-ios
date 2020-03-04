@@ -6,18 +6,19 @@
 //  Copyright © 2020 Cornell AppDev. All rights reserved.
 //
 
-import SnapKit
+import SkeletonView
 import UIKit
 
-class LoadingCollectionHeaderView: UICollectionReusableView {
-
-    private let titleView = UIView()
-    private let titleViewHeight: CGFloat = 12.0
+class LoadingCollectionHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         backgroundColor = .gray01
+
+        isSkeletonable = true
+        showAnimatedSkeleton()
+        layer.masksToBounds = true
     }
 
     required init?(coder: NSCoder) {
