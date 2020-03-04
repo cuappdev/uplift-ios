@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import AppDevAnnouncements
 import Crashlytics
 import SkeletonView
 import SnapKit
@@ -100,6 +101,7 @@ class HomeViewController: UIViewController {
             self.decrementNumPendingNetworkRequests()
         })
 
+        presentAnnouncement(completion: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

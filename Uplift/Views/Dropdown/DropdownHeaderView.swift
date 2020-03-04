@@ -14,31 +14,89 @@ protocol DropdownHeaderViewDelegate: class {
 
 class DropdownHeaderView: UIView {
 
-    private let arrowHeight: CGFloat = 9
     private let arrowImageView = UIImageView()
+    private let filtersAppliedCircle: UIView = UIView()
+    private let selectedFiltersLabel: UILabel = UILabel()
+    private let titleLabel: UILabel = UILabel()
+
+    private let arrowHeight: CGFloat = 9
     private let arrowWidth: CGFloat = 5
     private var isArrowRotated = false
 
     weak var delegate: DropdownHeaderViewDelegate?
+    
+    var filtersApplied: Bool = false {
+        didSet {
+            self.filtersAppliedCircle.layer.backgroundColor = filtersApplied
+                ? UIColor.primaryYellow.cgColor
+                : UIColor.primaryWhite.cgColor
+        }
+    }
+    var selectedFilters: [String] = [] {
+        didSet {
+            selectedFiltersLabel.text = selectedFilters.joined(separator: "  ·  ")
+        }
+    }
 
-    init(frame: CGRect, arrowImage: UIImage? = nil, arrowImageTrailingOffset: CGFloat = -24) {
-        super.init(frame: frame)
+    init(title: String, arrowImage: UIImage? = nil, arrowImageTrailingOffset: CGFloat = -24) {
+        super.init(frame: .zero)
 
         isUserInteractionEnabled = true
+        
+        titleLabel.text = title
+        titleLabel.font = ._12MontserratBold
+        titleLabel.textColor = .gray04
+        titleLabel.sizeToFit()
+        addSubview(titleLabel)
 
+        filtersAppliedCircle.layer.cornerRadius = 4
+        addSubview(filtersAppliedCircle)
+
+        selectedFiltersLabel.textAlignment = .right
+        selectedFiltersLabel.font = UIFont._14MontserratRegular
+        selectedFiltersLabel.textColor = .primaryBlack
+        selectedFiltersLabel.adjustsFontSizeToFitWidth = false
+        selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
+        addSubview(selectedFiltersLabel)
+        
         if let image = arrowImage {
-            addSubview(arrowImageView)
             arrowImageView.image = image
-            arrowImageView.snp.makeConstraints { make in
-                make.centerY.equalToSuperview()
-                make.trailing.equalToSuperview().offset(arrowImageTrailingOffset)
-                make.height.equalTo(arrowHeight)
-                make.width.equalTo(arrowWidth)
-            }
+        } else {
+            // Default dropdown arrow.
+            arrowImageView.image = UIImage(named: ImageNames.rightArrow)
+        }
+        addSubview(arrowImageView)
+        arrowImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(arrowImageTrailingOffset)
+            make.height.equalTo(arrowHeight)
+            make.width.equalTo(arrowWidth)
         }
 
         let openCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         addGestureRecognizer(openCloseDropdownGesture)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+        }
+        
+        filtersAppliedCircle.snp.makeConstraints { make in
+            make.height.width.equalTo(8)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(12)
+            make.centerY.equalTo(titleLabel)
+        }
+        
+        selectedFiltersLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(arrowImageView.snp.leading).offset(-12)
+            make.centerY.equalTo(filtersAppliedCircle)
+            make.leading.equalTo(self.snp.centerX)
+           }
+    }
+    
+    func updateDropdownHeader(selectedFilters: [String]) {
+        self.filtersApplied = !selectedFilters.isEmpty
+        self.selectedFilters = selectedFilters
     }
 
     required init?(coder: NSCoder) {
