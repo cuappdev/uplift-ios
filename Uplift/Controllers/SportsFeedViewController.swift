@@ -15,12 +15,27 @@ protocol GameStatusDelegate: class {
 
 class SportsFeedViewController: UIViewController {
 
-    let headerView = SportsFeedHeaderView()
-    var collectionView: UICollectionView!
+    private let headerView = SportsFeedHeaderView()
+    private var calendarCollectionView: UICollectionView!
+    private var collectionView: UICollectionView!
     
-    let sportIdentifier = "sportIdentifier"
-    var posts: [Post]!
-
+    private var calendarDatesList: [Date] = []
+    private var posts: [Post]!
+    private let sportIdentifier = "sportIdentifier"
+    
+    private let cal = Calendar.current
+    private var currDate: Date!
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+//        calendarDatesList = CalendarGenerator.createCalendarDates()
+//        currDate = calendarDatesList[3]
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
