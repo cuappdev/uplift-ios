@@ -133,12 +133,12 @@
 		E651A47123F4BF0500C0A477 /* LoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */; };
 		E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */; };
 		E67E2C6723FDF573007E47A9 /* LoadingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */; };
+		E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E689381C240F68460022B524 /* LoadingCollectionView.swift */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
 		E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */; };
 		E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600E238127D900CB7FB3 /* DropdownView.swift */; };
-		E6FC5671240624C4007A9875 /* LoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FC5670240624C3007A9875 /* LoadingCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -271,14 +271,14 @@
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionViewCell.swift; sourceTree = "<group>"; };
-		E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHeaderView.swift; sourceTree = SOURCE_ROOT; };
+		E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingHeaderView.swift; path = Uplift/Views/Loading/LoadingHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScrollView.swift; sourceTree = "<group>"; };
+		E689381C240F68460022B524 /* LoadingCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingCollectionView.swift; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
 		E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6F3600E238127D900CB7FB3 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
-		E6FC5670240624C3007A9875 /* LoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingCollectionView.swift; path = "/Users/cameronhamidi/Documents/AppDev/uplift-ios/LoadingCollectionView.swift"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -457,11 +457,11 @@
 		C75EC94E2059AC75007BC98A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
-				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
 				C71E8A032091726600542FA3 /* Date+Shared.swift */,
 				8D24AF952140B23F002D850C /* String+Shared.swift */,
 				C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */,
+				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
+				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -469,10 +469,6 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
-				E6FC5670240624C3007A9875 /* LoadingCollectionView.swift */,
-				E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */,
-				E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */,
-				E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
@@ -539,7 +535,6 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4F4CA4122383A3040002FD5F /* Onboarding */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
 				C26236FA2290D696007C415D /* ClassDetail */,
 				C21BE14922920EB200B5D219 /* ClassList */,
@@ -552,6 +547,8 @@
 				C21BE14E2292406400B5D219 /* Home */,
 				C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */,
 				C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */,
+				E689381B240F67CD0022B524 /* Loading */,
+				4F4CA4122383A3040002FD5F /* Onboarding */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */,
 			);
@@ -572,6 +569,7 @@
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
 				4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */,
 				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
+				E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
 			);
@@ -581,13 +579,13 @@
 		C7EBD5AC2062E72300D76A8B /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */,
 				0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */,
-				8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */,
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
 				8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
 				8DC6F7A7218381980048C305 /* HomeSectionHeaderView.swift */,
+				E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */,
+				8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -641,6 +639,16 @@
 				E644819B232DD34100BBF771 /* Keys.plist */,
 			);
 			path = Secrets;
+			sourceTree = "<group>";
+		};
+		E689381B240F67CD0022B524 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E689381C240F68460022B524 /* LoadingCollectionView.swift */,
+				E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */,
+				E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */,
+			);
+			path = Loading;
 			sourceTree = "<group>";
 		};
 		E6F3600C238127D900CB7FB3 /* Dropdown */ = {
@@ -973,7 +981,6 @@
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,
-				E6FC5671240624C4007A9875 /* LoadingCollectionView.swift in Sources */,
 				4F18C34823610A0B00BFB603 /* FacilitiesHoursCell.swift in Sources */,
 				C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */,
 				C76F715F20900AD400FDC958 /* Tag.swift in Sources */,
@@ -986,6 +993,7 @@
 				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
 				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
+				E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */,
 				8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */,
 				E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */,
 			);
