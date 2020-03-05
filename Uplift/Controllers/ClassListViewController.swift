@@ -50,32 +50,26 @@ class ClassListViewController: UIViewController {
     private var noResultsEmptyStateView: NoResultsEmptyStateView!
 
     // MARK: - Private data vars
-    private var calendarDatesList: [Date] = []
     private var classList: [[GymClassInstance]] = Array.init(repeating: [], count: 10)
     private var currentFilterParams: FilterParameters?
     private var filteredClasses: [GymClassInstance] = []
     private var filteringIsActive = false
+
     private var numPendingNetworkRequests = 0
-    lazy private var calendarDateSelected: Date = {
-        return currDate
-    }()
-
-    private let cal = Calendar.current
-    private var currDate: Date!
-
+    
     private let loadingHeader = LoadingHeaderView(frame: .zero)
     private var loadingScrollView: LoadingScrollView!
 
-    private enum Constants {
-        static let calendarCellIdentifier = "calendarCellIdentifier"
-        static let classListHeaderViewIdentifier = "classListHeaderViewIdentifier"
-        static let daysOfWeek = ["Su", "M", "T", "W", "Th", "F", "Sa"]
-    }
+    // MARK: - Calendar data vars
+    private var calendarDatesList: [Date] = CalendarGenerator.getCalendarDates()
+    lazy private var calendarDateSelected: Date = {
+        return currDate
+    }()
+    private var currDate: Date!
 
     init() {
         super.init(nibName: nil, bundle: nil)
         initializeCollectionViews()
-        calendarDatesList = createCalendarDates()
         // Set currDate to be today's date
         currDate = calendarDatesList[3]
     }
@@ -128,24 +122,6 @@ class ClassListViewController: UIViewController {
 
     // MARK: - Private methods
 
-    /// Get a list of dates starting from 3 days before today and ending 6 days after today
-    private func createCalendarDates() -> [Date] {
-        let cal = Calendar.current
-        let currDate = Date()
-
-        guard let startDate = cal.date(byAdding: .day, value: -3, to: currDate) else { return  [] }
-        guard let endDate = cal.date(byAdding: .day, value: 6, to: currDate) else { return [] }
-
-        var dateList: [Date] = []
-        var date = startDate
-        while date <= endDate {
-            dateList.append(date)
-            date = cal.date(byAdding: .day, value: 1, to: date) ?? Date()
-        }
-
-        return dateList
-    }
-
     /// Get the list of classes for [date] and update classCollectionView with those classes.
     private func getClassesFor(date: Date) {
         guard let index = self.calendarDatesList.firstIndex(of: date) else { return }
@@ -182,7 +158,7 @@ class ClassListViewController: UIViewController {
     func updateFilter(_ filter: FilterParameters) {
         self.currentFilterParams = filter
     }
-    
+
     func decrementNumPendingNetworkRequests() {
         numPendingNetworkRequests -= 1
         if numPendingNetworkRequests == 0 {
@@ -220,40 +196,7 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == calendarCollectionView {
-            //swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.calendarCellIdentifier, for: indexPath) as! CalendarCell
-            let dateForCell = calendarDatesList[indexPath.item]
-            let dayOfWeek = cal.component(.weekday, from: dateForCell) - 1
-            let dayOfMonth = cal.component(.day, from: dateForCell)
-
-            var dateLabelCircleIsHidden = true
-            var dateLabelFont = UIFont._12MontserratRegular
-            var dateLabelTextColor: UIColor?
-            var dayOfWeekLabelFont = UIFont._12MontserratRegular
-            var dayOfWeekLabelTextColor: UIColor?
-
-            if dateForCell < currDate {
-                dateLabelTextColor = .gray02
-                dayOfWeekLabelTextColor = .gray02
-            }
-
-            if dateForCell == calendarDateSelected {
-                dateLabelCircleIsHidden = false
-                dateLabelFont = ._12MontserratBold
-                dateLabelTextColor = .primaryBlack
-                dayOfWeekLabelFont = ._12MontserratBold
-                dayOfWeekLabelTextColor = .primaryBlack
-            }
-
-            cell.configure(for: "\(dayOfMonth)",
-                dateLabelTextColor: dateLabelTextColor,
-                dateLabelFont: dateLabelFont!,
-                dayOfWeekLabelText: Constants.daysOfWeek[dayOfWeek],
-                dayOfWeekLabelTextColor: dayOfWeekLabelTextColor,
-                dayOfWeekLabelFont: dayOfWeekLabelFont!,
-                dateLabelCircleIsHidden: dateLabelCircleIsHidden
-            )
-            return cell
+            return CalendarGenerator.getCalendarCell(collectionView, indexPath: indexPath, calendarDatesList: calendarDatesList, currDate: currDate, calendarDateSelected: calendarDateSelected)
         }
 
         guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
@@ -299,7 +242,7 @@ extension ClassListViewController: UICollectionViewDelegate, UICollectionViewDat
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if collectionView == classCollectionView {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.classListHeaderViewIdentifier, for: indexPath) as! ClassListHeaderView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarGenerator.classListHeaderViewIdentifier, for: indexPath) as! ClassListHeaderView
 
             var titleLabelText = ClientStrings.Calendar.todayLabel
             if currDate != calendarDateSelected {
@@ -348,8 +291,8 @@ extension ClassListViewController: FilterDelegate {
         components.day = offset
 
         // Get the adjustedStart and adjustedEnd times
-        let adjustedStart = cal.date(byAdding: components, to: params.startTime) ?? params.startTime
-        let adjustedEnd = cal.date(byAdding: components, to: params.endTime) ?? params.endTime
+        let adjustedStart = CalendarGenerator.cal.date(byAdding: components, to: params.startTime) ?? params.startTime
+        let adjustedEnd = CalendarGenerator.cal.date(byAdding: components, to: params.endTime) ?? params.endTime
 
         guard let indexOfSelectedDate = calendarDatesList.firstIndex(of: calendarDateSelected) else { return }
 
@@ -514,7 +457,7 @@ extension ClassListViewController {
         calendarCollectionView.dataSource = self
         calendarCollectionView.showsHorizontalScrollIndicator = false
         calendarCollectionView.backgroundColor = .white
-        calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: Constants.calendarCellIdentifier)
+        calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: CalendarGenerator.calendarCellIdentifier)
         calendarCollectionView.layer.zPosition = -1
         view.addSubview(calendarCollectionView)
 
@@ -523,7 +466,7 @@ extension ClassListViewController {
         classCollectionView.contentInset = .init(top: 0.0, left: 0.0, bottom: 84.0, right: 0.0)
         classCollectionView.backgroundColor = .white
         classCollectionView.delaysContentTouches = false
-        classCollectionView.register(ClassListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.classListHeaderViewIdentifier)
+        classCollectionView.register(ClassListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CalendarGenerator.classListHeaderViewIdentifier)
         classCollectionView.register(ClassListCell.self, forCellWithReuseIdentifier: ClassListCell.identifier)
         view.addSubview(classCollectionView)
     }

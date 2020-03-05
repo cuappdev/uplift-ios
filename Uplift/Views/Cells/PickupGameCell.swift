@@ -32,6 +32,17 @@ class PickupGameCell: UICollectionViewCell {
     // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        contentView.layer.cornerRadius = 5
+        contentView.layer.backgroundColor = UIColor.white.cgColor
+        contentView.layer.borderColor = UIColor.gray01.cgColor
+        contentView.layer.borderWidth = 0.5
+
+        contentView.layer.shadowColor = UIColor.gray01.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
+        contentView.layer.shadowRadius = 7.0
+        contentView.layer.shadowOpacity = 0.25
+        contentView.layer.masksToBounds = false
         
         titleLabel.font = ._16MontserratMedium
         titleLabel.textColor = .primaryBlack
@@ -62,7 +73,7 @@ class PickupGameCell: UICollectionViewCell {
         
         setupConstraints()
     }
-    
+
     @objc func toggleStatus() {
         // TODO: toggle game status
         switch status {
