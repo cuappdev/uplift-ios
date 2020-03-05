@@ -15,20 +15,25 @@ protocol GameStatusDelegate: class {
 
 class SportsFeedViewController: UIViewController {
 
-    private let headerView = SportsFeedHeaderView()
     private var calendarCollectionView: UICollectionView!
     private var collectionView: UICollectionView!
+    private let headerView = SportsFeedHeaderView()
     
     private var posts: [[Post]] = Array.init(repeating: [], count: 10)
-    private var filteredPosts: [Post] = []
     private let sportIdentifier = "sportIdentifier"
     
     // MARK: - Calendar data vars
     private var calendarDatesList: [Date] = CalendarGenerator.getCalendarDates()
-    private var calendarDateSelected: Date = CalendarGenerator.currDate
+    lazy private var calendarDateSelected: Date = {
+        return currDate
+    }()
+    
+    private var currDate: Date!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currDate = calendarDatesList[3]
         
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
@@ -121,39 +126,7 @@ extension SportsFeedViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == calendarCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarGenerator.calendarCellIdentifier, for: indexPath) as! CalendarCell
-            let dateForCell = calendarDatesList[indexPath.item]
-            let dayOfWeek = CalendarGenerator.cal.component(.weekday, from: dateForCell) - 1
-            let dayOfMonth = CalendarGenerator.cal.component(.day, from: dateForCell)
-
-            var dateLabelCircleIsHidden = true
-            var dateLabelFont = UIFont._12MontserratRegular
-            var dateLabelTextColor: UIColor?
-            var dayOfWeekLabelFont = UIFont._12MontserratRegular
-            var dayOfWeekLabelTextColor: UIColor?
-
-            if dateForCell < CalendarGenerator.currDate {
-                dateLabelTextColor = .gray02
-                dayOfWeekLabelTextColor = .gray02
-            }
-
-            if dateForCell == calendarDateSelected {
-                dateLabelCircleIsHidden = false
-                dateLabelFont = ._12MontserratBold
-                dateLabelTextColor = .primaryBlack
-                dayOfWeekLabelFont = ._12MontserratBold
-                dayOfWeekLabelTextColor = .primaryBlack
-            }
-
-            cell.configure(for: "\(dayOfMonth)",
-                dateLabelTextColor: dateLabelTextColor,
-                dateLabelFont: dateLabelFont!,
-                dayOfWeekLabelText: CalendarGenerator.daysOfWeek[dayOfWeek],
-                dayOfWeekLabelTextColor: dayOfWeekLabelTextColor,
-                dayOfWeekLabelFont: dayOfWeekLabelFont!,
-                dateLabelCircleIsHidden: dateLabelCircleIsHidden
-            )
-            return cell
+            return CalendarGenerator.getCalendarCell(collectionView, indexPath: indexPath, calendarDatesList: calendarDatesList, currDate: currDate, calendarDateSelected: calendarDateSelected)
         }
 
         guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
