@@ -10,11 +10,11 @@ import UIKit
 
 class SportsDetailViewController: UIViewController {
     
-    private var post: Post!
+    private var post: Post
     
     init(post: Post) {
-        super.init(nibName: nil, bundle: nil)
         self.post = post
+        super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
