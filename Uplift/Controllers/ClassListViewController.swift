@@ -158,7 +158,7 @@ class ClassListViewController: UIViewController {
     func updateFilter(_ filter: FilterParameters) {
         self.currentFilterParams = filter
     }
-    
+
     func decrementNumPendingNetworkRequests() {
         numPendingNetworkRequests -= 1
         if numPendingNetworkRequests == 0 {
