@@ -50,7 +50,6 @@ class ClassListViewController: UIViewController {
     private var noResultsEmptyStateView: NoResultsEmptyStateView!
 
     // MARK: - Private data vars
-    private var calendarDatesList: [Date] = CalendarGenerator.getCalendarDates()
     private var classList: [[GymClassInstance]] = Array.init(repeating: [], count: 10)
     private var currentFilterParams: FilterParameters?
     private var filteredClasses: [GymClassInstance] = []
