@@ -22,8 +22,7 @@ class CalendarGenerator {
         let cal = Calendar.current
         let currDate = Date()
 
-        guard let startDate = cal.date(byAdding: .day, value: -3, to: currDate) else { return  [] }
-        guard let endDate = cal.date(byAdding: .day, value: 6, to: currDate) else { return [] }
+        guard let startDate = cal.date(byAdding: .day, value: -3, to: currDate), let endDate = cal.date(byAdding: .day, value: 6, to: currDate) else { return  [] }
 
         var dateList: [Date] = []
         var date = startDate
