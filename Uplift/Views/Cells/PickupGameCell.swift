@@ -41,7 +41,7 @@ class PickupGameCell: UICollectionViewCell {
         contentView.layer.shadowColor = UIColor.gray01.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
         contentView.layer.shadowRadius = 7.0
-        contentView.layer.shadowOpacity = 0.25
+        contentView.layer.shadowOpacity = 0.50
         contentView.layer.masksToBounds = false
         
         titleLabel.font = ._16MontserratMedium
@@ -68,7 +68,8 @@ class PickupGameCell: UICollectionViewCell {
         statusButton.addTarget(self, action: #selector(toggleStatus), for: .touchUpInside)
         contentView.addSubview(statusButton)
         
-        playerIcon.image = UIImage(named: "TODO")
+        playerIcon.image = UIImage(named: ImageNames.personIcon)
+        playerIcon.contentMode = .scaleAspectFit
         contentView.addSubview(playerIcon)
         
         setupConstraints()
@@ -92,7 +93,7 @@ class PickupGameCell: UICollectionViewCell {
         let smallPadding = 6
         
         let playerIconHeight = 12
-        let playerIconWidth = 8
+        let playerIconWidth = 12
         let statusButtonHeight = 24
         let statusButtonWidth = status == .created ? 75 : status == .joined ? 65 : 48
         
@@ -114,7 +115,7 @@ class PickupGameCell: UICollectionViewCell {
         
         playerIcon.snp.updateConstraints { make in
             make.centerY.equalTo(playersLabel)
-            make.trailing.equalTo(playersLabel.snp.leading).inset(smallPadding)
+            make.trailing.equalTo(playersLabel.snp.leading).offset(-smallPadding)
             make.height.equalTo(playerIconHeight)
             make.width.equalTo(playerIconWidth)
         }

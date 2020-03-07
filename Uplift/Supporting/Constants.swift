@@ -166,6 +166,7 @@ struct ImageNames {
 
     // MISC VIEWS
     static let semicircle = "semicircle"
+    static let personIcon = "person-icon"
 
     // SHARE
     static let shareDark = "share-dark"
