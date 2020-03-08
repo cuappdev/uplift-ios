@@ -15,7 +15,7 @@ class SportsFeedHeaderView: UIView {
     private let profilePicButton = UIButton()
     private let profilePicSize: CGFloat = 36
     private let titleLabel = UILabel()
-    
+
     var profilePicPressed: (() -> ())!
 
     override init(frame: CGRect) {

@@ -56,16 +56,17 @@ class SportsFeedViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(PickupGameCell.self, forCellWithReuseIdentifier: sportIdentifier)
         view.addSubview(collectionView)
-        
+
         profileView.dismissClosure = {
             self.hideProfileView()
         }
         view.addSubview(profileView)
-        
+
         setupConstraints()
     }
 
     func showProfileView() {
+        self.tabBarController?.tabBar.isHidden = true
         UIView.animate(withDuration: 0.3, animations: {
             self.profileView.snp.updateConstraints { make in
                 make.leading.equalToSuperview()
@@ -98,9 +99,9 @@ class SportsFeedViewController: UIViewController {
         }
 
         profileView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().offset(tabBarController!.tabBar.bounds.height)
             make.width.equalToSuperview().multipliedBy(320.0 / 375.0)
-//            make.leading.equalToSuperview()
             make.leading.equalToSuperview().offset(-view.frame.width * 320.0 / 375.0)
         }
     }
