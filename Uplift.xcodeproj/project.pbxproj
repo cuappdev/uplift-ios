@@ -1138,7 +1138,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Uplift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_NAME = Uplift;
@@ -1160,7 +1160,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Uplift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_MODULE_NAME = Uplift;
 				PRODUCT_NAME = Uplift;
