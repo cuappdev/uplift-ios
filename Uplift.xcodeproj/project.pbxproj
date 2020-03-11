@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */; };
 		035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */; };
+		039284B824198D25000F4173 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039284B724198D25000F4173 /* FilterButton.swift */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
 		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
 		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
@@ -153,6 +154,7 @@
 /* Begin PBXFileReference section */
 		03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGameCell.swift; sourceTree = "<group>"; };
 		035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		039284B724198D25000F4173 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				4F4CA4122383A3040002FD5F /* Onboarding */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */,
+				039284B724198D25000F4173 /* FilterButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -970,6 +973,7 @@
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				4F285B6B238F03D300B7B14D /* FavoriteGymsController.swift in Sources */,
 				C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */,
+				039284B824198D25000F4173 /* FilterButton.swift in Sources */,
 				4F47C7E423A1E62200D5F93F /* OnboardingLoadingViewController.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,

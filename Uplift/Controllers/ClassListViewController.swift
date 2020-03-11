@@ -42,7 +42,7 @@ class ClassListViewController: UIViewController {
     // MARK: - Private view vars
     private var calendarCollectionView: UICollectionView!
     private var classCollectionView: UICollectionView!
-    private var filterButton: UIButton!
+    private var filterButton: FilterButton!
     private var titleLabel: UILabel!
     private var titleView: UIView!
 
@@ -265,22 +265,14 @@ extension ClassListViewController: FilterDelegate {
     func filterOptions(params: FilterParameters) {
 
         filteringIsActive = params.shouldFilter
+        filterButton.toggleButton()
 
         if filteringIsActive {
             currentFilterParams = params
-
-            // Modify Button
-            filterButton.backgroundColor = .primaryYellow
-            filterButton.setTitle(ClientStrings.Filter.appliedFilterLabel, for: .normal)
-
             // MARK: - Fabric
             Answers.logCustomEvent(withName: "Applied Filters")
         } else {
             currentFilterParams = nil
-
-            // Modify Button
-            filterButton.backgroundColor = .white
-            filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
             classCollectionView.reloadData()
             return
         }
@@ -370,18 +362,8 @@ extension ClassListViewController {
         noResultsEmptyStateView = NoResultsEmptyStateView()
         view.addSubview(noResultsEmptyStateView)
 
-        filterButton = UIButton()
-        filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
-        filterButton.titleLabel?.font = ._14MontserratBold
-        filterButton.layer.cornerRadius = 24.0
-        filterButton.setTitleColor(.black, for: .normal)
-        filterButton.backgroundColor = .primaryWhite
+        filterButton = FilterButton()
         filterButton.addTarget(self, action: #selector(filterPressed), for: .touchUpInside)
-        filterButton.layer.shadowColor = UIColor.buttonShadow.cgColor
-        filterButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        filterButton.layer.shadowRadius = 4.0
-        filterButton.layer.shadowOpacity = 1.0
-        filterButton.layer.masksToBounds = false
         view.addSubview(filterButton)
 
         view.addSubview(loadingHeader)
