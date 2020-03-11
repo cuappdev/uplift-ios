@@ -66,7 +66,6 @@ class SportsFeedViewController: UIViewController {
     }
 
     func showProfileView() {
-        self.tabBarController?.tabBar.isHidden = true
         UIView.animate(withDuration: 0.3, animations: {
             self.profileView.snp.updateConstraints { make in
                 make.leading.equalToSuperview()
