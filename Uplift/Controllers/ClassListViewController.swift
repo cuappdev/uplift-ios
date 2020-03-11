@@ -265,7 +265,7 @@ extension ClassListViewController: FilterDelegate {
     func filterOptions(params: FilterParameters) {
 
         filteringIsActive = params.shouldFilter
-        filterButton.toggleButton()
+        filterButton.updateButton(filterActive: filteringIsActive)
 
         if filteringIsActive {
             currentFilterParams = params

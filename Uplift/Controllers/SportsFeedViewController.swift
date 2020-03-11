@@ -9,6 +9,26 @@
 import SnapKit
 import UIKit
 
+struct SportsFilterParameters {
+    var gymIds: [String]
+    var startTime: Date
+    var endTime: Date
+    var minPlayers: Int
+    var maxPlayers: Int
+    var sportsNames: [String]
+    var shouldFilter: Bool
+    
+    init(gymIds: [String] = [], startTime: Date = Date(), endTime: Date = Date(), minPlayers: Int = 2, maxPlayers: Int = 10, sportsNames: [String] = [], shouldFilter: Bool = false) {
+        self.gymIds = gymIds
+        self.startTime = startTime
+        self.endTime = endTime
+        self.minPlayers = minPlayers
+        self.maxPlayers = maxPlayers
+        self.sportsNames = sportsNames
+        self.shouldFilter = shouldFilter
+    }
+}
+
 protocol GameStatusDelegate: class {
     func didChangeStatus(id: Int, status: GameStatus)
 }
@@ -17,10 +37,14 @@ class SportsFeedViewController: UIViewController {
 
     private var calendarCollectionView: UICollectionView!
     private var collectionView: UICollectionView!
+    private var filterButton: FilterButton!
     private let headerView = SportsFeedHeaderView()
     
     private var posts: [[Post]] = Array.init(repeating: [], count: 10)
     private let sportIdentifier = "sportIdentifier"
+    
+    private var currentFilterParams: SportsFilterParameters?
+    private var filteringIsActive = false
     
     // MARK: - Calendar data vars
     private var calendarDatesList: [Date] = CalendarGenerator.getCalendarDates()
@@ -29,6 +53,13 @@ class SportsFeedViewController: UIViewController {
     }()
     
     private var currDate: Date!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Update filtering
+        if let params = currentFilterParams {
+            filterOptions(params: params)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,13 +107,39 @@ class SportsFeedViewController: UIViewController {
         collectionView.register(PickupGameCell.self, forCellWithReuseIdentifier: sportIdentifier)
         view.addSubview(collectionView)
         
+        filterButton = FilterButton()
+        filterButton.addTarget(self, action: #selector(filterPressed), for: .touchUpInside)
+        view.addSubview(filterButton)
+        
         setupConstraints()
         getSportsFor(date: calendarDateSelected)
+    }
+    
+    func filterOptions(params: SportsFilterParameters) {
+        filteringIsActive = params.shouldFilter
+        filterButton.updateButton(filterActive: filteringIsActive)
+        currentFilterParams = filteringIsActive ? params : nil
+        
+        if !filteringIsActive {
+            collectionView.reloadData()
+            return
+        }
+        // TODO: filter sports
+    }
+    
+    // MARK: - Targets
+    @objc func filterPressed() {
+//        let filterVC = FilterViewController(currentFilterParams: currentFilterParams)
+//        filterVC.delegate = self
+//        let filterNavController = UINavigationController(rootViewController: filterVC)
+//        tabBarController?.present(filterNavController, animated: true, completion: nil)
     }
 
     private func setupConstraints() {
         let calendarCollectionViewHeight = 47
         let calendarCollectionViewTopPadding = 40
+        let filterButtonBottomPadding = 18
+        let filterButtonSize = CGSize(width: 164, height: 46)
         let headerViewHeight = 120
         let sportCollectionViewTopPadding = 18
 
@@ -100,6 +157,11 @@ class SportsFeedViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(calendarCollectionView.snp.bottom).offset(sportCollectionViewTopPadding)
+        }
+        filterButton.snp.makeConstraints { make in
+            make.size.equalTo(filterButtonSize)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(filterButtonBottomPadding)
+            make.centerX.equalToSuperview()
         }
     }
     

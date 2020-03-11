@@ -9,8 +9,6 @@
 import UIKit
 
 class FilterButton: UIButton {
-    private var filterActive: Bool = false
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .primaryWhite
@@ -26,8 +24,7 @@ class FilterButton: UIButton {
         
     }
     
-    func toggleButton() {
-        filterActive = !filterActive
+    func updateButton(filterActive: Bool) {
         self.backgroundColor = filterActive ? .primaryYellow : .white
         self.setTitle(filterActive ? ClientStrings.Filter.appliedFilterLabel : ClientStrings.Filter.applyFilterLabel, for: .normal)
     }

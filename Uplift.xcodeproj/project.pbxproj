@@ -567,6 +567,7 @@
 				C21BE14922920EB200B5D219 /* ClassList */,
 				E6F3600C238127D900CB7FB3 /* Dropdown */,
 				D9936A27216D9F8B002802F4 /* Empty States */,
+				039284B724198D25000F4173 /* FilterButton.swift */,
 				8DD7C7782084418F004EB196 /* Footers */,
 				7E9D6DED22961B1B0054F710 /* GymDetail */,
 				C7EBD5AC2062E72300D76A8B /* Headers */,
@@ -578,7 +579,6 @@
 				4F4CA4122383A3040002FD5F /* Onboarding */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */,
-				039284B724198D25000F4173 /* FilterButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
