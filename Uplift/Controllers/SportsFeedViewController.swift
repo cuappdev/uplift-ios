@@ -9,15 +9,45 @@
 import SnapKit
 import UIKit
 
+struct SportsFilterParameters {
+    var classNames: [String]
+    var endTime: Date
+    var gymIds: [String]
+    var instructorNames: [String]
+    var shouldFilter: Bool
+    var startTime: Date
+    var tags: [String]
+
+    init(classNames: [String] = [],
+         endTime: Date = Date(),
+         gymIds: [String] = [],
+         instructorNames: [String] = [],
+         shouldFilter: Bool = false,
+         startTime: Date = Date(),
+         tags: [String] = []) {
+        self.classNames = classNames
+        self.endTime = endTime
+        self.gymIds = gymIds
+        self.instructorNames = instructorNames
+        self.shouldFilter = shouldFilter
+        self.startTime = startTime
+        self.tags = tags
+    }
+
+}
+
 protocol GameStatusDelegate: class {
     func didChangeStatus(id: Int, status: GameStatus)
 }
 
 class SportsFeedViewController: UIViewController {
-
+    
     private var calendarCollectionView: UICollectionView!
     private var collectionView: UICollectionView!
+    private var filterButton: UIButton!
     private let headerView = SportsFeedHeaderView()
+    
+    private var currentFilterParams: SportsFilterParameters?
     
     private var posts: [[Post]] = Array.init(repeating: [], count: 10)
     private let sportIdentifier = "sportIdentifier"
@@ -76,6 +106,20 @@ class SportsFeedViewController: UIViewController {
         collectionView.register(PickupGameCell.self, forCellWithReuseIdentifier: sportIdentifier)
         view.addSubview(collectionView)
         
+        filterButton = UIButton()
+        filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
+        filterButton.titleLabel?.font = ._14MontserratBold
+        filterButton.layer.cornerRadius = 24.0
+        filterButton.setTitleColor(.black, for: .normal)
+        filterButton.backgroundColor = .primaryWhite
+        filterButton.addTarget(self, action: #selector(filterPressed), for: .touchUpInside)
+        filterButton.layer.shadowColor = UIColor.buttonShadow.cgColor
+        filterButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        filterButton.layer.shadowRadius = 4.0
+        filterButton.layer.shadowOpacity = 1.0
+        filterButton.layer.masksToBounds = false
+        view.addSubview(filterButton)
+        
         setupConstraints()
         getSportsFor(date: calendarDateSelected)
     }
@@ -83,6 +127,8 @@ class SportsFeedViewController: UIViewController {
     private func setupConstraints() {
         let calendarCollectionViewHeight = 47
         let calendarCollectionViewTopPadding = 40
+        let filterButtonBottomPadding = 18
+        let filterButtonSize = CGSize(width: 164, height: 46)
         let headerViewHeight = 120
         let sportCollectionViewTopPadding = 18
 
@@ -101,11 +147,29 @@ class SportsFeedViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(calendarCollectionView.snp.bottom).offset(sportCollectionViewTopPadding)
         }
+        filterButton.snp.makeConstraints { make in
+            make.size.equalTo(filterButtonSize)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(filterButtonBottomPadding)
+            make.centerX.equalToSuperview()
+        }
     }
     
     private func getSportsFor(date: Date) {
         // TODO: Filter posts.
         self.collectionView.reloadData()
+    }
+}
+
+extension SportsFeedViewController: SportsFilterDelegate {
+    @objc func filterPressed() {
+        let filterVC = SportsFilterViewController(currentFilterParams: currentFilterParams)
+        filterVC.delegate = self
+        let filterNavController = UINavigationController(rootViewController: filterVC)
+        tabBarController?.present(filterNavController, animated: true, completion: nil)
+    }
+    
+    func filterOptions(params: SportsFilterParameters) {
+        // TODO
     }
 }
 

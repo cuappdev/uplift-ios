@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */; };
+		032324B52442503A0041ED72 /* SportsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032324B42442503A0041ED72 /* SportsFilterViewController.swift */; };
+		032324B7244250800041ED72 /* Dropped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032324B6244250800041ED72 /* Dropped.swift */; };
 		035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
 		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
@@ -152,6 +154,8 @@
 
 /* Begin PBXFileReference section */
 		03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGameCell.swift; sourceTree = "<group>"; };
+		032324B42442503A0041ED72 /* SportsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFilterViewController.swift; sourceTree = "<group>"; };
+		032324B6244250800041ED72 /* Dropped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropped.swift; sourceTree = "<group>"; };
 		035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
@@ -473,6 +477,7 @@
 				4F2285162352A1C80013F1B0 /* WeekDay.swift */,
 				039A3230240749A30090ED50 /* GameStatus.swift */,
 				03C8013724106893009845E7 /* CalendarGenerator.swift */,
+				032324B6244250800041ED72 /* Dropped.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -542,6 +547,7 @@
 				4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */,
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
+				032324B42442503A0041ED72 /* SportsFilterViewController.swift */,
 				7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */,
 				7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */,
 				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
@@ -942,6 +948,7 @@
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
 				C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */,
+				032324B7244250800041ED72 /* Dropped.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				4F1A5A7A238D8511005987E4 /* OnboardingAnimations.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
@@ -953,6 +960,7 @@
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
 				E689381F240F69D10022B524 /* SportsFeedHeaderView.swift in Sources */,
+				032324B52442503A0041ED72 /* SportsFilterViewController.swift in Sources */,
 				4F4CA4112383A1AB0002FD5F /* OnboardingViewController.swift in Sources */,
 				E67E2C6723FDF573007E47A9 /* LoadingScrollView.swift in Sources */,
 				D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */,

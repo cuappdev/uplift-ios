@@ -1,20 +1,22 @@
 //
-//  FilterViewController.swift
+//  SportsFilterViewController.swift
 //  Uplift
 //
-//  Created by Joseph Fulgieri on 4/2/18.
-//  Copyright © 2018 Uplift. All rights reserved.
+//  Created by Artesia Ko on 4/11/20.
+//  Copyright © 2020 Cornell AppDev. All rights reserved.
 //
 
 import SnapKit
 import UIKit
 
-protocol FilterDelegate {
-    func filterOptions(params: FilterParameters)
+
+
+protocol SportsFilterDelegate {
+    func filterOptions(params: SportsFilterParameters)
 }
 
 // swiftlint:disable:next type_body_length
-class FilterViewController: UIViewController, RangeSeekSliderDelegate {
+class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - INITIALIZATION
     var contentView: UIView!
@@ -22,7 +24,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     var timeFormatter: DateFormatter!
 
     var collectionViewTitle: UILabel!
-    var delegate: FilterDelegate?
+    var delegate: SportsFilterDelegate?
     var gymCollectionView: UICollectionView!
     var gyms: [GymNameId]!
     /// ids of the selected gyms
@@ -52,7 +54,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     var instructorDropdownData: DropdownData!
     var selectedInstructors: [String] = []
 
-    convenience init(currentFilterParams: FilterParameters?) {
+    convenience init(currentFilterParams: SportsFilterParameters?) {
         self.init()
         //TODO: - See if we already have filter params, and apply them
 
@@ -471,7 +473,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             return false
         }()
 
-        let filterParameters = FilterParameters(classNames: selectedClasses, endTime: maxDate, gymIds: selectedGyms, instructorNames: selectedInstructors, shouldFilter: shouldFilter, startTime: minDate, tags: [])
+        let filterParameters = SportsFilterParameters(classNames: selectedClasses, endTime: maxDate, gymIds: selectedGyms, instructorNames: selectedInstructors, shouldFilter: shouldFilter, startTime: minDate, tags: [])
 
         delegate?.filterOptions(params: filterParameters)
 
@@ -481,7 +483,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     @objc func reset() {
         let minDate = timeRanges[0]
         let maxDate = timeRanges[timeRanges.count - 1]
-        let filterParameters = FilterParameters(classNames: [], endTime: maxDate, gymIds: [], instructorNames: [], shouldFilter: false, startTime: minDate, tags: [])
+        let filterParameters = SportsFilterParameters(classNames: [], endTime: maxDate, gymIds: [], instructorNames: [], shouldFilter: false, startTime: minDate, tags: [])
 
         delegate?.filterOptions(params: filterParameters)
 
@@ -628,7 +630,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 }
 
 // MARK: CollectionViewDelegateFlowLayout
-extension FilterViewController: UICollectionViewDelegateFlowLayout {
+extension SportsFilterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         for i in 0..<selectedGyms.count {
             if selectedGyms[i] == gyms[indexPath.row].id {
@@ -653,7 +655,7 @@ extension FilterViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: CollectionViewDataSource
-extension FilterViewController: UICollectionViewDataSource {
+extension SportsFilterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymFilterCell.identifier, for: indexPath) as! GymFilterCell
 
@@ -669,7 +671,7 @@ extension FilterViewController: UICollectionViewDataSource {
 }
 
 // MARK: TableViewDataSource
-extension FilterViewController: UITableViewDataSource {
+extension SportsFilterViewController: UITableViewDataSource {
     //TODO: Refactor this method for better code readability
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = 0
@@ -727,7 +729,7 @@ extension FilterViewController: UITableViewDataSource {
 }
 
 // MARK: TableViewDelegate
-extension FilterViewController: UITableViewDelegate {
+extension SportsFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
         var shouldAppend: Bool = cell.checkBoxColoring.backgroundColor == .primaryYellow
@@ -770,3 +772,4 @@ extension FilterViewController: UITableViewDelegate {
         return 32
     }
 }
+
