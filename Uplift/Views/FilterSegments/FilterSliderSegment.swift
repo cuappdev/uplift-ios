@@ -6,6 +6,7 @@
 //  Copyright © 2020 Cornell AppDev. All rights reserved.
 //
 
+import SnapKit
 import UIKit
 
 class FilterSliderSegment: UIView, RangeSeekSliderDelegate {
@@ -88,6 +89,18 @@ class FilterSliderSegment: UIView, RangeSeekSliderDelegate {
             make.top.equalTo(slider.snp.bottom).offset(90)
             make.height.equalTo(1)
         }
+    }
+    
+    func getSelectedMinValue() -> CGFloat {
+        return slider.selectedMinValue
+    }
+    
+    func getSelectedMaxValue() -> CGFloat {
+        return slider.selectedMaxValue
+    }
+    
+    func setLabelText(text: String) {
+        label.text = text
     }
     
     required init?(coder: NSCoder) {

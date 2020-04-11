@@ -44,14 +44,15 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     var selectedGyms: [String] = []
 
     var fitnessCenterStartTimeDivider: UIView!
-    var startTimeLabel: UILabel!
-    var startTimeSlider: RangeSeekSlider!
-    var startTimeTitleLabel: UILabel!
+//    var startTimeLabel: UILabel!
+//    var startTimeSlider: RangeSeekSlider!
+//    var startTimeTitleLabel: UILabel!
     var timeRanges: [Date] = []
+    var startTimeSliderSegment: FilterSliderSegment!
 
     var endTime = "10:00PM"
     var startTime = "6:00AM"
-    var startTimeClassTypeDivider: UIView!
+//    var startTimeClassTypeDivider: UIView!
 
     var classTypeDropdownHeader: DropdownHeaderView!
     var classTypeDropdownFooter: DropdownFooterView!
@@ -105,48 +106,53 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         fitnessCenterStartTimeDivider = UIView()
         fitnessCenterStartTimeDivider.backgroundColor = .gray01
         contentView.addSubview(fitnessCenterStartTimeDivider)
+        
+        startTimeSliderSegment = FilterSliderSegment()
+        startTimeSliderSegment.endRange = endTime
+        startTimeSliderSegment.startRange = startTime
+        contentView.addSubview(startTimeSliderSegment)
 
-        startTimeTitleLabel = UILabel()
-        startTimeTitleLabel.sizeToFit()
-        startTimeTitleLabel.font = ._12MontserratBold
-        startTimeTitleLabel.textColor = .gray04
-        startTimeTitleLabel.text = ClientStrings.Filter.startTime
-        contentView.addSubview(startTimeTitleLabel)
+//        startTimeTitleLabel = UILabel()
+//        startTimeTitleLabel.sizeToFit()
+//        startTimeTitleLabel.font = ._12MontserratBold
+//        startTimeTitleLabel.textColor = .gray04
+//        startTimeTitleLabel.text = ClientStrings.Filter.startTime
+//        contentView.addSubview(startTimeTitleLabel)
 
-        startTimeLabel = UILabel()
-        startTimeLabel.sizeToFit()
-        startTimeLabel.font = ._12MontserratBold
-        startTimeLabel.textColor = .gray04
-        startTimeLabel.text = startTime + " - " + endTime
-        contentView.addSubview(startTimeLabel)
+//        startTimeLabel = UILabel()
+//        startTimeLabel.sizeToFit()
+//        startTimeLabel.font = ._12MontserratBold
+//        startTimeLabel.textColor = .gray04
+//        startTimeLabel.text = startTime + " - " + endTime
+//        contentView.addSubview(startTimeLabel)
 
-        startTimeSlider = RangeSeekSlider(frame: .zero)
-        startTimeSlider.minValue = 0.0 //15 minute intervals
-        startTimeSlider.maxValue = 960.0
-        startTimeSlider.selectedMinValue = 0.0
-        startTimeSlider.selectedMaxValue = 960.0
-        startTimeSlider.enableStep = true
-        startTimeSlider.delegate = self
-        startTimeSlider.step = 15.0
-        startTimeSlider.handleDiameter = 24.0
-        startTimeSlider.selectedHandleDiameterMultiplier = 1.0
-        startTimeSlider.lineHeight = 6.0
-        startTimeSlider.hideLabels = true
+//        startTimeSlider = RangeSeekSlider(frame: .zero)
+//        startTimeSlider.minValue = 0.0 //15 minute intervals
+//        startTimeSlider.maxValue = 960.0
+//        startTimeSlider.selectedMinValue = 0.0
+//        startTimeSlider.selectedMaxValue = 960.0
+//        startTimeSlider.enableStep = true
+//        startTimeSlider.delegate = self
+//        startTimeSlider.step = 15.0
+//        startTimeSlider.handleDiameter = 24.0
+//        startTimeSlider.selectedHandleDiameterMultiplier = 1.0
+//        startTimeSlider.lineHeight = 6.0
+//        startTimeSlider.hideLabels = true
+//
+//        startTimeSlider.colorBetweenHandles = .primaryYellow
+//        startTimeSlider.handleColor = .white
+//        startTimeSlider.handleBorderWidth = 1.0
+//        startTimeSlider.handleBorderColor = .gray01
+//        startTimeSlider.handleShadowColor = .gray02
+//        startTimeSlider.handleShadowOffset = CGSize(width: 0, height: 2)
+//        startTimeSlider.handleShadowOpacity = 0.6
+//        startTimeSlider.handleShadowRadius = 1.0
+//        startTimeSlider.tintColor = .gray01
+//        contentView.addSubview(startTimeSlider)
 
-        startTimeSlider.colorBetweenHandles = .primaryYellow
-        startTimeSlider.handleColor = .white
-        startTimeSlider.handleBorderWidth = 1.0
-        startTimeSlider.handleBorderColor = .gray01
-        startTimeSlider.handleShadowColor = .gray02
-        startTimeSlider.handleShadowOffset = CGSize(width: 0, height: 2)
-        startTimeSlider.handleShadowOpacity = 0.6
-        startTimeSlider.handleShadowRadius = 1.0
-        startTimeSlider.tintColor = .gray01
-        contentView.addSubview(startTimeSlider)
-
-        startTimeClassTypeDivider = UIView()
-        startTimeClassTypeDivider.backgroundColor = .gray01
-        contentView.addSubview(startTimeClassTypeDivider)
+//        startTimeClassTypeDivider = UIView()
+//        startTimeClassTypeDivider.backgroundColor = .gray01
+//        contentView.addSubview(startTimeClassTypeDivider)
 
         // CLASS TYPE SECTION
         classTypeDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectClassTypeSection)
@@ -328,35 +334,41 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.bottom.equalTo(gymCollectionView.snp.bottom).offset(17)
             make.width.centerX.equalToSuperview()
         }
-
-        startTimeTitleLabel.snp.remakeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
+        
+        startTimeSliderSegment.snp.remakeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
-            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(35)
         }
 
-        startTimeLabel.snp.remakeConstraints { make in
-            make.trailing.equalToSuperview().offset(-22)
-            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
-            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(36)
-        }
-
-        startTimeSlider.snp.remakeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(startTimeLabel.snp.bottom).offset(12)
-            make.height.equalTo(30)
-        }
-
-        startTimeClassTypeDivider.snp.remakeConstraints { make in
-            make.width.centerX.equalToSuperview()
-            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(90)
-            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(91)
-        }
+//        startTimeTitleLabel.snp.remakeConstraints { make in
+//            make.leading.equalToSuperview().offset(16)
+//            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
+//            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(35)
+//        }
+//
+//        startTimeLabel.snp.remakeConstraints { make in
+//            make.trailing.equalToSuperview().offset(-22)
+//            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(20)
+//            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(36)
+//        }
+//
+//        startTimeSlider.snp.remakeConstraints { make in
+//            make.trailing.equalToSuperview().offset(-16)
+//            make.leading.equalToSuperview().offset(16)
+//            make.top.equalTo(startTimeLabel.snp.bottom).offset(12)
+//            make.height.equalTo(30)
+//        }
+//
+//        startTimeClassTypeDivider.snp.remakeConstraints { make in
+//            make.width.centerX.equalToSuperview()
+//            make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(90)
+//            make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(91)
+//        }
 
         // CLASS TYPE SECTION
         classTypeDropdownHeader.snp.remakeConstraints { make in
-            make.top.equalTo(startTimeClassTypeDivider.snp.bottom)
+            make.top.equalTo(startTimeSliderSegment.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
@@ -474,8 +486,8 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - NAVIGATION BAR BUTTONS FUNCTIONS
     @objc func done() {
-        let minValueIndex = Int(startTimeSlider.selectedMinValue / 15.0)
-        let maxValueIndex = Int(startTimeSlider.selectedMaxValue / 15.0)
+        let minValueIndex = Int(startTimeSliderSegment.getSelectedMinValue() / 15.0)
+        let maxValueIndex = Int(startTimeSliderSegment.getSelectedMaxValue() / 15.0)
 
         let minDate = timeRanges[minValueIndex]
         let maxDate = timeRanges[maxValueIndex]
@@ -512,7 +524,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         let minDate = timeRanges[minValueIndex]
         let maxDate = timeRanges[maxValueIndex]
 
-        startTimeLabel.text = "\(timeFormatter.string(from: minDate)) - \(timeFormatter.string(from: maxDate))"
+        startTimeSliderSegment.setLabelText(text: "\(timeFormatter.string(from: minDate)) - \(timeFormatter.string(from: maxDate))")
 
     }
 
