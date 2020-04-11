@@ -10,30 +10,32 @@ import SnapKit
 import UIKit
 
 struct SportsFilterParameters {
-    var classNames: [String]
     var endTime: Date
     var gymIds: [String]
-    var instructorNames: [String]
+    var maxPlayers: Int
+    var minPlayers: Int
     var shouldFilter: Bool
+    var sportsNames: [String]
     var startTime: Date
     var tags: [String]
 
-    init(classNames: [String] = [],
-         endTime: Date = Date(),
+    init(endTime: Date = Date(),
          gymIds: [String] = [],
-         instructorNames: [String] = [],
+         maxPlayers: Int = 10,
+         minPlayers: Int = 2,
          shouldFilter: Bool = false,
+         sportsNames: [String] = [],
          startTime: Date = Date(),
          tags: [String] = []) {
-        self.classNames = classNames
         self.endTime = endTime
         self.gymIds = gymIds
-        self.instructorNames = instructorNames
+        self.maxPlayers = maxPlayers
+        self.minPlayers = minPlayers
         self.shouldFilter = shouldFilter
+        self.sportsNames = sportsNames
         self.startTime = startTime
         self.tags = tags
     }
-
 }
 
 protocol GameStatusDelegate: class {

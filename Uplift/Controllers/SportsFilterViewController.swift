@@ -9,13 +9,10 @@
 import SnapKit
 import UIKit
 
-
-
 protocol SportsFilterDelegate {
     func filterOptions(params: SportsFilterParameters)
 }
 
-// swiftlint:disable:next type_body_length
 class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     // MARK: - INITIALIZATION
@@ -35,24 +32,26 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
     var startTimeSlider: RangeSeekSlider!
     var startTimeTitleLabel: UILabel!
     var timeRanges: [Date] = []
-
+    
     var endTime = "10:00PM"
     var startTime = "6:00AM"
-    var startTimeClassTypeDivider: UIView!
-
-    var classTypeDropdownHeader: DropdownHeaderView!
-    var classTypeDropdownFooter: DropdownFooterView!
-    var classTypeDropdown: UITableView!
-    var classTypeDropdownData: DropdownData!
-    var classTypeInstructorDivider: UIView!
-    var selectedClasses: [String] = []
-
-    var instructorDivider: UIView!
-    var instructorDropdownHeader: DropdownHeaderView!
-    var instructorDropdownFooter: DropdownFooterView!
-    var instructorDropdown: UITableView!
-    var instructorDropdownData: DropdownData!
-    var selectedInstructors: [String] = []
+    
+    var startTimeNumPlayersDivider: UIView!
+    var numPlayersLabel: UILabel!
+    var numPlayersSlider: RangeSeekSlider!
+    var numPlayersTitleLabel: UILabel!
+    var playerRanges: [Int] = []
+    
+    var maxPlayers = 10
+    var minPlayers = 2
+    
+    var numPlayersSportsTypeDivider: UIView!
+    var sportsTypeDropdownHeader: DropdownHeaderView!
+    var sportsTypeDropdownFooter: DropdownFooterView!
+    var sportsTypeDropdown: UITableView!
+    var sportsTypeDropdownData: DropdownData!
+    var sportsTypeBottomDivider: UIView!
+    var selectedSports: [String] = []
 
     convenience init(currentFilterParams: SportsFilterParameters?) {
         self.init()
@@ -63,8 +62,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         }
 
         selectedGyms = existingFilterParams.gymIds
-        selectedClasses = existingFilterParams.classNames
-        selectedInstructors = existingFilterParams.instructorNames
+        selectedSports = existingFilterParams.sportsNames
     }
 
     // swiftlint:disable:next function_body_length
@@ -130,84 +128,88 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         startTimeSlider.handleShadowRadius = 1.0
         startTimeSlider.tintColor = .gray01
         contentView.addSubview(startTimeSlider)
-
-        startTimeClassTypeDivider = UIView()
-        startTimeClassTypeDivider.backgroundColor = .gray01
-        contentView.addSubview(startTimeClassTypeDivider)
-
-        // CLASS TYPE SECTION
-        classTypeDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectClassTypeSection)
-        contentView.addSubview(classTypeDropdownHeader)
-
-        classTypeDropdownFooter = DropdownFooterView()
-        classTypeDropdownFooter.clipsToBounds = true
-        contentView.addSubview(classTypeDropdownFooter)
-
-        let toggleMoreClasses = UITapGestureRecognizer(target: self, action: #selector(self.dropHideClasses(sender:) ))
-        classTypeDropdownFooter.addGestureRecognizer(toggleMoreClasses)
-
-        classTypeDropdown = UITableView()
-        classTypeDropdown.separatorStyle = .none
-        classTypeDropdown.showsVerticalScrollIndicator = false
-        classTypeDropdown.bounces = false
-
-        classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
-        classTypeDropdown.delegate = self
-        classTypeDropdown.dataSource = self
-        contentView.addSubview(classTypeDropdown)
-
-        classTypeInstructorDivider = UIView()
-        classTypeInstructorDivider.backgroundColor = .gray01
-        contentView.addSubview(classTypeInstructorDivider)
-
-        classTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
-
-        NetworkManager.shared.getClassNames { classNames in
-            self.classTypeDropdownData.titles.append(contentsOf: classNames)
-            self.classTypeDropdownData.titles.sort()
-
-            self.classTypeDropdownData.completed = true
-            self.classTypeDropdown.reloadData()
-            self.setupConstraints()
-        }
-
-        // INSTRUCTOR SECTION
-        instructorDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectInstructorSection)
-        contentView.addSubview(instructorDropdownHeader)
         
-        instructorDropdownFooter = DropdownFooterView()
-        instructorDropdownFooter.clipsToBounds = true
-        contentView.addSubview(instructorDropdownFooter)
+        startTimeNumPlayersDivider = UIView()
+        startTimeNumPlayersDivider.backgroundColor = .gray01
+        contentView.addSubview(startTimeNumPlayersDivider)
         
-        let toggleMoreInstructors = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
-        instructorDropdownFooter.addGestureRecognizer(toggleMoreInstructors)
-               
-        instructorDropdown = UITableView()
-        instructorDropdown.separatorStyle = .none
-        instructorDropdown.bounces = false
-        instructorDropdown.showsVerticalScrollIndicator = false
+        numPlayersTitleLabel = UILabel()
+        numPlayersTitleLabel.sizeToFit()
+        numPlayersTitleLabel.font = ._12MontserratBold
+        numPlayersTitleLabel.textColor = .gray04
+        numPlayersTitleLabel.text = "NUMBER OF PLAYERS"
+        contentView.addSubview(numPlayersTitleLabel)
 
-        instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
+        numPlayersLabel = UILabel()
+        numPlayersLabel.sizeToFit()
+        numPlayersLabel.font = ._12MontserratBold
+        numPlayersLabel.textColor = .gray04
+        numPlayersLabel.text = "\(minPlayers) - \(maxPlayers)"
+        contentView.addSubview(numPlayersLabel)
 
-        instructorDropdown.delegate = self
-        instructorDropdown.dataSource = self
-        contentView.addSubview(instructorDropdown)
+        numPlayersSlider = RangeSeekSlider(frame: .zero)
+        numPlayersSlider.minValue = 2.0
+        numPlayersSlider.maxValue = 10.0
+        numPlayersSlider.selectedMinValue = 2.0
+        numPlayersSlider.selectedMaxValue = 10.0
+        numPlayersSlider.enableStep = true
+        numPlayersSlider.delegate = self
+        numPlayersSlider.step = 1.0
+        numPlayersSlider.handleDiameter = 24.0
+        numPlayersSlider.selectedHandleDiameterMultiplier = 1.0
+        numPlayersSlider.lineHeight = 6.0
+        numPlayersSlider.hideLabels = true
 
-        instructorDivider = UIView()
-        instructorDivider.backgroundColor = .gray01
-        contentView.addSubview(instructorDivider)
+        numPlayersSlider.colorBetweenHandles = .primaryYellow
+        numPlayersSlider.handleColor = .white
+        numPlayersSlider.handleBorderWidth = 1.0
+        numPlayersSlider.handleBorderColor = .gray01
+        numPlayersSlider.handleShadowColor = .gray02
+        numPlayersSlider.handleShadowOffset = CGSize(width: 0, height: 2)
+        numPlayersSlider.handleShadowOpacity = 0.6
+        numPlayersSlider.handleShadowRadius = 1.0
+        numPlayersSlider.tintColor = .gray01
+        contentView.addSubview(numPlayersSlider)
 
-        instructorDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
+        numPlayersSportsTypeDivider = UIView()
+        numPlayersSportsTypeDivider.backgroundColor = .gray01
+        contentView.addSubview(numPlayersSportsTypeDivider)
 
-        NetworkManager.shared.getInstructors { instructors in
-            self.instructorDropdownData.titles.append(contentsOf: instructors)
-            self.instructorDropdownData.titles.sort()
+        // SPORTS TYPE SECTION
+        sportsTypeDropdownHeader = DropdownHeaderView(title: "SPORTS")
+        contentView.addSubview(sportsTypeDropdownHeader)
 
-            self.instructorDropdownData.completed = true
-            self.instructorDropdown.reloadData()
-            self.setupConstraints()
-        }
+        sportsTypeDropdownFooter = DropdownFooterView()
+        sportsTypeDropdownFooter.clipsToBounds = true
+        contentView.addSubview(sportsTypeDropdownFooter)
 
+        let toggleMoreSports = UITapGestureRecognizer(target: self, action: #selector(self.dropHideSports(sender:) ))
+        sportsTypeDropdownFooter.addGestureRecognizer(toggleMoreSports)
+
+        sportsTypeDropdown = UITableView()
+        sportsTypeDropdown.separatorStyle = .none
+        sportsTypeDropdown.showsVerticalScrollIndicator = false
+        sportsTypeDropdown.bounces = false
+
+        sportsTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
+        sportsTypeDropdown.delegate = self
+        sportsTypeDropdown.dataSource = self
+        contentView.addSubview(sportsTypeDropdown)
+
+        sportsTypeBottomDivider = UIView()
+        sportsTypeBottomDivider.backgroundColor = .gray01
+        contentView.addSubview(sportsTypeBottomDivider)
+
+        sportsTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
+
+        // TODO: replace with networked sports.
+        let sportsNames = ["Basketball", "Soccer", "Table Tennis", "Frisbee", "A", "B", "C"]
+        self.sportsTypeDropdownData.titles.append(contentsOf: sportsNames)
+        self.sportsTypeDropdownData.titles.sort()
+        self.sportsTypeDropdownData.completed = true
+        self.sportsTypeDropdown.reloadData()
+        self.setupConstraints()
+        
         setupConstraints()
         setupDropdownHeaderViews()
     }
@@ -334,43 +336,68 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.top.equalTo(startTimeLabel.snp.bottom).offset(12)
             make.height.equalTo(30)
         }
-
-        startTimeClassTypeDivider.snp.remakeConstraints { make in
+        
+        startTimeNumPlayersDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(90)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(91)
         }
+        
+        numPlayersTitleLabel.snp.remakeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(20)
+            make.bottom.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(35)
+        }
 
-        // CLASS TYPE SECTION
-        classTypeDropdownHeader.snp.remakeConstraints { make in
-            make.top.equalTo(startTimeClassTypeDivider.snp.bottom)
+        numPlayersLabel.snp.remakeConstraints { make in
+            make.trailing.equalToSuperview().offset(-22)
+            make.top.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(20)
+            make.bottom.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(36)
+        }
+
+        numPlayersSlider.snp.remakeConstraints { make in
+            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalTo(numPlayersLabel.snp.bottom).offset(12)
+            make.height.equalTo(30)
+        }
+        
+        numPlayersSportsTypeDivider.snp.remakeConstraints { make in
+            make.width.centerX.equalToSuperview()
+            make.top.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(90)
+            make.bottom.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(91)
+        }
+
+        // SPORTS TYPE SECTION
+        sportsTypeDropdownHeader.snp.remakeConstraints { make in
+            make.top.equalTo(numPlayersSportsTypeDivider.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
         
-        classTypeDropdown.snp.remakeConstraints { make in
-            make.top.equalTo(classTypeDropdownHeader.snp.bottom)
+        sportsTypeDropdown.snp.remakeConstraints { make in
+            make.top.equalTo(sportsTypeDropdownHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
             
-            if let dropStatus = classTypeDropdownData.dropStatus {
+            if let dropStatus = sportsTypeDropdownData.dropStatus {
                 switch dropStatus {
                     case .up:
                         make.height.equalTo(0)
                     case .half:
                         make.height.equalTo(3 * 32)
                     case .down:
-                        make.height.equalTo(classTypeDropdown.numberOfRows(inSection: 0) * 32)
+                        make.height.equalTo(sportsTypeDropdown.numberOfRows(inSection: 0) * 32)
                 }
             } else {
                 make.height.equalTo(0)
             }
         }
 
-        classTypeDropdownFooter.snp.remakeConstraints { make in
-            make.top.equalTo(classTypeDropdown.snp.bottom)
+        sportsTypeDropdownFooter.snp.remakeConstraints { make in
+            make.top.equalTo(sportsTypeDropdown.snp.bottom)
             make.leading.trailing.equalToSuperview()
             
-            if let dropStatus = classTypeDropdownData.dropStatus {
+            if let dropStatus = sportsTypeDropdownData.dropStatus {
                 switch dropStatus {
                     case .up:
                         make.height.equalTo(0)
@@ -382,80 +409,24 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
             }
         }
         
-        classTypeInstructorDivider.snp.remakeConstraints { make in
+        sportsTypeBottomDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
-            make.top.equalTo(classTypeDropdownFooter.snp.bottom)
-            make.bottom.equalTo(classTypeDropdownFooter).offset(1)
-        }
-
-        // INSTRUCTOR SECTION
-        instructorDropdownHeader.snp.remakeConstraints { make in
-            make.top.equalTo(classTypeInstructorDivider.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(55)
-        }
-        
-        instructorDropdown.snp.remakeConstraints { make in
-            make.top.equalTo(instructorDropdownHeader.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            
-            if let dropStatus = instructorDropdownData.dropStatus {
-                switch dropStatus {
-                    case .up:
-                        make.height.equalTo(0)
-                    case .half:
-                        make.height.equalTo(3 * 32)
-                    case .down:
-                        make.height.equalTo(instructorDropdown.numberOfRows(inSection: 0) * 32)
-                }
-            } else {
-                make.height.equalTo(0)
-            }
-        }
-        
-        instructorDropdownFooter.snp.remakeConstraints { make in
-            make.top.equalTo(instructorDropdown.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-
-            if let dropStatus = instructorDropdownData.dropStatus {
-                switch dropStatus {
-                    case .up:
-                        make.height.equalTo(0)
-                    case .half, .down:
-                        make.height.equalTo(32)
-                }
-            } else {
-                make.height.equalTo(0)
-            }
-        }
-
-        instructorDivider.snp.remakeConstraints { make in
-            make.width.centerX.equalToSuperview()
-            make.top.equalTo(instructorDropdownFooter.snp.bottom)
-            make.height.equalTo(1)
-            make.bottom.equalToSuperview()
+            make.top.equalTo(sportsTypeDropdownFooter.snp.bottom)
+            make.bottom.equalTo(sportsTypeDropdownFooter).offset(1)
         }
         
         updateTableFooterViews()
     }
     
     func setupDropdownHeaderViews() {
-        let toggleClasses = UITapGestureRecognizer(target: self, action: #selector(self.dropClasses(sender:) ))
-        classTypeDropdownHeader.addGestureRecognizer(toggleClasses)
-           
-        let toggleInstructors = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
-        instructorDropdownHeader.addGestureRecognizer(toggleInstructors)
-        
-        classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
-        instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
+        let toggleSports = UITapGestureRecognizer(target: self, action: #selector(self.dropSports(sender:) ))
+        sportsTypeDropdownHeader.addGestureRecognizer(toggleSports)
+        sportsTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedSports)
     }
     
     func updateTableFooterViews() {
-        instructorDropdownFooter.showHideLabel.text = instructorDropdownData.dropStatus == .half
-            ? ClientStrings.Filter.dropdownShowInstructors
-            : ClientStrings.Dropdown.collapse
-        classTypeDropdownFooter.showHideLabel.text = classTypeDropdownData.dropStatus == .half
-            ? ClientStrings.Filter.dropdownShowClassTypes
+        sportsTypeDropdownFooter.showHideLabel.text = sportsTypeDropdownData.dropStatus == .half
+            ? "Show All Sports"
             : ClientStrings.Dropdown.collapse
     }
 
@@ -469,11 +440,10 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         let shouldFilter: Bool = {
             if minValueIndex != 0 || maxValueIndex != timeRanges.count - 1 { return true }
-            if !selectedInstructors.isEmpty || !selectedClasses.isEmpty || !selectedGyms.isEmpty { return true }
+            if !selectedSports.isEmpty || !selectedGyms.isEmpty { return true }
             return false
         }()
-
-        let filterParameters = SportsFilterParameters(classNames: selectedClasses, endTime: maxDate, gymIds: selectedGyms, instructorNames: selectedInstructors, shouldFilter: shouldFilter, startTime: minDate, tags: [])
+        let filterParameters = SportsFilterParameters(endTime: maxDate, gymIds: selectedGyms, maxPlayers: 10, minPlayers: 2, shouldFilter: shouldFilter, sportsNames: selectedSports, startTime: minDate, tags: [])
 
         delegate?.filterOptions(params: filterParameters)
 
@@ -483,7 +453,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
     @objc func reset() {
         let minDate = timeRanges[0]
         let maxDate = timeRanges[timeRanges.count - 1]
-        let filterParameters = SportsFilterParameters(classNames: [], endTime: maxDate, gymIds: [], instructorNames: [], shouldFilter: false, startTime: minDate, tags: [])
+        let filterParameters = SportsFilterParameters(endTime: maxDate, gymIds: [], maxPlayers: 10, minPlayers: 2, shouldFilter: false, sportsNames: [], startTime: minDate, tags: [])
 
         delegate?.filterOptions(params: filterParameters)
 
@@ -503,128 +473,65 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     }
 
-    // MARK: - DROP METHODS
-    @objc func dropInstructors( sender: UITapGestureRecognizer) {
-        if instructorDropdownData.completed == false {
-            instructorDropdownData.dropStatus = .up
+    @objc func dropSports( sender: UITapGestureRecognizer) {
+        if sportsTypeDropdownData.completed == false {
+            sportsTypeDropdownData.dropStatus = .up
             return
         }
 
-        instructorDropdown.beginUpdates()
+        sportsTypeDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
-            instructorDropdownHeader.rotateArrowUp()
-            instructorDropdownData.dropStatus = .up
+        if sportsTypeDropdownData.dropStatus == .half || sportsTypeDropdownData.dropStatus == .down {
+            sportsTypeDropdownHeader.rotateArrowUp()
+            sportsTypeDropdownData.dropStatus = .up
             var i = 0
-            while i < instructorDropdown.numberOfRows(inSection: 0) {
+            while i < sportsTypeDropdown.numberOfRows(inSection: 0) {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
                 i += 1
             }
-            instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
+            sportsTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
         } else {
-            instructorDropdownHeader.rotateArrowDown()
-            instructorDropdownData.dropStatus = .half
+            sportsTypeDropdownHeader.rotateArrowDown()
+            sportsTypeDropdownData.dropStatus = .half
             for i in [0, 1, 2] {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
             }
-            instructorDropdown.insertRows(at: modifiedIndices, with: .none)
+            sportsTypeDropdown.insertRows(at: modifiedIndices, with: .none)
         }
-        instructorDropdown.endUpdates()
-        setupConstraints()
-    }
-
-    @objc func dropClasses( sender: UITapGestureRecognizer) {
-        if classTypeDropdownData.completed == false {
-            classTypeDropdownData.dropStatus = .up
-            return
-        }
-
-        classTypeDropdown.beginUpdates()
-        var modifiedIndices: [IndexPath] = []
-
-        if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
-            classTypeDropdownHeader.rotateArrowUp()
-            classTypeDropdownData.dropStatus = .up
-            var i = 0
-            while i < classTypeDropdown.numberOfRows(inSection: 0) {
-                modifiedIndices.append(IndexPath(row: i, section: 0))
-                i += 1
-            }
-            classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
-        } else {
-            classTypeDropdownHeader.rotateArrowDown()
-            classTypeDropdownData.dropStatus = .half
-            for i in [0, 1, 2] {
-                modifiedIndices.append(IndexPath(row: i, section: 0))
-            }
-            classTypeDropdown.insertRows(at: modifiedIndices, with: .none)
-        }
-        classTypeDropdown.endUpdates()
+        sportsTypeDropdown.endUpdates()
         setupConstraints()
     }
 
     // MARK: - SHOW ALL/HIDE METHODS
-    @objc func dropHideClasses( sender: UITapGestureRecognizer) {
-        if classTypeDropdownData.completed == false {
+    @objc func dropHideSports( sender: UITapGestureRecognizer) {
+        if sportsTypeDropdownData.completed == false {
             return
         }
 
-        classTypeDropdown.beginUpdates()
+        sportsTypeDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if classTypeDropdownData.dropStatus == .half {
-            classTypeDropdownData.dropStatus = .down
+        if sportsTypeDropdownData.dropStatus == .half {
+            sportsTypeDropdownData.dropStatus = .down
 
             var i = 3
-            while i < classTypeDropdownData.titles.count {
+            while i < sportsTypeDropdownData.titles.count {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
                 i += 1
             }
-            classTypeDropdown.insertRows(at: modifiedIndices, with: .none)
+            sportsTypeDropdown.insertRows(at: modifiedIndices, with: .none)
         } else {
-            classTypeDropdownData.dropStatus = .half
-            var i = classTypeDropdown.numberOfRows(inSection: 0) - 1
+            sportsTypeDropdownData.dropStatus = .half
+            var i = sportsTypeDropdown.numberOfRows(inSection: 0) - 1
             while i >= 3 {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
                 i -= 1
             }
-            classTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
+            sportsTypeDropdown.deleteRows(at: modifiedIndices, with: .none)
         }
 
-        classTypeDropdown.endUpdates()
-        setupConstraints()
-    }
-
-    @objc func dropHideInstructors( sender: UITapGestureRecognizer) {
-
-        if instructorDropdownData.completed == false {
-            return
-        }
-
-        instructorDropdown.beginUpdates()
-        var modifiedIndices: [IndexPath] = []
-
-        if instructorDropdownData.dropStatus == .half {
-            instructorDropdownData.dropStatus = .down
-
-            var i = 3
-            while i < instructorDropdownData.titles.count {
-                modifiedIndices.append(IndexPath(row: i, section: 0))
-                i += 1
-            }
-            instructorDropdown.insertRows(at: modifiedIndices, with: .none)
-        } else {
-            instructorDropdownData.dropStatus = .half
-            var i = instructorDropdown.numberOfRows(inSection: 0) - 1
-            while i >= 3 {
-                modifiedIndices.append(IndexPath(row: i, section: 0))
-                i -= 1
-            }
-            instructorDropdown.deleteRows(at: modifiedIndices, with: .none)
-        }
-
-        instructorDropdown.endUpdates()
+        sportsTypeDropdown.endUpdates()
         setupConstraints()
     }
 }
@@ -675,30 +582,18 @@ extension SportsFilterViewController: UITableViewDataSource {
     //TODO: Refactor this method for better code readability
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = 0
-        if tableView == instructorDropdown {
-            if !instructorDropdownData.completed {
-                return 0
-            }
-            switch instructorDropdownData.dropStatus! {
-            case .up:
-                numberOfRows = 0
-            case .half:
-                numberOfRows = 3
-            case .down:
-                numberOfRows = instructorDropdownData.titles.count
-            }
-        } else if tableView == classTypeDropdown {
-            if !classTypeDropdownData.completed {
+        if tableView == sportsTypeDropdown {
+            if !sportsTypeDropdownData.completed {
                 return 0
             }
 
-            switch classTypeDropdownData.dropStatus! {
+            switch sportsTypeDropdownData.dropStatus! {
             case .up:
                 numberOfRows = 0
             case .half:
                 numberOfRows = 3
             case .down:
-                numberOfRows = classTypeDropdownData.titles.count
+                numberOfRows = sportsTypeDropdownData.titles.count
             }
         }
         return numberOfRows
@@ -707,19 +602,11 @@ extension SportsFilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DropdownViewCell.identifier, for: indexPath) as! DropdownViewCell
 
-        if tableView == instructorDropdown {
-            if indexPath.row < instructorDropdownData.titles.count {
-                cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
+        if tableView == sportsTypeDropdown {
+            if indexPath.row < sportsTypeDropdownData.titles.count {
+                cell.titleLabel.text = sportsTypeDropdownData.titles[indexPath.row]
 
-                if selectedInstructors.contains(instructorDropdownData.titles[indexPath.row]) {
-                    cell.checkBoxColoring.backgroundColor = .primaryYellow
-                }
-            }
-        } else if tableView == classTypeDropdown {
-            if indexPath.row < classTypeDropdownData.titles.count {
-                cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
-
-                if selectedClasses.contains(classTypeDropdownData.titles[indexPath.row]) {
+                if selectedSports.contains(sportsTypeDropdownData.titles[indexPath.row]) {
                     cell.checkBoxColoring.backgroundColor = .primaryYellow
                 }
             }
@@ -737,34 +624,20 @@ extension SportsFilterViewController: UITableViewDelegate {
         cell.checkBoxColoring.backgroundColor = shouldAppend ? .white : .primaryYellow
         shouldAppend = !shouldAppend
 
-        if tableView == classTypeDropdown {
+        if tableView == sportsTypeDropdown {
             if shouldAppend {
-                selectedClasses.append(cell.titleLabel.text!)
+                selectedSports.append(cell.titleLabel.text!)
             } else {
-                for i in 0..<selectedClasses.count {
-                    let name = selectedClasses[i]
+                for i in 0..<selectedSports.count {
+                    let name = selectedSports[i]
                     if name == cell.titleLabel.text! {
-                        selectedClasses.remove(at: i)
-                        classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
+                        selectedSports.remove(at: i)
+                        sportsTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedSports)
                         return
                     }
                 }
             }
-            classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
-        } else {
-            if shouldAppend {
-                selectedInstructors.append(cell.titleLabel.text!)
-            } else {
-                for i in 0..<selectedInstructors.count {
-                    let name = selectedInstructors[i]
-                    if name == cell.titleLabel.text! {
-                        selectedInstructors.remove(at: i)
-                        instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
-                        return
-                    }
-                }
-            }
-            instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
+            sportsTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedSports)
         }
     }
 
