@@ -11,6 +11,8 @@
 		035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
 		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
+		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
+		03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C8013724106893009845E7 /* CalendarGenerator.swift */; };
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
 		0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */; };
 		1C1D283B2166E215003FE839 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D283A2166E215003FE839 /* Keys.swift */; };
@@ -85,7 +87,6 @@
 		C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE15722926F8700B5D219 /* GymsListCell.swift */; };
 		C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */; };
 		C22A326924032ECA003218A6 /* SportsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326824032ECA003218A6 /* SportsFeedViewController.swift */; };
-		C22A326B24032F53003218A6 /* SportsFeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326A24032F52003218A6 /* SportsFeedHeaderView.swift */; };
 		C22A326D24033300003218A6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326C24033300003218A6 /* Post.swift */; };
 		C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */; };
 		C25CC31823981D6600221DC8 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC31723981D6600221DC8 /* Facility.swift */; };
@@ -134,8 +135,15 @@
 		E604DC1B233B1B18003598BC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E604DC1A233B1B18003598BC /* API.swift */; };
 		E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC4B79A236CADD8006B67B3 /* EquipmentListCell.swift */; };
 		E60C00AE240B8E8A00974974 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60C00AD240B8E8900974974 /* ProfileView.swift */; };
+		E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
+		E651A47123F4BF0500C0A477 /* LoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */; };
+		E66DDA0124198E100014C62D /* GamesListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66DDA0024198E100014C62D /* GamesListHeaderView.swift */; };
+		E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */; };
+		E67E2C6723FDF573007E47A9 /* LoadingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */; };
+		E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E689381C240F68460022B524 /* LoadingCollectionView.swift */; };
+		E689381F240F69D10022B524 /* SportsFeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E689381E240F69D00022B524 /* SportsFeedHeaderView.swift */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
 		E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69CE6BA23F4B41000CA83BF /* Comment.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
@@ -149,6 +157,8 @@
 		035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
+		03C8013724106893009845E7 /* CalendarGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGenerator.swift; sourceTree = "<group>"; };
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
 		0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursHeaderView.swift; sourceTree = "<group>"; };
 		1C1D283A2166E215003FE839 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -228,7 +238,6 @@
 		C21BE15722926F8700B5D219 /* GymsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsListCell.swift; sourceTree = "<group>"; };
 		C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Shared.swift"; sourceTree = "<group>"; };
 		C22A326824032ECA003218A6 /* SportsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsFeedViewController.swift; sourceTree = "<group>"; };
-		C22A326A24032F52003218A6 /* SportsFeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsFeedHeaderView.swift; sourceTree = "<group>"; };
 		C22A326C24033300003218A6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
 		C25CC31723981D6600221DC8 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
@@ -277,8 +286,15 @@
 		D9936A28216D9FAA002802F4 /* NoClassesEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClassesEmptyStateView.swift; sourceTree = "<group>"; };
 		E604DC1A233B1B18003598BC /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E60C00AD240B8E8900974974 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionHeaderView.swift; sourceTree = "<group>"; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionViewCell.swift; sourceTree = "<group>"; };
+		E66DDA0024198E100014C62D /* GamesListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListHeaderView.swift; sourceTree = "<group>"; };
+		E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingHeaderView.swift; path = Uplift/Views/Loading/LoadingHeaderView.swift; sourceTree = SOURCE_ROOT; };
+		E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScrollView.swift; sourceTree = "<group>"; };
+		E689381C240F68460022B524 /* LoadingCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingCollectionView.swift; sourceTree = "<group>"; };
+		E689381E240F69D00022B524 /* SportsFeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsFeedHeaderView.swift; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
 		E69CE6BA23F4B41000CA83BF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
@@ -460,6 +476,7 @@
 				4F27D7F822445BDD00135DC4 /* User.swift */,
 				4F2285162352A1C80013F1B0 /* WeekDay.swift */,
 				039A3230240749A30090ED50 /* GameStatus.swift */,
+				03C8013724106893009845E7 /* CalendarGenerator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -467,11 +484,11 @@
 		C75EC94E2059AC75007BC98A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
-				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
 				C71E8A032091726600542FA3 /* Date+Shared.swift */,
 				8D24AF952140B23F002D850C /* String+Shared.swift */,
 				C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */,
+				C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */,
+				C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -539,6 +556,7 @@
 				4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */,
 				4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */,
 				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
+				03C801352410628D009845E7 /* SportsDetailViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -547,8 +565,6 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C22A326A24032F52003218A6 /* SportsFeedHeaderView.swift */,
-				4F4CA4122383A3040002FD5F /* Onboarding */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
 				C26236FA2290D696007C415D /* ClassDetail */,
 				C21BE14922920EB200B5D219 /* ClassList */,
@@ -561,6 +577,8 @@
 				C21BE14E2292406400B5D219 /* Home */,
 				C21BE1512292421200B5D219 /* ListCollectionViewCell.swift */,
 				C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */,
+				E689381B240F67CD0022B524 /* Loading */,
+				4F4CA4122383A3040002FD5F /* Onboarding */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */,
 			);
@@ -581,6 +599,7 @@
 				8D95F44D208718410095B8AB /* GymHoursCell.swift */,
 				4F20EDEA234AE46C000B26E8 /* GymWeekCell.swift */,
 				8DB8D76A2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift */,
+				E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */,
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
 				03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */,
@@ -592,11 +611,14 @@
 			isa = PBXGroup;
 			children = (
 				0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */,
-				8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */,
 				8DD7C7702083AF8E004EB196 /* FavoritesHeaderView.swift */,
+				E66DDA0024198E100014C62D /* GamesListHeaderView.swift */,
 				8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */,
 				8D03EE04206C473200EF83C7 /* HomeScreenHeaderView.swift */,
 				8DC6F7A7218381980048C305 /* HomeSectionHeaderView.swift */,
+				E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */,
+				8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */,
+				E689381E240F69D00022B524 /* SportsFeedHeaderView.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -650,6 +672,16 @@
 				E644819B232DD34100BBF771 /* Keys.plist */,
 			);
 			path = Secrets;
+			sourceTree = "<group>";
+		};
+		E689381B240F67CD0022B524 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E689381C240F68460022B524 /* LoadingCollectionView.swift */,
+				E6709F242407B08E00ABC1FF /* LoadingHeaderView.swift */,
+				E67E2C6623FDF573007E47A9 /* LoadingScrollView.swift */,
+			);
+			path = Loading;
 			sourceTree = "<group>";
 		};
 		E6F3600C238127D900CB7FB3 /* Dropdown */ = {
@@ -852,6 +884,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Presentation/Presentation.framework",
+				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -869,6 +902,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Presentation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -894,11 +928,11 @@
 				C25CC31823981D6600221DC8 /* Facility.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
-				C22A326B24032F53003218A6 /* SportsFeedHeaderView.swift in Sources */,
 				C26236F72290D1C4007C415D /* ClassDetailViewController.swift in Sources */,
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
+				E651A47123F4BF0500C0A477 /* LoadingCollectionViewCell.swift in Sources */,
 				E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */,
 				7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
@@ -925,7 +959,9 @@
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,
 				C71E8A042091726600542FA3 /* Date+Shared.swift in Sources */,
 				E60C00AE240B8E8A00974974 /* ProfileView.swift in Sources */,
+				E689381F240F69D10022B524 /* SportsFeedHeaderView.swift in Sources */,
 				4F4CA4112383A1AB0002FD5F /* OnboardingViewController.swift in Sources */,
+				E67E2C6723FDF573007E47A9 /* LoadingScrollView.swift in Sources */,
 				D9936A29216D9FAA002802F4 /* NoClassesEmptyStateView.swift in Sources */,
 				8D5EA479208EC31100E98E6C /* Histogram.swift in Sources */,
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
@@ -935,6 +971,7 @@
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
+				E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */,
 				4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */,
 				03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
@@ -948,11 +985,13 @@
 				C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */,
 				E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */,
 				C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */,
+				E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */,
 				C218F937233DBE080018838A /* GymDetail.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
 				C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */,
+				03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
@@ -968,6 +1007,7 @@
 				E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */,
+				E66DDA0124198E100014C62D /* GamesListHeaderView.swift in Sources */,
 				4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */,
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				4F187272235FD59900A85283 /* GymDetailTimeInfoView.swift in Sources */,
@@ -984,6 +1024,7 @@
 				4F27F6D7236F25C000C255D7 /* MiscellaneousInfoCell.swift in Sources */,
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
+				03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */,
 				C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */,
 				4F18C34823610A0B00BFB603 /* FacilitiesHoursCell.swift in Sources */,
 				C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */,
@@ -997,6 +1038,7 @@
 				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
 				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
+				E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */,
 				039A322D2407283E0090ED50 /* Post.swift in Sources */,
 				8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */,
 				E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */,

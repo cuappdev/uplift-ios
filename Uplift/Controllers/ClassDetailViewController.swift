@@ -106,7 +106,7 @@ class ClassDetailViewController: UIViewController {
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
     }
-    
+
     func favoriteButtonTapped() {
         isFavorite.toggle()
         // Log to fabric
@@ -116,7 +116,7 @@ class ClassDetailViewController: UIViewController {
                 ])
         }
     }
-    
+
     func share() {
         Answers.logCustomEvent(withName: "Shared Class", customAttributes: [
             "Class": gymClassInstance.className

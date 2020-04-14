@@ -14,13 +14,19 @@ class ProfileView: UIView {
     private let profilePicture = UIImageView(frame: .zero)
     private let nameLabel = UILabel()
     private let gamesPlayedLabel = UILabel()
-    private let tableView = UITableView(frame: .zero)
+    private let collectionView: UICollectionView!
 
     let profilePictureSize: CGFloat = 60
 
     var dismissClosure: (() -> ())!
 
     override init(frame: CGRect) {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 36, left: 0, bottom: 0, right: 0)
+        
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+
         super.init(frame: frame)
 
         backgroundColor = .white
@@ -44,8 +50,8 @@ class ProfileView: UIView {
         gamesPlayedLabel.textAlignment = .center
         gamesPlayedLabel.textColor = .gray04
         addSubview(gamesPlayedLabel)
-        
-//        tableView.register
+
+        collectionView.register(GamesListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Identifiers.gamesListHeaderView)
 
         setupConstraints()
     }

@@ -7,6 +7,7 @@
 //
 
 import SnapKit
+import SkeletonView
 import UIKit
 
 class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
@@ -41,6 +42,12 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
 
         setupViews()
         setupConstraints()
+
+        isSkeletonable = true
+        updateSkeleton()
+
+        contentView.isSkeletonable = true
+        contentView.updateSkeleton()
     }
 
     // MARK: - Overrides

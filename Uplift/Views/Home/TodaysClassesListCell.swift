@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 protocol TodaysClassesListCellDelegate: class {
     func todaysClassesCellShouldOpenGymClassInstance(_ gymClassInstance: GymClassInstance)
@@ -39,6 +40,14 @@ class TodaysClassesListCell: ListCollectionViewCell<GymClassInstance, TodaysClas
     override func didUnhighlightItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         cell.zoomOut()
+    }
+
+}
+
+extension TodaysClassesListCell: SkeletonCollectionViewDataSource {
+
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return Identifiers.classesCell
     }
 
 }
