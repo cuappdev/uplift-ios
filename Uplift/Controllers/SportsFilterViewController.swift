@@ -65,7 +65,6 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         selectedSports = existingFilterParams.sportsNames
     }
 
-    // swiftlint:disable:next function_body_length
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -251,7 +250,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         scrollView.bounces = true
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2.5)
         view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { (make) in
+        scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
 

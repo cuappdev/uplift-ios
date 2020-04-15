@@ -171,7 +171,6 @@ extension SportsFeedViewController: SportsFilterDelegate {
     }
     
     func filterOptions(params: SportsFilterParameters) {
-        // TODO
     }
 }
 
