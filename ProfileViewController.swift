@@ -28,8 +28,6 @@ class ProfileViewController: UIViewController {
         
         navigationController?.navigationBar.isHidden = true
 
-        view.backgroundColor = .green
-        
         view.addSubview(profileView)
         profileView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

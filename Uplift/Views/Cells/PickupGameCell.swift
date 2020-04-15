@@ -33,8 +33,10 @@ class PickupGameCell: UICollectionViewCell {
     private var status: GameStatus = .open
     private var id: Int = 0
 
-    // MARK: - Constraint Constants
+    // MARK: - Constraints
     let containerViewDayTopOffset: CGFloat = 8
+
+    var containerViewTopConstraint: Constraint?
 
     // TODO: add delegate for toggling game status
 
@@ -114,7 +116,6 @@ class PickupGameCell: UICollectionViewCell {
 
         containerView.snp.updateConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(dayLabel.snp.bottom)
         }
 
         titleLabel.snp.updateConstraints { make in
@@ -184,13 +185,15 @@ class PickupGameCell: UICollectionViewCell {
 
         if showDayLabel {
             dayLabel.isHidden = false
+            containerViewTopConstraint?.uninstall()
             containerView.snp.makeConstraints { make in
-                make.top.equalTo(dayLabel.snp.bottom).offset(containerViewDayTopOffset)
+                containerViewTopConstraint = make.top.equalTo(dayLabel.snp.bottom).offset(containerViewDayTopOffset).constraint
             }
         } else {
             dayLabel.isHidden = true
+            containerViewTopConstraint?.uninstall()
             containerView.snp.makeConstraints { make in
-                make.top.equalTo(dayLabel.snp.top)
+                containerViewTopConstraint = make.top.equalTo(dayLabel.snp.top).constraint
             }
         }
     }

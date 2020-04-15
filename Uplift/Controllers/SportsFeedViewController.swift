@@ -24,14 +24,14 @@ class SportsFeedViewController: UIViewController {
     private var calendarCollectionView: UICollectionView!
     private var collectionView: UICollectionView!
     private var sideMenu: SideMenuNavigationController!
-    
+
     // MARK: - Calendar data vars
     private var calendarDatesList: [Date] = CalendarGenerator.getCalendarDates()
     lazy private var calendarDateSelected: Date = {
         return currDate
     }()
     private var currDate: Date!
-    
+
     // MARK: - Other data
     private var posts: [[Post]] = Array.init(repeating: [], count: 10)
 
@@ -91,7 +91,6 @@ class SportsFeedViewController: UIViewController {
         profileView.myGames = posts[3]
         profileView.joinedGames = posts[3]
         profileView.pastGames = posts[3]
-        view.addSubview(profileView)
 
         sideMenu = SideMenuNavigationController(rootViewController: ProfileViewController(from: profileView))
         sideMenu.leftSide = true
