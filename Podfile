@@ -16,6 +16,7 @@ target 'Uplift' do
   pod 'GoogleSignIn'
   pod 'Kingfisher', '~> 4.0'
   pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation.git', :commit => 'd4aa2d3ad5901f6ebce0727af592824982f88d13'
+  pod 'SideMenu', '~> 6.0'
   pod 'SkeletonView'
   pod 'SnapKit'
   pod 'SwiftLint'

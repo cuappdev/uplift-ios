@@ -31,7 +31,6 @@ extension UIColor {
     @nonobjc static let gray03 = colorFromCode(0xA5A5A5)
     @nonobjc static let gray04 = colorFromCode(0x707070)
     @nonobjc static let gray05 = colorFromCode(0x738390)
-    @nonobjc static let gray06 = colorFromCode(0xA1A5A6)
 
     // MARK: - Primary Colors
     @nonobjc static let primaryBlack = colorFromCode(0x222222)

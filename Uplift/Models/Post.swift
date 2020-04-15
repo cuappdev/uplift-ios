@@ -9,15 +9,32 @@
 import Foundation
 
 struct Post: Codable {
+    static let maxPlayers = 10
+
     let comment: [Comment]
     let createdAt: Date
     let id: Int
     let userId: Int
-    
+
     let title: String
-    let time: String
+    let time: Date
     let type: String
     let location: String
     let players: Int
     let gameStatus: String
+    
+    func getTime() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        return formatter.string(from: time)
+    }
+    
+    func getDay() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd"
+        return formatter.string(from: time)
+    }
+
 }

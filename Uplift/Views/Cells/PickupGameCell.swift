@@ -10,57 +10,52 @@ import SnapKit
 import UIKit
 
 class PickupGameCell: UICollectionViewCell {
-    
+
+    // MARK: - Static vars
+    static let height: CGFloat = 85.33
+    static let heightShowingDayLabel: CGFloat = 108.0
+
     weak var gameStatusDelegate: GameStatusDelegate?
-    
+
     // MARK: - Labels
     private let dayLabel = UILabel()
     private let detailLabel = UILabel()
     private let locationLabel = UILabel()
     private let playersLabel = UILabel()
     private let titleLabel = UILabel()
-    
+
     // MARK: - Other Views
     private let containerView = UIView()
     private let playerIcon = UIImageView()
     private let statusButton = UIButton()
-    
+
     // MARK: - Data
     private var status: GameStatus = .open
     private var id: Int = 0
-    
+
+    // MARK: - Constraint Constants
+    let containerViewDayTopOffset: CGFloat = 8
+
     // TODO: add delegate for toggling game status
-   
+
     // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-//        contentView.layer.cornerRadius = 5
-//        contentView.layer.backgroundColor = UIColor.white.cgColor
-//        contentView.layer.borderColor = UIColor.gray01.cgColor
-//        contentView.layer.borderWidth = 0.5
-//
-//        contentView.layer.shadowColor = UIColor.gray01.cgColor
-//        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
-//        contentView.layer.shadowRadius = 7.0
-//        contentView.layer.shadowOpacity = 0.25
-//        contentView.layer.masksToBounds = false
+        contentView.layer.shadowColor = UIColor.gray01.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
+        contentView.layer.shadowRadius = 7.0
+        contentView.layer.shadowOpacity = 0.50
+        contentView.layer.masksToBounds = false
 
         containerView.layer.cornerRadius = 5
         containerView.layer.backgroundColor = UIColor.white.cgColor
         containerView.layer.borderColor = UIColor.gray01.cgColor
         containerView.layer.borderWidth = 0.5
-
-        containerView.layer.shadowColor = UIColor.gray01.cgColor
-        containerView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
-        containerView.layer.shadowRadius = 7.0
-        containerView.layer.shadowOpacity = 0.25
-        containerView.layer.masksToBounds = false
-        
         contentView.addSubview(containerView)
 
         dayLabel.font = ._12MontserratMedium
-        dayLabel.textColor = .gray06
+        dayLabel.textColor = .gray02
         contentView.addSubview(dayLabel)
 
         titleLabel.font = ._16MontserratMedium
@@ -85,12 +80,11 @@ class PickupGameCell: UICollectionViewCell {
         statusButton.layer.masksToBounds = true
         statusButton.setTitleColor(.primaryBlack, for: .normal)
         statusButton.addTarget(self, action: #selector(toggleStatus), for: .touchUpInside)
-        containerView.addSubview(statusButton)
+        contentView.addSubview(statusButton)
 
-        playerIcon.image = UIImage(named: "TODO")
-        containerView.addSubview(playerIcon)
-
-        setupConstraints()
+        playerIcon.image = UIImage(named: ImageNames.personIcon)
+        playerIcon.contentMode = .scaleAspectFit
+        contentView.addSubview(playerIcon)
     }
 
     @objc func toggleStatus() {
@@ -110,16 +104,17 @@ class PickupGameCell: UICollectionViewCell {
         let mediumPadding = 12
         let smallPadding = 6
         let playerIconHeight = 12
-        let playerIconWidth = 8
+        let playerIconWidth = 12
         let statusButtonHeight = 24
         let statusButtonWidth = status == .created ? 75 : status == .joined ? 65 : 48
 
         dayLabel.snp.updateConstraints { make in
             make.leading.trailing.top.equalToSuperview()
         }
-        
+
         containerView.snp.updateConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(dayLabel.snp.bottom)
         }
 
         titleLabel.snp.updateConstraints { make in
@@ -140,7 +135,7 @@ class PickupGameCell: UICollectionViewCell {
 
         playerIcon.snp.updateConstraints { make in
             make.centerY.equalTo(playersLabel)
-            make.trailing.equalTo(playersLabel.snp.leading).inset(smallPadding)
+            make.trailing.equalTo(playersLabel.snp.leading).offset(-smallPadding)
             make.height.equalTo(playerIconHeight)
             make.width.equalTo(playerIconWidth)
         }
@@ -159,7 +154,7 @@ class PickupGameCell: UICollectionViewCell {
     }
 
     // MARK: - Functionality
-    func configure(post: Post) {
+    func configure(for post: Post, showDayLabel: Bool = false) {
         // Configure data.
         id = post.id
         switch post.gameStatus {
@@ -170,12 +165,13 @@ class PickupGameCell: UICollectionViewCell {
         default:
             status = .open
         }
-        
+
         // Configure views.
+        dayLabel.text = post.getDay()
         titleLabel.text = post.title
-        detailLabel.text = "\(post.type) · \(post.time)"
+        detailLabel.text = "\(post.type) · \(post.getTime())"
         locationLabel.text = post.location
-        playersLabel.text = "\(post.players)/10"
+        playersLabel.text = "\(post.players)/\(Post.maxPlayers)"
 
         statusButton.setTitle(status.rawValue, for: .normal)
         statusButton.backgroundColor = status == .open ? .clear : .primaryYellow
@@ -185,26 +181,20 @@ class PickupGameCell: UICollectionViewCell {
         }
 
         setupConstraints()
-    }
-    
-    func showDayLabel() {
-        let dayLabelContainerTopOffset = 8
-        
-        dayLabel.isHidden = false
-        
-        containerView.snp.updateConstraints { make in
-            make.top.equalTo(dayLabel.snp.top).offset(dayLabelContainerTopOffset)
+
+        if showDayLabel {
+            dayLabel.isHidden = false
+            containerView.snp.makeConstraints { make in
+                make.top.equalTo(dayLabel.snp.bottom).offset(containerViewDayTopOffset)
+            }
+        } else {
+            dayLabel.isHidden = true
+            containerView.snp.makeConstraints { make in
+                make.top.equalTo(dayLabel.snp.top)
+            }
         }
     }
-    
-    func hideDayLabel() {
-        dayLabel.isHidden = true
-        
-        containerView.snp.updateConstraints { make in
-            make.top.equalToSuperview()
-        }
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

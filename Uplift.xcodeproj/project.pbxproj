@@ -10,7 +10,7 @@
 		03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */; };
 		035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
-		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
+		039A3231240749A30090ED50 /* PickupGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* PickupGame.swift */; };
 		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
 		03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C8013724106893009845E7 /* CalendarGenerator.swift */; };
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
@@ -87,7 +87,6 @@
 		C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE15722926F8700B5D219 /* GymsListCell.swift */; };
 		C21BE15A2292728300B5D219 /* UICollectionViewCell+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */; };
 		C22A326924032ECA003218A6 /* SportsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326824032ECA003218A6 /* SportsFeedViewController.swift */; };
-		C22A326D24033300003218A6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22A326C24033300003218A6 /* Post.swift */; };
 		C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */; };
 		C25CC31823981D6600221DC8 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC31723981D6600221DC8 /* Facility.swift */; };
 		C25CC31A23981F0A00221DC8 /* FacilityDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */; };
@@ -114,7 +113,6 @@
 		C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */; };
 		C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */; };
 		C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75FAB0E20420B42008D455A /* TabBarController.swift */; };
-		C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */; };
 		C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */; };
 		C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */; };
 		C76F715D208FD77300FDC958 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F715C208FD77300FDC958 /* NetworkManager.swift */; };
@@ -137,6 +135,11 @@
 		E60C00AE240B8E8A00974974 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60C00AD240B8E8900974974 /* ProfileView.swift */; };
 		E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */; };
 		E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62DB5202344907600ACAA1E /* ClientStrings.swift */; };
+		E638F20224468BCC006AE55B /* BebasNeue-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E638F1FD24468BCA006AE55B /* BebasNeue-Light.ttf */; };
+		E638F20324468BCC006AE55B /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E638F1FE24468BCA006AE55B /* BebasNeue-Regular.ttf */; };
+		E638F20424468BCC006AE55B /* BebasNeue-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E638F1FF24468BCA006AE55B /* BebasNeue-Bold.ttf */; };
+		E638F20524468BCC006AE55B /* BebasNeue-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E638F20024468BCB006AE55B /* BebasNeue-Book.ttf */; };
+		E638F20624468BCC006AE55B /* BebasNeue-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E638F20124468BCB006AE55B /* BebasNeue-Thin.ttf */; };
 		E644819C232DD34100BBF771 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = E644819B232DD34100BBF771 /* Keys.plist */; };
 		E651A47123F4BF0500C0A477 /* LoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */; };
 		E66DDA0124198E100014C62D /* GamesListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66DDA0024198E100014C62D /* GamesListHeaderView.swift */; };
@@ -148,6 +151,7 @@
 		E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69CE6BA23F4B41000CA83BF /* Comment.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
+		E6DD25DC2447ABBB0023D259 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DD25DB2447ABBB0023D259 /* ProfileViewController.swift */; };
 		E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */; };
 		E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600E238127D900CB7FB3 /* DropdownView.swift */; };
 /* End PBXBuildFile section */
@@ -156,7 +160,7 @@
 		03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGameCell.swift; sourceTree = "<group>"; };
 		035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		039A3230240749A30090ED50 /* PickupGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGame.swift; sourceTree = "<group>"; };
 		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
 		03C8013724106893009845E7 /* CalendarGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGenerator.swift; sourceTree = "<group>"; };
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
@@ -238,7 +242,6 @@
 		C21BE15722926F8700B5D219 /* GymsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsListCell.swift; sourceTree = "<group>"; };
 		C21BE1592292728300B5D219 /* UICollectionViewCell+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Shared.swift"; sourceTree = "<group>"; };
 		C22A326824032ECA003218A6 /* SportsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsFeedViewController.swift; sourceTree = "<group>"; };
-		C22A326C24033300003218A6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C25CC315239814F000221DC8 /* EquipmentListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListItemCell.swift; sourceTree = "<group>"; };
 		C25CC31723981D6600221DC8 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
 		C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityDropdown.swift; sourceTree = "<group>"; };
@@ -264,7 +267,6 @@
 		C75EC94F2059AC90007BC98A /* UIColor+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Shared.swift"; sourceTree = "<group>"; };
 		C75EC9512059ACD2007BC98A /* UIFont+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Shared.swift"; sourceTree = "<group>"; };
 		C75FAB0E20420B42008D455A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		C76F715C208FD77300FDC958 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -288,6 +290,11 @@
 		E60C00AD240B8E8900974974 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E62565BC24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionHeaderView.swift; sourceTree = "<group>"; };
 		E62DB5202344907600ACAA1E /* ClientStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientStrings.swift; sourceTree = "<group>"; };
+		E638F1FD24468BCA006AE55B /* BebasNeue-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Light.ttf"; sourceTree = "<group>"; };
+		E638F1FE24468BCA006AE55B /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BebasNeue-Regular.ttf"; path = "../../../../Downloads/BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
+		E638F1FF24468BCA006AE55B /* BebasNeue-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Bold.ttf"; sourceTree = "<group>"; };
+		E638F20024468BCB006AE55B /* BebasNeue-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Book.ttf"; sourceTree = "<group>"; };
+		E638F20124468BCB006AE55B /* BebasNeue-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Thin.ttf"; sourceTree = "<group>"; };
 		E644819B232DD34100BBF771 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		E651A47023F4BF0500C0A477 /* LoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCollectionViewCell.swift; sourceTree = "<group>"; };
 		E66DDA0024198E100014C62D /* GamesListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesListHeaderView.swift; sourceTree = "<group>"; };
@@ -299,6 +306,7 @@
 		E69CE6BA23F4B41000CA83BF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
+		E6DD25DB2447ABBB0023D259 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6F3600E238127D900CB7FB3 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -351,14 +359,18 @@
 		630ADD112051BECC00B8E255 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C76A70AB205EC7B700E60CC8 /* BebasNeue-Regular.ttf */,
+				E638F1FF24468BCA006AE55B /* BebasNeue-Bold.ttf */,
+				E638F20024468BCB006AE55B /* BebasNeue-Book.ttf */,
+				E638F1FD24468BCA006AE55B /* BebasNeue-Light.ttf */,
+				E638F1FE24468BCA006AE55B /* BebasNeue-Regular.ttf */,
+				E638F20124468BCB006AE55B /* BebasNeue-Thin.ttf */,
 				8D26DB0A2072C31400144BFC /* Lato-Black.ttf */,
 				8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */,
 				8D26DB0C2072C35F00144BFC /* Lato-Regular.ttf */,
 				8D26DB0D2072C55D00144BFC /* Montserrat-Bold.otf */,
 				C76A70B1205ED2E100E60CC8 /* Montserrat-Light.ttf */,
-				C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */,
 				C76A70B3205ED2E900E60CC8 /* Montserrat-Medium.ttf */,
+				C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */,
 				8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */,
 			);
 			path = Fonts;
@@ -461,8 +473,7 @@
 		C736372D2082F1F2004751F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C22A326C24033300003218A6 /* Post.swift */,
-				039A322C2407283E0090ED50 /* Post.swift */,
+				03C8013724106893009845E7 /* CalendarGenerator.swift */,
 				E69CE6BA23F4B41000CA83BF /* Comment.swift */,
 				C25CC31723981D6600221DC8 /* Facility.swift */,
 				C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */,
@@ -472,11 +483,11 @@
 				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
 				C218F936233DBE080018838A /* GymDetail.swift */,
 				8DD74F352242A2DA00CE1274 /* Habit.swift */,
+				039A3230240749A30090ED50 /* PickupGame.swift */,
+				039A322C2407283E0090ED50 /* Post.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 				4F27D7F822445BDD00135DC4 /* User.swift */,
 				4F2285162352A1C80013F1B0 /* WeekDay.swift */,
-				039A3230240749A30090ED50 /* GameStatus.swift */,
-				03C8013724106893009845E7 /* CalendarGenerator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -496,6 +507,7 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				E6DD25DB2447ABBB0023D259 /* ProfileViewController.swift */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
@@ -763,15 +775,19 @@
 				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
 				D91565C92165686400BCA466 /* tagQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
+				E638F20624468BCC006AE55B /* BebasNeue-Thin.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
+				E638F20224468BCC006AE55B /* BebasNeue-Light.ttf in Resources */,
 				E644819C232DD34100BBF771 /* Keys.plist in Resources */,
 				8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
+				E638F20324468BCC006AE55B /* BebasNeue-Regular.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
+				E638F20424468BCC006AE55B /* BebasNeue-Bold.ttf in Resources */,
+				E638F20524468BCC006AE55B /* BebasNeue-Book.ttf in Resources */,
 				035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */,
-				C76A70AC205EC7B700E60CC8 /* BebasNeue-Regular.ttf in Resources */,
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
 				1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
@@ -884,6 +900,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Presentation/Presentation.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -902,6 +919,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Presentation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -996,12 +1014,11 @@
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */,
-				039A3231240749A30090ED50 /* GameStatus.swift in Sources */,
+				039A3231240749A30090ED50 /* PickupGame.swift in Sources */,
 				7E1D0A5623986A8500D5987F /* TodaysClassesEmptyCell.swift in Sources */,
 				7E9D6DEF22961B860054F710 /* GymDetailViewController.swift in Sources */,
 				7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */,
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
-				C22A326D24033300003218A6 /* Post.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
 				E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */,
@@ -1021,6 +1038,7 @@
 				D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */,
 				8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */,
 				C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */,
+				E6DD25DC2447ABBB0023D259 /* ProfileViewController.swift in Sources */,
 				4F27F6D7236F25C000C255D7 /* MiscellaneousInfoCell.swift in Sources */,
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
