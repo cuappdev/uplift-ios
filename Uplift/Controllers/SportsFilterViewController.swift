@@ -204,11 +204,10 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         // TODO: replace with networked sports.
         let sportsNames = ["Basketball", "Soccer", "Table Tennis", "Frisbee", "A", "B", "C"]
-        self.sportsTypeDropdownData.titles.append(contentsOf: sportsNames)
-        self.sportsTypeDropdownData.titles.sort()
-        self.sportsTypeDropdownData.completed = true
-        self.sportsTypeDropdown.reloadData()
-        self.setupConstraints()
+        sportsTypeDropdownData.titles.append(contentsOf: sportsNames)
+        sportsTypeDropdownData.titles.sort()
+        sportsTypeDropdownData.completed = true
+        sportsTypeDropdown.reloadData()
         
         setupConstraints()
         setupDropdownHeaderViews()
@@ -473,7 +472,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     }
 
-    @objc func dropSports( sender: UITapGestureRecognizer) {
+    @objc func dropSports(sender: UITapGestureRecognizer) {
         if sportsTypeDropdownData.completed == false {
             sportsTypeDropdownData.dropStatus = .up
             return

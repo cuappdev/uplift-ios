@@ -9,7 +9,7 @@
 import Foundation
 
 enum Dropped {
-        case up, half, down
+    case up, half, down
 }
 
 struct DropdownData {
