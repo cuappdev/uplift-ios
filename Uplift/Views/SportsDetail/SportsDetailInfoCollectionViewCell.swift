@@ -35,12 +35,17 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
         joinButton.layer.borderWidth = 1
         joinButton.layer.cornerRadius = 20
         joinButton.layer.masksToBounds = true
+        joinButton.addTarget(self, action: #selector(joinButtonPressed), for: .touchUpInside)
         addSubview(joinButton)
         
         divider.backgroundColor = .gray01
         addSubview(divider)
         
         setupConstraints()
+    }
+    
+    @objc func joinButtonPressed() {
+        // TODO: toggle join button.
     }
     
     func setupConstraints() {
@@ -89,6 +94,8 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
         }
         dateLabel.text = "\(weekday), \(dateFormatter.string(from: post.createdAt))"
         timeLabel.text = post.time
+        
+        // TODO: check game status and render joinButton title dynamically.
     }
     
     required init?(coder: NSCoder) {

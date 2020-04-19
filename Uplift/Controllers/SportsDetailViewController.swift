@@ -63,8 +63,8 @@ class SportsDetailViewController: UIViewController {
         // TODO: Register cells.
         collectionView.register(SportsDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sportsDetailHeaderViewReuseIdentifier)
         collectionView.register(SportsDetailInfoCollectionViewCell.self, forCellWithReuseIdentifier: infoSectionReuseIdentifier)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: discussionSectionReuseIdentifier)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: playersSectionReuseIdentifier)
+        collectionView.register(SportsDetailPlayersCollectionViewCell.self, forCellWithReuseIdentifier: playersSectionReuseIdentifier)
+        collectionView.register(SportsDetailDiscussionCollectionViewCell.self, forCellWithReuseIdentifier: discussionSectionReuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -111,10 +111,12 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             cell.configure(for: post)
             return cell
         case .players:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playersSectionReuseIdentifier, for: indexPath) as! UICollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playersSectionReuseIdentifier, for: indexPath) as! SportsDetailPlayersCollectionViewCell
+            cell.configure(for: post, dropStatus: .closed)
             return cell
         case .discussion:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: discussionSectionReuseIdentifier, for: indexPath) as! UICollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: discussionSectionReuseIdentifier, for: indexPath) as! SportsDetailDiscussionCollectionViewCell
+            cell.configure(for: post)
             return cell
         }
     }
