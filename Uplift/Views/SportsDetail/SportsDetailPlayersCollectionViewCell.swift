@@ -9,10 +9,13 @@
 import UIKit
 
 class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
+    private let caratImage = UIImageView()
     private let divider = UIView()
     private let headerLabel = UILabel()
-    private let caratImage = UIImageView()
+    private let previewLabel = UILabel()
+    private let playersTextView = UITextView()
     
+    private var players: [User] = []
     private var dropStatus: DropdownStatus = .closed
     
     override init(frame: CGRect) {
@@ -30,9 +33,22 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         addSubview(headerLabel)
         
         caratImage.image = UIImage(named: ImageNames.rightArrowSolid)
-        caratImage.contentMode = .scaleAspectFill
+        caratImage.contentMode = .scaleAspectFit
         caratImage.clipsToBounds = true
         addSubview(caratImage)
+        
+        previewLabel.font = ._14MontserratLight
+        previewLabel.textAlignment = .center
+        previewLabel.numberOfLines = 0
+        previewLabel.textColor = .primaryBlack
+        addSubview(previewLabel)
+        
+        playersTextView.isEditable = false
+        playersTextView.textAlignment = .center
+        playersTextView.font = ._14MontserratLight
+        playersTextView.textColor = .primaryBlack
+        playersTextView.isScrollEnabled = false
+        addSubview(playersTextView)
         
         divider.backgroundColor = .gray01
         addSubview(divider)
@@ -40,18 +56,31 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
-        let headerLabelTopPadding = 24
         let headerCaratHorizontalPadding = 12
+        let headerPlayersVerticalPadding = 14
+        let horizontalPadding = 40
+        let verticalPadding = 24
         headerLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(headerLabelTopPadding)
+            make.top.equalToSuperview().offset(verticalPadding)
         }
         
         caratImage.snp.makeConstraints { make in
             make.centerY.equalTo(headerLabel)
-            make.height.equalTo(5)
-            make.width.equalTo(9)
+            make.height.equalTo(10)
+            make.width.equalTo(10)
             make.leading.equalTo(headerLabel.snp.trailing).offset(headerCaratHorizontalPadding)
+        }
+        
+        previewLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(horizontalPadding)
+            make.bottom.equalToSuperview().inset(verticalPadding)
+        }
+        
+        playersTextView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(horizontalPadding)
+            make.bottom.equalToSuperview().inset(verticalPadding)
+            make.top.equalTo(headerLabel.snp.bottom).offset(headerPlayersVerticalPadding)
         }
         
         divider.snp.makeConstraints { make in
@@ -63,8 +92,22 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     func configure(for post: Post, dropStatus: DropdownStatus) {
         headerLabel.text = "PLAYERS \(post.players)/10"
         self.dropStatus = dropStatus
-        caratImage.image = dropStatus == .open ? UIImage(named: ImageNames.rightArrowSolid)
+        caratImage.image = dropStatus == .closed ? UIImage(named: ImageNames.rightArrowSolid)
             : UIImage(named: ImageNames.downArrowSolid)
+        previewLabel.isHidden = dropStatus == .open
+        // TODO: Add player names to post and rewrite preview label.
+        players = [User(id: "p1", name: "Zain Khoja", netId: "znksomething"),
+        User(id: "p2", name: "Amanda He", netId: "noidea"),
+        User(id: "p3", name: "Yi Hsin Wei", netId: "y???")]
+        previewLabel.text = "Zain, Amanda, Yi Hsin, Yanlam, +5 more"
+        
+        playersTextView.isHidden = dropStatus == .closed
+        playersTextView.text = ""
+        for p in players {
+            playersTextView.text += "\(p.name)\n"
+        }
+        
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {

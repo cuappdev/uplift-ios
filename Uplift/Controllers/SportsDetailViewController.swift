@@ -14,6 +14,7 @@ class SportsDetailViewController: UIViewController {
     
     private var post: Post!
     private var section: Section!
+    private var dropStatus: DropdownStatus = .closed
     
     private struct Section {
         var items: [ItemType]
@@ -112,7 +113,7 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             return cell
         case .players:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playersSectionReuseIdentifier, for: indexPath) as! SportsDetailPlayersCollectionViewCell
-            cell.configure(for: post, dropStatus: .closed)
+            cell.configure(for: post, dropStatus: dropStatus)
             return cell
         case .discussion:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: discussionSectionReuseIdentifier, for: indexPath) as! SportsDetailDiscussionCollectionViewCell
@@ -137,9 +138,27 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         case .info:
             return CGSize(width: width, height: 157)
         case .players:
-            return CGSize(width: width, height: 110)
+            // TODO: add player names field to post.
+            let players = [User(id: "p1", name: "Zain Khoja", netId: "znksomething"),
+            User(id: "p2", name: "Amanda He", netId: "noidea"),
+            User(id: "p3", name: "Yi Hsin Wei", netId: "y???")]
+            let nameHeight = 24
+            let baseHeight = 82
+            let height = CGFloat(baseHeight + nameHeight * (dropStatus == .closed ? 1 : players.count))
+            return CGSize(width: width, height: height)
         case .discussion:
             return CGSize(width: width, height: 200)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemType = section.items[indexPath.item]
+        switch itemType {
+            case .players:
+                dropStatus = dropStatus == .closed ? .open : .closed
+            default:
+                return
+        }
+        collectionView.reloadData()
     }
 }
