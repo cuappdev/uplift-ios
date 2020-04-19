@@ -10,6 +10,7 @@
 		03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */; };
 		035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */; };
 		0376A960244BBED700B44B22 /* SportsDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A95F244BBED700B44B22 /* SportsDetailHeaderView.swift */; };
+		0376A962244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A961244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
 		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
 		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
@@ -155,6 +156,7 @@
 		03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGameCell.swift; sourceTree = "<group>"; };
 		035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0376A95F244BBED700B44B22 /* SportsDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailHeaderView.swift; sourceTree = "<group>"; };
+		0376A961244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 				8D03EE10206C483500EF83C7 /* LookingForCell.swift */,
 				8D5D586D2270AD7E00A996D7 /* NoHabitsCell.swift */,
 				03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */,
+				0376A961244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1035,6 +1038,7 @@
 				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
 				E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */,
+				0376A962244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift in Sources */,
 				039A322D2407283E0090ED50 /* Post.swift in Sources */,
 				8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */,
 				E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */,

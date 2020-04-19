@@ -20,20 +20,20 @@ class SportsDetailViewController: UIViewController {
     }
     
     private enum ItemType {
-        case detail
+        case info
         case players([String])
         case discussion([Comment])
     }
     
     private let sportsDetailHeaderViewReuseIdentifier = "sportsDetailHeaderViewReuseIdentifier"
-    private let detailSectionReuseIdentifier = "detailSectionReuseIdentifier"
+    private let infoSectionReuseIdentifier = "infoSectionReuseIdentifier"
     private let discussionSectionReuseIdentifier = "discussionSectionReuseIdentifier"
     private let playersSectionReuseIdentifier = "playersSectionReuseIdentifier"
     
     init(post: Post) {
         super.init(nibName: nil, bundle: nil)
         self.post = post
-        section = Section(items: [.detail, .players([]), .discussion(post.comment)])
+        section = Section(items: [.info, .players([]), .discussion(post.comment)])
     }
     
     override func viewDidLoad() {
@@ -62,7 +62,7 @@ class SportsDetailViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         // TODO: Register cells.
         collectionView.register(SportsDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sportsDetailHeaderViewReuseIdentifier)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: detailSectionReuseIdentifier)
+        collectionView.register(SportsDetailInfoCollectionViewCell.self, forCellWithReuseIdentifier: infoSectionReuseIdentifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: discussionSectionReuseIdentifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: playersSectionReuseIdentifier)
         collectionView.delegate = self
@@ -106,8 +106,9 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let itemType = section.items[indexPath.item]
         switch itemType {
-        case .detail:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailSectionReuseIdentifier, for: indexPath) as! UICollectionViewCell
+        case .info:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: infoSectionReuseIdentifier, for: indexPath) as! SportsDetailInfoCollectionViewCell
+            cell.configure(for: post)
             return cell
         case .players:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playersSectionReuseIdentifier, for: indexPath) as! UICollectionViewCell
@@ -131,7 +132,7 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         let width = collectionView.frame.width
 
         switch itemType {
-        case .detail:
+        case .info:
             return CGSize(width: width, height: 157)
         case .players:
             return CGSize(width: width, height: 110)
