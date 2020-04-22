@@ -13,10 +13,10 @@ class ProfileViewController: UIViewController {
     
     private var profileView: ProfileView!
     
-    init(from profileView: ProfileView) {
+    init(myGames: [Post] = [], joinedGames: [Post], pastGames: [Post]) {
         super.init(nibName: nil, bundle: nil)
 
-        self.profileView = profileView
+        profileView = ProfileView(frame: .zero, myGames: myGames, joinedGames: joinedGames, pastGames: pastGames)
     }
     
     required init?(coder: NSCoder) {

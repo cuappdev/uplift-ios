@@ -10,7 +10,7 @@
 		03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */; };
 		035CB8CF23F06B890050A4B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
-		039A3231240749A30090ED50 /* PickupGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* PickupGame.swift */; };
+		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
 		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
 		03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C8013724106893009845E7 /* CalendarGenerator.swift */; };
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
@@ -160,7 +160,7 @@
 		03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGameCell.swift; sourceTree = "<group>"; };
 		035CB8CE23F06B890050A4B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		039A3230240749A30090ED50 /* PickupGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGame.swift; sourceTree = "<group>"; };
+		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
 		03C8013724106893009845E7 /* CalendarGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGenerator.swift; sourceTree = "<group>"; };
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
@@ -483,7 +483,7 @@
 				C7434C0E208D23E0006F3249 /* GymClassInstance.swift */,
 				C218F936233DBE080018838A /* GymDetail.swift */,
 				8DD74F352242A2DA00CE1274 /* Habit.swift */,
-				039A3230240749A30090ED50 /* PickupGame.swift */,
+				039A3230240749A30090ED50 /* GameStatus.swift */,
 				039A322C2407283E0090ED50 /* Post.swift */,
 				C76F715E20900AD400FDC958 /* Tag.swift */,
 				4F27D7F822445BDD00135DC4 /* User.swift */,
@@ -507,7 +507,6 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
-				E6DD25DB2447ABBB0023D259 /* ProfileViewController.swift */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
@@ -530,7 +529,6 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				E60C00AD240B8E8900974974 /* ProfileView.swift */,
 				E604DC1A233B1B18003598BC /* API.swift */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
@@ -567,8 +565,9 @@
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
 				4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */,
 				4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */,
-				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
+				E6DD25DB2447ABBB0023D259 /* ProfileViewController.swift */,
 				03C801352410628D009845E7 /* SportsDetailViewController.swift */,
+				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -591,6 +590,7 @@
 				C21BE153229250B700B5D219 /* ListItemCollectionViewCell.swift */,
 				E689381B240F67CD0022B524 /* Loading */,
 				4F4CA4122383A3040002FD5F /* Onboarding */,
+				E676F1282450DB87001DF8A8 /* Pickup Games */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */,
 			);
@@ -684,6 +684,14 @@
 				E644819B232DD34100BBF771 /* Keys.plist */,
 			);
 			path = Secrets;
+			sourceTree = "<group>";
+		};
+		E676F1282450DB87001DF8A8 /* Pickup Games */ = {
+			isa = PBXGroup;
+			children = (
+				E60C00AD240B8E8900974974 /* ProfileView.swift */,
+			);
+			path = "Pickup Games";
 			sourceTree = "<group>";
 		};
 		E689381B240F67CD0022B524 /* Loading */ = {
@@ -1014,7 +1022,7 @@
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */,
-				039A3231240749A30090ED50 /* PickupGame.swift in Sources */,
+				039A3231240749A30090ED50 /* GameStatus.swift in Sources */,
 				7E1D0A5623986A8500D5987F /* TodaysClassesEmptyCell.swift in Sources */,
 				7E9D6DEF22961B860054F710 /* GymDetailViewController.swift in Sources */,
 				7E80876F229B70CA007D9EDD /* GymDetailViewController+Extensions.swift in Sources */,

@@ -18,7 +18,6 @@ class SportsFeedViewController: UIViewController {
 
     // MARK: - Views
     private let headerView = SportsFeedHeaderView()
-    private let profileView = ProfileView()
     private let tintOverlay = UIView()
 
     private var calendarCollectionView: UICollectionView!
@@ -88,11 +87,7 @@ class SportsFeedViewController: UIViewController {
         collectionView.register(PickupGameCell.self, forCellWithReuseIdentifier: Identifiers.pickupGameCell)
         view.addSubview(collectionView)
 
-        profileView.myGames = posts[3]
-        profileView.joinedGames = posts[3]
-        profileView.pastGames = posts[3]
-
-        sideMenu = SideMenuNavigationController(rootViewController: ProfileViewController(from: profileView))
+        sideMenu = SideMenuNavigationController(rootViewController: ProfileViewController(myGames: posts[3], joinedGames: posts[3], pastGames: posts[3]))
         sideMenu.leftSide = true
         sideMenu.menuWidth = sideMenuWidth
         sideMenu.statusBarEndAlpha = 0.0

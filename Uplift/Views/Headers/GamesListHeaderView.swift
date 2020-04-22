@@ -19,7 +19,7 @@ class GamesListHeaderView: UICollectionReusableView {
 
     static let height: CGFloat = 65.0
 
-    let label = UILabel()
+    private let label = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

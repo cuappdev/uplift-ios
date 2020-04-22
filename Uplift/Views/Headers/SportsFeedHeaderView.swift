@@ -16,7 +16,7 @@ class SportsFeedHeaderView: UIView {
     private let profilePicSize: CGFloat = 36
     private let titleLabel = UILabel()
 
-    var profilePicPressed: (() -> Void)!
+    var profilePicPressed: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,9 +45,7 @@ class SportsFeedHeaderView: UIView {
     }
     
     @objc func profileButtonPressed() {
-        if let profileClosure = profilePicPressed {
-            profileClosure()
-        }
+        profilePicPressed?()
     }
 
     // MARK: - LAYOUT

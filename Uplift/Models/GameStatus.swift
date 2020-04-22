@@ -1,5 +1,5 @@
 //
-//  PickupGame.swift
+//  GameStatus.swift
 //  Uplift
 //
 //  Created by Artesia Ko on 2/26/20.
@@ -13,12 +13,3 @@ enum GameStatus: String {
     case joined = "JOINED"
     case open = "JOIN"
 }
-
-//class PickupGame {
-//    
-//    var name: String
-//    var sport: String
-//    var date: Date
-//    
-//    
-//}

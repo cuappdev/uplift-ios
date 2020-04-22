@@ -34,9 +34,9 @@ class PickupGameCell: UICollectionViewCell {
     private var id: Int = 0
 
     // MARK: - Constraints
-    let containerViewDayTopOffset: CGFloat = 8
+    private let containerViewDayTopOffset: CGFloat = 8
 
-    var containerViewTopConstraint: Constraint?
+    private var containerViewTopConstraint: Constraint?
 
     // TODO: add delegate for toggling game status
 

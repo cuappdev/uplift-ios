@@ -17,22 +17,25 @@ class ProfileView: UIView {
     private let nameLabel = UILabel()
     private let profilePicture = UIImageView(frame: .zero)
 
-    let collectionViewLeftRightInset: CGFloat = 24
-    let gamesSections: [GamesListHeaderSections] = [.myGames, .joinedGames, .pastGames]
-    let profilePictureSize: CGFloat = 60
+    private let collectionViewLeftRightInset: CGFloat = 24
+    private let gamesSections: [GamesListHeaderSections] = [.myGames, .joinedGames, .pastGames]
+    private let profilePictureSize: CGFloat = 60
 
     // MARK: - Data
-    var myGames: [Post] = []
-    var joinedGames: [Post] = []
-    var pastGames: [Post] = []
+    private var myGames: [Post] = []
+    private var joinedGames: [Post] = []
+    private var pastGames: [Post] = []
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, myGames: [Post] = [], joinedGames: [Post] = [], pastGames: [Post] = []) {
+        super.init(frame: frame)
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-
-        super.init(frame: frame)
+        self.myGames = myGames
+        self.joinedGames = joinedGames
+        self.pastGames = pastGames
 
         backgroundColor = .white
 
@@ -109,7 +112,10 @@ class ProfileView: UIView {
         let post = postsArray[indexPath.row]
 
         // Show the cell's day label if the game is the first in its section, or is on a different day than the previous game in its section
-        return indexPath.row == 0 ? true : !Calendar.current.isDate(post.time, inSameDayAs: postsArray[indexPath.row - 1].time)
+        let previousPostTime = postsArray[indexPath.row - 1].time
+        return indexPath.row == 0
+            ? true
+            : !Calendar.current.isDate(post.time, inSameDayAs: previousPostTime)
     }
 
 }
@@ -161,7 +167,9 @@ extension ProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = showGameCellDayLabel(for: indexPath) ? PickupGameCell.heightShowingDayLabel : PickupGameCell.height
+        let height = showGameCellDayLabel(for: indexPath)
+            ? PickupGameCell.heightShowingDayLabel
+            : PickupGameCell.height
         return CGSize(width: collectionView.bounds.width - 2 * collectionViewLeftRightInset, height: height)
     }
 
