@@ -9,6 +9,7 @@
 import UIKit
 
 class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
+    
     private let dateLabel = UILabel()
     private let timeLabel = UILabel()
     private let joinButton = UIButton()
@@ -20,13 +21,13 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
         dateLabel.textAlignment = .center
         dateLabel.numberOfLines = 0
         dateLabel.textColor = .primaryBlack
-        addSubview(dateLabel)
+        contentView.addSubview(dateLabel)
         
         timeLabel.font = ._16MontserratMedium
         timeLabel.textAlignment = .center
         timeLabel.numberOfLines = 0
         timeLabel.textColor = .primaryBlack
-        addSubview(timeLabel)
+        contentView.addSubview(timeLabel)
         
         joinButton.setTitle("JOIN GAME", for: .normal)
         joinButton.setTitleColor(.primaryBlack, for: .normal)
@@ -36,10 +37,10 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
         joinButton.layer.cornerRadius = 20
         joinButton.layer.masksToBounds = true
         joinButton.addTarget(self, action: #selector(joinButtonPressed), for: .touchUpInside)
-        addSubview(joinButton)
+        contentView.addSubview(joinButton)
         
         divider.backgroundColor = .gray01
-        addSubview(divider)
+        contentView.addSubview(divider)
         
         setupConstraints()
     }

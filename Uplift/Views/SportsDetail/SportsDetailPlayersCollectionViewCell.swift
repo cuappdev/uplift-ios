@@ -9,6 +9,7 @@
 import UIKit
 
 class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
+    
     private let caratImage = UIImageView()
     private let divider = UIView()
     private let headerLabel = UILabel()
@@ -30,29 +31,28 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         headerLabel.textAlignment = .center
         headerLabel.numberOfLines = 0
         headerLabel.textColor = .primaryBlack
-        addSubview(headerLabel)
+        contentView.addSubview(headerLabel)
         
         caratImage.image = UIImage(named: ImageNames.rightArrowSolid)
         caratImage.contentMode = .scaleAspectFit
         caratImage.clipsToBounds = true
-        addSubview(caratImage)
+        contentView.addSubview(caratImage)
         
         previewLabel.font = ._14MontserratLight
         previewLabel.textAlignment = .center
         previewLabel.numberOfLines = 0
         previewLabel.textColor = .primaryBlack
-        addSubview(previewLabel)
+        contentView.addSubview(previewLabel)
         
         playersTextView.isEditable = false
         playersTextView.textAlignment = .center
         playersTextView.font = ._14MontserratLight
         playersTextView.textColor = .primaryBlack
         playersTextView.isScrollEnabled = false
-        addSubview(playersTextView)
+        contentView.addSubview(playersTextView)
         
         divider.backgroundColor = .gray01
-        addSubview(divider)
-        
+        contentView.addSubview(divider)
     }
     
     func setupConstraints() {
@@ -92,7 +92,8 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     func configure(for post: Post, dropStatus: DropdownStatus) {
         headerLabel.text = "PLAYERS \(post.players)/10"
         self.dropStatus = dropStatus
-        caratImage.image = dropStatus == .closed ? UIImage(named: ImageNames.rightArrowSolid)
+        caratImage.image = dropStatus == .closed
+            ? UIImage(named: ImageNames.rightArrowSolid)
             : UIImage(named: ImageNames.downArrowSolid)
         previewLabel.isHidden = dropStatus == .open
         // TODO: Add player names to post and rewrite preview label.
@@ -102,11 +103,10 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         previewLabel.text = "Zain, Amanda, Yi Hsin, Yanlam, +5 more"
         
         playersTextView.isHidden = dropStatus == .closed
-        playersTextView.text = ""
-        for p in players {
-            playersTextView.text += "\(p.name)\n"
-        }
-        
+        playersTextView.text = players.reduce("", { (result: String, p: User) -> String in
+            return result + p.name + "\n"
+        })
+
         setupConstraints()
     }
     

@@ -12,10 +12,6 @@ class SportsDetailViewController: UIViewController {
      
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
     
-    private var post: Post!
-    private var section: Section!
-    private var dropStatus: DropdownStatus = .closed
-    
     private struct Section {
         var items: [ItemType]
     }
@@ -25,6 +21,10 @@ class SportsDetailViewController: UIViewController {
         case players([String])
         case discussion([Comment])
     }
+    
+    private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: "", type: "", location: "", players: 0, gameStatus: GameStatus.open.rawValue)
+    private var section: Section = Section(items: [.info, .players([]), .discussion([])])
+    private var dropStatus: DropdownStatus = .closed
     
     private let sportsDetailHeaderViewReuseIdentifier = "sportsDetailHeaderViewReuseIdentifier"
     private let infoSectionReuseIdentifier = "infoSectionReuseIdentifier"
@@ -61,7 +61,6 @@ class SportsDetailViewController: UIViewController {
     func setupViews() {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
-        // TODO: Register cells.
         collectionView.register(SportsDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sportsDetailHeaderViewReuseIdentifier)
         collectionView.register(SportsDetailInfoCollectionViewCell.self, forCellWithReuseIdentifier: infoSectionReuseIdentifier)
         collectionView.register(SportsDetailPlayersCollectionViewCell.self, forCellWithReuseIdentifier: playersSectionReuseIdentifier)

@@ -25,8 +25,7 @@ class SportsDetailDiscussionCollectionViewCell: UICollectionViewCell {
         headerLabel.textAlignment = .center
         headerLabel.numberOfLines = 0
         headerLabel.textColor = .primaryBlack
-        addSubview(headerLabel)
-        
+        contentView.addSubview(headerLabel)
     }
     
     func setupConstraints() {
