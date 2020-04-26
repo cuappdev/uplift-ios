@@ -18,7 +18,7 @@ class SportsDetailDiscussionCollectionViewCell: UICollectionViewCell {
         setupViews()
         setupConstraints()
     }
-
+    
     func setupViews() {
         headerLabel.text = ClientStrings.SportsDetail.discussionSection
         headerLabel.font = ._16MontserratBold
@@ -30,6 +30,7 @@ class SportsDetailDiscussionCollectionViewCell: UICollectionViewCell {
     
     func setupConstraints() {
         let headerLabelTopPadding = 24
+        
         headerLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(headerLabelTopPadding)

@@ -19,22 +19,28 @@ class SportsDetailViewController: UIViewController {
     private enum ItemType {
         case info
         case players([String])
-        case discussion([Comment])
+        case discussion
+        case comment(Comment)
     }
     
     private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: "", type: "", location: "", players: 0, gameStatus: GameStatus.open.rawValue)
-    private var section: Section = Section(items: [.info, .players([]), .discussion([])])
+    private var section: Section = Section(items: [.info, .players([]), .discussion])
     private var dropStatus: DropdownStatus = .closed
     
     private let sportsDetailHeaderViewReuseIdentifier = "sportsDetailHeaderViewReuseIdentifier"
     private let infoSectionReuseIdentifier = "infoSectionReuseIdentifier"
-    private let discussionSectionReuseIdentifier = "discussionSectionReuseIdentifier"
     private let playersSectionReuseIdentifier = "playersSectionReuseIdentifier"
+    private let discussionSectionReuseIdentifier = "discussionSectionReuseIdentifier"
+    private let commentSectionReuseIdentifier = "commentSectionReuseIdentifier"
     
     init(post: Post) {
         super.init(nibName: nil, bundle: nil)
         self.post = post
-        section = Section(items: [.info, .players([]), .discussion(post.comment)])
+        var items: [ItemType] = [.info, .players([]), .discussion]
+        items.append(contentsOf: post.comment.map { c -> ItemType in
+            return .comment(c)
+        })
+        section = Section(items: items)
     }
     
     override func viewDidLoad() {
@@ -65,6 +71,7 @@ class SportsDetailViewController: UIViewController {
         collectionView.register(SportsDetailInfoCollectionViewCell.self, forCellWithReuseIdentifier: infoSectionReuseIdentifier)
         collectionView.register(SportsDetailPlayersCollectionViewCell.self, forCellWithReuseIdentifier: playersSectionReuseIdentifier)
         collectionView.register(SportsDetailDiscussionCollectionViewCell.self, forCellWithReuseIdentifier: discussionSectionReuseIdentifier)
+        collectionView.register(SportsDetailCommentCollectionViewCell.self, forCellWithReuseIdentifier: commentSectionReuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -118,6 +125,10 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: discussionSectionReuseIdentifier, for: indexPath) as! SportsDetailDiscussionCollectionViewCell
             cell.configure(for: post)
             return cell
+        case .comment(let c):
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentSectionReuseIdentifier, for: indexPath) as! SportsDetailCommentCollectionViewCell
+            cell.configure(for: c)
+            return cell
         }
     }
     
@@ -146,7 +157,22 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             let height = CGFloat(baseHeight + nameHeight * (dropStatus == .closed ? 1 : players.count))
             return CGSize(width: width, height: height)
         case .discussion:
-            return CGSize(width: width, height: 200)
+            return CGSize(width: width, height: 64)
+        case .comment(let c):
+            // https://stackoverflow.com/questions/30450434/figure-out-size-of-uilabel-based-on-string-in-swift
+            let horizontalPadding = 12
+            let imageSize = 32
+            let labelHeight = 16
+            let leadingPadding = 14
+            let textHorizontalPadding = 16
+            let textVerticalPadding = 8
+            let trailingPadding = 28
+            let verticalPadding = 4
+            let textWidth = width - CGFloat(leadingPadding + imageSize + horizontalPadding + textHorizontalPadding * 2 + trailingPadding)
+            let constraintRect = CGSize(width: textWidth, height: .greatestFiniteMagnitude)
+            let boundingBox = c.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: UIFont._12MontserratLight as Any], context: nil)
+            let height = ceil(boundingBox.height) + CGFloat(labelHeight * 2 + textVerticalPadding * 2 + verticalPadding * 2)
+            return CGSize(width: width, height: height)
         }
     }
     

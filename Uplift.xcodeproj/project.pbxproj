@@ -13,6 +13,8 @@
 		0376A962244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A961244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift */; };
 		0376A965244BD82100B44B22 /* SportsDetailPlayersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A964244BD82100B44B22 /* SportsDetailPlayersCollectionViewCell.swift */; };
 		0376A967244BD84000B44B22 /* SportsDetailDiscussionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A966244BD84000B44B22 /* SportsDetailDiscussionCollectionViewCell.swift */; };
+		0376A96B2455142900B44B22 /* SportsDetailCommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A96A2455142900B44B22 /* SportsDetailCommentCollectionViewCell.swift */; };
+		0376A96D2455345E00B44B22 /* SportsDetailInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A96C2455345E00B44B22 /* SportsDetailInputCollectionViewCell.swift */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
 		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
 		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
@@ -161,6 +163,8 @@
 		0376A961244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		0376A964244BD82100B44B22 /* SportsDetailPlayersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailPlayersCollectionViewCell.swift; sourceTree = "<group>"; };
 		0376A966244BD84000B44B22 /* SportsDetailDiscussionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailDiscussionCollectionViewCell.swift; sourceTree = "<group>"; };
+		0376A96A2455142900B44B22 /* SportsDetailCommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailCommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		0376A96C2455345E00B44B22 /* SportsDetailInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 			isa = PBXGroup;
 			children = (
 				0376A95F244BBED700B44B22 /* SportsDetailHeaderView.swift */,
+				0376A96A2455142900B44B22 /* SportsDetailCommentCollectionViewCell.swift */,
+				0376A96C2455345E00B44B22 /* SportsDetailInputCollectionViewCell.swift */,
 				0376A961244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift */,
 				0376A964244BD82100B44B22 /* SportsDetailPlayersCollectionViewCell.swift */,
 				0376A966244BD84000B44B22 /* SportsDetailDiscussionCollectionViewCell.swift */,
@@ -957,6 +963,7 @@
 				8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */,
 				7EC4B79B236CADD8006B67B3 /* PriceInformationCell.swift in Sources */,
 				0376A960244BBED700B44B22 /* SportsDetailHeaderView.swift in Sources */,
+				0376A96D2455345E00B44B22 /* SportsDetailInputCollectionViewCell.swift in Sources */,
 				C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */,
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C26237022290E2C5007C415D /* ClassDetailNextSessionsCell.swift in Sources */,
@@ -969,6 +976,7 @@
 				C25CC31A23981F0A00221DC8 /* FacilityDropdown.swift in Sources */,
 				C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
+				0376A96B2455142900B44B22 /* SportsDetailCommentCollectionViewCell.swift in Sources */,
 				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
 				4FC5646E23A06A3300B4D484 /* OnboardingEmptyStateView.swift in Sources */,
 				C75FAB0F20420B42008D455A /* TabBarController.swift in Sources */,

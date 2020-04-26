@@ -45,11 +45,16 @@ class SportsFeedViewController: UIViewController {
         headerView.layer.masksToBounds = false
         view.addSubview(headerView)
         
+        let comments = [
+            Comment(createdAt: Date(timeIntervalSince1970: 789), id: 0, postId: 0, text: "Hello World", userId: 0),
+            Comment(createdAt: Date(timeIntervalSinceNow: -10), id: 0, postId: 0, text: "Hey, I have a meeting at 2PM. Can we push the game to 5?", userId: 0),
+            Comment(createdAt: Date(), id: 0, postId: 0, text: "laksdjf;lkajsd;flkajsd;lfkajsd;lfkjasd;lkfjads;lkfjal;sdkjfa;lsdkfja;lsdkfja;lsdkjfa;lsdkjf;laksdjfal;ksdjf;laskdjf;laksdjfl;askdjfa;lskdjfl;askdjfl;askdjf;laksdjf;lkajdl;fkajs;dkfja;sdklfja;lsdkjf;laksdjf;laksdjf;laksdjfl;kadjf;lakdsjfl;akjsdf;lkajd;lkfjal;dkjf", userId: 0)
+        ]
         // Fill with dummy data for now.
         posts = [[], [], [], [
-            Post(comment: [], createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: "5:00 PM", type: "Basketball", location: "Noyes Recreation Center", players: 10, gameStatus: "JOINED"),
+            Post(comment: comments, createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: "5:00 PM", type: "Basketball", location: "Noyes Recreation Center", players: 10, gameStatus: "JOINED"),
             Post(comment: [], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: "7:00 PM", type: "Soccer", location: "Zain's Backyard", players: 2, gameStatus: "CREATED"),
-            Post(comment: [], createdAt: Date(), id: 2, userId: 0, title: "Open Game with Zain", time: "4:00 PM", type: "Tennis", location: "Zain's Tennis Court", players: 0, gameStatus: "OPEN")
+            Post(comment: comments, createdAt: Date(), id: 2, userId: 0, title: "Open Game with Zain", time: "4:00 PM", type: "Tennis", location: "Zain's Tennis Court", players: 0, gameStatus: "OPEN")
         ], [], [], [], [], [], []]
         
         let calendarFlowLayout = CalendarGenerator.getCalendarFlowLayout()
