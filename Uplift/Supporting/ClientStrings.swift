@@ -127,6 +127,7 @@ struct ClientStrings {
     }
     
     struct SportsDetail {
+        static let addComment = "Add a comment..."
         static let discussionSection = "DISCUSSION"
     }
 

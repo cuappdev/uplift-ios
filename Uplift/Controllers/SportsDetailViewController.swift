@@ -21,6 +21,7 @@ class SportsDetailViewController: UIViewController {
         case players([String])
         case discussion
         case comment(Comment)
+        case input
     }
     
     private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: "", type: "", location: "", players: 0, gameStatus: GameStatus.open.rawValue)
@@ -32,6 +33,7 @@ class SportsDetailViewController: UIViewController {
     private let playersSectionReuseIdentifier = "playersSectionReuseIdentifier"
     private let discussionSectionReuseIdentifier = "discussionSectionReuseIdentifier"
     private let commentSectionReuseIdentifier = "commentSectionReuseIdentifier"
+    private let inputSectionReuseIdentifier = "inputSectionReuseIdentifier"
     
     init(post: Post) {
         super.init(nibName: nil, bundle: nil)
@@ -40,6 +42,7 @@ class SportsDetailViewController: UIViewController {
         items.append(contentsOf: post.comment.map { c -> ItemType in
             return .comment(c)
         })
+        items.append(.input)
         section = Section(items: items)
     }
     
@@ -72,6 +75,7 @@ class SportsDetailViewController: UIViewController {
         collectionView.register(SportsDetailPlayersCollectionViewCell.self, forCellWithReuseIdentifier: playersSectionReuseIdentifier)
         collectionView.register(SportsDetailDiscussionCollectionViewCell.self, forCellWithReuseIdentifier: discussionSectionReuseIdentifier)
         collectionView.register(SportsDetailCommentCollectionViewCell.self, forCellWithReuseIdentifier: commentSectionReuseIdentifier)
+        collectionView.register(SportsDetailInputCollectionViewCell.self, forCellWithReuseIdentifier: inputSectionReuseIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -129,6 +133,11 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentSectionReuseIdentifier, for: indexPath) as! SportsDetailCommentCollectionViewCell
             cell.configure(for: c)
             return cell
+        case .input:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: inputSectionReuseIdentifier, for: indexPath) as! SportsDetailInputCollectionViewCell
+            // TODO: Get current user.
+            cell.configure(for: User(id: "", name: "", netId: ""))
+            return cell
         }
     }
     
@@ -173,6 +182,8 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             let boundingBox = c.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: UIFont._12MontserratLight as Any], context: nil)
             let height = ceil(boundingBox.height) + CGFloat(labelHeight * 2 + textVerticalPadding * 2 + verticalPadding * 2)
             return CGSize(width: width, height: height)
+        case .input:
+            return CGSize(width: width, height: 48)
         }
     }
     

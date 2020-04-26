@@ -16,13 +16,14 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
     private var profileImage = UIImageView()
     private var timeLabel = UILabel()
     
-    private let imageHeight = 32
+    private let imageSize = 32
 
      override init(frame: CGRect) {
         super.init(frame: frame)
         
         profileImage.backgroundColor = .gray02
-        profileImage.layer.cornerRadius = CGFloat(imageHeight/2)
+        profileImage.contentMode = .scaleAspectFill
+        profileImage.layer.cornerRadius = CGFloat(imageSize/2)
         profileImage.layer.masksToBounds = true
         contentView.addSubview(profileImage)
         
@@ -58,7 +59,7 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
         profileImage.snp.remakeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview().offset(leadingPadding)
-            make.height.width.equalTo(imageHeight)
+            make.height.width.equalTo(imageSize)
         }
         
         timeLabel.snp.remakeConstraints { make in
