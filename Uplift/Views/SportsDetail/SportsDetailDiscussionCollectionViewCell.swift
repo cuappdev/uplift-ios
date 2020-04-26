@@ -20,7 +20,7 @@ class SportsDetailDiscussionCollectionViewCell: UICollectionViewCell {
     }
 
     func setupViews() {
-        headerLabel.text = "DISCUSSION"
+        headerLabel.text = ClientStrings.SportsDetail.discussionSection
         headerLabel.font = ._16MontserratBold
         headerLabel.textAlignment = .center
         headerLabel.numberOfLines = 0

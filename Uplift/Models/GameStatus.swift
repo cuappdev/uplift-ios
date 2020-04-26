@@ -11,5 +11,5 @@ import Foundation
 enum GameStatus: String {
     case created = "MY GAME"
     case joined = "JOINED"
-    case open = "JOIN"
+    case open = "JOIN GAME"
 }

@@ -29,7 +29,7 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
         timeLabel.textColor = .primaryBlack
         contentView.addSubview(timeLabel)
         
-        joinButton.setTitle("JOIN GAME", for: .normal)
+        joinButton.setTitle(GameStatus.open.rawValue, for: .normal)
         joinButton.setTitleColor(.primaryBlack, for: .normal)
         joinButton.titleLabel?.font = ._14MontserratBold
         joinButton.layer.borderColor = UIColor.primaryBlack.cgColor

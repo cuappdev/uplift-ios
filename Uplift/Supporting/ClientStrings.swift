@@ -125,6 +125,10 @@ struct ClientStrings {
         static let onboarding4 = "See you at the gym!"
         static let skipButton = "SKIP"
     }
+    
+    struct SportsDetail {
+        static let discussionSection = "DISCUSSION"
+    }
 
     struct TabBar {
         static let classesSection = "Classes"
