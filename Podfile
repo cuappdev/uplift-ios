@@ -20,6 +20,7 @@ target 'Uplift' do
   pod 'SkeletonView'
   pod 'SnapKit'
   pod 'SwiftLint'
+  #pod 'FadingEdgesCollectionView', :git=> 'https://github.com/cuappdev/FadingEdgesCollectionView'
 end
 
 post_install do |installer|

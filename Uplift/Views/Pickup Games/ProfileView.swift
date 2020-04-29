@@ -14,10 +14,14 @@ class ProfileView: UIView {
     // MARK: - Views
     private let collectionView: UICollectionView!
     private let gamesPlayedLabel = UILabel()
+    private let gradientViewBottom = UIView()
+    private let gradientViewTop = UIView()
     private let nameLabel = UILabel()
     private let profilePicture = UIImageView(frame: .zero)
 
+    private let collectionViewBottomInset: CGFloat = 0//13.4
     private let collectionViewLeftRightInset: CGFloat = 24
+    private let collectionViewTopInset: CGFloat = 0//10
     private let gamesSections: [GamesListHeaderSections] = [.myGames, .joinedGames, .pastGames]
     private let profilePictureSize: CGFloat = 60
 
@@ -27,11 +31,12 @@ class ProfileView: UIView {
     private var pastGames: [Post] = []
 
     init(frame: CGRect, myGames: [Post] = [], joinedGames: [Post] = [], pastGames: [Post] = []) {
-        super.init(frame: frame)
 
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 12
+        layout.minimumLineSpacing = 24
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+        super.init(frame: frame)
 
         self.myGames = myGames
         self.joinedGames = joinedGames
@@ -57,13 +62,37 @@ class ProfileView: UIView {
 
         collectionView.register(PickupGameCell.self, forCellWithReuseIdentifier: Identifiers.pickupGameCell)
         collectionView.register(GamesListHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Identifiers.gamesListHeaderView)
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 13.4, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: collectionViewTopInset, left: 0, bottom: collectionViewBottomInset, right: 0)
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.showsVerticalScrollIndicator = false
         addSubview(collectionView)
 
+        gradientViewTop.backgroundColor = .white
+        addSubview(gradientViewTop)
+
+        gradientViewBottom.backgroundColor = .white
+        addSubview(gradientViewBottom)
+
         setupConstraints()
+    }
+
+    func setupGradients() {
+        let gradientTop = CAGradientLayer()
+        gradientTop.frame = gradientViewTop.bounds
+        gradientTop.colors = [UIColor.white.cgColor, UIColor.white.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
+        gradientTop.locations = [0.1, 0.5, 1]
+//        gradientViewTop.layer.addSublayer(gradientTop)
+        gradientViewTop.layer.mask = gradientTop
+
+//        print(gradientViewBottom)
+        let gradientBottom = CAGradientLayer()
+        gradientBottom.frame = gradientViewBottom.bounds
+        gradientBottom.colors = [UIColor.clear.cgColor, UIColor.white.withAlphaComponent(0.5).cgColor, UIColor.white.cgColor]
+        gradientBottom.locations = [0.1, 0.5, 1]
+//        gradientViewTop.layer.addSublayer(gradientBottom)
+        gradientViewBottom.layer.mask = gradientBottom
     }
 
     required init?(coder: NSCoder) {
@@ -71,7 +100,9 @@ class ProfileView: UIView {
     }
 
     func setupConstraints() {
+        let collectionViewTopOffset = 20
         let gamesPlayedLabelTopOffset = 4
+        let gradientHeight = 50
         let nameLabelTopOffset = 12
         let profilePictureTopOffset = 68
 
@@ -92,10 +123,20 @@ class ProfileView: UIView {
         }
 
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(gamesPlayedLabel.snp.bottom)
+            make.top.equalTo(gamesPlayedLabel.snp.bottom).offset(collectionViewTopOffset)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+
+        gradientViewTop.snp.makeConstraints { make in
+            make.leading.trailing.top.equalTo(collectionView)
+            make.height.equalTo(gradientHeight)
+        }
+
+        gradientViewBottom.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalTo(collectionView)
+            make.height.equalTo(gradientHeight * 2)
         }
     }
 
@@ -112,10 +153,14 @@ class ProfileView: UIView {
         let post = postsArray[indexPath.row]
 
         // Show the cell's day label if the game is the first in its section, or is on a different day than the previous game in its section
-        let previousPostTime = postsArray[indexPath.row - 1].time
-        return indexPath.row == 0
-            ? true
-            : !Calendar.current.isDate(post.time, inSameDayAs: previousPostTime)
+        if indexPath.row - 1 >= 0 {
+            let previousPostTime = postsArray[indexPath.row - 1].time
+            return indexPath.row == 0
+                ? true
+                : !Calendar.current.isDate(post.time, inSameDayAs: previousPostTime)
+        } else {
+            return true
+        }
     }
 
 }
@@ -171,6 +216,11 @@ extension ProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
             ? PickupGameCell.heightShowingDayLabel
             : PickupGameCell.height
         return CGSize(width: collectionView.bounds.width - 2 * collectionViewLeftRightInset, height: height)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        gradientViewTop.isHidden = (scrollView.contentOffset.y <= collectionViewTopInset)
+        gradientViewBottom.isHidden = scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
     }
 
 }
