@@ -31,7 +31,6 @@ class ProfileViewController: UIViewController {
         profileView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
     }
 
     override func viewDidAppear(_ animated: Bool) {

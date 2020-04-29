@@ -19,10 +19,11 @@ class ProfileView: UIView {
     private let nameLabel = UILabel()
     private let profilePicture = UIImageView(frame: .zero)
 
-    private let collectionViewBottomInset: CGFloat = 0//13.4
+    private let collectionViewBottomInset: CGFloat = 13.4
     private let collectionViewLeftRightInset: CGFloat = 24
-    private let collectionViewTopInset: CGFloat = 0//10
+    private let collectionViewTopInset: CGFloat = 10
     private let gamesSections: [GamesListHeaderSections] = [.myGames, .joinedGames, .pastGames]
+    private let gradientLocations: [NSNumber] = [0.1, 0.5, 1]
     private let profilePictureSize: CGFloat = 60
 
     // MARK: - Data
@@ -81,17 +82,18 @@ class ProfileView: UIView {
     func setupGradients() {
         let gradientTop = CAGradientLayer()
         gradientTop.frame = gradientViewTop.bounds
-        gradientTop.colors = [UIColor.white.cgColor, UIColor.white.withAlphaComponent(0.5).cgColor, UIColor.clear.cgColor]
-        gradientTop.locations = [0.1, 0.5, 1]
-//        gradientViewTop.layer.addSublayer(gradientTop)
+        gradientTop.colors = [UIColor.white.cgColor,
+                              UIColor.white.withAlphaComponent(0.5).cgColor,
+                              UIColor.clear.cgColor]
+        gradientTop.locations = gradientLocations
         gradientViewTop.layer.mask = gradientTop
 
-//        print(gradientViewBottom)
         let gradientBottom = CAGradientLayer()
         gradientBottom.frame = gradientViewBottom.bounds
-        gradientBottom.colors = [UIColor.clear.cgColor, UIColor.white.withAlphaComponent(0.5).cgColor, UIColor.white.cgColor]
-        gradientBottom.locations = [0.1, 0.5, 1]
-//        gradientViewTop.layer.addSublayer(gradientBottom)
+        gradientBottom.colors = [UIColor.clear.cgColor,
+                                 UIColor.white.withAlphaComponent(0.5).cgColor,
+                                 UIColor.white.cgColor]
+        gradientBottom.locations = gradientLocations
         gradientViewBottom.layer.mask = gradientBottom
     }
 
