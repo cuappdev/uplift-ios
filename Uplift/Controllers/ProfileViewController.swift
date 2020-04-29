@@ -12,7 +12,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private var profileView: ProfileView!
-    
+
     init(myGames: [Post] = [], joinedGames: [Post], pastGames: [Post]) {
         super.init(nibName: nil, bundle: nil)
 
@@ -22,10 +22,9 @@ class ProfileViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBar.isHidden = true
 
         view.addSubview(profileView)
@@ -34,12 +33,10 @@ class ProfileViewController: UIViewController {
         }
 
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-
         profileView.setupGradients()
-        
     }
 
 }
