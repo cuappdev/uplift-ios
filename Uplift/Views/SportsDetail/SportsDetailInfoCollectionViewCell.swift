@@ -83,7 +83,7 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
     func configure(for post: Post) {
         // TODO: add game date field to post, and replace created at with game date.
         dateLabel.text = Date.getTimeStringWithWeekday(time: post.createdAt)
-        timeLabel.text = post.time
+        timeLabel.text = Date.getTimeStringFromDate(time: post.time)
         
         // TODO: check game status and render joinButton title dynamically.
     }

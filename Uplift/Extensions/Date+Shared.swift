@@ -11,6 +11,12 @@ import Foundation
 extension Date {
     static let secondsPerDay = 86400.0
     
+    static public func getTimeStringFromDate(time: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: time)
+    }
+    
     static public func getTimeStringWithWeekday(time: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd"

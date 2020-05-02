@@ -63,9 +63,9 @@ class SportsFeedViewController: UIViewController {
         ]
         // Fill with dummy data for now.
         posts = [[], [], [], [
-            Post(comment: comments, createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: "5:00 PM", type: "Basketball", location: "Noyes Recreation Center", players: 10, gameStatus: "JOINED"),
-            Post(comment: [], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: "7:00 PM", type: "Soccer", location: "Zain's Backyard", players: 2, gameStatus: "CREATED"),
-            Post(comment: comments, createdAt: Date(), id: 2, userId: 0, title: "Open Game with Zain", time: "4:00 PM", type: "Tennis", location: "Zain's Tennis Court", players: 0, gameStatus: "OPEN")
+            Post(comment: comments, createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: Date(), type: "Basketball", location: "Noyes Recreation Center", players: 10, gameStatus: "JOINED"),
+            Post(comment: [], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: Date(), type: "Soccer", location: "Zain's Backyard", players: 2, gameStatus: "CREATED"),
+            Post(comment: comments, createdAt: Date(), id: 2, userId: 0, title: "Open Game with Zain", time: Date(), type: "Tennis", location: "Zain's Tennis Court", players: 0, gameStatus: "OPEN")
         ], [], [], [], [], [], []]
 
         let calendarFlowLayout = CalendarGenerator.getCalendarFlowLayout()
