@@ -45,6 +45,7 @@ struct Identifiers {
     static let homeScreenHeaderView = "homeScreenHeaderView"
     static let homeSectionHeaderView = "homeSectionHeaderView"
     static let loadingHeaderView = "loadingHeaderView"
+    static let sportsDetailHeaderView = "sportsDetailHeaderView"
     static let todaysClassesHeaderView = "todaysClassesHeaderView"
 
     // CELLS
@@ -71,7 +72,12 @@ struct Identifiers {
     static let loadingCollectionViewCell = "loadingCollectionViewCell"
     static let lookingForCell = "lookingForCell"
     static let noHabitsCell = "noHabitsCell"
-
+    static let sportsDetailCommentCell = "sportsDetailCommentCell"
+    static let sportsDetailDiscussionCell = "sportsDetailDiscussionCell"
+    static let sportsDetailInfoCell = "sportsDetailInfoCell"
+    static let sportsDetailInputCell = "sportsDetailInputCell"
+    static let sportsDetailPlayersCell = "sportsDetailPlayersCell"
+    
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
 

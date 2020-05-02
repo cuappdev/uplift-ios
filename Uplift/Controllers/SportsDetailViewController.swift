@@ -28,13 +28,6 @@ class SportsDetailViewController: UIViewController {
     private var section: Section = Section(items: [.info, .players([]), .discussion])
     private var dropStatus: DropdownStatus = .closed
     
-    private let sportsDetailHeaderViewReuseIdentifier = "sportsDetailHeaderViewReuseIdentifier"
-    private let infoSectionReuseIdentifier = "infoSectionReuseIdentifier"
-    private let playersSectionReuseIdentifier = "playersSectionReuseIdentifier"
-    private let discussionSectionReuseIdentifier = "discussionSectionReuseIdentifier"
-    private let commentSectionReuseIdentifier = "commentSectionReuseIdentifier"
-    private let inputSectionReuseIdentifier = "inputSectionReuseIdentifier"
-    
     init(post: Post) {
         super.init(nibName: nil, bundle: nil)
         self.post = post
@@ -70,12 +63,12 @@ class SportsDetailViewController: UIViewController {
     func setupViews() {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(SportsDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sportsDetailHeaderViewReuseIdentifier)
-        collectionView.register(SportsDetailInfoCollectionViewCell.self, forCellWithReuseIdentifier: infoSectionReuseIdentifier)
-        collectionView.register(SportsDetailPlayersCollectionViewCell.self, forCellWithReuseIdentifier: playersSectionReuseIdentifier)
-        collectionView.register(SportsDetailDiscussionCollectionViewCell.self, forCellWithReuseIdentifier: discussionSectionReuseIdentifier)
-        collectionView.register(SportsDetailCommentCollectionViewCell.self, forCellWithReuseIdentifier: commentSectionReuseIdentifier)
-        collectionView.register(SportsDetailInputCollectionViewCell.self, forCellWithReuseIdentifier: inputSectionReuseIdentifier)
+        collectionView.register(SportsDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Identifiers.sportsDetailHeaderView)
+        collectionView.register(SportsDetailInfoCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailInfoCell)
+        collectionView.register(SportsDetailPlayersCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailPlayersCell)
+        collectionView.register(SportsDetailDiscussionCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailDiscussionCell)
+        collectionView.register(SportsDetailCommentCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailCommentCell)
+        collectionView.register(SportsDetailInputCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailInputCell)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -108,7 +101,7 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: sportsDetailHeaderViewReuseIdentifier,
+            withReuseIdentifier: Identifiers.sportsDetailHeaderView,
             for: indexPath) as! SportsDetailHeaderView
         headerView.configure(for: self, for: post)
         return headerView
@@ -118,23 +111,23 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         let itemType = section.items[indexPath.item]
         switch itemType {
         case .info:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: infoSectionReuseIdentifier, for: indexPath) as! SportsDetailInfoCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsDetailInfoCell, for: indexPath) as! SportsDetailInfoCollectionViewCell
             cell.configure(for: post)
             return cell
         case .players:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playersSectionReuseIdentifier, for: indexPath) as! SportsDetailPlayersCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsDetailPlayersCell, for: indexPath) as! SportsDetailPlayersCollectionViewCell
             cell.configure(for: post, dropStatus: dropStatus)
             return cell
         case .discussion:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: discussionSectionReuseIdentifier, for: indexPath) as! SportsDetailDiscussionCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsDetailDiscussionCell, for: indexPath) as! SportsDetailDiscussionCollectionViewCell
             cell.configure(for: post)
             return cell
         case .comment(let c):
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentSectionReuseIdentifier, for: indexPath) as! SportsDetailCommentCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsDetailCommentCell, for: indexPath) as! SportsDetailCommentCollectionViewCell
             cell.configure(for: c)
             return cell
         case .input:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: inputSectionReuseIdentifier, for: indexPath) as! SportsDetailInputCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsDetailInputCell, for: indexPath) as! SportsDetailInputCollectionViewCell
             // TODO: Get current user.
             cell.configure(for: User(id: "", name: "", netId: ""))
             return cell
