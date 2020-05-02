@@ -19,10 +19,13 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     private var players: [User] = []
     private var dropStatus: DropdownStatus = .closed
     
-    private struct Constraints {
+    // Keep public to allow SportsDetailViewController to use same constraints for calculating cell height.
+    public struct Constraints {
         static let caratImageHeight = 10
         static let caratImageWidth = 10
+        static let dividerHeight = 1
         static let headerCaratHorizontalPadding = 12
+        static let headerLabelHeight = 18
         static let headerPlayersVerticalPadding = 14
         static let horizontalPadding = 40
         static let verticalPadding = 24
@@ -68,6 +71,7 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         headerLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.height.equalTo(Constraints.headerLabelHeight)
         }
         
         caratImage.snp.makeConstraints { make in
@@ -90,7 +94,7 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         
         divider.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(Constraints.dividerHeight)
         }
     }
     
@@ -128,9 +132,7 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         
         playersTextView.isHidden = dropStatus == .closed
         players = post.players
-        playersTextView.text = players.reduce("", { (result: String, p: User) -> String in
-            return result + p.name + "\n"
-        })
+        playersTextView.text = post.getPlayersListString()
 
         setupConstraints()
     }

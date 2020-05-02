@@ -36,5 +36,11 @@ struct Post: Codable {
         formatter.dateFormat = "MMM dd"
         return formatter.string(from: time)
     }
+    
+    func getPlayersListString() -> String {
+        return players.reduce("", { (result: String, p: User) -> String in
+            return result + p.name + "\n"
+        })
+    }
 
 }

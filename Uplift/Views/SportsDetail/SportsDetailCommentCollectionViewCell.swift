@@ -16,6 +16,7 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
     private var profileImage = UIImageView()
     private var timeLabel = UILabel()
     
+    // Keep public to allow SportsDetailViewController to use same constraints for calculating cell height.
     public struct Constraints {
         static let bubbleViewVerticalPadding = 4
         static let imagebubbleViewHorizontalPadding = 12

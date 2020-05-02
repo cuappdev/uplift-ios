@@ -157,20 +157,11 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         case .info:
             return CGSize(width: width, height: 157)
         case .players:
-            let nameHeight = 24
-            let baseHeight = 82
-            let nameHeightMultiplier = dropStatus == .closed ? 1 : post.players.count
-            let height = CGFloat(baseHeight + nameHeight * nameHeightMultiplier)
-            return CGSize(width: width, height: height)
+            return getPlayersCellSize()
         case .discussion:
             return CGSize(width: width, height: 64)
-        case .comment(let c):
-            let constraints = SportsDetailCommentCollectionViewCell.Constraints.self
-            let baseHeight = CGFloat(constraints.nameLabelHeight + constraints.textVerticalPadding + constraints.bubbleViewVerticalPadding) * 2.0
-            let contentPadding = constraints.imageSize + constraints.imagebubbleViewHorizontalPadding + constraints.textHorizontalPadding * 2
-            let textWidth = width - CGFloat(constraints.leadingPadding + contentPadding + constraints.trailingPadding)
-            let height = c.text.height(withConstrainedWidth: textWidth, font: UIFont._12MontserratLight ?? UIFont.systemFont(ofSize: 12)) + baseHeight
-            return CGSize(width: width, height: height)
+        case .comment(let comment):
+            return getCommentCellSize(comment: comment)
         case .input:
             return CGSize(width: width, height: 48)
         }
@@ -186,4 +177,35 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         }
         collectionView.reloadData()
     }
+}
+
+extension SportsDetailViewController {
+    
+    // Functions to calculate cell size.
+    func getCommentCellSize(comment: Comment) -> CGSize {
+        let width = collectionView.frame.width
+        let constraints = SportsDetailCommentCollectionViewCell.Constraints.self
+        
+        let baseHeight = CGFloat(constraints.nameLabelHeight + constraints.textVerticalPadding + constraints.bubbleViewVerticalPadding) * 2.0
+        let contentPadding = constraints.imageSize + constraints.imagebubbleViewHorizontalPadding + constraints.textHorizontalPadding * 2
+        let constrainedWidth = width - CGFloat(constraints.leadingPadding + contentPadding + constraints.trailingPadding)
+        let height = baseHeight + comment.text.height(withConstrainedWidth: constrainedWidth, font: UIFont._12MontserratLight ?? UIFont.systemFont(ofSize: 12))
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    func getPlayersCellSize() -> CGSize {
+        let constraints = SportsDetailPlayersCollectionViewCell.Constraints.self
+        let width = collectionView.frame.width
+        
+        let baseHeight = CGFloat(constraints.verticalPadding) * 2.0 + CGFloat(constraints.headerLabelHeight + constraints.headerPlayersVerticalPadding)
+        let constrainedWidth = width - CGFloat(constraints.horizontalPadding) * 2.0
+        let listHeight = baseHeight + post.getPlayersListString().height(withConstrainedWidth: constrainedWidth, font: UIFont._14MontserratLight ?? UIFont.systemFont(ofSize: 14))
+        let previewHeight = baseHeight + 14
+        let height = dropStatus == .closed ? previewHeight : listHeight
+        
+        return CGSize(width: width, height: height)
+        
+    }
+    
 }
