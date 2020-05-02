@@ -93,7 +93,7 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for post: Post, dropStatus: DropdownStatus) {
-        headerLabel.text = "PLAYERS \(post.players)/10"
+        headerLabel.text = "\(ClientStrings.SportsDetail.players) \(post.playerIds.count)/10"
         self.dropStatus = dropStatus
         caratImage.image = dropStatus == .closed
             ? UIImage(named: ImageNames.rightArrowSolid)

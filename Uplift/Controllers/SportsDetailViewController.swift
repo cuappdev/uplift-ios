@@ -24,7 +24,7 @@ class SportsDetailViewController: UIViewController {
         case input
     }
     
-    private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: Date(), type: "", location: "", players: 0, gameStatus: GameStatus.open.rawValue)
+    private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: Date(), type: "", location: "", playerIds: [], gameStatus: GameStatus.open.rawValue)
     private var section: Section = Section(items: [.info, .players([]), .discussion])
     private var dropStatus: DropdownStatus = .closed
     
