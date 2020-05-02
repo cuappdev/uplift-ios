@@ -27,8 +27,7 @@ struct NetworkManager {
         let parameters: [String: Any] = [
             "token": token
         ]
-
-        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
+        AF.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
             switch response.result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -49,7 +48,7 @@ struct NetworkManager {
             "bearer_token": token
         ]
 
-        Alamofire.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
+        AF.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
             switch response.result {
             case .success(let data):
                 let decoder = JSONDecoder()
