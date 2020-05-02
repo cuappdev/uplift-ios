@@ -165,18 +165,10 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         case .discussion:
             return CGSize(width: width, height: 64)
         case .comment(let c):
-            let horizontalPadding = 12
-            let imageSize = 32
-            let labelHeight = 16
-            let leadingPadding = 14
-            let textHorizontalPadding = 16
-            let textVerticalPadding = 8
-            let trailingPadding = 28
-            let verticalPadding = 4
-            
-            let baseHeight = CGFloat(labelHeight * 2 + textVerticalPadding * 2 + verticalPadding * 2)
-            let contentPadding = imageSize + horizontalPadding + textHorizontalPadding * 2
-            let textWidth = width - CGFloat(leadingPadding + contentPadding + trailingPadding)
+            let constraints = SportsDetailCommentCollectionViewCell.Constraints.self
+            let baseHeight = CGFloat(constraints.nameLabelHeight + constraints.textVerticalPadding + constraints.bubbleViewVerticalPadding) * 2.0
+            let contentPadding = constraints.imageSize + constraints.imagebubbleViewHorizontalPadding + constraints.textHorizontalPadding * 2
+            let textWidth = width - CGFloat(constraints.leadingPadding + contentPadding + constraints.trailingPadding)
             let height = c.text.height(withConstrainedWidth: textWidth, font: UIFont._12MontserratLight ?? UIFont.systemFont(ofSize: 12)) + baseHeight
             return CGSize(width: width, height: height)
         case .input:

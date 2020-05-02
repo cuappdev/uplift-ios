@@ -16,14 +16,23 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
     private var profileImage = UIImageView()
     private var timeLabel = UILabel()
     
-    private let imageSize = 32
+    public struct Constraints {
+        static let bubbleViewVerticalPadding = 4
+        static let imagebubbleViewHorizontalPadding = 12
+        static let imageSize = 32
+        static let leadingPadding = 14
+        static let nameLabelHeight = 14
+        static let textHorizontalPadding = 16
+        static let textVerticalPadding = 8
+        static let trailingPadding = 28
+    }
 
      override init(frame: CGRect) {
         super.init(frame: frame)
         
         profileImage.backgroundColor = .gray02
         profileImage.contentMode = .scaleAspectFill
-        profileImage.layer.cornerRadius = CGFloat(imageSize)/2.0
+        profileImage.layer.cornerRadius = CGFloat(Constraints.imageSize)/2.0
         profileImage.layer.masksToBounds = true
         contentView.addSubview(profileImage)
         
@@ -49,39 +58,34 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
-        let bubbleViewVerticalPadding = 4
-        let imagebubbleViewHorizontalPadding = 12
-        let leadingPadding = 14
-        let textHorizontalPadding = 16
-        let textVerticalPadding = 8
-        let trailingPadding = 28
         
         profileImage.snp.remakeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalToSuperview().offset(leadingPadding)
-            make.height.width.equalTo(imageSize)
+            make.leading.equalToSuperview().offset(Constraints.leadingPadding)
+            make.height.width.equalTo(Constraints.imageSize)
         }
         
         timeLabel.snp.remakeConstraints { make in
-            make.leading.equalTo(profileImage.snp.trailing).offset(imagebubbleViewHorizontalPadding + textHorizontalPadding)
-            make.bottom.equalToSuperview().inset(bubbleViewVerticalPadding)
+            make.leading.equalTo(profileImage.snp.trailing).offset(Constraints.imagebubbleViewHorizontalPadding + Constraints.textHorizontalPadding)
+            make.bottom.equalToSuperview().inset(Constraints.bubbleViewVerticalPadding)
         }
         
         bubbleView.snp.remakeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(profileImage.snp.trailing).offset(imagebubbleViewHorizontalPadding)
-            make.trailing.equalToSuperview().inset(trailingPadding)
-            make.bottom.equalTo(timeLabel.snp.top).offset(-bubbleViewVerticalPadding)
+            make.leading.equalTo(profileImage.snp.trailing).offset(Constraints.imagebubbleViewHorizontalPadding)
+            make.trailing.equalToSuperview().inset(Constraints.trailingPadding)
+            make.bottom.equalTo(timeLabel.snp.top).offset(-Constraints.bubbleViewVerticalPadding)
         }
         
         nameLabel.snp.remakeConstraints { make in
-            make.top.equalTo(bubbleView).offset(textVerticalPadding)
-            make.leading.trailing.equalTo(bubbleView).inset(textHorizontalPadding)
+            make.top.equalTo(bubbleView).offset(Constraints.textVerticalPadding)
+            make.leading.trailing.equalTo(bubbleView).inset(Constraints.textHorizontalPadding)
+            make.height.equalTo(Constraints.nameLabelHeight)
         }
         
         commentLabel.snp.remakeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom)
-            make.leading.trailing.equalTo(bubbleView).inset(textHorizontalPadding)
+            make.leading.trailing.equalTo(bubbleView).inset(Constraints.textHorizontalPadding)
         }
     }
     
