@@ -341,7 +341,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-<<<<<<< HEAD
 		0376A963244BD7F000B44B22 /* SportsDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,8 +363,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-=======
->>>>>>> 919b0d20946bba5ac7aebef79bf4c146f78e18e9
 		2239099827BA43E4F9300502 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
