@@ -13,7 +13,7 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
     private let dateLabel = UILabel()
     private let timeLabel = UILabel()
     private let joinButton = UIButton()
-    private let divider = UIView()
+    private let dividerView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,8 +39,8 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
         joinButton.addTarget(self, action: #selector(joinButtonPressed), for: .touchUpInside)
         contentView.addSubview(joinButton)
         
-        divider.backgroundColor = .gray01
-        contentView.addSubview(divider)
+        dividerView.backgroundColor = .gray01
+        contentView.addSubview(dividerView)
         
         setupConstraints()
     }
@@ -72,28 +72,15 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
-        divider.snp.makeConstraints { make in
+        dividerView.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
             make.height.equalTo(1)
         }
     }
     
     func configure(for post: Post) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd"
         // TODO: add game date field to post, and replace created at with game date.
-        var weekday = ""
-        switch Calendar.current.component(.weekday, from: post.createdAt) {
-            case 1: weekday = "Sunday"
-            case 2: weekday = "Monday"
-            case 3: weekday = "Tuesday"
-            case 4: weekday = "Wednesday"
-            case 5: weekday = "Thursday"
-            case 6: weekday = "Friday"
-            case 7: weekday = "Saturday"
-            default: weekday = ""
-        }
-        dateLabel.text = "\(weekday), \(dateFormatter.string(from: post.createdAt))"
+        dateLabel.text = Date.getTimeStringWithWeekday(time: post.createdAt)
         timeLabel.text = post.time
         
         // TODO: check game status and render joinButton title dynamically.

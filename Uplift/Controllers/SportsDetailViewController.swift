@@ -163,12 +163,12 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             User(id: "p3", name: "Yi Hsin Wei", netId: "y???")]
             let nameHeight = 24
             let baseHeight = 82
-            let height = CGFloat(baseHeight + nameHeight * (dropStatus == .closed ? 1 : players.count))
+            let nameHeightMultiplier = dropStatus == .closed ? 1 : players.count
+            let height = CGFloat(baseHeight + nameHeight * nameHeightMultiplier)
             return CGSize(width: width, height: height)
         case .discussion:
             return CGSize(width: width, height: 64)
         case .comment(let c):
-            // https://stackoverflow.com/questions/30450434/figure-out-size-of-uilabel-based-on-string-in-swift
             let horizontalPadding = 12
             let imageSize = 32
             let labelHeight = 16
@@ -177,10 +177,11 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             let textVerticalPadding = 8
             let trailingPadding = 28
             let verticalPadding = 4
-            let textWidth = width - CGFloat(leadingPadding + imageSize + horizontalPadding + textHorizontalPadding * 2 + trailingPadding)
-            let constraintRect = CGSize(width: textWidth, height: .greatestFiniteMagnitude)
-            let boundingBox = c.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: UIFont._12MontserratLight as Any], context: nil)
-            let height = ceil(boundingBox.height) + CGFloat(labelHeight * 2 + textVerticalPadding * 2 + verticalPadding * 2)
+            
+            let baseHeight = CGFloat(labelHeight * 2 + textVerticalPadding * 2 + verticalPadding * 2)
+            let contentPadding = imageSize + horizontalPadding + textHorizontalPadding * 2
+            let textWidth = width - CGFloat(leadingPadding + contentPadding + trailingPadding)
+            let height = c.text.height(withConstrainedWidth: textWidth, font: UIFont._12MontserratLight ?? UIFont.systemFont(ofSize: 12)) + baseHeight
             return CGSize(width: width, height: height)
         case .input:
             return CGSize(width: width, height: 48)

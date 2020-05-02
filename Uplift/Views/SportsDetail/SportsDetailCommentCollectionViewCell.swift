@@ -10,7 +10,7 @@ import UIKit
 
 class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
     
-    private var bubble = UIView()
+    private var bubbleView = UIView()
     private var commentLabel = UILabel()
     private var nameLabel = UILabel()
     private var profileImage = UIImageView()
@@ -27,10 +27,10 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
         profileImage.layer.masksToBounds = true
         contentView.addSubview(profileImage)
         
-        bubble.backgroundColor = .gray01
-        bubble.layer.cornerRadius = 20
-        bubble.layer.masksToBounds = true
-        contentView.addSubview(bubble)
+        bubbleView.backgroundColor = .gray01
+        bubbleView.layer.cornerRadius = 20
+        bubbleView.layer.masksToBounds = true
+        contentView.addSubview(bubbleView)
         
         nameLabel.font = ._12MontserratMedium
         nameLabel.textColor = .primaryBlack
@@ -49,8 +49,8 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
-        let bubbleVerticalPadding = 4
-        let imageBubbleHorizontalPadding = 12
+        let bubbleViewVerticalPadding = 4
+        let imagebubbleViewHorizontalPadding = 12
         let leadingPadding = 14
         let textHorizontalPadding = 16
         let textVerticalPadding = 8
@@ -63,25 +63,25 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
         }
         
         timeLabel.snp.remakeConstraints { make in
-            make.leading.equalTo(profileImage.snp.trailing).offset(imageBubbleHorizontalPadding + textHorizontalPadding)
-            make.bottom.equalToSuperview().inset(bubbleVerticalPadding)
+            make.leading.equalTo(profileImage.snp.trailing).offset(imagebubbleViewHorizontalPadding + textHorizontalPadding)
+            make.bottom.equalToSuperview().inset(bubbleViewVerticalPadding)
         }
         
-        bubble.snp.remakeConstraints { make in
+        bubbleView.snp.remakeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(profileImage.snp.trailing).offset(imageBubbleHorizontalPadding)
+            make.leading.equalTo(profileImage.snp.trailing).offset(imagebubbleViewHorizontalPadding)
             make.trailing.equalToSuperview().inset(trailingPadding)
-            make.bottom.equalTo(timeLabel.snp.top).offset(-bubbleVerticalPadding)
+            make.bottom.equalTo(timeLabel.snp.top).offset(-bubbleViewVerticalPadding)
         }
         
         nameLabel.snp.remakeConstraints { make in
-            make.top.equalTo(bubble).offset(textVerticalPadding)
-            make.leading.trailing.equalTo(bubble).inset(textHorizontalPadding)
+            make.top.equalTo(bubbleView).offset(textVerticalPadding)
+            make.leading.trailing.equalTo(bubbleView).inset(textHorizontalPadding)
         }
         
         commentLabel.snp.remakeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom)
-            make.leading.trailing.equalTo(bubble).inset(textHorizontalPadding)
+            make.leading.trailing.equalTo(bubbleView).inset(textHorizontalPadding)
         }
     }
     
@@ -89,26 +89,7 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
         // TODO: update profileImage.
         nameLabel.text = "TODO: Add name."
         commentLabel.text = comment.text
-
-        let fromDate = comment.createdAt
-        let toDate = Date()
-
-        // https://stackoverflow.com/questions/34457434/swift-convert-time-to-time-ago
-        if let interval = Calendar.current.dateComponents([.year], from: fromDate, to: toDate).year, interval > 0  {
-            timeLabel.text = "\(interval) y"
-        } else if let interval = Calendar.current.dateComponents([.month], from: fromDate, to: toDate).month, interval > 0  {
-            timeLabel.text = "\(interval) mos"
-        } else if let interval = Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day, interval > 0  {
-           timeLabel.text = "\(interval) d"
-        } else if let interval = Calendar.current.dateComponents([.hour], from: fromDate, to: toDate).hour, interval > 0 {
-            timeLabel.text = "\(interval) h"
-        } else if let interval = Calendar.current.dateComponents([.minute], from: fromDate, to: toDate).minute, interval > 0 {
-            timeLabel.text = "\(interval) m"
-        } else if let interval = Calendar.current.dateComponents([.second], from: fromDate, to: toDate).second, interval > 0 {
-            timeLabel.text = "\(interval) s"
-        } else {
-            timeLabel.text = "now"
-        }
+        timeLabel.text = Date.getTimeStringSince(fromDate: comment.createdAt)
         
         setupConstraints()
     }
