@@ -19,6 +19,15 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     private var players: [User] = []
     private var dropStatus: DropdownStatus = .closed
     
+    private struct Constraints {
+        static let caratImageHeight = 10
+        static let caratImageWidth = 10
+        static let headerCaratHorizontalPadding = 12
+        static let headerPlayersVerticalPadding = 14
+        static let horizontalPadding = 40
+        static let verticalPadding = 24
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -56,34 +65,27 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
-        let caratImageHeight = 10
-        let caratImageWidth = 10
-        let headerCaratHorizontalPadding = 12
-        let headerPlayersVerticalPadding = 14
-        let horizontalPadding = 40
-        let verticalPadding = 24
-        
         headerLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(verticalPadding)
+            make.top.equalToSuperview().offset(Constraints.verticalPadding)
         }
         
         caratImage.snp.makeConstraints { make in
             make.centerY.equalTo(headerLabel)
-            make.height.equalTo(caratImageHeight)
-            make.width.equalTo(caratImageWidth)
-            make.leading.equalTo(headerLabel.snp.trailing).offset(headerCaratHorizontalPadding)
+            make.height.equalTo(Constraints.caratImageHeight)
+            make.width.equalTo(Constraints.caratImageWidth)
+            make.leading.equalTo(headerLabel.snp.trailing).offset(Constraints.headerCaratHorizontalPadding)
         }
         
         previewLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(horizontalPadding)
-            make.bottom.equalToSuperview().inset(verticalPadding)
+            make.leading.trailing.equalToSuperview().inset(Constraints.horizontalPadding)
+            make.bottom.equalToSuperview().inset(Constraints.verticalPadding)
         }
         
         playersTextView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(horizontalPadding)
-            make.bottom.equalToSuperview().inset(verticalPadding)
-            make.top.equalTo(headerLabel.snp.bottom).offset(headerPlayersVerticalPadding)
+            make.leading.trailing.equalToSuperview().inset(Constraints.horizontalPadding)
+            make.bottom.equalToSuperview().inset(Constraints.verticalPadding)
+            make.top.equalTo(headerLabel.snp.bottom).offset(Constraints.headerPlayersVerticalPadding)
         }
         
         divider.snp.makeConstraints { make in
@@ -92,20 +94,40 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func getPlayersPreview(players: [User]) -> String {
+        var count = players.count
+        var previewString = ""
+        for player in players {
+            let playerName = player.givenName ?? player.name
+            let constraintedWidth = self.frame.width - CGFloat(2 * Constraints.horizontalPadding)
+            let resultingString = "\(previewString), \(playerName), +\(count - 1) more"
+            let resultingHeight = resultingString.height(withConstrainedWidth: constraintedWidth, font: ._14MontserratLight ?? UIFont.systemFont(ofSize: 14))
+            let currentHeight = previewString.height(withConstrainedWidth: constraintedWidth, font: ._14MontserratLight ?? UIFont.systemFont(ofSize: 14))
+            if previewString == "" {
+                previewString += "\(playerName)"
+                count-=1
+            } else if resultingHeight <= currentHeight {
+                previewString += ", \(playerName)"
+                count-=1
+            } else {
+                return "\(previewString), +\(count) more"
+            }
+        }
+        return previewString == "" ? "Be the first to join the game." : previewString
+    }
+    
     func configure(for post: Post, dropStatus: DropdownStatus) {
-        headerLabel.text = "\(ClientStrings.SportsDetail.players) \(post.playerIds.count)/10"
+        headerLabel.text = "\(ClientStrings.SportsDetail.players) \(post.players.count)/\(Post.maxPlayers)"
         self.dropStatus = dropStatus
         caratImage.image = dropStatus == .closed
             ? UIImage(named: ImageNames.rightArrowSolid)
             : UIImage(named: ImageNames.downArrowSolid)
+        
         previewLabel.isHidden = dropStatus == .open
-        // TODO: Add player names to post and rewrite preview label.
-        players = [User(id: "p1", name: "Zain Khoja", netId: "znksomething"),
-        User(id: "p2", name: "Amanda He", netId: "noidea"),
-        User(id: "p3", name: "Yi Hsin Wei", netId: "y???")]
-        previewLabel.text = "Zain, Amanda, Yi Hsin, Yanlam, +5 more"
+        previewLabel.text = getPlayersPreview(players: post.players)
         
         playersTextView.isHidden = dropStatus == .closed
+        players = post.players
         playersTextView.text = players.reduce("", { (result: String, p: User) -> String in
             return result + p.name + "\n"
         })

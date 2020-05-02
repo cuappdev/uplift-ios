@@ -24,14 +24,21 @@ class SportsDetailViewController: UIViewController {
         case input
     }
     
-    private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: Date(), type: "", location: "", playerIds: [], gameStatus: GameStatus.open.rawValue)
+    private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: Date(), type: "", location: "", players: [], gameStatus: GameStatus.open.rawValue)
     private var section: Section = Section(items: [.info, .players([]), .discussion])
     private var dropStatus: DropdownStatus = .closed
     
     init(post: Post) {
         super.init(nibName: nil, bundle: nil)
         self.post = post
-        var items: [ItemType] = [.info, .players([]), .discussion]
+        let playerNames = post.players.map { user -> String in
+            if let familyName = user.familyName, let givenName = user.givenName {
+                return "\(givenName) \(familyName.prefix(1))."
+            } else {
+                return user.name
+            }
+        }
+        var items: [ItemType] = [.info, .players(playerNames), .discussion]
         items.append(contentsOf: post.comment.map { c -> ItemType in
             return .comment(c)
         })
@@ -150,13 +157,9 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         case .info:
             return CGSize(width: width, height: 157)
         case .players:
-            // TODO: add player names field to post.
-            let players = [User(id: "p1", name: "Zain Khoja", netId: "znksomething"),
-            User(id: "p2", name: "Amanda He", netId: "noidea"),
-            User(id: "p3", name: "Yi Hsin Wei", netId: "y???")]
             let nameHeight = 24
             let baseHeight = 82
-            let nameHeightMultiplier = dropStatus == .closed ? 1 : players.count
+            let nameHeightMultiplier = dropStatus == .closed ? 1 : post.players.count
             let height = CGFloat(baseHeight + nameHeight * nameHeightMultiplier)
             return CGSize(width: width, height: height)
         case .discussion:

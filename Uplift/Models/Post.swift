@@ -20,7 +20,7 @@ struct Post: Codable {
     let time: Date
     let type: String
     let location: String
-    let playerIds: [Int]
+    let players: [User]
     let gameStatus: String
     
     func getTime() -> String {
