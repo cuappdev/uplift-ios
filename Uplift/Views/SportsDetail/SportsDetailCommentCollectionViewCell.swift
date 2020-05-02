@@ -23,7 +23,7 @@ class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
         
         profileImage.backgroundColor = .gray02
         profileImage.contentMode = .scaleAspectFill
-        profileImage.layer.cornerRadius = CGFloat(imageSize/2)
+        profileImage.layer.cornerRadius = CGFloat(imageSize)/2.0
         profileImage.layer.masksToBounds = true
         contentView.addSubview(profileImage)
         

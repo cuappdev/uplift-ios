@@ -50,10 +50,12 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
-        let horizontalPadding = 40
         let dateLabelTopPadding = 24
         let dateTimeVerticalPadding = 8
+        let horizontalPadding = 40
         let joinButtonBottomPadding = 24
+        let joinButtonHeight = 41
+        let joinButtonWidth = 132
         
         dateLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(horizontalPadding)
@@ -66,8 +68,8 @@ class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
         }
         
         joinButton.snp.makeConstraints { make in
-            make.width.equalTo(132)
-            make.height.equalTo(41)
+            make.width.equalTo(joinButtonWidth)
+            make.height.equalTo(joinButtonHeight)
             make.bottom.equalToSuperview().inset(joinButtonBottomPadding)
             make.centerX.equalToSuperview()
         }

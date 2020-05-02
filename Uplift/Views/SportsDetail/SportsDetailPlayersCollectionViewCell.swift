@@ -56,10 +56,13 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     }
     
     func setupConstraints() {
+        let caratImageHeight = 10
+        let caratImageWidth = 10
         let headerCaratHorizontalPadding = 12
         let headerPlayersVerticalPadding = 14
         let horizontalPadding = 40
         let verticalPadding = 24
+        
         headerLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(verticalPadding)
@@ -67,8 +70,8 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
         
         caratImage.snp.makeConstraints { make in
             make.centerY.equalTo(headerLabel)
-            make.height.equalTo(10)
-            make.width.equalTo(10)
+            make.height.equalTo(caratImageHeight)
+            make.width.equalTo(caratImageWidth)
             make.leading.equalTo(headerLabel.snp.trailing).offset(headerCaratHorizontalPadding)
         }
         

@@ -20,11 +20,11 @@ class SportsDetailInputCollectionViewCell: UICollectionViewCell {
         
         profileImage.backgroundColor = .gray02
         profileImage.contentMode = .scaleAspectFill
-        profileImage.layer.cornerRadius = CGFloat(imageSize/2)
+        profileImage.layer.cornerRadius = CGFloat(imageSize)/2.0
         profileImage.layer.masksToBounds = true
         contentView.addSubview(profileImage)
         
-        textField.layer.cornerRadius = CGFloat(imageSize/2)
+        textField.layer.cornerRadius = CGFloat(imageSize)/2.0
         textField.layer.masksToBounds = true
         textField.font = ._12MontserratLight
         textField.textColor = .primaryBlack
