@@ -57,12 +57,12 @@ class SportsFeedViewController: UIViewController {
         view.addSubview(headerView)
         
         // TODO: Get rid of dummy data. This is temporary for testing purposes.
-        let userZain = User(id: "0", name: "Zain Khoja", netId: "netId00", givenName: "Zain", familyName: "Khoja", email: "zk@uplift.com")
-        let userYiHsin = User(id: "1", name: "Yi Hsin Wei", netId: "netId01", givenName: "Yi Hsin", familyName: "Wei", email: "ysw@uplift.com")
-        let userWill = User(id: "2", name: "Will Bai", netId: "netId02", givenName: "Will", familyName: "Bai", email: "wb@uplift.com")
-        let userAmanda = User(id: "3", name: "Amanda He", netId: "netId03", givenName: "Amanda", familyName: "He", email: "ah@uplift.com")
-        let userYanlam = User(id: "4", name: "Yanlam Ko", netId: "netId04", givenName: "Yanlam", familyName: "Ko", email: "yk@uplift.com")
-        let userCameron = User(id: "5", name: "Cameron Hamidi", netId: "netId05", givenName: "Cameron", familyName: "Hamidi", email: "ch@uplift.com")
+        let userZain = User(id: 0, name: "Zain Khoja", netId: "netId00", givenName: "Zain", familyName: "Khoja", email: "zk@uplift.com")
+        let userYiHsin = User(id: 1, name: "Yi Hsin Wei", netId: "netId01", givenName: "Yi Hsin", familyName: "Wei", email: "ysw@uplift.com")
+        let userWill = User(id: 2, name: "Will Bai", netId: "netId02", givenName: "Will", familyName: "Bai", email: "wb@uplift.com")
+        let userAmanda = User(id: 3, name: "Amanda He", netId: "netId03", givenName: "Amanda", familyName: "He", email: "ah@uplift.com")
+        let userYanlam = User(id: 4, name: "Yanlam Ko", netId: "netId04", givenName: "Yanlam", familyName: "Ko", email: "yk@uplift.com")
+        let userCameron = User(id: 5, name: "Cameron Hamidi", netId: "netId05", givenName: "Cameron", familyName: "Hamidi", email: "ch@uplift.com")
         
         let comment1 = Comment(createdAt: Date(timeIntervalSince1970: 789), id: 0, postId: 0, text: "Hello World", userId: 1)
         let comment2 = Comment(createdAt: Date(timeIntervalSinceNow: -10), id: 1, postId: 1, text: "Hey, I have a meeting at 2PM. Can we push the game to 5?", userId: 2)

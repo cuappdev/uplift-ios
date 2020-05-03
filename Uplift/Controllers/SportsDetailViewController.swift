@@ -136,7 +136,7 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
         case .input:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsDetailInputCell, for: indexPath) as! SportsDetailInputCollectionViewCell
             // TODO: Get current user.
-            cell.configure(for: User(id: "", name: "", netId: ""))
+            cell.configure(for: User(id: -1, name: "", netId: ""))
             return cell
         }
     }

@@ -13,7 +13,7 @@ extension Date {
     
     static public func getTimeStringFromDate(time: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "h:mm a"
         return dateFormatter.string(from: time)
     }
     
@@ -43,7 +43,6 @@ extension Date {
             default:
                 return ""
         }
-        
     }
     
     static public func getTimeStringSince(fromDate: Date) -> String {

@@ -31,6 +31,8 @@ class SportsDetailInputCollectionViewCell: UICollectionViewCell {
         textField.placeholder = ClientStrings.SportsDetail.addComment
         textField.layer.borderColor = UIColor.gray01.cgColor
         textField.layer.borderWidth = 1
+        textField.delegate = self
+        textField.returnKeyType = .done
         contentView.addSubview(textField)
         
         setupConstraints()
@@ -64,4 +66,13 @@ class SportsDetailInputCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+extension SportsDetailInputCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        print("Hit enter")
+        // TODO: backend integration - POST textField.text as Comment.
+        return true
+    }
 }

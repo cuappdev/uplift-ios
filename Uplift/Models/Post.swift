@@ -23,20 +23,6 @@ struct Post: Codable {
     let players: [User]
     let gameStatus: String
     
-    func getTime() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm a"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
-        return formatter.string(from: time)
-    }
-    
-    func getDay() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd"
-        return formatter.string(from: time)
-    }
-    
     func getPlayersListString() -> String {
         return players.reduce("", { (result: String, p: User) -> String in
             return result + p.name + "\n"
