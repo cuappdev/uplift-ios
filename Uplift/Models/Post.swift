@@ -11,13 +11,12 @@ import Foundation
 struct Post: Codable {
     let comment: [Comment]
     let createdAt: Date
+    let gameStatus: String
     let id: Int
-    let userId: Int
-    
-    let title: String
-    let time: String
-    let type: String
     let location: String
     let players: Int
-    let gameStatus: String
+    let time: String
+    let title: String
+    let type: String
+    let userId: Int
 }

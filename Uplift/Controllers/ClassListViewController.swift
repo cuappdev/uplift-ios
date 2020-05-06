@@ -153,7 +153,7 @@ class ClassListViewController: UIViewController {
             self.classCollectionView.reloadData()
         }
     }
-    
+
     /// Set a new filter for the view controller
     func updateFilter(_ filter: FilterParameters) {
         self.currentFilterParams = filter

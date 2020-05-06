@@ -32,19 +32,19 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
     var startTimeSlider: RangeSeekSlider!
     var startTimeTitleLabel: UILabel!
     var timeRanges: [Date] = []
-    
+
     var endTime = "10:00PM"
     var startTime = "6:00AM"
-    
+
     var startTimeNumPlayersDivider: UIView!
     var numPlayersLabel: UILabel!
     var numPlayersSlider: RangeSeekSlider!
     var numPlayersTitleLabel: UILabel!
     var playerRanges: [Int] = []
-    
+
     var maxPlayers = 10
     var minPlayers = 2
-    
+
     var numPlayersSportsTypeDivider: UIView!
     var sportsTypeDropdownHeader: DropdownHeaderView!
     var sportsTypeDropdownFooter: DropdownFooterView!
@@ -117,6 +117,11 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         startTimeSlider.lineHeight = 6.0
         startTimeSlider.hideLabels = true
 
+        part2()
+    }
+
+    func part2() {
+
         startTimeSlider.colorBetweenHandles = .primaryYellow
         startTimeSlider.handleColor = .white
         startTimeSlider.handleBorderWidth = 1.0
@@ -127,11 +132,11 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         startTimeSlider.handleShadowRadius = 1.0
         startTimeSlider.tintColor = .gray01
         contentView.addSubview(startTimeSlider)
-        
+
         startTimeNumPlayersDivider = UIView()
         startTimeNumPlayersDivider.backgroundColor = .gray01
         contentView.addSubview(startTimeNumPlayersDivider)
-        
+
         numPlayersTitleLabel = UILabel()
         numPlayersTitleLabel.sizeToFit()
         numPlayersTitleLabel.font = ._12MontserratBold
@@ -207,7 +212,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         sportsTypeDropdownData.titles.sort()
         sportsTypeDropdownData.completed = true
         sportsTypeDropdown.reloadData()
-        
+
         setupConstraints()
         setupDropdownHeaderViews()
     }
@@ -283,7 +288,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         gymCollectionView.delegate = self
         gymCollectionView.dataSource = self
-        gymCollectionView.register(GymFilterCell.self, forCellWithReuseIdentifier: GymFilterCell.identifier)
+        gymCollectionView.register(GymFilterCell.self, forCellWithReuseIdentifier: Identifiers.gymFilterCell)
         contentView.addSubview(gymCollectionView)
 
         gyms = []
@@ -334,13 +339,13 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.top.equalTo(startTimeLabel.snp.bottom).offset(12)
             make.height.equalTo(30)
         }
-        
+
         startTimeNumPlayersDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(90)
             make.bottom.equalTo(fitnessCenterStartTimeDivider.snp.bottom).offset(91)
         }
-        
+
         numPlayersTitleLabel.snp.remakeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.top.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(20)
@@ -359,7 +364,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.top.equalTo(numPlayersLabel.snp.bottom).offset(12)
             make.height.equalTo(30)
         }
-        
+
         numPlayersSportsTypeDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(startTimeNumPlayersDivider.snp.bottom).offset(90)
@@ -372,11 +377,11 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
-        
+
         sportsTypeDropdown.snp.remakeConstraints { make in
             make.top.equalTo(sportsTypeDropdownHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            
+
             if let dropStatus = sportsTypeDropdownData.dropStatus {
                 switch dropStatus {
                     case .up:
@@ -394,7 +399,7 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
         sportsTypeDropdownFooter.snp.remakeConstraints { make in
             make.top.equalTo(sportsTypeDropdown.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            
+
             if let dropStatus = sportsTypeDropdownData.dropStatus {
                 switch dropStatus {
                     case .up:
@@ -406,22 +411,22 @@ class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
                 make.height.equalTo(0)
             }
         }
-        
+
         sportsTypeBottomDivider.snp.remakeConstraints { make in
             make.width.centerX.equalToSuperview()
             make.top.equalTo(sportsTypeDropdownFooter.snp.bottom)
             make.bottom.equalTo(sportsTypeDropdownFooter).offset(1)
         }
-        
+
         updateTableFooterViews()
     }
-    
+
     func setupDropdownHeaderViews() {
         let toggleSports = UITapGestureRecognizer(target: self, action: #selector(self.dropSports(sender:) ))
         sportsTypeDropdownHeader.addGestureRecognizer(toggleSports)
         sportsTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedSports)
     }
-    
+
     func updateTableFooterViews() {
         sportsTypeDropdownFooter.showHideLabel.text = sportsTypeDropdownData.dropStatus == .half
             ? "Show All Sports"
@@ -562,7 +567,7 @@ extension SportsFilterViewController: UICollectionViewDelegateFlowLayout {
 // MARK: CollectionViewDataSource
 extension SportsFilterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymFilterCell.identifier, for: indexPath) as! GymFilterCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymFilterCell, for: indexPath) as! GymFilterCell
 
         cell.gymNameLabel.text = gyms[indexPath.row].name
         cell.gymNameLabel.sizeToFit()
@@ -643,4 +648,5 @@ extension SportsFilterViewController: UITableViewDelegate {
         return 32
     }
 }
+
 

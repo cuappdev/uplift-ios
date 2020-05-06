@@ -148,6 +148,9 @@
 		E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69CE6BA23F4B41000CA83BF /* Comment.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
+		E6C41C5924626304002EB402 /* SportsFilterGymCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C41C5824626304002EB402 /* SportsFilterGymCollectionViewCell.swift */; };
+		E6C41C5B24626547002EB402 /* SportsFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C41C5A24626547002EB402 /* SportsFilterCollectionViewCell.swift */; };
+		E6C41C5F2462848E002EB402 /* SportsFilterStartTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C41C5E2462848E002EB402 /* SportsFilterStartTimeCollectionViewCell.swift */; };
 		E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */; };
 		E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600E238127D900CB7FB3 /* DropdownView.swift */; };
 /* End PBXBuildFile section */
@@ -299,6 +302,9 @@
 		E69CE6BA23F4B41000CA83BF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
+		E6C41C5824626304002EB402 /* SportsFilterGymCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SportsFilterGymCollectionViewCell.swift; path = Uplift/SportsFilterGymCollectionViewCell.swift; sourceTree = "<group>"; };
+		E6C41C5A24626547002EB402 /* SportsFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SportsFilterCollectionViewCell.swift; path = Uplift/SportsFilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		E6C41C5E2462848E002EB402 /* SportsFilterStartTimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportsFilterStartTimeCollectionViewCell.swift; path = Uplift/SportsFilterStartTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		E6F3600D238127D900CB7FB3 /* DropdownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
 		E6F3600E238127D900CB7FB3 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -497,6 +503,9 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				E6C41C5E2462848E002EB402 /* SportsFilterStartTimeCollectionViewCell.swift */,
+				E6C41C5824626304002EB402 /* SportsFilterGymCollectionViewCell.swift */,
+				E6C41C5A24626547002EB402 /* SportsFilterCollectionViewCell.swift */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
@@ -884,6 +893,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Presentation/Presentation.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -902,6 +912,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Presentation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -925,6 +936,7 @@
 				4F27F6DB236F95C200C255D7 /* GymnasiumCollectionViewCell.swift in Sources */,
 				C22A326924032ECA003218A6 /* SportsFeedViewController.swift in Sources */,
 				C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */,
+				E6C41C5B24626547002EB402 /* SportsFilterCollectionViewCell.swift in Sources */,
 				C25CC31823981D6600221DC8 /* Facility.swift in Sources */,
 				C7EBD5A72062E60A00D76A8B /* ClassListViewController.swift in Sources */,
 				C26236F92290D397007C415D /* ClassDetailHeaderView.swift in Sources */,
@@ -969,6 +981,7 @@
 				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
 				E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */,
+				E6C41C5F2462848E002EB402 /* SportsFilterStartTimeCollectionViewCell.swift in Sources */,
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
@@ -1037,6 +1050,7 @@
 				7E2E2A85237BAE86008F600D /* HoursEmptyStateView.swift in Sources */,
 				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
 				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
+				E6C41C5924626304002EB402 /* SportsFilterGymCollectionViewCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
 				E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */,
 				039A322D2407283E0090ED50 /* Post.swift in Sources */,

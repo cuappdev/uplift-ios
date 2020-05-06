@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 class CalendarGenerator {
-    
+
     static let cal = Calendar.current
-    
+
     static let calendarCellIdentifier = "calendarCellIdentifier"
     static let classListHeaderViewIdentifier = "classListHeaderViewIdentifier"
     static let daysOfWeek = ["Su", "M", "T", "W", "Th", "F", "Sa"]
-    
+
     /// Get a list of dates starting from 3 days before today and ending 6 days after today
     static func getCalendarDates() -> [Date] {
         let cal = Calendar.current
@@ -33,7 +33,7 @@ class CalendarGenerator {
 
         return dateList
     }
-    
+
     /// Get flow layout for calendar collection view.
     static func getCalendarFlowLayout() -> UICollectionViewFlowLayout {
         let calendarFlowLayout = UICollectionViewFlowLayout()
@@ -43,7 +43,7 @@ class CalendarGenerator {
         calendarFlowLayout.sectionInset = .init(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
         return calendarFlowLayout
     }
-    
+
     /// Get cell calendar collection view.
     static func getCalendarCell(_ collectionView: UICollectionView, indexPath: IndexPath, calendarDatesList: [Date], currDate: Date, calendarDateSelected: Date) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarGenerator.calendarCellIdentifier, for: indexPath) as! CalendarCell

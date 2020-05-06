@@ -281,7 +281,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         gymCollectionView.delegate = self
         gymCollectionView.dataSource = self
-        gymCollectionView.register(GymFilterCell.self, forCellWithReuseIdentifier: GymFilterCell.identifier)
+        gymCollectionView.register(GymFilterCell.self, forCellWithReuseIdentifier: Identifiers.gymFilterCell)
         contentView.addSubview(gymCollectionView)
 
         gyms = []
@@ -345,7 +345,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
-        
+
         classTypeDropdown.snp.remakeConstraints { make in
             make.top.equalTo(classTypeDropdownHeader.snp.bottom)
             make.leading.trailing.equalToSuperview()
@@ -655,7 +655,7 @@ extension FilterViewController: UICollectionViewDelegateFlowLayout {
 // MARK: CollectionViewDataSource
 extension FilterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymFilterCell.identifier, for: indexPath) as! GymFilterCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymFilterCell, for: indexPath) as! GymFilterCell
 
         cell.gymNameLabel.text = gyms[indexPath.row].name
         cell.gymNameLabel.sizeToFit()
