@@ -168,11 +168,11 @@ class PickupGameCell: UICollectionViewCell {
         }
 
         // Configure views.
-        dayLabel.text = post.getDay()
+        dayLabel.text = Date.getTimeStringWithWeekday(time: post.time)
         titleLabel.text = post.title
-        detailLabel.text = "\(post.type) · \(post.getTime())"
+        detailLabel.text = "\(post.type) · \(Date.getTimeStringFromDate(time: post.time))"
         locationLabel.text = post.location
-        playersLabel.text = "\(post.players)/\(Post.maxPlayers)"
+        playersLabel.text = "\(post.players.count)/\(Post.maxPlayers)"
 
         statusButton.setTitle(status.rawValue, for: .normal)
         statusButton.backgroundColor = status == .open ? .clear : .primaryYellow

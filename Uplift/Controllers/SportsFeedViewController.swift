@@ -55,12 +55,26 @@ class SportsFeedViewController: UIViewController {
             self.showProfileView()
         }
         view.addSubview(headerView)
-
-        // Fill with dummy data for now.
+        
+        // TODO: Get rid of dummy data. This is temporary for testing purposes.
+        let userZain = User(id: 0, name: "Zain Khoja", netId: "netId00", givenName: "Zain", familyName: "Khoja", email: "zk@uplift.com")
+        let userYiHsin = User(id: 1, name: "Yi Hsin Wei", netId: "netId01", givenName: "Yi Hsin", familyName: "Wei", email: "ysw@uplift.com")
+        let userWill = User(id: 2, name: "Will Bai", netId: "netId02", givenName: "Will", familyName: "Bai", email: "wb@uplift.com")
+        let userAmanda = User(id: 3, name: "Amanda He", netId: "netId03", givenName: "Amanda", familyName: "He", email: "ah@uplift.com")
+        let userYanlam = User(id: 4, name: "Yanlam Ko", netId: "netId04", givenName: "Yanlam", familyName: "Ko", email: "yk@uplift.com")
+        let userCameron = User(id: 5, name: "Cameron Hamidi", netId: "netId05", givenName: "Cameron", familyName: "Hamidi", email: "ch@uplift.com")
+        
+        let comment1 = Comment(createdAt: Date(timeIntervalSince1970: 789), id: 0, postId: 0, text: "Hello World", userId: 1)
+        let comment2 = Comment(createdAt: Date(timeIntervalSinceNow: -10), id: 1, postId: 1, text: "Hey, I have a meeting at 2PM. Can we push the game to 5?", userId: 2)
+        let comment3 = Comment(createdAt: Date(), id: 2, postId: 2, text: "laksdjf;lkajsd;flkajsd;lfkajsd;lfkjasd;lkfjads;lkfjal;sdkjfa;lsdkfja;lsdkfja;lsdkjfa;lsdkjf;laksdjfal;ksdjf;laskdjf;laksdjfl;askdjfa;lskdjfl;askdjfl;askdjf;laksdjf;lkajdl;fkajs;dkfja;sdklfja;lsdkjf;laksdjf;laksdjf;laksdjfl;kadjf;lakdsjfl;akjsdf;lkajd;lkfjal;dkjf", userId: 3)
+        let comment4 = Comment(createdAt: Date(), id: 3, postId: 2, text: "Some string", userId: 3)
+        
+        let players = [userZain, userYiHsin, userWill, userAmanda, userYanlam, userCameron]
+        
         posts = [[], [], [], [
-            Post(comment: [], createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: Date(), type: "Basketball", location: "Noyes Recreation Center", players: 10, gameStatus: "JOINED"),
-            Post(comment: [], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: Date(), type: "Soccer", location: "Zain's Backyard", players: 2, gameStatus: "CREATED"),
-            Post(comment: [], createdAt: Date(), id: 2, userId: 0, title: "Open Game with Zain", time: Date(), type: "Tennis", location: "Zain's Tennis Court", players: 0, gameStatus: "OPEN")
+            Post(comment: [comment1], createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: Date(), type: "Basketball", location: "Noyes Recreation Center", players: [userZain, userYiHsin, userWill], gameStatus: "JOINED"),
+            Post(comment: [comment2], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: Date(), type: "Soccer", location: "Zain's Backyard", players: [userZain, userCameron], gameStatus: "CREATED"),
+            Post(comment: [comment3, comment4], createdAt: Date(), id: 2, userId: 1, title: "Open Game with Yi Hsin", time: Date(), type: "Tennis", location: "Zain's Tennis Court", players: [userZain, userYiHsin, userWill, userAmanda, userYanlam, userWill], gameStatus: "OPEN")
         ], [], [], [], [], [], []]
 
         let calendarFlowLayout = CalendarGenerator.getCalendarFlowLayout()
