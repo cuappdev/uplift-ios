@@ -11,9 +11,9 @@ import UIKit
 class SportsDetailInfoCollectionViewCell: UICollectionViewCell {
     
     private let dateLabel = UILabel()
-    private let timeLabel = UILabel()
-    private let joinButton = UIButton()
     private let dividerView = UIView()
+    private let joinButton = UIButton()
+    private let timeLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -10,11 +10,11 @@ import UIKit
 
 class SportsDetailCommentCollectionViewCell: UICollectionViewCell {
     
-    private var bubbleView = UIView()
-    private var commentLabel = UILabel()
-    private var nameLabel = UILabel()
-    private var profileImage = UIImageView()
-    private var timeLabel = UILabel()
+    private let bubbleView = UIView()
+    private let commentLabel = UILabel()
+    private let nameLabel = UILabel()
+    private let profileImage = UIImageView()
+    private let timeLabel = UILabel()
     
     // Keep public to allow SportsDetailViewController to use same constraints for calculating cell height.
     public struct Constraints {

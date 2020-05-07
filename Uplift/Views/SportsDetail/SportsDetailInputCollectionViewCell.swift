@@ -71,7 +71,6 @@ class SportsDetailInputCollectionViewCell: UICollectionViewCell {
 extension SportsDetailInputCollectionViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        print("Hit enter")
         // TODO: backend integration - POST textField.text as Comment.
         return true
     }

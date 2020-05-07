@@ -109,10 +109,10 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
             let currentHeight = previewString.height(withConstrainedWidth: constraintedWidth, font: ._14MontserratLight ?? UIFont.systemFont(ofSize: 14))
             if previewString == "" {
                 previewString += "\(playerName)"
-                count-=1
+                count -= 1
             } else if resultingHeight <= currentHeight {
                 previewString += ", \(playerName)"
-                count-=1
+                count -= 1
             } else {
                 return "\(previewString), +\(count) more"
             }

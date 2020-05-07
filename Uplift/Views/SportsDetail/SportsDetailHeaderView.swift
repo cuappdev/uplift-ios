@@ -16,10 +16,10 @@ class SportsDetailHeaderView: UICollectionReusableView {
     
     private let backButton = UIButton()
     private let imageView = UIImageView()
-    private let titleLabel = UILabel()
     private let locationLabel = UILabel()
-    private let typeLabel = UILabel()
     private let nameLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let typeLabel = UILabel()
     
     private weak var delegate: SportsDetailHeaderViewDelegate?
     
@@ -30,7 +30,7 @@ class SportsDetailHeaderView: UICollectionReusableView {
         setupConstraints()
     }
     
-    func configure(for delegate: SportsDetailHeaderViewDelegate, for post: Post) {
+    func configure(delegate: SportsDetailHeaderViewDelegate, post: Post) {
         self.delegate = delegate
         
         titleLabel.text = post.title.uppercased()

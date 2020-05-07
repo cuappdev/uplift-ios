@@ -24,9 +24,9 @@ class SportsDetailViewController: UIViewController {
         case input
     }
     
+    private var dropStatus: DropdownStatus = .closed
     private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: Date(), type: "", location: "", players: [], gameStatus: GameStatus.open.rawValue)
     private var section: Section = Section(items: [.info, .players([]), .discussion])
-    private var dropStatus: DropdownStatus = .closed
     
     init(post: Post) {
         super.init(nibName: nil, bundle: nil)
@@ -101,6 +101,7 @@ extension SportsDetailViewController: SportsDetailHeaderViewDelegate {
 }
 
 extension SportsDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.section.items.count
     }
@@ -110,7 +111,7 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Identifiers.sportsDetailHeaderView,
             for: indexPath) as! SportsDetailHeaderView
-        headerView.configure(for: self, for: post)
+        headerView.configure(delegate: self, post: post)
         return headerView
     }
     
