@@ -95,6 +95,10 @@ class DropdownHeaderView: UIView {
            }
     }
     
+    func setTitle(title: String) {
+        titleLabel.text = title
+    }
+    
     func updateDropdownHeader(selectedFilters: [String]) {
         self.filtersApplied = !selectedFilters.isEmpty
         self.selectedFilters = selectedFilters
