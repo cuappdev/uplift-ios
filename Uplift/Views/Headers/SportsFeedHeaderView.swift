@@ -10,6 +10,8 @@ import SnapKit
 import UIKit
 
 class SportsFeedHeaderView: UIView {
+    
+    weak var delegate: SportsFormDelegate?
 
     private let addButton = UIButton()
     private let profilePicButton = UIButton()
@@ -35,9 +37,14 @@ class SportsFeedHeaderView: UIView {
         addSubview(titleLabel)
 
         addButton.setImage(UIImage(named: ImageNames.addSports), for: .normal)
+        addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         addSubview(addButton)
 
         setupConstraints()
+    }
+    
+    @objc func addButtonTapped() {
+        delegate?.showSportsFormViewController()
     }
 
     required init?(coder aDecoder: NSCoder) {
