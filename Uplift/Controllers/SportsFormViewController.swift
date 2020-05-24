@@ -105,7 +105,7 @@ class SportsFormViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(SportsFormNameCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormNameIdentifier)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: sportsFormTimeIdentifier)
+        collectionView.register(SportsFormTimeCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormTimeIdentifier)
         collectionView.register(SportsFormBubbleCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormSportIdentifier)
         collectionView.register(SportsFormBubbleCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormLocationIdentifier)
         collectionView.register(SportsFormPlayersCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormPlayersIdentifier)
@@ -171,7 +171,7 @@ extension SportsFormViewController: UICollectionViewDataSource, UICollectionView
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormNameIdentifier, for: indexPath) as! SportsFormNameCollectionViewCell
             return cell
         case .time:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormTimeIdentifier, for: indexPath) as! UICollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormTimeIdentifier, for: indexPath) as! SportsFormTimeCollectionViewCell
             return cell
         case .sport(let s):
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormSportIdentifier, for: indexPath) as! SportsFormBubbleCollectionViewCell
