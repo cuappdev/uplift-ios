@@ -11,6 +11,39 @@ import Foundation
 extension Date {
     static let secondsPerDay = 86400.0
     
+    /// Format: "Today, April 10th 2020"
+    static public func getLongDateStringFromDate(date: Date) -> String {
+        let weekdayFormatter = DateFormatter()
+        weekdayFormatter.dateFormat = "E"
+        
+        let monthDayFormatter = DateFormatter()
+        monthDayFormatter.dateFormat = "MMM d"
+        
+        let yearFormatter = DateFormatter()
+        yearFormatter.dateFormat = "yyyy"
+        
+        var dayPostfix = "th"
+        switch Calendar.current.component(.day, from: date) {
+            case 1:
+                dayPostfix = "st"
+            case 2:
+                dayPostfix = "nd"
+            case 3:
+                dayPostfix = "rd"
+            default:
+                dayPostfix = "th"
+        }
+        
+        if date.isToday() {
+            return "Today, \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
+        } else if date.isYesterday() {
+            return "Yesterday, \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
+        } else {
+            return "\(weekdayFormatter.string(from: date)), \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
+        }
+    }
+    
+    /// Format: "6:00 PM"
     static public func getTimeStringFromDate(time: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
@@ -203,7 +236,7 @@ extension Date {
     }
 
     func isToday() -> Bool {
-        return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: Date())
+        return Calendar.current.dateComponents([.day, .month, .year], from: self) == Calendar.current.dateComponents([.day, .month, .year], from: Date())
     }
 
     // MARK: - String

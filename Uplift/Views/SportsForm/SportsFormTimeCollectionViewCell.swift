@@ -14,10 +14,10 @@ class SportsFormTimeCollectionViewCell: UICollectionViewCell {
     private let divider = UIView()
     
     private let datePicker = UIDatePicker()
-    private let dateTextField = UITextField()
+    private let dateTextField = PaddedTextField()
     
     private let timePicker = UIDatePicker()
-    private let timeTextField = UITextField()
+    private let timeTextField = PaddedTextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +27,9 @@ class SportsFormTimeCollectionViewCell: UICollectionViewCell {
         atLabel.textColor = .primaryBlack
         contentView.addSubview(atLabel)
         
+        datePicker.backgroundColor = .white
         datePicker.datePickerMode = .date
+        datePicker.minimumDate = Date()
         datePicker.addTarget(self, action: #selector(dateChanged(datePicker:)), for: .valueChanged)
         
         dateTextField.font = ._16MontserratMedium
@@ -38,8 +40,11 @@ class SportsFormTimeCollectionViewCell: UICollectionViewCell {
         dateTextField.layer.cornerRadius = 10
         dateTextField.layer.masksToBounds = true
         dateTextField.inputView = datePicker
+        dateTextField.text = Date.getLongDateStringFromDate(date: Date())
+        dateTextField.tintColor = .clear
         contentView.addSubview(dateTextField)
         
+        timePicker.backgroundColor = .white
         timePicker.datePickerMode = .time
         timePicker.addTarget(self, action: #selector(timeChanged(datePicker:)), for: .valueChanged)
         
@@ -51,6 +56,9 @@ class SportsFormTimeCollectionViewCell: UICollectionViewCell {
         timeTextField.layer.cornerRadius = 10
         timeTextField.layer.masksToBounds = true
         timeTextField.inputView = timePicker
+        timeTextField.text = Date.getTimeStringFromDate(time: Date())
+        timeTextField.tintColor = .clear
+        timeTextField.textAlignment = .center
         contentView.addSubview(timeTextField)
         
         divider.backgroundColor = .gray01
@@ -60,11 +68,11 @@ class SportsFormTimeCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
-        
+        dateTextField.text = Date.getLongDateStringFromDate(date: datePicker.date)
     }
     
     @objc func timeChanged(datePicker: UIDatePicker) {
-        
+        timeTextField.text = Date.getTimeStringFromDate(time: datePicker.date)
     }
        
     func setupConstraints() {
