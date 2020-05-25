@@ -12,6 +12,16 @@ protocol SportsFormBubbleListDelegate: class {
     func didTapDropdownHeader(identifier: String)
 }
 
+class BubbleItem {
+    var title: String
+    var isSelected: Bool
+    
+    init(title: String, isSelected: Bool) {
+        self.title = title
+        self.isSelected = isSelected
+    }
+}
+
 class SportsFormViewController: UIViewController {
      
     private var cancelButton = UIButton()
@@ -28,8 +38,8 @@ class SportsFormViewController: UIViewController {
     private enum ItemType {
         case name
         case time
-        case sport([String])
-        case location([String])
+        case sport([BubbleItem])
+        case location([BubbleItem])
         case players
     }
     
@@ -37,8 +47,8 @@ class SportsFormViewController: UIViewController {
     private var locationDropStatus: DropdownStatus = .closed
     private var section: Section!
     
-    private var locations: [String]!
-    private var sports: [String]!
+    private var locations: [BubbleItem]!
+    private var sports: [BubbleItem]!
     
     private let sportsFormNameIdentifier = "sportsFormNameIdentifier"
     private let sportsFormTimeIdentifier = "sportsFormTimeIdentifier"
@@ -49,8 +59,17 @@ class SportsFormViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         // TODO: Load in sports and locations from backend.
-        sports = ["Badminton", "Baseball", "Flag Football", "Squash", "Tennis", "Other"]
-        locations = ["Helen Newman", "Libe Slope", "Noyes"]
+        sports = [
+            BubbleItem(title: "Badminton", isSelected: true),
+            BubbleItem(title: "Baseball", isSelected: false),
+            BubbleItem(title: "Tennis", isSelected: false),
+            BubbleItem(title: "Other", isSelected: false)
+        ]
+        locations = [
+            BubbleItem(title: "Helen Newman", isSelected: false),
+            BubbleItem(title: "Noyes", isSelected: true),
+            BubbleItem(title: "Libe Slope", isSelected: false)
+        ]
         section = Section(items: [.name, .time, .sport(sports), .location(locations), .players])
     }
     
@@ -217,7 +236,7 @@ extension SportsFormViewController: UICollectionViewDataSource, UICollectionView
 extension SportsFormViewController {
     
     // Functions to calculate cell size.
-    func getDropdownListSize(list: [String]) -> CGSize {
+    func getDropdownListSize(list: [BubbleItem]) -> CGSize {
         let width = collectionView.frame.width
         let cellHeight = 30
         let headerHeight = 45
