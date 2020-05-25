@@ -62,13 +62,15 @@ class SportsFormViewController: UIViewController {
         sports = [
             BubbleItem(title: "Badminton", isSelected: true),
             BubbleItem(title: "Baseball", isSelected: false),
+            BubbleItem(title: "Hockey", isSelected: false),
             BubbleItem(title: "Tennis", isSelected: false),
-            BubbleItem(title: "Other", isSelected: false)
+            BubbleItem(title: "Other...", isSelected: false)
         ]
         locations = [
             BubbleItem(title: "Helen Newman", isSelected: false),
             BubbleItem(title: "Noyes", isSelected: true),
-            BubbleItem(title: "Libe Slope", isSelected: false)
+            BubbleItem(title: "Libe Slope", isSelected: false),
+            BubbleItem(title: "Other...", isSelected: false)
         ]
         section = Section(items: [.name, .time, .sport(sports), .location(locations), .players])
     }

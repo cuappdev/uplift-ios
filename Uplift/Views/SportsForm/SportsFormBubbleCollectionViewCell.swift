@@ -18,6 +18,7 @@ class SportsFormBubbleCollectionViewCell: UICollectionViewCell {
     private let tableView = UITableView(frame: .zero, style: .plain)
     
     private let sportsFormBubbleListItemIdentifier = "sportsFormBubbleListItemIdentifier"
+    private let sportsFormBubbleListInputIdentifier = "sportsFormBubbleListInputIdentifier"
     
     private var identifier: String = ""
     private var list: [BubbleItem] = []
@@ -32,6 +33,7 @@ class SportsFormBubbleCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(divider)
         
         tableView.register(SportsFormBubbleTableViewCell.self, forCellReuseIdentifier: sportsFormBubbleListItemIdentifier)
+        tableView.register(SportsFormBubbleInputTableViewCell.self, forCellReuseIdentifier: sportsFormBubbleListInputIdentifier)
         tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -87,6 +89,12 @@ extension SportsFormBubbleCollectionViewCell: UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == list.count - 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: sportsFormBubbleListInputIdentifier, for: indexPath) as! SportsFormBubbleInputTableViewCell
+            let item = list[indexPath.row]
+            cell.configure(for: item)
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: sportsFormBubbleListItemIdentifier, for: indexPath) as! SportsFormBubbleTableViewCell
         let item = list[indexPath.row]
         cell.configure(for: item)

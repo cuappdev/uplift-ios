@@ -25,6 +25,7 @@
 		03B92038247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B92037247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift */; };
 		03B9203A247B381E000E0F17 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B92039247B381E000E0F17 /* PaddedTextField.swift */; };
 		03B9203C247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B9203B247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift */; };
+		03B9203E247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B9203D247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift */; };
 		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
 		03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C8013724106893009845E7 /* CalendarGenerator.swift */; };
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
@@ -191,6 +192,7 @@
 		03B92037247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormPlayersCollectionViewCell.swift; sourceTree = "<group>"; };
 		03B92039247B381E000E0F17 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		03B9203B247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormBubbleTableViewCell.swift; sourceTree = "<group>"; };
+		03B9203D247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormBubbleInputTableViewCell.swift; sourceTree = "<group>"; };
 		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
 		03C8013724106893009845E7 /* CalendarGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGenerator.swift; sourceTree = "<group>"; };
 		047ECBBE65B2C216C70CB963 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				03B92035247B18A3000E0F17 /* SportsFormBubbleCollectionViewCell.swift */,
 				03B92037247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift */,
 				03B9203B247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift */,
+				03B9203D247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift */,
 			);
 			path = SportsForm;
 			sourceTree = "<group>";
@@ -1066,6 +1069,7 @@
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
 				E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */,
+				03B9203E247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */,
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */,
