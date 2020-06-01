@@ -12,22 +12,17 @@ protocol SportsFormBubbleListDelegate: class {
     func didTapDropdownHeader(identifier: String)
 }
 
-class BubbleItem {
+struct BubbleItem {
     var title: String
     var isSelected: Bool
-    
-    init(title: String, isSelected: Bool) {
-        self.title = title
-        self.isSelected = isSelected
-    }
 }
 
 class SportsFormViewController: UIViewController {
      
-    private var cancelButton = UIButton()
-    private var createButton = UIButton()
-    private var headerLabel = UILabel()
-    private var headerRect = UIView()
+    private let cancelButton = UIButton()
+    private let createButton = UIButton()
+    private let headerLabel = UILabel()
+    private let headerRect = UIView()
     
     private var collectionView: UICollectionView!
     
@@ -45,19 +40,12 @@ class SportsFormViewController: UIViewController {
     
     private var sportsDropStatus: DropdownStatus = .closed
     private var locationDropStatus: DropdownStatus = .closed
-    private var section: Section!
+    private var section: Section
     
-    private var locations: [BubbleItem]!
-    private var sports: [BubbleItem]!
-    
-    private let sportsFormNameIdentifier = "sportsFormNameIdentifier"
-    private let sportsFormTimeIdentifier = "sportsFormTimeIdentifier"
-    private let sportsFormSportIdentifier = "sportsFormSportIdentifier"
-    private let sportsFormLocationIdentifier = "sportsFormLocationIdentifier"
-    private let sportsFormPlayersIdentifier = "sportsFormPlayersIdentifier"
+    private var locations: [BubbleItem] = []
+    private var sports: [BubbleItem] = []
     
     init() {
-        super.init(nibName: nil, bundle: nil)
         // TODO: Load in sports and locations from backend.
         sports = [
             BubbleItem(title: "Badminton", isSelected: true),
@@ -73,6 +61,7 @@ class SportsFormViewController: UIViewController {
             BubbleItem(title: "Other...", isSelected: false)
         ]
         section = Section(items: [.name, .time, .sport(sports), .location(locations), .players])
+        super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
@@ -82,11 +71,6 @@ class SportsFormViewController: UIViewController {
         
         setupViews()
         setupConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-//        title = "Create a Game"
-//        navigationController?.isNavigationBarHidden = false
     }
     
     @objc func back() {
@@ -99,22 +83,21 @@ class SportsFormViewController: UIViewController {
     }
     
     func setupViews() {
-        
         headerRect.backgroundColor = .gray01
         view.addSubview(headerRect)
         
         headerLabel.font = ._14MontserratBold
         headerLabel.textColor = .primaryBlack
-        headerLabel.text = "Create a Game"
+        headerLabel.text = ClientStrings.SportsForm.headerTitle
         view.addSubview(headerLabel)
         
-        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.setTitle(ClientStrings.SportsForm.cancelButton, for: .normal)
         cancelButton.titleLabel?.font = ._14MontserratMedium
         cancelButton.setTitleColor(.primaryBlack, for: .normal)
         cancelButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         view.addSubview(cancelButton)
         
-        createButton.setTitle("Create", for: .normal)
+        createButton.setTitle(ClientStrings.SportsForm.createButton, for: .normal)
         createButton.titleLabel?.font = ._14MontserratMedium
         createButton.setTitleColor(.primaryBlack, for: .normal)
         createButton.addTarget(self, action: #selector(create), for: .touchUpInside)
@@ -125,11 +108,11 @@ class SportsFormViewController: UIViewController {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(SportsFormNameCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormNameIdentifier)
-        collectionView.register(SportsFormTimeCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormTimeIdentifier)
-        collectionView.register(SportsFormBubbleCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormSportIdentifier)
-        collectionView.register(SportsFormBubbleCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormLocationIdentifier)
-        collectionView.register(SportsFormPlayersCollectionViewCell.self, forCellWithReuseIdentifier: sportsFormPlayersIdentifier)
+        collectionView.register(SportsFormNameCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsFormNameCell)
+        collectionView.register(SportsFormTimeCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsFormTimeCell)
+        collectionView.register(SportsFormBubbleCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsFormSportCell)
+        collectionView.register(SportsFormBubbleCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsFormLocationCell)
+        collectionView.register(SportsFormPlayersCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsFormPlayersCell)
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -189,23 +172,23 @@ extension SportsFormViewController: UICollectionViewDataSource, UICollectionView
         let itemType = section.items[indexPath.item]
         switch itemType {
         case .name:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormNameIdentifier, for: indexPath) as! SportsFormNameCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsFormNameCell, for: indexPath) as! SportsFormNameCollectionViewCell
             return cell
         case .time:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormTimeIdentifier, for: indexPath) as! SportsFormTimeCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsFormTimeCell, for: indexPath) as! SportsFormTimeCollectionViewCell
             return cell
         case .sport(let s):
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormSportIdentifier, for: indexPath) as! SportsFormBubbleCollectionViewCell
-            cell.configure(for: "SPORT", list: s, dropdownStatus: sportsDropStatus, identifier: sportsFormSportIdentifier)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsFormSportCell, for: indexPath) as! SportsFormBubbleCollectionViewCell
+            cell.configure(for: ClientStrings.SportsForm.sportsSectionTitle, list: s, dropdownStatus: sportsDropStatus, identifier: Identifiers.sportsFormSportCell)
             cell.delegate = self
             return cell
         case .location(let l):
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormLocationIdentifier, for: indexPath) as! SportsFormBubbleCollectionViewCell
-            cell.configure(for: "LOCATION", list: l, dropdownStatus: locationDropStatus, identifier: sportsFormLocationIdentifier)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsFormLocationCell, for: indexPath) as! SportsFormBubbleCollectionViewCell
+            cell.configure(for: ClientStrings.SportsForm.locationSectionTitle, list: l, dropdownStatus: locationDropStatus, identifier: Identifiers.sportsFormLocationCell)
             cell.delegate = self
             return cell
         case .players:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportsFormPlayersIdentifier, for: indexPath) as! SportsFormPlayersCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsFormPlayersCell, for: indexPath) as! SportsFormPlayersCollectionViewCell
             return cell
         }
     }
@@ -225,9 +208,13 @@ extension SportsFormViewController: UICollectionViewDataSource, UICollectionView
         case .time:
             return CGSize(width: width, height: 72)
         case .sport(let s):
-            return sportsDropStatus == .open ? getDropdownListSize(list: s) : CGSize(width: width, height: dropdownHeaderHeight)
+            return sportsDropStatus == .open
+                ? getDropdownListSize(list: s)
+                : CGSize(width: width, height: dropdownHeaderHeight)
         case .location(let l):
-            return locationDropStatus == .open ? getDropdownListSize(list: l) : CGSize(width: width, height: dropdownHeaderHeight)
+            return locationDropStatus == .open
+                ? getDropdownListSize(list: l)
+                : CGSize(width: width, height: dropdownHeaderHeight)
         case .players:
             return CGSize(width: width, height: 156)
         }
@@ -253,9 +240,9 @@ extension SportsFormViewController {
 extension SportsFormViewController: SportsFormBubbleListDelegate {
     
     func didTapDropdownHeader(identifier: String) {
-        if identifier == sportsFormSportIdentifier {
+        if identifier == Identifiers.sportsFormSportCell {
             sportsDropStatus = sportsDropStatus == .closed ? .open : .closed
-        } else if identifier == sportsFormLocationIdentifier {
+        } else if identifier == Identifiers.sportsFormLocationCell {
             locationDropStatus = locationDropStatus == .closed ? .open : .closed
         }
         collectionView.reloadData()

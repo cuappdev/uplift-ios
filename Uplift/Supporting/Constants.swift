@@ -79,6 +79,14 @@ struct Identifiers {
     static let sportsDetailInfoCell = "sportsDetailInfoCell"
     static let sportsDetailInputCell = "sportsDetailInputCell"
     static let sportsDetailPlayersCell = "sportsDetailPlayersCell"
+    static let sportsFormNameCell = "sportsFormNameCell"
+    static let sportsFormTimeCell = "sportsFormTimeCell"
+    static let sportsFormSportCell = "sportsFormSportCell"
+    static let sportsFormLocationCell = "sportsFormLocationCell"
+    static let sportsFormPlayersCell = "sportsFormPlayersCell"
+    static let sportsFormBubbleListItemCell = "sportsFormBubbleListItemCell"
+    static let sportsFormBubbleListInputCell = "sportsFormBubbleListInputCell"
+    
 
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
