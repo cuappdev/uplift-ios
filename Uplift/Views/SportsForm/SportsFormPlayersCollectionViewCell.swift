@@ -17,6 +17,13 @@ class SportsFormPlayersCollectionViewCell: UICollectionViewCell {
     private let totalPlayersLabel = UILabel()
     private let totalPlayersTextField = UITextField()
     
+    private let maxPlayersPicker = UIPickerView()
+    private let minPlayersPicker = UIPickerView()
+    
+    private var selectedMaxPlayers = Post.minPlayers
+    private var selectedMinPlayers = Post.maxPlayers
+    private var minPlayersList = Array(Post.minPlayers...Post.maxPlayers)
+    private var maxPlayersList = Array(Post.minPlayers...Post.maxPlayers)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +35,7 @@ class SportsFormPlayersCollectionViewCell: UICollectionViewCell {
         
         totalPlayersTextField.font = ._14MontserratMedium
         totalPlayersTextField.textColor = .primaryBlack
-        totalPlayersTextField.placeholder = "10"
+        totalPlayersTextField.placeholder = String(selectedMaxPlayers)
         totalPlayersTextField.delegate = self
         totalPlayersTextField.returnKeyType = .done
         totalPlayersTextField.keyboardType = .numberPad
@@ -37,6 +44,7 @@ class SportsFormPlayersCollectionViewCell: UICollectionViewCell {
         totalPlayersTextField.layer.cornerRadius = 5
         totalPlayersTextField.layer.masksToBounds = true
         totalPlayersTextField.textAlignment = .center
+        totalPlayersTextField.tintColor = .clear
         contentView.addSubview(totalPlayersTextField)
         
         totalPlayersLabel.font = ._14MontserratRegular
@@ -46,7 +54,7 @@ class SportsFormPlayersCollectionViewCell: UICollectionViewCell {
         
         playersNeededTextField.font = ._14MontserratMedium
         playersNeededTextField.textColor = .primaryBlack
-        playersNeededTextField.placeholder = "2"
+        playersNeededTextField.placeholder = String(selectedMinPlayers)
         playersNeededTextField.delegate = self
         playersNeededTextField.returnKeyType = .done
         playersNeededTextField.keyboardType = .numberPad
@@ -55,6 +63,7 @@ class SportsFormPlayersCollectionViewCell: UICollectionViewCell {
         playersNeededTextField.layer.cornerRadius = 5
         playersNeededTextField.layer.masksToBounds = true
         playersNeededTextField.textAlignment = .center
+        playersNeededTextField.tintColor = .clear
         contentView.addSubview(playersNeededTextField)
         
         playersNeededLabel.font = ._14MontserratRegular
@@ -65,11 +74,19 @@ class SportsFormPlayersCollectionViewCell: UICollectionViewCell {
         divider.backgroundColor = .gray01
         contentView.addSubview(divider)
         
+        maxPlayersPicker.delegate = self
+        maxPlayersPicker.backgroundColor = .white
+        
+        minPlayersPicker.delegate = self
+        minPlayersPicker.backgroundColor = .white
+        
+        totalPlayersTextField.inputView = maxPlayersPicker
+        playersNeededTextField.inputView = minPlayersPicker
+        
         setupConstraints()
     }
     
     func setupConstraints() {
-        
         let contentInteritemHorizontalPadding = 12
         let contentInteritemVerticalPadding = 14
         let contentHorizontalPadding = 24
@@ -130,4 +147,43 @@ extension SportsFormPlayersCollectionViewCell: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+extension SportsFormPlayersCollectionViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == maxPlayersPicker {
+            return maxPlayersList.count
+        } else if pickerView == minPlayersPicker {
+            return minPlayersList.count
+        } else {
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == maxPlayersPicker {
+            return String(maxPlayersList[row])
+        } else if pickerView == minPlayersPicker {
+            return String(minPlayersList[row])
+        } else {
+            return ""
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == maxPlayersPicker {
+            selectedMaxPlayers = maxPlayersList[row]
+            totalPlayersTextField.text = String(selectedMaxPlayers)
+            minPlayersList = Array(Post.minPlayers...selectedMaxPlayers)
+        } else if pickerView == minPlayersPicker {
+            selectedMinPlayers = minPlayersList[row]
+            playersNeededTextField.text = String(selectedMinPlayers)
+            maxPlayersList = Array(selectedMinPlayers...Post.maxPlayers)
+        }
+    }
+    
 }
