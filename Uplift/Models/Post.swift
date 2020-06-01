@@ -9,6 +9,7 @@
 import Foundation
 
 struct Post: Codable {
+    static let minPlayers = 2
     static let maxPlayers = 10
 
     let comment: [Comment]

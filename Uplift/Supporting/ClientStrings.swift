@@ -131,6 +131,14 @@ struct ClientStrings {
         static let discussionSection = "DISCUSSION"
         static let players = "PLAYERS"
     }
+    
+    struct SportsForm {
+        static let headerTitle = "Create a Game"
+        static let cancelButton = "Cancel"
+        static let createButton = "Create"
+        static let sportsSectionTitle = "SPORT"
+        static let locationSectionTitle = "LOCATION"
+    }
 
     struct TabBar {
         static let classesSection = "Classes"

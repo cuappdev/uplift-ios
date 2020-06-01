@@ -14,6 +14,10 @@ protocol GameStatusDelegate: class {
     func didChangeStatus(id: Int, status: GameStatus)
 }
 
+protocol SportsFormDelegate: class {
+    func showSportsFormViewController()
+}
+
 class SportsFeedViewController: UIViewController {
 
     // MARK: - Views
@@ -46,6 +50,7 @@ class SportsFeedViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
 
+        headerView.delegate = self
         headerView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         headerView.layer.shadowOpacity = 0.4
         headerView.layer.shadowRadius = 10.0
@@ -222,4 +227,13 @@ extension SportsFeedViewController: SideMenuNavigationControllerDelegate {
         tintOverlay.isHidden = true
     }
 
+}
+
+extension SportsFeedViewController: SportsFormDelegate {
+    
+    func showSportsFormViewController() {
+        let sportsFormVC = SportsFormViewController()
+        tabBarController?.present(sportsFormVC, animated: true, completion: nil)
+    }
+    
 }

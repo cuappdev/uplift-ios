@@ -18,6 +18,14 @@
 		0376A96F24553A4B00B44B22 /* SportsDetailInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376A96E24553A4B00B44B22 /* SportsDetailInputTextField.swift */; };
 		039A322D2407283E0090ED50 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A322C2407283E0090ED50 /* Post.swift */; };
 		039A3231240749A30090ED50 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039A3230240749A30090ED50 /* GameStatus.swift */; };
+		03B9202F247A0D4C000E0F17 /* SportsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B9202E247A0D4C000E0F17 /* SportsFormViewController.swift */; };
+		03B92032247B1872000E0F17 /* SportsFormNameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B92031247B1872000E0F17 /* SportsFormNameCollectionViewCell.swift */; };
+		03B92034247B1881000E0F17 /* SportsFormTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B92033247B1881000E0F17 /* SportsFormTimeCollectionViewCell.swift */; };
+		03B92036247B18A3000E0F17 /* SportsFormBubbleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B92035247B18A3000E0F17 /* SportsFormBubbleCollectionViewCell.swift */; };
+		03B92038247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B92037247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift */; };
+		03B9203A247B381E000E0F17 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B92039247B381E000E0F17 /* PaddedTextField.swift */; };
+		03B9203C247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B9203B247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift */; };
+		03B9203E247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B9203D247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift */; };
 		03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C801352410628D009845E7 /* SportsDetailViewController.swift */; };
 		03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C8013724106893009845E7 /* CalendarGenerator.swift */; };
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
@@ -177,6 +185,14 @@
 		0376A96E24553A4B00B44B22 /* SportsDetailInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailInputTextField.swift; sourceTree = "<group>"; };
 		039A322C2407283E0090ED50 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		039A3230240749A30090ED50 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		03B9202E247A0D4C000E0F17 /* SportsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormViewController.swift; sourceTree = "<group>"; };
+		03B92031247B1872000E0F17 /* SportsFormNameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormNameCollectionViewCell.swift; sourceTree = "<group>"; };
+		03B92033247B1881000E0F17 /* SportsFormTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormTimeCollectionViewCell.swift; sourceTree = "<group>"; };
+		03B92035247B18A3000E0F17 /* SportsFormBubbleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormBubbleCollectionViewCell.swift; sourceTree = "<group>"; };
+		03B92037247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormPlayersCollectionViewCell.swift; sourceTree = "<group>"; };
+		03B92039247B381E000E0F17 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		03B9203B247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormBubbleTableViewCell.swift; sourceTree = "<group>"; };
+		03B9203D247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFormBubbleInputTableViewCell.swift; sourceTree = "<group>"; };
 		03C801352410628D009845E7 /* SportsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDetailViewController.swift; sourceTree = "<group>"; };
 		03C8013724106893009845E7 /* CalendarGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGenerator.swift; sourceTree = "<group>"; };
 		047ECBBE65B2C216C70CB963 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
@@ -355,12 +371,17 @@
 			path = SportsDetail;
 			sourceTree = "<group>";
 		};
-		1BFBFA9344F7D541280A8864 /* Frameworks */ = {
+		03B92030247B1827000E0F17 /* SportsForm */ = {
 			isa = PBXGroup;
 			children = (
-				309418FFDD9ED05A7B3E3671 /* Pods_Uplift.framework */,
+				03B92031247B1872000E0F17 /* SportsFormNameCollectionViewCell.swift */,
+				03B92033247B1881000E0F17 /* SportsFormTimeCollectionViewCell.swift */,
+				03B92035247B18A3000E0F17 /* SportsFormBubbleCollectionViewCell.swift */,
+				03B92037247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift */,
+				03B9203B247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift */,
+				03B9203D247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift */,
 			);
-			name = Frameworks;
+			path = SportsForm;
 			sourceTree = "<group>";
 		};
 		2239099827BA43E4F9300502 /* Pods */ = {
@@ -609,6 +630,7 @@
 				4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */,
 				E6DD25DB2447ABBB0023D259 /* ProfileViewController.swift */,
 				03C801352410628D009845E7 /* SportsDetailViewController.swift */,
+				03B9202E247A0D4C000E0F17 /* SportsFormViewController.swift */,
 				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
@@ -618,6 +640,7 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				03B92030247B1827000E0F17 /* SportsForm */,
 				0376A963244BD7F000B44B22 /* SportsDetail */,
 				C7EBD5A92062E64F00D76A8B /* Cells */,
 				C26236FA2290D696007C415D /* ClassDetail */,
@@ -636,6 +659,7 @@
 				E676F1282450DB87001DF8A8 /* Pickup Games */,
 				D95810A6216E95A500D4436C /* Range Slider */,
 				C26236F42290CF7B007C415D /* StretchyHeaderLayout.swift */,
+				03B92039247B381E000E0F17 /* PaddedTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1025,8 +1049,10 @@
 				C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				4F1A5A7A238D8511005987E4 /* OnboardingAnimations.swift in Sources */,
+				03B9203C247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift in Sources */,
 				1C1D283B2166E215003FE839 /* Keys.swift in Sources */,
 				C25CC31A23981F0A00221DC8 /* FacilityDropdown.swift in Sources */,
+				03B92034247B1881000E0F17 /* SportsFormTimeCollectionViewCell.swift in Sources */,
 				C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
 				0376A96B2455142900B44B22 /* SportsDetailCommentCollectionViewCell.swift in Sources */,
@@ -1043,11 +1069,13 @@
 				C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */,
 				8D03EE0F206C481A00EF83C7 /* GymListItemCell.swift in Sources */,
 				E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */,
+				03B9203E247B4242000E0F17 /* SportsFormBubbleInputTableViewCell.swift in Sources */,
 				8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */,
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */,
+				03B92038247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift in Sources */,
 				4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */,
 				03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
@@ -1057,6 +1085,7 @@
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8DB8D76B2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift in Sources */,
+				03B92032247B1872000E0F17 /* SportsFormNameCollectionViewCell.swift in Sources */,
 				C28801A222933BBC00EC48B7 /* TodaysClassListItemCell.swift in Sources */,
 				C25CC316239814F000221DC8 /* EquipmentListItemCell.swift in Sources */,
 				E607CE29238FC026002DC297 /* EquipmentListCell.swift in Sources */,
@@ -1067,6 +1096,7 @@
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				03B9202F247A0D4C000E0F17 /* SportsFormViewController.swift in Sources */,
 				C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */,
 				03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
@@ -1111,6 +1141,7 @@
 				4FC04781222EF69300165594 /* FavoriteCell.swift in Sources */,
 				8DD74F362242A2DA00CE1274 /* Habit.swift in Sources */,
 				E604DC1B233B1B18003598BC /* API.swift in Sources */,
+				03B9203A247B381E000E0F17 /* PaddedTextField.swift in Sources */,
 				4F20EDEB234AE46C000B26E8 /* GymWeekCell.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
 				7E2E2A85237BAE86008F600D /* HoursEmptyStateView.swift in Sources */,
@@ -1120,6 +1151,7 @@
 				E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */,
 				0376A962244BCEBE00B44B22 /* SportsDetailInfoCollectionViewCell.swift in Sources */,
 				039A322D2407283E0090ED50 /* Post.swift in Sources */,
+				03B92036247B18A3000E0F17 /* SportsFormBubbleCollectionViewCell.swift in Sources */,
 				8D5D586E2270AD7E00A996D7 /* NoHabitsCell.swift in Sources */,
 				E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */,
 			);
