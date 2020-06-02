@@ -10,15 +10,34 @@ import UIKit
 
 class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
 
+    static let height: CGFloat = 103
+
     private let startTimeTitleLabel = UILabel()
     private let startTimeLabel = UILabel()
     private let startTimeSlider = RangeSeekSlider(frame: .zero)
 
     var endTime = "10:00PM"
     var startTime = "6:00AM"
+    var timeFormatter = DateFormatter()
+    var timeRanges: [Date] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        let cal = Calendar.current
+        let currDate = Date()
+        let startDate = cal.date(bySettingHour: 6, minute: 0, second: 0, of: currDate)!
+        let endDate = cal.date(bySettingHour: 22, minute: 0, second: 0, of: currDate)!
+
+        var date = startDate
+
+        while date <= endDate {
+            timeRanges.append(date)
+            date = cal.date(byAdding: .minute, value: 15, to: date)!
+        }
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mma"
 
         startTimeTitleLabel.sizeToFit()
         startTimeTitleLabel.font = ._12MontserratBold
@@ -56,7 +75,7 @@ class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
 
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -90,5 +109,15 @@ class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
 }
 
 extension SportsFilterStartTimeCollectionViewCell: RangeSeekSliderDelegate {
+
+    func rangeSeekSlider(_ slider: RangeSeekSlider, didChange minValue: CGFloat, maxValue: CGFloat) {
+        let minValueIndex = Int(minValue / 15.0)
+        let maxValueIndex = Int(maxValue / 15.0)
+
+        let minDate = timeRanges[minValueIndex]
+        let maxDate = timeRanges[maxValueIndex]
+
+        startTimeLabel.text = "\(timeFormatter.string(from: minDate)) - \(timeFormatter.string(from: maxDate))"
+    }
 
 }

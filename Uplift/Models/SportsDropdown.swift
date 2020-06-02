@@ -1,5 +1,5 @@
 //
-//  Dropped.swift
+//  SportsDropdown.swift
 //  Uplift
 //
 //  Created by Artesia Ko on 4/11/20.
@@ -12,7 +12,7 @@ enum Dropped {
     case up, half, down
 }
 
-struct DropdownData {
+struct SportsDropdownData {
     var completed: Bool!
     var dropStatus: Dropped!
     var titles: [String]!

@@ -71,6 +71,10 @@ struct Identifiers {
     static let loadingCollectionViewCell = "loadingCollectionViewCell"
     static let lookingForCell = "lookingForCell"
     static let noHabitsCell = "noHabitsCell"
+    static let sportsFilterGymCell = "sportsFilterGymCell"
+    static let sportsFilterStartTimeCell = "sportsFilterStartTimeCell"
+    static let sportsFilterNumPlayersCell = "sportsFilterNumPlayersCell"
+    static let sportsFilterSportsDropdownCell = "sportsFilterSportsDropdownCell"
 
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"

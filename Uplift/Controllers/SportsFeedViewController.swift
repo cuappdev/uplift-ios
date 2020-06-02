@@ -43,14 +43,14 @@ protocol GameStatusDelegate: class {
 }
 
 class SportsFeedViewController: UIViewController {
-    
+
     private var calendarCollectionView: UICollectionView!
     private var collectionView: UICollectionView!
     private var filterButton: UIButton!
     private let headerView = SportsFeedHeaderView()
     
     private var currentFilterParams: SportsFilterParameters?
-    
+
     private var posts: [[Post]] = Array.init(repeating: [], count: 10)
     private let sportIdentifier = "sportIdentifier"
     
@@ -59,14 +59,14 @@ class SportsFeedViewController: UIViewController {
     lazy private var calendarDateSelected: Date = {
         return currDate
     }()
-    
+
     private var currDate: Date!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         currDate = calendarDatesList[3]
-        
+
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
 
@@ -79,13 +79,13 @@ class SportsFeedViewController: UIViewController {
         
         // Fill with dummy data for now.
         posts = [[], [], [], [
-            Post(comment: [], createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: "5:00 PM", type: "Basketball", location: "Noyes Recreation Center", players: 10, gameStatus: "JOINED"),
-            Post(comment: [], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: "7:00 PM", type: "Soccer", location: "Zain's Backyard", players: 2, gameStatus: "CREATED"),
-            Post(comment: [], createdAt: Date(), id: 2, userId: 0, title: "Open Game with Zain", time: "4:00 PM", type: "Tennis", location: "Zain's Tennis Court", players: 0, gameStatus: "OPEN")
+            Post(comment: [], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players:0, time: "5:00 PM", title: "Sports With Zain", type: "Basketball", userId: 10),
+            Post(comment: [], createdAt: Date(), gameStatus: "CREATED", id: 1, location: "Austin's Basement", players: 0, time: "7:00 PM", title: "Soccer", type: "Zain's Backyard", userId: 2),
+            Post(comment: [], createdAt: Date(), gameStatus: "OPEN", id: 2, location: "Zain's Tennis Court", players: 0, time: "4:00 PM", title: "Open Game with Zain", type: "Tennis", userId: 0)
         ], [], [], [], [], [], []]
-        
+
         let calendarFlowLayout = CalendarGenerator.getCalendarFlowLayout()
-        
+
         calendarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: calendarFlowLayout)
         calendarCollectionView.delegate = self
         calendarCollectionView.dataSource = self
@@ -94,12 +94,12 @@ class SportsFeedViewController: UIViewController {
         calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: CalendarGenerator.calendarCellIdentifier)
         calendarCollectionView.layer.zPosition = -1
         view.addSubview(calendarCollectionView)
-        
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12.0
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32.0, height: 100.0)
         layout.sectionInset = .init(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
-        
+
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
@@ -107,7 +107,7 @@ class SportsFeedViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(PickupGameCell.self, forCellWithReuseIdentifier: sportIdentifier)
         view.addSubview(collectionView)
-        
+
         filterButton = UIButton()
         filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
         filterButton.titleLabel?.font = ._14MontserratBold
@@ -121,7 +121,7 @@ class SportsFeedViewController: UIViewController {
         filterButton.layer.shadowOpacity = 1.0
         filterButton.layer.masksToBounds = false
         view.addSubview(filterButton)
-        
+
         setupConstraints()
         getSportsFor(date: calendarDateSelected)
     }
@@ -169,7 +169,7 @@ extension SportsFeedViewController: SportsFilterDelegate {
         let filterNavController = UINavigationController(rootViewController: filterVC)
         tabBarController?.present(filterNavController, animated: true, completion: nil)
     }
-    
+
     func filterOptions(params: SportsFilterParameters) {
     }
 }
@@ -178,9 +178,9 @@ extension SportsFeedViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionView {
             guard let indexOfSelectedDate = calendarDatesList.firstIndex(of: calendarDateSelected) else { return 0 }
-            
+
             let selectedDaysSports = posts[indexOfSelectedDate]
-            
+
             return selectedDaysSports.count
         }
         if collectionView == calendarCollectionView {

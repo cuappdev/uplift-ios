@@ -1,12 +1,13 @@
 //
 //  DropdownHeaderView.swift
-//  
+//  Uplift
 //
 //  Created by Cameron Hamidi on 11/15/19.
+//  Copyright © 2019 Uplift. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 protocol DropdownHeaderViewDelegate: class {
     func didTapHeaderView()

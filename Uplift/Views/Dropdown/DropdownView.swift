@@ -1,13 +1,14 @@
 //
 //  DropdownView.swift
-//
+//  Uplift
 //
 //  Created by Cameron Hamidi on 10/7/19.
+//  Copyright © 2019 Uplift. All rights reserved.
 //
 
 import Foundation
-import UIKit
 import SnapKit
+import UIKit
 
 enum DropdownStatus {
     case closed, half, open

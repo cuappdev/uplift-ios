@@ -17,10 +17,10 @@ enum SportsFilterSection {
 }
 
 class SportsFilterCollectionViewCell: UICollectionViewCell {
-    
+
     private let bottomDivider = UIView()
     private let titleLabel = UILabel()
-    
+
     private let titleLabelLeadingOffset: CGFloat = 16.0
     private let titleLabelTopOffset: CGFloat = 24.0
 
@@ -48,7 +48,7 @@ class SportsFilterCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setDividerVisibility(to visible: Bool) {
         bottomDivider.isHidden = !visible
     }

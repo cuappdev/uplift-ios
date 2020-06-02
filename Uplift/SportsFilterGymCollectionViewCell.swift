@@ -10,9 +10,11 @@ import UIKit
 
 class SportsFilterGymCollectionViewCell: SportsFilterCollectionViewCell {
 
+    static let height: CGFloat = 107
+
     private var gymCollectionView: UICollectionView
     private var gyms: [GymNameId] = []
-    
+
     override init(frame: CGRect) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -60,7 +62,7 @@ extension SportsFilterGymCollectionViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return gyms.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymFilterCell, for: indexPath) as! GymFilterCell
         cell.configure(for: gyms[indexPath.row])

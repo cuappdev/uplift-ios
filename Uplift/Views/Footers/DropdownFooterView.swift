@@ -14,7 +14,7 @@ class DropdownFooterView: UIView {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.dropdownFooterView
     var showHideLabel: UILabel!
-    
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         

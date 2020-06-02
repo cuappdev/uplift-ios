@@ -1,8 +1,9 @@
 //
 //  FacilitiesDropdownCollectionViewCell.swift
-//  
+//  Uplift
 //
 //  Created by Cameron Hamidi on 11/6/19.
+//  Copyright © 2019 Uplift. All rights reserved.
 //
 
 import UIKit
