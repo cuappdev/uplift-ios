@@ -12,7 +12,6 @@ class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
 
     static let height: CGFloat = 103
 
-    private let startTimeTitleLabel = UILabel()
     private let startTimeLabel = UILabel()
     private let startTimeSlider = RangeSeekSlider(frame: .zero)
 
@@ -20,7 +19,7 @@ class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
     var startTime = "6:00AM"
     var timeFormatter = DateFormatter()
     var timeRanges: [Date] = []
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -39,11 +38,7 @@ class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mma"
 
-        startTimeTitleLabel.sizeToFit()
-        startTimeTitleLabel.font = ._12MontserratBold
-        startTimeTitleLabel.textColor = .gray04
-        startTimeTitleLabel.text = ClientStrings.Filter.startTime
-        contentView.addSubview(startTimeTitleLabel)
+        titleLabel.text = ClientStrings.Filter.startTime
 
         startTimeLabel.sizeToFit()
         startTimeLabel.font = ._12MontserratBold
@@ -81,21 +76,14 @@ class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
     }
 
     func setupConstraints() {
-        let labelTopOffset = 20
         let startTimeLabelTrailingOffset = -22
         let startTimeSliderHeight = 30
         let startTimeSliderLeadingTrailingOffset = 16
         let startTimeSlidertopOffset = 12
-        let startTimeTitleLabelLeadingOffset = 16
-
-        startTimeTitleLabel.snp.remakeConstraints { make in
-            make.leading.equalToSuperview().offset(startTimeTitleLabelLeadingOffset)
-            make.top.equalTo(contentView.snp.top).offset(labelTopOffset)
-        }
 
         startTimeLabel.snp.remakeConstraints { make in
             make.trailing.equalToSuperview().offset(startTimeLabelTrailingOffset)
-            make.top.equalTo(contentView.snp.top).offset(labelTopOffset)
+            make.centerY.equalTo(titleLabel.snp.centerY)
         }
 
         startTimeSlider.snp.remakeConstraints { make in

@@ -12,7 +12,7 @@ enum Dropped {
     case up, half, down
 }
 
-struct SportsDropdownData {
+struct DropdownData {
     var completed: Bool!
     var dropStatus: Dropped!
     var titles: [String]!

@@ -10,7 +10,9 @@ import SnapKit
 import UIKit
 
 protocol SportsFilterDelegate {
-    func filterOptions(params: SportsFilterParameters)
+
+    func filterOptions(params: SportsFilterParameters?)
+
 }
 
 class SportsFilterViewController: UIViewController {
@@ -19,7 +21,9 @@ class SportsFilterViewController: UIViewController {
 
     private var filterOptionsCollectionView: UICollectionView!
 
-    init(currentFilterParams: SportsFilterParameters) {
+    var delegate: SportsFilterDelegate?
+
+    init(currentFilterParams: SportsFilterParameters?) {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -28,6 +32,8 @@ class SportsFilterViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        view.backgroundColor = .white
+
         //NAVIGATION BAR
         setupNavBar()
 
@@ -39,6 +45,7 @@ class SportsFilterViewController: UIViewController {
         filterOptionsCollectionView.register(SportsFilterSportsDropdownCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsFilterSportsDropdownCell)
         filterOptionsCollectionView.delegate = self
         filterOptionsCollectionView.dataSource = self
+        filterOptionsCollectionView.backgroundColor = .clear
         view.addSubview(filterOptionsCollectionView)
 
         setupConstraints()
@@ -128,7 +135,7 @@ extension SportsFilterViewController: UICollectionViewDelegate, UICollectionView
         case .numPlayers:
             height = SportsFilterNumPlayersCollectionViewCell.height
         case .sports:
-            height = 181
+            height = 500
         }
         return CGSize(width: width, height: height)
     }

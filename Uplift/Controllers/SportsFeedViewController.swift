@@ -76,10 +76,10 @@ class SportsFeedViewController: UIViewController {
         headerView.layer.shadowColor = UIColor.buttonShadow.cgColor
         headerView.layer.masksToBounds = false
         view.addSubview(headerView)
-        
+
         // Fill with dummy data for now.
         posts = [[], [], [], [
-            Post(comment: [], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players:0, time: "5:00 PM", title: "Sports With Zain", type: "Basketball", userId: 10),
+            Post(comment: [], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players: 0, time: "5:00 PM", title: "Sports With Zain", type: "Basketball", userId: 10),
             Post(comment: [], createdAt: Date(), gameStatus: "CREATED", id: 1, location: "Austin's Basement", players: 0, time: "7:00 PM", title: "Soccer", type: "Zain's Backyard", userId: 2),
             Post(comment: [], createdAt: Date(), gameStatus: "OPEN", id: 2, location: "Zain's Tennis Court", players: 0, time: "4:00 PM", title: "Open Game with Zain", type: "Tennis", userId: 0)
         ], [], [], [], [], [], []]
@@ -155,7 +155,7 @@ class SportsFeedViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
     }
-    
+
     private func getSportsFor(date: Date) {
         // TODO: Filter posts.
         self.collectionView.reloadData()
@@ -163,6 +163,7 @@ class SportsFeedViewController: UIViewController {
 }
 
 extension SportsFeedViewController: SportsFilterDelegate {
+
     @objc func filterPressed() {
         let filterVC = SportsFilterViewController(currentFilterParams: currentFilterParams)
         filterVC.delegate = self
@@ -170,7 +171,7 @@ extension SportsFeedViewController: SportsFilterDelegate {
         tabBarController?.present(filterNavController, animated: true, completion: nil)
     }
 
-    func filterOptions(params: SportsFilterParameters) {
+    func filterOptions(params: SportsFilterParameters?) {
     }
 }
 
@@ -188,21 +189,21 @@ extension SportsFeedViewController: UICollectionViewDelegate, UICollectionViewDa
         }
         return 0
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == calendarCollectionView {
             return CalendarGenerator.getCalendarCell(collectionView, indexPath: indexPath, calendarDatesList: calendarDatesList, currDate: currDate, calendarDateSelected: calendarDateSelected)
         }
 
         guard let index = calendarDatesList.firstIndex(of: calendarDateSelected) else { return UICollectionViewCell() }
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sportIdentifier, for: indexPath) as! PickupGameCell
         let post = posts[index][indexPath.item]
         cell.configure(post: post)
         cell.gameStatusDelegate = self
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == calendarCollectionView {
             calendarDateSelected = calendarDatesList[indexPath.item]

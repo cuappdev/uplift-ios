@@ -19,10 +19,11 @@ enum SportsFilterSection {
 class SportsFilterCollectionViewCell: UICollectionViewCell {
 
     private let bottomDivider = UIView()
-    private let titleLabel = UILabel()
 
     private let titleLabelLeadingOffset: CGFloat = 16.0
     private let titleLabelTopOffset: CGFloat = 24.0
+
+    internal let titleLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +38,7 @@ class SportsFilterCollectionViewCell: UICollectionViewCell {
 
         titleLabel.font = ._12MontserratBold
         titleLabel.textColor = .gray04
-        contentView.addSubview(bottomDivider)
+        contentView.addSubview(titleLabel)
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(titleLabelLeadingOffset)

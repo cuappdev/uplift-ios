@@ -9,6 +9,7 @@
 import Foundation
 
 struct ClientStrings {
+
     struct Alerts {
         static let addedToCalendarMessage = "Get ready to get sweaty"
         static let addedToCalendarTitle = " added to calendar"
@@ -64,6 +65,7 @@ struct ClientStrings {
         static let filterButton = "Reset"
         static let noResultsDescription = "Try searching again!"
         static let noResultsLabel = "NO RESULTS"
+        static let numPlayers = "NUMBER OF PLAYERS"
         static let resetButton = "Reset"
         static let selectClassTypeSection = "CLASS TYPE"
         static let selectGymSection = "FITNESS CENTER"

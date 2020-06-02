@@ -20,6 +20,8 @@ extension String {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
         return ceil(boundingBox.width)
+//        var attributedString = NSAttributedString(string: self, attributes: [NSAttributedString.Key.font: font])
+//        return attributedString.size().width
     }
 
     // Returns the string with the leading zero removed if one exists
