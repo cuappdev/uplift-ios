@@ -9,7 +9,7 @@
 import SnapKit
 import UIKit
 
-protocol SportsFilterDelegate {
+protocol SportsFilterDelegate: class {
 
     func filterOptions(params: SportsFilterParameters?)
 
@@ -21,7 +21,9 @@ class SportsFilterViewController: UIViewController {
 
     private var filterOptionsCollectionView: UICollectionView!
 
-    var delegate: SportsFilterDelegate?
+    weak var delegate: SportsFilterDelegate?
+
+    var sportsTypeDropdownData: DropdownData!
 
     init(currentFilterParams: SportsFilterParameters?) {
         super.init(nibName: nil, bundle: nil)
@@ -49,6 +51,13 @@ class SportsFilterViewController: UIViewController {
         view.addSubview(filterOptionsCollectionView)
 
         setupConstraints()
+
+        sportsTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
+
+        // TODO: replace with networked sports.
+        let sportsNames = ["Basketball", "Soccer", "Table Tennis", "Frisbee", "A", "B", "C"]
+        sportsTypeDropdownData.titles.append(contentsOf: sportsNames)
+        sportsTypeDropdownData.completed = true
     }
 
     func setupNavBar() {
@@ -82,7 +91,7 @@ class SportsFilterViewController: UIViewController {
     }
 
     @objc func done() {
-
+        filterOptionsCollectionView.reloadData()
     }
 
     @objc func reset() {
@@ -116,6 +125,8 @@ extension SportsFilterViewController: UICollectionViewDataSource {
             return cell
         case .sports:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsFilterSportsDropdownCell, for: indexPath) as! SportsFilterSportsDropdownCollectionViewCell
+            cell.delegate = self
+            cell.configure(for: sportsTypeDropdownData)
             return cell
         }
     }
@@ -135,12 +146,46 @@ extension SportsFilterViewController: UICollectionViewDelegate, UICollectionView
         case .numPlayers:
             height = SportsFilterNumPlayersCollectionViewCell.height
         case .sports:
-            height = 500
+            if let cell = collectionView.cellForItem(at: indexPath) as? SportsFilterSportsDropdownCollectionViewCell {
+                height = cell.getDropdownHeight()
+            } else {
+                height = SportsFilterSportsDropdownCollectionViewCell.initialHeight
+            }
         }
         return CGSize(width: width, height: height)
     }
 
 }
+
+extension SportsFilterViewController: DropdownHeaderViewDelegate {
+
+    func didTapHeaderView() {
+        <#code#>
+    }
+
+}
+
+extension SportsFilterViewController: DropdownViewDelegate {
+
+    func dropdownStatusChanged(to status: DropdownStatus, with height: CGFloat) {
+        <#code#>
+    }
+
+}
+
+//extension SportsFilterViewController: SportsFilterDropdown {
+//
+//    func dropdownStatusChanged(to status: DropdownStatus, with height: CGFloat) {
+//        sportsTypeDropdownData.dropStatus = status
+//        (0..<filterSections.count).forEach { index in
+//            if filterSections[index] == .sports {
+//                let indexPath = IndexPath(item: index, section: 0)
+//                filterOptionsCollectionView.reloadItems(at: [indexPath])
+//            }
+//        }
+//    }
+//
+//}
 
 //class SportsFilterViewController: UIViewController, RangeSeekSliderDelegate {
 //
@@ -324,7 +369,7 @@ extension SportsFilterViewController: UICollectionViewDelegate, UICollectionView
 //        sportsTypeDropdown.showsVerticalScrollIndicator = false
 //        sportsTypeDropdown.bounces = false
 //
-//        sportsTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
+//        sportsTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: Identifiers.dropdownViewCell)
 //        sportsTypeDropdown.delegate = self
 //        sportsTypeDropdown.dataSource = self
 //        contentView.addSubview(sportsTypeDropdown)
@@ -732,7 +777,7 @@ extension SportsFilterViewController: UICollectionViewDelegate, UICollectionView
 //    }
 //
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: DropdownViewCell.identifier, for: indexPath) as! DropdownViewCell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.dropdownViewCell, for: indexPath) as! DropdownViewCell
 //
 //        if tableView == sportsTypeDropdown {
 //            if indexPath.row < sportsTypeDropdownData.titles.count {

@@ -81,8 +81,9 @@ class DropdownHeaderView: UIView {
         addGestureRecognizer(openCloseDropdownGesture)
 
         titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
+            make.width.equalTo(titleLabel.intrinsicContentSize.width)
         }
 
         filtersAppliedCircle.snp.makeConstraints { make in
@@ -94,12 +95,12 @@ class DropdownHeaderView: UIView {
         selectedFiltersLabel.snp.makeConstraints { make in
             make.trailing.equalTo(arrowImageView.snp.leading).offset(-12)
             make.centerY.equalTo(filtersAppliedCircle)
-            make.leading.equalTo(self.snp.centerX)
-           }
+            make.leading.equalTo(filtersAppliedCircle.snp.trailing).offset(20)
+       }
     }
 
     func updateDropdownHeader(selectedFilters: [String]) {
-        self.filtersApplied = !selectedFilters.isEmpty
+        filtersApplied = !selectedFilters.isEmpty
         self.selectedFilters = selectedFilters
     }
 
@@ -107,21 +108,30 @@ class DropdownHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func rotateArrowDown() {
-        UIView.animate(withDuration: 0.3) {
-            self.arrowImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
+    func rotateArrow() {
+        if isArrowRotated {
+            rotateArrowUp()
+        } else {
+            rotateArrowDown()
         }
+    }
+
+    func rotateArrowDown() {
+//        UIView.animate(withDuration: 0.3) {
+            self.arrowImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
+//        }
         isArrowRotated = true
     }
 
     func rotateArrowUp() {
-        UIView.animate(withDuration: 0.3) {
+//        UIView.animate(withDuration: 0.3) {
             self.arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
-        }
+//        }
         isArrowRotated = false
     }
 
     @objc func didTapView() {
+        rotateArrow()
         delegate?.didTapHeaderView()
     }
 

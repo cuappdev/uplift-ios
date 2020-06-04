@@ -7,15 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
 enum Dropped {
     case up, half, down
 }
 
-struct DropdownData {
+class DropdownData {
     var completed: Bool!
-    var dropStatus: Dropped!
+    var dropStatus: DropdownStatus!
     var titles: [String]!
+
+    init(completed: Bool, dropStatus: DropdownStatus, titles: [String]) {
+        self.completed = completed
+        self.dropStatus = dropStatus
+        self.titles = titles
+    }
+
 }
 
 struct GymNameId {

@@ -149,7 +149,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeDropdown.showsVerticalScrollIndicator = false
         classTypeDropdown.bounces = false
 
-        classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
+        classTypeDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: Identifiers.dropdownViewCell)
         classTypeDropdown.delegate = self
         classTypeDropdown.dataSource = self
         contentView.addSubview(classTypeDropdown)
@@ -185,7 +185,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDropdown.bounces = false
         instructorDropdown.showsVerticalScrollIndicator = false
 
-        instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: DropdownViewCell.identifier)
+        instructorDropdown.register(DropdownViewCell.self, forCellReuseIdentifier: Identifiers.dropdownViewCell)
 
         instructorDropdown.delegate = self
         instructorDropdown.dataSource = self
@@ -654,6 +654,7 @@ extension FilterViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: CollectionViewDataSource
 extension FilterViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymFilterCell, for: indexPath) as! GymFilterCell
 
@@ -666,10 +667,12 @@ extension FilterViewController: UICollectionViewDataSource {
         }
         return cell
     }
+
 }
 
 // MARK: TableViewDataSource
 extension FilterViewController: UITableViewDataSource {
+
     //TODO: Refactor this method for better code readability
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = 0
@@ -703,45 +706,40 @@ extension FilterViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DropdownViewCell.identifier, for: indexPath) as! DropdownViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.dropdownViewCell, for: indexPath) as! DropdownViewCell
 
+        var title = ""
+        var selected = false
         if tableView == instructorDropdown {
             if indexPath.row < instructorDropdownData.titles.count {
-                cell.titleLabel.text = instructorDropdownData.titles[indexPath.row]
-
-                if selectedInstructors.contains(instructorDropdownData.titles[indexPath.row]) {
-                    cell.checkBoxColoring.backgroundColor = .primaryYellow
-                }
+                title = instructorDropdownData.titles[indexPath.row]
+                selected = selectedInstructors.contains(instructorDropdownData.titles[indexPath.row])
+                cell.configure(for: title, selected: selected)
             }
         } else if tableView == classTypeDropdown {
             if indexPath.row < classTypeDropdownData.titles.count {
-                cell.titleLabel.text = classTypeDropdownData.titles[indexPath.row]
-
-                if selectedClasses.contains(classTypeDropdownData.titles[indexPath.row]) {
-                    cell.checkBoxColoring.backgroundColor = .primaryYellow
-                }
+                title = classTypeDropdownData.titles[indexPath.row]
+                selected = selectedClasses.contains(classTypeDropdownData.titles[indexPath.row])
             }
         }
         return cell
     }
+
 }
 
 // MARK: TableViewDelegate
 extension FilterViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
-        var shouldAppend: Bool = cell.checkBoxColoring.backgroundColor == .primaryYellow
-
-        cell.checkBoxColoring.backgroundColor = shouldAppend ? .white : .primaryYellow
-        shouldAppend = !shouldAppend
 
         if tableView == classTypeDropdown {
-            if shouldAppend {
-                selectedClasses.append(cell.titleLabel.text!)
+            if !cell.wasSelected {
+                selectedClasses.append(cell.getTitle())
             } else {
                 for i in 0..<selectedClasses.count {
                     let name = selectedClasses[i]
-                    if name == cell.titleLabel.text! {
+                    if name == cell.getTitle() {
                         selectedClasses.remove(at: i)
                         classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
                         return
@@ -750,12 +748,12 @@ extension FilterViewController: UITableViewDelegate {
             }
             classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
         } else {
-            if shouldAppend {
-                selectedInstructors.append(cell.titleLabel.text!)
+            if !cell.wasSelected {
+                selectedInstructors.append(cell.getTitle())
             } else {
                 for i in 0..<selectedInstructors.count {
                     let name = selectedInstructors[i]
-                    if name == cell.titleLabel.text! {
+                    if name == cell.getTitle() {
                         selectedInstructors.remove(at: i)
                         instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
                         return
@@ -764,6 +762,7 @@ extension FilterViewController: UITableViewDelegate {
             }
             instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
         }
+        cell.select()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

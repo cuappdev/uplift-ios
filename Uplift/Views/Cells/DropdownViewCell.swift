@@ -12,19 +12,18 @@ import UIKit
 class DropdownViewCell: UITableViewCell {
 
     // MARK: - INITIALIZATION
-    static let identifier = Identifiers.dropdownViewCell
-    var titleLabel: UILabel!
+    private let checkBox = UIView()
+    private let checkBoxColoring = UIView()
+    private let titleLabel = UILabel()
 
-    var checkBox: UIView!
-    var checkBoxColoring: UIView!
+    var wasSelected = false
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
-        self.contentView.backgroundColor = .white
+        selectionStyle = .none
+        contentView.backgroundColor = .clear//.white
 
         // TITLE LABEL
-        titleLabel = UILabel()
         titleLabel.sizeToFit()
         titleLabel.font = ._14MontserratLight
         titleLabel.textColor = .primaryBlack
@@ -32,14 +31,13 @@ class DropdownViewCell: UITableViewCell {
         addSubview(titleLabel)
 
         // CHECKBOX
-        checkBox = UIView()
         checkBox.layer.cornerRadius = 3
         checkBox.layer.borderColor = UIColor.gray04.cgColor
         checkBox.layer.borderWidth = 0.5
         checkBox.layer.masksToBounds = false
         addSubview(checkBox)
 
-        checkBoxColoring = UIView()
+        // CHECKBOX COLOURING
         checkBoxColoring.backgroundColor = .white
         checkBoxColoring.layer.cornerRadius = 1
         checkBox.addSubview(checkBoxColoring)
@@ -51,28 +49,55 @@ class DropdownViewCell: UITableViewCell {
 
     override open func layoutSubviews() {
         super.layoutSubviews()
-
         setupConstraints()
+    }
+
+    func configure(for title: String, selected: Bool) {
+        titleLabel.text = title
+        wasSelected = selected
+        checkBoxColoring.backgroundColor = wasSelected ? .primaryYellow : .white
+    }
+
+    func getTitle() -> String {
+        return titleLabel.text ?? ""
+    }
+
+    func setTitle(to string: String) {
+        titleLabel.text = string
+    }
+
+    func select() {
+        wasSelected = !wasSelected
+        checkBoxColoring.backgroundColor = wasSelected ? .primaryYellow : .white
     }
 
     // MARK: - CONSTRAINTS
     func setupConstraints() {
+        let checkBoxBottomOffset = -10
+        let checkBoxColoringOffsets = 3
+        let checkBoxTopOffset = 2
+        let checkBoxTrailingOffset = -23
+        let checkBoxWidth = 20
+        let titleLabelBottomOffset = -16
+        let titleLabelLeadingOffset = 16
+
         titleLabel.snp.updateConstraints { make in
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(titleLabelLeadingOffset)
             make.top.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(titleLabelBottomOffset)
         }
 
         checkBox.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(2)
-            make.trailing.equalToSuperview().offset(-23)
-            make.width.equalTo(20)
-            make.bottom.equalToSuperview().offset(-10)
+            make.top.equalToSuperview().offset(checkBoxTopOffset)
+            make.trailing.equalToSuperview().offset(checkBoxTrailingOffset)
+            make.width.equalTo(checkBoxWidth)
+            make.bottom.equalToSuperview().offset(checkBoxBottomOffset)
         }
 
         checkBoxColoring.snp.updateConstraints { make in
-            make.top.leading.equalToSuperview().offset(3)
-            make.bottom.trailing.equalToSuperview().offset(-3)
+            make.top.leading.equalToSuperview().offset(checkBoxColoringOffsets)
+            make.bottom.trailing.equalToSuperview().offset(-checkBoxColoringOffsets)
         }
     }
+    
 }

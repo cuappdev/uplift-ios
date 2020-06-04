@@ -44,7 +44,7 @@ struct ClientStrings {
     }
 
     struct Dropdown {
-        static let collapse = "Hide"
+        static let collapse = "Hide "
         static let expand = "Show All "
     }
 
@@ -70,6 +70,9 @@ struct ClientStrings {
         static let selectClassTypeSection = "CLASS TYPE"
         static let selectGymSection = "FITNESS CENTER"
         static let selectInstructorSection = "INSTRUCTOR"
+        static let selectSportsSection = "SPORTS"
+        static let sportsDropdownHideSports = Dropdown.collapse + "Sports"
+        static let sportsDropdownShowSports = Dropdown.expand + "All Sports"
         static let startTime = "START TIME"
         static let vcTitleLabel = "Refine Search"
     }
