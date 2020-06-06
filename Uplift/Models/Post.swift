@@ -9,6 +9,9 @@
 import Foundation
 
 struct Post: Codable {
+    static let minPlayers = 2
+    static let maxPlayers = 10
+
     let comment: [Comment]
     let createdAt: Date
     let gameStatus: String
@@ -19,4 +22,11 @@ struct Post: Codable {
     let title: String
     let type: String
     let userId: Int
+    
+    func getPlayersListString() -> String {
+        return players.reduce("", { (result: String, p: User) -> String in
+            return result + p.name + "\n"
+        })
+    }
+
 }

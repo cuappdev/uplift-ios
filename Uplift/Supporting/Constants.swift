@@ -41,10 +41,12 @@ struct Identifiers {
     // HEADERS
     static let facilityHoursHeaderView = "facilityHoursHeaderView"
     static let favoritesHeaderView = "favoritesHeaderView"
+    static let gamesListHeaderView = "gamesListHeaderView"
     static let gymHoursHeaderView = "gymHoursHeaderView"
     static let homeScreenHeaderView = "homeScreenHeaderView"
     static let homeSectionHeaderView = "homeSectionHeaderView"
     static let loadingHeaderView = "loadingHeaderView"
+    static let sportsDetailHeaderView = "sportsDetailHeaderView"
     static let todaysClassesHeaderView = "todaysClassesHeaderView"
 
     // CELLS
@@ -75,6 +77,19 @@ struct Identifiers {
     static let sportsFilterStartTimeCell = "sportsFilterStartTimeCell"
     static let sportsFilterNumPlayersCell = "sportsFilterNumPlayersCell"
     static let sportsFilterSportsDropdownCell = "sportsFilterSportsDropdownCell"
+    static let pickupGameCell = "pickupGameCell"
+    static let sportsDetailCommentCell = "sportsDetailCommentCell"
+    static let sportsDetailDiscussionCell = "sportsDetailDiscussionCell"
+    static let sportsDetailInfoCell = "sportsDetailInfoCell"
+    static let sportsDetailInputCell = "sportsDetailInputCell"
+    static let sportsDetailPlayersCell = "sportsDetailPlayersCell"
+    static let sportsFormNameCell = "sportsFormNameCell"
+    static let sportsFormTimeCell = "sportsFormTimeCell"
+    static let sportsFormSportCell = "sportsFormSportCell"
+    static let sportsFormLocationCell = "sportsFormLocationCell"
+    static let sportsFormPlayersCell = "sportsFormPlayersCell"
+    static let sportsFormBubbleListItemCell = "sportsFormBubbleListItemCell"
+    static let sportsFormBubbleListInputCell = "sportsFormBubbleListInputCell"
 
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"

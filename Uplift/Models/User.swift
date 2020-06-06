@@ -18,7 +18,7 @@ struct GoogleTokens: Codable {
 class User: Codable {
     static var currentUser: User?
 
-    let id: String
+    let id: Int
     let name: String
     let netId: String
     var givenName: String?
@@ -26,13 +26,13 @@ class User: Codable {
     var email: String?
     var tokens: GoogleTokens?
 
-    init(id: String, name: String, netId: String) {
+    init(id: Int, name: String, netId: String) {
         self.id = id
         self.name = name
         self.netId = netId
     }
 
-    init(id: String, name: String, netId: String, givenName: String, familyName: String, email: String) {
+    init(id: Int, name: String, netId: String, givenName: String, familyName: String, email: String) {
         self.id = id
         self.name = name
         self.netId = netId

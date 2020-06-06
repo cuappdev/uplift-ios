@@ -64,6 +64,10 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>BebasNeue-Regular.ttf</string>
+		<string>BebasNeue-Bold.ttf</string>
+		<string>BebasNeue-Book.ttf</string>
+		<string>BebasNeue-Light.ttf</string>
+		<string>BebasNeue-Thin.ttf</string>
 		<string>Montserrat-Light.ttf</string>
 		<string>Montserrat-Medium.ttf</string>
 		<string>Montserrat-Regular.ttf</string>

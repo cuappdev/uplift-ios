@@ -10,6 +10,93 @@ import Foundation
 
 extension Date {
     static let secondsPerDay = 86400.0
+    
+    /// Format: "Today, April 10th 2020"
+    static public func getLongDateStringFromDate(date: Date) -> String {
+        let weekdayFormatter = DateFormatter()
+        weekdayFormatter.dateFormat = "E"
+        
+        let monthDayFormatter = DateFormatter()
+        monthDayFormatter.dateFormat = "MMM d"
+        
+        let yearFormatter = DateFormatter()
+        yearFormatter.dateFormat = "yyyy"
+        
+        var dayPostfix = "th"
+        switch Calendar.current.component(.day, from: date) {
+            case 1:
+                dayPostfix = "st"
+            case 2:
+                dayPostfix = "nd"
+            case 3:
+                dayPostfix = "rd"
+            default:
+                dayPostfix = "th"
+        }
+        
+        if date.isToday() {
+            return "Today, \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
+        } else if date.isYesterday() {
+            return "Yesterday, \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
+        } else {
+            return "\(weekdayFormatter.string(from: date)), \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
+        }
+    }
+    
+    /// Format: "6:00 PM"
+    static public func getTimeStringFromDate(time: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        return dateFormatter.string(from: time)
+    }
+    
+    static public func getTimeStringWithWeekday(time: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd"
+        let weekday = Date.getWeekdayString(time: time)
+        return "\(weekday), \(dateFormatter.string(from: time))"
+    }
+    
+    static public func getWeekdayString(time: Date) -> String {
+        switch Calendar.current.component(.weekday, from: time) {
+            case 1:
+                return "Sunday"
+            case 2:
+                return "Monday"
+            case 3:
+                return "Tuesday"
+            case 4:
+                return "Wednesday"
+            case 5:
+                return "Thursday"
+            case 6:
+                return "Friday"
+            case 7:
+                return "Saturday"
+            default:
+                return ""
+        }
+    }
+    
+    static public func getTimeStringSince(fromDate: Date) -> String {
+        let toDate = Date()
+        // https://stackoverflow.com/questions/34457434/swift-convert-time-to-time-ago
+        if let interval = Calendar.current.dateComponents([.year], from: fromDate, to: toDate).year, interval > 0  {
+            return "\(interval) y"
+        } else if let interval = Calendar.current.dateComponents([.month], from: fromDate, to: toDate).month, interval > 0  {
+            return "\(interval) mos"
+        } else if let interval = Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day, interval > 0  {
+            return "\(interval) d"
+        } else if let interval = Calendar.current.dateComponents([.hour], from: fromDate, to: toDate).hour, interval > 0 {
+            return "\(interval) h"
+        } else if let interval = Calendar.current.dateComponents([.minute], from: fromDate, to: toDate).minute, interval > 0 {
+            return "\(interval) m"
+        } else if let interval = Calendar.current.dateComponents([.second], from: fromDate, to: toDate).second, interval > 0 {
+            return "\(interval) s"
+        } else {
+            return "now"
+        }
+    }
 
     static public func getNowString() -> String {
         let date = Date()
@@ -149,7 +236,7 @@ extension Date {
     }
 
     func isToday() -> Bool {
-        return Calendar.current.dateComponents([.day], from: self) == Calendar.current.dateComponents([.day], from: Date())
+        return Calendar.current.dateComponents([.day, .month, .year], from: self) == Calendar.current.dateComponents([.day, .month, .year], from: Date())
     }
 
     // MARK: - String

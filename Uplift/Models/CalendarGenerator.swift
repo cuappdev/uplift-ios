@@ -80,4 +80,5 @@ class CalendarGenerator {
             )
             return cell
     }
+
 }

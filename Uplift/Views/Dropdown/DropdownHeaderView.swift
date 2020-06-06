@@ -3,7 +3,7 @@
 //  Uplift
 //
 //  Created by Cameron Hamidi on 11/15/19.
-//  Copyright © 2019 Uplift. All rights reserved.
+//  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
 import SnapKit
@@ -98,7 +98,11 @@ class DropdownHeaderView: UIView {
             make.leading.equalTo(filtersAppliedCircle.snp.trailing).offset(20)
        }
     }
-
+    
+    func setTitle(title: String) {
+        titleLabel.text = title
+    }
+    
     func updateDropdownHeader(selectedFilters: [String]) {
         filtersApplied = !selectedFilters.isEmpty
         self.selectedFilters = selectedFilters

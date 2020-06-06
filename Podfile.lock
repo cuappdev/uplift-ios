@@ -100,6 +100,7 @@ PODS:
   - nanopb/encode (0.3.9011)
   - Presentation (4.2.3)
   - PromisesObjC (1.2.8)
+  - SideMenu (6.4.8)
   - SkeletonView (1.8.7)
   - SnapKit (4.2.0)
   - SwiftLint (0.39.2)
@@ -117,6 +118,7 @@ DEPENDENCIES:
   - GoogleSignIn
   - Kingfisher (~> 4.0)
   - Presentation (from `https://github.com/cuappdev/Presentation.git`, commit `d4aa2d3ad5901f6ebce0727af592824982f88d13`)
+  - SideMenu (~> 6.0)
   - SkeletonView
   - SnapKit
   - SwiftLint
@@ -146,6 +148,7 @@ SPEC REPOS:
     - Kingfisher
     - nanopb
     - PromisesObjC
+    - SideMenu
     - SkeletonView
     - SnapKit
     - SwiftLint
@@ -204,10 +207,11 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Presentation: 3c02ab6268b15e44b6146c511686eb9c3f81b7d0
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
   SkeletonView: ba5370f41280b2f0a76918bb143c1294232bb4f4
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 11dab25ef6754c9336618318f03febb7876be2ec
+PODFILE CHECKSUM: ae0d6880f6be4b3d5daa37feb88551fed39759d0
 
 COCOAPODS: 1.9.1
