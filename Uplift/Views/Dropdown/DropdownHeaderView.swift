@@ -6,11 +6,13 @@
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 protocol DropdownHeaderViewDelegate: class {
+
     func didTapHeaderView()
+
 }
 
 class DropdownHeaderView: UIView {
@@ -22,10 +24,11 @@ class DropdownHeaderView: UIView {
 
     private let arrowHeight: CGFloat = 9
     private let arrowWidth: CGFloat = 5
+
     private var isArrowRotated = false
 
     weak var delegate: DropdownHeaderViewDelegate?
-    
+
     var filtersApplied: Bool = false {
         didSet {
             self.filtersAppliedCircle.layer.backgroundColor = filtersApplied
@@ -43,7 +46,7 @@ class DropdownHeaderView: UIView {
         super.init(frame: .zero)
 
         isUserInteractionEnabled = true
-        
+
         titleLabel.text = title
         titleLabel.font = ._12MontserratBold
         titleLabel.textColor = .gray04
@@ -59,7 +62,7 @@ class DropdownHeaderView: UIView {
         selectedFiltersLabel.adjustsFontSizeToFitWidth = false
         selectedFiltersLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         addSubview(selectedFiltersLabel)
-        
+
         if let image = arrowImage {
             arrowImageView.image = image
         } else {
@@ -76,23 +79,24 @@ class DropdownHeaderView: UIView {
 
         let openCloseDropdownGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         addGestureRecognizer(openCloseDropdownGesture)
-        
+
         titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
+            make.width.equalTo(titleLabel.intrinsicContentSize.width)
         }
-        
+
         filtersAppliedCircle.snp.makeConstraints { make in
             make.height.width.equalTo(8)
             make.leading.equalTo(titleLabel.snp.trailing).offset(12)
             make.centerY.equalTo(titleLabel)
         }
-        
+
         selectedFiltersLabel.snp.makeConstraints { make in
             make.trailing.equalTo(arrowImageView.snp.leading).offset(-12)
             make.centerY.equalTo(filtersAppliedCircle)
-            make.leading.equalTo(self.snp.centerX)
-           }
+            make.leading.equalTo(filtersAppliedCircle.snp.trailing).offset(20)
+       }
     }
     
     func setTitle(title: String) {
@@ -100,7 +104,7 @@ class DropdownHeaderView: UIView {
     }
     
     func updateDropdownHeader(selectedFilters: [String]) {
-        self.filtersApplied = !selectedFilters.isEmpty
+        filtersApplied = !selectedFilters.isEmpty
         self.selectedFilters = selectedFilters
     }
 
@@ -108,21 +112,26 @@ class DropdownHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func rotateArrowDown() {
-        UIView.animate(withDuration: 0.3) {
-            self.arrowImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
+    func rotateArrow() {
+        if isArrowRotated {
+            rotateArrowUp()
+        } else {
+            rotateArrowDown()
         }
+    }
+
+    func rotateArrowDown() {
+        arrowImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
         isArrowRotated = true
     }
 
     func rotateArrowUp() {
-        UIView.animate(withDuration: 0.3) {
-            self.arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
-        }
+        arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
         isArrowRotated = false
     }
 
     @objc func didTapView() {
+        rotateArrow()
         delegate?.didTapHeaderView()
     }
 

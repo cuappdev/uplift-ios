@@ -114,7 +114,7 @@ class HomeViewController: UIViewController {
             collectionView.reloadSections(IndexSet(integer: 0))
         }
     }
-    
+
     func decrementNumPendingNetworkRequests() {
         self.numPendingNetworkRequests -= 1
         if self.numPendingNetworkRequests == 0 {
@@ -155,7 +155,7 @@ extension HomeViewController {
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)
         view.addSubview(collectionView)
-        
+
         view.addSubview(loadingHeader)
 
         loadingScrollView = LoadingScrollView(frame: .zero, collectionViewWidth: view.bounds.width)

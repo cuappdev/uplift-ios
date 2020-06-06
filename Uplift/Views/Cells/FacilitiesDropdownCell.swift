@@ -1,8 +1,9 @@
 //
 //  FacilitiesDropdownCollectionViewCell.swift
-//  
+//  Uplift
 //
 //  Created by Cameron Hamidi on 11/6/19.
+//  Copyright © 2019 Uplift. All rights reserved.
 //
 
 import UIKit
@@ -44,13 +45,13 @@ class FacilitiesDropdownCell: UICollectionViewCell {
 
         headerView.delegate = self
 
-        dropdownView = DropdownView(delegate: self,
-                                    headerView: headerView,
+        dropdownView = DropdownView(headerView: headerView,
                                     headerViewHeight: FacilitiesDropdownCell.headerViewHeight,
                                     contentView: collectionView,
                                     contentViewHeight: 0)
         dropdownView.backgroundColor = .white
         dropdownView.layer.masksToBounds = false
+        dropdownView.delegate = self
         contentView.addSubview(dropdownView)
 
         separatorView.backgroundColor = .gray01
@@ -199,11 +200,7 @@ extension FacilitiesDropdownCell: UICollectionViewDelegate, UICollectionViewDele
 
 extension FacilitiesDropdownCell: DropdownViewDelegate {
 
-    func dropdownViewClosed(sender dropdownView: DropdownView) {}
-
-    func dropdownViewOpen(sender dropdownView: DropdownView) {}
-
-    func dropdownViewHalf(sender dropdownView: DropdownView) {}
+    func dropdownStatusChanged(to status: DropdownStatus, with height: CGFloat) {}
 
 }
 

@@ -172,7 +172,7 @@ class PickupGameCell: UICollectionViewCell {
         titleLabel.text = post.title
         detailLabel.text = "\(post.type) · \(Date.getTimeStringFromDate(time: post.time))"
         locationLabel.text = post.location
-        playersLabel.text = "\(post.players.count)/\(Post.maxPlayers)"
+        playersLabel.text = "\(post.players)/\(Post.maxPlayers)"
 
         statusButton.setTitle(status.rawValue, for: .normal)
         statusButton.backgroundColor = status == .open ? .clear : .primaryYellow

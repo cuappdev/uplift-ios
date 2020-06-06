@@ -14,20 +14,20 @@ struct Post: Codable {
 
     let comment: [Comment]
     let createdAt: Date
+    let gameStatus: String
     let id: Int
+    let location: String
+    let players: Int
+    let time: Date
+    let title: String
+    let type: String
     let userId: Int
 
-    let title: String
-    let time: Date
-    let type: String
-    let location: String
-    let players: [User]
-    let gameStatus: String
-    
     func getPlayersListString() -> String {
-        return players.reduce("", { (result: String, p: User) -> String in
-            return result + p.name + "\n"
-        })
+//        return players.reduce("", { (result: String, p: User) -> String in
+//            return result + p.name + "\n"
+//        })
+        return "" // TODO: Fix this once backend is integrated properly
     }
 
 }

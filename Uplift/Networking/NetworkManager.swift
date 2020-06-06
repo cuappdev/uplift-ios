@@ -27,6 +27,7 @@ struct NetworkManager {
         let parameters: [String: Any] = [
             "token": token
         ]
+
         AF.request(tokenURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
             switch response.result {
             case .success(let data):

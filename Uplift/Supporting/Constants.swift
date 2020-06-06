@@ -73,6 +73,10 @@ struct Identifiers {
     static let loadingCollectionViewCell = "loadingCollectionViewCell"
     static let lookingForCell = "lookingForCell"
     static let noHabitsCell = "noHabitsCell"
+    static let sportsFilterGymCell = "sportsFilterGymCell"
+    static let sportsFilterStartTimeCell = "sportsFilterStartTimeCell"
+    static let sportsFilterNumPlayersCell = "sportsFilterNumPlayersCell"
+    static let sportsFilterSportsDropdownCell = "sportsFilterSportsDropdownCell"
     static let pickupGameCell = "pickupGameCell"
     static let sportsDetailCommentCell = "sportsDetailCommentCell"
     static let sportsDetailDiscussionCell = "sportsDetailDiscussionCell"
@@ -86,7 +90,6 @@ struct Identifiers {
     static let sportsFormPlayersCell = "sportsFormPlayersCell"
     static let sportsFormBubbleListItemCell = "sportsFormBubbleListItemCell"
     static let sportsFormBubbleListInputCell = "sportsFormBubbleListInputCell"
-    
 
     // FOOTERS
     static let dropdownFooterView = "dropdownFooterView"
@@ -187,7 +190,7 @@ struct ImageNames {
     // SHARE
     static let shareDark = "share-dark"
     static let shareLight = "share-light"
-    
+
     // SPORTS
     static let addSports = "add-sports"
     static let profilePicDemo = "demo-profile-pic"

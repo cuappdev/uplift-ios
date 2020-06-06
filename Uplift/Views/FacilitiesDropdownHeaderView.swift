@@ -1,8 +1,9 @@
 //
 //  FacilitiesDropdownHeaderView.swift
-//  Alamofire
+//  Uplift
 //
 //  Created by Cameron Hamidi on 11/26/19.
+//  Copyright © 2019 Uplift. All rights reserved.
 //
 
 import UIKit

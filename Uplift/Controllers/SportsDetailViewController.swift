@@ -9,7 +9,7 @@
 import UIKit
 
 class SportsDetailViewController: UIViewController {
-     
+
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
     
     private struct Section {
@@ -25,29 +25,31 @@ class SportsDetailViewController: UIViewController {
     }
     
     private var dropStatus: DropdownStatus = .closed
-    private var post: Post = Post(comment: [], createdAt: Date(), id: -1, userId: -1, title: "", time: Date(), type: "", location: "", players: [], gameStatus: GameStatus.open.rawValue)
+    private var post: Post = Post(comment: [], createdAt: Date(), gameStatus: GameStatus.open.rawValue, id: -1, location: "", players: 0, time: Date(), title: "", type: "", userId: -1)
     private var section: Section = Section(items: [.info, .players([]), .discussion])
-    
+
     init(post: Post) {
         super.init(nibName: nil, bundle: nil)
         self.post = post
-        let playerNames = post.players.map { user -> String in
-            if let familyName = user.familyName, let givenName = user.givenName {
-                return "\(givenName) \(familyName.prefix(1))."
-            } else {
-                return user.name
-            }
-        }
-        var items: [ItemType] = [.info, .players(playerNames), .discussion]
+        // TODO - Resolve this with how players are modelled in the backend
+//        let playerNames = post.players.map { user -> String in
+//            if let familyName = user.familyName, let givenName = user.givenName {
+//                return "\(givenName) \(familyName.prefix(1))."
+//            } else {
+//                return user.name
+//            }
+//        }
+        var items: [ItemType] = [.info, .players([""]), .discussion]
         items.append(contentsOf: post.comment.map { c -> ItemType in
             return .comment(c)
         })
         items.append(.input)
         section = Section(items: items)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         updatesStatusBarAppearanceAutomatically = true
         view.backgroundColor = .white
         

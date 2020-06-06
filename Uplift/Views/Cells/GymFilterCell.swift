@@ -11,10 +11,12 @@ import UIKit
 
 class GymFilterCell: UICollectionViewCell {
 
-    // MARK: - INITIALIZATION
-    static let identifier = Identifiers.gymFilterCell
-    var gymNameLabel: UILabel!
-    var selectedCircle: UIView!
+    static let labelFont = UIFont._14MontserratLight
+
+    private let gymNameLabel = UILabel()
+    private let rightDivider = UIView()
+    private let selectedCircle = UIView()
+
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
@@ -31,14 +33,15 @@ class GymFilterCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = .white
 
-        gymNameLabel = UILabel()
-        gymNameLabel.font = ._14MontserratLight
+        gymNameLabel.font = GymFilterCell.labelFont
         gymNameLabel.textColor = .primaryBlack
         gymNameLabel.sizeToFit()
         gymNameLabel.textAlignment = .center
         contentView.addSubview(gymNameLabel)
 
-        selectedCircle = UIView()
+        rightDivider.backgroundColor = .gray06
+        contentView.addSubview(rightDivider)
+
         selectedCircle.clipsToBounds = true
         selectedCircle.layer.cornerRadius = 3
         selectedCircle.backgroundColor = .primaryWhite
@@ -53,18 +56,43 @@ class GymFilterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func configure(for gymId: GymNameId, showRightDivider: Bool = true) {
+        gymNameLabel.text = gymId.name
+        rightDivider.isHidden = !showRightDivider
+    }
+
+    func setGymNameLabelText(to text: String) {
+        gymNameLabel.text = text
+        gymNameLabel.sizeToFit()
+    }
+
+    func setRightDividerVisibility(to visible: Bool) {
+        rightDivider.isHidden = !visible
+    }
+
     // MARK: - CONSTRAINTS
     func setupConstraints() {
+        let gymNameLabelTopOffset = 5
+        let rightDividerBottomOffset = 5
+        let selectedCircleSize = 6
+        let selectedCircleTopOffset = 5
+
         gymNameLabel.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.left.equalToSuperview().offset(14)
-            make.right.equalToSuperview().offset(-14)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(gymNameLabelTopOffset)
+        }
+
+        rightDivider.snp.updateConstraints { make in
+            make.top.trailing.equalToSuperview()
+            make.bottom.equalTo(gymNameLabel.snp.bottom).offset(rightDividerBottomOffset)
+            make.width.equalTo(1)
         }
 
         selectedCircle.snp.updateConstraints { (make) in
             make.centerX.equalTo(gymNameLabel.snp.centerX)
-            make.height.width.equalTo(6)
-            make.top.equalTo(gymNameLabel.snp.bottom).offset(2)
+            make.height.width.equalTo(selectedCircleSize)
+            make.top.equalTo(gymNameLabel.snp.bottom).offset(selectedCircleTopOffset)
         }
     }
+
 }

@@ -10,6 +10,35 @@ import SideMenu
 import SnapKit
 import UIKit
 
+struct SportsFilterParameters {
+    var endTime: Date
+    var gymIds: [String]
+    var maxPlayers: Int
+    var minPlayers: Int
+    var shouldFilter: Bool
+    var sportsNames: [String]
+    var startTime: Date
+    var tags: [String]
+
+    init(endTime: Date = Date(),
+         gymIds: [String] = [],
+         maxPlayers: Int = 10,
+         minPlayers: Int = 2,
+         shouldFilter: Bool = false,
+         sportsNames: [String] = [],
+         startTime: Date = Date(),
+         tags: [String] = []) {
+        self.endTime = endTime
+        self.gymIds = gymIds
+        self.maxPlayers = maxPlayers
+        self.minPlayers = minPlayers
+        self.shouldFilter = shouldFilter
+        self.sportsNames = sportsNames
+        self.startTime = startTime
+        self.tags = tags
+    }
+}
+
 protocol GameStatusDelegate: class {
     func didChangeStatus(id: Int, status: GameStatus)
 }
@@ -26,6 +55,13 @@ class SportsFeedViewController: UIViewController {
 
     private var calendarCollectionView: UICollectionView!
     private var collectionView: UICollectionView!
+
+    private var filterButton: UIButton!
+
+    private var currentFilterParams: SportsFilterParameters?
+
+    private let sportIdentifier = "sportIdentifier"
+
     private var sideMenu: SideMenuNavigationController!
 
     // MARK: - Calendar data vars
@@ -33,6 +69,7 @@ class SportsFeedViewController: UIViewController {
     lazy private var calendarDateSelected: Date = {
         return currDate
     }()
+  
     private var currDate: Date!
 
     // MARK: - Other data
@@ -41,7 +78,6 @@ class SportsFeedViewController: UIViewController {
     var sideMenuWidth: CGFloat {
         return view.bounds.width * 320.0 / 375.0
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -60,6 +96,13 @@ class SportsFeedViewController: UIViewController {
             self.showProfileView()
         }
         view.addSubview(headerView)
+
+        // Fill with dummy data for now.
+        posts = [[], [], [], [
+            Post(comment: [], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players: 0, time: Date(), title: "Sports With Zain", type: "Basketball", userId: 10),
+            Post(comment: [], createdAt: Date(), gameStatus: "CREATED", id: 1, location: "Austin's Basement", players: 0, time: Date(), title: "Soccer", type: "Zain's Backyard", userId: 2),
+            Post(comment: [], createdAt: Date(), gameStatus: "OPEN", id: 2, location: "Zain's Tennis Court", players: 0, time: Date(), title: "Open Game with Zain", type: "Tennis", userId: 0)
+        ]]
         
         // TODO: Get rid of dummy data. This is temporary for testing purposes.
         let userZain = User(id: 0, name: "Zain Khoja", netId: "netId00", givenName: "Zain", familyName: "Khoja", email: "zk@uplift.com")
@@ -77,9 +120,9 @@ class SportsFeedViewController: UIViewController {
         let players = [userZain, userYiHsin, userWill, userAmanda, userYanlam, userCameron]
         
         posts = [[], [], [], [
-            Post(comment: [comment1], createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: Date(), type: "Basketball", location: "Noyes Recreation Center", players: [userZain, userYiHsin, userWill], gameStatus: "JOINED"),
-            Post(comment: [comment2], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: Date(), type: "Soccer", location: "Zain's Backyard", players: [userZain, userCameron], gameStatus: "CREATED"),
-            Post(comment: [comment3, comment4], createdAt: Date(), id: 2, userId: 1, title: "Open Game with Yi Hsin", time: Date(), type: "Tennis", location: "Zain's Tennis Court", players: [userZain, userYiHsin, userWill, userAmanda, userYanlam, userWill], gameStatus: "OPEN")
+            Post(comment: [comment1], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players: 3, time: Date(), title: "Zain's Basketball Game", type: "Basketball", userId: 0),
+            Post(comment: [comment2], createdAt: Date(), gameStatus: "CREATED", id: 1, location: "Zain's Backyard", players: 2, time: Date(), title: "Sports With Zain", type: "Soccer", userId: 0),
+            Post(comment: [comment3, comment4], createdAt: Date(), gameStatus: "OPEN", id: 2, location: "Zain's Tennis Court", players: 6, time: Date(), title: "Open Game with Yi Hsin", type: "Tennis", userId: 1)
         ], [], [], [], [], [], []]
 
         let calendarFlowLayout = CalendarGenerator.getCalendarFlowLayout()
@@ -106,6 +149,20 @@ class SportsFeedViewController: UIViewController {
         collectionView.register(PickupGameCell.self, forCellWithReuseIdentifier: Identifiers.pickupGameCell)
         view.addSubview(collectionView)
 
+        filterButton = UIButton()
+        filterButton.setTitle(ClientStrings.Filter.applyFilterLabel, for: .normal)
+        filterButton.titleLabel?.font = ._14MontserratBold
+        filterButton.layer.cornerRadius = 24.0
+        filterButton.setTitleColor(.black, for: .normal)
+        filterButton.backgroundColor = .primaryWhite
+        filterButton.addTarget(self, action: #selector(filterPressed), for: .touchUpInside)
+        filterButton.layer.shadowColor = UIColor.buttonShadow.cgColor
+        filterButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        filterButton.layer.shadowRadius = 4.0
+        filterButton.layer.shadowOpacity = 1.0
+        filterButton.layer.masksToBounds = false
+        view.addSubview(filterButton)
+
         sideMenu = SideMenuNavigationController(rootViewController: ProfileViewController(myGames: posts[3], joinedGames: posts[3], pastGames: posts[3]))
         sideMenu.leftSide = true
         sideMenu.menuWidth = sideMenuWidth
@@ -126,6 +183,8 @@ class SportsFeedViewController: UIViewController {
     private func setupConstraints() {
         let calendarCollectionViewHeight = 47
         let calendarCollectionViewTopPadding = 40
+        let filterButtonBottomPadding = 18
+        let filterButtonSize = CGSize(width: 164, height: 46)
         let headerViewHeight = 120
         let sportCollectionViewTopPadding = 18
 
@@ -145,6 +204,12 @@ class SportsFeedViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(calendarCollectionView.snp.bottom).offset(sportCollectionViewTopPadding)
         }
+
+        filterButton.snp.makeConstraints { make in
+            make.size.equalTo(filterButtonSize)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(filterButtonBottomPadding)
+            make.centerX.equalToSuperview()
+        }
         
         tintOverlay.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -154,6 +219,19 @@ class SportsFeedViewController: UIViewController {
     private func getSportsFor(date: Date) {
         // TODO: Filter posts.
         self.collectionView.reloadData()
+    }
+}
+
+extension SportsFeedViewController: SportsFilterDelegate {
+
+    @objc func filterPressed() {
+        let filterVC = SportsFilterViewController(currentFilterParams: currentFilterParams)
+        filterVC.delegate = self
+        let filterNavController = UINavigationController(rootViewController: filterVC)
+        tabBarController?.present(filterNavController, animated: true, completion: nil)
+    }
+
+    func filterOptions(params: SportsFilterParameters?) {
     }
 }
 
