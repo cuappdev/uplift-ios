@@ -68,9 +68,7 @@ class SportsFilterNumPlayersCollectionViewCell: SportsFilterCollectionViewCell, 
 
         numPlayersLabel.snp.remakeConstraints { make in
             make.trailing.equalToSuperview().offset(numPlayersLabelTrailingOffset)
-//            make.top.equalToSuperview().offset(numPlayersTopOffset)
             make.centerY.equalTo(titleLabel.snp.centerY)
-//            make.bottom.equalTo(numPlayersLabelHeight)
         }
 
         numPlayersSlider.snp.remakeConstraints { make in

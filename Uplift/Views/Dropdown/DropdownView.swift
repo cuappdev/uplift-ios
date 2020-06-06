@@ -20,9 +20,6 @@ enum DropdownDirection {
 
 protocol DropdownViewDelegate: class {
     func dropdownStatusChanged(to status: DropdownStatus, with height: CGFloat)
-//    func dropdownViewClosed(sender dropdownView: DropdownView)
-//    func dropdownViewOpen(sender dropdownView: DropdownView)
-//    func dropdownViewHalf(sender dropdownView: DropdownView)
 }
 
 class DropdownView: UIView {
@@ -162,20 +159,16 @@ class DropdownView: UIView {
             status = .half
             halfOpenView?.isHidden = false
             halfCloseView?.isHidden = true
-//            UIView.animate(withDuration: 0.3) {
-                self.contentViewHeightConstraint.update(offset: self.halfHeight)
-                self.contentView.layoutIfNeeded()
-//            }
+            contentViewHeightConstraint.update(offset: self.halfHeight)
+            contentView.layoutIfNeeded()
             currentHeight = headerViewHeight + halfOpenViewHeight + halfHeight
             if notifyDelegate {
                 delegate?.dropdownStatusChanged(to: status, with: currentHeight)
             }
         } else { // Since the user has not enabled the half dropdown state, fully open the dropdown
             status = .open
-//            UIView.animate(withDuration: 0.3) {
-                self.contentViewHeightConstraint.update(offset: self.contentViewHeight)
-                self.contentView.layoutIfNeeded()
-//            }
+            contentViewHeightConstraint.update(offset: self.contentViewHeight)
+            contentView.layoutIfNeeded()
             currentHeight = headerViewHeight + contentViewHeight
             if notifyDelegate {
                 delegate?.dropdownStatusChanged(to: status, with: currentHeight)
@@ -185,10 +178,8 @@ class DropdownView: UIView {
 
     func closeDropdown() {
         status = .closed
-//        UIView.animate(withDuration: 0.3) {
-            self.contentViewHeightConstraint.update(offset: 0)
-            self.layoutIfNeeded()
-//        }
+        contentViewHeightConstraint.update(offset: 0)
+        layoutIfNeeded()
         halfOpenView?.isHidden = true
         halfCloseView?.isHidden = true
         currentHeight = headerViewHeight
@@ -225,10 +216,9 @@ class DropdownView: UIView {
         status = .open
         halfOpenView?.isHidden = true
         halfCloseView?.isHidden = false
-//        UIView.animate(withDuration: 0.3) {
-            self.contentViewHeightConstraint.update(offset: self.contentViewHeight)
-            self.layoutIfNeeded()
-//        }
+        contentViewHeightConstraint.update(offset: self.contentViewHeight)
+        layoutIfNeeded()
+
         currentHeight = headerViewHeight + contentViewHeight + halfCloseViewHeight
         if notifyDelegate {
             delegate?.dropdownStatusChanged(to: status, with: currentHeight)
@@ -240,10 +230,8 @@ class DropdownView: UIView {
         status = .half
         halfOpenView?.isHidden = false
         halfCloseView?.isHidden = true
-//        UIView.animate(withDuration: 0.3) {
-            self.contentViewHeightConstraint.update(offset: self.halfHeight)
-            self.layoutIfNeeded()
-//        }
+        contentViewHeightConstraint.update(offset: self.halfHeight)
+        layoutIfNeeded()
         currentHeight = headerViewHeight + halfOpenViewHeight + halfHeight
         if notifyDelegate {
             delegate?.dropdownStatusChanged(to: status, with: currentHeight)

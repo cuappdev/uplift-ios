@@ -9,11 +9,8 @@
 import Foundation
 import UIKit
 
-//enum Dropped {
-//    case up, half, down
-//}
-
 class DropdownData {
+
     var completed: Bool!
     var dropStatus: DropdownStatus!
     var titles: [String]!
@@ -26,7 +23,9 @@ class DropdownData {
 
 }
 
-struct GymNameId {
+struct GymNameId: Equatable {
+
     var name: String!
     var id: String!
+    
 }

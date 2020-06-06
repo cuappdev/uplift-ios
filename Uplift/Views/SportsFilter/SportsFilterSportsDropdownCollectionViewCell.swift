@@ -16,6 +16,10 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
     private let dropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectSportsSection)
     private let tableView = UITableView()
 
+    private let headerViewHeight: CGFloat = 55
+    private let halfViewHeight: CGFloat = 20
+    private let halfOpenCellNumber = 3
+
     private var dropdownView: DropdownView!
 
     weak var dropdownDelegate: DropdownViewDelegate?
@@ -28,7 +32,7 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
 
         contentView.isUserInteractionEnabled = true
-        contentView.backgroundColor = .white//red
+        contentView.backgroundColor = .white
 
         dropdownHeader.delegate = self
 
@@ -43,9 +47,10 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.isScrollEnabled = false
         tableView.backgroundColor = .clear
 
-        dropdownView = DropdownView(headerView: dropdownHeader, headerViewHeight: 55, contentView: tableView, contentViewHeight: 0, halfDropdownEnabled: true, halfOpenView: halfOpenView, halfOpenViewHeight: 20, halfCloseView: halfCloseView, halfCloseViewHeight: 20, halfHeight: 32 * 3)
+        dropdownView = DropdownView(headerView: dropdownHeader, headerViewHeight: headerViewHeight, contentView: tableView, contentViewHeight: 0, halfDropdownEnabled: true, halfOpenView: halfOpenView, halfOpenViewHeight: halfViewHeight, halfCloseView: halfCloseView, halfCloseViewHeight: halfViewHeight, halfHeight: DropdownViewCell.height * CGFloat(halfOpenCellNumber))
 
         contentView.addSubview(dropdownView)
 
@@ -72,7 +77,7 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
         dropdownView.delegate = dropdownDelegate
         sportsTypeDropdownData = dropdownData
         self.selectedSports = selectedSports
-        dropdownView.updateContentViewHeight(to: CGFloat(32 * sportsTypeDropdownData.titles.count))
+        dropdownView.updateContentViewHeight(to: CGFloat(DropdownViewCell.height * CGFloat(sportsTypeDropdownData.titles.count)))
         dropdownView.setStatus(to: sportsTypeDropdownData.dropStatus)
         dropdownHeader.updateDropdownHeader(selectedFilters: selectedSports)
         tableView.reloadData()
@@ -88,9 +93,6 @@ extension SportsFilterSportsDropdownCollectionViewCell: DropdownHeaderViewDelega
 
     func didTapHeaderView() {
         dropdownView.openCloseDropdown()
-//        if let vc = dropdownDelegate as? SportsFilterViewController {
-//            vc.dropdownStatusChanged(to: .open, with: 0)
-//        }
     }
 
 }
@@ -116,7 +118,7 @@ extension SportsFilterSportsDropdownCollectionViewCell: UITableViewDataSource {
 extension SportsFilterSportsDropdownCollectionViewCell: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 32
+        return DropdownViewCell.height
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -14,7 +14,8 @@ class SportsFilterGymCollectionViewCell: SportsFilterCollectionViewCell {
     static let height: CGFloat = 107
 
     private var gymCollectionView: UICollectionView
-    private var gyms: [GymNameId] = [GymNameId(name: "Noyes", id: nil), GymNameId(name: "Appel", id: nil), GymNameId(name: "Helen Newman", id: nil), GymNameId(name: "Teagle", id: nil)]
+    private var gyms: [GymNameId] = []
+    private var selectedGyms: [GymNameId] = []
 
     let collectionViewTopBottomOffset: CGFloat = 16
     let cellLabelLeadingTrailingPadding: CGFloat = 16
@@ -35,7 +36,6 @@ class SportsFilterGymCollectionViewCell: SportsFilterCollectionViewCell {
 
         gymCollectionView.allowsMultipleSelection = true
         gymCollectionView.backgroundColor = .clear
-//        gymCollectionView.isScrollEnabled = true
         gymCollectionView.showsHorizontalScrollIndicator = false
         gymCollectionView.bounces = false
         gymCollectionView.delegate = self
@@ -49,14 +49,22 @@ class SportsFilterGymCollectionViewCell: SportsFilterCollectionViewCell {
             make.leading.trailing.equalToSuperview()
         }
 
-//        NetworkManager.shared.getGymNames(completion: { gyms in
-//            self.gyms = gyms
-//            self.gymCollectionView.reloadData()
-//        })
+        NetworkManager.shared.getGymNames(completion: { gyms in
+            self.gyms = gyms
+            self.gymCollectionView.reloadData()
+        })
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func getSelectedGyms() -> [GymNameId] {
+        return selectedGyms
+    }
+
+    func setSelectedGyms(to gyms: [GymNameId]) {
+        selectedGyms = gyms
     }
 
 }
@@ -66,7 +74,16 @@ extension SportsFilterGymCollectionViewCell: UICollectionViewDelegateFlowLayout 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let gymName = gyms[indexPath.row].name!
         let width = gymName.width(withConstrainedHeight: 1000, font: GymFilterCell.labelFont ?? UIFont.systemFont(ofSize: 12.0)) + 2 * cellLabelLeadingTrailingPadding
-        return CGSize(width: width, height: collectionView.bounds.height)//28)
+        return CGSize(width: width, height: collectionView.bounds.height)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let gym = gyms[indexPath.row]
+        if let index = selectedGyms.index(of: gym) {
+            selectedGyms.remove(at: index)
+        } else {
+            selectedGyms.append(gym)
+        }
     }
 
 }

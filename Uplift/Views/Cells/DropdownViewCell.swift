@@ -11,6 +11,8 @@ import UIKit
 
 class DropdownViewCell: UITableViewCell {
 
+    static let height: CGFloat = 32
+
     // MARK: - INITIALIZATION
     private let checkBox = UIView()
     private let checkBoxColoring = UIView()
@@ -21,7 +23,7 @@ class DropdownViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        contentView.backgroundColor = .clear//.white
+        contentView.backgroundColor = .clear
 
         // TITLE LABEL
         titleLabel.sizeToFit()
