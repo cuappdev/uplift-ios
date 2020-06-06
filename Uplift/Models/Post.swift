@@ -18,15 +18,16 @@ struct Post: Codable {
     let id: Int
     let location: String
     let players: Int
-    let time: String
+    let time: Date
     let title: String
     let type: String
     let userId: Int
-    
+
     func getPlayersListString() -> String {
-        return players.reduce("", { (result: String, p: User) -> String in
-            return result + p.name + "\n"
-        })
+//        return players.reduce("", { (result: String, p: User) -> String in
+//            return result + p.name + "\n"
+//        })
+        return "" // TODO: Fix this once backend is integrated properly
     }
 
 }

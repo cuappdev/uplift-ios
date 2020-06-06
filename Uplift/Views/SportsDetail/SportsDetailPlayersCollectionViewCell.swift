@@ -121,17 +121,17 @@ class SportsDetailPlayersCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for post: Post, dropStatus: DropdownStatus) {
-        headerLabel.text = "\(ClientStrings.SportsDetail.players) \(post.players.count)/\(Post.maxPlayers)"
+        headerLabel.text = "\(ClientStrings.SportsDetail.players) \(post.players)/\(Post.maxPlayers)"
         self.dropStatus = dropStatus
         caratImage.image = dropStatus == .closed
             ? UIImage(named: ImageNames.rightArrowSolid)
             : UIImage(named: ImageNames.downArrowSolid)
         
         previewLabel.isHidden = dropStatus == .open
-        previewLabel.text = getPlayersPreview(players: post.players)
+        previewLabel.text = getPlayersPreview(players: []) // TODO: Fix this once backend models are decided
         
         playersTextView.isHidden = dropStatus == .closed
-        players = post.players
+        players = []//post.players
         playersTextView.text = post.getPlayersListString()
 
         setupConstraints()

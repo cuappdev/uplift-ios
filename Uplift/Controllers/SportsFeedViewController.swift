@@ -57,11 +57,9 @@ class SportsFeedViewController: UIViewController {
     private var collectionView: UICollectionView!
 
     private var filterButton: UIButton!
-    private let headerView = SportsFeedHeaderView()
 
     private var currentFilterParams: SportsFilterParameters?
 
-    private var posts: [[Post]] = Array.init(repeating: [], count: 10)
     private let sportIdentifier = "sportIdentifier"
 
     private var sideMenu: SideMenuNavigationController!
@@ -101,9 +99,10 @@ class SportsFeedViewController: UIViewController {
 
         // Fill with dummy data for now.
         posts = [[], [], [], [
-            Post(comment: [], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players: 0, time: "5:00 PM", title: "Sports With Zain", type: "Basketball", userId: 10),
-            Post(comment: [], createdAt: Date(), gameStatus: "CREATED", id: 1, location: "Austin's Basement", players: 0, time: "7:00 PM", title: "Soccer", type: "Zain's Backyard", userId: 2),
-            Post(comment: [], createdAt: Date(), gameStatus: "OPEN", id: 2, location: "Zain's Tennis Court", players: 0, time: "4:00 PM", title: "Open Game with Zain", type: "Tennis", userId: 0)
+            Post(comment: [], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players: 0, time: Date(), title: "Sports With Zain", type: "Basketball", userId: 10),
+            Post(comment: [], createdAt: Date(), gameStatus: "CREATED", id: 1, location: "Austin's Basement", players: 0, time: Date(), title: "Soccer", type: "Zain's Backyard", userId: 2),
+            Post(comment: [], createdAt: Date(), gameStatus: "OPEN", id: 2, location: "Zain's Tennis Court", players: 0, time: Date(), title: "Open Game with Zain", type: "Tennis", userId: 0)
+        ]]
         
         // TODO: Get rid of dummy data. This is temporary for testing purposes.
         let userZain = User(id: 0, name: "Zain Khoja", netId: "netId00", givenName: "Zain", familyName: "Khoja", email: "zk@uplift.com")
@@ -121,9 +120,9 @@ class SportsFeedViewController: UIViewController {
         let players = [userZain, userYiHsin, userWill, userAmanda, userYanlam, userCameron]
         
         posts = [[], [], [], [
-            Post(comment: [comment1], createdAt: Date(), id: 0, userId: 0, title: "Zain's Basketball Game", time: Date(), type: "Basketball", location: "Noyes Recreation Center", players: [userZain, userYiHsin, userWill], gameStatus: "JOINED"),
-            Post(comment: [comment2], createdAt: Date(), id: 1, userId: 0, title: "Sports With Zain", time: Date(), type: "Soccer", location: "Zain's Backyard", players: [userZain, userCameron], gameStatus: "CREATED"),
-            Post(comment: [comment3, comment4], createdAt: Date(), id: 2, userId: 1, title: "Open Game with Yi Hsin", time: Date(), type: "Tennis", location: "Zain's Tennis Court", players: [userZain, userYiHsin, userWill, userAmanda, userYanlam, userWill], gameStatus: "OPEN")
+            Post(comment: [comment1], createdAt: Date(), gameStatus: "JOINED", id: 0, location: "Noyes Recreation Center", players: 3, time: Date(), title: "Zain's Basketball Game", type: "Basketball", userId: 0),
+            Post(comment: [comment2], createdAt: Date(), gameStatus: "CREATED", id: 1, location: "Zain's Backyard", players: 2, time: Date(), title: "Sports With Zain", type: "Soccer", userId: 0),
+            Post(comment: [comment3, comment4], createdAt: Date(), gameStatus: "OPEN", id: 2, location: "Zain's Tennis Court", players: 6, time: Date(), title: "Open Game with Yi Hsin", type: "Tennis", userId: 1)
         ], [], [], [], [], [], []]
 
         let calendarFlowLayout = CalendarGenerator.getCalendarFlowLayout()
@@ -210,6 +209,7 @@ class SportsFeedViewController: UIViewController {
             make.size.equalTo(filterButtonSize)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(filterButtonBottomPadding)
             make.centerX.equalToSuperview()
+        }
         
         tintOverlay.snp.makeConstraints { make in
             make.edges.equalToSuperview()
