@@ -16,8 +16,8 @@ class SportsFilterNumPlayersCollectionViewCell: SportsFilterCollectionViewCell, 
     private let numPlayersLabel = UILabel()
     private let numPlayersSlider = RangeSeekSlider(frame: .zero)
 
-    let maxPlayers = 10
-    let minPlayers = 2
+    private let maxPlayers = 10
+    private let minPlayers = 2
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,7 +61,6 @@ class SportsFilterNumPlayersCollectionViewCell: SportsFilterCollectionViewCell, 
 
     func setupConstraints() {
         let leadingOffset = 16
-        let numPlayersLabelHeight = 16
         let numPlayersLabelTrailingOffset = -22
         let numPlayersSliderTopOffset = 12
         let numPlayersSliderTopOffsetHeight = 30

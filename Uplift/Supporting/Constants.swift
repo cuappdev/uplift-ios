@@ -175,7 +175,7 @@ struct ImageNames {
     // SHARE
     static let shareDark = "share-dark"
     static let shareLight = "share-light"
-    
+
     // SPORTS
     static let addSports = "add-sports"
     static let profilePicDemo = "demo-profile-pic"

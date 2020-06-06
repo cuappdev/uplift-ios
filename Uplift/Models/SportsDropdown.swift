@@ -9,23 +9,17 @@
 import Foundation
 import UIKit
 
-class DropdownData {
+struct DropdownData {
 
     var completed: Bool!
     var dropStatus: DropdownStatus!
     var titles: [String]!
 
-    init(completed: Bool, dropStatus: DropdownStatus, titles: [String]) {
-        self.completed = completed
-        self.dropStatus = dropStatus
-        self.titles = titles
-    }
-
 }
 
 struct GymNameId: Equatable {
 
-    var name: String!
-    var id: String!
-    
+    let name: String!
+    let id: String!
+
 }

@@ -48,12 +48,12 @@ class SportsFeedViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var filterButton: UIButton!
     private let headerView = SportsFeedHeaderView()
-    
+
     private var currentFilterParams: SportsFilterParameters?
 
     private var posts: [[Post]] = Array.init(repeating: [], count: 10)
     private let sportIdentifier = "sportIdentifier"
-    
+
     // MARK: - Calendar data vars
     private var calendarDatesList: [Date] = CalendarGenerator.getCalendarDates()
     lazy private var calendarDateSelected: Date = {

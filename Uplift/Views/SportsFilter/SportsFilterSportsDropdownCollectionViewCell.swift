@@ -21,12 +21,10 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
     private let halfOpenCellNumber = 3
 
     private var dropdownView: DropdownView!
+    private var selectedSports: [String] = []
+    private var sportsTypeDropdownData: DropdownData!
 
     weak var dropdownDelegate: DropdownViewDelegate?
-
-    var selectedSports: [String] = []
-
-    var sportsTypeDropdownData: DropdownData!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,6 +85,10 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
         return dropdownView.currentHeight
     }
 
+    func getSelectedSports() -> [String] {
+        return selectedSports
+    }
+
 }
 
 extension SportsFilterSportsDropdownCollectionViewCell: DropdownHeaderViewDelegate {
@@ -106,7 +108,6 @@ extension SportsFilterSportsDropdownCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.dropdownViewCell, for: indexPath) as! DropdownViewCell
         if indexPath.row < sportsTypeDropdownData.titles.count {
-            print(indexPath.row)
             let isSelected = selectedSports.contains(sportsTypeDropdownData.titles[indexPath.row])
             cell.configure(for: sportsTypeDropdownData.titles[indexPath.row], selected: isSelected)
         }
@@ -123,7 +124,6 @@ extension SportsFilterSportsDropdownCollectionViewCell: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! DropdownViewCell
-        print(cell.wasSelected)
         if !cell.wasSelected {
             selectedSports.append(cell.getTitle())
         } else {

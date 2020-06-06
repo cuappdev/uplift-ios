@@ -658,8 +658,7 @@ extension FilterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.gymFilterCell, for: indexPath) as! GymFilterCell
 
-        cell.gymNameLabel.text = gyms[indexPath.row].name
-        cell.gymNameLabel.sizeToFit()
+        cell.setGymNameLabelText(to: gyms[indexPath.row].name)
 
         if selectedGyms.contains(gyms[indexPath.row].id) {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)

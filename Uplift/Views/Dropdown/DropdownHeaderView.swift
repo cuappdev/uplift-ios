@@ -117,16 +117,12 @@ class DropdownHeaderView: UIView {
     }
 
     func rotateArrowDown() {
-//        UIView.animate(withDuration: 0.3) {
-            self.arrowImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
-//        }
+        arrowImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
         isArrowRotated = true
     }
 
     func rotateArrowUp() {
-//        UIView.animate(withDuration: 0.3) {
-            self.arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
-//        }
+        arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
         isArrowRotated = false
     }
 

@@ -11,7 +11,7 @@ import SnapKit
 
 class OnboardingLetterViewController: UIViewController {
 
-    //MARK:- UI Elements + Init
+    // MARK:- UI Elements + Init
     // First Message
     var text1: UILabel!
     var text2: UILabel!
@@ -27,7 +27,7 @@ class OnboardingLetterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .fitnessWhite
+        view.backgroundColor = .primaryWhite
 
         text1 = UILabel()
         text1.font = UIFont(name: "Montserrat-Regular", size: 24)
@@ -54,7 +54,7 @@ class OnboardingLetterViewController: UIViewController {
         view.addSubview(image)
 
         nextButton = UIButton()
-        nextButton.backgroundColor = UIColor.fitnessYellow
+        nextButton.backgroundColor = .primaryYellow
         nextButton.layer.cornerRadius = buttonSize / 2
         nextButton.layer.masksToBounds = false
         nextButton.layer.shadowOpacity = 0.25
@@ -108,7 +108,7 @@ class OnboardingLetterViewController: UIViewController {
 extension NSMutableAttributedString {
     @discardableResult func bold(_ text: String) -> NSMutableAttributedString {
         let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "Montserrat-Bold", size: 24)!]
-        let boldString = NSMutableAttributedString(string:text, attributes: attrs)
+        let boldString = NSMutableAttributedString(string: text, attributes: attrs)
         append(boldString)
 
         return self

@@ -37,7 +37,7 @@ class SportsFilterViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
 
-        //NAVIGATION BAR
+        // NAVIGATION BAR
         setupNavBar()
 
         let layout = UICollectionViewFlowLayout()
@@ -167,7 +167,7 @@ extension SportsFilterViewController: DropdownViewDelegate {
             if filterSections[index] == .sports {
                 let indexPath = IndexPath(item: index, section: 0)
                 if let cell = filterOptionsCollectionView.cellForItem(at: indexPath) as? SportsFilterSportsDropdownCollectionViewCell {
-                    selectedSports = cell.selectedSports
+                    selectedSports = cell.getSelectedSports()
                 }
                 UIView.performWithoutAnimation {
                     filterOptionsCollectionView.reloadItems(at: [indexPath])

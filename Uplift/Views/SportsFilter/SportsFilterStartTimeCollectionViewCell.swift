@@ -15,10 +15,10 @@ class SportsFilterStartTimeCollectionViewCell: SportsFilterCollectionViewCell {
     private let startTimeLabel = UILabel()
     private let startTimeSlider = RangeSeekSlider(frame: .zero)
 
-    var endTime = "10:00PM"
-    var startTime = "6:00AM"
-    var timeFormatter = DateFormatter()
-    var timeRanges: [Date] = []
+    private var endTime = "10:00PM"
+    private var startTime = "6:00AM"
+    private var timeFormatter = DateFormatter()
+    private var timeRanges: [Date] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 
 class OnboardingMessageViewController: UIViewController {
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()

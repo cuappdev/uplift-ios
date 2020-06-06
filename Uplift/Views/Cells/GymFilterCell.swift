@@ -13,9 +13,9 @@ class GymFilterCell: UICollectionViewCell {
 
     static let labelFont = UIFont._14MontserratLight
 
-    var gymNameLabel = UILabel()
-    var rightDivider = UIView()
-    var selectedCircle = UIView()
+    private let gymNameLabel = UILabel()
+    private let rightDivider = UIView()
+    private let selectedCircle = UIView()
 
     override var isSelected: Bool {
         didSet {
@@ -59,6 +59,11 @@ class GymFilterCell: UICollectionViewCell {
     func configure(for gymId: GymNameId, showRightDivider: Bool = true) {
         gymNameLabel.text = gymId.name
         rightDivider.isHidden = !showRightDivider
+    }
+
+    func setGymNameLabelText(to text: String) {
+        gymNameLabel.text = text
+        gymNameLabel.sizeToFit()
     }
 
     func setRightDividerVisibility(to visible: Bool) {

@@ -148,6 +148,9 @@
 		E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E689381C240F68460022B524 /* LoadingCollectionView.swift */; };
 		E689381F240F69D10022B524 /* SportsFeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E689381E240F69D00022B524 /* SportsFeedHeaderView.swift */; };
 		E6963C41238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */; };
+		E69A8577248B3E6100490EC3 /* EndOnboardingLetterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69A8574248B3E5C00490EC3 /* EndOnboardingLetterViewController.swift */; };
+		E69A8578248B3E6100490EC3 /* OnboardingLetterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69A8575248B3E5C00490EC3 /* OnboardingLetterViewController.swift */; };
+		E69A8579248B3E6100490EC3 /* OnboardingMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69A8576248B3E6000490EC3 /* OnboardingMessageViewController.swift */; };
 		E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69CE6BA23F4B41000CA83BF /* Comment.swift */; };
 		E6A5CB67232DB38C002F9FC5 /* LookingForListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */; };
 		E6A5CB69232DB4FD002F9FC5 /* LookingForListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */; };
@@ -305,6 +308,9 @@
 		E689381C240F68460022B524 /* LoadingCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingCollectionView.swift; sourceTree = "<group>"; };
 		E689381E240F69D00022B524 /* SportsFeedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsFeedHeaderView.swift; sourceTree = "<group>"; };
 		E6963C40238CF3E000ABC526 /* FacilitiesDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacilitiesDropdownHeaderView.swift; path = ../../FacilitiesDropdownHeaderView.swift; sourceTree = "<group>"; };
+		E69A8574248B3E5C00490EC3 /* EndOnboardingLetterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndOnboardingLetterViewController.swift; sourceTree = "<group>"; };
+		E69A8575248B3E5C00490EC3 /* OnboardingLetterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingLetterViewController.swift; sourceTree = "<group>"; };
+		E69A8576248B3E6000490EC3 /* OnboardingMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingMessageViewController.swift; sourceTree = "<group>"; };
 		E69CE6BA23F4B41000CA83BF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E6A5CB66232DB38C002F9FC5 /* LookingForListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListCell.swift; sourceTree = "<group>"; };
 		E6A5CB68232DB4FD002F9FC5 /* LookingForListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForListItemCell.swift; sourceTree = "<group>"; };
@@ -556,6 +562,7 @@
 				C26236F62290D1C4007C415D /* ClassDetailViewController.swift */,
 				C2623703229107BA007C415D /* ClassDetailViewController+Extensions.swift */,
 				C7EBD5A62062E60A00D76A8B /* ClassListViewController.swift */,
+				E69A8574248B3E5C00490EC3 /* EndOnboardingLetterViewController.swift */,
 				4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */,
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
@@ -565,7 +572,9 @@
 				C289B16D228A9A4700934A2A /* HabitTrackingController+Extensions.swift */,
 				C21BE14C2292374400B5D219 /* HomeViewController.swift */,
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
+				E69A8575248B3E5C00490EC3 /* OnboardingLetterViewController.swift */,
 				4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */,
+				E69A8576248B3E6000490EC3 /* OnboardingMessageViewController.swift */,
 				4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */,
 				03C801352410628D009845E7 /* SportsDetailViewController.swift */,
 				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
@@ -1007,6 +1016,7 @@
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */,
 				4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */,
+				E69A8578248B3E6100490EC3 /* OnboardingLetterViewController.swift in Sources */,
 				03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
 				4F285B6B238F03D300B7B14D /* FavoriteGymsController.swift in Sources */,
@@ -1026,6 +1036,7 @@
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
 				C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */,
 				03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */,
+				E69A8577248B3E6100490EC3 /* EndOnboardingLetterViewController.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
@@ -1045,6 +1056,7 @@
 				8D26DB092072BCE000144BFC /* FilterViewController.swift in Sources */,
 				4F187272235FD59900A85283 /* GymDetailTimeInfoView.swift in Sources */,
 				C75EC9502059AC90007BC98A /* UIColor+Shared.swift in Sources */,
+				E69A8579248B3E6100490EC3 /* OnboardingMessageViewController.swift in Sources */,
 				8D5334952172ACC600B3A20F /* NoFavoritesEmptyStateView.swift in Sources */,
 				C2623704229107BA007C415D /* ClassDetailViewController+Extensions.swift in Sources */,
 				C27553882381CB6300A1284E /* FacilitiesDropdownCell.swift in Sources */,
