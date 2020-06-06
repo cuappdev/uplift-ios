@@ -23,6 +23,7 @@ class SportsFilterViewController: UIViewController {
 
     weak var delegate: SportsFilterDelegate?
 
+    var selectedSports: [String] = []
     var sportsTypeDropdownData: DropdownData!
 
     init(currentFilterParams: SportsFilterParameters?) {
@@ -52,7 +53,7 @@ class SportsFilterViewController: UIViewController {
 
         setupConstraints()
 
-        sportsTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
+        sportsTypeDropdownData = DropdownData(completed: false, dropStatus: .closed, titles: [])
 
         // TODO: replace with networked sports.
         let sportsNames = ["Basketball", "Soccer", "Table Tennis", "Frisbee", "A", "B", "C"]
@@ -125,8 +126,8 @@ extension SportsFilterViewController: UICollectionViewDataSource {
             return cell
         case .sports:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.sportsFilterSportsDropdownCell, for: indexPath) as! SportsFilterSportsDropdownCollectionViewCell
-            cell.delegate = self
-            cell.configure(for: sportsTypeDropdownData)
+            cell.dropdownDelegate = self
+            cell.configure(for: sportsTypeDropdownData, dropdownDelegate: self, selectedSports: selectedSports)
             return cell
         }
     }
@@ -157,18 +158,21 @@ extension SportsFilterViewController: UICollectionViewDelegate, UICollectionView
 
 }
 
-extension SportsFilterViewController: DropdownHeaderViewDelegate {
-
-    func didTapHeaderView() {
-        <#code#>
-    }
-
-}
-
 extension SportsFilterViewController: DropdownViewDelegate {
 
     func dropdownStatusChanged(to status: DropdownStatus, with height: CGFloat) {
-        <#code#>
+        sportsTypeDropdownData.dropStatus = status
+        (0..<filterSections.count).forEach { index in
+            if filterSections[index] == .sports {
+                let indexPath = IndexPath(item: index, section: 0)
+                if let cell = filterOptionsCollectionView.cellForItem(at: indexPath) as? SportsFilterSportsDropdownCollectionViewCell {
+                    selectedSports = cell.selectedSports
+                }
+                UIView.performWithoutAnimation {
+                    filterOptionsCollectionView.reloadItems(at: [indexPath])
+                }
+            }
+        }
     }
 
 }

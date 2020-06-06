@@ -72,7 +72,7 @@ struct ClientStrings {
         static let selectInstructorSection = "INSTRUCTOR"
         static let selectSportsSection = "SPORTS"
         static let sportsDropdownHideSports = Dropdown.collapse + "Sports"
-        static let sportsDropdownShowSports = Dropdown.expand + "All Sports"
+        static let sportsDropdownShowSports = Dropdown.expand + "Sports"
         static let startTime = "START TIME"
         static let vcTitleLabel = "Refine Search"
     }

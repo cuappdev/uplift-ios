@@ -564,7 +564,6 @@
 				4F285B6A238F03D200B7B14D /* FavoriteGymsController.swift */,
 				8DC5F7B62081375D0043C9CB /* FavoritesViewController.swift */,
 				8D26DB082072BCE000144BFC /* FilterViewController.swift */,
-				032324B42442503A0041ED72 /* SportsFilterViewController.swift */,
 				7E9D6DEE22961B860054F710 /* GymDetailViewController.swift */,
 				7E80876E229B70CA007D9EDD /* GymDetailViewController+Extensions.swift */,
 				8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */,
@@ -573,8 +572,9 @@
 				C28801A32293494C00EC48B7 /* HomeViewController+Extensions.swift */,
 				4F47C7E323A1E62200D5F93F /* OnboardingLoadingViewController.swift */,
 				4F4CA4102383A1AB0002FD5F /* OnboardingViewController.swift */,
-				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
 				03C801352410628D009845E7 /* SportsDetailViewController.swift */,
+				C22A326824032ECA003218A6 /* SportsFeedViewController.swift */,
+				032324B42442503A0041ED72 /* SportsFilterViewController.swift */,
 				C75FAB0E20420B42008D455A /* TabBarController.swift */,
 			);
 			path = Controllers;

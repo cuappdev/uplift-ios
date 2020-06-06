@@ -31,6 +31,7 @@ class DropdownView: UIView {
     private let contentView: UIView!
     private let halfCloseView: UIView?
     private let halfOpenView: UIView?
+
     private var headerView: DropdownHeaderView!
 
     private var contentViewHeight: CGFloat = 0
@@ -44,14 +45,13 @@ class DropdownView: UIView {
     private var notifyDelegate = true
     private var openCloseDropdownGesture: UITapGestureRecognizer!
 
-    private weak var delegate: DropdownViewDelegate?
+    var delegate: DropdownViewDelegate?
 
     var contentViewHeightConstraint: Constraint!
     var currentHeight: CGFloat = 0
     var status: DropdownStatus = .closed
 
-    init(delegate: DropdownViewDelegate?,
-         headerView: DropdownHeaderView,
+    init(headerView: DropdownHeaderView,
          headerViewHeight: CGFloat,
          contentView: UIView,
          contentViewHeight: CGFloat,
@@ -199,6 +199,25 @@ class DropdownView: UIView {
 
     func updateContentViewHeight(to height: CGFloat) {
         contentViewHeight = height
+    }
+
+    func getHeight(for status: DropdownStatus) -> CGFloat {
+        var baseHeight = headerViewHeight
+        switch status {
+        case .half:
+            baseHeight += halfHeight
+            if let _ = halfOpenView {
+                baseHeight += halfOpenViewHeight
+            }
+        case .open:
+            baseHeight += contentViewHeight
+            if let _ = halfCloseView {
+                baseHeight += halfCloseViewHeight
+            }
+        default:
+            break
+        }
+        return baseHeight
     }
 
     // MARK: - Open the entire dropdown view from half open state

@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-enum Dropped {
-    case up, half, down
-}
+//enum Dropped {
+//    case up, half, down
+//}
 
 class DropdownData {
     var completed: Bool!

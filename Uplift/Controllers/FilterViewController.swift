@@ -158,7 +158,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         classTypeInstructorDivider.backgroundColor = .gray01
         contentView.addSubview(classTypeInstructorDivider)
 
-        classTypeDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
+        classTypeDropdownData = DropdownData(completed: false, dropStatus: .closed, titles: [])
 
         NetworkManager.shared.getClassNames { classNames in
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
@@ -172,14 +172,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         // INSTRUCTOR SECTION
         instructorDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectInstructorSection)
         contentView.addSubview(instructorDropdownHeader)
-        
+
         instructorDropdownFooter = DropdownFooterView()
         instructorDropdownFooter.clipsToBounds = true
         contentView.addSubview(instructorDropdownFooter)
-        
+
         let toggleMoreInstructors = UITapGestureRecognizer(target: self, action: #selector(self.dropHideInstructors(sender:) ))
         instructorDropdownFooter.addGestureRecognizer(toggleMoreInstructors)
-               
+            
         instructorDropdown = UITableView()
         instructorDropdown.separatorStyle = .none
         instructorDropdown.bounces = false
@@ -195,7 +195,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         instructorDivider.backgroundColor = .gray01
         contentView.addSubview(instructorDivider)
 
-        instructorDropdownData = DropdownData(completed: false, dropStatus: .up, titles: [])
+        instructorDropdownData = DropdownData(completed: false, dropStatus: .closed, titles: [])
 
         NetworkManager.shared.getInstructors { instructors in
             self.instructorDropdownData.titles.append(contentsOf: instructors)
@@ -352,11 +352,11 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             
             if let dropStatus = classTypeDropdownData.dropStatus {
                 switch dropStatus {
-                    case .up:
+                    case .closed:
                         make.height.equalTo(0)
                     case .half:
                         make.height.equalTo(3 * 32)
-                    case .down:
+                    case .open:
                         make.height.equalTo(classTypeDropdown.numberOfRows(inSection: 0) * 32)
                 }
             } else {
@@ -370,9 +370,9 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             
             if let dropStatus = classTypeDropdownData.dropStatus {
                 switch dropStatus {
-                    case .up:
+                    case .closed:
                         make.height.equalTo(0)
-                    case .half, .down:
+                    case .half, .open:
                         make.height.equalTo(32)
                 }
             } else {
@@ -399,11 +399,11 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             
             if let dropStatus = instructorDropdownData.dropStatus {
                 switch dropStatus {
-                    case .up:
+                    case .closed:
                         make.height.equalTo(0)
                     case .half:
                         make.height.equalTo(3 * 32)
-                    case .down:
+                    case .open:
                         make.height.equalTo(instructorDropdown.numberOfRows(inSection: 0) * 32)
                 }
             } else {
@@ -417,9 +417,9 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
             if let dropStatus = instructorDropdownData.dropStatus {
                 switch dropStatus {
-                    case .up:
+                    case .closed:
                         make.height.equalTo(0)
-                    case .half, .down:
+                    case .half, .open:
                         make.height.equalTo(32)
                 }
             } else {
@@ -444,8 +444,8 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         let toggleInstructors = UITapGestureRecognizer(target: self, action: #selector(self.dropInstructors(sender:) ))
         instructorDropdownHeader.addGestureRecognizer(toggleInstructors)
         
-        classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
-        instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
+//        classTypeDropdownHeader.upddateDropdownHeader(selectedFilters: selectedClasses)
+//        instructorDropdownHeader.upddateDropdownHeader(selectedFilters: selectedInstructors)
     }
     
     func updateTableFooterViews() {
@@ -504,16 +504,16 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
     // MARK: - DROP METHODS
     @objc func dropInstructors( sender: UITapGestureRecognizer) {
         if instructorDropdownData.completed == false {
-            instructorDropdownData.dropStatus = .up
+            instructorDropdownData.dropStatus = .closed
             return
         }
 
         instructorDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .down {
+        if instructorDropdownData.dropStatus == .half || instructorDropdownData.dropStatus == .open {
             instructorDropdownHeader.rotateArrowUp()
-            instructorDropdownData.dropStatus = .up
+            instructorDropdownData.dropStatus = .closed
             var i = 0
             while i < instructorDropdown.numberOfRows(inSection: 0) {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
@@ -534,16 +534,16 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
     @objc func dropClasses( sender: UITapGestureRecognizer) {
         if classTypeDropdownData.completed == false {
-            classTypeDropdownData.dropStatus = .up
+            classTypeDropdownData.dropStatus = .closed
             return
         }
 
         classTypeDropdown.beginUpdates()
         var modifiedIndices: [IndexPath] = []
 
-        if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .down {
+        if classTypeDropdownData.dropStatus == .half || classTypeDropdownData.dropStatus == .open {
             classTypeDropdownHeader.rotateArrowUp()
-            classTypeDropdownData.dropStatus = .up
+            classTypeDropdownData.dropStatus = .closed
             var i = 0
             while i < classTypeDropdown.numberOfRows(inSection: 0) {
                 modifiedIndices.append(IndexPath(row: i, section: 0))
@@ -572,7 +572,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         var modifiedIndices: [IndexPath] = []
 
         if classTypeDropdownData.dropStatus == .half {
-            classTypeDropdownData.dropStatus = .down
+            classTypeDropdownData.dropStatus = .open
 
             var i = 3
             while i < classTypeDropdownData.titles.count {
@@ -604,7 +604,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         var modifiedIndices: [IndexPath] = []
 
         if instructorDropdownData.dropStatus == .half {
-            instructorDropdownData.dropStatus = .down
+            instructorDropdownData.dropStatus = .open
 
             var i = 3
             while i < instructorDropdownData.titles.count {
@@ -681,11 +681,11 @@ extension FilterViewController: UITableViewDataSource {
                 return 0
             }
             switch instructorDropdownData.dropStatus! {
-            case .up:
+            case .closed:
                 numberOfRows = 0
             case .half:
                 numberOfRows = 3
-            case .down:
+            case .open:
                 numberOfRows = instructorDropdownData.titles.count
             }
         } else if tableView == classTypeDropdown {
@@ -694,11 +694,11 @@ extension FilterViewController: UITableViewDataSource {
             }
 
             switch classTypeDropdownData.dropStatus! {
-            case .up:
+            case .closed:
                 numberOfRows = 0
             case .half:
                 numberOfRows = 3
-            case .down:
+            case .open:
                 numberOfRows = classTypeDropdownData.titles.count
             }
         }
@@ -741,12 +741,12 @@ extension FilterViewController: UITableViewDelegate {
                     let name = selectedClasses[i]
                     if name == cell.getTitle() {
                         selectedClasses.remove(at: i)
-                        classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
+//                        classTypeDropdownHeader.upddateDropdownHeader(selectedFilters: selectedClasses)
                         return
                     }
                 }
             }
-            classTypeDropdownHeader.updateDropdownHeader(selectedFilters: selectedClasses)
+//            classTypeDropdownHeader.upddateDropdownHeader(selectedFilters: selectedClasses)
         } else {
             if !cell.wasSelected {
                 selectedInstructors.append(cell.getTitle())
@@ -755,12 +755,12 @@ extension FilterViewController: UITableViewDelegate {
                     let name = selectedInstructors[i]
                     if name == cell.getTitle() {
                         selectedInstructors.remove(at: i)
-                        instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
+//                        instructorDropdownHeader.upddateDropdownHeader(selectedFilters: selectedInstructors)
                         return
                     }
                 }
             }
-            instructorDropdownHeader.updateDropdownHeader(selectedFilters: selectedInstructors)
+//            instructorDropdownHeader.upddateDropdownHeader(selectedFilters: selectedInstructors)
         }
         cell.select()
     }

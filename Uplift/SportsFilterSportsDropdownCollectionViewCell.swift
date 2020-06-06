@@ -12,13 +12,13 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
 
     static let initialHeight: CGFloat = 55
 
-    private let tableView = UITableView()
+    private let bottomDivider = UIView()
     private let dropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectSportsSection)
+    private let tableView = UITableView()
 
     private var dropdownView: DropdownView!
 
     weak var dropdownDelegate: DropdownViewDelegate?
-    weak var dropdownHeaderDelegate: DropdownHeaderViewDelegate?
 
     var selectedSports: [String] = []
 
@@ -30,9 +30,10 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
         contentView.isUserInteractionEnabled = true
         contentView.backgroundColor = .white//red
 
-        dropdownHeader.delegate = dropdownHeaderDelegate
+        dropdownHeader.delegate = self
 
         let halfOpenView = SportsDropdownHalfView()
+        halfOpenView.isUserInteractionEnabled = true
         halfOpenView.setLabelText(to: ClientStrings.Filter.sportsDropdownShowSports)
 
         let halfCloseView = SportsDropdownHalfView()
@@ -44,12 +45,20 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
 
-        dropdownView = DropdownView(delegate: dropdownDelegate, headerView: dropdownHeader, headerViewHeight: 55, contentView: tableView, contentViewHeight: CGFloat(32 * sportsTypeDropdownData.titles.count), halfDropdownEnabled: true, halfOpenView: halfOpenView, halfOpenViewHeight: 20, halfCloseView: halfCloseView, halfCloseViewHeight: 20, halfHeight: 32 * 3)
+        dropdownView = DropdownView(headerView: dropdownHeader, headerViewHeight: 55, contentView: tableView, contentViewHeight: 0, halfDropdownEnabled: true, halfOpenView: halfOpenView, halfOpenViewHeight: 20, halfCloseView: halfCloseView, halfCloseViewHeight: 20, halfHeight: 32 * 3)
 
         contentView.addSubview(dropdownView)
 
         dropdownView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+
+        bottomDivider.backgroundColor = .gray01
+        contentView.addSubview(bottomDivider)
+
+        bottomDivider.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1)
         }
 
     }
@@ -58,9 +67,15 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(for dropdownData: DropdownData) {
+    func configure(for dropdownData: DropdownData, dropdownDelegate: DropdownViewDelegate? = nil, selectedSports: [String] = []) {
+        self.dropdownDelegate = dropdownDelegate
+        dropdownView.delegate = dropdownDelegate
         sportsTypeDropdownData = dropdownData
+        self.selectedSports = selectedSports
+        dropdownView.updateContentViewHeight(to: CGFloat(32 * sportsTypeDropdownData.titles.count))
         dropdownView.setStatus(to: sportsTypeDropdownData.dropStatus)
+        dropdownHeader.updateDropdownHeader(selectedFilters: selectedSports)
+        tableView.reloadData()
     }
 
     func getDropdownHeight() -> CGFloat {
@@ -69,14 +84,16 @@ class SportsFilterSportsDropdownCollectionViewCell: UICollectionViewCell {
 
 }
 
-//extension SportsFilterSportsDropdownCollectionViewCell: DropdownHeaderViewDelegate {
-//
-//    func didTapHeaderView() {
-//        dropdownView.openCloseDropdown()
-//        dropdownHeightChanged()
-//    }
-//
-//}
+extension SportsFilterSportsDropdownCollectionViewCell: DropdownHeaderViewDelegate {
+
+    func didTapHeaderView() {
+        dropdownView.openCloseDropdown()
+//        if let vc = dropdownDelegate as? SportsFilterViewController {
+//            vc.dropdownStatusChanged(to: .open, with: 0)
+//        }
+    }
+
+}
 
 extension SportsFilterSportsDropdownCollectionViewCell: UITableViewDataSource {
 
@@ -87,6 +104,7 @@ extension SportsFilterSportsDropdownCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.dropdownViewCell, for: indexPath) as! DropdownViewCell
         if indexPath.row < sportsTypeDropdownData.titles.count {
+            print(indexPath.row)
             let isSelected = selectedSports.contains(sportsTypeDropdownData.titles[indexPath.row])
             cell.configure(for: sportsTypeDropdownData.titles[indexPath.row], selected: isSelected)
         }
