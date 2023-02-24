@@ -22,11 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
 
         window = UIWindow(frame: UIScreen.main.bounds)
+
         window?.makeKeyAndVisible()
 
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-            window?.rootViewController = TabBarController()
+            let VC = HomeViewController()
+            window?.rootViewController = UINavigationController(rootViewController: VC)
         } else {
             displayOnboardingViewController()
         }

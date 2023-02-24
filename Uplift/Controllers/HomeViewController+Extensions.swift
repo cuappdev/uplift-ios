@@ -11,13 +11,15 @@ import UIKit
 extension HomeViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        print("these are the sections \(sections.count)")
         return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
+        
     }
-
+ 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let sectionType = sections[indexPath.section]
         switch sectionType {
@@ -191,7 +193,7 @@ extension HomeViewController: ChooseGymsDelegate {
         let onboardingGymsViewController = FavoriteGymsController()
         onboardingGymsViewController.hidesBottomBarWhenPushed = true
         onboardingGymsViewController.delegate = self
-        navigationController?.pushViewController(onboardingGymsViewController, animated: true)
+        self.navigationController?.pushViewController(onboardingGymsViewController, animated: true)
     }
 
     func viewTodaysClasses() {
