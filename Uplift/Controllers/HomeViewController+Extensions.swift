@@ -11,7 +11,6 @@ import UIKit
 extension HomeViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("these are the sections \(sections.count)")
         return sections.count
     }
 
