@@ -93,6 +93,6 @@ class HomeSectionHeaderView: UICollectionReusableView {
             "Section": "\(HomeViewController.SectionType.todaysClasses.rawValue)/viewAll"
             ])
 
-        buttonCompletion!()
+        buttonCompletion?()
     }
 }

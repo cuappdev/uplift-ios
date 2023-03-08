@@ -25,9 +25,9 @@ class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
 
     // MARK: - Overrides
     override var config: ListConfiguration {
-        let width: CGFloat = (self.bounds.width - GymsListCell.minimumInterItemSpacing - GymsListCell.sectionInsetLeft - GymsListCell.sectionInsetRight) / 2.0
+        let width: CGFloat = (self.bounds.width - GymsListCell.minimumInterItemSpacing - GymsListCell.sectionInsetLeft - GymsListCell.sectionInsetRight)
         return ListConfiguration(
-            isScrollEnabled: false,
+            isScrollEnabled: true,
             itemSize: CGSize(width: width, height: GymsListCell.itemHeight),
             minimumInteritemSpacing: GymsListCell.minimumInterItemSpacing,
             minimumLineSpacing: GymsListCell.minimumLineSpacing,

@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-            let VC = HomeViewController()
-            window?.rootViewController = UINavigationController(rootViewController: VC)
+            let vc = HomeViewController()
+            window?.rootViewController = UINavigationController(rootViewController: vc)
         } else {
             displayOnboardingViewController()
         }

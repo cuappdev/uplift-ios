@@ -70,10 +70,8 @@ class HomeViewController: UIViewController {
         numPendingNetworkRequests += 1
         NetworkManager.shared.getGyms { gyms in
             self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
-
             let gymNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteGyms) ?? []
             self.updateFavorites(favorites: gymNames)
-
             // Reload All Gyms section
             self.collectionView.reloadSections(IndexSet(integer: 0))
             self.decrementNumPendingNetworkRequests()

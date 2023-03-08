@@ -11,13 +11,11 @@ import UIKit
 extension HomeViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("these are the sections \(sections.count)")
         return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
-        
     }
  
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -32,7 +30,8 @@ extension HomeViewController: UICollectionViewDataSource {
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
             cell.delegate = self
-            cell.configure(for: self.myGyms)
+            //MARK: changed self.MyGyms to self.gyms
+            cell.configure(for: self.gyms)
             return cell
         case .todaysClasses:
             if gymClassInstances.isEmpty {
@@ -73,18 +72,17 @@ extension HomeViewController: UICollectionViewDataSource {
         case .checkIns:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
         case .myGyms:
-            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushGymOnboarding)
+            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "", completion: pushGymOnboarding)
         case .todaysClasses:
-            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: ClientStrings.Home.viewAllButton, completion: viewTodaysClasses)
+            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "", completion: viewTodaysClasses)
         case .lookingFor:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: viewTodaysClasses)
         default:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
         }
-
         return headerView
     }
-
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -107,7 +105,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
             //Height is calculated as item height of every row of 2 cells + minimum line spacing between them + bottom section inset value
 
             //Height of all cells (in rows of 2), plus line spacings after each of them
-            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumLineSpacing) * ceil(CGFloat(integerLiteral: myGyms.count) / 2)
+            //MARK: myGyms gyms.count and removed / 2
+            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumLineSpacing) * ceil(CGFloat(integerLiteral: gyms.count))
 
             //Subtract extra minimum line spacing below the last row of cells, and add the section inset
             height += GymsListCell.sectionInsetBottom - GymsListCell.minimumLineSpacing
@@ -185,7 +184,7 @@ extension HomeViewController: ChooseGymsDelegate {
 
     func pushHabitOnboarding() {
         let habitViewController = HabitTrackingController(type: .cardio)
-        self.navigationController?.pushViewController(habitViewController, animated: true)
+        navigationController?.pushViewController(habitViewController, animated: true)
         return
     }
 
@@ -193,7 +192,7 @@ extension HomeViewController: ChooseGymsDelegate {
         let onboardingGymsViewController = FavoriteGymsController()
         onboardingGymsViewController.hidesBottomBarWhenPushed = true
         onboardingGymsViewController.delegate = self
-        self.navigationController?.pushViewController(onboardingGymsViewController, animated: true)
+        navigationController?.pushViewController(onboardingGymsViewController, animated: true)
     }
 
     func viewTodaysClasses() {
