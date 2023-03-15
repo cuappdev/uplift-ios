@@ -71,7 +71,7 @@ class HomeSectionHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String, buttonTitle: String?, completion: (() -> Void)? ) {
+    func configure(title: String, buttonTitle: String?, completion: @escaping (() -> Void) ) {
         titleLabel.text = title
         if let buttonTitle = buttonTitle {
             navigationButton.isHidden = false

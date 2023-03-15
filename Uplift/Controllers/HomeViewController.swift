@@ -53,7 +53,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sections = [.myGyms, .todaysClasses, .lookingFor]
+        //MARK: removed .lookingFor
+        sections = [.myGyms, .todaysClasses]
 
         view.backgroundColor = UIColor.primaryWhite
 
@@ -69,13 +70,10 @@ class HomeViewController: UIViewController {
         numPendingNetworkRequests += 1
         NetworkManager.shared.getGyms { gyms in
             self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
-
             let gymNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteGyms) ?? []
             self.updateFavorites(favorites: gymNames)
-
             // Reload All Gyms section
             self.collectionView.reloadSections(IndexSet(integer: 0))
-
             self.decrementNumPendingNetworkRequests()
         }
 
@@ -89,17 +87,18 @@ class HomeViewController: UIViewController {
 
             // Reload Today's Classes section
             self.collectionView.reloadSections(IndexSet(integer: 1))
-
             self.decrementNumPendingNetworkRequests()
         })
 
+//MARK: Networking for .LookingForCategories
+/*
         numPendingNetworkRequests += 1
         NetworkManager.shared.getTags(completion: { tags in
             self.lookingForCategories = tags
             self.collectionView.reloadSections(IndexSet(integer: 2))
-
             self.decrementNumPendingNetworkRequests()
         })
+*/
 
         presentAnnouncement(completion: nil)
     }
