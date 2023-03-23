@@ -20,7 +20,6 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     private let shadowView = UIView()
     private let statusLabel = UILabel()
     private let backgroundImage = UIImageView()
-
     private let gymCellFooter = GymCellFooter()
 
     override init(frame: CGRect) {
@@ -38,7 +37,6 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         contentView.layer.shadowRadius = 10.0
         contentView.layer.shadowOpacity = 1.0
         contentView.layer.masksToBounds = false
-
         contentView.clipsToBounds = true
 
         setupViews()
