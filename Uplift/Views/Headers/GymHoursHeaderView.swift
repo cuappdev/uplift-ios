@@ -73,4 +73,5 @@ class GymHoursHeaderView: UITableViewHeaderFooterView {
             make.width.equalTo(9)
         }
     }
+    
 }

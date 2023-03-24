@@ -30,6 +30,7 @@ extension HomeViewController: UICollectionViewDataSource {
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
             cell.delegate = self
+
             //MARK: changed self.MyGyms to self.gyms
             cell.configure(for: self.gyms)
             return cell

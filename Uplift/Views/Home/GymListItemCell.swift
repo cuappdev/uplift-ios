@@ -15,11 +15,12 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     static let identifier = Identifiers.gymsCell
 
     // MARK: - Private view vars
-    private let colorBar = UIView()
     private let hoursLabel = UILabel()
     private let locationNameLabel = UILabel()
     private let shadowView = UIView()
     private let statusLabel = UILabel()
+    private let backgroundImage = UIImageView()
+    private let gymCellFooter = GymCellFooter()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +37,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
         contentView.layer.shadowRadius = 10.0
         contentView.layer.shadowOpacity = 1.0
         contentView.layer.masksToBounds = false
+        contentView.clipsToBounds = true
 
         setupViews()
         setupConstraints()
@@ -45,119 +47,30 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     override func configure(for gym: Gym) {
         super.configure(for: gym)
 
-        // Set gym name
-        locationNameLabel.text = gym.name
-
-        // Set gym status
-        let changingSoon = gym.isStatusChangingSoon()
-        if gym.isOpen {
-            if changingSoon {
-                statusLabel.textColor = .accentOrange
-                statusLabel.text = ClientStrings.CommonStrings.open
-            } else {
-                statusLabel.textColor = .accentOpen
-                statusLabel.text = ClientStrings.CommonStrings.open
-            }
-        } else {
-            if changingSoon {
-                statusLabel.textColor = .accentOrange
-                statusLabel.text = ClientStrings.CommonStrings.closed
-            } else {
-                statusLabel.textColor = .accentClosed
-                statusLabel.text = ClientStrings.CommonStrings.closed
-            }
-        }
-
-        // Set gym hours
-        hoursLabel.text = getHoursString(from: gym)
-    }
-
-    // MARK: - Private helpers
-    private func getHoursString(from gym: Gym) -> String {
-        let now = Date()
-        let isOpen = gym.isOpen
-
-        let gymHoursToday = gym.gymHoursToday
-        let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
-
-        let format: String
-
-        if now > gymHoursToday.closeTime {
-            format = gymHoursTomorrow.openTime.getHourFormat()
-            if gym.closedTomorrow {
-                return ClientStrings.CommonStrings.closed
-            } else {
-                return ClientStrings.Home.gymDetailCellOpensAt + gymHoursTomorrow.openTime.getStringOfDatetime(format: format)
-            }
-        } else if !isOpen {
-            format = gymHoursToday.openTime.getHourFormat()
-            return ClientStrings.Home.gymDetailCellOpensAt + (gymHoursToday.openTime.getStringOfDatetime(format: format))
-        } else {
-            format = gymHoursToday.closeTime.getHourFormat()
-            let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)
-            let closeTime = gymHoursToday.closeTime.getStringOfDatetime(format: format)
-
-            return ClientStrings.Home.gymDetailCellClosesAt + closeTime
-        }
+        gymCellFooter.configure(for: gym)
+        backgroundImage.kf.setImage(with: gym.imageURL)
     }
 
     private func setupViews() {
-        // YELLOW BAR
-        colorBar.backgroundColor = .primaryYellow
-        colorBar.clipsToBounds = true
-        colorBar.layer.cornerRadius = 5
-        colorBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        contentView.addSubview(colorBar)
+        backgroundImage.contentMode = .scaleAspectFill
+        backgroundImage.clipsToBounds = true
+        contentView.addSubview(backgroundImage)
 
-        locationNameLabel.font = ._16MontserratMedium
-        locationNameLabel.textColor = .primaryBlack
-        locationNameLabel.textAlignment = .left
-        contentView.addSubview(locationNameLabel)
-
-        statusLabel.font = ._12MontserratMedium
-        contentView.addSubview(statusLabel)
-
-        hoursLabel.font = ._12MontserratMedium
-        hoursLabel.textColor = .gray02
-        contentView.addSubview(hoursLabel)
+        contentView.addSubview(gymCellFooter)
     }
 
     private func setupConstraints() {
-        let colorBarWidth = 5
-        let descriptionLabelHeight = 15
-        let leadingPadding = 16
-        let locationLabelHeight = 22
-        let locationLabelVerticalInset = 12
-        let statusHoursLabelPadding = 4
-        let statusLabelTopPadding = 1
-        let trailingPadding = 4
+        let footerHeight = 70
 
-        colorBar.snp.updateConstraints { make in
+        backgroundImage.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        gymCellFooter.snp.updateConstraints { make in
             make.leading.equalToSuperview()
-            make.height.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.equalTo(colorBarWidth)
-        }
-
-        locationNameLabel.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(locationLabelVerticalInset)
-            make.leading.equalToSuperview().offset(leadingPadding)
-            make.height.equalTo(locationLabelHeight)
-            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-        }
-
-        statusLabel.snp.updateConstraints { make in
-            make.leading.equalTo(locationNameLabel)
-            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.height.equalTo(descriptionLabelHeight)
-            make.top.equalTo(locationNameLabel.snp.bottom).offset(statusLabelTopPadding)
-        }
-
-        hoursLabel.snp.updateConstraints { make in
-            make.leading.equalTo(statusLabel.snp.trailing).offset(statusHoursLabelPadding)
-            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.height.equalTo(descriptionLabelHeight)
-            make.centerY.equalTo(statusLabel.snp.centerY)
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(footerHeight)
         }
     }
 
