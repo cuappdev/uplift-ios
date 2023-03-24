@@ -28,23 +28,14 @@ class GymCellFooter: UIView {
 
         //set gym status
         let changingSoon = gym.isStatusChangingSoon()
-        if gym.isOpen {
-            if changingSoon {
-                statusLabel.textColor = .accentOrange
-                statusLabel.text = ClientStrings.CommonStrings.open
-            } else {
-                statusLabel.textColor = .accentOpen
-                statusLabel.text = ClientStrings.CommonStrings.open
-            }
+
+        if(gym.isOpen) {
+            statusLabel.textColor = changingSoon ? .accentOrange : .accentOpen
         } else {
-            if changingSoon {
-                statusLabel.textColor = .accentOrange
-                statusLabel.text = ClientStrings.CommonStrings.closed
-            } else {
-                statusLabel.textColor = .accentClosed
-                statusLabel.text = ClientStrings.CommonStrings.closed
-            }
+            statusLabel.textColor = changingSoon ? .accentOrange : .accentClosed
         }
+
+        statusLabel.text = gym.isOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
 
         // Set gym hours
         hoursLabel.text = getHoursString(from: gym)
@@ -80,7 +71,6 @@ class GymCellFooter: UIView {
             return ClientStrings.Home.gymDetailCellClosesAt + closeTime
         }
     }
-
 
     private func setupViews() {
         locationNameLabel.font = ._16MontserratMedium
