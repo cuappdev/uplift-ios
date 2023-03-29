@@ -358,7 +358,7 @@ class OnboardingViewController: PresentationController {
             let snapshot = appDelegate.window?.snapshotView(afterScreenUpdates: true) else { return }
 
         // set new rootViewController
-        appDelegate.window?.rootViewController = TabBarController()
+        appDelegate.window?.rootViewController = HomeViewController()
 
         // exit transition for snapshot
         UIView.animate(withDuration: 0.5, animations: {

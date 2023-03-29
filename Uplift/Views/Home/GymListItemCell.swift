@@ -60,7 +60,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     }
 
     private func setupConstraints() {
-        let footerHeight = 70
+        let footerHeight = 55
 
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()

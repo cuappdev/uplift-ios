@@ -113,7 +113,8 @@ class GymCellFooter: UIView {
             make.leading.equalTo(locationNameLabel)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
             make.height.equalTo(descriptionLabelHeight)
-            make.bottom.equalTo(capacityStatusLabel.snp.top).offset(-statusLabelTopPadding)
+            make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
+//            make.bottom.equalTo(capacityStatusLabel.snp.top).offset(-statusLabelTopPadding)
         }
 
         hoursLabel.snp.updateConstraints { make in
@@ -123,19 +124,23 @@ class GymCellFooter: UIView {
             make.centerY.equalTo(statusLabel.snp.centerY)
         }
 
-        capacityStatusLabel.snp.updateConstraints { make in
-            make.leading.equalTo(locationNameLabel)
-            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.height.equalTo(statusLabel)
-            make.bottom.equalTo(capacityCountLabel.snp.bottom)
-        }
+//MARK: To be implemented when backend get's their networking done
 
-        capacityCountLabel.snp.updateConstraints { make in
-            make.leading.equalTo(capacityStatusLabel.snp.trailing).offset(statusHoursLabelPadding)
-            make.height.equalTo(statusLabel)
-            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
-        }
+/*
+         capacityStatusLabel.snp.updateConstraints { make in
+             make.leading.equalTo(locationNameLabel)
+             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
+             make.height.equalTo(statusLabel)
+             make.bottom.equalTo(capacityCountLabel.snp.bottom)
+         }
+
+         capacityCountLabel.snp.updateConstraints { make in
+             make.leading.equalTo(capacityStatusLabel.snp.trailing).offset(statusHoursLabelPadding)
+             make.height.equalTo(statusLabel)
+             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
+             make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
+         }
+ */
 
     }
 

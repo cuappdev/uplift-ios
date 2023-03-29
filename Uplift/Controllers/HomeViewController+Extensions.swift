@@ -73,7 +73,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case .checkIns:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
         case .myGyms:
-            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "", completion: pushGymOnboarding)
+            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: pushGymOnboarding)
         case .todaysClasses:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: "", completion: viewTodaysClasses)
         case .lookingFor:
