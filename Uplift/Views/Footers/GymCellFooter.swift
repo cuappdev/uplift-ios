@@ -53,21 +53,24 @@ class GymCellFooter: UIView {
 
         let format: String
 
+        //if the gym has closed, else if it's still open
         if now > gymHoursToday.closeTime {
+            //get the format for opening tomorrow
             format = gymHoursTomorrow.openTime.getHourFormat()
+            //if the gym is also closed tomorrow, else if the gym is open tomorrow
             if gym.closedTomorrow {
                 return ClientStrings.CommonStrings.closed
             } else {
                 return ClientStrings.Home.gymDetailCellOpensAt + gymHoursTomorrow.openTime.getStringOfDatetime(format: format)
             }
         } else if !isOpen {
+            //if it isn't past gym close time, but currently isn't open (closed midday)
             format = gymHoursToday.openTime.getHourFormat()
             return ClientStrings.Home.gymDetailCellOpensAt + (gymHoursToday.openTime.getStringOfDatetime(format: format))
         } else {
+            //if the gym is open
             format = gymHoursToday.closeTime.getHourFormat()
-            let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)
             let closeTime = gymHoursToday.closeTime.getStringOfDatetime(format: format)
-
             return ClientStrings.Home.gymDetailCellClosesAt + closeTime
         }
     }
