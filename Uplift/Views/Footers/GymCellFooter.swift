@@ -114,7 +114,6 @@ class GymCellFooter: UIView {
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
             make.height.equalTo(descriptionLabelHeight)
             make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
-//            make.bottom.equalTo(capacityStatusLabel.snp.top).offset(-statusLabelTopPadding)
         }
 
         hoursLabel.snp.updateConstraints { make in
