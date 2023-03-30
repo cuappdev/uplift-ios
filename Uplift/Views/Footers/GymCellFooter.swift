@@ -53,21 +53,24 @@ class GymCellFooter: UIView {
 
         let format: String
 
+        //if the gym has closed, else if it's still open
         if now > gymHoursToday.closeTime {
+            //get the format for opening tomorrow
             format = gymHoursTomorrow.openTime.getHourFormat()
+            //if the gym is also closed tomorrow, else if the gym is open tomorrow
             if gym.closedTomorrow {
                 return ClientStrings.CommonStrings.closed
             } else {
                 return ClientStrings.Home.gymDetailCellOpensAt + gymHoursTomorrow.openTime.getStringOfDatetime(format: format)
             }
         } else if !isOpen {
+            //if it isn't past gym close time, but currently isn't open (closed midday)
             format = gymHoursToday.openTime.getHourFormat()
             return ClientStrings.Home.gymDetailCellOpensAt + (gymHoursToday.openTime.getStringOfDatetime(format: format))
         } else {
+            //if the gym is open
             format = gymHoursToday.closeTime.getHourFormat()
-            let openTime = gymHoursToday.openTime.getStringOfDatetime(format: format)
             let closeTime = gymHoursToday.closeTime.getStringOfDatetime(format: format)
-
             return ClientStrings.Home.gymDetailCellClosesAt + closeTime
         }
     }
@@ -113,7 +116,7 @@ class GymCellFooter: UIView {
             make.leading.equalTo(locationNameLabel)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
             make.height.equalTo(descriptionLabelHeight)
-            make.bottom.equalTo(capacityStatusLabel.snp.top).offset(-statusLabelTopPadding)
+            make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
         }
 
         hoursLabel.snp.updateConstraints { make in
@@ -123,19 +126,23 @@ class GymCellFooter: UIView {
             make.centerY.equalTo(statusLabel.snp.centerY)
         }
 
-        capacityStatusLabel.snp.updateConstraints { make in
-            make.leading.equalTo(locationNameLabel)
-            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.height.equalTo(statusLabel)
-            make.bottom.equalTo(capacityCountLabel.snp.bottom)
-        }
+//MARK: To be implemented when backend get's their networking done
 
-        capacityCountLabel.snp.updateConstraints { make in
-            make.leading.equalTo(capacityStatusLabel.snp.trailing).offset(statusHoursLabelPadding)
-            make.height.equalTo(statusLabel)
-            make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-            make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
-        }
+/*
+         capacityStatusLabel.snp.updateConstraints { make in
+             make.leading.equalTo(locationNameLabel)
+             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
+             make.height.equalTo(statusLabel)
+             make.bottom.equalTo(capacityCountLabel.snp.bottom)
+         }
+
+         capacityCountLabel.snp.updateConstraints { make in
+             make.leading.equalTo(capacityStatusLabel.snp.trailing).offset(statusHoursLabelPadding)
+             make.height.equalTo(statusLabel)
+             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
+             make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
+         }
+ */
 
     }
 
