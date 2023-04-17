@@ -29,9 +29,6 @@ class SportsListCell: ListCollectionViewCell<Sport, SportListItemCell> {
         )
     }
 
-    override func didSelectItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
-    }
-
     override func didHighlightItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         cell.zoomIn()
