@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
     var habits: [Habit] = []
     var lookingForCategories: [Tag] = []
     var sections: [SectionType] = []
+    var sports: [Sport] = []
 
     // MARK: - Private data vars
     private var gymLocations: [Int: String] = [:]
@@ -40,6 +41,7 @@ class HomeViewController: UIViewController {
         static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
         static let todaysClassesEmptyCellIdentifier = "todaysClassesEmptyCellIdentifier"
+        static let sportsListCellIdentifier = "sportsListCellIdentifier"
     }
 
     // MARK: - Enums
@@ -47,6 +49,7 @@ class HomeViewController: UIViewController {
         case checkIns = "DAILY CHECK-INS"
         case myGyms = "MY GYMS"
         case todaysClasses = "TODAY'S CLASSES"
+        case yourSports = "Your Sports"
         case lookingFor = "I'M LOOKING FOR..."
     }
 
@@ -54,7 +57,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         //MARK: removed .lookingFor
-        sections = [.myGyms, .todaysClasses]
+        sections = [.todaysClasses, .yourSports, .myGyms]
+
+        sports = [Sport(name:"Lifting", image: UIImage(named: "lifting")!), Sport(name:"Basketball", image: UIImage(named: "basketball1")!), Sport(name:"Bowling", image: UIImage(named: "bowling1")!), Sport(name:"Swimming", image: UIImage(named: "swimming")!), Sport(name:"Lifting", image: UIImage(named: "lifting")!), Sport(name:"Basketball", image: UIImage(named: "basketball1")!)]
 
         view.backgroundColor = UIColor.primaryWhite
 
@@ -150,6 +155,7 @@ extension HomeViewController {
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         collectionView.register(CheckInsListCell.self, forCellWithReuseIdentifier: Constants.checkInsListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
+        collectionView.register(SportsListCell.self, forCellWithReuseIdentifier: Constants.sportsListCellIdentifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)

@@ -7,3 +7,16 @@
 //
 
 import Foundation
+import UIKit
+
+struct Sport {
+    
+    let name: String
+    var image: UIImage
+
+    init(name: String, image: UIImage) {
+        self.name = name
+        self.image = image
+    }
+    
+}

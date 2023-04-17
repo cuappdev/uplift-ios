@@ -11,6 +11,7 @@ import UIKit
 
 /// This class provides data used to configure ListCollectionViewCell
 class ListConfiguration {
+    
     var backgroundColor: UIColor!
     var delaysContentTouches: Bool!
     var isScrollEnabled: Bool!
@@ -69,6 +70,7 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
             layout.minimumLineSpacing = config.minimumLineSpacing
         } else {
             layout.minimumInteritemSpacing = config.minimumInteritemSpacing
+            layout.minimumInteritemSpacing = 150
         }
         layout.itemSize = config.itemSize
         layout.sectionInset = config.sectionInset
