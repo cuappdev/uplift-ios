@@ -212,3 +212,13 @@ struct ImageNames {
     static let sportsFeed = "sports-tab"
     static let sportsFeedSelected = "sports-tab-selected"
 }
+
+
+// MARK: - SPORTS IMAGES
+struct activitiesImages {
+    // ACTIVITIES IMAGES
+    static let lifting = UIImage(named: "lifting")!
+    static let basketball = UIImage(named: "basketball1")!
+    static let bowling = UIImage(named: "bowling1")!
+    static let swimming = UIImage(named: "swimming")!
+}

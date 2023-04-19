@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
         case checkIns = "DAILY CHECK-INS"
         case myGyms = "MY GYMS"
         case todaysClasses = "TODAY'S CLASSES"
-        case yourSports = "Your Sports"
+        case yourSports = "YOUR ACTIVITIES"
         case lookingFor = "I'M LOOKING FOR..."
     }
 
@@ -59,7 +59,12 @@ class HomeViewController: UIViewController {
         //MARK: removed .lookingFor
         sections = [.todaysClasses, .yourSports, .myGyms]
 
-        sports = [Sport(name:"Lifting", image: UIImage(named: "lifting")!), Sport(name:"Basketball", image: UIImage(named: "basketball1")!), Sport(name:"Bowling", image: UIImage(named: "bowling1")!), Sport(name:"Swimming", image: UIImage(named: "swimming")!), Sport(name:"Lifting", image: UIImage(named: "lifting")!), Sport(name:"Basketball", image: UIImage(named: "basketball1")!)]
+        sports = [Sport(name:"Lifting", image: activitiesImages.lifting),
+                  Sport(name:"Basketball", image: activitiesImages.basketball),
+                  Sport(name:"Bowling", image: activitiesImages.bowling),
+                  Sport(name:"Swimming", image: activitiesImages.swimming),
+                  Sport(name:"Lifting", image: activitiesImages.lifting),
+                  Sport(name:"Basketball", image: activitiesImages.basketball)]
 
         view.backgroundColor = UIColor.primaryWhite
 

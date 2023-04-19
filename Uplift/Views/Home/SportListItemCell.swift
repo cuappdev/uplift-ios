@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 import SnapKit
 import UIKit
 
@@ -58,15 +57,17 @@ class SportListItemCell: ListItemCollectionViewCell<Sport> {
     private func setupConstraints() {
         let labelPadding: CGFloat = 5
         let sportsImageViewPadding: CGFloat = 15
+        let sportsImageViewWidthHeight: CGFloat = 70
 
         sportsImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(sportsImageViewPadding)
             make.centerX.equalToSuperview()
+            make.width.equalTo(sportsImageViewWidthHeight)
+            make.height.equalTo(sportsImageViewWidthHeight)
         }
 
         sportsLabel.snp.makeConstraints { make in
             make.top.equalTo(sportsImageView.snp.bottom).offset(labelPadding)
-            make.centerX.equalToSuperview()
             make.width.equalToSuperview()
         }
     }
