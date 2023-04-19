@@ -1,5 +1,5 @@
 //
-//  SportsListCell.swift
+//  ActivityListCell.swift
 //  Uplift
 //
 //  Created by Elvis Marcelo on 4/9/23.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SportsListCell: ListCollectionViewCell<Sport, SportListItemCell> {
+class ActivitiesListCell: ListCollectionViewCell<Activity, ActivityListItemCell> {
 
     // MARK: - Public data vars
     static let itemHeight: CGFloat = 110.0
@@ -22,8 +22,8 @@ class SportsListCell: ListCollectionViewCell<Sport, SportListItemCell> {
     // MARK: - Overrides
     override var config: ListConfiguration {
         return ListConfiguration(
-            itemSize: CGSize(width: 80, height: SportsListCell.itemHeight),
-            minimumInteritemSpacing: SportsListCell.minimumInterItemSpacing,
+            itemSize: CGSize(width: 80, height: ActivitiesListCell.itemHeight),
+            minimumInteritemSpacing: ActivitiesListCell.minimumInterItemSpacing,
             sectionInset: UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
         )
     }

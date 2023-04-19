@@ -34,9 +34,9 @@ extension HomeViewController: UICollectionViewDataSource {
             //MARK: changed self.MyGyms to self.gyms
             cell.configure(for: self.gyms)
             return cell
-        case .yourSports:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.sportsListCellIdentifier, for: indexPath) as! SportsListCell
-            cell.configure(for: sports)
+        case .yourActivities:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.activitiesListCellIdentifier, for: indexPath) as! ActivitiesListCell
+            cell.configure(for: activities)
             return cell
         case .todaysClasses:
             if gymClassInstances.isEmpty {
@@ -78,7 +78,7 @@ extension HomeViewController: UICollectionViewDataSource {
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: editButtonTitle, completion: pushHabitOnboarding)
         case .myGyms:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: pushGymOnboarding)
-        case .yourSports:
+        case .yourActivities:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: pushHabitOnboarding)
         case .todaysClasses:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: viewTodaysClasses)
@@ -125,8 +125,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         case .lookingFor:
             let height = LookingForListCell.getHeight(collectionViewWidth: collectionView.bounds.width, numTags: lookingForCategories.count)
             return CGSize(width: width, height: height)
-        case .yourSports:
-            let height = SportsListCell.itemHeight
+        case .yourActivities:
+            let height = ActivitiesListCell.itemHeight
             return CGSize(width: width, height: height)
         }
     }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Sport {
+struct Activity {
     
     let name: String
     var image: UIImage

@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
     var habits: [Habit] = []
     var lookingForCategories: [Tag] = []
     var sections: [SectionType] = []
-    var sports: [Sport] = []
+    var activities: [Activity] = []
 
     // MARK: - Private data vars
     private var gymLocations: [Int: String] = [:]
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
         static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
         static let todaysClassesEmptyCellIdentifier = "todaysClassesEmptyCellIdentifier"
-        static let sportsListCellIdentifier = "sportsListCellIdentifier"
+        static let activitiesListCellIdentifier = "activitiesListCellIdentifier"
     }
 
     // MARK: - Enums
@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
         case checkIns = "DAILY CHECK-INS"
         case myGyms = "MY GYMS"
         case todaysClasses = "TODAY'S CLASSES"
-        case yourSports = "YOUR ACTIVITIES"
+        case yourActivities = "YOUR ACTIVITIES"
         case lookingFor = "I'M LOOKING FOR..."
     }
 
@@ -57,14 +57,14 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         //MARK: removed .lookingFor
-        sections = [.todaysClasses, .yourSports, .myGyms]
+        sections = [.todaysClasses, .yourActivities, .myGyms]
 
-        sports = [Sport(name:"Lifting", image: activitiesImages.lifting),
-                  Sport(name:"Basketball", image: activitiesImages.basketball),
-                  Sport(name:"Bowling", image: activitiesImages.bowling),
-                  Sport(name:"Swimming", image: activitiesImages.swimming),
-                  Sport(name:"Lifting", image: activitiesImages.lifting),
-                  Sport(name:"Basketball", image: activitiesImages.basketball)]
+        activities = [Activity(name:"Lifting", image: activitiesImages.lifting),
+                  Activity(name:"Basketball", image: activitiesImages.basketball),
+                  Activity(name:"Bowling", image: activitiesImages.bowling),
+                  Activity(name:"Swimming", image: activitiesImages.swimming),
+                  Activity(name:"Lifting", image: activitiesImages.lifting),
+                  Activity(name:"Basketball", image: activitiesImages.basketball)]
 
         view.backgroundColor = UIColor.primaryWhite
 
@@ -160,7 +160,7 @@ extension HomeViewController {
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         collectionView.register(CheckInsListCell.self, forCellWithReuseIdentifier: Constants.checkInsListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
-        collectionView.register(SportsListCell.self, forCellWithReuseIdentifier: Constants.sportsListCellIdentifier)
+        collectionView.register(ActivitiesListCell.self, forCellWithReuseIdentifier: Constants.activitiesListCellIdentifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)

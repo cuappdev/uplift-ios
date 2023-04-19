@@ -1,5 +1,5 @@
 //
-//  SportListItemCell.swift
+//  ActivityListItemCell.swift
 //  Uplift
 //
 //  Created by Elvis Marcelo on 4/9/23.
@@ -10,14 +10,14 @@ import Foundation
 import SnapKit
 import UIKit
 
-class SportListItemCell: ListItemCollectionViewCell<Sport> {
+class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
 
     // MARK: - Public static vars
-    static let identifier = Identifiers.sportsCell
+    static let identifier = Identifiers.activitiesCell
 
     // MARK: - Private view vars
-    private var sportsImageView = UIImageView()
-    private let sportsLabel = UILabel()
+    private var activityImageView = UIImageView()
+    private let activityLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,28 +30,28 @@ class SportListItemCell: ListItemCollectionViewCell<Sport> {
     }
 
     // MARK: - Public configure
-    override func configure(for sport: Sport) {
+    override func configure(for sport: Activity) {
         super.configure(for: sport)
 
-        sportsLabel.text = sport.name
-        sportsImageView.image = sport.image
+        activityLabel.text = sport.name
+        activityImageView.image = sport.image
     }
 
     private func setupViews() {
         let imageViewOpacity: Float = 0.5
         let imageViewshadowRadius: CGFloat = 0.25
 
-        sportsImageView.layer.shadowColor = UIColor.black.cgColor
-        sportsImageView.layer.shadowOpacity = imageViewOpacity
-        sportsImageView.layer.shadowOffset = CGSize(width: 1, height: 2)
-        sportsImageView.layer.shadowRadius = imageViewshadowRadius
-        sportsImageView.contentMode = .scaleAspectFit
-        sportsImageView.clipsToBounds = true
-        contentView.addSubview(sportsImageView)
+        activityImageView.layer.shadowColor = UIColor.black.cgColor
+        activityImageView.layer.shadowOpacity = imageViewOpacity
+        activityImageView.layer.shadowOffset = CGSize(width: 1, height: 2)
+        activityImageView.layer.shadowRadius = imageViewshadowRadius
+        activityImageView.contentMode = .scaleAspectFit
+        activityImageView.clipsToBounds = true
+        contentView.addSubview(activityImageView)
 
-        sportsLabel.textAlignment = .center
-        sportsLabel.font = ._12MontserratMedium
-        contentView.addSubview(sportsLabel)
+        activityLabel.textAlignment = .center
+        activityLabel.font = ._12MontserratMedium
+        contentView.addSubview(activityLabel)
     }
 
     private func setupConstraints() {
@@ -59,15 +59,15 @@ class SportListItemCell: ListItemCollectionViewCell<Sport> {
         let sportsImageViewPadding: CGFloat = 15
         let sportsImageViewWidthHeight: CGFloat = 70
 
-        sportsImageView.snp.makeConstraints { make in
+        activityImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(sportsImageViewPadding)
             make.centerX.equalToSuperview()
             make.width.equalTo(sportsImageViewWidthHeight)
             make.height.equalTo(sportsImageViewWidthHeight)
         }
 
-        sportsLabel.snp.makeConstraints { make in
-            make.top.equalTo(sportsImageView.snp.bottom).offset(labelPadding)
+        activityLabel.snp.makeConstraints { make in
+            make.top.equalTo(activityImageView.snp.bottom).offset(labelPadding)
             make.width.equalToSuperview()
         }
     }
