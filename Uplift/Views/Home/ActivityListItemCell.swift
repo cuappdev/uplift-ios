@@ -23,7 +23,7 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
         super.init(frame: frame)
 
         contentView.layer.masksToBounds = false
-        contentView.clipsToBounds = true
+        contentView.clipsToBounds = false
 
         setupViews()
         setupConstraints()
@@ -38,15 +38,15 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
     }
 
     private func setupViews() {
-        let imageViewOpacity: Float = 0.5
-        let imageViewshadowRadius: CGFloat = 0.25
+        let imageViewOpacity: Float = 0.15
+        let imageViewshadowRadius: CGFloat = 7
 
         activityImageView.layer.shadowColor = UIColor.black.cgColor
         activityImageView.layer.shadowOpacity = imageViewOpacity
         activityImageView.layer.shadowOffset = CGSize(width: 1, height: 2)
         activityImageView.layer.shadowRadius = imageViewshadowRadius
         activityImageView.contentMode = .scaleAspectFit
-        activityImageView.clipsToBounds = true
+//        activityImageView.clipsToBounds = true
         contentView.addSubview(activityImageView)
 
         activityLabel.textAlignment = .center
@@ -56,7 +56,7 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
 
     private func setupConstraints() {
         let labelPadding: CGFloat = 5
-        let sportsImageViewPadding: CGFloat = 15
+        let sportsImageViewPadding: CGFloat = 20
         let sportsImageViewWidthHeight: CGFloat = 70
 
         activityImageView.snp.makeConstraints { make in
