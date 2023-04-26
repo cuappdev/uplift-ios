@@ -51,15 +51,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //MARK: removed .lookingFor
+        // MARK: removed .lookingFor
         sections = [.todaysClasses, .yourActivities, .myGyms]
 
-        activities = [Activity(name:"Lifting", image: activitiesImages.lifting),
-                  Activity(name:"Basketball", image: activitiesImages.basketball),
-                  Activity(name:"Bowling", image: activitiesImages.bowling),
-                  Activity(name:"Swimming", image: activitiesImages.swimming),
-                  Activity(name:"Lifting", image: activitiesImages.lifting),
-                  Activity(name:"Basketball", image: activitiesImages.basketball)]
+        activities = [Activity(name: "Lifting", image: ActivitiesImages.lifting),
+                  Activity(name: "Basketball", image: ActivitiesImages.basketball),
+                  Activity(name: "Bowling", image: ActivitiesImages.bowling),
+                  Activity(name: "Swimming", image: ActivitiesImages.swimming),
+                  Activity(name: "Lifting", image: ActivitiesImages.lifting),
+                  Activity(name: "Basketball", image: ActivitiesImages.basketball)]
 
         view.backgroundColor = UIColor.primaryWhite
 
@@ -137,13 +137,13 @@ extension HomeViewController {
         collectionView.delaysContentTouches = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.layer.zPosition = -1
-        
+
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(ActivitiesListCell.self, forCellWithReuseIdentifier: Constants.activitiesListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
-        
+
         view.addSubview(collectionView)
 
         view.addSubview(loadingHeader)

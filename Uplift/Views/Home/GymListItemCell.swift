@@ -15,10 +15,6 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     static let identifier = Identifiers.gymsCell
 
     // MARK: - Private view vars
-    private let hoursLabel = UILabel()
-    private let locationNameLabel = UILabel()
-    private let shadowView = UIView()
-    private let statusLabel = UILabel()
     private let backgroundImage = UIImageView()
     private let gymCellFooter = GymCellFooter()
 

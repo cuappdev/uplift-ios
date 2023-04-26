@@ -13,7 +13,7 @@ protocol GymsListCellDelegate: class {
 }
 
 class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
-    
+
     // MARK: - Public data vars
     weak var delegate: GymsListCellDelegate?
     static let itemHeight: CGFloat = 180.0

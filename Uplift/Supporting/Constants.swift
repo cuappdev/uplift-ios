@@ -213,7 +213,7 @@ struct ImageNames {
 }
 
 // MARK: - SPORTS IMAGES
-struct activitiesImages {
+struct ActivitiesImages {
     // ACTIVITIES IMAGES
     static let lifting = UIImage(named: "lifting")!
     static let basketball = UIImage(named: "basketball1")!
