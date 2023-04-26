@@ -35,10 +35,7 @@ class HomeViewController: UIViewController {
     private var numPendingNetworkRequests = 0
 
     enum Constants {
-        static let checkInsListCellIdentifier = "checkInsListCellIdentifier"
-        static let gymEquipmentListCellIdentifier = "gymEquipmentListCellIdentifier"
         static let gymsListCellIdentifier = "gymsListCellIdentifier"
-        static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
         static let todaysClassesEmptyCellIdentifier = "todaysClassesEmptyCellIdentifier"
         static let activitiesListCellIdentifier = "activitiesListCellIdentifier"
@@ -46,11 +43,9 @@ class HomeViewController: UIViewController {
 
     // MARK: - Enums
     enum SectionType: String {
-        case checkIns = "DAILY CHECK-INS"
-        case myGyms = "MY GYMS"
-        case todaysClasses = "TODAY'S CLASSES"
-        case yourActivities = "YOUR ACTIVITIES"
-        case lookingFor = "I'M LOOKING FOR..."
+        case todaysClasses = "Today's classes"
+        case yourActivities = "Your Activities"
+        case myGyms = "Gyms"
     }
 
     override func viewDidLoad() {
@@ -71,11 +66,6 @@ class HomeViewController: UIViewController {
         setupViews()
         setupConstraints()
 
-        // Get Habits
-        habits = Habit.getActiveHabits()
-        // Reload Daily Check Ins section
-        collectionView.reloadSections(IndexSet(integer: 0))
-
         // Get Gyms
         numPendingNetworkRequests += 1
         NetworkManager.shared.getGyms { gyms in
@@ -83,7 +73,7 @@ class HomeViewController: UIViewController {
             let gymNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteGyms) ?? []
             self.updateFavorites(favorites: gymNames)
             // Reload All Gyms section
-            self.collectionView.reloadSections(IndexSet(integer: 0))
+            self.collectionView.reloadSections(IndexSet(integer: 2))
             self.decrementNumPendingNetworkRequests()
         }
 
@@ -96,19 +86,9 @@ class HomeViewController: UIViewController {
             }
 
             // Reload Today's Classes section
-            self.collectionView.reloadSections(IndexSet(integer: 1))
+            self.collectionView.reloadSections(IndexSet(integer: 0))
             self.decrementNumPendingNetworkRequests()
         })
-
-//MARK: Networking for .LookingForCategories
-/*
-        numPendingNetworkRequests += 1
-        NetworkManager.shared.getTags(completion: { tags in
-            self.lookingForCategories = tags
-            self.collectionView.reloadSections(IndexSet(integer: 2))
-            self.decrementNumPendingNetworkRequests()
-        })
-*/
 
         presentAnnouncement(completion: nil)
     }
@@ -157,13 +137,13 @@ extension HomeViewController {
         collectionView.delaysContentTouches = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.layer.zPosition = -1
+        
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
-        collectionView.register(CheckInsListCell.self, forCellWithReuseIdentifier: Constants.checkInsListCellIdentifier)
-        collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
-        collectionView.register(ActivitiesListCell.self, forCellWithReuseIdentifier: Constants.activitiesListCellIdentifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
-        collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)
+        collectionView.register(ActivitiesListCell.self, forCellWithReuseIdentifier: Constants.activitiesListCellIdentifier)
+        collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
+        
         view.addSubview(collectionView)
 
         view.addSubview(loadingHeader)
