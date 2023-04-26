@@ -54,7 +54,6 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
         classNameLabel.text = item.className
         locationNameLabel.text = item.location
         hoursLabel.text = getHoursString(from: item)
-//        imageView.kf.setImage(with: item.imageURL)
 
         // Check if class is cancelled or not
         if item.isCancelled {
