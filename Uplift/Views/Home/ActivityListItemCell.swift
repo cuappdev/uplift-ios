@@ -39,7 +39,7 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
 
     private func setupViews() {
         let imageViewOpacity: Float = 0.15
-        let imageViewshadowRadius: CGFloat = 7
+        let imageViewshadowRadius: CGFloat = 4
 
         activityImageView.layer.shadowColor = UIColor.black.cgColor
         activityImageView.layer.shadowOpacity = imageViewOpacity
