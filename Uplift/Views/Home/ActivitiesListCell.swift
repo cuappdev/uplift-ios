@@ -13,8 +13,7 @@ class ActivitiesListCell: ListCollectionViewCell<Activity, ActivityListItemCell>
 
     // MARK: - Public data vars
     static let itemHeight: CGFloat = 110.0
-    static let minimumInterItemSpacing: CGFloat = 16.0
-    static let minimumLineSpacing: CGFloat = 16.0
+    static let minimumItemSpacing: CGFloat = 16.0
     static let sectionInsetBottom: CGFloat = 32.0
     static let sectionInsetLeft: CGFloat = 12.0
     static let sectionInsetRight: CGFloat = 12.0
@@ -23,7 +22,7 @@ class ActivitiesListCell: ListCollectionViewCell<Activity, ActivityListItemCell>
     override var config: ListConfiguration {
         return ListConfiguration(
             itemSize: CGSize(width: 80, height: ActivitiesListCell.itemHeight),
-            minimumInteritemSpacing: ActivitiesListCell.minimumInterItemSpacing,
+            minimumItemSpacing: ActivitiesListCell.minimumItemSpacing,
             sectionInset: UIEdgeInsets(top: 0.0, left: 12.0, bottom: 32.0, right: 12.0)
         )
     }
