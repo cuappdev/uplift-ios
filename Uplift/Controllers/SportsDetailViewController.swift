@@ -72,7 +72,7 @@ class SportsDetailViewController: UIViewController {
     func setupViews() {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(SportsDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Identifiers.sportsDetailHeaderView)
+        collectionView.register(SportsDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Identifiers.activitiesDetailHeaderView)
         collectionView.register(SportsDetailInfoCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailInfoCell)
         collectionView.register(SportsDetailPlayersCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailPlayersCell)
         collectionView.register(SportsDetailDiscussionCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.sportsDetailDiscussionCell)
@@ -111,7 +111,7 @@ extension SportsDetailViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: Identifiers.sportsDetailHeaderView,
+            withReuseIdentifier: Identifiers.activitiesDetailHeaderView,
             for: indexPath) as! SportsDetailHeaderView
         headerView.configure(delegate: self, post: post)
         return headerView

@@ -13,14 +13,14 @@ protocol GymsListCellDelegate: class {
 }
 
 class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
-
+    
     // MARK: - Public data vars
     weak var delegate: GymsListCellDelegate?
     static let itemHeight: CGFloat = 180.0
     static let minimumInterItemSpacing: CGFloat = 16.0
     static let minimumLineSpacing: CGFloat = 16.0
     static let sectionInsetBottom: CGFloat = 32.0
-    static let sectionInsetLeft: CGFloat = 16.0
+    static let sectionInsetLeft: CGFloat = 12.0
     static let sectionInsetRight: CGFloat = 12.0
 
     // MARK: - Overrides
