@@ -22,9 +22,6 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentView.layer.masksToBounds = false
-        contentView.clipsToBounds = false
-
         setupViews()
         setupConstraints()
     }
@@ -46,7 +43,6 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
         activityImageView.layer.shadowOffset = CGSize(width: 1, height: 2)
         activityImageView.layer.shadowRadius = imageViewshadowRadius
         activityImageView.contentMode = .scaleAspectFit
-//        activityImageView.clipsToBounds = true
         contentView.addSubview(activityImageView)
 
         activityLabel.textAlignment = .center

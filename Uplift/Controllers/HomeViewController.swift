@@ -86,7 +86,6 @@ class HomeViewController: UIViewController {
             }
 
             // Reload Today's Classes section
-            print(self.gymClassInstances)
             self.collectionView.reloadSections(IndexSet(integer: 0))
             self.decrementNumPendingNetworkRequests()
         })
@@ -140,12 +139,9 @@ extension HomeViewController {
         collectionView.layer.zPosition = -1
         
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
-        
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
-        
         collectionView.register(ActivitiesListCell.self, forCellWithReuseIdentifier: Constants.activitiesListCellIdentifier)
-        
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
         
         view.addSubview(collectionView)
