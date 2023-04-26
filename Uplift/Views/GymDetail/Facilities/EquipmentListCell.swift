@@ -30,8 +30,7 @@ class EquipmentListCell: ListCollectionViewCell<EquipmentCategory, EquipmentList
 
         return ListConfiguration(
             itemSize: CGSize(width: 247.0, height: maxCellHeight),
-            minimumInteritemSpacing: 16,
-            minimumLineSpacing: 16,
+            minimumItemSpacing: 16,
             sectionInset: UIEdgeInsets(top: EquipmentListCell.topBottomInset, left: 24.0, bottom: EquipmentListCell.topBottomInset, right: 24.0)
         )
     }

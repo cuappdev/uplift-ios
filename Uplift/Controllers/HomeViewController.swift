@@ -90,6 +90,13 @@ class HomeViewController: UIViewController {
             self.collectionView.reloadSections(IndexSet(integer: 0))
             self.decrementNumPendingNetworkRequests()
         })
+        
+//        var testGym1 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: true, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
+//        
+//        var testGym2 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: false, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
+//        
+//        var testGym3 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: false, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
+//        self.gymClassInstances = [testGym1, testGym2, testGym3]
 
         presentAnnouncement(completion: nil)
     }
