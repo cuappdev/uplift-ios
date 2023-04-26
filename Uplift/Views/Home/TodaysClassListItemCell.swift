@@ -18,10 +18,8 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
     // MARK: - Private view vars
     private let cancelledLabel = UILabel()
     private let cancelledView = UIView()
-    
     private let classNameLabel = UILabel()
     private let hoursLabel = UILabel()
-//    private let imageView = UIImageView()
     private let locationWidget = UIImageView()
     private let locationNameLabel = UILabel()
 
@@ -77,12 +75,6 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
     }
 
     private func setupViews() {
-//        imageView.clipsToBounds = true
-//        imageView.layer.cornerRadius = 5
-//        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        imageView.contentMode = .scaleAspectFill
-//        contentView.addSubview(imageView)
-
         cancelledView.backgroundColor = .accentClosed
         cancelledView.isHidden = true
         cancelledView.layer.cornerRadius = 5
@@ -114,20 +106,13 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
 
     private func setupConstraints() {
         let cancelledViewSize = CGSize(width: 90, height: 27)
-//        let cancelledViewTopPadding = 17
         let classNameLabelHorizontalPadding = 21
         let classNameLabelTopPadding = 13
         let hoursLabelRightPadding = 21
-//        let imageViewHeight = 100
         let locationNameLabelLeftPadding = 5
         let locationNameLabelRightPadding = 21
         let locationWidgetBottomPadding = 14
         let locationWidgetSize = CGSize(width: 9, height: 13)
-
-//        imageView.snp.makeConstraints { make in
-//            make.leading.trailing.top.equalToSuperview()
-//            make.height.equalTo(imageViewHeight)
-//        }
 
         cancelledView.snp.makeConstraints { make in
             make.top.equalToSuperview()
