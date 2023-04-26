@@ -53,7 +53,6 @@ class HomeViewController: UIViewController {
 
         // MARK: removed .lookingFor
         sections = [.todaysClasses, .yourActivities, .myGyms]
-
         activities = [Activity(name: "Lifting", image: ActivitiesImages.lifting),
                   Activity(name: "Basketball", image: ActivitiesImages.basketball),
                   Activity(name: "Bowling", image: ActivitiesImages.bowling),
@@ -89,6 +88,9 @@ class HomeViewController: UIViewController {
             self.collectionView.reloadSections(IndexSet(integer: 0))
             self.decrementNumPendingNetworkRequests()
         })
+        
+        
+        // These are dummy test data for dev and to test cancelled classes
         
 //        var testGym1 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: true, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
 //        
