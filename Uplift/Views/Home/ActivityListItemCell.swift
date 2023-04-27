@@ -43,6 +43,7 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
         activityImageView.layer.shadowOffset = CGSize(width: 1, height: 2)
         activityImageView.layer.shadowRadius = imageViewshadowRadius
         activityImageView.contentMode = .scaleAspectFit
+
         contentView.addSubview(activityImageView)
 
         activityLabel.textAlignment = .center

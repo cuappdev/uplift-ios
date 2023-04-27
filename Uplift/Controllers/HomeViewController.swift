@@ -53,6 +53,7 @@ class HomeViewController: UIViewController {
 
         // MARK: removed .lookingFor
         sections = [.todaysClasses, .yourActivities, .myGyms]
+        
         activities = [Activity(name: "Lifting", image: ActivitiesImages.lifting),
                   Activity(name: "Basketball", image: ActivitiesImages.basketball),
                   Activity(name: "Bowling", image: ActivitiesImages.bowling),
@@ -146,7 +147,7 @@ extension HomeViewController {
         collectionView.delaysContentTouches = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.layer.zPosition = -1
-
+        
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
