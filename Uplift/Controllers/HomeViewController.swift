@@ -59,12 +59,7 @@ class HomeViewController: UIViewController {
         //MARK: removed .lookingFor
         sections = [.todaysClasses, .yourActivities, .myGyms]
 
-        activities = [Activity(name:"Lifting", image: activitiesImages.lifting),
-                  Activity(name:"Basketball", image: activitiesImages.basketball),
-                  Activity(name:"Bowling", image: activitiesImages.bowling),
-                  Activity(name:"Swimming", image: activitiesImages.swimming),
-                  Activity(name:"Lifting", image: activitiesImages.lifting),
-                  Activity(name:"Basketball", image: activitiesImages.basketball)]
+        activities = activityList.activites
 
         view.backgroundColor = UIColor.primaryWhite
 

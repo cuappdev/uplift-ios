@@ -47,6 +47,7 @@ struct Identifiers {
     static let loadingHeaderView = "loadingHeaderView"
     static let activitiesDetailHeaderView = "activitiesDetailHeaderView"
     static let todaysClassesHeaderView = "todaysClassesHeaderView"
+    static let activitesReuseIdentifier = "activitesReuseIdentifier"
 
     // CELLS
     static let categoryCell = "categoryCell"
@@ -219,4 +220,13 @@ struct activitiesImages {
     static let basketball = UIImage(named: "basketball1")!
     static let bowling = UIImage(named: "bowling1")!
     static let swimming = UIImage(named: "swimming")!
+}
+
+struct activityList {
+    static let activites = [Activity(name:"Lifting", image: activitiesImages.lifting, isFavorite: false),
+              Activity(name:"Basketball", image: activitiesImages.basketball, isFavorite: false),
+              Activity(name:"Bowling", image: activitiesImages.bowling, isFavorite: false),
+              Activity(name:"Swimming", image: activitiesImages.swimming, isFavorite: false),
+              Activity(name:"Lifting", image: activitiesImages.lifting, isFavorite: false),
+              Activity(name:"Basketball", image: activitiesImages.basketball, isFavorite: false)]
 }

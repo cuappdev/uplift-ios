@@ -149,6 +149,6 @@ struct ClientStrings {
         static let classesSection = "Classes"
         static let favoritesSection = "Favorites"
         static let homeSection = "Home"
-        static let sportsFeedSection = "Sports"
+        static let activitiesFeedSection = "Activites"
     }
 }

@@ -41,8 +41,8 @@ class TabBarController: UITabBarController {
         let classListController = ClassListViewController()
         classListController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.classesSection, imageName: ImageNames.classes, selectedImageName: ImageNames.classesSelected)
 
-        let sportsFeedController = SportsFeedViewController()
-        sportsFeedController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.sportsFeedSection, imageName: ImageNames.sportsFeed, selectedImageName: ImageNames.sportsFeedSelected)
+        let sportsFeedController = ActivitesViewController()
+        sportsFeedController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.activitiesFeedSection, imageName: ImageNames.sportsFeed, selectedImageName: ImageNames.sportsFeedSelected)
 
         let favoritesController = FavoritesViewController()
         favoritesController.tabBarItem = getTabBarItem(title: ClientStrings.TabBar.favoritesSection, imageName: ImageNames.favorites, selectedImageName: ImageNames.favoritesSelected)

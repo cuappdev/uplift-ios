@@ -13,10 +13,12 @@ struct Activity {
     
     let name: String
     var image: UIImage
+    var isFavorite: Bool
 
-    init(name: String, image: UIImage) {
+    init(name: String, image: UIImage, isFavorite: Bool) {
         self.name = name
         self.image = image
+        self.isFavorite = isFavorite
     }
     
 }

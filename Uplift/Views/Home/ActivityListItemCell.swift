@@ -38,12 +38,12 @@ class ActivityListItemCell: ListItemCollectionViewCell<Activity> {
     }
 
     private func setupViews() {
-        let imageViewOpacity: Float = 0.5
-        let imageViewshadowRadius: CGFloat = 0.25
+        let imageViewOpacity: Float = 0.6
+        let imageViewshadowRadius: CGFloat = 0.15
 
         activityImageView.layer.shadowColor = UIColor.black.cgColor
         activityImageView.layer.shadowOpacity = imageViewOpacity
-        activityImageView.layer.shadowOffset = CGSize(width: 1, height: 2)
+        activityImageView.layer.shadowOffset = CGSize(width: 0, height: 0)
         activityImageView.layer.shadowRadius = imageViewshadowRadius
         activityImageView.contentMode = .scaleAspectFit
         activityImageView.clipsToBounds = true
