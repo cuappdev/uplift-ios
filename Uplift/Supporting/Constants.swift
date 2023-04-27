@@ -231,3 +231,9 @@ struct activityList {
         Activity(name:"Basketball", image: activitiesImages.basketball, isFavorite: false)
     ]
 }
+
+struct activityConstants {
+    static let activityItemSpacing = 20.0
+    static let activityPadding = 10.0
+    static let activityCellheight = 60.0
+}

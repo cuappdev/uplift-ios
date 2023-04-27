@@ -10,10 +10,10 @@ import UIKit
 
 class ActivityCollectionViewCell: UICollectionViewCell {
 
+    private var activity: Activity!
     private let iconImageView = UIImageView()
     private let iconLabel = UILabel()
     private let starButton = UIButton()
-    private var activity: Activity!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

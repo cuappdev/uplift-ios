@@ -11,8 +11,8 @@ import UIKit
 
 class ActivitesScreenHeaderView: UIView {
 
-    private var welcomeMessage: UILabel!
     private var didSetupShadow = false
+    private var welcomeMessage: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

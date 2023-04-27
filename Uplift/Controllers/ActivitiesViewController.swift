@@ -87,12 +87,11 @@ class ActivitesViewController: UIViewController {
 extension ActivitesViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding: CGFloat = 10
-        return CGSize(width: (collectionView.bounds.width - padding * 2), height: 60)
+        return CGSize(width: (collectionView.bounds.width - activityConstants.activityPadding * 2), height: activityConstants.activityCellheight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return activityConstants.activityItemSpacing
     }
     
 }
