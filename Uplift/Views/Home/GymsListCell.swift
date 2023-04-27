@@ -16,7 +16,7 @@ class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
 
     // MARK: - Public data vars
     weak var delegate: GymsListCellDelegate?
-    static let itemHeight: CGFloat = 180.0
+    static let itemHeight: CGFloat = 190.0
     
     static let minimumItemSpacing: CGFloat = 30.0
     
