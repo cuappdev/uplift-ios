@@ -10,10 +10,10 @@ import UIKit
 
 class ActivityCollectionViewCell: UICollectionViewCell {
 
-    let iconImageView = UIImageView()
-    let iconLabel = UILabel()
-    let starButton = UIButton()
-    var activity: Activity!
+    private let iconImageView = UIImageView()
+    private let iconLabel = UILabel()
+    private let starButton = UIButton()
+    private var activity: Activity!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +28,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         self.activity = activity
     }
 
-    func setupViews() {
+    private func setupViews() {
         contentView.addSubview(iconImageView)
 
         iconLabel.font = ._16MontserratBold
@@ -46,7 +46,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(starButton)
     }
 
-    func setupConstraints() {
+    private func setupConstraints() {
         let starPadding = 17
         let imageDimensions = 30
         let labelPadding = 12

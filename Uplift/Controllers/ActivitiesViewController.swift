@@ -10,13 +10,12 @@ import Foundation
 import UIKit
 import SnapKit
 
-
 class ActivitesViewController: UIViewController {
 
     private let headerView = ActivitesScreenHeaderView()
-    var activitiesCollectionView: UICollectionView!
-    var filterButton = UIButton()
-    var activities = activityList.activites
+    private var activitiesCollectionView: UICollectionView!
+    private var filterButton = UIButton()
+    private var activities = activityList.activites
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,7 @@ class ActivitesViewController: UIViewController {
         setupConstraints()
     }
 
-    func setupViews() {
+    private func setupViews() {
         headerView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         headerView.layer.shadowOpacity = 0.4
         headerView.layer.shadowRadius = 10.0
@@ -56,8 +55,8 @@ class ActivitesViewController: UIViewController {
         view.addSubview(filterButton)
     }
 
-    func setupConstraints() {
-        let bottomPadding = -100
+    private func setupConstraints() {
+        let bottomPadding = 100
         let headerViewHeight = 120
         let filterWidth = 100
         let filterHeight = 41
@@ -72,7 +71,7 @@ class ActivitesViewController: UIViewController {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalTo(headerView.snp.bottom)
-            make.bottom.equalToSuperview().offset(bottomPadding)
+            make.bottom.equalToSuperview().inset(-bottomPadding)
         }
 
         filterButton.snp.makeConstraints { make in
@@ -89,10 +88,9 @@ extension ActivitesViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat = 10
-        return CGSize(width: (collectionView.bounds.width - padding*2), height: 60)
+        return CGSize(width: (collectionView.bounds.width - padding * 2), height: 60)
     }
 
-    //SPACING BETWEEN ROWS
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }

@@ -11,16 +11,14 @@ import UIKit
 
 class ActivitesScreenHeaderView: UIView {
 
-    var welcomeMessage: UILabel!
-    var didSetupShadow = false
+    private var welcomeMessage: UILabel!
+    private var didSetupShadow = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        // BACKGROUND COLOR
         backgroundColor = .white
 
-        // WELCOME MESSAGE
         welcomeMessage = UILabel()
         welcomeMessage.font = ._24MontserratBold
         welcomeMessage.textColor = .primaryBlack
@@ -37,7 +35,7 @@ class ActivitesScreenHeaderView: UIView {
     }
 
     // MARK: - LAYOUT
-    func setupLayout() {
+    private func setupLayout() {
         welcomeMessage.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(20)
             make.leading.equalTo(24)

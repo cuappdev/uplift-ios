@@ -215,7 +215,6 @@ struct ImageNames {
 
 // MARK: - SPORTS IMAGES
 struct activitiesImages {
-    // ACTIVITIES IMAGES
     static let lifting = UIImage(named: "lifting")!
     static let basketball = UIImage(named: "basketball1")!
     static let bowling = UIImage(named: "bowling1")!
@@ -223,10 +222,12 @@ struct activitiesImages {
 }
 
 struct activityList {
-    static let activites = [Activity(name:"Lifting", image: activitiesImages.lifting, isFavorite: false),
-              Activity(name:"Basketball", image: activitiesImages.basketball, isFavorite: false),
-              Activity(name:"Bowling", image: activitiesImages.bowling, isFavorite: false),
-              Activity(name:"Swimming", image: activitiesImages.swimming, isFavorite: false),
-              Activity(name:"Lifting", image: activitiesImages.lifting, isFavorite: false),
-              Activity(name:"Basketball", image: activitiesImages.basketball, isFavorite: false)]
+    static let activites = [
+        Activity(name:"Lifting", image: activitiesImages.lifting, isFavorite: false),
+        Activity(name:"Basketball", image: activitiesImages.basketball, isFavorite: false),
+        Activity(name:"Bowling", image: activitiesImages.bowling, isFavorite: false),
+        Activity(name:"Swimming", image: activitiesImages.swimming, isFavorite: false),
+        Activity(name:"Lifting", image: activitiesImages.lifting, isFavorite: false),
+        Activity(name:"Basketball", image: activitiesImages.basketball, isFavorite: false)
+    ]
 }

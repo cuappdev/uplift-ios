@@ -13,11 +13,11 @@ class ActivitiesListCell: ListCollectionViewCell<Activity, ActivityListItemCell>
 
     // MARK: - Public data vars
     static let itemHeight: CGFloat = 110.0
-    static let minimumInterItemSpacing: CGFloat = 16.0
-    static let minimumLineSpacing: CGFloat = 16.0
-    static let sectionInsetBottom: CGFloat = 32.0
-    static let sectionInsetLeft: CGFloat = 12.0
-    static let sectionInsetRight: CGFloat = 12.0
+    static private let minimumInterItemSpacing: CGFloat = 16.0
+    static private let minimumLineSpacing: CGFloat = 16.0
+    static private let sectionInsetBottom: CGFloat = 32.0
+    static private let sectionInsetLeft: CGFloat = 12.0
+    static private let sectionInsetRight: CGFloat = 12.0
 
     // MARK: - Overrides
     override var config: ListConfiguration {
