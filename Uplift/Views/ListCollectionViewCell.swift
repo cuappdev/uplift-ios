@@ -16,8 +16,7 @@ class ListConfiguration {
     var delaysContentTouches: Bool!
     var isScrollEnabled: Bool!
     var itemSize: CGSize!
-    var minimumInteritemSpacing: CGFloat!
-    var minimumLineSpacing: CGFloat!
+    var minimumItemSpacing: CGFloat!
     var sectionInset: UIEdgeInsets!
     var scrollDirection: UICollectionView.ScrollDirection!
     var showsScrollIndicator: Bool!
@@ -26,8 +25,7 @@ class ListConfiguration {
          delaysContentTouches: Bool = false,
          isScrollEnabled: Bool = true,
          itemSize: CGSize = .zero,
-         minimumInteritemSpacing: CGFloat = 0,
-         minimumLineSpacing: CGFloat = 0,
+         minimumItemSpacing: CGFloat = 0,
          scrollDirection: UICollectionView.ScrollDirection = .horizontal,
          sectionInset: UIEdgeInsets = .zero,
          showsScrollIndicator: Bool = false) {
@@ -35,8 +33,7 @@ class ListConfiguration {
         self.delaysContentTouches = delaysContentTouches
         self.isScrollEnabled = isScrollEnabled
         self.itemSize = itemSize
-        self.minimumInteritemSpacing = minimumInteritemSpacing
-        self.minimumLineSpacing = minimumLineSpacing
+        self.minimumItemSpacing = minimumItemSpacing
         self.scrollDirection = scrollDirection
         self.sectionInset = sectionInset
         self.showsScrollIndicator = showsScrollIndicator
@@ -66,12 +63,7 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
         super.init(frame: frame)
 
         layout.scrollDirection = config.scrollDirection
-        if config.scrollDirection == .vertical {
-            layout.minimumLineSpacing = config.minimumLineSpacing
-        } else {
-            layout.minimumInteritemSpacing = config.minimumInteritemSpacing
-            layout.minimumInteritemSpacing = 150
-        }
+        layout.minimumLineSpacing = config.minimumItemSpacing
         layout.itemSize = config.itemSize
         layout.sectionInset = config.sectionInset
 
@@ -142,11 +134,8 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
 
     func reloadConfig() {
         layout.scrollDirection = config.scrollDirection
-        if config.scrollDirection == .vertical {
-            layout.minimumLineSpacing = config.minimumLineSpacing
-        } else {
-            layout.minimumInteritemSpacing = config.minimumInteritemSpacing
-        }
+        layout.minimumLineSpacing = config.minimumItemSpacing
+
         layout.itemSize = config.itemSize
         layout.sectionInset = config.sectionInset
 

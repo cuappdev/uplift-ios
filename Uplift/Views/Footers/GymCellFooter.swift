@@ -41,6 +41,7 @@ class GymCellFooter: UIView {
         hoursLabel.text = getHoursString(from: gym)
 
         capacityStatusLabel.text = "Cramped"
+        capacityStatusLabel.textColor = .accentOrange
         capacityCountLabel.text = "120/140"
     }
 
@@ -101,8 +102,9 @@ class GymCellFooter: UIView {
         let leadingPadding = 16
         let locationLabelHeight = 22
         let topBottomLabelVerticalPadding = 8
+        let statusLabelTopPadding = 4
         let statusHoursLabelPadding = 4
-        let statusLabelTopPadding = 1
+        let capacityTopPadding = 2
         let trailingPadding = 4
 
         locationNameLabel.snp.updateConstraints { make in
@@ -116,7 +118,7 @@ class GymCellFooter: UIView {
             make.leading.equalTo(locationNameLabel)
             make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
             make.height.equalTo(descriptionLabelHeight)
-            make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
+            make.top.equalTo(locationNameLabel.snp.bottom).offset(statusLabelTopPadding)
         }
 
         hoursLabel.snp.updateConstraints { make in
@@ -126,23 +128,19 @@ class GymCellFooter: UIView {
             make.centerY.equalTo(statusLabel.snp.centerY)
         }
 
-//MARK: To be implemented when backend get's their networking done
-
-/*
          capacityStatusLabel.snp.updateConstraints { make in
              make.leading.equalTo(locationNameLabel)
              make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
              make.height.equalTo(statusLabel)
-             make.bottom.equalTo(capacityCountLabel.snp.bottom)
+             make.top.equalTo(statusLabel.snp.bottom).offset(capacityTopPadding)
          }
 
          capacityCountLabel.snp.updateConstraints { make in
              make.leading.equalTo(capacityStatusLabel.snp.trailing).offset(statusHoursLabelPadding)
-             make.height.equalTo(statusLabel)
+             make.height.equalTo(capacityStatusLabel)
              make.trailing.lessThanOrEqualToSuperview().inset(trailingPadding)
-             make.bottom.equalToSuperview().offset(-topBottomLabelVerticalPadding)
+             make.top.equalTo(capacityStatusLabel)
          }
- */
 
     }
 

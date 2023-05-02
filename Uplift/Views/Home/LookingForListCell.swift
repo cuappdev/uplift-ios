@@ -24,17 +24,16 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
         return (collectionViewWidth - 48) / 2
     }
     
-    static let minimumInterItemSpacing: CGFloat = 16
-    static let minimumLineSpacing: CGFloat = 16
     static let sectionInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
 
+    static let minimumItemSpace: CGFloat = 16
+    
     // MARK: - Overrides
     override var config: ListConfiguration {
         return ListConfiguration(
             isScrollEnabled: false,
             itemSize: CGSize(width: self.width, height: self.height),
-            minimumInteritemSpacing: 16,
-            minimumLineSpacing: 16,
+            minimumItemSpacing: LookingForListCell.minimumItemSpace,
             scrollDirection: .vertical,
             sectionInset: UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 16.0)
         )
@@ -63,6 +62,6 @@ class LookingForListCell: ListCollectionViewCell<Tag, LookingForListItemCell> {
     }
     
     static func getHeight(collectionViewWidth: CGFloat, numTags: Int) -> CGFloat {
-        return CGFloat(numTags / 2) * (((collectionViewWidth-48)/2)*0.78 + minimumInterItemSpacing)
+        return CGFloat(numTags / 2) * (((collectionViewWidth-48)/2)*0.78 + minimumItemSpace)
     }
 }

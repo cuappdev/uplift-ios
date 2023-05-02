@@ -20,9 +20,8 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
     private let cancelledView = UIView()
     private let classNameLabel = UILabel()
     private let hoursLabel = UILabel()
-    private let imageView = UIImageView()
-    private let locationNameLabel = UILabel()
     private let locationWidget = UIImageView()
+    private let locationNameLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,8 +34,8 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
 
         // SHADOWING
         contentView.layer.shadowColor = UIColor.gray01.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0.0, height: 11.0)
-        contentView.layer.shadowRadius = 7.0
+        contentView.layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
+        contentView.layer.shadowRadius = 5.0
         contentView.layer.shadowOpacity = 1.0
         contentView.layer.masksToBounds = false
 
@@ -54,15 +53,13 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
     override func configure(for item: GymClassInstance) {
         classNameLabel.text = item.className
         locationNameLabel.text = item.location
-        imageView.kf.setImage(with: item.imageURL)
+        hoursLabel.text = getHoursString(from: item)
 
         // Check if class is cancelled or not
         if item.isCancelled {
             cancelledView.isHidden = false
             cancelledLabel.isHidden = false
             classNameLabel.textColor = .gray03
-        } else {
-            hoursLabel.text = getHoursString(from: item)
         }
     }
 
@@ -77,14 +74,9 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
     }
 
     private func setupViews() {
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 5
-        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        imageView.contentMode = .scaleAspectFill
-        contentView.addSubview(imageView)
-
         cancelledView.backgroundColor = .accentClosed
         cancelledView.isHidden = true
+        cancelledView.layer.cornerRadius = 5
         contentView.addSubview(cancelledView)
 
         cancelledLabel.text = ClientStrings.Home.todaysClassCancelled
@@ -112,25 +104,18 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
     }
 
     private func setupConstraints() {
-        let cancelledViewSize = CGSize(width: 100, height: 32)
-        let cancelledViewTopPadding = 17
+        let cancelledViewSize = CGSize(width: 90, height: 27)
         let classNameLabelHorizontalPadding = 21
         let classNameLabelTopPadding = 13
         let hoursLabelRightPadding = 21
-        let imageViewHeight = 100
         let locationNameLabelLeftPadding = 5
         let locationNameLabelRightPadding = 21
         let locationWidgetBottomPadding = 14
         let locationWidgetSize = CGSize(width: 9, height: 13)
 
-        imageView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(imageViewHeight)
-        }
-
         cancelledView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(cancelledViewTopPadding)
-            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.size.equalTo(cancelledViewSize)
         }
 
@@ -141,7 +126,7 @@ class TodaysClassListItemCell: ListItemCollectionViewCell<GymClassInstance> {
 
         classNameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(classNameLabelHorizontalPadding)
-            make.top.equalTo(imageView.snp.bottom).offset(classNameLabelTopPadding)
+            make.top.equalToSuperview().offset(classNameLabelTopPadding)
             make.trailing.lessThanOrEqualToSuperview().inset(classNameLabelHorizontalPadding)
         }
 

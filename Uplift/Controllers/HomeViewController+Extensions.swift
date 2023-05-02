@@ -84,7 +84,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         case .todaysClasses:
             let padding: CGFloat = 20.0
             let cellWidth = gymClassInstances.isEmpty ? width - 2.0 * padding : width
-            return CGSize(width: cellWidth, height: 227)
+            return CGSize(width: cellWidth, height: TodaysClassesListCell.totalHeight)
         case .yourActivities:
             let height = ActivitiesListCell.itemHeight
             return CGSize(width: width, height: height)
@@ -93,11 +93,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
 
             //Height of all cells (in rows of 2), plus line spacings after each of them
             //MARK: myGyms gyms.count and removed / 2
-            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumLineSpacing) * ceil(CGFloat(integerLiteral: gyms.count))
+            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumItemSpacing) * ceil(CGFloat(integerLiteral: gyms.count))
 
             //Subtract extra minimum line spacing below the last row of cells, and add the section inset
-            height += GymsListCell.sectionInsetBottom - GymsListCell.minimumLineSpacing
-            return CGSize(width: width, height: height)
+            height += GymsListCell.sectionInsetBottom - GymsListCell.minimumItemSpacing
+            return CGSize(width: width, height: max(height, 0))
         }
     }
 

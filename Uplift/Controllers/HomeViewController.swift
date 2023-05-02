@@ -51,15 +51,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //MARK: removed .lookingFor
+        // MARK: removed .lookingFor
         sections = [.todaysClasses, .yourActivities, .myGyms]
-
-        activities = [Activity(name:"Lifting", image: activitiesImages.lifting),
-                  Activity(name:"Basketball", image: activitiesImages.basketball),
-                  Activity(name:"Bowling", image: activitiesImages.bowling),
-                  Activity(name:"Swimming", image: activitiesImages.swimming),
-                  Activity(name:"Lifting", image: activitiesImages.lifting),
-                  Activity(name:"Basketball", image: activitiesImages.basketball)]
+        
+        activities = [Activity(name: "Lifting", image: ActivitiesImages.lifting),
+                  Activity(name: "Basketball", image: ActivitiesImages.basketball),
+                  Activity(name: "Bowling", image: ActivitiesImages.bowling),
+                  Activity(name: "Swimming", image: ActivitiesImages.swimming),
+                  Activity(name: "Lifting", image: ActivitiesImages.lifting),
+                  Activity(name: "Basketball", image: ActivitiesImages.basketball)]
 
         view.backgroundColor = UIColor.primaryWhite
 
@@ -89,6 +89,16 @@ class HomeViewController: UIViewController {
             self.collectionView.reloadSections(IndexSet(integer: 0))
             self.decrementNumPendingNetworkRequests()
         })
+        
+        
+        // These are dummy test data for dev and to test cancelled classes
+        
+//        var testGym1 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: true, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
+//        
+//        var testGym2 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: false, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
+//        
+//        var testGym3 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: false, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
+//        self.gymClassInstances = [testGym1, testGym2, testGym3]
 
         presentAnnouncement(completion: nil)
     }
@@ -143,7 +153,7 @@ extension HomeViewController {
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(ActivitiesListCell.self, forCellWithReuseIdentifier: Constants.activitiesListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
-        
+
         view.addSubview(collectionView)
 
         view.addSubview(loadingHeader)

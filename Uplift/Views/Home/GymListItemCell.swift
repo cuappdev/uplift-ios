@@ -15,10 +15,6 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     static let identifier = Identifiers.gymsCell
 
     // MARK: - Private view vars
-    private let hoursLabel = UILabel()
-    private let locationNameLabel = UILabel()
-    private let shadowView = UIView()
-    private let statusLabel = UILabel()
     private let backgroundImage = UIImageView()
     private let gymCellFooter = GymCellFooter()
 
@@ -60,7 +56,7 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     }
 
     private func setupConstraints() {
-        let footerHeight = 55
+        let footerHeight = 75
 
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
