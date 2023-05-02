@@ -95,7 +95,6 @@ class ListCollectionViewCell<T, U: ListItemCollectionViewCell<T>>: UICollectionV
         self.models = models
         DispatchQueue.main.async {
             self.collectionView.reloadData()
-//            self.reloadConfig()
         }
     }
 
