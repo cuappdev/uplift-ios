@@ -7,15 +7,15 @@
 //
 
 import Foundation
-import UIKit
 import SnapKit
+import UIKit
 
 class ActivitesViewController: UIViewController {
 
-    private let headerView = ActivitesScreenHeaderView()
+    private var activities = activityList.activites
     private var activitiesCollectionView: UICollectionView!
     private var filterButton = UIButton()
-    private var activities = activityList.activites
+    private let headerView = ActivitesScreenHeaderView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +71,7 @@ class ActivitesViewController: UIViewController {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalTo(headerView.snp.bottom)
-            make.bottom.equalToSuperview().inset(-bottomPadding)
+            make.bottom.equalToSuperview().offset(-bottomPadding)
         }
 
         filterButton.snp.makeConstraints { make in
@@ -99,15 +99,14 @@ extension ActivitesViewController: UICollectionViewDelegateFlowLayout {
 extension ActivitesViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        activities.count
+        return activities.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.activitesReuseIdentifier, for: indexPath) as? ActivityCollectionViewCell {
             cell.configure(for: activities[indexPath.item])
             return cell
-        }
-        else {
+        } else {
             return ActivityCollectionViewCell()
         }
     }

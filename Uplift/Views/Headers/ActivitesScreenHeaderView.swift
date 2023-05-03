@@ -12,22 +12,24 @@ import UIKit
 class ActivitesScreenHeaderView: UIView {
 
     private var didSetupShadow = false
-    private var welcomeMessage: UILabel!
+    private var welcomeMessage = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         backgroundColor = .white
 
-        welcomeMessage = UILabel()
+        setupViews()
+        setupLayout()
+    }
+
+    private func setupViews() {
         welcomeMessage.font = ._24MontserratBold
         welcomeMessage.textColor = .primaryBlack
         welcomeMessage.lineBreakMode = .byWordWrapping
         welcomeMessage.numberOfLines = 0
         welcomeMessage.text = "Activities"
         addSubview(welcomeMessage)
-
-        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -30,7 +30,9 @@ class TodaysClassesListCell: ListCollectionViewCell<GymClassInstance, TodaysClas
         return ListConfiguration(
             itemSize: CGSize(width: TodaysClassesListCell.itemWidth, height: TodaysClassesListCell.itemHeight),
             minimumInteritemSpacing: TodaysClassesListCell.minimumInterItemSpacing,
-            sectionInset: UIEdgeInsets(top: 0.0, left: TodaysClassesListCell.sectionInsetLeftRight, bottom: TodaysClassesListCell.sectionInsetBottom, right: TodaysClassesListCell.sectionInsetLeftRight)
+            sectionInset: UIEdgeInsets(top: 0.0, left: TodaysClassesListCell.sectionInsetLeftRight,
+                                       bottom: TodaysClassesListCell.sectionInsetBottom,
+                                       right: TodaysClassesListCell.sectionInsetLeftRight)
         )
     }
 

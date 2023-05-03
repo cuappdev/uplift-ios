@@ -22,13 +22,13 @@ class HomeViewController: UIViewController {
     private var loadingScrollView: LoadingScrollView!
 
     // MARK: - Public data vars
-    var myGyms: [Gym] = []
+    var activities: [Activity] = []
     var gymClassInstances: [GymClassInstance] = []
     var gyms: [Gym] = []
     var habits: [Habit] = []
     var lookingForCategories: [Tag] = []
+    var myGyms: [Gym] = []
     var sections: [SectionType] = []
-    var activities: [Activity] = []
 
     // MARK: - Private data vars
     private var gymLocations: [Int: String] = [:]

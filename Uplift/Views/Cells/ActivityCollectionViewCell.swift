@@ -41,7 +41,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         contentView.layer.shadowRadius = 4
         contentView.layer.shadowOpacity = 0.2
 
-        starButton.setBackgroundImage(UIImage(named: "favActive"), for: .normal)
+        starButton.setBackgroundImage(UIImage(named: ImageNames.starOutlineDark), for: .normal)
         starButton.addTarget(self, action: #selector(favorited), for: .touchUpInside)
         contentView.addSubview(starButton)
     }
@@ -71,9 +71,9 @@ class ActivityCollectionViewCell: UICollectionViewCell {
 
     @objc func favorited(sender: UIButton) {
         if activity.isFavorite {
-            sender.setBackgroundImage(UIImage(named: "favActive"), for: .normal)
+            sender.setBackgroundImage(UIImage(named: ImageNames.starOutlineDark), for: .normal)
         } else {
-            sender.setBackgroundImage(UIImage(named: "favInactive"), for: .normal)
+            sender.setBackgroundImage(UIImage(named: ImageNames.starFilledInDark), for: .normal)
         }
         activity.isFavorite.toggle()
     }
