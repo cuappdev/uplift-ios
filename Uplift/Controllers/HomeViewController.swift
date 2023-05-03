@@ -22,11 +22,12 @@ class HomeViewController: UIViewController {
     private var loadingScrollView: LoadingScrollView!
 
     // MARK: - Public data vars
-    var myGyms: [Gym] = []
+    var activities: [Activity] = []
     var gymClassInstances: [GymClassInstance] = []
     var gyms: [Gym] = []
     var habits: [Habit] = []
     var lookingForCategories: [Tag] = []
+    var myGyms: [Gym] = []
     var sections: [SectionType] = []
 
     // MARK: - Private data vars
@@ -40,6 +41,7 @@ class HomeViewController: UIViewController {
         static let lookingForListCellIdentifier = "lookingForListCellIdentifier"
         static let todaysClassesListCellIdentifier = "todaysClassesListCellIdentifier"
         static let todaysClassesEmptyCellIdentifier = "todaysClassesEmptyCellIdentifier"
+        static let activitiesListCellIdentifier = "activitiesListCellIdentifier"
     }
 
     // MARK: - Enums
@@ -47,6 +49,7 @@ class HomeViewController: UIViewController {
         case checkIns = "DAILY CHECK-INS"
         case myGyms = "MY GYMS"
         case todaysClasses = "TODAY'S CLASSES"
+        case yourActivities = "YOUR ACTIVITIES"
         case lookingFor = "I'M LOOKING FOR..."
     }
 
@@ -54,7 +57,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         //MARK: removed .lookingFor
-        sections = [.myGyms, .todaysClasses]
+        sections = [.todaysClasses, .yourActivities, .myGyms]
+
+        activities = activityList.activites
 
         view.backgroundColor = UIColor.primaryWhite
 
@@ -150,6 +155,7 @@ extension HomeViewController {
         collectionView.register(HomeSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSectionHeaderView.identifier)
         collectionView.register(CheckInsListCell.self, forCellWithReuseIdentifier: Constants.checkInsListCellIdentifier)
         collectionView.register(GymsListCell.self, forCellWithReuseIdentifier: Constants.gymsListCellIdentifier)
+        collectionView.register(ActivitiesListCell.self, forCellWithReuseIdentifier: Constants.activitiesListCellIdentifier)
         collectionView.register(TodaysClassesListCell.self, forCellWithReuseIdentifier: Constants.todaysClassesListCellIdentifier)
         collectionView.register(TodaysClassesEmptyCell.self, forCellWithReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier)
         collectionView.register(LookingForListCell.self, forCellWithReuseIdentifier: Constants.lookingForListCellIdentifier)

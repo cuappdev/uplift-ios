@@ -9,7 +9,6 @@
 import Foundation
 
 struct Gym {
-
     let facilities: [Facility]
     let gymHours: [DailyGymHours]
     let id: String

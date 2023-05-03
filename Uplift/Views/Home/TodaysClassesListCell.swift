@@ -17,13 +17,22 @@ class TodaysClassesListCell: ListCollectionViewCell<GymClassInstance, TodaysClas
 
     // MARK: - Public data vars
     weak var delegate: TodaysClassesListCellDelegate?
+    
+    static let itemWidth: CGFloat = 228.0
+    static let itemHeight: CGFloat = 195.0
+    static let minimumInterItemSpacing: CGFloat = 16.0
+    static let minimumLineSpacing: CGFloat = 16.0
+    static let sectionInsetBottom: CGFloat = 32.0
+    static let sectionInsetLeftRight: CGFloat = 12.0
 
     // MARK: - Overrides
     override var config: ListConfiguration {
         return ListConfiguration(
-            itemSize: CGSize(width: 228.0, height: 195.0),
-            minimumInteritemSpacing: 16,
-            sectionInset: UIEdgeInsets(top: 0.0, left: 16.0, bottom: 32.0, right: 12.0)
+            itemSize: CGSize(width: TodaysClassesListCell.itemWidth, height: TodaysClassesListCell.itemHeight),
+            minimumInteritemSpacing: TodaysClassesListCell.minimumInterItemSpacing,
+            sectionInset: UIEdgeInsets(top: 0.0, left: TodaysClassesListCell.sectionInsetLeftRight,
+                                       bottom: TodaysClassesListCell.sectionInsetBottom,
+                                       right: TodaysClassesListCell.sectionInsetLeftRight)
         )
     }
 
