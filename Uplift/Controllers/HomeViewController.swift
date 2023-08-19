@@ -8,7 +8,6 @@
 
 import Alamofire
 import AppDevAnnouncements
-import Crashlytics
 import SkeletonView
 import SnapKit
 import UIKit

@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '11.0'
+
 
 target 'Uplift' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -9,26 +10,14 @@ target 'Uplift' do
   pod 'AppDevAnnouncements', :git => 'https://github.com/cuappdev/appdev-announcements.git'
   pod 'AppDevHistogram', :git => 'https://github.com/cuappdev/appdev-histogram.git'
   pod 'Bartinter'
-  pod 'Crashlytics'
-  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
-  pod 'Fabric'
+  pod 'Crashlytics' 	# TODO: - remove
+  pod 'Fabric' 		# TODO: - remove
   pod 'Firebase/Analytics'
   pod 'GoogleSignIn'
-  pod 'Kingfisher', '~> 4.0'
-  pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation.git', :commit => 'd4aa2d3ad5901f6ebce0727af592824982f88d13'
+  pod 'Kingfisher'
+  pod 'Presentation', :git=> 'https://github.com/cuappdev/Presentation.git', :commit => 'b53eb453d2e1520e724cfac5e3e444e730ffe985'
   pod 'SideMenu', '~> 6.0'
   pod 'SkeletonView'
   pod 'SnapKit'
   pod 'SwiftLint'
-  #pod 'FadingEdgesCollectionView', :git=> 'https://github.com/cuappdev/FadingEdgesCollectionView'
-end
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if ['Alamofire', 'Bartinter', 'SnapKit'].include?(target.name)
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '4.2'
-      end
-    end
-  end
 end
