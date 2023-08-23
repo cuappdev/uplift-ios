@@ -131,7 +131,7 @@ class ClassDetailViewController: UIViewController {
 
         let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
 
-        activityVC.excludedActivityTypes = [.print, .assignToContact, .openInIBooks, .addToReadingList, .markupAsPDF, .airDrop]
+        activityVC.excludedActivityTypes = [.print, .assignToContact, .openInIBooks, .addToReadingList, .airDrop]
         activityVC.popoverPresentationController?.sourceView = view
 
         self.navigationController?.present(activityVC, animated: true, completion: nil)
