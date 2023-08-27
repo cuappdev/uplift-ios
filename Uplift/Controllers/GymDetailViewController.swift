@@ -76,7 +76,7 @@ class GymDetailViewController: UIViewController {
         view.addGestureRecognizer(edgeSwipe)
 
         setupViews()
-
+/*
         NetworkManager.shared.getClassInstancesByGym(gymId: gymDetail.gym.id, date: Date.getNowString()) { gymClasses in
             self.todaysClasses = gymClasses
             let items = self.section.items
@@ -86,7 +86,7 @@ class GymDetailViewController: UIViewController {
                 self.collectionView.reloadItems(at: [IndexPath(row: items.count - 1, section: 0)])
             }
         }
-
+*/
         setupConstraints()
     }
 

@@ -64,6 +64,8 @@ struct NetworkManager {
         }
     }
 
+    
+/*
     // MARK: - Onboarding
     /// Retreives 4 Gym Names (combining both Teagles) and 4 Gym Classes from 4 different Tag categories
     /// to present during the Onboarding.
@@ -144,7 +146,9 @@ struct NetworkManager {
             completion(gyms, classes)
         })
     }
-
+ 
+ */
+/*
     // MARK: - GYMS
     func getGyms(completion: @escaping ([Gym]) -> Void) {
         apollo.fetch(query: AllGymsQuery()) { result, error in
@@ -296,6 +300,7 @@ struct NetworkManager {
         }
     }
 
+
     // MARK: - Private Helpers
     private func getGymClassInstance(from gymClassData: TodaysClassesQuery.Data.Class?) -> GymClassInstance? {
         guard let gymClassData = gymClassData,
@@ -362,6 +367,8 @@ struct NetworkManager {
 
         return GymClassInstance(classDescription: classDescription, classDetailId: classDetailId, className: className, duration: end.timeIntervalSince(start), endTime: end, gymId: gymId, imageURL: imageUrl, instructor: instructor, isCancelled: isCancelled, location: location, startTime: start, tags: tags)
     }
+ 
+ */
 
     private func cacheImage(imageUrl: URL) {
         //Kingfisher will download the image and store it in the cache

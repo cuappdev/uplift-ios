@@ -131,14 +131,14 @@ class ClassListViewController: UIViewController {
             dateFormatter.dateFormat = "yyyy-MM-dd"
 
             numPendingNetworkRequests += 1
-            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date), completion: { [weak self] classes in
-                guard let strongSelf = self else { return }
-
-                strongSelf.classList[index] = classes.sorted(by: { $0.startTime < $1.startTime })
-                strongSelf.updateClassCollectionViewWithFilters()
-
-                strongSelf.decrementNumPendingNetworkRequests()
-            })
+//            NetworkManager.shared.getGymClassesForDate(date: dateFormatter.string(from: date), completion: { [weak self] classes in
+//                guard let strongSelf = self else { return }
+//
+//                strongSelf.classList[index] = classes.sorted(by: { $0.startTime < $1.startTime })
+//                strongSelf.updateClassCollectionViewWithFilters()
+//
+//                strongSelf.decrementNumPendingNetworkRequests()
+//            })
             return
         }
 

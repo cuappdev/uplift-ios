@@ -21,6 +21,7 @@ struct Facility {
     var details: [FacilityDetail]
     var facilityType: FacilityType
 
+    /*
     init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType) {
         self.facilityType = facilityType
         details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
@@ -38,6 +39,7 @@ struct Facility {
             return FacilityDetail(detailData: detailData, detailType: detailType)
         })
     }
+     */
 }
 
 // MARK: - Facility Detail
@@ -67,6 +69,7 @@ struct FacilityDetail {
     // Subfacilities
     var subfacilities: [String] = []
 
+    /*
     init(detailData: AllGymsQuery.Data.Gym.Facility.Detail, detailType: DetailType) {
         self.detailType = detailType
 
@@ -120,7 +123,7 @@ struct FacilityDetail {
             subfacilities = detailData.subFacilityNames.compactMap({ $0 })
         }
     }
-
+*/
     func getEquipmentCategories() -> [EquipmentCategory] {
         var equipmentDict = [String: [Equipment]]()
         equipment.forEach { equipmentItem in
@@ -139,11 +142,13 @@ struct FacilityDetail {
 
 // MARK: - Hours
 
-class DailyFacilityHoursRanges {
+struct DailyFacilityHoursRanges {
 
     var dayOfWeek: Int
     var timeRanges: [FacilityHoursRange]
     var isSelected: Bool
+    
+    /*
 
     init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Detail.Time) {
         dayOfWeek = facilityHoursData.day
@@ -172,6 +177,7 @@ class DailyFacilityHoursRanges {
         let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
         isSelected = dayOfWeek == dayIndexOfToday
     }
+     */
 
 }
 
@@ -181,7 +187,7 @@ struct FacilityHoursRange {
     var closeTime: Date
     var specialHours: Bool
     var restrictions: String
-
+/*
     init(facilityHoursRangeData: AllGymsQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
         openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
         closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
@@ -195,7 +201,7 @@ struct FacilityHoursRange {
         specialHours = facilityHoursRangeData.specialHours
         restrictions = facilityHoursRangeData.restrictions
     }
-
+*/
 }
 
 // MARK: - Equipment
@@ -212,6 +218,7 @@ struct Equipment {
     var quantity: String
     var workoutType: String
 
+    /*
     init(equipmentData: AllGymsQuery.Data.Gym.Facility.Detail.Equipment) {
         equipmentType = equipmentData.equipmentType
         name = equipmentData.name
@@ -225,5 +232,5 @@ struct Equipment {
         quantity = equipmentData.quantity
         workoutType = equipmentData.workoutType
     }
-
+*/
 }

@@ -24,10 +24,10 @@ extension ClassDetailViewController: ClassDetailHeaderViewDelegate {
     }
 
     func classDetailHeaderViewLocationSelected() {
-        NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
-            let gymDetailViewController = GymDetailViewController(gym: gym)
-            self.navigationController?.pushViewController(gymDetailViewController, animated: true)
-        }
+//        NetworkManager.shared.getGym(id: gymClassInstance.gymId) { gym in
+//            let gymDetailViewController = GymDetailViewController(gym: gym)
+//            self.navigationController?.pushViewController(gymDetailViewController, animated: true)
+//        }
     }
 
     func classDetailHeaderViewInstructorSelected() {

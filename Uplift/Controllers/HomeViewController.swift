@@ -66,6 +66,7 @@ class HomeViewController: UIViewController {
         setupConstraints()
 
         // Get Gyms
+            /*
         numPendingNetworkRequests += 1
         NetworkManager.shared.getGyms { gyms in
             self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
@@ -74,10 +75,11 @@ class HomeViewController: UIViewController {
             // Reload All Gyms section
             self.collectionView.reloadSections(IndexSet(integer: 2))
             self.decrementNumPendingNetworkRequests()
-        }
+        }*/
 
         // Get Today's Classes
         let stringDate = Date.getNowString()
+        /*
         numPendingNetworkRequests += 1
         NetworkManager.shared.getGymClassesForDate(date: stringDate, completion: { (gymClassInstances) in
             self.gymClassInstances = gymClassInstances.sorted { (first, second) in
@@ -88,6 +90,7 @@ class HomeViewController: UIViewController {
             self.collectionView.reloadSections(IndexSet(integer: 0))
             self.decrementNumPendingNetworkRequests()
         })
+         */
         
         
         // These are dummy test data for dev and to test cancelled classes

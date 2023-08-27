@@ -49,12 +49,12 @@ class FavoriteGymsController: UIViewController {
         // Set up screen sizes for scaling
         currentScreenSize = computeScreenDimensions()
 
-        NetworkManager.shared.getGymNames(completion: { gyms in
-            DispatchQueue.main.async {
-                self.gymNames = gyms.map({ $0.name }).sorted()
-                self.gymsTableView.reloadData()
-            }
-        })
+//        NetworkManager.shared.getGymNames(completion: { gyms in
+//            DispatchQueue.main.async {
+//                self.gymNames = gyms.map({ $0.name }).sorted()
+//                self.gymsTableView.reloadData()
+//            }
+//        })
 
         let edgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(goBackAView))
         edgeSwipe.edges = .left

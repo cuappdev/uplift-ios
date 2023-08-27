@@ -32,8 +32,6 @@
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
 		0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */; };
 		1C1D283B2166E215003FE839 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D283A2166E215003FE839 /* Keys.swift */; };
-		1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */; };
-		1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740E21617680000AEDF0 /* intructorQueries.graphql */; };
 		1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7847C3216E77E30066E0DA /* Assets.xcassets */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
 		2D50591B2986D8A400F3616C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50591A2986D8A400F3616C /* API.swift */; };
@@ -86,7 +84,6 @@
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
 		8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */; };
 		8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */; };
-		8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8D6B2A18215B23DC00807544 /* gymQueries.graphql */; };
 		8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44D208718410095B8AB /* GymHoursCell.swift */; };
 		8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */; };
 		8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */; };
@@ -99,8 +96,9 @@
 		8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */; };
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
-		BFA509252A8F434200019120 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFA509242A8F434200019120 /* Keys.plist */; };
-		BFA509292A8F435D00019120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFA509282A8F435D00019120 /* GoogleService-Info.plist */; };
+		BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784A2A9B3BCB0072FDDE /* Keys.plist */; };
+		BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */; };
+		BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */; };
 		C218F937233DBE080018838A /* GymDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C218F936233DBE080018838A /* GymDetail.swift */; };
 		C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */; };
 		C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14C2292374400B5D219 /* HomeViewController.swift */; };
@@ -147,8 +145,6 @@
 		C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */; };
 		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
 		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
-		D91565C92165686400BCA466 /* tagQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D91565C82165686400BCA466 /* tagQueries.graphql */; };
-		D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D94BD3072159DA9200C9214E /* classQueries.graphql */; };
 		D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810A7216E95BB00D4436C /* TapticEngine.swift */; };
 		D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810A9216E95D900D4436C /* RangeSeekSlider.swift */; };
 		D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */; };
@@ -215,8 +211,6 @@
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
 		0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursHeaderView.swift; sourceTree = "<group>"; };
 		1C1D283A2166E215003FE839 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymClassInstanceQueries.graphql; sourceTree = "<group>"; };
-		1C46740E21617680000AEDF0 /* intructorQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = intructorQueries.graphql; sourceTree = "<group>"; };
 		1C7847C3216E77E30066E0DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2D50591A2986D8A400F3616C /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -273,7 +267,6 @@
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsEmptyStateView.swift; sourceTree = "<group>"; };
 		8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
-		8D6B2A18215B23DC00807544 /* gymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		8D95F44D208718410095B8AB /* GymHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursCell.swift; sourceTree = "<group>"; };
 		8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursHeaderView.swift; sourceTree = "<group>"; };
 		8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackingController.swift; sourceTree = "<group>"; };
@@ -286,8 +279,9 @@
 		8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldDropdownHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
-		BFA509242A8F434200019120 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		BFA509282A8F435D00019120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		C218F936233DBE080018838A /* GymDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetail.swift; sourceTree = "<group>"; };
 		C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C21BE14C2292374400B5D219 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -335,8 +329,6 @@
 		C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListCell.swift; sourceTree = "<group>"; };
 		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		D91565C82165686400BCA466 /* tagQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = tagQueries.graphql; sourceTree = "<group>"; };
-		D94BD3072159DA9200C9214E /* classQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = classQueries.graphql; sourceTree = "<group>"; };
 		D95810A7216E95BB00D4436C /* TapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
 		D95810A9216E95D900D4436C /* RangeSeekSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
 		D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
@@ -627,7 +619,7 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				BFA509282A8F435D00019120 /* GoogleService-Info.plist */,
+				BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */,
 				2D50591A2986D8A400F3616C /* API.swift */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
@@ -754,11 +746,7 @@
 		D94BD3062159DA7D00C9214E /* graphql */ = {
 			isa = PBXGroup;
 			children = (
-				1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */,
-				D94BD3072159DA9200C9214E /* classQueries.graphql */,
-				8D6B2A18215B23DC00807544 /* gymQueries.graphql */,
-				D91565C82165686400BCA466 /* tagQueries.graphql */,
-				1C46740E21617680000AEDF0 /* intructorQueries.graphql */,
+				BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -788,7 +776,7 @@
 		E60DE89E232DA6D20022BC72 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
-				BFA509242A8F434200019120 /* Keys.plist */,
+				BF52784A2A9B3BCB0072FDDE /* Keys.plist */,
 			);
 			path = Secrets;
 			sourceTree = "<group>";
@@ -898,30 +886,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */,
+				BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */,
+				BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */,
 				E6028E252450E19000DAF837 /* SF-Pro-Display-Bold.otf in Resources */,
-				BFA509292A8F435D00019120 /* GoogleService-Info.plist in Resources */,
-				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
-				D91565C92165686400BCA466 /* tagQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				E638F20624468BCC006AE55B /* BebasNeue-Thin.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
 				E638F20224468BCC006AE55B /* BebasNeue-Light.ttf in Resources */,
 				E6028E232450E19000DAF837 /* BebasNeue-Regular.ttf in Resources */,
-				8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				E638F20424468BCC006AE55B /* BebasNeue-Bold.ttf in Resources */,
 				E638F20524468BCC006AE55B /* BebasNeue-Book.ttf in Resources */,
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
-				1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
 				1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */,
 				E6028E242450E19000DAF837 /* SF-Pro-Display-Light.otf in Resources */,
+				BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */,
 				1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */,
-				BFA509252A8F434200019120 /* Keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,7 +924,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\necho \"${SRCROOT}/${TARGET_NAME}\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=../schema.json API.swift\n";
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\nSCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"../schema.graphql\" API.swift\n";
 		};
 		1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;

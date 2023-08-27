@@ -48,11 +48,12 @@ class SportsFilterGymCollectionViewCell: SportsFilterCollectionViewCell {
             make.bottom.equalToSuperview().offset(-10)
             make.leading.trailing.equalToSuperview()
         }
-
+/*
         NetworkManager.shared.getGymNames(completion: { gyms in
             self.gyms = gyms
             self.gymCollectionView.reloadData()
         })
+ */
     }
 
     required init?(coder: NSCoder) {

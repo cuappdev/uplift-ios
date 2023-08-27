@@ -1,0 +1,34 @@
+schema {
+  query: Root
+}
+
+type OpenHours {
+  id: String!
+  facilityId: String!
+  day: Int!
+  startTime: Float!
+  endTime: Float!
+}
+
+type Facility {
+  id: ID!
+  gymId: String!
+  name: String!
+  facilityType: String!
+  openHours: [OpenHours]
+}
+
+type Gym {
+  id: ID!
+  name: String!
+  description: String!
+  location: String!
+  latitude: Float!
+  longitude: Float!
+  imageUrl: String
+  facilities: [Facility]
+}
+
+type Root {
+  gyms: [Gym]
+}

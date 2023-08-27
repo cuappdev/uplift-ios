@@ -160,6 +160,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         classTypeDropdownData = DropdownData(completed: false, dropStatus: .closed, titles: [])
 
+        /*
         NetworkManager.shared.getClassNames { classNames in
             self.classTypeDropdownData.titles.append(contentsOf: classNames)
             self.classTypeDropdownData.titles.sort()
@@ -168,6 +169,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             self.classTypeDropdown.reloadData()
             self.setupConstraints()
         }
+         */
 
         // INSTRUCTOR SECTION
         instructorDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectInstructorSection)
@@ -196,7 +198,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
         contentView.addSubview(instructorDivider)
 
         instructorDropdownData = DropdownData(completed: false, dropStatus: .closed, titles: [])
-
+/*
         NetworkManager.shared.getInstructors { instructors in
             self.instructorDropdownData.titles.append(contentsOf: instructors)
             self.instructorDropdownData.titles.sort()
@@ -205,7 +207,7 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
             self.instructorDropdown.reloadData()
             self.setupConstraints()
         }
-
+*/
         setupConstraints()
         setupDropdownHeaderViews()
     }
@@ -286,10 +288,10 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         gyms = []
 
-        NetworkManager.shared.getGymNames(completion: { (gyms) in
-            self.gyms = gyms
-            self.gymCollectionView.reloadData()
-        })
+//        NetworkManager.shared.getGymNames(completion: { (gyms) in
+//            self.gyms = gyms
+//            self.gymCollectionView.reloadData()
+//        })
     }
 
     // MARK: - CONSTRAINTS

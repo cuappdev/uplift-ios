@@ -25,13 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.makeKeyAndVisible()
 
-        let defaults = UserDefaults.standard
-        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-            let vc = HomeViewController()
-            window?.rootViewController = UINavigationController(rootViewController: vc)
-        } else {
-            displayOnboardingViewController()
-        }
+//        let defaults = UserDefaults.standard
+//        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
+        let vc = HomeViewController()
+        window?.rootViewController = UINavigationController(rootViewController: vc)
+//        } else {
+//            displayOnboardingViewController()
+//        }
 
         AnnouncementNetworking.setupConfig(
             scheme: Keys.announcementsScheme.value,
@@ -55,14 +55,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Onboarding
-    private func displayOnboardingViewController() {
-       NetworkManager.shared.getOnboardingInfo { gyms, classes in
-            self.window?.rootViewController = gyms.count < 4 || classes.count < 4
-                ? OnboardingViewController()
-                : OnboardingViewController(gymNames: gyms, classes: classes)
-       }
+//    private func displayOnboardingViewController() {
+//       NetworkManager.shared.getOnboardingInfo { gyms, cl10sses in
+//            self.window?.rootViewController = gyms.count < 4 || classes.count < 4
+//                ? OnboardingViewController()
+//                : OnboardingViewController(gymNames: gyms, classes: classes)
+//       }
 
         // No Internet/Networking Failed/Networking in progress
-        self.window?.rootViewController = OnboardingLoadingViewController()
-    }
+//        self.window?.rootViewController = OnboardingLoadingViewController()
+//    }
 }

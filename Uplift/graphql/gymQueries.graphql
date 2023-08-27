@@ -1,85 +1,20 @@
-
-query AllGyms {
-    gyms {
-        name
+query Gyms {
+    gyms{
+    id
+    name
+    description
+    facilities {
+      id
+      name
+      gymId
+      facilityType
+      openHours {
         id
-        imageUrl
-        description
-        popular
-        times {
-            day
-            startTime
-            endTime
-        }
-        facilities {
-            name
-            details {
-                detailsType
-                equipment {
-                  equipmentType
-                  name
-                  quantity
-                  workoutType
-                }
-                items
-                prices
-                subFacilityNames
-                times {
-                  day
-                  timeRanges {
-                    startTime
-                    endTime
-                    specialHours
-                    restrictions
-                  }
-                }
-            }
-        }
+        facilityId
+        day
+        startTime
+        endTime
+      }
     }
-}
-
-query GymById($gymId: String) {
-    gyms(id: $gymId) {
-        name
-        id
-        imageUrl
-        description
-        popular
-        times {
-            day
-            startTime
-            endTime
-        }
-        facilities {
-            name
-            details {
-                detailsType
-                equipment {
-                  equipmentType
-                  name
-                  quantity
-                  workoutType
-                }
-                items
-                prices
-                subFacilityNames
-                times {
-                  day
-                  timeRanges {
-                    startTime
-                    endTime
-                    specialHours
-                    restrictions
-                  }
-                }
-            }
-        }
-    }
-}
-
-query AllGymNames {
-    gyms {
-        name
-        id
-    }
+  }
 }

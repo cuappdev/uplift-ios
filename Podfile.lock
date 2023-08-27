@@ -2,9 +2,9 @@ PODS:
   - Alamofire (5.7.1)
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
-  - Apollo (0.9.5):
-    - Apollo/Core (= 0.9.5)
-  - Apollo/Core (0.9.5)
+  - Apollo (0.39.0):
+    - Apollo/Core (= 0.39.0)
+  - Apollo/Core (0.39.0)
   - AppAuth (1.6.2):
     - AppAuth/Core (= 1.6.2)
     - AppAuth/ExternalUserAgent (= 1.6.2)
@@ -116,7 +116,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage
-  - Apollo (from `https://github.com/apollographql/apollo-ios.git`, commit `b28c3dc`)
+  - Apollo
   - AppDevAnnouncements (from `https://github.com/cuappdev/appdev-announcements.git`)
   - AppDevHistogram (from `https://github.com/cuappdev/appdev-histogram.git`)
   - Bartinter
@@ -135,6 +135,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - Apollo
     - AppAuth
     - Bartinter
     - Crashlytics
@@ -158,9 +159,6 @@ SPEC REPOS:
     - SwiftLint
 
 EXTERNAL SOURCES:
-  Apollo:
-    :commit: b28c3dc
-    :git: https://github.com/apollographql/apollo-ios.git
   AppDevAnnouncements:
     :git: https://github.com/cuappdev/appdev-announcements.git
   AppDevHistogram:
@@ -170,9 +168,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/cuappdev/Presentation.git
 
 CHECKOUT OPTIONS:
-  Apollo:
-    :commit: b28c3dc
-    :git: https://github.com/apollographql/apollo-ios.git
   AppDevAnnouncements:
     :commit: ae01d4b73c8a5edc6c6c03b9c5670d016a5a63ef
     :git: https://github.com/cuappdev/appdev-announcements.git
@@ -186,7 +181,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
-  Apollo: 09002d68c46e4098766fe376151d9ff8bd6aad36
+  Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   AppDevAnnouncements: e17a7f441fb0664583bb08e21dc709214d15b70f
   AppDevHistogram: e76c70f3bb75868a1fffed909133f54fa1611ffc
@@ -212,6 +207,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: 78976849d3674381df5ca101403b730495326d35
+PODFILE CHECKSUM: d3c75fd18b899b6fddc15152fd52825c48ec746d
 
 COCOAPODS: 1.11.3

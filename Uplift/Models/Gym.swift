@@ -31,7 +31,7 @@ struct Gym {
     var gymHoursToday: DailyGymHours {
         return gymHours[Date().getIntegerDayOfWeekToday()]
     }
-
+/*
     init(gymData: AllGymsQuery.Data.Gym) {
         id = gymData.id
         name = gymData.name
@@ -87,7 +87,7 @@ struct Gym {
             return Facility(facilityData: facility, facilityType: facilityType)
         }
     }
-
+*/
     func isStatusChangingSoon() -> Bool {
         let changingSoonThreshold = 3600.0
         let now = Date()
@@ -107,6 +107,7 @@ struct DailyGymHours {
     var openTime: Date = Date()
     var closeTime: Date
 
+    /*
     init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
         if let gymHoursData = gymHoursData {
             dayOfWeek = gymHoursData.day
@@ -126,5 +127,5 @@ struct DailyGymHours {
             closeTime = openTime
         }
     }
-
+*/
 }

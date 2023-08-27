@@ -94,6 +94,7 @@ class OnboardingViewController: PresentationController {
 
         // Set Reconnect Action if couldn't fetch gyms/classes
         let retryNetworkRequest: (() -> Void) = {
+            /*
             NetworkManager.shared.getOnboardingInfo { [weak self] gyms, classInstances in
                 if let `self` = self {
                     self.viewSlides[1].updateTableView(with: gyms)
@@ -102,6 +103,7 @@ class OnboardingViewController: PresentationController {
                     self.classInstances = classInstances
                 }
             }
+             */
         }
         viewSlides[1...2].forEach { onboardingView in
             onboardingView.setEmptyStateReconnectAction(completion: retryNetworkRequest)
