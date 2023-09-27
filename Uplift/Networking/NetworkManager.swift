@@ -17,7 +17,8 @@ enum APIEnvironment {
 }
 
 struct NetworkManager {
-    private let apollo = ApolloClient(url: URL(string: Keys.apiURL.value)!)
+//    private let apollo = ApolloClient(url: URL(string: Keys.apiURL.value)!)
+    private let apollo = ApolloClient(url: URL(string: Keys.apiDevURL.value)!)
     static let environment: APIEnvironment = .development
     static let shared = NetworkManager()
 
@@ -148,6 +149,27 @@ struct NetworkManager {
     }
  
  */
+    
+    func getFitnessCenters(completion: @escaping ([QLGym]?) -> Void) {
+        apollo.fetch(query: AllGymsQuery()) { result in
+            guard let gymsData = try? result.get().data?.gyms else {
+                completion(nil)
+                return
+            }
+
+            let gyms = gymsData.compactMap({ (gymData) -> QLGym? in
+                guard let gymData = gymData else { return nil }
+                let gym = QLGym(gymData: gymData)
+                if let imageUrl = gym.imageURL {
+                    self.cacheImage(imageUrl: imageUrl)
+                    print("IMGURL: \t\(imageUrl)")
+                }
+                return gym
+            })
+
+            completion(gyms)
+        }
+    }
 /*
     // MARK: - GYMS
     func getGyms(completion: @escaping ([Gym]) -> Void) {

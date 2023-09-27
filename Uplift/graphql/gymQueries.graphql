@@ -1,20 +1,31 @@
-query Gyms {
-    gyms{
-    id
-    name
-    description
-    facilities {
-      id
-      name
-      gymId
-      facilityType
-      openHours {
+query AllGyms {
+    gyms {
         id
-        facilityId
-        day
-        startTime
-        endTime
-      }
+        name
+        description
+        location
+        latitude
+        longitude
+        imageUrl
+        facilities {
+            id
+            name
+            gymId
+            facilityType
+            openHours {
+                id
+                facilityId
+                day
+                startTime
+                endTime
+            }
+            capacity {
+                id
+                facilityId
+                count
+                percent
+                updated
+            }
+        }
     }
-  }
 }

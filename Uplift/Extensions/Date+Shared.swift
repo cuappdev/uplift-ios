@@ -11,6 +11,10 @@ import Foundation
 extension Date {
     static let secondsPerDay = 86400.0
     
+    static var tomorrow: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+    }
+    
     /// Format: "Today, April 10th 2020"
     static public func getLongDateStringFromDate(date: Date) -> String {
         let weekdayFormatter = DateFormatter()
@@ -213,6 +217,18 @@ extension Date {
         dateFormatter.dateFormat = "MMddyyyy"
         dateFormatter.timeZone = TimeZone.current
         return dateFormatter.date(from: date) ?? Date()
+    }
+    
+    static public func getDateFromHours(day: Int, hours: Double) -> Date {
+        let todayDayNumber = (Date().getIntegerDayOfWeekToday() + 6) % 7
+        let dateFromDay = Calendar.current.date(byAdding: .day,
+                                              value: ((day + 7) - todayDayNumber) % 7,
+                                              to: Date()) ?? Date()
+        
+        return Calendar.current.date(bySettingHour: Int(hours),
+                                     minute: Int((hours.truncatingRemainder(dividingBy: 1)) * 60),
+                                     second: 0,
+                                     of: dateFromDay) ?? Date()
     }
 
     // MARK: - DATE

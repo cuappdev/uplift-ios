@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.makeKeyAndVisible()
 
+        FitnessCenterManager.shared.fetch()
+        
+        AdHockTest.testDate()
+        
+        
 //        let defaults = UserDefaults.standard
 //        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
         let vc = HomeViewController()

@@ -1,21 +1,32 @@
 schema {
-  query: Root
+  query: Query
 }
 
 type OpenHours {
-  id: String!
-  facilityId: String!
+  id: ID!
+  facilityId: Int!
   day: Int!
   startTime: Float!
   endTime: Float!
 }
 
+scalar DateTime
+
+type Capacity {
+  id: ID!
+  facilityId: Int!
+  count: Int!
+  percent: Float!
+  updated: DateTime!
+}
+
 type Facility {
   id: ID!
-  gymId: String!
+  gymId: Int!
   name: String!
   facilityType: String!
   openHours: [OpenHours]
+  capacity: Capacity
 }
 
 type Gym {
@@ -29,6 +40,6 @@ type Gym {
   facilities: [Facility]
 }
 
-type Root {
+type Query {
   gyms: [Gym]
 }

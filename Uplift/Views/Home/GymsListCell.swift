@@ -12,15 +12,15 @@ protocol GymsListCellDelegate: class {
     func allGymsCellShouldOpenGym(_ gym: Gym)
 }
 
-class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
+class GymsListCell: ListCollectionViewCell<FitnessCenter, GymListItemCell> {
 
     // MARK: - Public data vars
     weak var delegate: GymsListCellDelegate?
-    
+
     static let itemHeight: CGFloat = 190.0
-    
+
     static let minimumItemSpacing: CGFloat = 30.0
-    
+
     static let sectionInsetBottom: CGFloat = 32.0
     static let sectionInsetLeft: CGFloat = 12.0
     static let sectionInsetRight: CGFloat = 12.0
@@ -39,7 +39,7 @@ class GymsListCell: ListCollectionViewCell<Gym, GymListItemCell> {
 
     override func didSelectItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
         let gym = models[indexPath.item]
-        delegate?.allGymsCellShouldOpenGym(gym)
+//        delegate?.allGymsCellShouldOpenGym(gym) // TODO: - Implement this
     }
 
     override func didHighlightItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {

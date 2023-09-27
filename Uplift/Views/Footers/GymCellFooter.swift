@@ -23,26 +23,39 @@ class GymCellFooter: UIView {
         setupConstraints()
     }
 
-    func configure(for gym: Gym) {
-        locationNameLabel.text = gym.name
-
-        //set gym status
-        let changingSoon = gym.isStatusChangingSoon()
-
-        if(gym.isOpen) {
-            statusLabel.textColor = changingSoon ? .accentOrange : .accentOpen
+    func configure(for fitnessCenter: FitnessCenter) {
+        
+        locationNameLabel.text = fitnessCenter.name
+        
+        
+        if fitnessCenter.isStatusChangingSoon() {
+            statusLabel.textColor = .accentOrange
         } else {
-            statusLabel.textColor = changingSoon ? .accentOrange : .accentClosed
+            statusLabel.textColor = fitnessCenter.isOpen() ? .accentOpen : .accentClosed
         }
-
-        statusLabel.text = gym.isOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
-
-        // Set gym hours
-        hoursLabel.text = getHoursString(from: gym)
-
-        capacityStatusLabel.text = "Cramped"
+        statusLabel.text = fitnessCenter.isOpen() ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
+        
+        
+        hoursLabel.text = fitnessCenter.getHoursString()
+        
         capacityStatusLabel.textColor = .accentOrange
+        capacityStatusLabel.text = "Cramped"
         capacityCountLabel.text = "120/140"
+
+//        locationNameLabel.text = fitnessCenter.name
+//
+//        //set gym status
+//        let changingSoon = gym.isStatusChangingSoon()
+//
+//
+//        statusLabel.text = gym.isOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
+//
+//        // Set gym hours
+//        hoursLabel.text = getHoursString(from: gym)
+//
+//        capacityStatusLabel.text = "Cramped"
+//        capacityStatusLabel.textColor = .accentOrange
+//        capacityCountLabel.text = "120/140"
     }
 
     private func getHoursString(from gym: Gym) -> String {

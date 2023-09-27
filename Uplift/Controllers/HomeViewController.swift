@@ -21,13 +21,13 @@ class HomeViewController: UIViewController {
     private var loadingScrollView: LoadingScrollView!
 
     // MARK: - Public data vars
-    var myGyms: [Gym] = []
-    var gymClassInstances: [GymClassInstance] = []
-    var gyms: [Gym] = []
-    var habits: [Habit] = []
-    var lookingForCategories: [Tag] = []
+//    var myGyms: [Gym] = []
+//    var gymClassInstances: [GymClassInstance] = []
+//    var gyms: [Gym] = []
+//    var habits: [Habit] = []
+//    var lookingForCategories: [Tag] = []
     var sections: [SectionType] = []
-    var activities: [Activity] = []
+//    var activities: [Activity] = []
 
     // MARK: - Private data vars
     private var gymLocations: [Int: String] = [:]
@@ -42,26 +42,28 @@ class HomeViewController: UIViewController {
 
     // MARK: - Enums
     enum SectionType: String {
-        case todaysClasses = "Today's classes"
-        case yourActivities = "Your Activities"
-        case myGyms = "Gyms"
+//        case todaysClasses = "Today's classes"
+//        case yourActivities = "Your Activities"
+        case fitnessCenters = "Gyms"
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // MARK: removed .lookingFor
-        sections = [.todaysClasses, .yourActivities, .myGyms]
+        sections = [.fitnessCenters]
         
-        activities = [Activity(name: "Lifting", image: ActivitiesImages.lifting),
-                  Activity(name: "Basketball", image: ActivitiesImages.basketball),
-                  Activity(name: "Bowling", image: ActivitiesImages.bowling),
-                  Activity(name: "Swimming", image: ActivitiesImages.swimming),
-                  Activity(name: "Lifting", image: ActivitiesImages.lifting),
-                  Activity(name: "Basketball", image: ActivitiesImages.basketball)]
+//        activities = [Activity(name: "Lifting", image: ActivitiesImages.lifting),
+//                  Activity(name: "Basketball", image: ActivitiesImages.basketball),
+//                  Activity(name: "Bowling", image: ActivitiesImages.bowling),
+//                  Activity(name: "Swimming", image: ActivitiesImages.swimming),
+//                  Activity(name: "Lifting", image: ActivitiesImages.lifting),
+//                  Activity(name: "Basketball", image: ActivitiesImages.basketball)]
 
         view.backgroundColor = UIColor.primaryWhite
 
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadUpliftData), name: Notification.Name.upliftFitnessCentersLoadedNotification, object: nil)
+        
         setupViews()
         setupConstraints()
 
@@ -78,7 +80,7 @@ class HomeViewController: UIViewController {
         }*/
 
         // Get Today's Classes
-        let stringDate = Date.getNowString()
+//        let stringDate = Date.getNowString()
         /*
         numPendingNetworkRequests += 1
         NetworkManager.shared.getGymClassesForDate(date: stringDate, completion: { (gymClassInstances) in
@@ -101,7 +103,7 @@ class HomeViewController: UIViewController {
 //        
 //        var testGym3 = GymClassInstance(classDescription: "Testinggg", classDetailId: "ASDF", className: "asdfasdf", duration: 60, endTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 60)), gymId: "ud", imageURL: URL(string: "asdf")!, instructor: "Instructio", isCancelled: false, location: "Noyes", startTime: Date(timeIntervalSinceNow: TimeInterval(integerLiteral: 0)), tags: [])
 //        self.gymClassInstances = [testGym1, testGym2, testGym3]
-
+        reloadUpliftData()
         presentAnnouncement(completion: nil)
     }
 
@@ -109,19 +111,18 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.tabBarController?.tabBar.isHidden = false
 
-        let newHabits = Habit.getActiveHabits()
-        if habits != newHabits {
-            habits = newHabits
-            collectionView.reloadSections(IndexSet(integer: 0))
-        }
+//        let newHabits = Habit.getActiveHabits()
+//        if habits != newHabits {
+//            habits = newHabits
+//            collectionView.reloadSections(IndexSet(integer: 0))
+//        }
     }
-
-    func decrementNumPendingNetworkRequests() {
-        self.numPendingNetworkRequests -= 1
-        if self.numPendingNetworkRequests == 0 {
-            self.loadingHeader.isHidden = true
-            self.loadingScrollView.isHidden = true
-        }
+    
+    @objc func reloadUpliftData() {
+        guard FitnessCenterManager.shared.numFitnessCenters > 0 else { return }
+        collectionView.reloadData()
+        self.loadingHeader.isHidden = true
+        self.loadingScrollView.isHidden = true
     }
 }
 

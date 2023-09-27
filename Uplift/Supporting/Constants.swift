@@ -15,6 +15,11 @@ struct Constraints {
     static let verticalPadding: CGFloat = 24
 }
 
+//  MARK: - NOTIFICATION NAMES
+public extension Notification.Name {
+    static let upliftFitnessCentersLoadedNotification = Notification.Name("fitnessCentersLoadedNotification")    
+}
+
 // MARK: - DAY ABBREVIATIONS
 struct DayAbbreviations {
     static let sunday = "Su"

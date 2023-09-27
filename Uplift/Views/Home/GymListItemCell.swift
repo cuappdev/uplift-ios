@@ -9,7 +9,7 @@
 import SnapKit
 import UIKit
 
-class GymListItemCell: ListItemCollectionViewCell<Gym> {
+class GymListItemCell: ListItemCollectionViewCell<FitnessCenter> {
 
     // MARK: - Public static vars
     static let identifier = Identifiers.gymsCell
@@ -40,11 +40,12 @@ class GymListItemCell: ListItemCollectionViewCell<Gym> {
     }
 
     // MARK: - Public configure
-    override func configure(for gym: Gym) {
-        super.configure(for: gym)
+    override func configure(for fitnessCenter: FitnessCenter) {
+        super.configure(for: fitnessCenter)
 
-        gymCellFooter.configure(for: gym)
-        backgroundImage.kf.setImage(with: gym.imageURL)
+        gymCellFooter.configure(for: fitnessCenter)
+        backgroundImage.kf.setImage(with: fitnessCenter.imageUrl)
+        print("fitnessCenterImage: \(fitnessCenter.imageUrl)")
     }
 
     private func setupViews() {
