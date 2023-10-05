@@ -104,7 +104,6 @@
 		BF9DA0FD2AA4017E0069291D /* QLGym.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FC2AA4017E0069291D /* QLGym.swift */; };
 		BF9DA0FF2AA402030069291D /* QLFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FE2AA402030069291D /* QLFacility.swift */; };
 		BF9DA1012AA402790069291D /* QLOpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA1002AA402790069291D /* QLOpenHours.swift */; };
-		BFA1BC1D2ABBA7AD0064932D /* UpliftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1BC1C2ABBA7AD0064932D /* UpliftTests.swift */; };
 		BFBEE1282AB95CC0003F264E /* OpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBEE1272AB95CC0003F264E /* OpenHours.swift */; };
 		BFCA93D82AA657B70005D191 /* QLCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D72AA657B70005D191 /* QLCapacity.swift */; };
 		BFCA93DA2AA66B6B0005D191 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D92AA66B6B0005D191 /* API.swift */; };
@@ -309,7 +308,6 @@
 		BF9DA0FE2AA402030069291D /* QLFacility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLFacility.swift; sourceTree = "<group>"; };
 		BF9DA1002AA402790069291D /* QLOpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLOpenHours.swift; sourceTree = "<group>"; };
 		BFA1BC1A2ABBA7AD0064932D /* Uplift Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Uplift Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BFA1BC1C2ABBA7AD0064932D /* UpliftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftTests.swift; sourceTree = "<group>"; };
 		BFBEE1272AB95CC0003F264E /* OpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenHours.swift; sourceTree = "<group>"; };
 		BFCA93D72AA657B70005D191 /* QLCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLCapacity.swift; sourceTree = "<group>"; };
 		BFCA93D92AA66B6B0005D191 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -545,7 +543,6 @@
 		BFA1BC1B2ABBA7AD0064932D /* Uplift Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BFA1BC1C2ABBA7AD0064932D /* UpliftTests.swift */,
 				BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */,
 			);
 			path = "Uplift Tests";
@@ -1027,7 +1024,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  #swiftlint\n  echo \"Skipping swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8D29EFD320431FCA005B1CC8 /* Run Fabric build */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1128,7 +1125,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFA1BC1D2ABBA7AD0064932D /* UpliftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,16 +12,29 @@ import Foundation
 // TODO: - Replace this with Unit tests...
 
 class AdHockTest {
-    
-    static func testWillChangeSoon() {
+
+    static func runAllTests() {
+        testHomeScreenDateFunctionality()
+    }
+
+    private static func testHomeScreenDateFunctionality() {
+        let useAsserts = true
+
         let todayDay = Date().getIntegerDayOfWeekToday()
         let tmrDay = Date().getIntegerDayOfWeekTomorrow()
 
-        let dateWithTmr = OpenHours(openHours: [QLOpenHours(dayNum: todayDay, start: 7, end: 8.5), QLOpenHours(dayNum: todayDay, start: 10, end: 22.75), QLOpenHours(dayNum: tmrDay, start: 8.25, end: 8.5)])
-        
-        let dateWithoutTmr = OpenHours(openHours: [QLOpenHours(dayNum: todayDay, start: 7, end: 8.5), QLOpenHours(dayNum: todayDay, start: 10, end: 22.75)])
+        // Hours for facility open times
+        let dateWithTmr = OpenHours(openHours: [QLOpenHours(dayNum: todayDay, start: 7, end: 8.5),
+                                                QLOpenHours(dayNum: todayDay, start: 10, end: 22.75),
+                                                QLOpenHours(dayNum: tmrDay, start: 8.25, end: 8.5)])
 
+        let dateWithoutTmr = OpenHours(openHours: [QLOpenHours(dayNum: todayDay, start: 7, end: 8.5), 
+                                                   QLOpenHours(dayNum: todayDay, start: 10, end: 22.75)])
+
+        // Times to test
         let times = [5.5, 6.1, 7.1, 8, 8.8, 9.1, 10.2, 22.74, 23.5]
+
+        // Expected Values
         let expectedIsOpen = [false, false, true, true, false, false, true, true, false]
         let expectedIsStatusChangingSoon = [false, true, false, true, false, true, false, true, false]
 
@@ -33,31 +46,35 @@ class AdHockTest {
         let closes3 = "Closed"
         let expectedHourStrings = [opens1, opens1, closes1, closes1, opens2, opens2, closes2, closes2, opens3]
         let expectedHourStrings2 = [opens1, opens1, closes1, closes1, opens2, opens2, closes2, closes2, closes3]
-        
+
+        // Testing all the times
         for (index, time) in times.enumerated() {
             let testDate = Date.getDateFromHours(day: todayDay, hours: time)
-            print("\n\n")
-            print(testDate.getStringOfDatetime(format: testDate.getHourFormat()))
-            
+            let timeStr = testDate.getStringOfDatetime(format: testDate.getHourFormat())
+
             if dateWithTmr.isOpen(testDate) != expectedIsOpen[index] {
-                print("\nIS OPEN FAILED")
-                print("expected: \(expectedIsOpen[index])\nfound: \(dateWithTmr.isOpen(testDate))")
+                print("\(timeStr): IS OPEN FAILED")
+                print("expected: \(expectedIsOpen[index])\nfound: \(dateWithTmr.isOpen(testDate))\n")
             }
-            
+
             if dateWithTmr.isStatusChangingSoon(testDate) != expectedIsStatusChangingSoon[index] {
-                print("\nSTATUS CHANGING SOON FAILED")
-                print("expected: \(expectedIsStatusChangingSoon[index])\nfound: \(dateWithTmr.isStatusChangingSoon(testDate))")
+                print("\(timeStr): STATUS CHANGING SOON FAILED")
+                print("expected: \(expectedIsStatusChangingSoon[index])\nfound: \(dateWithTmr.isStatusChangingSoon(testDate))\n")
             }
-            
+
             if dateWithTmr.getHoursString(testDate) != expectedHourStrings[index] || dateWithoutTmr.getHoursString(testDate) != expectedHourStrings2[index] {
-                print("\nGET HOURS STRING FAILED")
+                print("\(timeStr): GET HOURS STRING FAILED")
                 print("expected: \(expectedHourStrings[index])\nfound: \(dateWithTmr.getHoursString(testDate))")
-                print("expected: \(expectedHourStrings2[index])\nfound: \(dateWithoutTmr.getHoursString(testDate))")
+                print("expected: \(expectedHourStrings2[index])\nfound: \(dateWithoutTmr.getHoursString(testDate))\n")
+            }
+
+            // Sometimes nice to turn off for testing
+            if useAsserts {
+                assert(dateWithTmr.isOpen(testDate) == expectedIsOpen[index])
+                assert(dateWithTmr.isStatusChangingSoon(testDate) == expectedIsStatusChangingSoon[index])
+                assert(dateWithTmr.getHoursString(testDate) == expectedHourStrings[index])
+                assert(dateWithoutTmr.getHoursString(testDate) == expectedHourStrings2[index])
             }
         }
-        
-        
-        
     }
-    
 }

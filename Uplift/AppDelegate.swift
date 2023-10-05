@@ -22,18 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
 
         window = UIWindow(frame: UIScreen.main.bounds)
-
         window?.makeKeyAndVisible()
 
+#if DEBUG
+        // Run ad hock unit test
+        AdHockTest.runAllTests()
+#endif
+
         FitnessCenterManager.shared.fetch()
-        
-//        AdHockTest.testWillChangeSoon()
-        
-        print(String.getFromPercent(value: 0.00))
-        print(String.getFromPercent(value: 0.1))
-        print(String.getFromPercent(value: 0.01))
-        print(String.getFromPercent(value: 0.021))
-        print(String.getFromPercent(value: 0.026))
+
+        // TODO: - Add back onboarding
 //        let defaults = UserDefaults.standard
 //        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
         let vc = HomeViewController()
@@ -64,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Onboarding
+    // TODO: - Add Back onboarding
 //    private func displayOnboardingViewController() {
 //       NetworkManager.shared.getOnboardingInfo { gyms, cl10sses in
 //            self.window?.rootViewController = gyms.count < 4 || classes.count < 4

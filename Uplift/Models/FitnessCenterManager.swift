@@ -10,22 +10,17 @@ import Foundation
 
 class FitnessCenterManager {
     static var shared = FitnessCenterManager()
-//    private let constFitnessCenters = [
-//        FitnessCenter(id: "0", gymId: "0", name: "Test1", imageUrl: URL(string: "https://raw.githubusercontent.com/cuappdev/assets/master/uplift/gyms/helen-newman.jpg")),
-//        FitnessCenter(id: "0", gymId: "0", name: "Test2", imageUrl: URL(string: "https://raw.githubusercontent.com/cuappdev/assets/master/uplift/gyms/helen-newman.jpg")),
-//        FitnessCenter(id: "0", gymId: "0", name: "Test3")
-//    ]
-    
+
     private var fitnessCenters: [FitnessCenter] = []
-    
+
     var numFitnessCenters: Int {
         return fitnessCenters.count
     }
-    
+
     func getFitnessCenter () -> [FitnessCenter] {
         return fitnessCenters
     }
-    
+
     func fetch () {
         NetworkManager.shared.getFitnessCenters { success in
             if let gyms = success {

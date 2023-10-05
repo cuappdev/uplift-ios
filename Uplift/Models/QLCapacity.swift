@@ -14,7 +14,7 @@ struct QLCapacity {
     var count: Int
     var percent: Double
     var updated: Date
-    
+
     init (capacityData: AllGymsQuery.Data.Gym.Facility.Capacity) {
         id = Int(capacityData.id) ?? -1
         facilityId = capacityData.facilityId

@@ -9,17 +9,17 @@
 import Foundation
 
 struct OpenHours {
-    
+
     var rawHours: [Int: [QLOpenHours]]
-    
+
     var todaysHours: [QLOpenHours]? {
         rawHours[Date().getIntegerDayOfWeekToday()]
     }
-    
+
     var tomorrowsHours: [QLOpenHours]? {
         rawHours[Date().getIntegerDayOfWeekTomorrow()]
     }
-    
+
     init(openHours: [QLOpenHours]) {
         rawHours = [:]
         for openHour in openHours {
@@ -30,20 +30,19 @@ struct OpenHours {
             }
         }
     }
-    
-    
+
     func isStatusChangingSoon(_ date: Date = Date()) -> Bool {
-        return todaysHours?.first{ $0.willChangeSoon(date) == true } != nil
+        return todaysHours?.first { $0.willChangeSoon(date) == true } != nil
     }
-    
+
     func isOpen(_ date: Date = Date()) -> Bool {
         guard todaysHours != nil else {return false}
-        return todaysHours?.filter{ $0.isDateInRange(date) }.count != 0
+        return !todaysHours!.filter { $0.isDateInRange(date) }.isEmpty
     }
-    
+
     func getHoursString(_ date: Date = Date()) -> String {
         let strFormat: String
-        
+
         // Gym is open
         if isOpen(date), let nowHourRange = todaysHours?.filter({  $0.isDateInRange(date) }).first {
             strFormat = nowHourRange.endTime.getHourFormat()
@@ -53,22 +52,22 @@ struct OpenHours {
         } else {
             // Gym will open today
             if let nextOpenToday = todaysHours?.filter({ $0.startTime > date }).sorted(by: { $0.startTime < $1.startTime }).first {
-                
+
                 strFormat = nextOpenToday.startTime.getHourFormat()
                 return ClientStrings.Home.gymDetailCellOpensAt + (nextOpenToday.startTime.getStringOfDatetime(format: strFormat))
 
             // Gym will open tmr
-            } else if let nextOpenTomorrow = tomorrowsHours?.sorted(by: { $0.startTime < $1.startTime }).first  {
-                
+            } else if let nextOpenTomorrow = tomorrowsHours?.sorted(by: { $0.startTime < $1.startTime }).first {
+
                 strFormat = nextOpenTomorrow.startTime.getHourFormat()
                 return ClientStrings.Home.gymDetailCellOpensAt + nextOpenTomorrow.startTime.getStringOfDatetime(format: strFormat)
-            
+
                 // Closed
             } else {
                 return ClientStrings.CommonStrings.closed
             }
-            
+
         }
     }
-    
+
 }

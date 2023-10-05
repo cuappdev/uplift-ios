@@ -20,12 +20,7 @@ target 'Uplift' do
   pod 'SkeletonView'
   pod 'SnapKit'
   pod 'SwiftLint'
-#  target 'Uplift Tests' do
-#    inherit! :complete
-#  end
 end
-
-
 
 
 post_install do |installer|

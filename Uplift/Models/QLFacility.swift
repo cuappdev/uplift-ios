@@ -20,22 +20,21 @@ struct QLFacility {
     var type: QLFacilityType
     var hours: [QLOpenHours]
     var capacity: QLCapacity?
-    
+
     init (facilityData: AllGymsQuery.Data.Gym.Facility) {
         id = Int(facilityData.id) ?? -1
         gymId = facilityData.gymId
         name = facilityData.name
         type = QLFacilityType(rawValue: facilityData.facilityType) ?? .undefined
-        
+
         let openHoursData = facilityData.openHours ?? []
         hours = openHoursData.compactMap({
             guard let hoursData = $0 else { return nil }
             return QLOpenHours(openHoursData: hoursData)
         })
-        
+
         if let capacityData = facilityData.capacity {
             capacity = QLCapacity(capacityData: capacityData)
         }
     }
-    
 }

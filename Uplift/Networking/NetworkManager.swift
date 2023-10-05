@@ -18,11 +18,12 @@ enum APIEnvironment {
 
 struct NetworkManager {
     private let apollo = ApolloClient(url: URL(string: Keys.apiURL.value)!)
-//    private let apollo = ApolloClient(url: URL(string: Keys.apiDevURL.value)!)
     static let environment: APIEnvironment = .development
     static let shared = NetworkManager()
 
     // MARK: - Google
+
+    // TODO: - Why is this here?
     func sendGoogleLoginToken(token: String, completion: @escaping (GoogleTokens) -> Void) {
         let tokenURL = "\(Keys.apiURL.value!)/login/"
         let parameters: [String: Any] = [
@@ -44,6 +45,7 @@ struct NetworkManager {
         }
     }
 
+    // TODO: - Why is this here?
     func refreshGoogleToken(token: String, completion: @escaping (GoogleTokens) -> Void) {
         let tokenURL = "http://uplift-backend.cornellappdev.com/session/"
         let parameters: [String: Any] = [
@@ -65,7 +67,31 @@ struct NetworkManager {
         }
     }
 
-    
+    // MARK: - Fitness Centers
+
+    func getFitnessCenters(completion: @escaping ([QLGym]?) -> Void) {
+        apollo.fetch(query: AllGymsQuery()) { result in
+            guard let gymsData = try? result.get().data?.gyms else {
+                completion(nil)
+                return
+            }
+
+            let gyms = gymsData.compactMap({ (gymData) -> QLGym? in
+                guard let gymData = gymData else { return nil }
+                let gym = QLGym(gymData: gymData)
+                if let imageUrl = gym.imageURL {
+                    self.cacheImage(imageUrl: imageUrl)
+                }
+                return gym
+            })
+
+            completion(gyms)
+        }
+    }
+
+    // TODO: - Rework the rest of networking
+    // Old networking code left for future references
+
 /*
     // MARK: - Onboarding
     /// Retreives 4 Gym Names (combining both Teagles) and 4 Gym Classes from 4 different Tag categories
@@ -147,30 +173,7 @@ struct NetworkManager {
             completion(gyms, classes)
         })
     }
- 
- */
-    
-    func getFitnessCenters(completion: @escaping ([QLGym]?) -> Void) {
-        apollo.fetch(query: AllGymsQuery()) { result in
-            guard let gymsData = try? result.get().data?.gyms else {
-                completion(nil)
-                return
-            }
 
-            let gyms = gymsData.compactMap({ (gymData) -> QLGym? in
-                guard let gymData = gymData else { return nil }
-                let gym = QLGym(gymData: gymData)
-                if let imageUrl = gym.imageURL {
-                    self.cacheImage(imageUrl: imageUrl)
-                    print("IMGURL: \t\(imageUrl)")
-                }
-                return gym
-            })
-
-            completion(gyms)
-        }
-    }
-/*
     // MARK: - GYMS
     func getGyms(completion: @escaping ([Gym]) -> Void) {
         apollo.fetch(query: AllGymsQuery()) { result, error in

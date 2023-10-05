@@ -147,7 +147,7 @@ struct DailyFacilityHoursRanges {
     var dayOfWeek: Int
     var timeRanges: [FacilityHoursRange]
     var isSelected: Bool
-    
+
     /*
 
     init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Detail.Time) {
