@@ -8,6 +8,22 @@
 
 import Foundation
 
+enum CapacityStatus: String {
+    case Full = "Full"
+    case Cramped = "Cramped"
+    case Light = "Light"
+    
+    init (percent: Double) {
+        if percent <= 0.50 {
+            self = .Light
+        } else if percent > 0.80 {
+            self = .Full
+        } else {
+            self = .Cramped
+        }
+    }
+}
+
 struct FitnessCenter {
     var id: Int
     var gymId: Int
@@ -18,15 +34,6 @@ struct FitnessCenter {
     var capacityPercent: Double?
     
     var hours: OpenHours
-
-    func isOpen() -> Bool {
-        return hours.isOpen()
-    }
-
-    func isStatusChangingSoon() -> Bool {
-        return hours.isStatusChangingSoon()
-    }
-
     
     init (gymID: Int, imgUrl: URL?, fitnessCenter: QLFacility) {
         gymId = gymID
@@ -38,33 +45,25 @@ struct FitnessCenter {
         hours = OpenHours(openHours: fitnessCenter.hours)
     }
     
+    func isOpen() -> Bool {
+        return hours.isOpen()
+    }
+
+    func isStatusChangingSoon() -> Bool {
+        return hours.isStatusChangingSoon()
+    }
+    
     func getHoursString() -> String {
         return hours.getHoursString()
     }
     
+    func getCapacityStatus() -> CapacityStatus? {
+        guard let percent = self.capacityPercent else { return nil }
+        return CapacityStatus(percent: percent)
+    }
+    
+    func getCapacityPercent() -> String? {
+        guard let percent = self.capacityPercent else { return nil }
+        return String.getFromPercent(value: percent)
+    }
 }
-
-
-//
-//struct OpenHours {
-//    var day: Int
-//    var openTime: Double
-//    var closeTime: Double
-//}
-//
-
-//var dayOfWeek: Int = 0
-//var openTime: Date = Date()
-//var closeTime: Date
-
-/*
- init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
- if let gymHoursData = gymHoursData {
- dayOfWeek = gymHoursData.day
- openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
- closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
- } else {
- closeTime = openTime
- }
- }
- */

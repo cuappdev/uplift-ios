@@ -24,6 +24,15 @@ struct QLOpenHours {
         endTime = Date.getDateFromHours(day: day, hours: openHoursData.endTime)
     }
     
+    // Testing Init
+    init(dayNum: Int, start: Double, end: Double) {
+        id = -1
+        facilityId = -1
+        day = dayNum
+        startTime = Date.getDateFromHours(day: dayNum, hours: start)
+        endTime = Date.getDateFromHours(day: dayNum, hours: end)
+    }
+    
     func dayMatchesDate(_ date: Date = Date()) -> Bool {
         self.day == date.getIntegerDayOfWeekToday()
     }
@@ -33,14 +42,12 @@ struct QLOpenHours {
         return startTime < date && endTime > date
     }
     
-    func willChangeSoon() -> Bool {
+    func willChangeSoon(_ date: Date = Date()) -> Bool {
         let changingSoonThreshold = 3600.0
-        let now = Date()
-        
-        if isDateInRange() {
-            return endTime - changingSoonThreshold < now
+        if isDateInRange(date) {
+            return endTime - changingSoonThreshold < date
         } else {
-            return startTime - changingSoonThreshold < now
+            return startTime > date && startTime - changingSoonThreshold < date
         }
     }
 }

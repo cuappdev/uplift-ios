@@ -32,43 +32,43 @@ struct OpenHours {
     }
     
     
-    func isStatusChangingSoon() -> Bool {
-        return todaysHours?.first{ $0.willChangeSoon() } != nil
+    func isStatusChangingSoon(_ date: Date = Date()) -> Bool {
+        return todaysHours?.first{ $0.willChangeSoon(date) == true } != nil
     }
     
-    func isOpen() -> Bool {
+    func isOpen(_ date: Date = Date()) -> Bool {
         guard todaysHours != nil else {return false}
-        return todaysHours?.filter{ $0.isDateInRange() }.count != 0
+        return todaysHours?.filter{ $0.isDateInRange(date) }.count != 0
     }
     
-    func getHoursString() -> String {
+    func getHoursString(_ date: Date = Date()) -> String {
         let strFormat: String
-        let now = Date()
         
         // Gym is open
-        if isOpen(), let nowHourRange = todaysHours?.filter({  $0.isDateInRange() }).first {
+        if isOpen(date), let nowHourRange = todaysHours?.filter({  $0.isDateInRange(date) }).first {
             strFormat = nowHourRange.endTime.getHourFormat()
             let closeTime = nowHourRange.endTime.getStringOfDatetime(format: strFormat)
             return ClientStrings.Home.gymDetailCellClosesAt + closeTime
 
-        // Gym will open today
         } else {
-            if let nextOpenToday = todaysHours?.filter({ $0.startTime < now }).sorted(by: { $0.startTime < $1.startTime }).first {
+            // Gym will open today
+            if let nextOpenToday = todaysHours?.filter({ $0.startTime > date }).sorted(by: { $0.startTime < $1.startTime }).first {
                 
                 strFormat = nextOpenToday.startTime.getHourFormat()
                 return ClientStrings.Home.gymDetailCellOpensAt + (nextOpenToday.startTime.getStringOfDatetime(format: strFormat))
-                
+
+            // Gym will open tmr
             } else if let nextOpenTomorrow = tomorrowsHours?.sorted(by: { $0.startTime < $1.startTime }).first  {
                 
                 strFormat = nextOpenTomorrow.startTime.getHourFormat()
                 return ClientStrings.Home.gymDetailCellOpensAt + nextOpenTomorrow.startTime.getStringOfDatetime(format: strFormat)
+            
+                // Closed
             } else {
                 return ClientStrings.CommonStrings.closed
             }
             
         }
-        
-        return ""
     }
     
 }

@@ -27,35 +27,40 @@ class GymCellFooter: UIView {
         
         locationNameLabel.text = fitnessCenter.name
         
-        
         if fitnessCenter.isStatusChangingSoon() {
             statusLabel.textColor = .accentOrange
+            print(fitnessCenter.isStatusChangingSoon())
         } else {
             statusLabel.textColor = fitnessCenter.isOpen() ? .accentOpen : .accentClosed
         }
         statusLabel.text = fitnessCenter.isOpen() ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
         
-        
         hoursLabel.text = fitnessCenter.getHoursString()
         
-        capacityStatusLabel.textColor = .accentOrange
-        capacityStatusLabel.text = "Cramped"
-        capacityCountLabel.text = "120/140"
-
-//        locationNameLabel.text = fitnessCenter.name
-//
-//        //set gym status
-//        let changingSoon = gym.isStatusChangingSoon()
-//
-//
-//        statusLabel.text = gym.isOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
-//
-//        // Set gym hours
-//        hoursLabel.text = getHoursString(from: gym)
-//
-//        capacityStatusLabel.text = "Cramped"
-//        capacityStatusLabel.textColor = .accentOrange
-//        capacityCountLabel.text = "120/140"
+        
+        if let capacityStatus = fitnessCenter.getCapacityStatus(), let percentStr = fitnessCenter.getCapacityPercent() {
+            capacityStatusLabel.isHidden = false
+            capacityCountLabel.isHidden = false
+            capacityStatusLabel.text = capacityStatus.rawValue
+            capacityCountLabel.text = "\(percentStr) full"
+            switch(capacityStatus) {
+            case .Light:
+                capacityStatusLabel.textColor = .accentOpen
+                break
+            case .Cramped:
+                capacityStatusLabel.textColor = .accentOrange
+                break
+            case .Full:
+                capacityStatusLabel.textColor = .accentRed
+                break
+            }
+            
+        } else {
+            capacityStatusLabel.isHidden = true
+            capacityCountLabel.isHidden = true
+        }
+        
+        
     }
 
     private func getHoursString(from gym: Gym) -> String {

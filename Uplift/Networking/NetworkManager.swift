@@ -17,8 +17,8 @@ enum APIEnvironment {
 }
 
 struct NetworkManager {
-//    private let apollo = ApolloClient(url: URL(string: Keys.apiURL.value)!)
-    private let apollo = ApolloClient(url: URL(string: Keys.apiDevURL.value)!)
+    private let apollo = ApolloClient(url: URL(string: Keys.apiURL.value)!)
+//    private let apollo = ApolloClient(url: URL(string: Keys.apiDevURL.value)!)
     static let environment: APIEnvironment = .development
     static let shared = NetworkManager()
 

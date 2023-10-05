@@ -31,4 +31,7 @@ extension String {
         }
     }
 
+    static func getFromPercent(value: Double) -> String {
+        "\(Int(round(value * 100)))%"
+    }
 }

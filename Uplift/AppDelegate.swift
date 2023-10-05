@@ -27,9 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FitnessCenterManager.shared.fetch()
         
-        AdHockTest.testDate()
+//        AdHockTest.testWillChangeSoon()
         
-        
+        print(String.getFromPercent(value: 0.00))
+        print(String.getFromPercent(value: 0.1))
+        print(String.getFromPercent(value: 0.01))
+        print(String.getFromPercent(value: 0.021))
+        print(String.getFromPercent(value: 0.026))
 //        let defaults = UserDefaults.standard
 //        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
         let vc = HomeViewController()

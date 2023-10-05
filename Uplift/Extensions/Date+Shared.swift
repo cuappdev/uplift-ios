@@ -220,7 +220,7 @@ extension Date {
     }
     
     static public func getDateFromHours(day: Int, hours: Double) -> Date {
-        let todayDayNumber = (Date().getIntegerDayOfWeekToday() + 6) % 7
+        let todayDayNumber = Date().getIntegerDayOfWeekToday()
         let dateFromDay = Calendar.current.date(byAdding: .day,
                                               value: ((day + 7) - todayDayNumber) % 7,
                                               to: Date()) ?? Date()

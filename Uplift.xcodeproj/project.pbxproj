@@ -98,7 +98,7 @@
 		BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784A2A9B3BCB0072FDDE /* Keys.plist */; };
 		BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */; };
 		BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */; };
-		BF61D7A22AC0AF7800A2174B /* AddHockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61D7A12AC0AF7800A2174B /* AddHockTest.swift */; };
+		BF61D7A22AC0AF7800A2174B /* AdHockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */; };
 		BF9DA0F92AA3EE360069291D /* FitnessCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */; };
 		BF9DA0FB2AA3F0140069291D /* FitnessCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FA2AA3F0140069291D /* FitnessCenterManager.swift */; };
 		BF9DA0FD2AA4017E0069291D /* QLGym.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FC2AA4017E0069291D /* QLGym.swift */; };
@@ -302,7 +302,7 @@
 		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
-		BF61D7A12AC0AF7800A2174B /* AddHockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHockTest.swift; sourceTree = "<group>"; };
+		BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHockTest.swift; sourceTree = "<group>"; };
 		BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenter.swift; sourceTree = "<group>"; };
 		BF9DA0FA2AA3F0140069291D /* FitnessCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FitnessCenterManager.swift; path = Uplift/Models/FitnessCenterManager.swift; sourceTree = SOURCE_ROOT; };
 		BF9DA0FC2AA4017E0069291D /* QLGym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLGym.swift; sourceTree = "<group>"; };
@@ -546,7 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				BFA1BC1C2ABBA7AD0064932D /* UpliftTests.swift */,
-				BF61D7A12AC0AF7800A2174B /* AddHockTest.swift */,
+				BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */,
 			);
 			path = "Uplift Tests";
 			sourceTree = "<group>";
@@ -1158,7 +1158,7 @@
 				7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
 				BF9DA0FF2AA402030069291D /* QLFacility.swift in Sources */,
-				BF61D7A22AC0AF7800A2174B /* AddHockTest.swift in Sources */,
+				BF61D7A22AC0AF7800A2174B /* AdHockTest.swift in Sources */,
 				BFCA93D82AA657B70005D191 /* QLCapacity.swift in Sources */,
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
 				4F27F6DD236FA9A500C255D7 /* CourtCollectionViewCell.swift in Sources */,
