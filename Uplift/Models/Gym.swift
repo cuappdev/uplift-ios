@@ -31,6 +31,17 @@ struct Gym {
     var gymHoursToday: DailyGymHours {
         return gymHours[Date().getIntegerDayOfWeekToday()]
     }
+    
+    init(facilities: [Facility], gymHours: [DailyGymHours], id: String, name: String, popularTimesList: [[Int]], imageURL: URL?) {
+        self.facilities = facilities
+        self.gymHours = gymHours
+        self.id = id
+        self.name = name
+        self.popularTimesList = popularTimesList
+        self.imageURL = imageURL
+    }
+    
+    
 /*
     init(gymData: AllGymsQuery.Data.Gym) {
         id = gymData.id
@@ -106,6 +117,12 @@ struct DailyGymHours {
     var dayOfWeek: Int = 0
     var openTime: Date = Date()
     var closeTime: Date
+    
+    init(dayOfWeek: Int, openTime: Date, closeTime: Date) {
+        self.dayOfWeek = dayOfWeek
+        self.openTime = openTime
+        self.closeTime = closeTime
+    }
 
     /*
     init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
@@ -129,3 +146,21 @@ struct DailyGymHours {
     }
 */
 }
+
+let weekHours = [
+    DailyGymHours(dayOfWeek: 0, openTime: Date(), closeTime: Date()),
+    DailyGymHours(dayOfWeek: 1, openTime: Date(), closeTime: Date()),
+    DailyGymHours(dayOfWeek: 2, openTime: Date(), closeTime: Date()),
+    DailyGymHours(dayOfWeek: 3, openTime: Date(), closeTime: Date()),
+    DailyGymHours(dayOfWeek: 4, openTime: Date(), closeTime: Date()),
+    DailyGymHours(dayOfWeek: 5, openTime: Date(), closeTime: Date()),
+    DailyGymHours(dayOfWeek: 6, openTime: Date(), closeTime: Date())
+]
+
+let teagle = Gym(facilities: [], gymHours: weekHours, id: "1", name: "teagle", popularTimesList: [[]], imageURL: URL(string: "https://scl.cornell.edu/recreation/recreation/recreation/recreation/recreation/recreation/recreation/recreation/recreation/recreation/sites/scl.cornell.edu.recreation/files/2023-05/teagle.jpg"))
+
+let noyes = Gym(facilities: [], gymHours: weekHours, id: "2", name: "noyes", popularTimesList: [[]], imageURL: URL(string: "https://scl.cornell.edu/recreation/sites/scl.cornell.edu.recreation/files/2023-05/Noyes%20Exterior.jpg"))
+
+let helen = Gym(facilities: [], gymHours: weekHours, id: "3", name: "helen", popularTimesList: [[]], imageURL: URL(string: "https://scl.cornell.edu/recreation/sites/scl.cornell.edu.recreation/files/2023-05/out%20parking%20lot%20HNH%203.2_0.jpg"))
+
+

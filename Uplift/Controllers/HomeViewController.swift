@@ -23,7 +23,7 @@ class HomeViewController: UIViewController {
     // MARK: - Public data vars
 //    var myGyms: [Gym] = []
 //    var gymClassInstances: [GymClassInstance] = []
-//    var gyms: [Gym] = []
+    var gyms: [Gym] = [noyes, teagle, helen]
 //    var habits: [Habit] = []
 //    var lookingForCategories: [Tag] = []
     var sections: [SectionType] = []
@@ -68,16 +68,24 @@ class HomeViewController: UIViewController {
         setupConstraints()
 
         // Get Gyms
-            /*
+            
         numPendingNetworkRequests += 1
-        NetworkManager.shared.getGyms { gyms in
-            self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
-            let gymNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteGyms) ?? []
-            self.updateFavorites(favorites: gymNames)
-            // Reload All Gyms section
-            self.collectionView.reloadSections(IndexSet(integer: 2))
-            self.decrementNumPendingNetworkRequests()
-        }*/
+        gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
+        let gymNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteGyms) ?? []
+        //             Reload All Gyms section
+//        collectionView.reloadSections(IndexSet(integer: 2))
+        
+        collectionView.reloadData()
+//        self.decrementNumPendingNetworkRequests()
+
+//        NetworkManager.shared.getGyms { gyms in
+//            self.gyms = gyms.sorted { $0.isOpen && !$1.isOpen }
+//            let gymNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteGyms) ?? []
+//            self.updateFavorites(favorites: gymNames)
+////             Reload All Gyms section
+//            self.collectionView.reloadSections(IndexSet(integer: 2))
+//            self.decrementNumPendingNetworkRequests()
+//        }
 
         // Get Today's Classes
 //        let stringDate = Date.getNowString()
@@ -119,9 +127,9 @@ class HomeViewController: UIViewController {
     }
     
     @objc func reloadUpliftData() {
+        self.loadingHeader.isHidden = true
         guard FitnessCenterManager.shared.numFitnessCenters > 0 else { return }
         collectionView.reloadData()
-        self.loadingHeader.isHidden = true
         self.loadingScrollView.isHidden = true
     }
 }
