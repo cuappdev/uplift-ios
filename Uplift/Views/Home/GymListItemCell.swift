@@ -15,6 +15,7 @@ class GymListItemCell: ListItemCollectionViewCell<FitnessCenter> {
     static let identifier = Identifiers.gymsCell
 
     // MARK: - Private view vars
+    private let shadowView = UIView()
     private let backgroundImage = UIImageView()
     private let gymCellFooter = GymCellFooter()
 
@@ -22,18 +23,18 @@ class GymListItemCell: ListItemCollectionViewCell<FitnessCenter> {
         super.init(frame: frame)
 
         // BORDER
-        contentView.layer.cornerRadius = 5
-        contentView.layer.backgroundColor = UIColor.primaryWhite.cgColor
-        contentView.layer.borderColor = UIColor.gray01.cgColor
-        contentView.layer.borderWidth = 1.0
+        shadowView.layer.cornerRadius = 12
+        shadowView.layer.backgroundColor = UIColor.primaryWhite.cgColor
+        shadowView.layer.borderColor = UIColor.gray01.cgColor
+        shadowView.layer.borderWidth = 1.0
+        shadowView.layer.masksToBounds = true
 
         // SHADOWING
         contentView.layer.shadowColor = UIColor(red: 0.15, green: 0.15, blue: 0.37, alpha: 0.1).cgColor
         contentView.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        contentView.layer.shadowRadius = 10.0
+        contentView.layer.shadowRadius = 12.0
         contentView.layer.shadowOpacity = 1.0
-        contentView.layer.masksToBounds = false
-        contentView.clipsToBounds = true
+
 
         setupViews()
         setupConstraints()
@@ -48,18 +49,27 @@ class GymListItemCell: ListItemCollectionViewCell<FitnessCenter> {
     }
 
     private func setupViews() {
+        contentView.addSubview(shadowView)
+
         backgroundImage.contentMode = .scaleAspectFill
         backgroundImage.clipsToBounds = true
-        contentView.addSubview(backgroundImage)
+        shadowView.addSubview(backgroundImage)
 
-        contentView.addSubview(gymCellFooter)
+        shadowView.addSubview(gymCellFooter)
     }
 
     private func setupConstraints() {
         let footerHeight = 75
 
-        backgroundImage.snp.makeConstraints { make in
+        shadowView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+
+        backgroundImage.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(gymCellFooter.snp.top)
         }
 
         gymCellFooter.snp.updateConstraints { make in
