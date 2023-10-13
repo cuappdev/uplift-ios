@@ -29,7 +29,6 @@ class GymCellFooter: UIView {
 
         if fitnessCenter.isStatusChangingSoon() {
             statusLabel.textColor = .accentOrange
-            print(fitnessCenter.isStatusChangingSoon())
         } else {
             statusLabel.textColor = fitnessCenter.isOpen() ? .accentOpen : .accentClosed
         }
@@ -50,7 +49,6 @@ class GymCellFooter: UIView {
             case .Full:
                 capacityStatusLabel.textColor = .accentRed
             }
-
         } else {
             capacityStatusLabel.isHidden = true
             capacityCountLabel.isHidden = true

@@ -14,6 +14,7 @@ enum QLFacilityType: String {
 }
 
 struct QLFacility {
+
     var id: Int
     var gymId: Int
     var name: String
@@ -37,4 +38,5 @@ struct QLFacility {
             capacity = QLCapacity(capacityData: capacityData)
         }
     }
+
 }

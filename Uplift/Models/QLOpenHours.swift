@@ -9,6 +9,7 @@
 import Foundation
 
 struct QLOpenHours {
+
     var id: Int
     var facilityId: Int
     var day: Int
@@ -49,4 +50,5 @@ struct QLOpenHours {
             return startTime > date && startTime - changingSoonThreshold < date
         }
     }
+
 }

@@ -45,7 +45,6 @@ class GymListItemCell: ListItemCollectionViewCell<FitnessCenter> {
 
         gymCellFooter.configure(for: fitnessCenter)
         backgroundImage.kf.setImage(with: fitnessCenter.imageUrl)
-        print("fitnessCenterImage: \(fitnessCenter.imageUrl)")
     }
 
     private func setupViews() {

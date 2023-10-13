@@ -34,4 +34,5 @@ class FitnessCenterManager {
             // TODO: - Handle failed networking call
         }
     }
+
 }

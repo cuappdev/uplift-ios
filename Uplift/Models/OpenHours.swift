@@ -66,7 +66,6 @@ struct OpenHours {
             } else {
                 return ClientStrings.CommonStrings.closed
             }
-
         }
     }
 

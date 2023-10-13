@@ -43,4 +43,5 @@ struct QLGym {
             return FitnessCenter(gymID: id, imgUrl: imageURL, fitnessCenter: $0)
         }
     }
+
 }

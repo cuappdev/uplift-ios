@@ -25,6 +25,7 @@ enum CapacityStatus: String {
 }
 
 struct FitnessCenter {
+
     var id: Int
     var gymId: Int
     var name: String
@@ -66,4 +67,5 @@ struct FitnessCenter {
         guard let percent = self.capacityPercent else { return nil }
         return String.getFromPercent(value: percent)
     }
+
 }

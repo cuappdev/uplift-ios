@@ -21,25 +21,25 @@ struct Facility {
     var details: [FacilityDetail]
     var facilityType: FacilityType
 
-    /*
-    init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType) {
-        self.facilityType = facilityType
-        details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
-            guard let detailData = detailData,
-                let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }
-            return FacilityDetail(detailData: detailData, detailType: detailType)
-        })
-    }
 
-    init(facilityData: GymByIdQuery.Data.Gym.Facility, facilityType: FacilityType) {
-        self.facilityType = facilityType
-        details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
-            guard let detailData = detailData,
-                let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }
-            return FacilityDetail(detailData: detailData, detailType: detailType)
-        })
-    }
-     */
+//    init(facilityData: AllGymsQuery.Data.Gym.Facility, facilityType: FacilityType) {
+//        self.facilityType = facilityType
+//        details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
+//            guard let detailData = detailData,
+//                let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }
+//            return FacilityDetail(detailData: detailData, detailType: detailType)
+//        })
+//    }
+//
+//    init(facilityData: GymByIdQuery.Data.Gym.Facility, facilityType: FacilityType) {
+//        self.facilityType = facilityType
+//        details = facilityData.details.compactMap({ detailData -> FacilityDetail? in
+//            guard let detailData = detailData,
+//                let detailType = DetailType(rawValue: detailData.detailsType) else { return nil }
+//            return FacilityDetail(detailData: detailData, detailType: detailType)
+//        })
+//    }
+
 }
 
 // MARK: - Facility Detail
@@ -69,61 +69,61 @@ struct FacilityDetail {
     // Subfacilities
     var subfacilities: [String] = []
 
-    /*
-    init(detailData: AllGymsQuery.Data.Gym.Facility.Detail, detailType: DetailType) {
-        self.detailType = detailType
 
-        switch detailType {
-        case .court:
-            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
-                guard let facilityHours = facilityHoursData else { return nil }
-                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
-            })
-        case .equipment:
-            equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
-                guard let equipmentData = equipmentData else { return nil }
-                return Equipment(equipmentData: equipmentData)
-            })
-        case .hours:
-            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
-                guard let facilityHours = facilityHoursData else { return nil }
-                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
-            })
-        case .prices:
-            items = detailData.items.compactMap({ $0 })
-            prices = detailData.prices.compactMap({ $0 })
-        case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
-        }
-    }
+//    init(detailData: AllGymsQuery.Data.Gym.Facility.Detail, detailType: DetailType) {
+//        self.detailType = detailType
+//
+//        switch detailType {
+//        case .court:
+//            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+//                guard let facilityHours = facilityHoursData else { return nil }
+//                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+//            })
+//        case .equipment:
+//            equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
+//                guard let equipmentData = equipmentData else { return nil }
+//                return Equipment(equipmentData: equipmentData)
+//            })
+//        case .hours:
+//            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+//                guard let facilityHours = facilityHoursData else { return nil }
+//                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+//            })
+//        case .prices:
+//            items = detailData.items.compactMap({ $0 })
+//            prices = detailData.prices.compactMap({ $0 })
+//        case .subfacilities:
+//            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
+//        }
+//    }
+//
+//    init(detailData: GymByIdQuery.Data.Gym.Facility.Detail, detailType: DetailType) {
+//        self.detailType = detailType
+//
+//        switch detailType {
+//        case .court:
+//            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+//                guard let facilityHours = facilityHoursData else { return nil }
+//                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+//            })
+//        case .equipment:
+//            equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
+//                guard let equipmentData = equipmentData else { return nil }
+//                return Equipment(equipmentData: equipmentData)
+//            })
+//        case .hours:
+//            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
+//                guard let facilityHours = facilityHoursData else { return nil }
+//                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
+//            })
+//        case .prices:
+//            items = detailData.items.compactMap({ $0 })
+//            prices = detailData.prices.compactMap({ $0 })
+//        case .subfacilities:
+//            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
+//        }
+//    }
 
-    init(detailData: GymByIdQuery.Data.Gym.Facility.Detail, detailType: DetailType) {
-        self.detailType = detailType
-
-        switch detailType {
-        case .court:
-            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
-                guard let facilityHours = facilityHoursData else { return nil }
-                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
-            })
-        case .equipment:
-            equipment = detailData.equipment.compactMap({ equipmentData -> Equipment? in
-                guard let equipmentData = equipmentData else { return nil }
-                return Equipment(equipmentData: equipmentData)
-            })
-        case .hours:
-            times = detailData.times.compactMap({ facilityHoursData -> DailyFacilityHoursRanges? in
-                guard let facilityHours = facilityHoursData else { return nil }
-                return DailyFacilityHoursRanges(facilityHoursData: facilityHours)
-            })
-        case .prices:
-            items = detailData.items.compactMap({ $0 })
-            prices = detailData.prices.compactMap({ $0 })
-        case .subfacilities:
-            subfacilities = detailData.subFacilityNames.compactMap({ $0 })
-        }
-    }
-*/
     func getEquipmentCategories() -> [EquipmentCategory] {
         var equipmentDict = [String: [Equipment]]()
         equipment.forEach { equipmentItem in
@@ -148,36 +148,34 @@ struct DailyFacilityHoursRanges {
     var timeRanges: [FacilityHoursRange]
     var isSelected: Bool
 
-    /*
 
-    init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Detail.Time) {
-        dayOfWeek = facilityHoursData.day
-        timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
-            guard let rangeData = rangeData else { return nil }
-            let midnightTime = "00:00:00"
-            let hasNoHours = rangeData.startTime == midnightTime &&
-                rangeData.endTime == midnightTime
-            if hasNoHours { return nil }
-            return FacilityHoursRange(facilityHoursRangeData: rangeData)
-        })
-        let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
-        isSelected = dayOfWeek == dayIndexOfToday
-    }
-
-    init(facilityHoursData: GymByIdQuery.Data.Gym.Facility.Detail.Time) {
-        dayOfWeek = facilityHoursData.day
-        timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
-            guard let rangeData = rangeData else { return nil }
-            let midnightTime = "00:00:00"
-            let hasNoHours = rangeData.startTime == midnightTime &&
-                rangeData.endTime == midnightTime
-            if hasNoHours { return nil }
-            return FacilityHoursRange(facilityHoursRangeData: rangeData)
-        })
-        let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
-        isSelected = dayOfWeek == dayIndexOfToday
-    }
-     */
+//    init(facilityHoursData: AllGymsQuery.Data.Gym.Facility.Detail.Time) {
+//        dayOfWeek = facilityHoursData.day
+//        timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
+//            guard let rangeData = rangeData else { return nil }
+//            let midnightTime = "00:00:00"
+//            let hasNoHours = rangeData.startTime == midnightTime &&
+//                rangeData.endTime == midnightTime
+//            if hasNoHours { return nil }
+//            return FacilityHoursRange(facilityHoursRangeData: rangeData)
+//        })
+//        let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
+//        isSelected = dayOfWeek == dayIndexOfToday
+//    }
+//
+//    init(facilityHoursData: GymByIdQuery.Data.Gym.Facility.Detail.Time) {
+//        dayOfWeek = facilityHoursData.day
+//        timeRanges = facilityHoursData.timeRanges.compactMap({ rangeData -> FacilityHoursRange? in
+//            guard let rangeData = rangeData else { return nil }
+//            let midnightTime = "00:00:00"
+//            let hasNoHours = rangeData.startTime == midnightTime &&
+//                rangeData.endTime == midnightTime
+//            if hasNoHours { return nil }
+//            return FacilityHoursRange(facilityHoursRangeData: rangeData)
+//        })
+//        let dayIndexOfToday = Date().getIntegerDayOfWeekToday()
+//        isSelected = dayOfWeek == dayIndexOfToday
+//    }
 
 }
 
@@ -187,21 +185,21 @@ struct FacilityHoursRange {
     var closeTime: Date
     var specialHours: Bool
     var restrictions: String
-/*
-    init(facilityHoursRangeData: AllGymsQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
-        openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
-        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
-        specialHours = facilityHoursRangeData.specialHours
-        restrictions = facilityHoursRangeData.restrictions
-    }
 
-    init(facilityHoursRangeData: GymByIdQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
-        openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
-        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
-        specialHours = facilityHoursRangeData.specialHours
-        restrictions = facilityHoursRangeData.restrictions
-    }
-*/
+//    init(facilityHoursRangeData: AllGymsQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
+//        openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
+//        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
+//        specialHours = facilityHoursRangeData.specialHours
+//        restrictions = facilityHoursRangeData.restrictions
+//    }
+//
+//    init(facilityHoursRangeData: GymByIdQuery.Data.Gym.Facility.Detail.Time.TimeRange) {
+//        openTime = Date.getTimeFromString(datetime: facilityHoursRangeData.startTime)
+//        closeTime = Date.getTimeFromString(datetime: facilityHoursRangeData.endTime, isCloseTime: true)
+//        specialHours = facilityHoursRangeData.specialHours
+//        restrictions = facilityHoursRangeData.restrictions
+//    }
+
 }
 
 // MARK: - Equipment
@@ -218,19 +216,19 @@ struct Equipment {
     var quantity: String
     var workoutType: String
 
-    /*
-    init(equipmentData: AllGymsQuery.Data.Gym.Facility.Detail.Equipment) {
-        equipmentType = equipmentData.equipmentType
-        name = equipmentData.name
-        quantity = equipmentData.quantity
-        workoutType = equipmentData.workoutType
-    }
 
-    init(equipmentData: GymByIdQuery.Data.Gym.Facility.Detail.Equipment) {
-        equipmentType = equipmentData.equipmentType
-        name = equipmentData.name
-        quantity = equipmentData.quantity
-        workoutType = equipmentData.workoutType
-    }
-*/
+//    init(equipmentData: AllGymsQuery.Data.Gym.Facility.Detail.Equipment) {
+//        equipmentType = equipmentData.equipmentType
+//        name = equipmentData.name
+//        quantity = equipmentData.quantity
+//        workoutType = equipmentData.workoutType
+//    }
+//
+//    init(equipmentData: GymByIdQuery.Data.Gym.Facility.Detail.Equipment) {
+//        equipmentType = equipmentData.equipmentType
+//        name = equipmentData.name
+//        quantity = equipmentData.quantity
+//        workoutType = equipmentData.workoutType
+//    }
+
 }

@@ -79,7 +79,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
 
-        switch sections[indexPath.section] {        case .fitnessCenters:
+        switch sections[indexPath.section] {
+        case .fitnessCenters:
             // Height of all cells (in rows of 2), plus line spacings after each of them
             var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumItemSpacing) * ceil(CGFloat(integerLiteral: FitnessCenterManager.shared.getFitnessCenter().count))
 

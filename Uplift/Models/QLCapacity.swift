@@ -9,6 +9,7 @@
 import Foundation
 
 struct QLCapacity {
+
     var id: Int
     var facilityId: Int
     var count: Int
@@ -22,4 +23,5 @@ struct QLCapacity {
         percent = capacityData.percent
         updated = Date.getDatetimeFromString(datetime: capacityData.updated)
     }
+
 }
