@@ -107,25 +107,24 @@ struct DailyGymHours {
     var openTime: Date = Date()
     var closeTime: Date
 
-    /*
-    init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
-        if let gymHoursData = gymHoursData {
-            dayOfWeek = gymHoursData.day
-            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
-            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
-        } else {
-            closeTime = openTime
-        }
-    }
 
-    init(gymHoursDataId: GymByIdQuery.Data.Gym.Time?) {
-        if let gymHoursData = gymHoursDataId {
-            dayOfWeek = gymHoursData.day
-            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
-            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
-        } else {
-            closeTime = openTime
-        }
-    }
-*/
+//    init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
+//        if let gymHoursData = gymHoursData {
+//            dayOfWeek = gymHoursData.day
+//            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
+//            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+//        } else {
+//            closeTime = openTime
+//        }
+//    }
+//
+//    init(gymHoursDataId: GymByIdQuery.Data.Gym.Time?) {
+//        if let gymHoursData = gymHoursDataId {
+//            dayOfWeek = gymHoursData.day
+//            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
+//            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+//        } else {
+//            closeTime = openTime
+//        }
+//    }
 }
