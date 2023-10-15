@@ -35,7 +35,6 @@ class GymListItemCell: ListItemCollectionViewCell<FitnessCenter> {
         contentView.layer.shadowRadius = 12.0
         contentView.layer.shadowOpacity = 1.0
 
-
         setupViews()
         setupConstraints()
     }
