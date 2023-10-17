@@ -6,7 +6,7 @@ target 'Uplift' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'AlamofireImage'
-  pod 'Apollo', :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc'
+  pod 'Apollo'#, :git => 'https://github.com/apollographql/apollo-ios.git', :commit => 'b28c3dc'
   pod 'AppDevAnnouncements', :git => 'https://github.com/cuappdev/appdev-announcements.git'
   pod 'AppDevHistogram', :git => 'https://github.com/cuappdev/appdev-histogram.git'
   pod 'Bartinter'
@@ -20,4 +20,17 @@ target 'Uplift' do
   pod 'SkeletonView'
   pod 'SnapKit'
   pod 'SwiftLint'
+end
+
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11'
+      xcconfig_path = config.base_configuration_reference.real_path
+      xcconfig = File.read(xcconfig_path)
+      xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
+      File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
+    end
+  end
 end

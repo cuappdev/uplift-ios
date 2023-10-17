@@ -10,30 +10,34 @@ import Foundation
 
 extension Date {
     static let secondsPerDay = 86400.0
-    
+
+    static var tomorrow: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+    }
+
     /// Format: "Today, April 10th 2020"
     static public func getLongDateStringFromDate(date: Date) -> String {
         let weekdayFormatter = DateFormatter()
         weekdayFormatter.dateFormat = "E"
-        
+
         let monthDayFormatter = DateFormatter()
         monthDayFormatter.dateFormat = "MMM d"
-        
+
         let yearFormatter = DateFormatter()
         yearFormatter.dateFormat = "yyyy"
-        
+
         var dayPostfix = "th"
         switch Calendar.current.component(.day, from: date) {
-            case 1:
-                dayPostfix = "st"
-            case 2:
-                dayPostfix = "nd"
-            case 3:
-                dayPostfix = "rd"
-            default:
-                dayPostfix = "th"
+        case 1:
+            dayPostfix = "st"
+        case 2:
+            dayPostfix = "nd"
+        case 3:
+            dayPostfix = "rd"
+        default:
+            dayPostfix = "th"
         }
-        
+
         if date.isToday() {
             return "Today, \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
         } else if date.isYesterday() {
@@ -42,50 +46,50 @@ extension Date {
             return "\(weekdayFormatter.string(from: date)), \(monthDayFormatter.string(from: date))\(dayPostfix) \(yearFormatter.string(from: date))"
         }
     }
-    
+
     /// Format: "6:00 PM"
     static public func getTimeStringFromDate(time: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         return dateFormatter.string(from: time)
     }
-    
+
     static public func getTimeStringWithWeekday(time: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd"
         let weekday = Date.getWeekdayString(time: time)
         return "\(weekday), \(dateFormatter.string(from: time))"
     }
-    
+
     static public func getWeekdayString(time: Date) -> String {
         switch Calendar.current.component(.weekday, from: time) {
-            case 1:
-                return "Sunday"
-            case 2:
-                return "Monday"
-            case 3:
-                return "Tuesday"
-            case 4:
-                return "Wednesday"
-            case 5:
-                return "Thursday"
-            case 6:
-                return "Friday"
-            case 7:
-                return "Saturday"
-            default:
-                return ""
+        case 1:
+            return "Sunday"
+        case 2:
+            return "Monday"
+        case 3:
+            return "Tuesday"
+        case 4:
+            return "Wednesday"
+        case 5:
+            return "Thursday"
+        case 6:
+            return "Friday"
+        case 7:
+            return "Saturday"
+        default:
+            return ""
         }
     }
-    
+
     static public func getTimeStringSince(fromDate: Date) -> String {
         let toDate = Date()
         // https://stackoverflow.com/questions/34457434/swift-convert-time-to-time-ago
-        if let interval = Calendar.current.dateComponents([.year], from: fromDate, to: toDate).year, interval > 0  {
+        if let interval = Calendar.current.dateComponents([.year], from: fromDate, to: toDate).year, interval > 0 {
             return "\(interval) y"
-        } else if let interval = Calendar.current.dateComponents([.month], from: fromDate, to: toDate).month, interval > 0  {
+        } else if let interval = Calendar.current.dateComponents([.month], from: fromDate, to: toDate).month, interval > 0 {
             return "\(interval) mos"
-        } else if let interval = Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day, interval > 0  {
+        } else if let interval = Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day, interval > 0 {
             return "\(interval) d"
         } else if let interval = Calendar.current.dateComponents([.hour], from: fromDate, to: toDate).hour, interval > 0 {
             return "\(interval) h"
@@ -108,7 +112,7 @@ extension Date {
 
     // MARK: - TIME OF DAY
     static public func getDateFromTime(time: String) -> Date {
-        let index = time.index(of: ":")
+        let index = time.firstIndex(of: ":")
         let isPM = time.contains("PM")
 
         let date = Date()
@@ -213,6 +217,18 @@ extension Date {
         dateFormatter.dateFormat = "MMddyyyy"
         dateFormatter.timeZone = TimeZone.current
         return dateFormatter.date(from: date) ?? Date()
+    }
+
+    static public func getDateFromHours(day: Int, hours: Double) -> Date {
+        let todayDayNumber = Date().getIntegerDayOfWeekToday()
+        let dateFromDay = Calendar.current.date(byAdding: .day,
+                                              value: ((day + 7) - todayDayNumber) % 7,
+                                              to: Date()) ?? Date()
+
+        return Calendar.current.date(bySettingHour: Int(hours),
+                                     minute: Int((hours.truncatingRemainder(dividingBy: 1)) * 60),
+                                     second: 0,
+                                     of: dateFromDay) ?? Date()
     }
 
     // MARK: - DATE

@@ -163,7 +163,7 @@ extension FacilitiesDropdownCell: UICollectionViewDataSource {
                 // Update all facility details with the new selected day index
                 self.facility.details.forEach { facilityDetail in
                     facilityDetail.times.forEach { dailyHoursRanges in
-                        dailyHoursRanges.isSelected = dailyHoursRanges.dayOfWeek == newDayIndex
+//                        dailyHoursRanges.isSelected = dailyHoursRanges.dayOfWeek == newDayIndex
                     }
                 }
                 self.headerViewTapped?(nil)

@@ -32,61 +32,61 @@ struct Gym {
         return gymHours[Date().getIntegerDayOfWeekToday()]
     }
 
-    init(gymData: AllGymsQuery.Data.Gym) {
-        id = gymData.id
-        name = gymData.name
-        imageURL = URL(string: gymData.imageUrl ?? "")
-
-        var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
-
-        if let popular = gymData.popular {
-            popular.enumerated().forEach { (i, dailyPopular) in
-                dailyPopular?.enumerated().forEach({ (j, dailyPopularItem) in
-                    popularTimes[i][j] = dailyPopularItem ?? 0
-                })
-            }
-        }
-        popularTimesList = popularTimes
-
-        let allGymHours = gymData.times
-        let gymHoursList = allGymHours.map({ DailyGymHours(gymHoursData: $0) })
-        gymHours = gymHoursList
-
-        facilities = gymData.facilities.compactMap {
-            guard let facility = $0,
-                let facilityType = FacilityType(rawValue: facility.name) else { return nil }
-            return Facility(facilityData: facility, facilityType: facilityType)
-        }
-    }
-
-    init(gymData: GymByIdQuery.Data.Gym ) {
-        id = gymData.id
-        name = gymData.name
-        imageURL = URL(string: gymData.imageUrl ?? "")
-
-        var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
-        if let popular = gymData.popular {
-            popular.enumerated().forEach { (i, dailyPopular) in
-                dailyPopular?.enumerated().forEach({ (j, dailyPopularItem) in
-                    popularTimes[i][j] = dailyPopularItem ?? 0
-                })
-            }
-        }
-        popularTimesList = popularTimes
-
-        // unwrap gym hours
-        let gymHoursList = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
-            guard let gymHoursDataId = gymHoursDataId else { return nil}
-            return DailyGymHours(gymHoursDataId: gymHoursDataId)
-        })
-        gymHours = gymHoursList
-
-        facilities = gymData.facilities.compactMap {
-            guard let facility = $0,
-                let facilityType = FacilityType(rawValue: facility.name) else { return nil }
-            return Facility(facilityData: facility, facilityType: facilityType)
-        }
-    }
+//    init(gymData: AllGymsQuery.Data.Gym) {
+//        id = gymData.id
+//        name = gymData.name
+//        imageURL = URL(string: gymData.imageUrl ?? "")
+//
+//        var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
+//
+//        if let popular = gymData.popular {
+//            popular.enumerated().forEach { (i, dailyPopular) in
+//                dailyPopular?.enumerated().forEach({ (j, dailyPopularItem) in
+//                    popularTimes[i][j] = dailyPopularItem ?? 0
+//                })
+//            }
+//        }
+//        popularTimesList = popularTimes
+//
+//        let allGymHours = gymData.times
+//        let gymHoursList = allGymHours.map({ DailyGymHours(gymHoursData: $0) })
+//        gymHours = gymHoursList
+//
+//        facilities = gymData.facilities.compactMap {
+//            guard let facility = $0,
+//                let facilityType = FacilityType(rawValue: facility.name) else { return nil }
+//            return Facility(facilityData: facility, facilityType: facilityType)
+//        }
+//    }
+//
+//    init(gymData: GymByIdQuery.Data.Gym ) {
+//        id = gymData.id
+//        name = gymData.name
+//        imageURL = URL(string: gymData.imageUrl ?? "")
+//
+//        var popularTimes = Array.init(repeating: Array.init(repeating: 0, count: 24), count: 7)
+//        if let popular = gymData.popular {
+//            popular.enumerated().forEach { (i, dailyPopular) in
+//                dailyPopular?.enumerated().forEach({ (j, dailyPopularItem) in
+//                    popularTimes[i][j] = dailyPopularItem ?? 0
+//                })
+//            }
+//        }
+//        popularTimesList = popularTimes
+//
+//        // unwrap gym hours
+//        let gymHoursList = gymData.times.compactMap({ (gymHoursDataId) -> DailyGymHours? in
+//            guard let gymHoursDataId = gymHoursDataId else { return nil}
+//            return DailyGymHours(gymHoursDataId: gymHoursDataId)
+//        })
+//        gymHours = gymHoursList
+//
+//        facilities = gymData.facilities.compactMap {
+//            guard let facility = $0,
+//                let facilityType = FacilityType(rawValue: facility.name) else { return nil }
+//            return Facility(facilityData: facility, facilityType: facilityType)
+//        }
+//    }
 
     func isStatusChangingSoon() -> Bool {
         let changingSoonThreshold = 3600.0
@@ -107,24 +107,24 @@ struct DailyGymHours {
     var openTime: Date = Date()
     var closeTime: Date
 
-    init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
-        if let gymHoursData = gymHoursData {
-            dayOfWeek = gymHoursData.day
-            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
-            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
-        } else {
-            closeTime = openTime
-        }
-    }
 
-    init(gymHoursDataId: GymByIdQuery.Data.Gym.Time?) {
-        if let gymHoursData = gymHoursDataId {
-            dayOfWeek = gymHoursData.day
-            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
-            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
-        } else {
-            closeTime = openTime
-        }
-    }
-
+//    init(gymHoursData: AllGymsQuery.Data.Gym.Time?) {
+//        if let gymHoursData = gymHoursData {
+//            dayOfWeek = gymHoursData.day
+//            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
+//            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+//        } else {
+//            closeTime = openTime
+//        }
+//    }
+//
+//    init(gymHoursDataId: GymByIdQuery.Data.Gym.Time?) {
+//        if let gymHoursData = gymHoursDataId {
+//            dayOfWeek = gymHoursData.day
+//            openTime = Date.getTimeFromString(datetime: gymHoursData.startTime)
+//            closeTime = Date.getTimeFromString(datetime: gymHoursData.endTime)
+//        } else {
+//            closeTime = openTime
+//        }
+//    }
 }

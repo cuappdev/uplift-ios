@@ -17,34 +17,33 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
- 
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let sectionType = sections[indexPath.section]
         switch sectionType {
-        case .todaysClasses:
-            if gymClassInstances.isEmpty {
-                // swiftlint:disable:next force_cast
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier, for: indexPath) as! TodaysClassesEmptyCell
-                return cell
-            }
-            // swiftlint:disable:next force_cast
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
-            cell.delegate = self
-            cell.configure(for: gymClassInstances)
-            return cell
-            
-        case .myGyms:
+        case .fitnessCenters:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
             cell.delegate = self
+            cell.configure(for: FitnessCenterManager.shared.getFitnessCenter())
+            return cell
 
-            //MARK: changed self.MyGyms to self.gyms
-            cell.configure(for: self.gyms)
-            return cell
-        case .yourActivities:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.activitiesListCellIdentifier, for: indexPath) as! ActivitiesListCell
-            cell.configure(for: activities)
-            return cell
+        // TODO: - Add back other sections
+//        case .todaysClasses:
+//            if gymClassInstances.isEmpty {
+//                // swiftlint:disable:next force_cast
+//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesEmptyCellIdentifier, for: indexPath) as! TodaysClassesEmptyCell
+//                return cell
+//            }
+//            // swiftlint:disable:next force_cast
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.todaysClassesListCellIdentifier, for: indexPath) as! TodaysClassesListCell
+//            cell.delegate = self
+//            cell.configure(for: gymClassInstances)
+//            return cell
+//        case .yourActivities:
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.activitiesListCellIdentifier, for: indexPath) as! ActivitiesListCell
+//            cell.configure(for: activities)
+//            return cell
         }
     }
 
@@ -55,19 +54,19 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath
             // swiftlint:disable:next force_cast
             ) as! HomeSectionHeaderView
-        let editButtonTitle = ClientStrings.Home.editButton
 
         switch sections[indexPath.section] {
-        case .myGyms:
+        case .fitnessCenters:
             headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: pushGymOnboarding)
-        case .yourActivities:
-            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: pushHabitOnboarding)
-        case .todaysClasses:
-            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: viewTodaysClasses)
+
+        // TODO: - Add back other sections
+//        case .yourActivities:
+//            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: pushHabitOnboarding)
+//        case .todaysClasses:
+//            headerView.configure(title: sections[indexPath.section].rawValue, buttonTitle: nil, completion: viewTodaysClasses)
         }
         return headerView
     }
-    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -81,24 +80,24 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         let width = collectionView.frame.width
 
         switch sections[indexPath.section] {
-        case .todaysClasses:
-            let padding: CGFloat = 20.0
-            let cellWidth = gymClassInstances.isEmpty ? width - 2.0 * padding : width
-            return CGSize(width: cellWidth, height: TodaysClassesListCell.totalHeight)
-        case .yourActivities:
-            let height = ActivitiesListCell.itemHeight
-            return CGSize(width: width, height: height)
-        case .myGyms:
-            //Height is calculated as item height of every row of 2 cells + minimum line spacing between them + bottom section inset value
+        case .fitnessCenters:
+            // Height of all cells (in rows of 2), plus line spacings after each of them
+            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumItemSpacing) * ceil(CGFloat(integerLiteral: FitnessCenterManager.shared.getFitnessCenter().count))
 
-            //Height of all cells (in rows of 2), plus line spacings after each of them
-            //MARK: myGyms gyms.count and removed / 2
-            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumItemSpacing) * ceil(CGFloat(integerLiteral: gyms.count))
-
-            //Subtract extra minimum line spacing below the last row of cells, and add the section inset
+            // Subtract extra minimum line spacing below the last row of cells, and add the section inset
             height += GymsListCell.sectionInsetBottom - GymsListCell.minimumItemSpacing
             return CGSize(width: width, height: max(height, 0))
         }
+
+        // TODO: - Add back other sections
+//        case .todaysClasses:
+//            let padding: CGFloat = 20.0
+//            let cellWidth = gymClassInstances.isEmpty ? width - 2.0 * padding : width
+//            return CGSize(width: cellWidth, height: TodaysClassesListCell.totalHeight)
+//        case .yourActivities:
+//            let height = ActivitiesListCell.itemHeight
+//            return CGSize(width: width, height: height)
+
     }
 
     // Don't want the empty state cell to appear selectable, so disable zooming in/out for the empty state cell
@@ -139,9 +138,10 @@ extension HomeViewController: TodaysClassesListCellDelegate {
 extension HomeViewController: ChooseGymsDelegate {
 
     func updateFavorites(favorites: [String]) {
-        myGyms = favorites.compactMap { favorite in
-            self.gyms.first { $0.name == favorite }
-        }
+        // TODO: - Re-implement
+//        myGyms = favorites.compactMap { favorite in
+//            self.gyms.first { $0.name == favorite }
+//        }
     }
 
     func pushHabitOnboarding() {

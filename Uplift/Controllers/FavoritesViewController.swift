@@ -88,9 +88,9 @@ class FavoritesViewController: UIViewController {
         favoritesNames = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
         favorites = []
 
-        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
-            self.favorites = gymClasses
-        }
+//        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
+//            self.favorites = gymClasses
+//        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -99,9 +99,9 @@ class FavoritesViewController: UIViewController {
         if newFavoritesNames != favoritesNames {
             favoritesNames = newFavoritesNames
             if !favoritesNames.isEmpty {
-                NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
-                    self.favorites = gymClasses
-                }
+//                NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: favoritesNames) { gymClasses in
+//                    self.favorites = gymClasses
+//                }
             } else {
                 favorites = []
             }

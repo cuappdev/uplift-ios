@@ -89,10 +89,10 @@ class HomeSectionHeaderView: UICollectionReusableView {
 
     @objc private func viewAll() {
         // MARK: - Fabric
-        Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
-            "Section": "\(HomeViewController.SectionType.todaysClasses.rawValue)/viewAll"
-            ])
-
+//        Answers.logCustomEvent(withName: "Found Info on Homepage", customAttributes: [
+//            "Section": "\(HomeViewController.SectionType.todaysClasses.rawValue)/viewAll"
+//            ])
+//
         buttonCompletion?()
     }
 }

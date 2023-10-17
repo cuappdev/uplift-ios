@@ -23,56 +23,35 @@ class GymCellFooter: UIView {
         setupConstraints()
     }
 
-    func configure(for gym: Gym) {
-        locationNameLabel.text = gym.name
+    func configure(for fitnessCenter: FitnessCenter) {
 
-        //set gym status
-        let changingSoon = gym.isStatusChangingSoon()
+        locationNameLabel.text = fitnessCenter.name
 
-        if(gym.isOpen) {
-            statusLabel.textColor = changingSoon ? .accentOrange : .accentOpen
+        if fitnessCenter.isStatusChangingSoon() {
+            statusLabel.textColor = .accentOrange
         } else {
-            statusLabel.textColor = changingSoon ? .accentOrange : .accentClosed
+            statusLabel.textColor = fitnessCenter.isOpen() ? .accentOpen : .accentClosed
         }
+        statusLabel.text = fitnessCenter.isOpen() ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
 
-        statusLabel.text = gym.isOpen ? ClientStrings.CommonStrings.open : ClientStrings.CommonStrings.closed
+        hoursLabel.text = fitnessCenter.getHoursString()
 
-        // Set gym hours
-        hoursLabel.text = getHoursString(from: gym)
-
-        capacityStatusLabel.text = "Cramped"
-        capacityStatusLabel.textColor = .accentOrange
-        capacityCountLabel.text = "120/140"
-    }
-
-    private func getHoursString(from gym: Gym) -> String {
-        let now = Date()
-        let isOpen = gym.isOpen
-
-        let gymHoursToday = gym.gymHoursToday
-        let gymHoursTomorrow = gym.gymHours[now.getIntegerDayOfWeekTomorrow()]
-
-        let format: String
-
-        //if the gym has closed, else if it's still open
-        if now > gymHoursToday.closeTime {
-            //get the format for opening tomorrow
-            format = gymHoursTomorrow.openTime.getHourFormat()
-            //if the gym is also closed tomorrow, else if the gym is open tomorrow
-            if gym.closedTomorrow {
-                return ClientStrings.CommonStrings.closed
-            } else {
-                return ClientStrings.Home.gymDetailCellOpensAt + gymHoursTomorrow.openTime.getStringOfDatetime(format: format)
+        if let capacityStatus = fitnessCenter.getCapacityStatus(), let percentStr = fitnessCenter.getCapacityPercent() {
+            capacityStatusLabel.isHidden = false
+            capacityCountLabel.isHidden = false
+            capacityStatusLabel.text = capacityStatus.rawValue
+            capacityCountLabel.text = "\(percentStr) full"
+            switch capacityStatus {
+            case .Light:
+                capacityStatusLabel.textColor = .accentOpen
+            case .Cramped:
+                capacityStatusLabel.textColor = .accentOrange
+            case .Full:
+                capacityStatusLabel.textColor = .accentRed
             }
-        } else if !isOpen {
-            //if it isn't past gym close time, but currently isn't open (closed midday)
-            format = gymHoursToday.openTime.getHourFormat()
-            return ClientStrings.Home.gymDetailCellOpensAt + (gymHoursToday.openTime.getStringOfDatetime(format: format))
         } else {
-            //if the gym is open
-            format = gymHoursToday.closeTime.getHourFormat()
-            let closeTime = gymHoursToday.closeTime.getStringOfDatetime(format: format)
-            return ClientStrings.Home.gymDetailCellClosesAt + closeTime
+            capacityStatusLabel.isHidden = true
+            capacityCountLabel.isHidden = true
         }
     }
 
@@ -147,6 +126,4 @@ class GymCellFooter: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
-

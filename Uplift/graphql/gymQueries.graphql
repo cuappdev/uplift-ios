@@ -1,85 +1,31 @@
-
 query AllGyms {
     gyms {
-        name
         id
-        imageUrl
+        name
         description
-        popular
-        times {
-            day
-            startTime
-            endTime
-        }
+        location
+        latitude
+        longitude
+        imageUrl
         facilities {
+            id
             name
-            details {
-                detailsType
-                equipment {
-                  equipmentType
-                  name
-                  quantity
-                  workoutType
-                }
-                items
-                prices
-                subFacilityNames
-                times {
-                  day
-                  timeRanges {
-                    startTime
-                    endTime
-                    specialHours
-                    restrictions
-                  }
-                }
+            gymId
+            facilityType
+            openHours {
+                id
+                facilityId
+                day
+                startTime
+                endTime
+            }
+            capacity {
+                id
+                facilityId
+                count
+                percent
+                updated
             }
         }
-    }
-}
-
-query GymById($gymId: String) {
-    gyms(id: $gymId) {
-        name
-        id
-        imageUrl
-        description
-        popular
-        times {
-            day
-            startTime
-            endTime
-        }
-        facilities {
-            name
-            details {
-                detailsType
-                equipment {
-                  equipmentType
-                  name
-                  quantity
-                  workoutType
-                }
-                items
-                prices
-                subFacilityNames
-                times {
-                  day
-                  timeRanges {
-                    startTime
-                    endTime
-                    specialHours
-                    restrictions
-                  }
-                }
-            }
-        }
-    }
-}
-
-query AllGymNames {
-    gyms {
-        name
-        id
     }
 }

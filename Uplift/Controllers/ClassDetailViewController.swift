@@ -85,13 +85,13 @@ class ClassDetailViewController: UIViewController {
         let favorites = UserDefaults.standard.stringArray(forKey: Identifiers.favoriteClasses) ?? []
         isFavorite = favorites.contains(gymClassInstance.classDetailId)
 
-        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
-            let items = self.sections[0].items
-            self.sections[0].items[items.count - 1] = .nextSessions(gymClasses)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
+//        NetworkManager.shared.getGymClassInstancesByClass(gymClassDetailIds: [gymClassInstance.classDetailId]) { gymClasses in
+//            let items = self.sections[0].items
+//            self.sections[0].items[items.count - 1] = .nextSessions(gymClasses)
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//            }
+//        }
 
         setupConstraints()
     }

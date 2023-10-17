@@ -32,11 +32,8 @@
 		0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC282276840F0086D699 /* FacilityHoursCell.swift */; };
 		0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */; };
 		1C1D283B2166E215003FE839 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1D283A2166E215003FE839 /* Keys.swift */; };
-		1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */; };
-		1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C46740E21617680000AEDF0 /* intructorQueries.graphql */; };
 		1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7847C3216E77E30066E0DA /* Assets.xcassets */; };
 		1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1CCCEB96215058C5001B3551 /* .swiftlint.yml */; };
-		2D50591B2986D8A400F3616C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50591A2986D8A400F3616C /* API.swift */; };
 		2D9B3BEE29E3520400E7D93A /* ActivitiesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BED29E3520400E7D93A /* ActivitiesListCell.swift */; };
 		2D9B3BF029E352A000E7D93A /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BEF29E352A000E7D93A /* Activity.swift */; };
 		2D9B3BF229E3569600E7D93A /* ActivityListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BF129E3569600E7D93A /* ActivityListItemCell.swift */; };
@@ -86,7 +83,6 @@
 		8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */; };
 		8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */; };
 		8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */; };
-		8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8D6B2A18215B23DC00807544 /* gymQueries.graphql */; };
 		8D95F44E208718410095B8AB /* GymHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44D208718410095B8AB /* GymHoursCell.swift */; };
 		8D95F450208719030095B8AB /* GymHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */; };
 		8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */; };
@@ -99,8 +95,18 @@
 		8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */; };
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
-		BFA509252A8F434200019120 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFA509242A8F434200019120 /* Keys.plist */; };
-		BFA509292A8F435D00019120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFA509282A8F435D00019120 /* GoogleService-Info.plist */; };
+		BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784A2A9B3BCB0072FDDE /* Keys.plist */; };
+		BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */; };
+		BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */; };
+		BF61D7A22AC0AF7800A2174B /* AdHockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */; };
+		BF9DA0F92AA3EE360069291D /* FitnessCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */; };
+		BF9DA0FB2AA3F0140069291D /* FitnessCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FA2AA3F0140069291D /* FitnessCenterManager.swift */; };
+		BF9DA0FD2AA4017E0069291D /* QLGym.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FC2AA4017E0069291D /* QLGym.swift */; };
+		BF9DA0FF2AA402030069291D /* QLFacility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FE2AA402030069291D /* QLFacility.swift */; };
+		BF9DA1012AA402790069291D /* QLOpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA1002AA402790069291D /* QLOpenHours.swift */; };
+		BFBEE1282AB95CC0003F264E /* OpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBEE1272AB95CC0003F264E /* OpenHours.swift */; };
+		BFCA93D82AA657B70005D191 /* QLCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D72AA657B70005D191 /* QLCapacity.swift */; };
+		BFCA93DA2AA66B6B0005D191 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D92AA66B6B0005D191 /* API.swift */; };
 		C218F937233DBE080018838A /* GymDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C218F936233DBE080018838A /* GymDetail.swift */; };
 		C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */; };
 		C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14C2292374400B5D219 /* HomeViewController.swift */; };
@@ -147,8 +153,6 @@
 		C7EBD5AB2062E66800D76A8B /* ClassListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */; };
 		C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */; };
 		C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */; };
-		D91565C92165686400BCA466 /* tagQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D91565C82165686400BCA466 /* tagQueries.graphql */; };
-		D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = D94BD3072159DA9200C9214E /* classQueries.graphql */; };
 		D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810A7216E95BB00D4436C /* TapticEngine.swift */; };
 		D95810AA216E95D900D4436C /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810A9216E95D900D4436C /* RangeSeekSlider.swift */; };
 		D95810AC216E960700D4436C /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */; };
@@ -188,6 +192,16 @@
 		E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F3600E238127D900CB7FB3 /* DropdownView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BFA1BC1E2ABBA7AD0064932D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7DFABC3204206E000545B0B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7DFABCA204206E000545B0B;
+			remoteInfo = Uplift;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		03228DD523FDEB4600BBCF9F /* PickupGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupGameCell.swift; sourceTree = "<group>"; };
 		032324B42442503A0041ED72 /* SportsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFilterViewController.swift; sourceTree = "<group>"; };
@@ -215,16 +229,14 @@
 		0C97AC282276840F0086D699 /* FacilityHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursCell.swift; sourceTree = "<group>"; };
 		0C97AC2A2276841B0086D699 /* FacilityHoursHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityHoursHeaderView.swift; sourceTree = "<group>"; };
 		1C1D283A2166E215003FE839 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymClassInstanceQueries.graphql; sourceTree = "<group>"; };
-		1C46740E21617680000AEDF0 /* intructorQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = intructorQueries.graphql; sourceTree = "<group>"; };
 		1C7847C3216E77E30066E0DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CCCEB96215058C5001B3551 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
-		2D50591A2986D8A400F3616C /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		2D9B3BED29E3520400E7D93A /* ActivitiesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesListCell.swift; sourceTree = "<group>"; };
 		2D9B3BEF29E352A000E7D93A /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		2D9B3BF129E3569600E7D93A /* ActivityListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemCell.swift; sourceTree = "<group>"; };
 		2DA9E6A829CB644A00EFED2B /* GymCellFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCellFooter.swift; sourceTree = "<group>"; };
 		3A2D17ACE2F199BC7DB24332 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
+		44AD59D87BA6993A7337E3B0 /* Pods-Uplift Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.debug.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTimeInfoView.swift; sourceTree = "<group>"; };
 		4F187273235FD63A00A85283 /* AdditionalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoView.swift; sourceTree = "<group>"; };
 		4F18C34723610A0B00BFB603 /* FacilitiesHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesHoursCell.swift; sourceTree = "<group>"; };
@@ -273,7 +285,6 @@
 		8D5EA47A208ED6E700E98E6C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		8D611B6F21895BEB00F7AB47 /* NoResultsEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultsEmptyStateView.swift; sourceTree = "<group>"; };
 		8D61D8822162F15900969DF4 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
-		8D6B2A18215B23DC00807544 /* gymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		8D95F44D208718410095B8AB /* GymHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursCell.swift; sourceTree = "<group>"; };
 		8D95F44F208719030095B8AB /* GymHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymHoursHeaderView.swift; sourceTree = "<group>"; };
 		8DB8D7682236BD7000809D4B /* HabitTrackingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackingController.swift; sourceTree = "<group>"; };
@@ -286,8 +297,20 @@
 		8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldDropdownHeaderView.swift; sourceTree = "<group>"; };
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
-		BFA509242A8F434200019120 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		BFA509282A8F435D00019120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9767DD303DDD6CA26F709130 /* Pods-Uplift Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.release.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.release.xcconfig"; sourceTree = "<group>"; };
+		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
+		BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHockTest.swift; sourceTree = "<group>"; };
+		BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenter.swift; sourceTree = "<group>"; };
+		BF9DA0FA2AA3F0140069291D /* FitnessCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FitnessCenterManager.swift; path = Uplift/Models/FitnessCenterManager.swift; sourceTree = SOURCE_ROOT; };
+		BF9DA0FC2AA4017E0069291D /* QLGym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLGym.swift; sourceTree = "<group>"; };
+		BF9DA0FE2AA402030069291D /* QLFacility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLFacility.swift; sourceTree = "<group>"; };
+		BF9DA1002AA402790069291D /* QLOpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLOpenHours.swift; sourceTree = "<group>"; };
+		BFA1BC1A2ABBA7AD0064932D /* Uplift Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Uplift Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFBEE1272AB95CC0003F264E /* OpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenHours.swift; sourceTree = "<group>"; };
+		BFCA93D72AA657B70005D191 /* QLCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLCapacity.swift; sourceTree = "<group>"; };
+		BFCA93D92AA66B6B0005D191 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C218F936233DBE080018838A /* GymDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetail.swift; sourceTree = "<group>"; };
 		C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C21BE14C2292374400B5D219 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -335,8 +358,6 @@
 		C7EBD5AA2062E66800D76A8B /* ClassListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListCell.swift; sourceTree = "<group>"; };
 		C7EBD5AF2062F14D00D76A8B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		C7EBD5B22062FDEB00D76A8B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		D91565C82165686400BCA466 /* tagQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = tagQueries.graphql; sourceTree = "<group>"; };
-		D94BD3072159DA9200C9214E /* classQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = classQueries.graphql; sourceTree = "<group>"; };
 		D95810A7216E95BB00D4436C /* TapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
 		D95810A9216E95D900D4436C /* RangeSeekSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
 		D95810AB216E960700D4436C /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
@@ -376,6 +397,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BFA1BC172ABBA7AD0064932D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7DFABC8204206E000545B0B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -419,6 +447,8 @@
 			children = (
 				3A2D17ACE2F199BC7DB24332 /* Pods-Uplift.debug.xcconfig */,
 				047ECBBE65B2C216C70CB963 /* Pods-Uplift.release.xcconfig */,
+				44AD59D87BA6993A7337E3B0 /* Pods-Uplift Tests.debug.xcconfig */,
+				9767DD303DDD6CA26F709130 /* Pods-Uplift Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -510,6 +540,14 @@
 			path = Footers;
 			sourceTree = "<group>";
 		};
+		BFA1BC1B2ABBA7AD0064932D /* Uplift Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */,
+			);
+			path = "Uplift Tests";
+			sourceTree = "<group>";
+		};
 		C21BE14922920EB200B5D219 /* ClassList */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,6 +600,7 @@
 			isa = PBXGroup;
 			children = (
 				C76F715C208FD77300FDC958 /* NetworkManager.swift */,
+				BF9DA0FA2AA3F0140069291D /* FitnessCenterManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -569,6 +608,12 @@
 		C736372D2082F1F2004751F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BF9DA0FC2AA4017E0069291D /* QLGym.swift */,
+				BF9DA0FE2AA402030069291D /* QLFacility.swift */,
+				BF9DA1002AA402790069291D /* QLOpenHours.swift */,
+				BFCA93D72AA657B70005D191 /* QLCapacity.swift */,
+				BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */,
+				BFBEE1272AB95CC0003F264E /* OpenHours.swift */,
 				E69CE6BA23F4B41000CA83BF /* Comment.swift */,
 				C25CC31723981D6600221DC8 /* Facility.swift */,
 				C25CC31923981F0A00221DC8 /* FacilityDropdown.swift */,
@@ -609,6 +654,7 @@
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
 				630ADD112051BECC00B8E255 /* Fonts */,
+				BFA1BC1B2ABBA7AD0064932D /* Uplift Tests */,
 				C7DFABCC204206E000545B0B /* Products */,
 				4F27F6D5236F24C800C255D7 /* Recovered References */,
 				2239099827BA43E4F9300502 /* Pods */,
@@ -620,6 +666,7 @@
 			isa = PBXGroup;
 			children = (
 				C7DFABCB204206E000545B0B /* Uplift.app */,
+				BFA1BC1A2ABBA7AD0064932D /* Uplift Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -627,8 +674,8 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				BFA509282A8F435D00019120 /* GoogleService-Info.plist */,
-				2D50591A2986D8A400F3616C /* API.swift */,
+				BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */,
+				BFCA93D92AA66B6B0005D191 /* API.swift */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
 				C7DFABE22042081000545B0B /* Controllers */,
@@ -754,11 +801,7 @@
 		D94BD3062159DA7D00C9214E /* graphql */ = {
 			isa = PBXGroup;
 			children = (
-				1C46740C215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql */,
-				D94BD3072159DA9200C9214E /* classQueries.graphql */,
-				8D6B2A18215B23DC00807544 /* gymQueries.graphql */,
-				D91565C82165686400BCA466 /* tagQueries.graphql */,
-				1C46740E21617680000AEDF0 /* intructorQueries.graphql */,
+				BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -788,7 +831,7 @@
 		E60DE89E232DA6D20022BC72 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
-				BFA509242A8F434200019120 /* Keys.plist */,
+				BF52784A2A9B3BCB0072FDDE /* Keys.plist */,
 			);
 			path = Secrets;
 			sourceTree = "<group>";
@@ -836,6 +879,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BFA1BC192ABBA7AD0064932D /* Uplift Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BFA1BC222ABBA7AD0064932D /* Build configuration list for PBXNativeTarget "Uplift Tests" */;
+			buildPhases = (
+				BFA1BC162ABBA7AD0064932D /* Sources */,
+				BFA1BC172ABBA7AD0064932D /* Frameworks */,
+				BFA1BC182ABBA7AD0064932D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BFA1BC1F2ABBA7AD0064932D /* PBXTargetDependency */,
+			);
+			name = "Uplift Tests";
+			productName = "Uplift Tests";
+			productReference = BFA1BC1A2ABBA7AD0064932D /* Uplift Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C7DFABCA204206E000545B0B /* Uplift */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7DFABDD204206E000545B0B /* Build configuration list for PBXNativeTarget "Uplift" */;
@@ -864,10 +925,15 @@
 		C7DFABC3204206E000545B0B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Cornell AppDev";
 				TargetAttributes = {
+					BFA1BC192ABBA7AD0064932D = {
+						CreatedOnToolsVersion = 15.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C7DFABCA204206E000545B0B;
+					};
 					C7DFABCA204206E000545B0B = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1000;
@@ -889,39 +955,43 @@
 			projectRoot = "";
 			targets = (
 				C7DFABCA204206E000545B0B /* Uplift */,
+				BFA1BC192ABBA7AD0064932D /* Uplift Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BFA1BC182ABBA7AD0064932D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7DFABC9204206E000545B0B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C46740F21617680000AEDF0 /* intructorQueries.graphql in Resources */,
+				BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */,
+				BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */,
 				E6028E252450E19000DAF837 /* SF-Pro-Display-Bold.otf in Resources */,
-				BFA509292A8F435D00019120 /* GoogleService-Info.plist in Resources */,
-				D94BD3082159DA9200C9214E /* classQueries.graphql in Resources */,
-				D91565C92165686400BCA466 /* tagQueries.graphql in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				E638F20624468BCC006AE55B /* BebasNeue-Thin.ttf in Resources */,
 				8D5EA47B208ED6E700E98E6C /* Lato-Bold.ttf in Resources */,
 				C7EBD5B02062F14D00D76A8B /* Montserrat-Regular.ttf in Resources */,
 				E638F20224468BCC006AE55B /* BebasNeue-Light.ttf in Resources */,
 				E6028E232450E19000DAF837 /* BebasNeue-Regular.ttf in Resources */,
-				8D6B2A19215B23DC00807544 /* gymQueries.graphql in Resources */,
 				C76A70B2205ED2E100E60CC8 /* Montserrat-Light.ttf in Resources */,
 				C76A70B4205ED2E900E60CC8 /* Montserrat-Medium.ttf in Resources */,
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				E638F20424468BCC006AE55B /* BebasNeue-Bold.ttf in Resources */,
 				E638F20524468BCC006AE55B /* BebasNeue-Book.ttf in Resources */,
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
-				1C46740D215FEB1D000AEDF0 /* gymClassInstanceQueries.graphql in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
 				1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */,
 				E6028E242450E19000DAF837 /* SF-Pro-Display-Light.otf in Resources */,
+				BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */,
 				1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */,
-				BFA509252A8F434200019120 /* Keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,7 +1010,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\necho \"${SRCROOT}/${TARGET_NAME}\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=../schema.json API.swift\n";
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\nSCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"../schema.graphql\" API.swift\n";
 		};
 		1CEB3B0B21503E5100BB5B61 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -954,7 +1024,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8D29EFD320431FCA005B1CC8 /* Run Fabric build */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1051,6 +1121,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BFA1BC162ABBA7AD0064932D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7DFABC7204206E000545B0B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1071,10 +1148,14 @@
 				8D03EE05206C473200EF83C7 /* HomeScreenHeaderView.swift in Sources */,
 				8DC6F7A8218381980048C305 /* HomeSectionHeaderView.swift in Sources */,
 				C71E8A012091651100542FA3 /* GymFilterCell.swift in Sources */,
+				BF9DA0F92AA3EE360069291D /* FitnessCenter.swift in Sources */,
 				E651A47123F4BF0500C0A477 /* LoadingCollectionViewCell.swift in Sources */,
 				E6F3600F238127D900CB7FB3 /* DropdownHeaderView.swift in Sources */,
 				7EE03A922321B61D00BD74C0 /* GymDetailFacilitiesCell.swift in Sources */,
 				C26236FE2290D916007C415D /* ClassDetailFunctionCell.swift in Sources */,
+				BF9DA0FF2AA402030069291D /* QLFacility.swift in Sources */,
+				BF61D7A22AC0AF7800A2174B /* AdHockTest.swift in Sources */,
+				BFCA93D82AA657B70005D191 /* QLCapacity.swift in Sources */,
 				8D5D586C226FE52500A996D7 /* CheckInListItemCell.swift in Sources */,
 				4F27F6DD236FA9A500C255D7 /* CourtCollectionViewCell.swift in Sources */,
 				C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */,
@@ -1091,6 +1172,7 @@
 				C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */,
 				032324B7244250800041ED72 /* SportsDropdown.swift in Sources */,
 				2D9B3BF229E3569600E7D93A /* ActivityListItemCell.swift in Sources */,
+				BF9DA0FB2AA3F0140069291D /* FitnessCenterManager.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
 				4F1A5A7A238D8511005987E4 /* OnboardingAnimations.swift in Sources */,
 				03B9203C247B3B71000E0F17 /* SportsFormBubbleTableViewCell.swift in Sources */,
@@ -1099,7 +1181,6 @@
 				03B92034247B1881000E0F17 /* SportsFormTimeCollectionViewCell.swift in Sources */,
 				C28801A42293494C00EC48B7 /* HomeViewController+Extensions.swift in Sources */,
 				C7DFABCF204206E000545B0B /* AppDelegate.swift in Sources */,
-				2D50591B2986D8A400F3616C /* API.swift in Sources */,
 				0376A96B2455142900B44B22 /* SportsDetailCommentCollectionViewCell.swift in Sources */,
 				8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */,
 				4FC5646E23A06A3300B4D484 /* OnboardingEmptyStateView.swift in Sources */,
@@ -1134,7 +1215,9 @@
 				4F285B6B238F03D300B7B14D /* FavoriteGymsController.swift in Sources */,
 				C21BE15822926F8700B5D219 /* GymsListCell.swift in Sources */,
 				4F47C7E423A1E62200D5F93F /* OnboardingLoadingViewController.swift in Sources */,
+				BFBEE1282AB95CC0003F264E /* OpenHours.swift in Sources */,
 				D95810A8216E95BB00D4436C /* TapticEngine.swift in Sources */,
+				BF9DA0FD2AA4017E0069291D /* QLGym.swift in Sources */,
 				C7434C11208D27C1006F3249 /* GymClassDescription.swift in Sources */,
 				8DB8D76B2236E8CD00809D4B /* HabitTrackerOnboardingCell.swift in Sources */,
 				03B92032247B1872000E0F17 /* SportsFormNameCollectionViewCell.swift in Sources */,
@@ -1145,6 +1228,7 @@
 				C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */,
 				2D9B3BEE29E3520400E7D93A /* ActivitiesListCell.swift in Sources */,
 				E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */,
+				BFCA93DA2AA66B6B0005D191 /* API.swift in Sources */,
 				C218F937233DBE080018838A /* GymDetail.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */,
@@ -1186,6 +1270,7 @@
 				C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */,
 				E6DD25DC2447ABBB0023D259 /* ProfileViewController.swift in Sources */,
 				4F27F6D7236F25C000C255D7 /* MiscellaneousInfoCell.swift in Sources */,
+				BF9DA1012AA402790069291D /* QLOpenHours.swift in Sources */,
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
 				03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */,
@@ -1214,6 +1299,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BFA1BC1F2ABBA7AD0064932D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7DFABCA204206E000545B0B /* Uplift */;
+			targetProxy = BFA1BC1E2ABBA7AD0064932D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		C7DFABD7204206E000545B0B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1226,6 +1319,120 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BFA1BC202ABBA7AD0064932D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MY4X4HTK85;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AlamofireImage/AlamofireImage.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Apollo/Apollo.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth/AppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppDevAnnouncements/AppDevAnnouncements.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppDevHistogram/AppDevHistogram.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Bartinter/Bartinter.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore/FirebaseCore.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations/FirebaseInstallations.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth/GTMAppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Presentation/Presentation.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SideMenu/SideMenu.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SkeletonView/SkeletonView.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb/nanopb.framework/Headers\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"$(SRCROOT)/Pods",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AldenLamp.Uplift-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Uplift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Uplift";
+			};
+			name = Debug;
+		};
+		BFA1BC212ABBA7AD0064932D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MY4X4HTK85;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AlamofireImage/AlamofireImage.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Apollo/Apollo.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth/AppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppDevAnnouncements/AppDevAnnouncements.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppDevHistogram/AppDevHistogram.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Bartinter/Bartinter.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore/FirebaseCore.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations/FirebaseInstallations.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth/GTMAppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Presentation/Presentation.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SideMenu/SideMenu.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SkeletonView/SkeletonView.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb/nanopb.framework/Headers\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"$(SRCROOT)/Pods",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AldenLamp.Uplift-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Uplift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Uplift";
+			};
+			name = Release;
+		};
 		C7DFABDB204206E000545B0B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1394,6 +1601,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BFA1BC222ABBA7AD0064932D /* Build configuration list for PBXNativeTarget "Uplift Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BFA1BC202ABBA7AD0064932D /* Debug */,
+				BFA1BC212ABBA7AD0064932D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C7DFABC6204206E000545B0B /* Build configuration list for PBXProject "Uplift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

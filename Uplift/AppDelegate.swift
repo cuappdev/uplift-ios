@@ -22,16 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
 
         window = UIWindow(frame: UIScreen.main.bounds)
-
         window?.makeKeyAndVisible()
 
-        let defaults = UserDefaults.standard
-        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
-            let vc = HomeViewController()
-            window?.rootViewController = UINavigationController(rootViewController: vc)
-        } else {
-            displayOnboardingViewController()
-        }
+#if DEBUG
+        // Run ad hock unit test
+        AdHockTest.runAllTests()
+#endif
+
+        FitnessCenterManager.shared.fetch()
+
+        // TODO: - Add back onboarding
+//        let defaults = UserDefaults.standard
+//        if defaults.bool(forKey: Identifiers.hasSeenOnboarding) {
+        let vc = HomeViewController()
+        window?.rootViewController = UINavigationController(rootViewController: vc)
+//        } else {
+//            displayOnboardingViewController()
+//        }
 
         AnnouncementNetworking.setupConfig(
             scheme: Keys.announcementsScheme.value,
@@ -55,14 +62,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Onboarding
-    private func displayOnboardingViewController() {
-       NetworkManager.shared.getOnboardingInfo { gyms, classes in
-            self.window?.rootViewController = gyms.count < 4 || classes.count < 4
-                ? OnboardingViewController()
-                : OnboardingViewController(gymNames: gyms, classes: classes)
-       }
+    // TODO: - Add Back onboarding
+//    private func displayOnboardingViewController() {
+//       NetworkManager.shared.getOnboardingInfo { gyms, cl10sses in
+//            self.window?.rootViewController = gyms.count < 4 || classes.count < 4
+//                ? OnboardingViewController()
+//                : OnboardingViewController(gymNames: gyms, classes: classes)
+//       }
 
         // No Internet/Networking Failed/Networking in progress
-        self.window?.rootViewController = OnboardingLoadingViewController()
-    }
+//        self.window?.rootViewController = OnboardingLoadingViewController()
+//    }
 }

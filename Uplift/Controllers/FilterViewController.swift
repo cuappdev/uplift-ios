@@ -160,14 +160,15 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         classTypeDropdownData = DropdownData(completed: false, dropStatus: .closed, titles: [])
 
-        NetworkManager.shared.getClassNames { classNames in
-            self.classTypeDropdownData.titles.append(contentsOf: classNames)
-            self.classTypeDropdownData.titles.sort()
 
-            self.classTypeDropdownData.completed = true
-            self.classTypeDropdown.reloadData()
-            self.setupConstraints()
-        }
+//        NetworkManager.shared.getClassNames { classNames in
+//            self.classTypeDropdownData.titles.append(contentsOf: classNames)
+//            self.classTypeDropdownData.titles.sort()
+//
+//            self.classTypeDropdownData.completed = true
+//            self.classTypeDropdown.reloadData()
+//            self.setupConstraints()
+//        }
 
         // INSTRUCTOR SECTION
         instructorDropdownHeader = DropdownHeaderView(title: ClientStrings.Filter.selectInstructorSection)
@@ -197,14 +198,14 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         instructorDropdownData = DropdownData(completed: false, dropStatus: .closed, titles: [])
 
-        NetworkManager.shared.getInstructors { instructors in
-            self.instructorDropdownData.titles.append(contentsOf: instructors)
-            self.instructorDropdownData.titles.sort()
-
-            self.instructorDropdownData.completed = true
-            self.instructorDropdown.reloadData()
-            self.setupConstraints()
-        }
+//        NetworkManager.shared.getInstructors { instructors in
+//            self.instructorDropdownData.titles.append(contentsOf: instructors)
+//            self.instructorDropdownData.titles.sort()
+//
+//            self.instructorDropdownData.completed = true
+//            self.instructorDropdown.reloadData()
+//            self.setupConstraints()
+//        }
 
         setupConstraints()
         setupDropdownHeaderViews()
@@ -286,10 +287,10 @@ class FilterViewController: UIViewController, RangeSeekSliderDelegate {
 
         gyms = []
 
-        NetworkManager.shared.getGymNames(completion: { (gyms) in
-            self.gyms = gyms
-            self.gymCollectionView.reloadData()
-        })
+//        NetworkManager.shared.getGymNames(completion: { (gyms) in
+//            self.gyms = gyms
+//            self.gymCollectionView.reloadData()
+//        })
     }
 
     // MARK: - CONSTRAINTS
