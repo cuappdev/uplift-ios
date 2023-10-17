@@ -31,7 +31,7 @@ class HomeScreenHeaderView: UIView {
         
         addSubview(welcomeMessage)
         
-        statusButton = StatusButtonView()
+        statusButton = StatusButton()
         statusButton.layer.borderColor = UIColor.gray01.cgColor
         statusButton.layer.borderWidth = 1
         statusButton.layer.cornerRadius = 12
@@ -82,7 +82,7 @@ class HomeScreenHeaderView: UIView {
     }
 }
 
-class StatusButtonView: UIButton {
+class StatusButton: UIButton {
     
     var circularView: UIView!
     
@@ -115,7 +115,6 @@ class StatusButtonView: UIButton {
             make.trailing.equalToSuperview().inset(10)
         }
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
