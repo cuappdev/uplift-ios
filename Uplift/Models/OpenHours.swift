@@ -10,13 +10,13 @@ import Foundation
 
 struct OpenHours {
 
-    var rawHours: [Int: [QLOpenHours]]
+    private var rawHours: [Int: [QLOpenHours]]
 
-    var todaysHours: [QLOpenHours]? {
+    private var todaysHours: [QLOpenHours]? {
         rawHours[Date().getIntegerDayOfWeekToday()]
     }
 
-    var tomorrowsHours: [QLOpenHours]? {
+    private var tomorrowsHours: [QLOpenHours]? {
         rawHours[Date().getIntegerDayOfWeekTomorrow()]
     }
 
@@ -40,32 +40,40 @@ struct OpenHours {
         return !todaysHours!.filter { $0.isDateInRange(date) }.isEmpty
     }
 
+    private func currentOpenHours(_ date: Date = Date()) -> QLOpenHours? {
+        todaysHours?.filter({  $0.isDateInRange(date) }).first
+    }
+
+    private func nextOpenHoursToday(_ date: Date = Date()) -> QLOpenHours? {
+        todaysHours?.filter({ $0.startTime > date }).sorted(by: { $0.startTime < $1.startTime }).first
+    }
+
+    private func nextOpenHoursTomorrow() -> QLOpenHours? {
+        tomorrowsHours?.sorted(by: { $0.startTime < $1.startTime }).first
+    }
+
     func getHoursString(_ date: Date = Date()) -> String {
         let strFormat: String
 
         // Gym is open
-        if isOpen(date), let nowHourRange = todaysHours?.filter({  $0.isDateInRange(date) }).first {
+        if let nowHourRange = currentOpenHours(date) {
             strFormat = nowHourRange.endTime.getHourFormat()
             let closeTime = nowHourRange.endTime.getStringOfDatetime(format: strFormat)
             return ClientStrings.Home.gymDetailCellClosesAt + closeTime
 
+        // Gym will open today
+        } else if let nextOpenToday = nextOpenHoursToday(date) {
+            strFormat = nextOpenToday.startTime.getHourFormat()
+            return ClientStrings.Home.gymDetailCellOpensAt + (nextOpenToday.startTime.getStringOfDatetime(format: strFormat))
+
+        // Gym will open tmr
+        } else if let nextOpenTomorrow = nextOpenHoursTomorrow() {
+            strFormat = nextOpenTomorrow.startTime.getHourFormat()
+            return ClientStrings.Home.gymDetailCellOpensAt + nextOpenTomorrow.startTime.getStringOfDatetime(format: strFormat)
+
+        // Closed
         } else {
-            // Gym will open today
-            if let nextOpenToday = todaysHours?.filter({ $0.startTime > date }).sorted(by: { $0.startTime < $1.startTime }).first {
-
-                strFormat = nextOpenToday.startTime.getHourFormat()
-                return ClientStrings.Home.gymDetailCellOpensAt + (nextOpenToday.startTime.getStringOfDatetime(format: strFormat))
-
-            // Gym will open tmr
-            } else if let nextOpenTomorrow = tomorrowsHours?.sorted(by: { $0.startTime < $1.startTime }).first {
-
-                strFormat = nextOpenTomorrow.startTime.getHourFormat()
-                return ClientStrings.Home.gymDetailCellOpensAt + nextOpenTomorrow.startTime.getStringOfDatetime(format: strFormat)
-
-                // Closed
-            } else {
-                return ClientStrings.CommonStrings.closed
-            }
+            return ClientStrings.CommonStrings.closed
         }
     }
 
