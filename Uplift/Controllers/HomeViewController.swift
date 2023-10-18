@@ -62,7 +62,8 @@ class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.tabBarController?.tabBar.isHidden = false
+//        navigationController?.tabBarController?.tabBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
 
     @objc func reloadUpliftData() {
