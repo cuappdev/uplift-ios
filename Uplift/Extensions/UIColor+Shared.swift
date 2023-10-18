@@ -26,6 +26,7 @@ extension UIColor {
     // MARK: - Grays
     // Used for old designs, to be replaced when views are re-implemented
     @nonobjc static let upliftMediumGrey = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1.0)
+    @nonobjc static let gray00 = colorFromCode(0xEFF1F4)
     @nonobjc static let gray01 = colorFromCode(0xE5ECED)
     @nonobjc static let gray02 = colorFromCode(0xA1A5A6)
     @nonobjc static let gray03 = colorFromCode(0xA5A5A5)

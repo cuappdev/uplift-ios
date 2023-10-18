@@ -30,6 +30,7 @@ post_install do |installer|
       xcconfig_path = config.base_configuration_reference.real_path
       xcconfig = File.read(xcconfig_path)
       xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
+      config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
       File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
     end
   end
