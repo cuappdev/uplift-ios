@@ -66,7 +66,7 @@ class HomeViewController: UIViewController {
     }
 
     @objc func reloadUpliftData() {
-        guard FitnessCenterManager.shared.numFitnessCenters > 0 else { return }
+        guard GymManager.shared.numFitnessCenters > 0 else { return }
         collectionView.reloadData()
         self.loadingHeader.isHidden = true
         self.loadingScrollView.isHidden = true

@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol GymsListCellDelegate: class {
-    func allGymsCellShouldOpenGym(_ gym: Gym)
+protocol GymsListCellDelegate: AnyObject{
+    func openGymDetail(gymId: Int)
 }
 
 class GymsListCell: ListCollectionViewCell<FitnessCenter, GymListItemCell> {
@@ -38,8 +38,7 @@ class GymsListCell: ListCollectionViewCell<FitnessCenter, GymListItemCell> {
     }
 
     override func didSelectItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
-        let gym = models[indexPath.item]
-//        delegate?.allGymsCellShouldOpenGym(gym) // TODO: - Implement this
+        delegate?.openGymDetail(gymId: models[indexPath.item].gymId)
     }
 
     override func didHighlightItemAt(_ collectionView: UICollectionView, indexPath: IndexPath) {

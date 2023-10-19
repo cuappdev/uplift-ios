@@ -6,26 +6,25 @@
 //  Copyright © 2019 Cornell AppDev. All rights reserved.
 //
 
-enum WeekDay: String, CaseIterable {
-    case sunday = "Su"
-    case monday = "M"
-    case tuesday = "T"
-    case wednesday = "W"
-    case thursday = "Th"
-    case friday = "F"
-    case saturday = "Sa"
+enum WeekDay: Int, CaseIterable {
 
-    /// Maps each enum case to index corresponding to ones returned by
-    /// Calendar.current.component(.weekDay, from: Date())
-    var index: Int {
+    case sunday = 1
+    case monday = 2
+    case tuesday = 3
+    case wednesday = 4
+    case thursday = 5
+    case friday = 6
+    case saturday = 7
+
+    var dayAbbreviation: String {
         switch self {
-        case .sunday:       return 1
-        case .monday:       return 2
-        case .tuesday:      return 3
-        case .wednesday:    return 4
-        case .thursday:     return 5
-        case .friday:       return 6
-        case .saturday:     return 7
+        case .sunday:       return "Su"
+        case .monday:       return "M"
+        case .tuesday:      return "T"
+        case .wednesday:    return "W"
+        case .thursday:     return "Th"
+        case .friday:       return "F"
+        case .saturday:     return "Sa"
         }
     }
 }

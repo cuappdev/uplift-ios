@@ -242,19 +242,19 @@ extension ClassDetailViewController: UICollectionViewDataSource, UICollectionVie
 // MARK: - Item Height Calculations
 extension ClassDetailViewController {
     func getTimeHeight() -> CGFloat {
-        return Constraints.verticalPadding + Constraints.titleLabelHeight +
-            ClassDetailTimeCell.Constants.timeLabelTopPadding + Constraints.titleLabelHeight +
+        return GymDetailConstraints.verticalPadding + GymDetailConstraints.titleLabelHeight +
+            ClassDetailTimeCell.Constants.timeLabelTopPadding + GymDetailConstraints.titleLabelHeight +
             ClassDetailTimeCell.Constants.addToCalendarButtonTopPadding +
             ClassDetailTimeCell.Constants.addToCalendarButtonHeight +
             ClassDetailTimeCell.Constants.addToCalendarLabelTopPadding +
             ClassDetailTimeCell.Constants.addToCalendarLabelHeight +
-            Constraints.verticalPadding + Constraints.dividerViewHeight
+            GymDetailConstraints.verticalPadding + GymDetailConstraints.dividerViewHeight
     }
 
     func getFunctionHeight(width: CGFloat) -> CGFloat {
-        let baseHeight = Constraints.verticalPadding + Constraints.titleLabelHeight +
+        let baseHeight = GymDetailConstraints.verticalPadding + GymDetailConstraints.titleLabelHeight +
             ClassDetailFunctionCell.Constants.functionDescriptionLabelTopPadding +
-            Constraints.verticalPadding + Constraints.dividerViewHeight
+            GymDetailConstraints.verticalPadding + GymDetailConstraints.dividerViewHeight
 
         let descriptionLabelWidth = width - CGFloat(ClassDetailFunctionCell.Constants.descriptionLabelHorizontalPadding * 2)
         let string = gymClassInstance.tags.map { $0.name }.joined(separator: " · ")
@@ -264,7 +264,7 @@ extension ClassDetailViewController {
     }
 
     func getDescriptionHeight(width: CGFloat) -> CGFloat {
-        let baseHeight = 2.0 * Constraints.verticalPadding + Constraints.dividerViewHeight
+        let baseHeight = 2.0 * GymDetailConstraints.verticalPadding + GymDetailConstraints.dividerViewHeight
 
         let descriptionTextViewWidth = width - CGFloat(ClassDetailDescriptionCell.Constants.descriptionTextViewHorizontalPadding * 2)
         let descriptionTextViewHeight = gymClassInstance.classDescription.height(withConstrainedWidth: descriptionTextViewWidth, font: UIFont._14MontserratLight!)
@@ -275,7 +275,7 @@ extension ClassDetailViewController {
     func getNextSessionsHeight(numberOfSessions: CGFloat) -> CGFloat {
         let nextSessionsCellHeight: CGFloat = 112
 
-        let baseHeight = Constraints.verticalPadding + Constraints.titleLabelHeight +
+        let baseHeight = GymDetailConstraints.verticalPadding + GymDetailConstraints.titleLabelHeight +
             ClassDetailNextSessionsCell.Constants.collectionViewTopPadding +
             ClassDetailNextSessionsCell.Constants.collectionViewBottomPadding
 

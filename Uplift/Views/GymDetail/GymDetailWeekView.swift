@@ -92,7 +92,7 @@ extension GymDetailWeekView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = days[indexPath.row]
-        onChangeDay?(selectedDay.index - 1)
+        onChangeDay?(selectedDay.rawValue - 1)
     }
 
 }

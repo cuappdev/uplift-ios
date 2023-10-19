@@ -96,16 +96,16 @@ class ClassDetailTimeCell: UICollectionViewCell {
 
         dateLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.top.equalToSuperview().offset(GymDetailConstraints.verticalPadding)
             make.trailing.equalToSuperview()
-            make.height.equalTo(Constraints.titleLabelHeight)
+            make.height.equalTo(GymDetailConstraints.titleLabelHeight)
         }
 
         timeLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.equalTo(dateLabel.snp.bottom).offset(Constants.timeLabelTopPadding)
             make.trailing.equalToSuperview()
-            make.height.equalTo(Constraints.titleLabelHeight)
+            make.height.equalTo(GymDetailConstraints.titleLabelHeight)
         }
 
         addToCalendarButton.snp.makeConstraints { make in
@@ -122,10 +122,10 @@ class ClassDetailTimeCell: UICollectionViewCell {
         }
 
         dividerView.snp.makeConstraints { make in
-            make.height.equalTo(Constraints.dividerViewHeight)
+            make.height.equalTo(GymDetailConstraints.dividerViewHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(Constraints.verticalPadding)
+            make.top.equalTo(addToCalendarLabel.snp.bottom).offset(GymDetailConstraints.verticalPadding)
         }
     }
 

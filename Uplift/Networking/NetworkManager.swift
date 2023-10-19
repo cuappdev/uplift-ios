@@ -69,7 +69,7 @@ struct NetworkManager {
 
     // MARK: - Fitness Centers
 
-    func getFitnessCenters(completion: @escaping ([QLGym]?) -> Void) {
+    func getAllGyms(completion: @escaping ([QLGym]?) -> Void) {
         apollo.fetch(query: AllGymsQuery()) { result in
             guard let gymsData = try? result.get().data?.gyms else {
                 completion(nil)

@@ -23,7 +23,7 @@ class ClassDetailNextSessionsCell: UICollectionViewCell {
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        return Constraints.verticalPadding + Constraints.titleLabelHeight + Constants.collectionViewTopPadding + Constants.collectionViewBottomPadding
+        return GymDetailConstraints.verticalPadding + GymDetailConstraints.titleLabelHeight + Constants.collectionViewTopPadding + Constants.collectionViewBottomPadding
     }
 
     // MARK: - Private view vars
@@ -83,8 +83,8 @@ class ClassDetailNextSessionsCell: UICollectionViewCell {
     private func setupConstraints() {
         nextSessionsLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(Constraints.verticalPadding)
-            make.height.equalTo(Constraints.titleLabelHeight)
+            make.top.equalToSuperview().offset(GymDetailConstraints.verticalPadding)
+            make.height.equalTo(GymDetailConstraints.titleLabelHeight)
         }
 
         collectionView.snp.makeConstraints { make in

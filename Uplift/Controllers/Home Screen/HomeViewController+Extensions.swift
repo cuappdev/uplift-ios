@@ -25,7 +25,7 @@ extension HomeViewController: UICollectionViewDataSource {
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymsListCellIdentifier, for: indexPath) as! GymsListCell
             cell.delegate = self
-            cell.configure(for: FitnessCenterManager.shared.getFitnessCenter())
+            cell.configure(for: GymManager.shared.getFitnessCenter())
             return cell
 
         // TODO: - Add back other sections
@@ -82,7 +82,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         switch sections[indexPath.section] {
         case .fitnessCenters:
             // Height of all cells (in rows of 2), plus line spacings after each of them
-            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumItemSpacing) * ceil(CGFloat(integerLiteral: FitnessCenterManager.shared.getFitnessCenter().count))
+            var height: CGFloat = (GymsListCell.itemHeight + GymsListCell.minimumItemSpacing) * ceil(CGFloat(integerLiteral: GymManager.shared.getFitnessCenter().count))
 
             // Subtract extra minimum line spacing below the last row of cells, and add the section inset
             height += GymsListCell.sectionInsetBottom - GymsListCell.minimumItemSpacing
@@ -119,9 +119,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
 
 extension HomeViewController: GymsListCellDelegate {
 
-    func allGymsCellShouldOpenGym(_ gym: Gym) {
-        let gymDetailViewController = GymDetailViewController(gym: gym)
-        navigationController?.pushViewController(gymDetailViewController, animated: true)
+    func openGymDetail(gymId: Int) {
+        if let gym = GymManager.shared.getGymWith(id: gymId) {
+            let gymDetailViewController = GymDetailViewController(gym:  gym)
+            navigationController?.pushViewController(gymDetailViewController, animated: true)
+        }
     }
 }
 
