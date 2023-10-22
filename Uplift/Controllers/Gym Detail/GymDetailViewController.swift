@@ -15,37 +15,23 @@ class GymDetailViewController: UIViewController {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: StretchyHeaderLayout())
 
     // MARK: - Private data vars
-    private var section: Section!
+    private var sections: [ItemType]!
 
     // MARK: - Public data vars
     var gymDetail: Gym!
 
-    // TODO: - Move to cell classes
-//    private enum Constants {
-//        static let gymDetailHoursCellIdentifier = "gymDetailHoursCellIdentifier"
-//        static let gymDetailFacilitiesCellIdentifier = "gymDetailFacilitiesCellIdentifier"
-//        static let gymDetailPopularTimesCellIdentifier = "gymDetailPopularTimesCellIdentifier"
-//    }
-
     // MARK: - Private classes/enums
-    private struct Section {
-        var items: [ItemType]
-    }
 
     private enum ItemType {
         case hours
-        // TODO: - Reimplement necesary items
-//        case busyTimes
-//        case classes([GymClassInstance])
-//        case facilities([FacilityDropdown])
+        case tabbedController
     }
 
     // MARK: - Custom Initializer
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
         gymDetail = gym
-        section = Section(items: [.hours])
-        collectionView.backgroundColor = .white
+        sections = [.hours, .tabbedController]
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -82,11 +68,11 @@ class GymDetailViewController: UIViewController {
 extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.section.items.count
+        return self.sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let itemType = section.items[indexPath.item]
+        let itemType = sections[indexPath.item]
 
         switch itemType {
         case .hours:
@@ -95,53 +81,21 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             cell.configure(for: self, hours: gymDetail.hours, isDisclosed: gymDetail.hoursIsDisclosed)
             return cell
 
-            // TODO: - Reimplement necessary items
-//        case .busyTimes:
-//            // swiftlint:disable:next force_cast
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailPopularTimesCellIdentifier, for: indexPath) as! GymDetailPopularTimesCell
-//            cell.configure(for: gymDetail.gym, selectedPopularTimeIndex: selectedPopularTimeIndex) { index in
-//                self.selectedPopularTimeIndex = index
-//            }
-//            return cell
-//        case .facilities:
-//            // swiftlint:disable:next force_cast
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier, for: indexPath) as! GymDetailFacilitiesCell
-//
-//            let itemType = section.items[indexPath.row]
-//            var facilityDropdowns: [FacilityDropdown] = []
-//            if case .facilities(let dropdowns) = itemType {
-//                facilityDropdowns = dropdowns
-//            }
-//            let reloadFacilitiesCellAt: (Int?) -> Void = { index in
-//                // Set the current dropdown status (closed or open) at that index to its opposite
-//                if let index = index {
-//                    let dropdownStatus = facilityDropdowns[index].dropdownStatus
-//                    facilityDropdowns[index].dropdownStatus = dropdownStatus == .closed
-//                        ? .open
-//                        : .closed
-//                }
-//                UIView.performWithoutAnimation {
-//                    self.collectionView.reloadItems(at: [indexPath])
-//                }
-//            }
-//            cell.backgroundColor = .white
-//            cell.configure(for: facilityDropdowns,
-//                           reloadGymDetailCollectionViewClosure: reloadFacilitiesCellAt)
-//            return cell
-//        case .classes:
-//            // swiftlint:disable:next force_cast
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.gymDetailClassesCellIdentifier, for: indexPath) as! GymDetailTodaysClassesCell
-//            cell.configure(for: self, classes: todaysClasses)
-//            return cell
+        case .tabbedController:
+            // swiftlint:disable:next force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymDetailTabbedControllerCell.reuseId, for: indexPath) as! GymDetailTabbedControllerCell
+            return cell
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height: CGFloat
 
-        switch section.items[indexPath.item] {
+        switch sections[indexPath.item] {
         case .hours:
-            height = getHoursHeight()
+            height = GymDetailHoursCell.getHeight(isDisclosed: gymDetail.hoursIsDisclosed, numLines: gymDetail.hours.getNumHoursLines())
+        case .tabbedController:
+            height = self.view.frame.height
         }
 
         return CGSize(width: collectionView.frame.width, height: height)
@@ -177,9 +131,7 @@ extension GymDetailViewController {
         collectionView.register(GymDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: GymDetailHeaderView.reuseId)
 
         collectionView.register(GymDetailHoursCell.self, forCellWithReuseIdentifier: GymDetailHoursCell.reuseId)
-        // TODO: - Reimplement
-//        collectionView.register(GymDetailFacilitiesCell.self, forCellWithReuseIdentifier: Constants.gymDetailFacilitiesCellIdentifier)
-//        collectionView.register(GymDetailTodaysClassesCell.self, forCellWithReuseIdentifier: GymDetailHoursCell.reuseId)
+        collectionView.register(GymDetailTabbedControllerCell.self, forCellWithReuseIdentifier: GymDetailTabbedControllerCell.reuseId)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -198,17 +150,7 @@ extension GymDetailViewController {
 // MARK: - Item Height Calculations
 extension GymDetailViewController {
 
-    func getHoursHeight() -> CGFloat {
-        var height = GymDetailConstraints.cellPadding + GymDetailHoursCell.LayoutConstants.hoursTableViewTopPadding + GymDetailHoursCell.LayoutConstants.hoursTableViewBottomRowHeight
-
-        if gymDetail.hoursIsDisclosed {
-            height += CGFloat(gymDetail.hours.getNumHoursLines() - 1) * GymDetailHoursCell.LayoutConstants.hoursTableViewRowHeight
-        }
-
-        return height
-    }
-
-    // TODO: - Reimplement what's necessary
+    // TODO: - Move to subclasses
 //    func getFacilitiesHeight(_ facilityDropdowns: [FacilityDropdown]) -> CGFloat {
 //        return GymDetailFacilitiesCell.getHeights(for: facilityDropdowns) + 2 * GymDetailConstraints.verticalPadding + GymDetailConstraints.titleLabelHeight
 //    }

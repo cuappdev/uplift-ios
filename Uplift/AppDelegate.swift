@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Run ad hock unit test
         AdHockTest.runAllTests()
 #endif
-
+//
         GymManager.shared.fetch()
 
         // TODO: - Add back onboarding

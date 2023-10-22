@@ -37,7 +37,6 @@ class GymDetailHoursCell: UICollectionViewCell {
 
         hours = OpenHours(openHours: [])
         setupViews()
-        setupConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,11 +61,13 @@ class GymDetailHoursCell: UICollectionViewCell {
         hoursTitleLabel.textColor = .primaryBlack
         hoursTitleLabel.textAlignment = .center
         hoursTitleLabel.text = ClientStrings.GymDetail.hoursLabel
+        hoursTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hoursTitleLabel)
 
         hoursTableView = UITableView(frame: .zero, style: .grouped)
         hoursTableView.bounces = false
         hoursTableView.showsVerticalScrollIndicator = false
+        hoursTableView.showsHorizontalScrollIndicator = false
         hoursTableView.separatorStyle = .none
         hoursTableView.backgroundColor = .clear
         hoursTableView.isScrollEnabled = false
@@ -75,18 +76,41 @@ class GymDetailHoursCell: UICollectionViewCell {
         hoursTableView.register(GymHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: GymHoursHeaderView.identifier)
         hoursTableView.delegate = self
         hoursTableView.dataSource = self
+        hoursTableView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hoursTableView)
 
+        // TODO: - Fix layout to match designs
         dividerView.backgroundColor = .gray01
+//        dividerView.backgroundColor = .clear
+        dividerView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(dividerView)
     }
 
     private func getTableViewHeight() -> CGFloat {
-        if isDisclosed {
-            return CGFloat(hours.getNumHoursLines() - 1) * LayoutConstants.hoursTableViewRowHeight + LayoutConstants.hoursTableViewBottomRowHeight
-        } else {
-            return LayoutConstants.hoursTableViewBottomRowHeight
+        if hours.isEmpty() {
+            return 0.0
         }
+
+        var height = LayoutConstants.hoursTableViewBottomRowHeight
+
+        if isDisclosed {
+         height += CGFloat(hours.getNumHoursLines() - 1) * LayoutConstants.hoursTableViewRowHeight
+        }
+
+        return height
+    }
+
+    public static func getHeight(isDisclosed: Bool, numLines: Int) -> CGFloat {
+        var height = LayoutConstants.hoursTableViewBottomRowHeight
+        if isDisclosed {
+            height += CGFloat(numLines - 1) * LayoutConstants.hoursTableViewRowHeight
+        }
+        height += GymDetailConstraints.verticalPadding
+        height += GymDetailConstraints.titleLabelHeight
+        height += LayoutConstants.hoursTableViewTopPadding
+        height += GymDetailConstraints.verticalPadding
+        height += GymDetailConstraints.dividerViewHeight
+        return height
     }
 
     private func setupConstraints() {
@@ -98,19 +122,20 @@ class GymDetailHoursCell: UICollectionViewCell {
 
         hoursTableView.snp.updateConstraints { make in
             make.centerX.width.equalToSuperview()
+            make.width.equalToSuperview()
             make.top.equalTo(hoursTitleLabel.snp.bottom).offset(LayoutConstants.hoursTableViewTopPadding)
-            if !hours.isEmpty() {
-                make.height.equalTo(getTableViewHeight())
-            } else {
-                make.height.equalTo(0)
-            }
+            make.height.equalTo(getTableViewHeight())
         }
 
         dividerView.snp.updateConstraints { make in
-            make.top.equalTo(hoursTableView.snp.bottom).offset(GymDetailConstraints.verticalPadding)
+//            make.top.equalTo(hoursTableView.snp.bottom).offset(GymDetailConstraints.verticalPadding)
+            make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
+            make.width.equalToSuperview()
             make.height.equalTo(GymDetailConstraints.dividerViewHeight)
         }
+
+        self.setNeedsLayout()
     }
 
     // MARK: - Targets
@@ -152,6 +177,19 @@ class GymDetailHoursCell: UICollectionViewCell {
         }
         hoursTableView.endUpdates()
     }
+
+    // TODO: - self sizing cells
+//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//        super.preferredLayoutAttributesFitting(layoutAttributes)
+//        print(layoutAttributes.frame)
+//        if let width = self.contentView.superview?.superview?.frame.size.width {
+//            layoutAttributes.frame.size.width = width
+//        }
+//        let height = GymDetailHoursCell.getHeight(isDisclosed: self.isDisclosed, numLines: self.hours.getNumHoursLines())
+//        layoutAttributes.frame.size.height = GymDetailHoursCell.getHeight(isDisclosed: self.isDisclosed, numLines: self.hours.getNumHoursLines())
+//        return layoutAttributes
+//    }
+
 }
 
 extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
