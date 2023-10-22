@@ -125,6 +125,7 @@ extension HomeViewController: GymsListCellDelegate {
             navigationController?.pushViewController(gymDetailViewController, animated: true)
         }
     }
+
 }
 
 extension HomeViewController: TodaysClassesListCellDelegate {
@@ -171,4 +172,5 @@ extension HomeViewController: ChooseGymsDelegate {
         tabBarController?.selectedIndex = 1
         tabBarController?.selectedViewController = classNavigationController
     }
+
 }

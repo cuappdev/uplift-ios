@@ -190,4 +190,5 @@ extension GymDetailHoursCell: UITableViewDelegate, UITableViewDataSource {
         let height: CGFloat = isDisclosed ? LayoutConstants.hoursTableViewRowHeight : LayoutConstants.hoursTableViewBottomRowHeight
         return height
     }
+
 }

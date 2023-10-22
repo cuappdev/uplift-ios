@@ -57,4 +57,5 @@ class GymWeekCell: UICollectionViewCell {
         backCircle.backgroundColor = isSelected ? .primaryYellow : .gray01
         dayLabel.text = weekDay.dayAbbreviation
     }
+
 }

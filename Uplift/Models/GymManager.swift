@@ -9,6 +9,7 @@
 import Foundation
 
 class GymManager {
+
     static var shared = GymManager()
 
     private var fitnessCenters: [FitnessCenter] = []
