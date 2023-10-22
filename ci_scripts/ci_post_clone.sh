@@ -15,3 +15,10 @@ echo "Installing Secrets..."
 brew install wget
 wget -O ../Uplift/GoogleService-Info.plist "$GOOGLE_SERVICE_PLIST"
 wget -O ../Uplift/Keys.plist "$KEYS_PLIST"
+
+# Don't run this during index builds
+if [ $ACTION = "indexbuild" ]; then exit 0; fi
+
+SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"
+cd "${SRCROOT}/${TARGET_NAME}"
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="../schema.graphql" API.swift
