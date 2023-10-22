@@ -240,6 +240,7 @@
 		41714B102AE5D22400AF2FCF /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keys.plist; path = ../../../../../Downloads/Keys.plist; sourceTree = "<group>"; };
 		41714B122AE5D23100AF2FCF /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info (1).plist"; path = "../../../../Downloads/GoogleService-Info (1).plist"; sourceTree = "<group>"; };
 		41714B142AE5D25100AF2FCF /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = ../../../../Downloads/API.swift; sourceTree = "<group>"; };
+		41714B162AE5D8A500AF2FCF /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 		44AD59D87BA6993A7337E3B0 /* Pods-Uplift Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.debug.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTimeInfoView.swift; sourceTree = "<group>"; };
 		4F187273235FD63A00A85283 /* AdditionalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoView.swift; sourceTree = "<group>"; };
@@ -458,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				415F90582AE58B1B00BB2A2E /* ci_post_clone.sh */,
+				41714B162AE5D8A500AF2FCF /* ci_pre_xcodebuild.sh */,
 			);
 			path = ci_scripts;
 			sourceTree = "<group>";
