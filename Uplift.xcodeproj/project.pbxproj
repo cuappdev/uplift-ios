@@ -38,6 +38,9 @@
 		2D9B3BF029E352A000E7D93A /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BEF29E352A000E7D93A /* Activity.swift */; };
 		2D9B3BF229E3569600E7D93A /* ActivityListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BF129E3569600E7D93A /* ActivityListItemCell.swift */; };
 		2DA9E6A929CB644A00EFED2B /* GymCellFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9E6A829CB644A00EFED2B /* GymCellFooter.swift */; };
+		41714B112AE5D22400AF2FCF /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41714B102AE5D22400AF2FCF /* Keys.plist */; };
+		41714B132AE5D23100AF2FCF /* GoogleService-Info (1).plist in Resources */ = {isa = PBXBuildFile; fileRef = 41714B122AE5D23100AF2FCF /* GoogleService-Info (1).plist */; };
+		41714B152AE5D25100AF2FCF /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41714B142AE5D25100AF2FCF /* API.swift */; };
 		4F187272235FD59900A85283 /* GymDetailTimeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */; };
 		4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187273235FD63A00A85283 /* AdditionalInfoView.swift */; };
 		4F18C34823610A0B00BFB603 /* FacilitiesHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F18C34723610A0B00BFB603 /* FacilitiesHoursCell.swift */; };
@@ -95,8 +98,6 @@
 		8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */; };
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
-		BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784A2A9B3BCB0072FDDE /* Keys.plist */; };
-		BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */; };
 		BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */; };
 		BF61D7A22AC0AF7800A2174B /* AdHockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */; };
 		BF9DA0F92AA3EE360069291D /* FitnessCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */; };
@@ -106,7 +107,6 @@
 		BF9DA1012AA402790069291D /* QLOpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA1002AA402790069291D /* QLOpenHours.swift */; };
 		BFBEE1282AB95CC0003F264E /* OpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBEE1272AB95CC0003F264E /* OpenHours.swift */; };
 		BFCA93D82AA657B70005D191 /* QLCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D72AA657B70005D191 /* QLCapacity.swift */; };
-		BFCA93DA2AA66B6B0005D191 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D92AA66B6B0005D191 /* API.swift */; };
 		C218F937233DBE080018838A /* GymDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C218F936233DBE080018838A /* GymDetail.swift */; };
 		C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */; };
 		C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14C2292374400B5D219 /* HomeViewController.swift */; };
@@ -237,6 +237,9 @@
 		2DA9E6A829CB644A00EFED2B /* GymCellFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCellFooter.swift; sourceTree = "<group>"; };
 		3A2D17ACE2F199BC7DB24332 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		415F90582AE58B1B00BB2A2E /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
+		41714B102AE5D22400AF2FCF /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keys.plist; path = ../../../../../Downloads/Keys.plist; sourceTree = "<group>"; };
+		41714B122AE5D23100AF2FCF /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info (1).plist"; path = "../../../../Downloads/GoogleService-Info (1).plist"; sourceTree = "<group>"; };
+		41714B142AE5D25100AF2FCF /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = ../../../../Downloads/API.swift; sourceTree = "<group>"; };
 		44AD59D87BA6993A7337E3B0 /* Pods-Uplift Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.debug.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTimeInfoView.swift; sourceTree = "<group>"; };
 		4F187273235FD63A00A85283 /* AdditionalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoView.swift; sourceTree = "<group>"; };
@@ -299,8 +302,6 @@
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
 		9767DD303DDD6CA26F709130 /* Pods-Uplift Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.release.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.release.xcconfig"; sourceTree = "<group>"; };
-		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = Keys.plist; path = ../Keys.plist; sourceTree = "<group>"; };
-		BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHockTest.swift; sourceTree = "<group>"; };
 		BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenter.swift; sourceTree = "<group>"; };
@@ -311,7 +312,6 @@
 		BFA1BC1A2ABBA7AD0064932D /* Uplift Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Uplift Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFBEE1272AB95CC0003F264E /* OpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenHours.swift; sourceTree = "<group>"; };
 		BFCA93D72AA657B70005D191 /* QLCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLCapacity.swift; sourceTree = "<group>"; };
-		BFCA93D92AA66B6B0005D191 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C218F936233DBE080018838A /* GymDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetail.swift; sourceTree = "<group>"; };
 		C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C21BE14C2292374400B5D219 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 		41714B0F2AE5CCD500AF2FCF /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
-				BF52784A2A9B3BCB0072FDDE /* Keys.plist */,
+				41714B102AE5D22400AF2FCF /* Keys.plist */,
 			);
 			name = Secrets;
 			path = Secrets/Secrets;
@@ -693,8 +693,8 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */,
-				BFCA93D92AA66B6B0005D191 /* API.swift */,
+				41714B122AE5D23100AF2FCF /* GoogleService-Info (1).plist */,
+				41714B142AE5D25100AF2FCF /* API.swift */,
 				C7DFABCE204206E000545B0B /* AppDelegate.swift */,
 				1C7847C3216E77E30066E0DA /* Assets.xcassets */,
 				C7DFABE22042081000545B0B /* Controllers */,
@@ -983,8 +983,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */,
-				BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */,
 				E6028E252450E19000DAF837 /* SF-Pro-Display-Bold.otf in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				E638F20624468BCC006AE55B /* BebasNeue-Thin.ttf in Resources */,
@@ -997,10 +995,12 @@
 				C7DFABD9204206E000545B0B /* LaunchScreen.storyboard in Resources */,
 				E638F20424468BCC006AE55B /* BebasNeue-Bold.ttf in Resources */,
 				E638F20524468BCC006AE55B /* BebasNeue-Book.ttf in Resources */,
+				41714B132AE5D23100AF2FCF /* GoogleService-Info (1).plist in Resources */,
 				8D61D8832162F15900969DF4 /* Montserrat-SemiBold.ttf in Resources */,
 				8D26DB0E2072C55D00144BFC /* Montserrat-Bold.otf in Resources */,
 				1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */,
 				E6028E242450E19000DAF837 /* SF-Pro-Display-Light.otf in Resources */,
+				41714B112AE5D22400AF2FCF /* Keys.plist in Resources */,
 				BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */,
 				1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */,
 			);
@@ -1220,6 +1220,7 @@
 				2DA9E6A929CB644A00EFED2B /* GymCellFooter.swift in Sources */,
 				4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */,
 				E69A8578248B3E6100490EC3 /* OnboardingLetterViewController.swift in Sources */,
+				41714B152AE5D25100AF2FCF /* API.swift in Sources */,
 				03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */,
 				2D9B3BF029E352A000E7D93A /* Activity.swift in Sources */,
 				0C97AC2B2276841B0086D699 /* FacilityHoursHeaderView.swift in Sources */,
@@ -1239,7 +1240,6 @@
 				C21BE1522292421200B5D219 /* ListCollectionViewCell.swift in Sources */,
 				2D9B3BEE29E3520400E7D93A /* ActivitiesListCell.swift in Sources */,
 				E6709F252407B08E00ABC1FF /* LoadingHeaderView.swift in Sources */,
-				BFCA93DA2AA66B6B0005D191 /* API.swift in Sources */,
 				C218F937233DBE080018838A /* GymDetail.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				7E9D6DF322961E000054F710 /* GymDetailPopularTimesCell.swift in Sources */,
