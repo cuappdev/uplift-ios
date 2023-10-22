@@ -18,10 +18,10 @@ class GymDetailTabbedControl: UIView, TabbedControl {
     private var buttons: [UIButton]
     private var slideViewLeading: ConstraintMakerEditable?
 
+    weak var delegate: TabbedControlDelegate?
+
     // MARK: - Private data vars
     private var currentTab: Int = 0
-
-    weak var delegate: TabbedControlDelegate?
 
     init(tabs: [String]) {
         self.buttons = []
@@ -39,7 +39,7 @@ class GymDetailTabbedControl: UIView, TabbedControl {
         if clicked == currentTab {
             return
         }
-        delegate?.didMoveTo(index: clicked)
+        self.delegate?.didMoveTo(index: clicked)
         buttons[currentTab].titleLabel?.font = ._12MontserratMedium
         buttons[clicked].titleLabel?.font = ._12MontserratBold
         currentTab = clicked

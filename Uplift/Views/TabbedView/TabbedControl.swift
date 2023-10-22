@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 protocol TabbedControlDelegate: AnyObject {
     func didMoveTo(index: Int)
 }
 
 // TODO: - Implement communication for swipe gesture
-protocol TabbedControl: AnyObject {
+protocol TabbedControl: UIView {
+    var delegate: TabbedControlDelegate? { get set }
 }
