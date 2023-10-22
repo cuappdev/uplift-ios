@@ -299,7 +299,7 @@
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
 		9767DD303DDD6CA26F709130 /* Pods-Uplift Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.release.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.release.xcconfig"; sourceTree = "<group>"; };
-		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = Keys.plist; path = ../Keys.plist; sourceTree = "<group>"; };
 		BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHockTest.swift; sourceTree = "<group>"; };
@@ -460,6 +460,15 @@
 				415F90582AE58B1B00BB2A2E /* ci_post_clone.sh */,
 			);
 			path = ci_scripts;
+			sourceTree = "<group>";
+		};
+		41714B0F2AE5CCD500AF2FCF /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				BF52784A2A9B3BCB0072FDDE /* Keys.plist */,
+			);
+			name = Secrets;
+			path = Secrets/Secrets;
 			sourceTree = "<group>";
 		};
 		4F27F6D5236F24C800C255D7 /* Recovered References */ = {
@@ -660,7 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				415F90572AE58B0300BB2A2E /* ci_scripts */,
-				E60DE89E232DA6D20022BC72 /* Secrets */,
+				41714B0F2AE5CCD500AF2FCF /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
 				630ADD112051BECC00B8E255 /* Fonts */,
@@ -836,14 +845,6 @@
 				7E2E2A84237BAE86008F600D /* HoursEmptyStateView.swift */,
 			);
 			path = "Empty States";
-			sourceTree = "<group>";
-		};
-		E60DE89E232DA6D20022BC72 /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-				BF52784A2A9B3BCB0072FDDE /* Keys.plist */,
-			);
-			path = Secrets;
 			sourceTree = "<group>";
 		};
 		E676F1282450DB87001DF8A8 /* Pickup Games */ = {
