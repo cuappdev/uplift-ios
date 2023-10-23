@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol GymDetailFitnessCenterDelegate: AnyObject {
+    func didChangeSize(completion: @escaping () -> Void)
+}
+
 class GymDetailFitnessCenter: UIViewController {
 
     private var tableView = {
@@ -16,6 +20,7 @@ class GymDetailFitnessCenter: UIViewController {
 
         // Layout
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
 
         // Styling
         tableView.backgroundColor = .clear
@@ -31,9 +36,11 @@ class GymDetailFitnessCenter: UIViewController {
         return tableView
     }()
 
-    private var fitnessCenter: FitnessCenter?
+    private var fitnessCenter: FitnessCenter!
 
-    private var sections: [ItemType]!
+    private static let sections: [ItemType]! = [.capacity, .hours]
+
+    weak var delegate: GymDetailFitnessCenterDelegate?
 
     private enum ItemType {
         case capacity
@@ -42,7 +49,6 @@ class GymDetailFitnessCenter: UIViewController {
 
     init(fitnessCenter: FitnessCenter) {
         super.init(nibName: nil, bundle: nil)
-        sections = [.capacity, .hours]
         self.fitnessCenter = fitnessCenter
     }
 
@@ -67,16 +73,29 @@ class GymDetailFitnessCenter: UIViewController {
         tableView.reloadData()
     }
 
+    static func getHeight(fitnessCenter: FitnessCenter, viewWidth: CGFloat) -> CGFloat {
+        var height: CGFloat = 0
+        for section in sections {
+            switch section {
+            case .capacity:
+                height += GymDetailFitnessCenterCapacityCell.getHeight(capacityHeight: viewWidth / 2)
+            case .hours:
+                height += GymDetailFitnessCenterHoursCell.getHeight(isDisclosed: fitnessCenter.isHoursDisclosed, numLines: fitnessCenter.hours.getNumHoursLines())
+            }
+        }
+        return height
+    }
+
 }
 
 extension GymDetailFitnessCenter: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections.count
+        return GymDetailFitnessCenter.sections.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch sections[indexPath.row] {
+        switch GymDetailFitnessCenter.sections[indexPath.row] {
         case .capacity:
             // swiftlint:disable:next force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: GymDetailFitnessCenterCapacityCell.reuseId, for: indexPath) as! GymDetailFitnessCenterCapacityCell
@@ -87,12 +106,33 @@ extension GymDetailFitnessCenter: UITableViewDataSource {
         case .hours:
             // swiftlint:disable:next force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: GymDetailFitnessCenterHoursCell.reuseId, for: indexPath) as! GymDetailFitnessCenterHoursCell
+            if let fitnessCenter = self.fitnessCenter {
+                cell.configure(delegate: self, hours: fitnessCenter.hours, isDisclosed: fitnessCenter.isHoursDisclosed)
+            }
             return cell
         }
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch GymDetailFitnessCenter.sections[indexPath.row] {
+        case .capacity:
+            return GymDetailFitnessCenterCapacityCell.getHeight(capacityHeight: self.view.frame.width / 2)
+        case .hours:
+            return GymDetailFitnessCenterHoursCell.getHeight(isDisclosed: fitnessCenter.isHoursDisclosed, numLines: fitnessCenter.hours.getNumHoursLines())
+        }
+    }
 }
 
 extension GymDetailFitnessCenter: UITableViewDelegate {
 
+}
+
+extension GymDetailFitnessCenter: GymDetailFitnessCenterHoursCellDelegate {
+    func didDropHours(isDropped: Bool, completion: @escaping () -> Void) {
+        self.fitnessCenter?.isHoursDisclosed.toggle()
+        delegate?.didChangeSize {
+            self.tableView.performBatchUpdates({}, completion: nil)
+            completion()
+        }
+    }
 }

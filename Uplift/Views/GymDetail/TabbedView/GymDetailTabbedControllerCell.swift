@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+protocol GymDetailTabbedControllerCellDelegate: AnyObject {
+    func didChangeSize(completion: @escaping () -> Void)
+    func didMoveTo(index: Int, completion: @escaping () -> Void)
+}
+
 class GymDetailTabbedControllerCell: UICollectionViewCell {
 
     static let reuseId = "gymDetailTabbedControllerCellIdentifier"
@@ -18,6 +23,7 @@ class GymDetailTabbedControllerCell: UICollectionViewCell {
     private var tabbedViewContoller: TabbedViewController!
 
     var fitnessCenters: [FitnessCenter]?
+    weak var delegate: GymDetailTabbedControllerCellDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,12 +45,14 @@ class GymDetailTabbedControllerCell: UICollectionViewCell {
 
         for fitnessCenter in fitnessCenters {
             tabs.append(fitnessCenters.count == 1 ? "Fitness Center" : fitnessCenter.name)
-            viewControllers.append(GymDetailFitnessCenter(fitnessCenter: fitnessCenter))
+            let vc = GymDetailFitnessCenter(fitnessCenter: fitnessCenter)
+            vc.delegate = self
+            viewControllers.append(vc)
         }
 
         control = GymDetailTabbedControl(tabs: tabs)
         tabbedViewContoller = TabbedViewController(tabbedControl: control, viewControllers: viewControllers)
-
+        tabbedViewContoller.delegate = self
         setupViews()
         setupConstraints()
     }
@@ -58,6 +66,25 @@ class GymDetailTabbedControllerCell: UICollectionViewCell {
         tabbedViewContoller.view.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalToSuperview()
         }
+    }
+
+    static func getHeight(fitnessCenters: FitnessCenter, viewWidt: CGFloat) -> CGFloat {
+        var height = TabbedViewController.LayoutConstants.controlHeight
+        height += GymDetailFitnessCenter.getHeight(fitnessCenter: fitnessCenters, viewWidth: viewWidt)
+        return height
+    }
+
+}
+
+extension GymDetailTabbedControllerCell: GymDetailFitnessCenterDelegate, TabbedViewControllerDelegate {
+    func didMoveTo(index: Int) {
+        delegate?.didMoveTo(index: index, completion: {})
+    }
+
+    func didChangeSize(completion: @escaping () -> Void) {
+        delegate?.didChangeSize(completion: {
+            completion()
+        })
     }
 
 }

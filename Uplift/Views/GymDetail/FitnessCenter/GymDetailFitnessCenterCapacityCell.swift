@@ -13,8 +13,9 @@ class GymDetailFitnessCenterCapacityCell: UITableViewCell {
 
     enum LayoutConstants {
         static let lineWidth: CGFloat = 20
-        static let capacityCirleTopPadding = 15
-        static let lastUpdatedTopPadding = 5
+        static let capacityCirleTopPadding: CGFloat = 15
+        static let lastUpdatedTopPadding: CGFloat = 5
+        static let lastUpdatedLabelHeight: CGFloat = 10
     }
 
     let capacitiesLabel = {
@@ -30,7 +31,7 @@ class GymDetailFitnessCenterCapacityCell: UITableViewCell {
     var capacityView: CapacityView!
     var capacityViewWidth: CGFloat!
 
-    var lastUpdatedLabel = {
+    let lastUpdatedLabel = {
         let label = UILabel()
         label.font = ._12MontserratMedium
         label.textColor = .gray02
@@ -38,6 +39,13 @@ class GymDetailFitnessCenterCapacityCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Updated: 2:30 PM"
         return label
+    }()
+
+    private let dividerView = {
+        let view = UIView()
+        view.backgroundColor = .gray01
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     static let reuseId = "GymDetailFitnessCenterCapacityCellReuseID"
@@ -53,6 +61,7 @@ class GymDetailFitnessCenterCapacityCell: UITableViewCell {
         contentView.addSubview(capacitiesLabel)
         contentView.addSubview(capacityView)
         contentView.addSubview(lastUpdatedLabel)
+        contentView.addSubview(dividerView)
 
         setupConstraints()
     }
@@ -77,12 +86,29 @@ class GymDetailFitnessCenterCapacityCell: UITableViewCell {
         lastUpdatedLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(capacityView.snp.bottom).offset(LayoutConstants.lastUpdatedTopPadding)
+            make.height.equalTo(LayoutConstants.lastUpdatedLabelHeight)
+        }
+
+        dividerView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(GymDetailConstraints.dividerViewHeight)
+            make.bottom.equalToSuperview()
         }
     }
 
     func configure(capacity: Capacity) {
         self.capacityView.configure(percent: capacity.percent, progressColor: capacity.status.color)
         self.lastUpdatedLabel.text = "Updated: \(Date.getTimeStringFromDate(time: capacity.updated))"
+    }
+
+    static func getHeight(capacityHeight: CGFloat) -> CGFloat {
+        var height: CGFloat = GymDetailConstraints.verticalPadding
+        height += GymDetailConstraints.titleLabelHeight
+        height += LayoutConstants.capacityCirleTopPadding
+        height += capacityHeight
+        height += LayoutConstants.lastUpdatedTopPadding
+        height += LayoutConstants.lastUpdatedLabelHeight
+        return height
     }
 
 }

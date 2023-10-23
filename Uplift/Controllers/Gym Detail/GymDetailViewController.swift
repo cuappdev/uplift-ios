@@ -31,7 +31,7 @@ class GymDetailViewController: UIViewController {
     init(gym: Gym) {
         super.init(nibName: nil, bundle: nil)
         gymDetail = gym
-        sections = [.hours, .tabbedController]
+        sections = [.tabbedController]
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -85,6 +85,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymDetailTabbedControllerCell.reuseId, for: indexPath) as! GymDetailTabbedControllerCell
             cell.configure(fitnessCenters: gymDetail.fitnessCenters)
+            cell.delegate = self
             return cell
         }
     }
@@ -96,7 +97,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .hours:
             height = GymDetailHoursCell.getHeight(isDisclosed: gymDetail.hoursIsDisclosed, numLines: gymDetail.hours.getNumHoursLines())
         case .tabbedController:
-            height = self.view.frame.height
+            height = GymDetailTabbedControllerCell.getHeight(fitnessCenters: gymDetail.fitnessCenters[gymDetail.currentDisplayedFitnessCenter], viewWidt: self.view.frame.width)
         }
 
         return CGSize(width: collectionView.frame.width, height: height)
@@ -113,7 +114,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 360)
+        return CGSize(width: collectionView.frame.width, height: 300)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -148,33 +149,34 @@ extension GymDetailViewController {
 
 }
 
-// MARK: - Item Height Calculations
-extension GymDetailViewController {
+// MARK: - Extensions
+extension GymDetailViewController: GymDetailHoursCellDelegate {
 
-    // TODO: - Move to subclasses
-//    func getFacilitiesHeight(_ facilityDropdowns: [FacilityDropdown]) -> CGFloat {
-//        return GymDetailFacilitiesCell.getHeights(for: facilityDropdowns) + 2 * GymDetailConstraints.verticalPadding + GymDetailConstraints.titleLabelHeight
-//    }
-//
-//    func getTodaysClassesHeight() -> CGFloat {
-//        let baseHeight = GymDetailConstraints.verticalPadding +
-//            GymDetailConstraints.titleLabelHeight
-//
-//        let noMoreClassesHeight = GymDetailTodaysClassesCell.Constants.noMoreClassesLabelTopPadding +
-//            GymDetailTodaysClassesCell.Constants.noMoreClassesLabelHeight +
-//            GymDetailConstraints.verticalPadding
-//
-//        let collectionViewHeight = 2.0 * GymDetailTodaysClassesCell.Constants.classesCollectionViewVerticalPadding +
-//            classesCollectionViewHeight()
-//
-//        return (todaysClasses.isEmpty) ? baseHeight + noMoreClassesHeight : baseHeight + collectionViewHeight
-//    }
-//
-//    private func classesCollectionViewHeight() -> CGFloat {
-//        let cellPadding: CGFloat = 12
-//        let cellHeight: CGFloat = 100
-//        let numberOfClasses = CGFloat(todaysClasses.count)
-//
-//        return numberOfClasses * cellHeight + (numberOfClasses - 1) * cellPadding
-//    }
+    func didDropHours(isDropped: Bool, completion: @escaping () -> Void) {
+        gymDetail.hoursIsDisclosed.toggle()
+        collectionView.performBatchUpdates({}, completion: nil)
+        completion()
+    }
+
+}
+
+extension GymDetailViewController: GymDetailTabbedControllerCellDelegate {
+    func didMoveTo(index: Int, completion: @escaping () -> Void) {
+        gymDetail.currentDisplayedFitnessCenter = index
+        collectionView.performBatchUpdates({}, completion: nil)
+        completion()
+    }
+
+    func didChangeSize(completion: @escaping () -> Void) {
+        collectionView.performBatchUpdates({}, completion: nil)
+        completion()
+    }
+}
+
+extension GymDetailViewController: GymDetailHeaderViewDelegate {
+
+    func gymDetailHeaderViewBackButtonTapped() {
+        back()
+    }
+
 }
