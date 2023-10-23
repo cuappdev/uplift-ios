@@ -84,6 +84,7 @@ extension GymDetailViewController: UICollectionViewDataSource, UICollectionViewD
         case .tabbedController:
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GymDetailTabbedControllerCell.reuseId, for: indexPath) as! GymDetailTabbedControllerCell
+            cell.configure(fitnessCenters: gymDetail.fitnessCenters)
             return cell
         }
     }

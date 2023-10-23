@@ -17,22 +17,36 @@ class GymDetailTabbedControllerCell: UICollectionViewCell {
     private var control: GymDetailTabbedControl!
     private var tabbedViewContoller: TabbedViewController!
 
+    var fitnessCenters: [FitnessCenter]?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        control = GymDetailTabbedControl(tabs: ["Fitness Center", "Facilities"])
-        viewControllers = [GymDetailFitnessCenterViewController(color: UIColor.green),
-                           GymDetailFitnessCenterViewController(color: UIColor.blue)]
-
-        tabbedViewContoller = TabbedViewController(tabbedControl: control, viewControllers: viewControllers)
-
-        setupViews()
-        setupConstraints()
-
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(fitnessCenters: [FitnessCenter]) {
+        if self.tabbedViewContoller != nil {
+            self.tabbedViewContoller.view.removeFromSuperview()
+        }
+
+        self.fitnessCenters = fitnessCenters
+
+        var tabs = [String]()
+        self.viewControllers = []
+
+        for fitnessCenter in fitnessCenters {
+            tabs.append(fitnessCenters.count == 1 ? "Fitness Center" : fitnessCenter.name)
+            viewControllers.append(GymDetailFitnessCenter(fitnessCenter: fitnessCenter))
+        }
+
+        control = GymDetailTabbedControl(tabs: tabs)
+        tabbedViewContoller = TabbedViewController(tabbedControl: control, viewControllers: viewControllers)
+
+        setupViews()
+        setupConstraints()
     }
 
     func setupViews() {
