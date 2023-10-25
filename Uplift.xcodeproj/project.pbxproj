@@ -240,6 +240,7 @@
 		3A2D17ACE2F199BC7DB24332 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		41ACD2CD2AE9C2CB006D5A0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41ACD2CF2AE9C2D1006D5A0C /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		41ACD2D82AE9D438006D5A0C /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		44AD59D87BA6993A7337E3B0 /* Pods-Uplift Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.debug.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTimeInfoView.swift; sourceTree = "<group>"; };
 		4F187273235FD63A00A85283 /* AdditionalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoView.swift; sourceTree = "<group>"; };
@@ -457,6 +458,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		41ACD2D72AE9D408006D5A0C /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				41ACD2D82AE9D438006D5A0C /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
+			sourceTree = "<group>";
+		};
 		4F27F6D5236F24C800C255D7 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +663,7 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				41ACD2D72AE9D408006D5A0C /* ci_scripts */,
 				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
