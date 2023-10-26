@@ -664,7 +664,6 @@
 			isa = PBXGroup;
 			children = (
 				41ACD2D72AE9D408006D5A0C /* ci_scripts */,
-				E60DE89E232DA6D20022BC72 /* Secrets */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
 				630ADD112051BECC00B8E255 /* Fonts */,
@@ -688,6 +687,7 @@
 		C7DFABCD204206E000545B0B /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
+				E60DE89E232DA6D20022BC72 /* Secrets */,
 				BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */,
 				41ACD2CD2AE9C2CB006D5A0C /* GoogleService-Info.plist */,
 				BFCA93D92AA66B6B0005D191 /* API.swift */,
