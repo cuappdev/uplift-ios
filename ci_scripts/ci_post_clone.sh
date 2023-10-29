@@ -14,4 +14,8 @@ pod install
 echo "Installing Secrets..."
 brew install wget
 wget -O ../Uplift/GoogleService-Info.plist "$GOOGLE_SERVICE_PLIST"
-wget -O ../Uplift/Keys.plist "$KEYS_PLIST"
+
+cd Uplift
+mkdir Secrets
+
+wget -O ../Uplift/Secrets/Keys.plist "$KEYS_PLIST"
