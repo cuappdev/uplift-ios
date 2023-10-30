@@ -16,5 +16,7 @@ brew install wget
 wget -O ../Uplift/GoogleService-Info.plist "$GOOGLE_SERVICE_PLIST"
 
 mkdir Secrets
+cd Secrets
+touch Keys.plist
 
 wget -O ../Uplift/Secrets/Keys.plist "$KEYS_PLIST"
