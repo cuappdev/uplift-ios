@@ -15,6 +15,7 @@ echo "Installing Secrets..."
 brew install wget
 wget -O ../Uplift/GoogleService-Info.plist "$GOOGLE_SERVICE_PLIST"
 
+cd ..
 cd Uplift
 touch Secrets
 cd Secrets
