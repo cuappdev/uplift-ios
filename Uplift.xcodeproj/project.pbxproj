@@ -39,7 +39,6 @@
 		2D9B3BF229E3569600E7D93A /* ActivityListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BF129E3569600E7D93A /* ActivityListItemCell.swift */; };
 		2DA9E6A929CB644A00EFED2B /* GymCellFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9E6A829CB644A00EFED2B /* GymCellFooter.swift */; };
 		41ACD2CE2AE9C2CB006D5A0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41ACD2CD2AE9C2CB006D5A0C /* GoogleService-Info.plist */; };
-		41ACD2D02AE9C2D1006D5A0C /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41ACD2CF2AE9C2D1006D5A0C /* Keys.plist */; };
 		4F187272235FD59900A85283 /* GymDetailTimeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */; };
 		4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187273235FD63A00A85283 /* AdditionalInfoView.swift */; };
 		4F18C34823610A0B00BFB603 /* FacilitiesHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F18C34723610A0B00BFB603 /* FacilitiesHoursCell.swift */; };
@@ -97,7 +96,6 @@
 		8DD7C7732083E09A004EB196 /* OldDropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7722083E09A004EB196 /* OldDropdownHeaderView.swift */; };
 		8DD7C7752083E0FB004EB196 /* DropdownViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */; };
 		8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD7C77620844175004EB196 /* DropdownFooterView.swift */; };
-		BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784A2A9B3BCB0072FDDE /* Keys.plist */; };
 		BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */; };
 		BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */; };
 		BF61D7A22AC0AF7800A2174B /* AdHockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */; };
@@ -239,7 +237,6 @@
 		2DA9E6A829CB644A00EFED2B /* GymCellFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCellFooter.swift; sourceTree = "<group>"; };
 		3A2D17ACE2F199BC7DB24332 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		41ACD2CD2AE9C2CB006D5A0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		41ACD2CF2AE9C2D1006D5A0C /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		41ACD2D82AE9D438006D5A0C /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		44AD59D87BA6993A7337E3B0 /* Pods-Uplift Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.debug.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTimeInfoView.swift; sourceTree = "<group>"; };
@@ -303,7 +300,6 @@
 		8DD7C7742083E0FB004EB196 /* DropdownViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewCell.swift; sourceTree = "<group>"; };
 		8DD7C77620844175004EB196 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
 		9767DD303DDD6CA26F709130 /* Pods-Uplift Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.release.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.release.xcconfig"; sourceTree = "<group>"; };
-		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
 		BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHockTest.swift; sourceTree = "<group>"; };
@@ -846,8 +842,6 @@
 		E60DE89E232DA6D20022BC72 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
-				41ACD2CF2AE9C2D1006D5A0C /* Keys.plist */,
-				BF52784A2A9B3BCB0072FDDE /* Keys.plist */,
 			);
 			path = Secrets;
 			sourceTree = "<group>";
@@ -988,9 +982,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */,
 				BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */,
-				41ACD2D02AE9C2D1006D5A0C /* Keys.plist in Resources */,
 				E6028E252450E19000DAF837 /* SF-Pro-Display-Bold.otf in Resources */,
 				8D26DB0B2072C31500144BFC /* Lato-Black.ttf in Resources */,
 				E638F20624468BCC006AE55B /* BebasNeue-Thin.ttf in Resources */,
