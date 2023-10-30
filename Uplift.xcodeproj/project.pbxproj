@@ -659,7 +659,6 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
-				E60DE89E232DA6D20022BC72 /* Secrets */,
 				41ACD2D72AE9D408006D5A0C /* ci_scripts */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
@@ -837,13 +836,6 @@
 				7E2E2A84237BAE86008F600D /* HoursEmptyStateView.swift */,
 			);
 			path = "Empty States";
-			sourceTree = "<group>";
-		};
-		E60DE89E232DA6D20022BC72 /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Secrets;
 			sourceTree = "<group>";
 		};
 		E676F1282450DB87001DF8A8 /* Pickup Games */ = {
