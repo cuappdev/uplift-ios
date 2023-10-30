@@ -7,7 +7,7 @@ Uplift/API.swift
 Uplift/GoogleService-Info.plist
 schema.json
 # Secrets
-Secrets/Keys.plist
+Secrets/Keys.plist 
 
 # OS X
 .DS_Store
