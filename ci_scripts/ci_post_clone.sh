@@ -17,7 +17,7 @@ wget -O ../Uplift/GoogleService-Info.plist "$GOOGLE_SERVICE_PLIST"
 
 cd ..
 cd Uplift
-touch Secrets
+mkdir Secrets
 cd Secrets
 touch Keys.plist
 
