@@ -454,6 +454,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4168B4C22AF0548D00DA2015 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Secrets;
+			sourceTree = "<group>";
+		};
 		41ACD2D72AE9D408006D5A0C /* ci_scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,6 +666,7 @@
 		C7DFABC2204206E000545B0B = {
 			isa = PBXGroup;
 			children = (
+				4168B4C22AF0548D00DA2015 /* Secrets */,
 				41ACD2D72AE9D408006D5A0C /* ci_scripts */,
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
