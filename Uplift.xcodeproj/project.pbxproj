@@ -38,6 +38,7 @@
 		2D9B3BF029E352A000E7D93A /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BEF29E352A000E7D93A /* Activity.swift */; };
 		2D9B3BF229E3569600E7D93A /* ActivityListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B3BF129E3569600E7D93A /* ActivityListItemCell.swift */; };
 		2DA9E6A929CB644A00EFED2B /* GymCellFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9E6A829CB644A00EFED2B /* GymCellFooter.swift */; };
+		418487EC2AF13D6B0018BB8D /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 418487EB2AF13D6B0018BB8D /* Keys.plist */; };
 		41ACD2CE2AE9C2CB006D5A0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41ACD2CD2AE9C2CB006D5A0C /* GoogleService-Info.plist */; };
 		4F187272235FD59900A85283 /* GymDetailTimeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187271235FD59900A85283 /* GymDetailTimeInfoView.swift */; };
 		4F187274235FD63A00A85283 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F187273235FD63A00A85283 /* AdditionalInfoView.swift */; };
@@ -236,6 +237,7 @@
 		2D9B3BF129E3569600E7D93A /* ActivityListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListItemCell.swift; sourceTree = "<group>"; };
 		2DA9E6A829CB644A00EFED2B /* GymCellFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCellFooter.swift; sourceTree = "<group>"; };
 		3A2D17ACE2F199BC7DB24332 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
+		418487EB2AF13D6B0018BB8D /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		41ACD2CD2AE9C2CB006D5A0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41ACD2D82AE9D438006D5A0C /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		44AD59D87BA6993A7337E3B0 /* Pods-Uplift Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift Tests.debug.xcconfig"; path = "Target Support Files/Pods-Uplift Tests/Pods-Uplift Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 		4168B4C22AF0548D00DA2015 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
+				418487EB2AF13D6B0018BB8D /* Keys.plist */,
 			);
 			path = Secrets;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 		630ADD112051BECC00B8E255 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				BFA1BC1B2ABBA7AD0064932D /* Uplift Tests */,
 				E6028E202450E19000DAF837 /* BebasNeue-Regular.ttf */,
 				E6028E222450E19000DAF837 /* SF-Pro-Display-Bold.otf */,
 				E6028E212450E19000DAF837 /* SF-Pro-Display-Light.otf */,
@@ -671,7 +675,6 @@
 				1CCCEB96215058C5001B3551 /* .swiftlint.yml */,
 				C7DFABCD204206E000545B0B /* Uplift */,
 				630ADD112051BECC00B8E255 /* Fonts */,
-				BFA1BC1B2ABBA7AD0064932D /* Uplift Tests */,
 				C7DFABCC204206E000545B0B /* Products */,
 				4F27F6D5236F24C800C255D7 /* Recovered References */,
 				2239099827BA43E4F9300502 /* Pods */,
@@ -1000,6 +1003,7 @@
 				1C7847C4216E77E30066E0DA /* Assets.xcassets in Resources */,
 				E6028E242450E19000DAF837 /* SF-Pro-Display-Light.otf in Resources */,
 				BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */,
+				418487EC2AF13D6B0018BB8D /* Keys.plist in Resources */,
 				1CCCEB97215058C5001B3551 /* .swiftlint.yml in Resources */,
 				41ACD2CE2AE9C2CB006D5A0C /* GoogleService-Info.plist in Resources */,
 			);
