@@ -27,7 +27,7 @@ wget -O ../Secrets/Keys.plist "$KEYS_PLIST"
 GRAPHQL_FILES_PATH="../Uplift/graphql"
 
 # Output directory for generated Swift files
-OUTPUT_DIRECTORY="../Uplift/"
+OUTPUT_DIRECTORY="/Uplift/API.swift"
 
 brew install node
 npm install -g apollo
