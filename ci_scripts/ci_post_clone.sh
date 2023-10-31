@@ -23,11 +23,15 @@ touch Keys.plist
 
 wget -O ../Secrets/Keys.plist "$KEYS_PLIST"
 
-# Path to your .graphql files
+# Path to .graphql files
 GRAPHQL_FILES_PATH="../Uplift/graphql"
 
 # Output directory for generated Swift files
 OUTPUT_DIRECTORY="../Uplift/"
+
+brew install node
+npm install -g apollo
+npm install -g graphql
 
 apollo schema:download --endpoint=$PROD_ENDPOINT ../Uplift/graphql/schema.json
 apollo codegen:generate --localSchemaFile="$GRAPHQL_FILES_PATH/schema.json" --target=swift --includes="$GRAPHQL_FILES_PATH/*.graphql" --output="$OUTPUT_DIRECTORY"
