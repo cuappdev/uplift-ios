@@ -33,4 +33,5 @@ brew install node
 npm install -g apollo
 npm install -g graphql
 
-apollo codegen:generate --localSchemaFile="../schema.graphql" --target=swift --includes="../**/*.graphql" ../Uplift/API.swift
+# try this next
+apollo codegen:generate --localSchemaFile="../schema.graphql" --target=swift ../Uplift/API.swift
