@@ -21,4 +21,4 @@ ls
 cd Secrets
 touch Keys.plist
 
-wget -O ../Uplift/Secrets/Keys.plist "$KEYS_PLIST"
+wget -O ../Secrets/Keys.plist "$KEYS_PLIST"
