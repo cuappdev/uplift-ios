@@ -47,9 +47,7 @@ class TabbedViewController: UIViewController {
 
     func setupConstraints() {
         tabbedControl.snp.updateConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
+            make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(45)
         }
 
@@ -67,6 +65,7 @@ class TabbedViewController: UIViewController {
             }
         }
     }
+
 }
 
 extension TabbedViewController: TabbedControlDelegate {
