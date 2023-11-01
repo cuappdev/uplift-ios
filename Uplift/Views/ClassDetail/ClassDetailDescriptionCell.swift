@@ -17,7 +17,7 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        return 2.0 * Constraints.verticalPadding + Constraints.dividerViewHeight
+        return 2.0 * GymDetailConstraints.verticalPadding + GymDetailConstraints.dividerViewHeight
     }
 
     // MARK: - Private view vars
@@ -57,14 +57,14 @@ class ClassDetailDescriptionCell: UICollectionViewCell {
         descriptionTextView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(Constants.descriptionTextViewHorizontalPadding)
             make.trailing.equalToSuperview().inset(Constants.descriptionTextViewHorizontalPadding)
-            make.top.equalToSuperview().offset(Constraints.verticalPadding)
-            make.bottom.equalToSuperview().inset(Constraints.verticalPadding)
+            make.top.equalToSuperview().offset(GymDetailConstraints.verticalPadding)
+            make.bottom.equalToSuperview().inset(GymDetailConstraints.verticalPadding)
         }
 
         dividerView.snp.updateConstraints {make in
-            make.top.equalTo(descriptionTextView.snp.bottom).offset(Constraints.verticalPadding)
+            make.top.equalTo(descriptionTextView.snp.bottom).offset(GymDetailConstraints.verticalPadding)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(Constraints.dividerViewHeight)
+            make.height.equalTo(GymDetailConstraints.dividerViewHeight)
         }
     }
 

@@ -52,9 +52,10 @@ class GymWeekCell: UICollectionViewCell {
     // MARK: - Functionality
     func configure(weekDay: WeekDay, isSelected: Bool) {
         let todayIndex = Calendar.current.component(.weekday, from: Date())
-        let isToday = todayIndex == weekDay.index
+        let isToday = todayIndex == weekDay.rawValue
         backCircle.alpha = isSelected || isToday ? 1 : 0
         backCircle.backgroundColor = isSelected ? .primaryYellow : .gray01
-        dayLabel.text = weekDay.rawValue
+        dayLabel.text = weekDay.dayAbbreviation
     }
+
 }

@@ -19,7 +19,7 @@ class ClassDetailFunctionCell: UICollectionViewCell {
 
     // MARK: - Public data vars
     static var baseHeight: CGFloat {
-        return Constraints.verticalPadding + Constants.functionLabelHeight + Constants.functionDescriptionLabelTopPadding + Constraints.verticalPadding + Constraints.dividerViewHeight
+        return GymDetailConstraints.verticalPadding + Constants.functionLabelHeight + Constants.functionDescriptionLabelTopPadding + GymDetailConstraints.verticalPadding + GymDetailConstraints.dividerViewHeight
     }
 
     // MARK: - Private view vars
@@ -60,7 +60,7 @@ class ClassDetailFunctionCell: UICollectionViewCell {
     private func setupConstraints() {
         functionLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(Constraints.verticalPadding)
+            make.top.equalToSuperview().offset(GymDetailConstraints.verticalPadding)
             make.height.equalTo(Constants.functionLabelHeight)
         }
 
@@ -70,9 +70,9 @@ class ClassDetailFunctionCell: UICollectionViewCell {
         }
 
         dividerView.snp.makeConstraints { make in
-            make.height.equalTo(Constraints.dividerViewHeight)
+            make.height.equalTo(GymDetailConstraints.dividerViewHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(Constraints.verticalPadding)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(GymDetailConstraints.verticalPadding)
         }
     }
 

@@ -58,12 +58,12 @@ class GymDetailFacilitiesCell: UICollectionViewCell {
     private func setupConstraints() {
         facilitiesLabel.snp.makeConstraints { make in
            make.centerX.equalToSuperview()
-           make.top.equalToSuperview().offset(Constraints.verticalPadding)
-           make.height.equalTo(Constraints.titleLabelHeight)
+           make.top.equalToSuperview().offset(GymDetailConstraints.verticalPadding)
+           make.height.equalTo(GymDetailConstraints.titleLabelHeight)
        }
 
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(facilitiesLabel.snp.bottom).offset(Constraints.verticalPadding)
+            make.top.equalTo(facilitiesLabel.snp.bottom).offset(GymDetailConstraints.verticalPadding)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }

@@ -9,26 +9,16 @@
 import UIKit
 
 // MARK: - CONSTRAINTS
-struct Constraints {
+struct GymDetailConstraints {
     static let dividerViewHeight: CGFloat = 1
     static let titleLabelHeight: CGFloat = 18
     static let verticalPadding: CGFloat = 24
+    static let cellPadding: CGFloat = dividerViewHeight + titleLabelHeight + verticalPadding
 }
 
 // MARK: - NOTIFICATION NAMES
 public extension Notification.Name {
     static let upliftFitnessCentersLoadedNotification = Notification.Name("fitnessCentersLoadedNotification")
-}
-
-// MARK: - DAY ABBREVIATIONS
-struct DayAbbreviations {
-    static let sunday = "Su"
-    static let monday = "M"
-    static let tuesday = "T"
-    static let wednesday = "W"
-    static let thursday = "Th"
-    static let friday = "F"
-    static let saturday = "Sa"
 }
 
 // MARK: - GYM IDS
