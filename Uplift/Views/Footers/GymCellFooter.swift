@@ -36,19 +36,13 @@ class GymCellFooter: UIView {
 
         hoursLabel.text = fitnessCenter.getHoursString()
 
-        if let capacityStatus = fitnessCenter.getCapacityStatus(), let percentStr = fitnessCenter.getCapacityPercent() {
+        if let capacity = fitnessCenter.capacity {
             capacityStatusLabel.isHidden = false
             capacityCountLabel.isHidden = false
-            capacityStatusLabel.text = capacityStatus.rawValue
-            capacityCountLabel.text = "\(percentStr) full"
-            switch capacityStatus {
-            case .Light:
-                capacityStatusLabel.textColor = .accentOpen
-            case .Cramped:
-                capacityStatusLabel.textColor = .accentOrange
-            case .Full:
-                capacityStatusLabel.textColor = .accentRed
-            }
+
+            capacityStatusLabel.text = capacity.status.rawValue
+            capacityCountLabel.text = "\(capacity.getCapacityPercentString()) full"
+            capacityStatusLabel.textColor = capacity.status.color
         } else {
             capacityStatusLabel.isHidden = true
             capacityCountLabel.isHidden = true

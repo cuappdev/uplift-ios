@@ -110,6 +110,11 @@
 		BFBEE1282AB95CC0003F264E /* OpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBEE1272AB95CC0003F264E /* OpenHours.swift */; };
 		BFCA93D82AA657B70005D191 /* QLCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D72AA657B70005D191 /* QLCapacity.swift */; };
 		BFCA93DA2AA66B6B0005D191 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCA93D92AA66B6B0005D191 /* API.swift */; };
+		BFDE23962AE5ED31001D484F /* GymDetailFitnessCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDE23952AE5ED31001D484F /* GymDetailFitnessCenter.swift */; };
+		BFDE23982AE5F161001D484F /* GymDetailFitnessCenterCapacityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDE23972AE5F161001D484F /* GymDetailFitnessCenterCapacityCell.swift */; };
+		BFDE239A2AE5F180001D484F /* GymDetailFitnessCenterHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDE23992AE5F180001D484F /* GymDetailFitnessCenterHoursCell.swift */; };
+		BFDE239C2AE5F727001D484F /* CapacityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDE239B2AE5F727001D484F /* CapacityView.swift */; };
+		BFDE239E2AE6220C001D484F /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDE239D2AE6220C001D484F /* Capacity.swift */; };
 		C21BE14B229212AA00B5D219 /* ClassListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */; };
 		C21BE14D2292374400B5D219 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14C2292374400B5D219 /* HomeViewController.swift */; };
 		C21BE1502292409D00B5D219 /* CheckInsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21BE14F2292409D00B5D219 /* CheckInsListCell.swift */; };
@@ -315,6 +320,11 @@
 		BFBEE1272AB95CC0003F264E /* OpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenHours.swift; sourceTree = "<group>"; };
 		BFCA93D72AA657B70005D191 /* QLCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLCapacity.swift; sourceTree = "<group>"; };
 		BFCA93D92AA66B6B0005D191 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		BFDE23952AE5ED31001D484F /* GymDetailFitnessCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFitnessCenter.swift; sourceTree = "<group>"; };
+		BFDE23972AE5F161001D484F /* GymDetailFitnessCenterCapacityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFitnessCenterCapacityCell.swift; sourceTree = "<group>"; };
+		BFDE23992AE5F180001D484F /* GymDetailFitnessCenterHoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFitnessCenterHoursCell.swift; sourceTree = "<group>"; };
+		BFDE239B2AE5F727001D484F /* CapacityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityView.swift; sourceTree = "<group>"; };
+		BFDE239D2AE6220C001D484F /* Capacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capacity.swift; sourceTree = "<group>"; };
 		C21BE14A229212AA00B5D219 /* ClassListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassListHeaderView.swift; sourceTree = "<group>"; };
 		C21BE14C2292374400B5D219 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C21BE14F2292409D00B5D219 /* CheckInsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInsListCell.swift; sourceTree = "<group>"; };
@@ -504,6 +514,7 @@
 		7E9D6DED22961B1B0054F710 /* GymDetail */ = {
 			isa = PBXGroup;
 			children = (
+				BFDE23942AE5ED10001D484F /* FitnessCenter */,
 				BF5DAB952AE365FF00846BFD /* TabbedView */,
 				BF5DAB8B2AE0A5C600846BFD /* Hours */,
 				7EC4B797236CADD8006B67B3 /* Facilities */,
@@ -596,6 +607,17 @@
 			path = "Uplift Tests";
 			sourceTree = "<group>";
 		};
+		BFDE23942AE5ED10001D484F /* FitnessCenter */ = {
+			isa = PBXGroup;
+			children = (
+				BFDE23952AE5ED31001D484F /* GymDetailFitnessCenter.swift */,
+				BFDE23972AE5F161001D484F /* GymDetailFitnessCenterCapacityCell.swift */,
+				BFDE23992AE5F180001D484F /* GymDetailFitnessCenterHoursCell.swift */,
+				BFDE239B2AE5F727001D484F /* CapacityView.swift */,
+			);
+			path = FitnessCenter;
+			sourceTree = "<group>";
+		};
 		C21BE14922920EB200B5D219 /* ClassList */ = {
 			isa = PBXGroup;
 			children = (
@@ -661,6 +683,7 @@
 				BF9DA1002AA402790069291D /* QLOpenHours.swift */,
 				BFCA93D72AA657B70005D191 /* QLCapacity.swift */,
 				BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */,
+				BFDE239D2AE6220C001D484F /* Capacity.swift */,
 				BFBEE1272AB95CC0003F264E /* OpenHours.swift */,
 				E69CE6BA23F4B41000CA83BF /* Comment.swift */,
 				C25CC31723981D6600221DC8 /* Facility.swift */,
@@ -1246,10 +1269,12 @@
 				E6C41C5F2462848E002EB402 /* SportsFilterStartTimeCollectionViewCell.swift in Sources */,
 				7EF09F13232814520057CB78 /* GymFacilitiesCell.swift in Sources */,
 				4F20383F2385F27500A30FED /* OnboardingArrowButton.swift in Sources */,
+				BFDE23982AE5F161001D484F /* GymDetailFitnessCenterCapacityCell.swift in Sources */,
 				8DC5F7B72081375D0043C9CB /* FavoritesViewController.swift in Sources */,
 				E62565BD24078CAE00EF2D0D /* LoadingCollectionHeaderView.swift in Sources */,
 				03B92038247B18B5000E0F17 /* SportsFormPlayersCollectionViewCell.swift in Sources */,
 				2DA9E6A929CB644A00EFED2B /* GymCellFooter.swift in Sources */,
+				BFDE239A2AE5F180001D484F /* GymDetailFitnessCenterHoursCell.swift in Sources */,
 				4F4CA4142383A3190002FD5F /* OnboardingView.swift in Sources */,
 				E69A8578248B3E6100490EC3 /* OnboardingLetterViewController.swift in Sources */,
 				03228DD623FDEB4600BBCF9F /* PickupGameCell.swift in Sources */,
@@ -1315,6 +1340,7 @@
 				E6DD25DC2447ABBB0023D259 /* ProfileViewController.swift in Sources */,
 				4F27F6D7236F25C000C255D7 /* MiscellaneousInfoCell.swift in Sources */,
 				BF9DA1012AA402790069291D /* QLOpenHours.swift in Sources */,
+				BFDE239C2AE5F727001D484F /* CapacityView.swift in Sources */,
 				C26236FC2290D6BF007C415D /* ClassDetailTimeCell.swift in Sources */,
 				0C97AC292276840F0086D699 /* FacilityHoursCell.swift in Sources */,
 				03C8013824106893009845E7 /* CalendarGenerator.swift in Sources */,
@@ -1327,9 +1353,11 @@
 				03B9203A247B381E000E0F17 /* PaddedTextField.swift in Sources */,
 				4F20EDEB234AE46C000B26E8 /* GymWeekCell.swift in Sources */,
 				8D03EE0B206C47D400EF83C7 /* CategoryCell.swift in Sources */,
+				BFDE23962AE5ED31001D484F /* GymDetailFitnessCenter.swift in Sources */,
 				7E2E2A85237BAE86008F600D /* HoursEmptyStateView.swift in Sources */,
 				C28801A022933B3000EC48B7 /* TodaysClassesListCell.swift in Sources */,
 				C21BE154229250B700B5D219 /* ListItemCollectionViewCell.swift in Sources */,
+				BFDE239E2AE6220C001D484F /* Capacity.swift in Sources */,
 				E6C41C5924626304002EB402 /* SportsFilterGymCollectionViewCell.swift in Sources */,
 				8D03EE11206C483500EF83C7 /* LookingForCell.swift in Sources */,
 				E689381D240F68470022B524 /* LoadingCollectionView.swift in Sources */,

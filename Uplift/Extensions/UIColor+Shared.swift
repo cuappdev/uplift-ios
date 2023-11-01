@@ -14,6 +14,7 @@ extension UIColor {
     @nonobjc static let accentBlue = colorFromCode(0x1395FE)
     @nonobjc static let accentClosed = colorFromCode(0xF07D7D)
     @nonobjc static let accentOpen = colorFromCode(0x64C270)
+    @nonobjc static let accentGreen = colorFromCode(0x64C270)
     @nonobjc static let accentOrange = colorFromCode(0xFE8F13)
     @nonobjc static let accentPurple = colorFromCode(0x3813FE)
     @nonobjc static let accentRed = colorFromCode(0xFE1313)
