@@ -66,6 +66,7 @@ class GymDetailFitnessCenter: UIViewController {
         self.fitnessCenter = fitnessCenter
         tableView.reloadData()
     }
+
 }
 
 extension GymDetailFitnessCenter: UITableViewDataSource {
