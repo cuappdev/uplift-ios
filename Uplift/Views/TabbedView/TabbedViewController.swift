@@ -10,13 +10,23 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol TabbedViewControllerDelegate: AnyObject {
+    func didMoveTo(index: Int)
+}
+
 class TabbedViewController: UIViewController {
+
+    enum LayoutConstants {
+        static let controlHeight: CGFloat = 45
+    }
 
     let tabbedControl: TabbedControl!
     let viewControllers: [UIViewController]!
 
     private var selectedTab = 0
     private var slideViewLeading: ConstraintMakerEditable?
+
+    weak var delegate: TabbedViewControllerDelegate?
 
     init(tabbedControl: TabbedControl, viewControllers: [UIViewController]) {
         self.tabbedControl = tabbedControl
@@ -48,14 +58,13 @@ class TabbedViewController: UIViewController {
     func setupConstraints() {
         tabbedControl.snp.updateConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(45)
+            make.height.equalTo(LayoutConstants.controlHeight)
         }
 
         for (index, viewController) in viewControllers.enumerated() {
             viewController.view.snp.makeConstraints { make in
                 make.top.equalTo(tabbedControl.snp.bottom)
-                make.bottom.equalToSuperview()
-                make.width.equalToSuperview()
+                make.bottom.width.equalToSuperview()
                 if index == selectedTab {
                     slideViewLeading = make.leading.equalTo(self.view.snp.leading)
                 }
@@ -71,6 +80,7 @@ class TabbedViewController: UIViewController {
 extension TabbedViewController: TabbedControlDelegate {
 
     func didMoveTo(index: Int) {
+        delegate?.didMoveTo(index: index)
         selectedTab = index
         slideViewLeading?.constraint.deactivate()
         UIView.animate(withDuration: 0.3) { [weak self] in

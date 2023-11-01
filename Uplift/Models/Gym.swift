@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-struct Gym {
+class Gym {
 
     // MARK: - Data variables
     var id: Int
@@ -22,6 +22,8 @@ struct Gym {
 
     var facilities: [QLFacility]
     var fitnessCenters: [FitnessCenter]
+
+    var currentDisplayedFitnessCenter: Int = 0
 
     // MARK: - View Related State
     var hoursIsDisclosed: Bool = false
