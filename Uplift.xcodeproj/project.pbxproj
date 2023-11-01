@@ -96,6 +96,11 @@
 		BF52784B2A9B3BCB0072FDDE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784A2A9B3BCB0072FDDE /* Keys.plist */; };
 		BF52784D2A9B3BE80072FDDE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */; };
 		BF52784F2A9B3DB20072FDDE /* gymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */; };
+		BF5DAB922AE3638300846BFD /* TabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DAB912AE3638300846BFD /* TabbedViewController.swift */; };
+		BF5DAB942AE363C100846BFD /* TabbedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DAB932AE363C100846BFD /* TabbedControl.swift */; };
+		BF5DAB972AE3662B00846BFD /* GymDetailTabbedControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DAB962AE3662B00846BFD /* GymDetailTabbedControllerCell.swift */; };
+		BF5DAB992AE483AA00846BFD /* GymDetailFitnessCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DAB982AE483AA00846BFD /* GymDetailFitnessCenterViewController.swift */; };
+		BF5DAB9B2AE4850B00846BFD /* GymDetailTabbedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DAB9A2AE4850B00846BFD /* GymDetailTabbedControl.swift */; };
 		BF61D7A22AC0AF7800A2174B /* AdHockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */; };
 		BF9DA0F92AA3EE360069291D /* FitnessCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */; };
 		BF9DA0FB2AA3F0140069291D /* GymManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DA0FA2AA3F0140069291D /* GymManager.swift */; };
@@ -295,6 +300,11 @@
 		BF52784A2A9B3BCB0072FDDE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		BF52784C2A9B3BE80072FDDE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF52784E2A9B3DB10072FDDE /* gymQueries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gymQueries.graphql; sourceTree = "<group>"; };
+		BF5DAB912AE3638300846BFD /* TabbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedViewController.swift; sourceTree = "<group>"; };
+		BF5DAB932AE363C100846BFD /* TabbedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedControl.swift; sourceTree = "<group>"; };
+		BF5DAB962AE3662B00846BFD /* GymDetailTabbedControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTabbedControllerCell.swift; sourceTree = "<group>"; };
+		BF5DAB982AE483AA00846BFD /* GymDetailFitnessCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailFitnessCenterViewController.swift; sourceTree = "<group>"; };
+		BF5DAB9A2AE4850B00846BFD /* GymDetailTabbedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailTabbedControl.swift; sourceTree = "<group>"; };
 		BF61D7A12AC0AF7800A2174B /* AdHockTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHockTest.swift; sourceTree = "<group>"; };
 		BF9DA0F82AA3EE360069291D /* FitnessCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenter.swift; sourceTree = "<group>"; };
 		BF9DA0FA2AA3F0140069291D /* GymManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GymManager.swift; path = Uplift/Models/GymManager.swift; sourceTree = SOURCE_ROOT; };
@@ -494,6 +504,7 @@
 		7E9D6DED22961B1B0054F710 /* GymDetail */ = {
 			isa = PBXGroup;
 			children = (
+				BF5DAB952AE365FF00846BFD /* TabbedView */,
 				BF5DAB8B2AE0A5C600846BFD /* Hours */,
 				7EC4B797236CADD8006B67B3 /* Facilities */,
 				7E9D6DF022961C150054F710 /* GymDetailHeaderView.swift */,
@@ -538,6 +549,25 @@
 				7E808770229B76BD007D9EDD /* GymDetailHoursCell.swift */,
 			);
 			path = Hours;
+			sourceTree = "<group>";
+		};
+		BF5DAB902AE3634D00846BFD /* TabbedView */ = {
+			isa = PBXGroup;
+			children = (
+				BF5DAB912AE3638300846BFD /* TabbedViewController.swift */,
+				BF5DAB932AE363C100846BFD /* TabbedControl.swift */,
+			);
+			path = TabbedView;
+			sourceTree = "<group>";
+		};
+		BF5DAB952AE365FF00846BFD /* TabbedView */ = {
+			isa = PBXGroup;
+			children = (
+				BF5DAB962AE3662B00846BFD /* GymDetailTabbedControllerCell.swift */,
+				BF5DAB982AE483AA00846BFD /* GymDetailFitnessCenterViewController.swift */,
+				BF5DAB9A2AE4850B00846BFD /* GymDetailTabbedControl.swift */,
+			);
+			path = TabbedView;
 			sourceTree = "<group>";
 		};
 		BF9456DD2ADC578900CF553F /* Home Screen */ = {
@@ -741,6 +771,7 @@
 		C7EBD5A82062E64700D76A8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BF5DAB902AE3634D00846BFD /* TabbedView */,
 				E69A856C248B210100490EC3 /* SportsFilter */,
 				03B92030247B1827000E0F17 /* SportsForm */,
 				0376A963244BD7F000B44B22 /* SportsDetail */,
@@ -1176,12 +1207,14 @@
 				0376A960244BBED700B44B22 /* SportsDetailHeaderView.swift in Sources */,
 				0376A96D2455345E00B44B22 /* SportsDetailInputCollectionViewCell.swift in Sources */,
 				C26237002290E1BA007C415D /* ClassDetailDescriptionCell.swift in Sources */,
+				BF5DAB992AE483AA00846BFD /* GymDetailFitnessCenterViewController.swift in Sources */,
 				C736372A2082F193004751F5 /* GymClass.swift in Sources */,
 				C26237022290E2C5007C415D /* ClassDetailNextSessionsCell.swift in Sources */,
 				C73637282082F170004751F5 /* Gym.swift in Sources */,
 				8DBB784F2139849B002BE0E0 /* Constants.swift in Sources */,
 				C289B16E228A9A4700934A2A /* HabitTrackingController+Extensions.swift in Sources */,
 				032324B7244250800041ED72 /* SportsDropdown.swift in Sources */,
+				BF5DAB972AE3662B00846BFD /* GymDetailTabbedControllerCell.swift in Sources */,
 				2D9B3BF229E3569600E7D93A /* ActivityListItemCell.swift in Sources */,
 				BF9DA0FB2AA3F0140069291D /* GymManager.swift in Sources */,
 				8DD7C77720844175004EB196 /* DropdownFooterView.swift in Sources */,
@@ -1241,12 +1274,14 @@
 				BFCA93DA2AA66B6B0005D191 /* API.swift in Sources */,
 				C7ABE48F2069BF1A0042CFA7 /* CalendarCell.swift in Sources */,
 				C75EC9522059ACD2007BC98A /* UIFont+Shared.swift in Sources */,
+				BF5DAB9B2AE4850B00846BFD /* GymDetailTabbedControl.swift in Sources */,
 				03B9202F247A0D4C000E0F17 /* SportsFormViewController.swift in Sources */,
 				C26236F52290CF7B007C415D /* StretchyHeaderLayout.swift in Sources */,
 				03C801362410628D009845E7 /* SportsDetailViewController.swift in Sources */,
 				E69A8577248B3E6100490EC3 /* EndOnboardingLetterViewController.swift in Sources */,
 				C7434C0F208D23E0006F3249 /* GymClassInstance.swift in Sources */,
 				4F27D7F922445BDD00135DC4 /* User.swift in Sources */,
+				BF5DAB922AE3638300846BFD /* TabbedViewController.swift in Sources */,
 				8DD7C7712083AF8E004EB196 /* FavoritesHeaderView.swift in Sources */,
 				E6F36010238127D900CB7FB3 /* DropdownView.swift in Sources */,
 				039A3231240749A30090ED50 /* GameStatus.swift in Sources */,
@@ -1256,6 +1291,7 @@
 				C7EBD5B32062FDEB00D76A8B /* SearchBar.swift in Sources */,
 				8D24AF962140B23F002D850C /* String+Shared.swift in Sources */,
 				8DB8D7692236BD7000809D4B /* HabitTrackingController.swift in Sources */,
+				BF5DAB942AE363C100846BFD /* TabbedControl.swift in Sources */,
 				E69CE6BB23F4B41000CA83BF /* Comment.swift in Sources */,
 				8D611B7021895BEB00F7AB47 /* NoResultsEmptyStateView.swift in Sources */,
 				E62DB5212344907600ACAA1E /* ClientStrings.swift in Sources */,

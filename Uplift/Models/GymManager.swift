@@ -33,6 +33,9 @@ class GymManager {
                 var fitnessCenters: [FitnessCenter] = []
                 for gym in gyms {
                     let gymObj = Gym(gym: gym)
+                    if gymObj.facilities.isEmpty && gymObj.fitnessCenters.isEmpty {
+                        continue
+                    }
                     self.gyms[gym.id] = gymObj
                     fitnessCenters.append(contentsOf: gymObj.getFitnessCenters())
                 }

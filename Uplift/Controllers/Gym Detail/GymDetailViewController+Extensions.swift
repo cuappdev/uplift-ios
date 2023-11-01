@@ -12,7 +12,7 @@ extension GymDetailViewController: GymDetailHoursCellDelegate {
 
     func didDropHours(isDropped: Bool, completion: @escaping () -> Void) {
         // TODO: - Implemement
-//        gymDetail.hoursDataIsDropped.toggle()
+        gymDetail.hoursIsDisclosed.toggle()
         collectionView.performBatchUpdates({}, completion: nil)
         completion()
     }
