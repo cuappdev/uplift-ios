@@ -128,6 +128,7 @@ extension GymDetailFitnessCenter: UITableViewDelegate {
 }
 
 extension GymDetailFitnessCenter: GymDetailFitnessCenterHoursCellDelegate {
+
     func didDropHours(isDropped: Bool, completion: @escaping () -> Void) {
         self.fitnessCenter?.isHoursDisclosed.toggle()
         delegate?.didChangeSize {
@@ -135,4 +136,5 @@ extension GymDetailFitnessCenter: GymDetailFitnessCenterHoursCellDelegate {
             completion()
         }
     }
+
 }

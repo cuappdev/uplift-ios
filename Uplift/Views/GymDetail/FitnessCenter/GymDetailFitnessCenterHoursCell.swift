@@ -81,10 +81,6 @@ class GymDetailFitnessCenterHoursCell: UITableViewCell {
         setupConstraints()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     public func configure(delegate: GymDetailFitnessCenterHoursCellDelegate, hours: OpenHours, isDisclosed: Bool) {
         self.isDisclosed = isDisclosed
         self.delegate = delegate
@@ -102,7 +98,6 @@ class GymDetailFitnessCenterHoursCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-
         hoursTitleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(GymDetailConstraints.verticalPadding)
@@ -195,6 +190,10 @@ class GymDetailFitnessCenterHoursCell: UITableViewCell {
             }
         }
         hoursTableView.endUpdates()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

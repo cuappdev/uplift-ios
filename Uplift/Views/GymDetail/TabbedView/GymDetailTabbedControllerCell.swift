@@ -77,6 +77,7 @@ class GymDetailTabbedControllerCell: UICollectionViewCell {
 }
 
 extension GymDetailTabbedControllerCell: GymDetailFitnessCenterDelegate, TabbedViewControllerDelegate {
+
     func didMoveTo(index: Int) {
         delegate?.didMoveTo(index: index, completion: {})
     }

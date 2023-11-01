@@ -161,6 +161,7 @@ extension GymDetailViewController: GymDetailHoursCellDelegate {
 }
 
 extension GymDetailViewController: GymDetailTabbedControllerCellDelegate {
+
     func didMoveTo(index: Int, completion: @escaping () -> Void) {
         gymDetail.currentDisplayedFitnessCenter = index
         collectionView.performBatchUpdates({}, completion: nil)
@@ -171,6 +172,7 @@ extension GymDetailViewController: GymDetailTabbedControllerCellDelegate {
         collectionView.performBatchUpdates({}, completion: nil)
         completion()
     }
+
 }
 
 extension GymDetailViewController: GymDetailHeaderViewDelegate {

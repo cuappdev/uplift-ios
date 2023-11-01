@@ -64,8 +64,7 @@ class TabbedViewController: UIViewController {
         for (index, viewController) in viewControllers.enumerated() {
             viewController.view.snp.makeConstraints { make in
                 make.top.equalTo(tabbedControl.snp.bottom)
-                make.bottom.equalToSuperview()
-                make.width.equalToSuperview()
+                make.bottom.width.equalToSuperview()
                 if index == selectedTab {
                     slideViewLeading = make.leading.equalTo(self.view.snp.leading)
                 }
