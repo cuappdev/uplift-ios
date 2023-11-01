@@ -45,6 +45,7 @@ class GymListItemCell: ListItemCollectionViewCell<FitnessCenter> {
 
         gymCellFooter.configure(for: fitnessCenter)
         backgroundImage.kf.setImage(with: fitnessCenter.imageUrl)
+        contentView.layer.opacity = fitnessCenter.isOpen() ? 1 :  0.6
     }
 
     private func setupViews() {

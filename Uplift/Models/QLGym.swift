@@ -37,11 +37,4 @@ struct QLGym {
         }
     }
 
-    func getFitnessCenters() -> [FitnessCenter] {
-        return facilities.compactMap {
-            guard $0.type == .fitnessCenter else { return nil }
-            return FitnessCenter(gymID: id, imgUrl: imageURL, fitnessCenter: $0)
-        }
-    }
-
 }

@@ -12,7 +12,7 @@ class GymnasiumCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private data vars
     private var facilityDetail: FacilityDetail!
-    private var dailyGymHours: [DailyGymHours] = []
+    private var dailyGymHours: [OpenHours] = []
     private var selectedDayIndex = 0
 
     // MARK: Private view vars

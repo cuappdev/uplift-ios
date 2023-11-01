@@ -83,9 +83,9 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
 
     private func setupConstraints() {
         todaysClassesLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constraints.verticalPadding)
+            make.top.equalToSuperview().inset(GymDetailConstraints.verticalPadding)
             make.centerX.equalToSuperview()
-            make.height.equalTo(Constraints.titleLabelHeight)
+            make.height.equalTo(GymDetailConstraints.titleLabelHeight)
         }
     }
 
@@ -106,7 +106,7 @@ class GymDetailTodaysClassesCell: UICollectionViewCell {
             contentView.addSubview(classesCollectionView)
 
             classesCollectionView.snp.remakeConstraints { make in
-                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(Constraints.verticalPadding)
+                make.top.equalTo(todaysClassesLabel.snp.bottom).offset(GymDetailConstraints.verticalPadding)
                 make.bottom.equalToSuperview().inset(Constants.classesCollectionViewVerticalPadding)
                 make.left.right.equalToSuperview().inset(classesCollectionViewHorizontalPadding)
                 make.centerX.equalToSuperview()

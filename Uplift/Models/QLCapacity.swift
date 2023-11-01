@@ -14,14 +14,14 @@ struct QLCapacity {
     var facilityId: Int
     var count: Int
     var percent: Double
-    var updated: Date
+    var updated: String
 
     init (capacityData: AllGymsQuery.Data.Gym.Facility.Capacity) {
         id = Int(capacityData.id) ?? -1
         facilityId = capacityData.facilityId
         count = capacityData.count
         percent = capacityData.percent
-        updated = Date.getDatetimeFromString(datetime: capacityData.updated)
+        updated = capacityData.updated
     }
 
 }

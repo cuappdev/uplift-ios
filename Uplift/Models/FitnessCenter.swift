@@ -8,42 +8,26 @@
 
 import Foundation
 
-enum CapacityStatus: String {
-    case Full
-    case Cramped
-    case Light
-
-    init (percent: Double) {
-        if percent <= 0.50 {
-            self = .Light
-        } else if percent > 0.80 {
-            self = .Full
-        } else {
-            self = .Cramped
-        }
-    }
-}
-
-struct FitnessCenter {
+class FitnessCenter {
 
     var id: Int
     var gymId: Int
     var name: String
     var imageUrl: URL?
 
-    var capacityCount: Int?
-    var capacityPercent: Double?
-
+    var capacity: Capacity?
     var hours: OpenHours
+    var isHoursDisclosed: Bool = false
 
     init (gymID: Int, imgUrl: URL?, fitnessCenter: QLFacility) {
         gymId = gymID
         imageUrl = imgUrl
         id = fitnessCenter.id
         name = fitnessCenter.name
-        capacityCount = fitnessCenter.capacity?.count
-        capacityPercent = fitnessCenter.capacity?.percent
         hours = OpenHours(openHours: fitnessCenter.hours)
+        if let capacityData = fitnessCenter.capacity {
+            capacity = Capacity(capacityData: capacityData)
+        }
     }
 
     func isOpen() -> Bool {
@@ -56,16 +40,6 @@ struct FitnessCenter {
 
     func getHoursString() -> String {
         return hours.getHoursString()
-    }
-
-    func getCapacityStatus() -> CapacityStatus? {
-        guard let percent = self.capacityPercent else { return nil }
-        return CapacityStatus(percent: percent)
-    }
-
-    func getCapacityPercent() -> String? {
-        guard let percent = self.capacityPercent else { return nil }
-        return String.getFromPercent(value: percent)
     }
 
 }

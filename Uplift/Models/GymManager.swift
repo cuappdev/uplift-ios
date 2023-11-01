@@ -8,10 +8,12 @@
 
 import Foundation
 
-class FitnessCenterManager {
-    static var shared = FitnessCenterManager()
+class GymManager {
+
+    static var shared = GymManager()
 
     private var fitnessCenters: [FitnessCenter] = []
+    private var gyms: [Int: Gym] = [:]
 
     var numFitnessCenters: Int {
         return fitnessCenters.count
@@ -21,12 +23,21 @@ class FitnessCenterManager {
         return fitnessCenters
     }
 
+    func getGymWith(id: Int) -> Gym? {
+        gyms[id]
+    }
+
     func fetch () {
-        NetworkManager.shared.getFitnessCenters { success in
+        NetworkManager.shared.getAllGyms { success in
             if let gyms = success {
                 var fitnessCenters: [FitnessCenter] = []
                 for gym in gyms {
-                    fitnessCenters.append(contentsOf: gym.getFitnessCenters())
+                    let gymObj = Gym(gym: gym)
+                    if gymObj.facilities.isEmpty && gymObj.fitnessCenters.isEmpty {
+                        continue
+                    }
+                    self.gyms[gym.id] = gymObj
+                    fitnessCenters.append(contentsOf: gymObj.getFitnessCenters())
                 }
                 self.fitnessCenters = fitnessCenters
                 NotificationCenter.default.post(name: Notification.Name.upliftFitnessCentersLoadedNotification, object: nil)

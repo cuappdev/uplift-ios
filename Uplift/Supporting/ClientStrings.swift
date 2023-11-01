@@ -108,6 +108,7 @@ struct ClientStrings {
     }
 
     struct GymDetail {
+        static let capacitiesLabel = "CAPACITIES"
         static let closedLabel = "CLOSED"
         static let closedOnACertainDay = "Closed"
         static let facilitiesSection = "FACILITIES"

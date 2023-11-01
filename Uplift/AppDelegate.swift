@@ -28,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Run ad hock unit test
         AdHockTest.runAllTests()
 #endif
-
-        FitnessCenterManager.shared.fetch()
+//
+        GymManager.shared.fetch()
 
         // TODO: - Add back onboarding
 //        let defaults = UserDefaults.standard

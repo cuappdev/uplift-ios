@@ -14,7 +14,9 @@ class GymHoursCell: UITableViewCell {
     // MARK: - INITIALIZATION
     static let identifier = Identifiers.gymHoursCell
     var dayLabel: UILabel!
+    var dayIcon: UIImageView!
     var hoursLabel: UILabel!
+    var disclosureButton: UIButton!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,8 +33,11 @@ class GymHoursCell: UITableViewCell {
         dayLabel.font = ._16MontserratMedium
         dayLabel.textColor = .primaryBlack
         dayLabel.sizeToFit()
-        dayLabel.text = DayAbbreviations.thursday
+        dayLabel.text = WeekDay.thursday.dayAbbreviation
         contentView.addSubview(dayLabel)
+        
+        dayIcon = UIImageView()
+        
 
         setupConstraints()
     }

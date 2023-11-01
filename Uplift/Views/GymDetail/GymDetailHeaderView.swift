@@ -8,11 +8,13 @@
 
 import UIKit
 
-protocol GymDetailHeaderViewDelegate: class {
+protocol GymDetailHeaderViewDelegate: AnyObject {
     func gymDetailHeaderViewBackButtonTapped()
 }
 
 class GymDetailHeaderView: UICollectionReusableView {
+
+    static let reuseId = "gymDetailHeaderViewIdentifier"
 
     // MARK: - Private view vars
     private let backButton = UIButton()
@@ -34,7 +36,7 @@ class GymDetailHeaderView: UICollectionReusableView {
     // MARK: - Public configure
     func configure(for delegate: GymDetailHeaderViewDelegate, for gym: Gym) {
         self.delegate = delegate
-        isOpen = gym.isOpen
+        isOpen = gym.isOpen()
         imageView.kf.setImage(with: gym.imageURL)
         nameLabel.text = gym.name.uppercased()
 
